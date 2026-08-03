@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Aster MD Automation Suite" parallel="false">
+	<test name="TestNG Login Tests">
+		<classes>
+			<class name="Negative_Testcases.Login_negative_testcases"/>
+			<class name="AsterMD.Project.AsterMD.Login"/>
+			<class name="AsterMD.Project.AsterMD.Logout"/>
+		</classes>
+	</test>
+	<test name="Cucumber Login Test">
+		<classes>
+			<class name="Runner_Cucumber.Login_Runner"/>
+		</classes>
+	</test>
+</suite>
