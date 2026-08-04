@@ -59,108 +59,43 @@ public WebElement Product_Module_Accessor() throws Exception {
 	
 }
    
-@DataProvider
- public Object[][] Category_Create_Data(){
+@DataProvider(name="Category_Create_Data")
+public Object[][] Category_Create_Data(){
 
 	TreeMap<String, String> data1 = new TreeMap<String, String>();
-	data1.put("Category Name", "Rare Metabolic Enzyme Replacement Therapies");
-	data1.put("Drug Class / Code", "MET-ERT-001");
-	data1.put("Description", "Specialty therapies used to replace deficient or missing enzymes in patients with rare inherited metabolic and lysosomal storage disorders.");
+	data1.put("Category Name", "Men's Sexual Health Therapies");
+	data1.put("Drug Class / Code", "MSH-PDE5-001");
+	data1.put("Description", "Prescription therapies used for the clinical management of erectile dysfunction and related men's sexual health conditions following medical assessment.");
 
 	TreeMap<String, String> data2 = new TreeMap<String, String>();
-	data2.put("Category Name", "Pulmonary Arterial Hypertension Targeted Agents");
-	data2.put("Drug Class / Code", "CARD-PAH-002");
-	data2.put("Description", "Targeted medicines used to manage pulmonary arterial hypertension by reducing pulmonary vascular resistance and improving cardiopulmonary function.");
+	data2.put("Category Name", "Hair Loss and Regrowth Therapies");
+	data2.put("Drug Class / Code", "DERM-HLR-002");
+	data2.put("Description", "Prescription and topical therapies used to reduce progressive hair loss and support hair regrowth in eligible patients with diagnosed alopecia.");
 
 	TreeMap<String, String> data3 = new TreeMap<String, String>();
-	data3.put("Category Name", "Autoimmune Biologic Immunomodulators");
-	data3.put("Drug Class / Code", "IMM-BIO-003");
-	data3.put("Description", "Biologic therapies designed to regulate specific immune pathways involved in severe autoimmune and chronic inflammatory diseases.");
+	data3.put("Category Name", "Growth Hormone Replacement Therapies");
+	data3.put("Drug Class / Code", "ENDO-GHR-003");
+	data3.put("Description", "Specialty hormone replacement therapies used for patients with clinically confirmed growth hormone deficiency under ongoing medical and laboratory monitoring.");
 
 	TreeMap<String, String> data4 = new TreeMap<String, String>();
-	data4.put("Category Name", "Multiple Sclerosis Disease-Modifying Therapies");
-	data4.put("Drug Class / Code", "NEU-MS-004");
-	data4.put("Description", "Disease-modifying therapies used to reduce relapse frequency, inflammatory activity, and progression in different forms of multiple sclerosis.");
+	data4.put("Category Name", "Sleep Disorder Prescription Therapies");
+	data4.put("Drug Class / Code", "NEU-SLP-004");
+	data4.put("Description", "Prescription therapies used to manage insomnia and related sleep disturbances after assessment of sleep patterns, medical history, and treatment suitability.");
 
 	TreeMap<String, String> data5 = new TreeMap<String, String>();
-	data5.put("Category Name", "Cystic Fibrosis CFTR Modulator Therapies");
-	data5.put("Drug Class / Code", "PUL-CFTR-005");
-	data5.put("Description", "Specialty medicines that target defective CFTR protein function in eligible patients diagnosed with cystic fibrosis.");
+	data5.put("Category Name", "Mood and Focus Support Therapies");
+	data5.put("Drug Class / Code", "PSY-MFS-005");
+	data5.put("Description", "Clinically supervised therapies used to support patients experiencing persistent low mood, reduced motivation, concentration difficulty, or impaired focus.");
 
 	TreeMap<String, String> data6 = new TreeMap<String, String>();
-	data6.put("Category Name", "Hereditary Angioedema Preventive Therapies");
-	data6.put("Drug Class / Code", "IMM-HAE-006");
-	data6.put("Description", "Preventive and maintenance therapies used to reduce the frequency and severity of hereditary angioedema attacks.");
+	data6.put("Category Name", "Testosterone Replacement Therapies");
+	data6.put("Drug Class / Code", "ENDO-TRT-006");
+	data6.put("Description", "Prescription testosterone replacement therapies used for clinically confirmed low testosterone following medical evaluation and appropriate laboratory testing.");
 
 	TreeMap<String, String> data7 = new TreeMap<String, String>();
-	data7.put("Category Name", "Advanced Heart Failure Support Therapies");
-	data7.put("Drug Class / Code", "CARD-HF-007");
-	data7.put("Description", "Specialty cardiovascular therapies used to support patients with advanced or treatment-resistant heart failure under close medical supervision.");
-
-	TreeMap<String, String> data8 = new TreeMap<String, String>();
-	data8.put("Category Name", "Epilepsy Rescue and Maintenance Therapies");
-	data8.put("Drug Class / Code", "NEU-EPI-008");
-	data8.put("Description", "Prescription therapies used for ongoing seizure control and emergency management of acute or prolonged epileptic episodes.");
-
-	TreeMap<String, String> data9 = new TreeMap<String, String>();
-	data9.put("Category Name", "Endocrine Hormone Replacement Therapies");
-	data9.put("Drug Class / Code", "ENDO-HRT-009");
-	data9.put("Description", "Hormone replacement medicines used to manage clinically diagnosed endocrine deficiencies and related hormonal disorders.");
-
-	TreeMap<String, String> data10 = new TreeMap<String, String>();
-	data10.put("Category Name", "Hemophilia Coagulation Factor Therapies");
-	data10.put("Drug Class / Code", "HEMA-CFT-010");
-	data10.put("Description", "Coagulation factor replacement and related specialty therapies used to prevent or control bleeding in patients with hemophilia.");
-
-	TreeMap<String, String> data11 = new TreeMap<String, String>();
-	data11.put("Category Name", "Sickle Cell Disease-Modifying Therapies");
-	data11.put("Drug Class / Code", "HEMA-SCD-011");
-	data11.put("Description", "Specialty medicines used to reduce vaso-occlusive complications and modify the clinical progression of sickle cell disease.");
-
-	TreeMap<String, String> data12 = new TreeMap<String, String>();
-	data12.put("Category Name", "Neutropenia Colony-Stimulating Therapies");
-	data12.put("Drug Class / Code", "HEMA-CSF-012");
-	data12.put("Description", "Colony-stimulating therapies used to increase neutrophil production and reduce infection risk in patients with severe neutropenia.");
-
-	TreeMap<String, String> data13 = new TreeMap<String, String>();
-	data13.put("Category Name", "Severe Asthma Monoclonal Antibody Therapies");
-	data13.put("Drug Class / Code", "RESP-MAB-013");
-	data13.put("Description", "Targeted monoclonal antibody therapies used for severe asthma that remains uncontrolled despite standard inhaled treatment.");
-
-	TreeMap<String, String> data14 = new TreeMap<String, String>();
-	data14.put("Category Name", "Chronic Kidney Disease Erythropoiesis Therapies");
-	data14.put("Drug Class / Code", "RENAL-ESA-014");
-	data14.put("Description", "Erythropoiesis-stimulating therapies used to manage anemia associated with chronic kidney disease and reduced red blood cell production.");
-
-	TreeMap<String, String> data15 = new TreeMap<String, String>();
-	data15.put("Category Name", "Pulmonary Fibrosis Antifibrotic Therapies");
-	data15.put("Drug Class / Code", "PUL-AFT-015");
-	data15.put("Description", "Antifibrotic specialty medicines used to slow functional decline and disease progression in selected pulmonary fibrosis conditions.");
-
-	TreeMap<String, String> data16 = new TreeMap<String, String>();
-	data16.put("Category Name", "Rheumatoid Arthritis JAK Inhibitor Therapies");
-	data16.put("Drug Class / Code", "RHEUM-JAK-016");
-	data16.put("Description", "Targeted oral immunomodulatory therapies used in the management of moderate-to-severe rheumatoid arthritis.");
-
-	TreeMap<String, String> data17 = new TreeMap<String, String>();
-	data17.put("Category Name", "Psoriasis Systemic Biologic Therapies");
-	data17.put("Drug Class / Code", "DERM-PSO-017");
-	data17.put("Description", "Systemic biologic therapies used for moderate-to-severe plaque psoriasis and related immune-mediated dermatologic conditions.");
-
-	TreeMap<String, String> data18 = new TreeMap<String, String>();
-	data18.put("Category Name", "Migraine CGRP Preventive Therapies");
-	data18.put("Drug Class / Code", "NEU-CGRP-018");
-	data18.put("Description", "CGRP-targeted specialty therapies used to prevent or reduce the frequency and severity of recurrent migraine episodes.");
-
-	TreeMap<String, String> data19 = new TreeMap<String, String>();
-	data19.put("Category Name", "Inflammatory Bowel Disease Advanced Therapies");
-	data19.put("Drug Class / Code", "GASTRO-IBD-019");
-	data19.put("Description", "Advanced biologic and targeted therapies used to manage moderate-to-severe Crohn's disease and ulcerative colitis.");
-
-	TreeMap<String, String> data20 = new TreeMap<String, String>();
-	data20.put("Category Name", "Neurodegenerative Disease Specialty Therapies");
-	data20.put("Drug Class / Code", "NEU-NDT-020");
-	data20.put("Description", "Specialty therapies used for the clinical management of progressive neurodegenerative disorders requiring structured monitoring and specialist oversight.");
+	data7.put("Category Name", "Medical Weight Management Therapies");
+	data7.put("Drug Class / Code", "META-WGT-007");
+	data7.put("Description", "Prescription therapies used as part of a medically supervised weight-management program for eligible patients with obesity or related metabolic risk factors.");
 
 	return new Object[][] {
 		{ data1 },
@@ -169,22 +104,10 @@ public WebElement Product_Module_Accessor() throws Exception {
 		{ data4 },
 		{ data5 },
 		{ data6 },
-		{ data7 },
-		{ data8 },
-		{ data9 },
-		{ data10 },
-		{ data11 },
-		{ data12 },
-		{ data13 },
-		{ data14 },
-		{ data15 },
-		{ data16 },
-		{ data17 },
-		{ data18 },
-		{ data19 },
-		{ data20 }
+		{ data7 }
 	};
 }
+
 
 
 @Test(dataProvider = "Category_Create_Data")
@@ -427,450 +350,450 @@ public void Product_Add(TreeMap<String, String> Product_data) throws Exception{
 	
 
 @DataProvider
-public Object[][] Product_Create_Data() {
+public Object[][] Product_Create_Data(){
 
 	TreeMap<String, String> data1 = new TreeMap<String, String>();
-	data1.put("Product Name", "AsterOnco Lumina Lung Targeted Therapy");
-	data1.put("Description", "Synthetic prescription product created for validating solid tumor catalog, intake form, inventory, restriction, pricing, and prescription workflow behavior for non-small cell lung cancer.");
+	data1.put("Product Name", "AsterVigor Sildenafil Response Therapy");
+	data1.put("Description", "Synthetic prescription catalog product containing a sildenafil-based PDE5 inhibitor therapy for the erectile dysfunction treatment workflow.");
 	data1.put("Product Image", "");
 	data1.put("Product Type", "Prescription");
-	data1.put("Category", "Oncology – Solid Tumor Therapies");
+	data1.put("Category", "Men's Sexual Health Therapies");
 	data1.put("Visibility", "Public");
 	data1.put("Minimum Buy Quantity", "1");
 	data1.put("Maximum Buy Quantity", "1");
-	data1.put("Stock Count", "48");
-	data1.put("Intake Form", "AsterMD Solid Tumor Intake Form");
-	data1.put("Default SKU / Identifier", "AST-ONC-ST-001");
-	data1.put("Condition Treated", "Non-Small Cell Lung Cancer");
+	data1.put("Stock Count", "74");
+	data1.put("Intake Form", "Erectile Dysfunction Intake Form");
+	data1.put("Default SKU / Identifier", "AST-WELL-ED-101");
+	data1.put("Condition Treated", "Erectile Dysfunction");
 	data1.put("Restrict Multiple Active Prescriptions", "Yes");
 	data1.put("Pricing Type", "Single Item");
-	data1.put("Intro Price", "199.00");
-	data1.put("Default Price", "1450.00");
-	data1.put("Sale Price", "1299.00");
-	data1.put("Sale Start Date", "08/10/2026");
-	data1.put("Sales End Date", "09/10/2026");
+	data1.put("Intro Price", "29.00");
+	data1.put("Default Price", "119.00");
+	data1.put("Sale Price", "105.00");
+	data1.put("Sale Start Date", "09/01/2026");
+	data1.put("Sales End Date", "10/01/2026");
 	data1.put("Lab Test", "No");
 
 	TreeMap<String, String> data2 = new TreeMap<String, String>();
-	data2.put("Product Name", "AsterOnco Aurora Breast Precision Therapy");
-	data2.put("Description", "Synthetic prescription product designed to test regulated breast oncology product creation, prescription intake association, purchasing limits, stock management, and promotional pricing.");
+	data2.put("Product Name", "AsterVigor Tadalafil Daily Therapy");
+	data2.put("Description", "Synthetic tadalafil-based prescription product created for validating daily erectile dysfunction treatment, inventory, intake, pricing, and restriction workflows.");
 	data2.put("Product Image", "");
 	data2.put("Product Type", "Prescription");
-	data2.put("Category", "Oncology – Solid Tumor Therapies");
+	data2.put("Category", "Men's Sexual Health Therapies");
 	data2.put("Visibility", "Public");
 	data2.put("Minimum Buy Quantity", "1");
-	data2.put("Maximum Buy Quantity", "2");
-	data2.put("Stock Count", "56");
-	data2.put("Intake Form", "AsterMD Solid Tumor Intake Form");
-	data2.put("Default SKU / Identifier", "AST-ONC-ST-002");
-	data2.put("Condition Treated", "Breast Cancer");
+	data2.put("Maximum Buy Quantity", "1");
+	data2.put("Stock Count", "68");
+	data2.put("Intake Form", "Erectile Dysfunction Intake Form");
+	data2.put("Default SKU / Identifier", "AST-WELL-ED-102");
+	data2.put("Condition Treated", "Erectile Dysfunction");
 	data2.put("Restrict Multiple Active Prescriptions", "Yes");
 	data2.put("Pricing Type", "Single Item");
-	data2.put("Intro Price", "225.00");
-	data2.put("Default Price", "1680.00");
-	data2.put("Sale Price", "1515.00");
-	data2.put("Sale Start Date", "08/12/2026");
-	data2.put("Sales End Date", "09/12/2026");
+	data2.put("Intro Price", "35.00");
+	data2.put("Default Price", "139.00");
+	data2.put("Sale Price", "124.00");
+	data2.put("Sale Start Date", "09/02/2026");
+	data2.put("Sales End Date", "10/02/2026");
 	data2.put("Lab Test", "No");
 
 	TreeMap<String, String> data3 = new TreeMap<String, String>();
-	data3.put("Product Name", "AsterOnco Meridian Colorectal Therapy");
-	data3.put("Description", "Synthetic colorectal oncology prescription product for testing medical catalog classification, intake form enforcement, SKU uniqueness, active prescription restriction, quantities, and sale dates.");
+	data3.put("Product Name", "AsterVigor Tadalafil On-Demand Therapy");
+	data3.put("Description", "Synthetic on-demand tadalafil prescription product for testing erectile dysfunction product creation, quantity controls, condition mapping, and scheduled sale pricing.");
 	data3.put("Product Image", "");
 	data3.put("Product Type", "Prescription");
-	data3.put("Category", "Oncology – Solid Tumor Therapies");
+	data3.put("Category", "Men's Sexual Health Therapies");
 	data3.put("Visibility", "Public");
 	data3.put("Minimum Buy Quantity", "1");
-	data3.put("Maximum Buy Quantity", "1");
-	data3.put("Stock Count", "37");
-	data3.put("Intake Form", "AsterMD Solid Tumor Intake Form");
-	data3.put("Default SKU / Identifier", "AST-ONC-ST-003");
-	data3.put("Condition Treated", "Colorectal Cancer");
+	data3.put("Maximum Buy Quantity", "2");
+	data3.put("Stock Count", "81");
+	data3.put("Intake Form", "Erectile Dysfunction Intake Form");
+	data3.put("Default SKU / Identifier", "AST-WELL-ED-103");
+	data3.put("Condition Treated", "Erectile Dysfunction");
 	data3.put("Restrict Multiple Active Prescriptions", "Yes");
 	data3.put("Pricing Type", "Single Item");
-	data3.put("Intro Price", "189.00");
-	data3.put("Default Price", "1325.00");
-	data3.put("Sale Price", "1190.00");
-	data3.put("Sale Start Date", "08/15/2026");
-	data3.put("Sales End Date", "09/15/2026");
+	data3.put("Intro Price", "32.00");
+	data3.put("Default Price", "129.00");
+	data3.put("Sale Price", "115.00");
+	data3.put("Sale Start Date", "09/03/2026");
+	data3.put("Sales End Date", "10/03/2026");
 	data3.put("Lab Test", "No");
 
 	TreeMap<String, String> data4 = new TreeMap<String, String>();
-	data4.put("Product Name", "AsterOnco Solid Tumor Care Organizer");
-	data4.put("Description", "Synthetic standard care-support product for organizing treatment documents, appointment notes, medication schedules, and oncology care instructions without creating a prescription workflow.");
+	data4.put("Product Name", "AsterFollicle Finasteride Maintenance Therapy");
+	data4.put("Description", "Synthetic finasteride-based prescription product created for validating the male-pattern hair loss catalog, intake form, SKU, pricing, and inventory workflow.");
 	data4.put("Product Image", "");
-	data4.put("Product Type", "Standard");
-	data4.put("Category", "Oncology – Solid Tumor Therapies");
+	data4.put("Product Type", "Prescription");
+	data4.put("Category", "Hair Loss and Regrowth Therapies");
 	data4.put("Visibility", "Public");
 	data4.put("Minimum Buy Quantity", "1");
-	data4.put("Maximum Buy Quantity", "4");
-	data4.put("Stock Count", "125");
-	data4.put("Intake Form", "");
-	data4.put("Default SKU / Identifier", "AST-ONC-ST-004");
-	data4.put("Condition Treated", "Solid Tumor Supportive Care");
-	data4.put("Restrict Multiple Active Prescriptions", "No");
+	data4.put("Maximum Buy Quantity", "1");
+	data4.put("Stock Count", "93");
+	data4.put("Intake Form", "Hair Loss Intake Form");
+	data4.put("Default SKU / Identifier", "AST-WELL-HL-104");
+	data4.put("Condition Treated", "Hair Loss");
+	data4.put("Restrict Multiple Active Prescriptions", "Yes");
 	data4.put("Pricing Type", "Single Item");
-	data4.put("Intro Price", "19.00");
-	data4.put("Default Price", "64.00");
-	data4.put("Sale Price", "55.00");
-	data4.put("Sale Start Date", "08/18/2026");
-	data4.put("Sales End Date", "09/18/2026");
+	data4.put("Intro Price", "24.00");
+	data4.put("Default Price", "89.00");
+	data4.put("Sale Price", "78.00");
+	data4.put("Sale Start Date", "09/04/2026");
+	data4.put("Sales End Date", "10/04/2026");
 	data4.put("Lab Test", "No");
 
 	TreeMap<String, String> data5 = new TreeMap<String, String>();
-	data5.put("Product Name", "AsterOnco Symptom Journal Add-On");
-	data5.put("Description", "Synthetic oncology add-on containing a symptom journal and treatment-tracking materials for validating add-on classification, inventory limits, condition mapping, and independent pricing.");
+	data5.put("Product Name", "AsterFollicle Minoxidil Topical Foam");
+	data5.put("Description", "Synthetic minoxidil topical hair-regrowth product for testing standard product creation, hair loss condition mapping, inventory limits, and promotional pricing.");
 	data5.put("Product Image", "");
-	data5.put("Product Type", "Add-On");
-	data5.put("Category", "Oncology – Solid Tumor Therapies");
+	data5.put("Product Type", "Standard");
+	data5.put("Category", "Hair Loss and Regrowth Therapies");
 	data5.put("Visibility", "Public");
 	data5.put("Minimum Buy Quantity", "1");
 	data5.put("Maximum Buy Quantity", "3");
-	data5.put("Stock Count", "94");
+	data5.put("Stock Count", "126");
 	data5.put("Intake Form", "");
-	data5.put("Default SKU / Identifier", "AST-ONC-ST-005");
-	data5.put("Condition Treated", "Oncology Treatment Symptom Support");
+	data5.put("Default SKU / Identifier", "AST-WELL-HL-105");
+	data5.put("Condition Treated", "Hair Loss");
 	data5.put("Restrict Multiple Active Prescriptions", "No");
 	data5.put("Pricing Type", "Single Item");
-	data5.put("Intro Price", "12.00");
-	data5.put("Default Price", "39.00");
-	data5.put("Sale Price", "32.00");
-	data5.put("Sale Start Date", "08/20/2026");
-	data5.put("Sales End Date", "09/20/2026");
+	data5.put("Intro Price", "19.00");
+	data5.put("Default Price", "64.00");
+	data5.put("Sale Price", "55.00");
+	data5.put("Sale Start Date", "09/05/2026");
+	data5.put("Sales End Date", "10/05/2026");
 	data5.put("Lab Test", "No");
 
 	TreeMap<String, String> data6 = new TreeMap<String, String>();
-	data6.put("Product Name", "AsterHema Nova AML Prescription Therapy");
-	data6.put("Description", "Synthetic prescription product for validating acute myeloid leukemia catalog records, mandatory hematology intake selection, restricted active prescriptions, stock, SKU, and price processing.");
+	data6.put("Product Name", "AsterGrowth Somatropin Daily Replacement");
+	data6.put("Description", "Synthetic daily somatropin prescription product for validating growth hormone replacement catalog, intake, laboratory requirement, stock, and pricing workflows.");
 	data6.put("Product Image", "");
 	data6.put("Product Type", "Prescription");
-	data6.put("Category", "Oncology – Hematologic Malignancies");
+	data6.put("Category", "Growth Hormone Replacement Therapies");
 	data6.put("Visibility", "Public");
 	data6.put("Minimum Buy Quantity", "1");
 	data6.put("Maximum Buy Quantity", "1");
-	data6.put("Stock Count", "29");
-	data6.put("Intake Form", "AsterMD Hematology Intake Form");
-	data6.put("Default SKU / Identifier", "AST-ONC-HM-006");
-	data6.put("Condition Treated", "Acute Myeloid Leukemia");
+	data6.put("Stock Count", "34");
+	data6.put("Intake Form", "HGH Deficiency Intake Form");
+	data6.put("Default SKU / Identifier", "AST-WELL-HGH-106");
+	data6.put("Condition Treated", "HGH Deficiency");
 	data6.put("Restrict Multiple Active Prescriptions", "Yes");
 	data6.put("Pricing Type", "Single Item");
-	data6.put("Intro Price", "275.00");
-	data6.put("Default Price", "2150.00");
-	data6.put("Sale Price", "1950.00");
-	data6.put("Sale Start Date", "08/22/2026");
-	data6.put("Sales End Date", "09/22/2026");
-	data6.put("Lab Test", "No");
+	data6.put("Intro Price", "149.00");
+	data6.put("Default Price", "925.00");
+	data6.put("Sale Price", "845.00");
+	data6.put("Sale Start Date", "09/06/2026");
+	data6.put("Sales End Date", "10/06/2026");
+	data6.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data7 = new TreeMap<String, String>();
-	data7.put("Product Name", "AsterHema Lymphora Precision Therapy");
-	data7.put("Description", "Synthetic regulated lymphoma prescription product created to test hematologic malignancy categorization, medical intake linkage, maximum purchase enforcement, and sale price validation.");
+	data7.put("Product Name", "AsterGrowth Somapacitan Weekly Replacement");
+	data7.put("Description", "Synthetic long-acting somapacitan prescription product created for testing weekly growth hormone replacement, required laboratory testing, intake, and purchase restrictions.");
 	data7.put("Product Image", "");
 	data7.put("Product Type", "Prescription");
-	data7.put("Category", "Oncology – Hematologic Malignancies");
+	data7.put("Category", "Growth Hormone Replacement Therapies");
 	data7.put("Visibility", "Public");
 	data7.put("Minimum Buy Quantity", "1");
-	data7.put("Maximum Buy Quantity", "2");
-	data7.put("Stock Count", "34");
-	data7.put("Intake Form", "AsterMD Hematology Intake Form");
-	data7.put("Default SKU / Identifier", "AST-ONC-HM-007");
-	data7.put("Condition Treated", "Diffuse Large B-Cell Lymphoma");
+	data7.put("Maximum Buy Quantity", "1");
+	data7.put("Stock Count", "27");
+	data7.put("Intake Form", "HGH Deficiency Intake Form");
+	data7.put("Default SKU / Identifier", "AST-WELL-HGH-107");
+	data7.put("Condition Treated", "HGH Deficiency");
 	data7.put("Restrict Multiple Active Prescriptions", "Yes");
 	data7.put("Pricing Type", "Single Item");
-	data7.put("Intro Price", "260.00");
-	data7.put("Default Price", "1980.00");
-	data7.put("Sale Price", "1785.00");
-	data7.put("Sale Start Date", "08/25/2026");
-	data7.put("Sales End Date", "09/25/2026");
-	data7.put("Lab Test", "No");
+	data7.put("Intro Price", "175.00");
+	data7.put("Default Price", "1180.00");
+	data7.put("Sale Price", "1065.00");
+	data7.put("Sale Start Date", "09/07/2026");
+	data7.put("Sales End Date", "10/07/2026");
+	data7.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data8 = new TreeMap<String, String>();
-	data8.put("Product Name", "AsterHema Myelora Maintenance Therapy");
-	data8.put("Description", "Synthetic multiple myeloma prescription catalog product for validating regulated product creation, intake form requirements, purchase quantities, restricted concurrent prescriptions, and pricing.");
+	data8.put("Product Name", "AsterGrowth Lonapegsomatropin Weekly Therapy");
+	data8.put("Description", "Synthetic long-acting growth hormone replacement product for validating HGH deficiency condition selection, laboratory association, inventory, and prescription restrictions.");
 	data8.put("Product Image", "");
 	data8.put("Product Type", "Prescription");
-	data8.put("Category", "Oncology – Hematologic Malignancies");
+	data8.put("Category", "Growth Hormone Replacement Therapies");
 	data8.put("Visibility", "Public");
 	data8.put("Minimum Buy Quantity", "1");
 	data8.put("Maximum Buy Quantity", "1");
-	data8.put("Stock Count", "42");
-	data8.put("Intake Form", "AsterMD Hematology Intake Form");
-	data8.put("Default SKU / Identifier", "AST-ONC-HM-008");
-	data8.put("Condition Treated", "Multiple Myeloma");
+	data8.put("Stock Count", "31");
+	data8.put("Intake Form", "HGH Deficiency Intake Form");
+	data8.put("Default SKU / Identifier", "AST-WELL-HGH-108");
+	data8.put("Condition Treated", "HGH Deficiency");
 	data8.put("Restrict Multiple Active Prescriptions", "Yes");
 	data8.put("Pricing Type", "Single Item");
-	data8.put("Intro Price", "240.00");
-	data8.put("Default Price", "1875.00");
-	data8.put("Sale Price", "1690.00");
-	data8.put("Sale Start Date", "08/28/2026");
-	data8.put("Sales End Date", "09/28/2026");
-	data8.put("Lab Test", "No");
+	data8.put("Intro Price", "185.00");
+	data8.put("Default Price", "1245.00");
+	data8.put("Sale Price", "1120.00");
+	data8.put("Sale Start Date", "09/08/2026");
+	data8.put("Sales End Date", "10/08/2026");
+	data8.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data9 = new TreeMap<String, String>();
-	data9.put("Product Name", "AsterHema Care Coordination Pack");
-	data9.put("Description", "Synthetic standard hematology support pack for storing consultation records, treatment schedules, emergency contact information, care instructions, and follow-up documentation.");
+	data9.put("Product Name", "AsterSleep Ramelteon Onset Therapy");
+	data9.put("Description", "Synthetic ramelteon prescription product designed for validating insomnia treatment catalog creation, intake selection, restricted prescriptions, and pricing.");
 	data9.put("Product Image", "");
-	data9.put("Product Type", "Standard");
-	data9.put("Category", "Oncology – Hematologic Malignancies");
+	data9.put("Product Type", "Prescription");
+	data9.put("Category", "Sleep Disorder Prescription Therapies");
 	data9.put("Visibility", "Public");
 	data9.put("Minimum Buy Quantity", "1");
-	data9.put("Maximum Buy Quantity", "5");
-	data9.put("Stock Count", "138");
-	data9.put("Intake Form", "");
-	data9.put("Default SKU / Identifier", "AST-ONC-HM-009");
-	data9.put("Condition Treated", "Hematologic Malignancy Supportive Care");
-	data9.put("Restrict Multiple Active Prescriptions", "No");
+	data9.put("Maximum Buy Quantity", "1");
+	data9.put("Stock Count", "77");
+	data9.put("Intake Form", "Insomnia Intake Form");
+	data9.put("Default SKU / Identifier", "AST-WELL-INS-109");
+	data9.put("Condition Treated", "Insomnia");
+	data9.put("Restrict Multiple Active Prescriptions", "Yes");
 	data9.put("Pricing Type", "Single Item");
-	data9.put("Intro Price", "21.00");
-	data9.put("Default Price", "72.00");
-	data9.put("Sale Price", "61.00");
-	data9.put("Sale Start Date", "09/01/2026");
-	data9.put("Sales End Date", "10/01/2026");
+	data9.put("Intro Price", "28.00");
+	data9.put("Default Price", "109.00");
+	data9.put("Sale Price", "96.00");
+	data9.put("Sale Start Date", "09/09/2026");
+	data9.put("Sales End Date", "10/09/2026");
 	data9.put("Lab Test", "No");
 
 	TreeMap<String, String> data10 = new TreeMap<String, String>();
-	data10.put("Product Name", "AsterHema Infusion Visit Comfort Add-On");
-	data10.put("Description", "Synthetic hematology add-on product for testing optional supportive-product creation, category assignment, SKU handling, stock availability, quantity limits, and promotional pricing.");
+	data10.put("Product Name", "AsterSleep Lemborexant Dual-Action Therapy");
+	data10.put("Description", "Synthetic lemborexant prescription product for testing sleep-onset and sleep-maintenance catalog workflows, stock control, intake forms, and sale pricing.");
 	data10.put("Product Image", "");
-	data10.put("Product Type", "Add-On");
-	data10.put("Category", "Oncology – Hematologic Malignancies");
+	data10.put("Product Type", "Prescription");
+	data10.put("Category", "Sleep Disorder Prescription Therapies");
 	data10.put("Visibility", "Public");
 	data10.put("Minimum Buy Quantity", "1");
-	data10.put("Maximum Buy Quantity", "3");
-	data10.put("Stock Count", "87");
-	data10.put("Intake Form", "");
-	data10.put("Default SKU / Identifier", "AST-ONC-HM-010");
-	data10.put("Condition Treated", "Infusion Visit Support");
-	data10.put("Restrict Multiple Active Prescriptions", "No");
+	data10.put("Maximum Buy Quantity", "1");
+	data10.put("Stock Count", "59");
+	data10.put("Intake Form", "Insomnia Intake Form");
+	data10.put("Default SKU / Identifier", "AST-WELL-INS-110");
+	data10.put("Condition Treated", "Insomnia");
+	data10.put("Restrict Multiple Active Prescriptions", "Yes");
 	data10.put("Pricing Type", "Single Item");
-	data10.put("Intro Price", "15.00");
-	data10.put("Default Price", "49.00");
-	data10.put("Sale Price", "42.00");
-	data10.put("Sale Start Date", "09/03/2026");
-	data10.put("Sales End Date", "10/03/2026");
+	data10.put("Intro Price", "39.00");
+	data10.put("Default Price", "149.00");
+	data10.put("Sale Price", "134.00");
+	data10.put("Sale Start Date", "09/10/2026");
+	data10.put("Sales End Date", "10/10/2026");
 	data10.put("Lab Test", "No");
 
 	TreeMap<String, String> data11 = new TreeMap<String, String>();
-	data11.put("Product Name", "AsterTransplant RenalGuard Maintenance Therapy");
-	data11.put("Description", "Synthetic kidney transplant prescription product for validating immunosuppressant category selection, transplant intake association, restricted active prescriptions, stock, and controlled quantities.");
+	data11.put("Product Name", "AsterSleep Doxepin Maintenance Therapy");
+	data11.put("Description", "Synthetic low-dose doxepin prescription product created for testing insomnia condition mapping, intake processing, SKU uniqueness, stock, and restricted prescriptions.");
 	data11.put("Product Image", "");
 	data11.put("Product Type", "Prescription");
-	data11.put("Category", "Organ Transplant Immunosuppressants");
+	data11.put("Category", "Sleep Disorder Prescription Therapies");
 	data11.put("Visibility", "Public");
 	data11.put("Minimum Buy Quantity", "1");
 	data11.put("Maximum Buy Quantity", "1");
-	data11.put("Stock Count", "44");
-	data11.put("Intake Form", "AsterMD Transplant Intake Form");
-	data11.put("Default SKU / Identifier", "AST-TRN-IM-011");
-	data11.put("Condition Treated", "Kidney Transplant");
+	data11.put("Stock Count", "66");
+	data11.put("Intake Form", "Insomnia Intake Form");
+	data11.put("Default SKU / Identifier", "AST-WELL-INS-111");
+	data11.put("Condition Treated", "Insomnia");
 	data11.put("Restrict Multiple Active Prescriptions", "Yes");
 	data11.put("Pricing Type", "Single Item");
-	data11.put("Intro Price", "175.00");
-	data11.put("Default Price", "1180.00");
-	data11.put("Sale Price", "1060.00");
-	data11.put("Sale Start Date", "09/05/2026");
-	data11.put("Sales End Date", "10/05/2026");
+	data11.put("Intro Price", "26.00");
+	data11.put("Default Price", "99.00");
+	data11.put("Sale Price", "87.00");
+	data11.put("Sale Start Date", "09/11/2026");
+	data11.put("Sales End Date", "10/11/2026");
 	data11.put("Lab Test", "No");
 
 	TreeMap<String, String> data12 = new TreeMap<String, String>();
-	data12.put("Product Name", "AsterTransplant HepaShield Maintenance Therapy");
-	data12.put("Description", "Synthetic liver transplant prescription product created for testing regulated immunosuppressant catalog workflows, required intake forms, purchase restrictions, inventory, and sale pricing.");
+	data12.put("Product Name", "AsterMind Sertraline Mood Therapy");
+	data12.put("Description", "Synthetic sertraline-based prescription product for validating the low mood and focus pathway, medical intake, inventory, pricing, and prescription restrictions.");
 	data12.put("Product Image", "");
 	data12.put("Product Type", "Prescription");
-	data12.put("Category", "Organ Transplant Immunosuppressants");
+	data12.put("Category", "Mood and Focus Support Therapies");
 	data12.put("Visibility", "Public");
 	data12.put("Minimum Buy Quantity", "1");
-	data12.put("Maximum Buy Quantity", "2");
-	data12.put("Stock Count", "39");
-	data12.put("Intake Form", "AsterMD Transplant Intake Form");
-	data12.put("Default SKU / Identifier", "AST-TRN-IM-012");
-	data12.put("Condition Treated", "Liver Transplant");
+	data12.put("Maximum Buy Quantity", "1");
+	data12.put("Stock Count", "88");
+	data12.put("Intake Form", "Mood and Focus Intake Form");
+	data12.put("Default SKU / Identifier", "AST-WELL-MF-112");
+	data12.put("Condition Treated", "Low Mood / Focus");
 	data12.put("Restrict Multiple Active Prescriptions", "Yes");
 	data12.put("Pricing Type", "Single Item");
-	data12.put("Intro Price", "185.00");
-	data12.put("Default Price", "1260.00");
-	data12.put("Sale Price", "1135.00");
-	data12.put("Sale Start Date", "09/08/2026");
-	data12.put("Sales End Date", "10/08/2026");
+	data12.put("Intro Price", "22.00");
+	data12.put("Default Price", "84.00");
+	data12.put("Sale Price", "73.00");
+	data12.put("Sale Start Date", "09/12/2026");
+	data12.put("Sales End Date", "10/12/2026");
 	data12.put("Lab Test", "No");
 
 	TreeMap<String, String> data13 = new TreeMap<String, String>();
-	data13.put("Product Name", "AsterTransplant CardioGraft Maintenance Therapy");
-	data13.put("Description", "Synthetic heart transplant prescription catalog entry for validating prescription-only fields, transplant condition mapping, active prescription restriction, SKU uniqueness, and pricing behavior.");
+	data13.put("Product Name", "AsterMind Bupropion Mood Support Therapy");
+	data13.put("Description", "Synthetic bupropion-based prescription product created for testing low mood and focus catalog workflows, intake association, stock, and pricing.");
 	data13.put("Product Image", "");
 	data13.put("Product Type", "Prescription");
-	data13.put("Category", "Organ Transplant Immunosuppressants");
+	data13.put("Category", "Mood and Focus Support Therapies");
 	data13.put("Visibility", "Public");
 	data13.put("Minimum Buy Quantity", "1");
 	data13.put("Maximum Buy Quantity", "1");
-	data13.put("Stock Count", "31");
-	data13.put("Intake Form", "AsterMD Transplant Intake Form");
-	data13.put("Default SKU / Identifier", "AST-TRN-IM-013");
-	data13.put("Condition Treated", "Heart Transplant");
+	data13.put("Stock Count", "72");
+	data13.put("Intake Form", "Mood and Focus Intake Form");
+	data13.put("Default SKU / Identifier", "AST-WELL-MF-113");
+	data13.put("Condition Treated", "Low Mood / Focus");
 	data13.put("Restrict Multiple Active Prescriptions", "Yes");
 	data13.put("Pricing Type", "Single Item");
-	data13.put("Intro Price", "210.00");
-	data13.put("Default Price", "1490.00");
-	data13.put("Sale Price", "1340.00");
-	data13.put("Sale Start Date", "09/10/2026");
-	data13.put("Sales End Date", "10/10/2026");
+	data13.put("Intro Price", "25.00");
+	data13.put("Default Price", "94.00");
+	data13.put("Sale Price", "82.00");
+	data13.put("Sale Start Date", "09/13/2026");
+	data13.put("Sales End Date", "10/13/2026");
 	data13.put("Lab Test", "No");
 
 	TreeMap<String, String> data14 = new TreeMap<String, String>();
-	data14.put("Product Name", "AsterTransplant Medication Organizer");
-	data14.put("Description", "Synthetic standard transplant-support product for organizing medicine schedules, refill information, transplant-team contacts, follow-up dates, and general care documentation.");
+	data14.put("Product Name", "AsterMind Desvenlafaxine Balance Therapy");
+	data14.put("Description", "Synthetic desvenlafaxine-based prescription product for validating condition selection, clinical intake, concurrent-prescription restriction, stock, and scheduled pricing.");
 	data14.put("Product Image", "");
-	data14.put("Product Type", "Standard");
-	data14.put("Category", "Organ Transplant Immunosuppressants");
+	data14.put("Product Type", "Prescription");
+	data14.put("Category", "Mood and Focus Support Therapies");
 	data14.put("Visibility", "Public");
 	data14.put("Minimum Buy Quantity", "1");
-	data14.put("Maximum Buy Quantity", "4");
-	data14.put("Stock Count", "116");
-	data14.put("Intake Form", "");
-	data14.put("Default SKU / Identifier", "AST-TRN-IM-014");
-	data14.put("Condition Treated", "Post-Transplant Medication Management");
-	data14.put("Restrict Multiple Active Prescriptions", "No");
+	data14.put("Maximum Buy Quantity", "1");
+	data14.put("Stock Count", "64");
+	data14.put("Intake Form", "Mood and Focus Intake Form");
+	data14.put("Default SKU / Identifier", "AST-WELL-MF-114");
+	data14.put("Condition Treated", "Low Mood / Focus");
+	data14.put("Restrict Multiple Active Prescriptions", "Yes");
 	data14.put("Pricing Type", "Single Item");
-	data14.put("Intro Price", "18.00");
-	data14.put("Default Price", "59.00");
-	data14.put("Sale Price", "50.00");
-	data14.put("Sale Start Date", "09/12/2026");
-	data14.put("Sales End Date", "10/12/2026");
+	data14.put("Intro Price", "31.00");
+	data14.put("Default Price", "116.00");
+	data14.put("Sale Price", "102.00");
+	data14.put("Sale Start Date", "09/14/2026");
+	data14.put("Sales End Date", "10/14/2026");
 	data14.put("Lab Test", "No");
 
 	TreeMap<String, String> data15 = new TreeMap<String, String>();
-	data15.put("Product Name", "AsterTransplant Monitoring Journal Add-On");
-	data15.put("Description", "Synthetic transplant add-on journal for testing supportive-product categorization, post-transplant monitoring condition mapping, quantities, stock count, and sale-date validation.");
+	data15.put("Product Name", "AsterAndro Testosterone Gel Replacement");
+	data15.put("Description", "Synthetic testosterone gel prescription product for validating confirmed low-testosterone treatment, laboratory association, intake, pricing, and inventory workflows.");
 	data15.put("Product Image", "");
-	data15.put("Product Type", "Add-On");
-	data15.put("Category", "Organ Transplant Immunosuppressants");
+	data15.put("Product Type", "Prescription");
+	data15.put("Category", "Testosterone Replacement Therapies");
 	data15.put("Visibility", "Public");
 	data15.put("Minimum Buy Quantity", "1");
-	data15.put("Maximum Buy Quantity", "3");
-	data15.put("Stock Count", "91");
-	data15.put("Intake Form", "");
-	data15.put("Default SKU / Identifier", "AST-TRN-IM-015");
-	data15.put("Condition Treated", "Post-Transplant Monitoring");
-	data15.put("Restrict Multiple Active Prescriptions", "No");
+	data15.put("Maximum Buy Quantity", "1");
+	data15.put("Stock Count", "49");
+	data15.put("Intake Form", "Low Testosterone Intake Form");
+	data15.put("Default SKU / Identifier", "AST-WELL-LT-115");
+	data15.put("Condition Treated", "Low Testosterone");
+	data15.put("Restrict Multiple Active Prescriptions", "Yes");
 	data15.put("Pricing Type", "Single Item");
-	data15.put("Intro Price", "13.00");
-	data15.put("Default Price", "44.00");
-	data15.put("Sale Price", "37.00");
+	data15.put("Intro Price", "59.00");
+	data15.put("Default Price", "239.00");
+	data15.put("Sale Price", "215.00");
 	data15.put("Sale Start Date", "09/15/2026");
 	data15.put("Sales End Date", "10/15/2026");
-	data15.put("Lab Test", "No");
+	data15.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data16 = new TreeMap<String, String>();
-	data16.put("Product Name", "AsterHIV CoreControl ART Therapy");
-	data16.put("Description", "Synthetic antiretroviral prescription product created for testing HIV therapy category selection, mandatory medical intake association, active prescription restriction, and inventory control.");
+	data16.put("Product Name", "AsterAndro Testosterone Cypionate Injection");
+	data16.put("Description", "Synthetic testosterone cypionate prescription product created for testing low-testosterone diagnosis workflows, required labs, stock, intake, and quantity limits.");
 	data16.put("Product Image", "");
 	data16.put("Product Type", "Prescription");
-	data16.put("Category", "Antiretroviral Therapy for HIV");
+	data16.put("Category", "Testosterone Replacement Therapies");
 	data16.put("Visibility", "Public");
 	data16.put("Minimum Buy Quantity", "1");
 	data16.put("Maximum Buy Quantity", "1");
-	data16.put("Stock Count", "63");
-	data16.put("Intake Form", "AsterMD HIV Therapy Intake Form");
-	data16.put("Default SKU / Identifier", "AST-HIV-ART-016");
-	data16.put("Condition Treated", "HIV-1 Infection");
+	data16.put("Stock Count", "43");
+	data16.put("Intake Form", "Low Testosterone Intake Form");
+	data16.put("Default SKU / Identifier", "AST-WELL-LT-116");
+	data16.put("Condition Treated", "Low Testosterone");
 	data16.put("Restrict Multiple Active Prescriptions", "Yes");
 	data16.put("Pricing Type", "Single Item");
-	data16.put("Intro Price", "95.00");
-	data16.put("Default Price", "685.00");
-	data16.put("Sale Price", "615.00");
-	data16.put("Sale Start Date", "09/18/2026");
-	data16.put("Sales End Date", "10/18/2026");
-	data16.put("Lab Test", "No");
+	data16.put("Intro Price", "65.00");
+	data16.put("Default Price", "265.00");
+	data16.put("Sale Price", "238.00");
+	data16.put("Sale Start Date", "09/16/2026");
+	data16.put("Sales End Date", "10/16/2026");
+	data16.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data17 = new TreeMap<String, String>();
-	data17.put("Product Name", "AsterHIV ResistancePath ART Therapy");
-	data17.put("Description", "Synthetic regulated antiretroviral product for validating treatment-experienced HIV condition mapping, prescription intake selection, controlled quantities, unique SKU, and pricing.");
+	data17.put("Product Name", "AsterAndro Testosterone Transdermal Therapy");
+	data17.put("Description", "Synthetic transdermal testosterone replacement product for validating low-testosterone catalog configuration, laboratory requirements, prescription intake, and pricing.");
 	data17.put("Product Image", "");
 	data17.put("Product Type", "Prescription");
-	data17.put("Category", "Antiretroviral Therapy for HIV");
+	data17.put("Category", "Testosterone Replacement Therapies");
 	data17.put("Visibility", "Public");
 	data17.put("Minimum Buy Quantity", "1");
 	data17.put("Maximum Buy Quantity", "1");
-	data17.put("Stock Count", "46");
-	data17.put("Intake Form", "AsterMD HIV Therapy Intake Form");
-	data17.put("Default SKU / Identifier", "AST-HIV-ART-017");
-	data17.put("Condition Treated", "Treatment-Experienced HIV-1 Infection");
+	data17.put("Stock Count", "52");
+	data17.put("Intake Form", "Low Testosterone Intake Form");
+	data17.put("Default SKU / Identifier", "AST-WELL-LT-117");
+	data17.put("Condition Treated", "Low Testosterone");
 	data17.put("Restrict Multiple Active Prescriptions", "Yes");
 	data17.put("Pricing Type", "Single Item");
-	data17.put("Intro Price", "115.00");
-	data17.put("Default Price", "820.00");
-	data17.put("Sale Price", "738.00");
-	data17.put("Sale Start Date", "09/20/2026");
-	data17.put("Sales End Date", "10/20/2026");
-	data17.put("Lab Test", "No");
+	data17.put("Intro Price", "54.00");
+	data17.put("Default Price", "219.00");
+	data17.put("Sale Price", "196.00");
+	data17.put("Sale Start Date", "09/17/2026");
+	data17.put("Sales End Date", "10/17/2026");
+	data17.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data18 = new TreeMap<String, String>();
-	data18.put("Product Name", "AsterHIV Continuum ART Maintenance Therapy");
-	data18.put("Description", "Synthetic HIV maintenance prescription product for testing antiretroviral catalog workflows, intake form enforcement, multiple-prescription restriction, stock validation, and scheduled sale pricing.");
+	data18.put("Product Name", "AsterWeight Semaglutide Management Therapy");
+	data18.put("Description", "Synthetic semaglutide-based prescription product created for validating medical weight-management intake, laboratory association, inventory, and pricing workflows.");
 	data18.put("Product Image", "");
 	data18.put("Product Type", "Prescription");
-	data18.put("Category", "Antiretroviral Therapy for HIV");
+	data18.put("Category", "Medical Weight Management Therapies");
 	data18.put("Visibility", "Public");
 	data18.put("Minimum Buy Quantity", "1");
-	data18.put("Maximum Buy Quantity", "2");
-	data18.put("Stock Count", "58");
-	data18.put("Intake Form", "AsterMD HIV Therapy Intake Form");
-	data18.put("Default SKU / Identifier", "AST-HIV-ART-018");
-	data18.put("Condition Treated", "HIV Antiretroviral Maintenance");
+	data18.put("Maximum Buy Quantity", "1");
+	data18.put("Stock Count", "38");
+	data18.put("Intake Form", "Obesity Weight Management Intake Form");
+	data18.put("Default SKU / Identifier", "AST-WELL-OB-118");
+	data18.put("Condition Treated", "Obesity");
 	data18.put("Restrict Multiple Active Prescriptions", "Yes");
 	data18.put("Pricing Type", "Single Item");
 	data18.put("Intro Price", "89.00");
-	data18.put("Default Price", "640.00");
-	data18.put("Sale Price", "575.00");
-	data18.put("Sale Start Date", "09/22/2026");
-	data18.put("Sales End Date", "10/22/2026");
-	data18.put("Lab Test", "No");
+	data18.put("Default Price", "429.00");
+	data18.put("Sale Price", "389.00");
+	data18.put("Sale Start Date", "09/18/2026");
+	data18.put("Sales End Date", "10/18/2026");
+	data18.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data19 = new TreeMap<String, String>();
-	data19.put("Product Name", "AsterHIV ART Adherence Support Pack");
-	data19.put("Description", "Synthetic standard HIV care-support product containing adherence planning materials, refill reminders, appointment notes, and treatment-information organization resources.");
+	data19.put("Product Name", "AsterWeight Tirzepatide Management Therapy");
+	data19.put("Description", "Synthetic tirzepatide-based prescription product for testing obesity treatment catalog creation, clinical intake, stock restrictions, laboratory requirements, and pricing.");
 	data19.put("Product Image", "");
-	data19.put("Product Type", "Standard");
-	data19.put("Category", "Antiretroviral Therapy for HIV");
+	data19.put("Product Type", "Prescription");
+	data19.put("Category", "Medical Weight Management Therapies");
 	data19.put("Visibility", "Public");
 	data19.put("Minimum Buy Quantity", "1");
-	data19.put("Maximum Buy Quantity", "5");
-	data19.put("Stock Count", "142");
-	data19.put("Intake Form", "");
-	data19.put("Default SKU / Identifier", "AST-HIV-ART-019");
-	data19.put("Condition Treated", "ART Medication Adherence");
-	data19.put("Restrict Multiple Active Prescriptions", "No");
+	data19.put("Maximum Buy Quantity", "1");
+	data19.put("Stock Count", "35");
+	data19.put("Intake Form", "Obesity Weight Management Intake Form");
+	data19.put("Default SKU / Identifier", "AST-WELL-OB-119");
+	data19.put("Condition Treated", "Obesity");
+	data19.put("Restrict Multiple Active Prescriptions", "Yes");
 	data19.put("Pricing Type", "Single Item");
-	data19.put("Intro Price", "16.00");
-	data19.put("Default Price", "54.00");
-	data19.put("Sale Price", "46.00");
-	data19.put("Sale Start Date", "09/25/2026");
-	data19.put("Sales End Date", "10/25/2026");
-	data19.put("Lab Test", "No");
+	data19.put("Intro Price", "99.00");
+	data19.put("Default Price", "475.00");
+	data19.put("Sale Price", "429.00");
+	data19.put("Sale Start Date", "09/19/2026");
+	data19.put("Sales End Date", "10/19/2026");
+	data19.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data20 = new TreeMap<String, String>();
-	data20.put("Product Name", "AsterHIV Care Travel Organizer Add-On");
-	data20.put("Description", "Synthetic HIV care add-on for organizing treatment information during travel and validating add-on type handling, category mapping, inventory limits, and promotional pricing.");
+	data20.put("Product Name", "AsterWeight Liraglutide Management Therapy");
+	data20.put("Description", "Synthetic liraglutide-based prescription product designed for validating obesity condition mapping, medical intake, required laboratory testing, stock, and sale pricing.");
 	data20.put("Product Image", "");
-	data20.put("Product Type", "Add-On");
-	data20.put("Category", "Antiretroviral Therapy for HIV");
+	data20.put("Product Type", "Prescription");
+	data20.put("Category", "Medical Weight Management Therapies");
 	data20.put("Visibility", "Public");
 	data20.put("Minimum Buy Quantity", "1");
-	data20.put("Maximum Buy Quantity", "3");
-	data20.put("Stock Count", "103");
-	data20.put("Intake Form", "");
-	data20.put("Default SKU / Identifier", "AST-HIV-ART-020");
-	data20.put("Condition Treated", "HIV Care Travel Support");
-	data20.put("Restrict Multiple Active Prescriptions", "No");
+	data20.put("Maximum Buy Quantity", "1");
+	data20.put("Stock Count", "41");
+	data20.put("Intake Form", "Obesity Weight Management Intake Form");
+	data20.put("Default SKU / Identifier", "AST-WELL-OB-120");
+	data20.put("Condition Treated", "Obesity");
+	data20.put("Restrict Multiple Active Prescriptions", "Yes");
 	data20.put("Pricing Type", "Single Item");
-	data20.put("Intro Price", "14.00");
-	data20.put("Default Price", "47.00");
-	data20.put("Sale Price", "39.00");
-	data20.put("Sale Start Date", "09/28/2026");
-	data20.put("Sales End Date", "10/28/2026");
-	data20.put("Lab Test", "No");
+	data20.put("Intro Price", "79.00");
+	data20.put("Default Price", "395.00");
+	data20.put("Sale Price", "356.00");
+	data20.put("Sale Start Date", "09/20/2026");
+	data20.put("Sales End Date", "10/20/2026");
+	data20.put("Lab Test", "Yes");
 
 	return new Object[][] {
-		{ data1 },/*
+		{ data1 },
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -889,7 +812,7 @@ public Object[][] Product_Create_Data() {
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } */
+		{ data20 }
 	};
 }
 
