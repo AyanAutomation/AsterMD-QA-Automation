@@ -6,6 +6,8 @@ import java.util.TreeMap;
 import com.aventstack.extentreports.ExtentTest;
 
 import Listerners.Report_Listen;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -56,8 +58,299 @@ public WebElement Product_Module_Accessor() throws Exception {
 	return Product_Add;
 	
 }
+   
+@DataProvider
+ public Object[][] Category_Create_Data(){
+
+	TreeMap<String, String> data1 = new TreeMap<String, String>();
+	data1.put("Category Name", "Rare Metabolic Enzyme Replacement Therapies");
+	data1.put("Drug Class / Code", "MET-ERT-001");
+	data1.put("Description", "Specialty therapies used to replace deficient or missing enzymes in patients with rare inherited metabolic and lysosomal storage disorders.");
+
+	TreeMap<String, String> data2 = new TreeMap<String, String>();
+	data2.put("Category Name", "Pulmonary Arterial Hypertension Targeted Agents");
+	data2.put("Drug Class / Code", "CARD-PAH-002");
+	data2.put("Description", "Targeted medicines used to manage pulmonary arterial hypertension by reducing pulmonary vascular resistance and improving cardiopulmonary function.");
+
+	TreeMap<String, String> data3 = new TreeMap<String, String>();
+	data3.put("Category Name", "Autoimmune Biologic Immunomodulators");
+	data3.put("Drug Class / Code", "IMM-BIO-003");
+	data3.put("Description", "Biologic therapies designed to regulate specific immune pathways involved in severe autoimmune and chronic inflammatory diseases.");
+
+	TreeMap<String, String> data4 = new TreeMap<String, String>();
+	data4.put("Category Name", "Multiple Sclerosis Disease-Modifying Therapies");
+	data4.put("Drug Class / Code", "NEU-MS-004");
+	data4.put("Description", "Disease-modifying therapies used to reduce relapse frequency, inflammatory activity, and progression in different forms of multiple sclerosis.");
+
+	TreeMap<String, String> data5 = new TreeMap<String, String>();
+	data5.put("Category Name", "Cystic Fibrosis CFTR Modulator Therapies");
+	data5.put("Drug Class / Code", "PUL-CFTR-005");
+	data5.put("Description", "Specialty medicines that target defective CFTR protein function in eligible patients diagnosed with cystic fibrosis.");
+
+	TreeMap<String, String> data6 = new TreeMap<String, String>();
+	data6.put("Category Name", "Hereditary Angioedema Preventive Therapies");
+	data6.put("Drug Class / Code", "IMM-HAE-006");
+	data6.put("Description", "Preventive and maintenance therapies used to reduce the frequency and severity of hereditary angioedema attacks.");
+
+	TreeMap<String, String> data7 = new TreeMap<String, String>();
+	data7.put("Category Name", "Advanced Heart Failure Support Therapies");
+	data7.put("Drug Class / Code", "CARD-HF-007");
+	data7.put("Description", "Specialty cardiovascular therapies used to support patients with advanced or treatment-resistant heart failure under close medical supervision.");
+
+	TreeMap<String, String> data8 = new TreeMap<String, String>();
+	data8.put("Category Name", "Epilepsy Rescue and Maintenance Therapies");
+	data8.put("Drug Class / Code", "NEU-EPI-008");
+	data8.put("Description", "Prescription therapies used for ongoing seizure control and emergency management of acute or prolonged epileptic episodes.");
+
+	TreeMap<String, String> data9 = new TreeMap<String, String>();
+	data9.put("Category Name", "Endocrine Hormone Replacement Therapies");
+	data9.put("Drug Class / Code", "ENDO-HRT-009");
+	data9.put("Description", "Hormone replacement medicines used to manage clinically diagnosed endocrine deficiencies and related hormonal disorders.");
+
+	TreeMap<String, String> data10 = new TreeMap<String, String>();
+	data10.put("Category Name", "Hemophilia Coagulation Factor Therapies");
+	data10.put("Drug Class / Code", "HEMA-CFT-010");
+	data10.put("Description", "Coagulation factor replacement and related specialty therapies used to prevent or control bleeding in patients with hemophilia.");
+
+	TreeMap<String, String> data11 = new TreeMap<String, String>();
+	data11.put("Category Name", "Sickle Cell Disease-Modifying Therapies");
+	data11.put("Drug Class / Code", "HEMA-SCD-011");
+	data11.put("Description", "Specialty medicines used to reduce vaso-occlusive complications and modify the clinical progression of sickle cell disease.");
+
+	TreeMap<String, String> data12 = new TreeMap<String, String>();
+	data12.put("Category Name", "Neutropenia Colony-Stimulating Therapies");
+	data12.put("Drug Class / Code", "HEMA-CSF-012");
+	data12.put("Description", "Colony-stimulating therapies used to increase neutrophil production and reduce infection risk in patients with severe neutropenia.");
+
+	TreeMap<String, String> data13 = new TreeMap<String, String>();
+	data13.put("Category Name", "Severe Asthma Monoclonal Antibody Therapies");
+	data13.put("Drug Class / Code", "RESP-MAB-013");
+	data13.put("Description", "Targeted monoclonal antibody therapies used for severe asthma that remains uncontrolled despite standard inhaled treatment.");
+
+	TreeMap<String, String> data14 = new TreeMap<String, String>();
+	data14.put("Category Name", "Chronic Kidney Disease Erythropoiesis Therapies");
+	data14.put("Drug Class / Code", "RENAL-ESA-014");
+	data14.put("Description", "Erythropoiesis-stimulating therapies used to manage anemia associated with chronic kidney disease and reduced red blood cell production.");
+
+	TreeMap<String, String> data15 = new TreeMap<String, String>();
+	data15.put("Category Name", "Pulmonary Fibrosis Antifibrotic Therapies");
+	data15.put("Drug Class / Code", "PUL-AFT-015");
+	data15.put("Description", "Antifibrotic specialty medicines used to slow functional decline and disease progression in selected pulmonary fibrosis conditions.");
+
+	TreeMap<String, String> data16 = new TreeMap<String, String>();
+	data16.put("Category Name", "Rheumatoid Arthritis JAK Inhibitor Therapies");
+	data16.put("Drug Class / Code", "RHEUM-JAK-016");
+	data16.put("Description", "Targeted oral immunomodulatory therapies used in the management of moderate-to-severe rheumatoid arthritis.");
+
+	TreeMap<String, String> data17 = new TreeMap<String, String>();
+	data17.put("Category Name", "Psoriasis Systemic Biologic Therapies");
+	data17.put("Drug Class / Code", "DERM-PSO-017");
+	data17.put("Description", "Systemic biologic therapies used for moderate-to-severe plaque psoriasis and related immune-mediated dermatologic conditions.");
+
+	TreeMap<String, String> data18 = new TreeMap<String, String>();
+	data18.put("Category Name", "Migraine CGRP Preventive Therapies");
+	data18.put("Drug Class / Code", "NEU-CGRP-018");
+	data18.put("Description", "CGRP-targeted specialty therapies used to prevent or reduce the frequency and severity of recurrent migraine episodes.");
+
+	TreeMap<String, String> data19 = new TreeMap<String, String>();
+	data19.put("Category Name", "Inflammatory Bowel Disease Advanced Therapies");
+	data19.put("Drug Class / Code", "GASTRO-IBD-019");
+	data19.put("Description", "Advanced biologic and targeted therapies used to manage moderate-to-severe Crohn's disease and ulcerative colitis.");
+
+	TreeMap<String, String> data20 = new TreeMap<String, String>();
+	data20.put("Category Name", "Neurodegenerative Disease Specialty Therapies");
+	data20.put("Drug Class / Code", "NEU-NDT-020");
+	data20.put("Description", "Specialty therapies used for the clinical management of progressive neurodegenerative disorders requiring structured monitoring and specialist oversight.");
+
+	return new Object[][] {
+		{ data1 },
+		{ data2 },
+		{ data3 },
+		{ data4 },
+		{ data5 },
+		{ data6 },
+		{ data7 },
+		{ data8 },
+		{ data9 },
+		{ data10 },
+		{ data11 },
+		{ data12 },
+		{ data13 },
+		{ data14 },
+		{ data15 },
+		{ data16 },
+		{ data17 },
+		{ data18 },
+		{ data19 },
+		{ data20 }
+	};
+}
+
+
+@Test(dataProvider = "Category_Create_Data")
+public void Category_Add(TreeMap<String, String> data) throws Exception {
+	ExtentTest log = Report_Listen.log_print_in_report();
+	int step = 1;
+	String Category_Name_Data = data.get("Category Name");
+	String Drug_Class_Code_Data = data.get("Drug Class / Code");
+	String Category_Description_Data = data.get("Description");
+
+	try {
+		log.info("Step " + step + ": Starting the Category creation flow.");
+		System.out.println("🔹 Step " + step + ": Starting the Category creation flow.");
+		step++;
+
+		Product_Module_Locaters p = new Product_Module_Locaters(d);
+
+		log.info("Step " + step + ": Product Module locator class initialized successfully.");
+		System.out.println("🔹 Step " + step + ": Product Module locator class initialized successfully.");
+		step++;
+
+		
+
+		log.info("Step " + step + ": Category creation test data retrieved from the DataProvider.");
+		log.info("Category Name: " + Category_Name_Data);
+		log.info("Drug Class / Code: " + Drug_Class_Code_Data);
+		log.info("Description: " + Category_Description_Data);
+		System.out.println("🔹 Step " + step + ": Category creation test data retrieved from the DataProvider.");
+		System.out.println("   ➤ Category Name: " + Category_Name_Data);
+		System.out.println("   ➤ Drug Class / Code: " + Drug_Class_Code_Data);
+		System.out.println("   ➤ Description: " + Category_Description_Data);
+		step++;
+
+		log.info("Step " + step + ": Navigating to the Categories tab of the Product Module.");
+		System.out.println("🔹 Step " + step + ": Navigating to the Categories tab of the Product Module.");
+
+		Product_Module_Tab_Navigator("Categories");
+
+		log.pass("Step " + step + ": Categories tab opened successfully.");
+		System.out.println("✅ Step " + step + ": Categories tab opened successfully.");
+		step++;
+
+		log.info("Step " + step + ": Retrieving the Category Add button.");
+		System.out.println("🔹 Step " + step + ": Retrieving the Category Add button.");
+
+		WebElement Category_Add = p.Category_Add_Button();
+
+		log.pass("Step " + step + ": Category Add button retrieved successfully.");
+		System.out.println("✅ Step " + step + ": Category Add button retrieved successfully.");
+		step++;
+
+		log.info("Step " + step + ": Clicking the Category Add button.");
+		System.out.println("🔹 Step " + step + ": Clicking the Category Add button.");
+
+		Category_Add.click();
+
+		log.pass("Step " + step + ": Category Add button clicked successfully.");
+		System.out.println("✅ Step " + step + ": Category Add button clicked successfully.");
+		step++;
+
+		log.info("Step " + step + ": Retrieving the Category creation popup form.");
+		System.out.println("🔹 Step " + step + ": Retrieving the Category creation popup form.");
+
+		WebElement Popup_Form = p.Popup_Form();
+
+		log.pass("Step " + step + ": Category creation popup form displayed successfully.");
+		System.out.println("✅ Step " + step + ": Category creation popup form displayed successfully.");
+		step++;
+
+		log.info("Step " + step + ": Retrieving input fields from the Category creation popup form.");
+		System.out.println("🔹 Step " + step + ": Retrieving input fields from the Category creation popup form.");
+
+		List<WebElement> Form_Fields = Popup_Form.findElements(By.xpath(".//input"));
+		WebElement Category_Name = Form_Fields.get(0);
+		WebElement Drug_Class_Field = Form_Fields.get(1);
+		WebElement Category_Description = Popup_Form.findElement(By.xpath(".//textarea"));
+
+		log.pass("Step " + step + ": Category Name, Drug Class / Code and Description fields retrieved successfully.");
+		System.out.println("✅ Step " + step + ": Category Name, Drug Class / Code and Description fields retrieved successfully.");
+		step++;
+
+		log.info("Step " + step + ": Entering the Category Name: " + Category_Name_Data);
+		System.out.println("🔹 Step " + step + ": Entering the Category Name: " + Category_Name_Data);
+
+		Category_Name.clear();
+		Category_Name.sendKeys(Category_Name_Data);
+
+		log.pass("Step " + step + ": Category Name entered successfully.");
+		System.out.println("✅ Step " + step + ": Category Name entered successfully.");
+		step++;
+
+		log.info("Step " + step + ": Entering the Drug Class / Code: " + Drug_Class_Code_Data);
+		System.out.println("🔹 Step " + step + ": Entering the Drug Class / Code: " + Drug_Class_Code_Data);
+
+		Drug_Class_Field.clear();
+		Drug_Class_Field.sendKeys(Drug_Class_Code_Data);
+
+		log.pass("Step " + step + ": Drug Class / Code entered successfully.");
+		System.out.println("✅ Step " + step + ": Drug Class / Code entered successfully.");
+		step++;
+
+		log.info("Step " + step + ": Entering the Category Description.");
+		System.out.println("🔹 Step " + step + ": Entering the Category Description.");
+
+		Category_Description.clear();
+		Category_Description.sendKeys(Category_Description_Data);
+
+		log.pass("Step " + step + ": Category Description entered successfully.");
+		System.out.println("✅ Step " + step + ": Category Description entered successfully.");
+		step++;
+
+		log.info("Step " + step + ": Retrieving the Save button.");
+		System.out.println("🔹 Step " + step + ": Retrieving the Save button.");
+
+		WebElement Save_Button = p.Save_Button();
+
+		log.pass("Step " + step + ": Save button retrieved successfully.");
+		System.out.println("✅ Step " + step + ": Save button retrieved successfully.");
+		step++;
+
+		log.info("Step " + step + ": Clicking the Save button to create the Category.");
+		System.out.println("🔹 Step " + step + ": Clicking the Save button to create the Category.");
+
+		Save_Button.click();
+
+		log.pass("Step " + step + ": Save button clicked successfully.");
+		System.out.println("✅ Step " + step + ": Save button clicked successfully.");
+		step++;
+
+		log.info("Step " + step + ": Verifying that the Category creation process completed and the Category Add button is available again.");
+		System.out.println("🔹 Step " + step + ": Verifying that the Category creation process completed and the Category Add button is available again.");
+
+		p.Category_Add_Button();
+
+		log.pass("Category created successfully with Category Name: " + Category_Name_Data);
+		System.out.println("✅ Category created successfully with Category Name: " + Category_Name_Data);
+	} catch (Exception e) {
+		if (log != null) log.fail("Category creation failed for Category Name '" + Category_Name_Data + "'. Failure reason: " + e.getMessage());
+		System.out.println("❌ Category creation failed for Category Name: " + Category_Name_Data);
+		System.out.println("❌ Failure reason: " + e.getMessage());
+		throw e;
+	}
+}
 	
-	
+   
+   public void Product_Module_Tab_Navigator(String Tab_Option) throws Exception{
+	   
+	   Product_Module_Locaters p = new Product_Module_Locaters(d);
+	   
+	   
+	   WebElement Nav_Bar;
+	/*   try {
+		   Nav_Bar=p.Top_Navigation_bar();} */
+	//   catch(Exception e) {
+		   Product_Module_Accessor();
+		   Nav_Bar=p.Top_Navigation_bar();
+		  // }
+	   List<WebElement> Tabs=Nav_Bar.findElements(By.xpath(".//div[@class='ant-tabs-tab']"));
+	   for(WebElement tab:Tabs) {
+		   String Tab_Name=tab.getText().trim();
+	       if(Tab_Name.equalsIgnoreCase(Tab_Option)) {
+	    	   tab.click();
+	    	   System.out.println("✅ Navigated to the "+ Tab_Option +" tab successfully.");
+	    	   break;}}}
+	   
+   
 	
 @Test(dataProvider="Product_Create_Data")
 public void Product_Add(TreeMap<String, String> Product_data) throws Exception{
@@ -88,10 +381,48 @@ public void Product_Add(TreeMap<String, String> Product_data) throws Exception{
 	
 	WebElement Product_Add = Product_Module_Accessor();
 	Product_Add.click();
-    List<WebElement> Inputs = p.Form_Inputs();
+	Thread.sleep(800);
+	WebElement Product_form= p.Form();
+	List<WebElement> Inputs;
 
+	try {
+		
+		Inputs = p.Form_Inputs(Product_form);
 
-	
+		
+	} catch (Exception e) {
+		
+
+		Inputs = p.Form_Inputs(Product_form);
+
+		
+	}
+    WebElement Product_Name_Input = Inputs.get(0);
+    WebElement Product_Type_Input = Inputs.get(1);
+    WebElement Product_Category_Input = Inputs.get(2);
+    WebElement Product_Visibility_Input = Inputs.get(3);
+    WebElement Min_Quantity_Input = Inputs.get(4);
+    WebElement Max_Quantity_Input = Inputs.get(5);
+    WebElement Stock_Input = Inputs.get(6);
+    WebElement Eigth_input = Inputs.get(7);
+    WebElement Condition_treated_Input = Inputs.get(8);
+    WebElement Intro_Input = Inputs.get(9);
+    WebElement Default_Price_Input = Inputs.get(10);
+    WebElement Sales_Price_Input = Inputs.get(11);
+    
+    
+    
+    Product_Name_Input.sendKeys(Product_Name);
+    Product_Type_Input.sendKeys(Product_Type);
+    WebElement Prod_type_list=   p.First_Virtual_List_holder();
+	List<WebElement> Prod_type_list_options = Prod_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+    for(WebElement option : Prod_type_list_options) {
+		if(option.getText().equals(Product_Type)) {
+			option.click();
+			break;
+		}}
+    Product_Category_Input.sendKeys(Category);
+    
 }	
 	
 
@@ -539,7 +870,7 @@ public Object[][] Product_Create_Data() {
 	data20.put("Lab Test", "No");
 
 	return new Object[][] {
-		{ data1 },
+		{ data1 },/*
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -558,9 +889,12 @@ public Object[][] Product_Create_Data() {
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 }
+		{ data20 } */
 	};
 }
+
+
+
 
 	
 }

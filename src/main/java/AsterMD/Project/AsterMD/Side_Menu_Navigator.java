@@ -24,12 +24,14 @@ public class Side_Menu_Navigator extends Login{
 	log.info("Side Menu Step " + step + ": Checking whether the side menu is already accessible.");
 	System.out.println("🔹 Side Menu Step " + step + ": Checking whether the side menu is already accessible.");
 
-	try {
+/*	try {
 		p.Side_menu();
 
 		log.pass("Side menu is already accessible. Additional login is not required.");
 		System.out.println("✅ Side menu is already accessible. Additional login is not required.");
-	} catch (Exception mm) {
+	} */
+	
+/*	catch (Exception mm) {
 		log.warning("Side menu was not accessible. Login flow will now be executed.");
 		System.out.println("⚠️ Side menu was not accessible. Login flow will now be executed.");
 
@@ -37,7 +39,7 @@ public class Side_Menu_Navigator extends Login{
 			log.info("Initial side-menu access failure details: " + mm.getMessage());
 			System.out.println("ℹ️ Initial side-menu access failure details: " + mm.getMessage());
 		}
-
+*/
 		login();
 
 		log.info("Side Menu Step " + step + ": Login flow completed. Rechecking side-menu availability.");
@@ -47,8 +49,8 @@ public class Side_Menu_Navigator extends Login{
 
 		log.pass("Side menu became accessible after login.");
 		System.out.println("✅ Side menu became accessible after login.");
-	}
-	step++;
+//	}
+	
 
 	log.info("Side Menu Step " + step + ": Retrieving all available side-menu options.");
 	System.out.println("🔹 Side Menu Step " + step + ": Retrieving all available side-menu options.");
