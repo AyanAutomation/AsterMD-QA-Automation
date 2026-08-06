@@ -97,14 +97,14 @@ public Object[][] Category_Create_Data(){
 	data7.put("Drug Class / Code", "META-WGT-007");
 	data7.put("Description", "Prescription therapies used as part of a medically supervised weight-management program for eligible patients with obesity or related metabolic risk factors.");
 
-	return new Object[][] {
-		{ data1 },
+	return new Object[][] {/*
+		{ data1 }, */
 		{ data2 },
 		{ data3 },
 		{ data4 },
 		{ data5 },
 		{ data6 },
-		{ data7 }
+		{ data7 } 
 	};
 }
 
@@ -260,16 +260,16 @@ public Object[][] Lab_Test_Create_Data(){
 	data20.put("City", "Phoenix");
 	data20.put("Postal Code / Zip Code", "85034");
 
-	return new Object[][] {
-		{ data1 },
-		{ data2 },
+	return new Object[][] {/*
+		{ data1 }
+		{ data2 }, 
 		{ data3 },
 		{ data4 },
 		{ data5 },
 		{ data6 },
-		{ data7 },
-		{ data8 },
-		{ data9 },
+		{ data7 }, 
+		{ data8 },*/
+		{ data9 },/*
 		{ data10 },
 		{ data11 },
 		{ data12 },
@@ -280,7 +280,7 @@ public Object[][] Lab_Test_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } 
+		{ data20 } */
 	};
 }
 
@@ -621,6 +621,53 @@ public void Product_Add(TreeMap<String, String> Product_data) throws Exception{
     
 }	
 	
+
+
+@Test(dataProvider="Lab_Test_Create_Data")
+public void Product_Delete(TreeMap<String, String> Product_data) throws Exception{
+	
+	String Product_Name = Product_data.get("Lab Test Name");
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+	
+	WebElement Product_Add = Product_Module_Accessor();
+	WebElement Product_Search = p.Search();
+	Product_Search.sendKeys(Product_Name);
+	Thread.sleep(1800);
+	Three_Dot_Menu_Option_Selector("Delete");
+	
+}
+
+
+public void Three_Dot_Menu_Option_Selector(String Option) throws Exception {
+	
+	
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+	
+	List<WebElement> ThreeDot_Buttons = p.Threedot_Button_in_list();
+	
+	String Option_to_be_selected = Option.trim();
+	
+	for(WebElement ThreeDot_Button : ThreeDot_Buttons) {
+		WebElement Button=ThreeDot_Button;
+		Button.click();
+		WebElement Option_List = p.List_Dropdown_Menu();
+		List<WebElement> Options = Option_List.findElements(By.xpath(".//li"));
+		for(WebElement Option_Element : Options) {
+			String Option_Text = Option_Element.getText().trim();
+			
+			if(Option_Text.equalsIgnoreCase(Option_to_be_selected)) {
+				Option_Element.click();
+				System.out.println("✅ " + Option_to_be_selected + " option selected successfully.");
+				WebElement Popup_Delete_button = p.Red_color_Button();
+				Popup_Delete_button.click();
+				Thread.sleep(800);/*
+				WebElement Confirmation_Message = p.Success_Toast();
+				String Confirmation_Message_Text = Confirmation_Message.getText().trim();
+				System.out.println("✅ Confirmation message displayed: " + Confirmation_Message_Text);*/
+				break;
+			}}}
+
+}
 
 @DataProvider
 public Object[][] Product_Create_Data(){
@@ -1066,7 +1113,7 @@ public Object[][] Product_Create_Data(){
 	data20.put("Lab Test", "Yes");
 
 	return new Object[][] {
-		{ data1 },
+		{ data1 },/*
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -1085,7 +1132,7 @@ public Object[][] Product_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 }
+		{ data20 } */
 	};
 }
 

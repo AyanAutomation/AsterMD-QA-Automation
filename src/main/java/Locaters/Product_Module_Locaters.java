@@ -34,17 +34,17 @@ public class Product_Module_Locaters extends Repeat{
     @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[2]")
 	private WebElement Second_Virtual_List_holder; 
     @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[3]")
-	private WebElement Thrid_Virtual_List_holder;  /*
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Thrid_Virtual_List_holder;  
+    @FindBy(id="search")
+	private WebElement Search; 
+    @FindBy(xpath="//*[contains(@class,'ant-dropdown-trigger')] ")
+	private List<WebElement> Threedot_Button_in_list; 
+    @FindBy(xpath="//*[contains(@class,'ant-dropdown-menu-vertical ant-dropdown-menu-light')]")
+	private WebElement List_Dropdown_Menu; 
+    @FindBy(xpath="//*[contains(@class,'ant-btn-dangerous ant-btn-color-dangerous ant-btn-variant-solid')]")
+	private WebElement Red_color_Button; 
+    @FindBy(xpath="//div[contains(@class,'ant-notification-notice') and contains(@class,'app-toast-success')][.//div[normalize-space()='Action Successful'] and .//div[normalize-space()='Product deleted successfully']]")
+	private WebElement Success_Toast; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -312,21 +312,23 @@ public class Product_Module_Locaters extends Repeat{
 	return Second_Virtual_List_holder;} 
 	public WebElement Thrid_Virtual_List_holder(){
 	wait_for_theElement(Thrid_Virtual_List_holder);
-	return Thrid_Virtual_List_holder;}/*
+	return Thrid_Virtual_List_holder;}
+	public WebElement Search(){
+	wait_for_theElement(Search);
+	return Search;} 
+	public List<WebElement> Threedot_Button_in_list (){
+	wait_for_theElement(Threedot_Button_in_list);
+	return Threedot_Button_in_list;} 
+	public WebElement List_Dropdown_Menu(){
+	wait_for_theElement(List_Dropdown_Menu);
+	return List_Dropdown_Menu;}
+	public WebElement Red_color_Button(){
+	wait_for_theElement(Red_color_Button);
+	return Red_color_Button;}
+	public WebElement Success_Toast(){
+	wait_for_theElement(Success_Toast);
+	return Success_Toast;}  /*
 	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
