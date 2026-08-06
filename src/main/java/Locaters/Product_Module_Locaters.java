@@ -29,6 +29,247 @@ public class Product_Module_Locaters extends Repeat{
 	private WebElement Popup_Form;
 	@FindBy(xpath="//*[text()='Save']/..")
 	private WebElement Save_Button; 
+    @FindBy(xpath="//*[text()='Add Lab Test']/..")
+	private WebElement Lab_Test_Add_Button; 
+    @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[2]")
+	private WebElement Second_Virtual_List_holder; 
+    @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[3]")
+	private WebElement Thrid_Virtual_List_holder;  /*
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; 
+    @FindBy(xpath="")
+	private WebElement ; */
+	
 	
 	public Product_Module_Locaters(WebDriver d){
 	super(d);	
@@ -62,15 +303,16 @@ public class Product_Module_Locaters extends Repeat{
 	return Popup_Form;}
 	public WebElement Save_Button(){
 	wait_for_theElement(Save_Button);
-	return Save_Button;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return Save_Button;}
+	public WebElement Lab_Test_Add_Button(){
+	wait_for_theElement(Lab_Test_Add_Button);
+	return Lab_Test_Add_Button;}
+	public WebElement Second_Virtual_List_holder(){
+	wait_for_theElement(Second_Virtual_List_holder);
+	return Second_Virtual_List_holder;} 
+	public WebElement Thrid_Virtual_List_holder(){
+	wait_for_theElement(Thrid_Virtual_List_holder);
+	return Thrid_Virtual_List_holder;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;}

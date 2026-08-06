@@ -109,21 +109,294 @@ public Object[][] Category_Create_Data(){
 }
 
 
+@DataProvider
+public Object[][] Lab_Test_Create_Data(){
+
+	TreeMap<String, String> data1 = new TreeMap<String, String>();
+	data1.put("Lab Test Name", "Erectile Dysfunction Hormonal Screening Panel");
+	data1.put("Method", "Walk-In");
+	data1.put("Price", "129.00");
+	data1.put("Address Line 1", "1450 Madison Avenue");
+	data1.put("Address Line 2", "Suite 305, Aster Diagnostics Center");
+	data1.put("Country", "United States");
+	data1.put("State", "New York");
+	data1.put("City", "New York");
+	data1.put("Postal Code / Zip Code", "10029");
+
+	TreeMap<String, String> data2 = new TreeMap<String, String>();
+	data2.put("Lab Test Name", "Erectile Dysfunction Metabolic Risk Panel");
+	data2.put("Method", "Home Visit");
+	data2.put("Price", "149.00");
+
+	TreeMap<String, String> data3 = new TreeMap<String, String>();
+	data3.put("Lab Test Name", "Erectile Dysfunction Cardiovascular Risk Screening");
+	data3.put("Method", "Test Kit");
+	data3.put("Kit Provided By", "Provider");
+	data3.put("Price", "119.00");
+
+	TreeMap<String, String> data4 = new TreeMap<String, String>();
+	data4.put("Lab Test Name", "Hair Loss Thyroid and Ferritin Panel");
+	data4.put("Method", "Home Visit");
+	data4.put("Price", "139.00");
+
+	TreeMap<String, String> data5 = new TreeMap<String, String>();
+	data5.put("Lab Test Name", "Hair Loss Vitamin and Mineral Screening");
+	data5.put("Method", "Test Kit");
+	data5.put("Kit Provided By", "Store Owner (You)");
+	data5.put("Price", "109.00");
+
+	TreeMap<String, String> data6 = new TreeMap<String, String>();
+	data6.put("Lab Test Name", "Hair Loss Androgen Hormone Profile");
+	data6.put("Method", "Walk-In");
+	data6.put("Price", "159.00");
+	data6.put("Address Line 1", "820 North Michigan Avenue");
+	data6.put("Address Line 2", "Floor 6, Hair Health Laboratory");
+	data6.put("Country", "United States");
+	data6.put("State", "Illinois");
+	data6.put("City", "Chicago");
+	data6.put("Postal Code / Zip Code", "60611");
+
+	TreeMap<String, String> data7 = new TreeMap<String, String>();
+	data7.put("Lab Test Name", "HGH Deficiency IGF-1 Screening");
+	data7.put("Method", "Walk-In");
+	data7.put("Price", "189.00");
+	data7.put("Address Line 1", "2250 West Holcombe Boulevard");
+	data7.put("Address Line 2", "Suite 410, Endocrine Diagnostics Wing");
+	data7.put("Country", "United States");
+	data7.put("State", "Texas");
+	data7.put("City", "Houston");
+	data7.put("Postal Code / Zip Code", "77030");
+
+	TreeMap<String, String> data8 = new TreeMap<String, String>();
+	data8.put("Lab Test Name", "HGH Deficiency Pituitary Hormone Panel");
+	data8.put("Method", "Home Visit");
+	data8.put("Price", "229.00");
+
+	TreeMap<String, String> data9 = new TreeMap<String, String>();
+	data9.put("Lab Test Name", "Growth Hormone Stimulation Assessment");
+	data9.put("Method", "Walk-In");
+	data9.put("Price", "375.00");
+	data9.put("Address Line 1", "3100 Wilshire Boulevard");
+	data9.put("Address Line 2", "Suite 720, Hormone Evaluation Center");
+	data9.put("Country", "United States");
+	data9.put("State", "California");
+	data9.put("City", "Los Angeles");
+	data9.put("Postal Code / Zip Code", "90010");
+
+	TreeMap<String, String> data10 = new TreeMap<String, String>();
+	data10.put("Lab Test Name", "Insomnia Thyroid and Iron Screening");
+	data10.put("Method", "Home Visit");
+	data10.put("Price", "129.00");
+
+	TreeMap<String, String> data11 = new TreeMap<String, String>();
+	data11.put("Lab Test Name", "Insomnia Vitamin D and B12 Panel");
+	data11.put("Method", "Test Kit");
+	data11.put("Kit Provided By", "Provider");
+	data11.put("Price", "99.00");
+
+	TreeMap<String, String> data12 = new TreeMap<String, String>();
+	data12.put("Lab Test Name", "Low Mood and Focus Nutrient Deficiency Panel");
+	data12.put("Method", "Test Kit");
+	data12.put("Kit Provided By", "Store Owner (You)");
+	data12.put("Price", "119.00");
+
+	TreeMap<String, String> data13 = new TreeMap<String, String>();
+	data13.put("Lab Test Name", "Low Mood and Focus Thyroid CBC Panel");
+	data13.put("Method", "Home Visit");
+	data13.put("Price", "145.00");
+
+	TreeMap<String, String> data14 = new TreeMap<String, String>();
+	data14.put("Lab Test Name", "Low Mood and Focus Metabolic Screening");
+	data14.put("Method", "Walk-In");
+	data14.put("Price", "135.00");
+	data14.put("Address Line 1", "175 Cambridge Street");
+	data14.put("Address Line 2", "Suite 402, Behavioral Health Diagnostics");
+	data14.put("Country", "United States");
+	data14.put("State", "Massachusetts");
+	data14.put("City", "Boston");
+	data14.put("Postal Code / Zip Code", "02114");
+
+	TreeMap<String, String> data15 = new TreeMap<String, String>();
+	data15.put("Lab Test Name", "Total and Free Testosterone Assessment");
+	data15.put("Method", "Home Visit");
+	data15.put("Price", "169.00");
+
+	TreeMap<String, String> data16 = new TreeMap<String, String>();
+	data16.put("Lab Test Name", "LH FSH and Prolactin Hormone Panel");
+	data16.put("Method", "Walk-In");
+	data16.put("Price", "185.00");
+	data16.put("Address Line 1", "4800 North Federal Highway");
+	data16.put("Address Line 2", "Suite 215, Andrology Laboratory");
+	data16.put("Country", "United States");
+	data16.put("State", "Florida");
+	data16.put("City", "Fort Lauderdale");
+	data16.put("Postal Code / Zip Code", "33308");
+
+	TreeMap<String, String> data17 = new TreeMap<String, String>();
+	data17.put("Lab Test Name", "Testosterone Therapy PSA and Hematocrit Panel");
+	data17.put("Method", "Test Kit");
+	data17.put("Kit Provided By", "Provider");
+	data17.put("Price", "155.00");
+
+	TreeMap<String, String> data18 = new TreeMap<String, String>();
+	data18.put("Lab Test Name", "Obesity Comprehensive Metabolic Panel");
+	data18.put("Method", "Home Visit");
+	data18.put("Price", "149.00");
+
+	TreeMap<String, String> data19 = new TreeMap<String, String>();
+	data19.put("Lab Test Name", "Obesity HbA1c and Insulin Resistance Panel");
+	data19.put("Method", "Test Kit");
+	data19.put("Kit Provided By", "Store Owner (You)");
+	data19.put("Price", "159.00");
+
+	TreeMap<String, String> data20 = new TreeMap<String, String>();
+	data20.put("Lab Test Name", "Obesity Lipid and Liver Function Panel");
+	data20.put("Method", "Walk-In");
+	data20.put("Price", "175.00");
+	data20.put("Address Line 1", "950 East Washington Street");
+	data20.put("Address Line 2", "Suite 330, Metabolic Health Laboratory");
+	data20.put("Country", "United States");
+	data20.put("State", "Arizona");
+	data20.put("City", "Phoenix");
+	data20.put("Postal Code / Zip Code", "85034");
+
+	return new Object[][] {
+		{ data1 },
+		{ data2 },
+		{ data3 },
+		{ data4 },
+		{ data5 },
+		{ data6 },
+		{ data7 },
+		{ data8 },
+		{ data9 },
+		{ data10 },
+		{ data11 },
+		{ data12 },
+		{ data13 },
+		{ data14 },
+		{ data15 },
+		{ data16 },
+		{ data17 },
+		{ data18 },
+		{ data19 },
+		{ data20 } 
+	};
+}
+
+@Test(dataProvider = "Lab_Test_Create_Data")
+public void Lab_Test_ADD(TreeMap<String, String> data) throws Exception {
+	
+	ExtentTest log = Report_Listen.log_print_in_report();
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+	
+	String Lab_Test_Name = data.get("Lab Test Name");
+	String Method = data.get("Method");
+	String Price = data.get("Price");
+	
+	
+	Product_Module_Tab_Navigator("Lab Tests");
+	WebElement Lab_Test_Add = p.Lab_Test_Add_Button();
+	Lab_Test_Add.click();
+	WebElement Popup_Form = p.Popup_Form();
+	List<WebElement> Form_Fields = Popup_Form.findElements(By.xpath(".//input[@id='name' or @id='method' or @id='price']"));
+	WebElement Name_Field= Form_Fields.get(0);
+	WebElement Method_Field= Form_Fields.get(1);
+	WebElement Price_Field= Form_Fields.get(2);
+	Name_Field.sendKeys(Lab_Test_Name);
+	Method_Field.sendKeys(Method);
+	WebElement Method_type_list=   p.First_Virtual_List_holder();
+	List<WebElement> Method_type_list_options = Method_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+    for(WebElement Method_option : Method_type_list_options) {
+    	String Method_option_text = Method_option.getText();
+		if(Method_option_text.equals(Method)) {
+			Method_option.click();
+			break;
+		}}
+    if(Method.equals("Walk-In")) {
+    	
+    	String Address_Line_1 = data.get("Address Line 1");
+    	String Address_Line_2 = data.get("Address Line 2");
+    	String Country = data.get("Country");
+    	String State = data.get("State");
+    	String City = data.get("City");
+    	String Postal_Code = data.get("Postal Code / Zip Code");
+    	
+    	List<WebElement> Address_info_Fields = Popup_Form.findElements(By.xpath(".//input[@id='address1' or @id='address2' or @id='country' or @id='city' or @id='zip']"));
+    	WebElement Address_Line_1_Field= Address_info_Fields.get(0);
+    	WebElement Address_Line_2_Field= Address_info_Fields.get(1);
+    	WebElement Country_Field= Address_info_Fields.get(2);
+    	WebElement City_Field= Address_info_Fields.get(3);
+    	WebElement Postal_Code_Field= Address_info_Fields.get(4);
+    	Address_Line_1_Field.sendKeys(Address_Line_1);
+    	Address_Line_2_Field.sendKeys(Address_Line_2);
+    	Country_Field.click();
+    	Country_Field.clear();
+    	Country_Field.sendKeys(Country);
+    	WebElement Country_type_list=   p.Second_Virtual_List_holder();
+    	List<WebElement> Country_type_list_options = Country_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+        for(WebElement Country_option : Country_type_list_options) {
+        	String Country_option_text = Country_option.getText();
+    		if(Country_option_text.equals(Country)) {
+    			Country_option.click();
+    			break;}}
+        Thread.sleep(880);
+        WebElement State_Field= Popup_Form.findElement(By.xpath(".//input[@id='state']"));;
+        State_Field.click();
+        State_Field.clear();
+        State_Field.sendKeys(State);
+        WebElement State_type_list=   p.Thrid_Virtual_List_holder();
+    	List<WebElement> State_type_list_options = State_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+        for(WebElement State_option : State_type_list_options) {
+        	String State_option_text = State_option.getText();
+    		if(State_option_text.equals(State)) {
+    			State_option.click();
+    			break;}}
+        City_Field.clear();
+        City_Field.sendKeys(City);
+        Postal_Code_Field.sendKeys(Postal_Code);}
+    if(Method.equals("Test Kit")){
+    	
+    	String Kit_Provided_By = data.get("Kit Provided By");
+    	WebElement Kit_Provided_By_Field= Popup_Form.findElement(By.xpath(".//input[@id='kit_provided_by']"));
+    	Kit_Provided_By_Field.sendKeys(Kit_Provided_By);
+    	WebElement Kit_type_list=   p.Second_Virtual_List_holder();
+    	List<WebElement> Kit_type_list_options = Kit_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+        for(WebElement Kit_option : Kit_type_list_options) {
+        	String Kit_option_text = Kit_option.getText();
+    		if(Kit_option_text.equals(Kit_Provided_By)) {
+    			Kit_option.click();
+    			break;}}}
+    Price_Field.sendKeys(Price);
+	WebElement Save_Button = p.Save_Button();
+	Save_Button.click();
+	Thread.sleep(800);
+	p.Lab_Test_Add_Button();
+}
+
+
 
 @Test(dataProvider = "Category_Create_Data")
 public void Category_Add(TreeMap<String, String> data) throws Exception {
-	ExtentTest log = Report_Listen.log_print_in_report();
-	int step = 1;
+	
 	String Category_Name_Data = data.get("Category Name");
 	String Drug_Class_Code_Data = data.get("Drug Class / Code");
 	String Category_Description_Data = data.get("Description");
+	
+	
+	ExtentTest log = Report_Listen.log_print_in_report();
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+
+	int step = 1;
+	
+	
 
 	try {
 		log.info("Step " + step + ": Starting the Category creation flow.");
 		System.out.println("🔹 Step " + step + ": Starting the Category creation flow.");
 		step++;
 
-		Product_Module_Locaters p = new Product_Module_Locaters(d);
+		
 
 		log.info("Step " + step + ": Product Module locator class initialized successfully.");
 		System.out.println("🔹 Step " + step + ": Product Module locator class initialized successfully.");
