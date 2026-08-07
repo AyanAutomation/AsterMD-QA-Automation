@@ -2,6 +2,7 @@ package AsterMD.Project.AsterMD;
 
 import java.util.List;
 import java.util.TreeMap;
+import java.util.stream.IntStream;
 
 import com.aventstack.extentreports.ExtentTest;
 
@@ -98,12 +99,12 @@ public Object[][] Category_Create_Data(){
 	data7.put("Description", "Prescription therapies used as part of a medically supervised weight-management program for eligible patients with obesity or related metabolic risk factors.");
 
 	return new Object[][] {/*
-		{ data1 }, */
+		{ data1 }, 
 		{ data2 },
 		{ data3 },
 		{ data4 },
 		{ data5 },
-		{ data6 },
+		{ data6 }, */
 		{ data7 } 
 	};
 }
@@ -260,16 +261,16 @@ public Object[][] Lab_Test_Create_Data(){
 	data20.put("City", "Phoenix");
 	data20.put("Postal Code / Zip Code", "85034");
 
-	return new Object[][] {/*
-		{ data1 }
+	return new Object[][] {
+		{ data1 },
 		{ data2 }, 
 		{ data3 },
 		{ data4 },
 		{ data5 },
-		{ data6 },
-		{ data7 }, 
-		{ data8 },*/
-		{ data9 },/*
+		{ data6 },/*
+		{ data7 }, */
+		{ data8 }, /*
+		{ data9 },
 		{ data10 },
 		{ data11 },
 		{ data12 },
@@ -284,390 +285,6 @@ public Object[][] Lab_Test_Create_Data(){
 	};
 }
 
-@Test(dataProvider = "Lab_Test_Create_Data")
-public void Lab_Test_ADD(TreeMap<String, String> data) throws Exception {
-	
-	ExtentTest log = Report_Listen.log_print_in_report();
-	Product_Module_Locaters p = new Product_Module_Locaters(d);
-	
-	String Lab_Test_Name = data.get("Lab Test Name");
-	String Method = data.get("Method");
-	String Price = data.get("Price");
-	
-	
-	Product_Module_Tab_Navigator("Lab Tests");
-	WebElement Lab_Test_Add = p.Lab_Test_Add_Button();
-	Lab_Test_Add.click();
-	WebElement Popup_Form = p.Popup_Form();
-	List<WebElement> Form_Fields = Popup_Form.findElements(By.xpath(".//input[@id='name' or @id='method' or @id='price']"));
-	WebElement Name_Field= Form_Fields.get(0);
-	WebElement Method_Field= Form_Fields.get(1);
-	WebElement Price_Field= Form_Fields.get(2);
-	Name_Field.sendKeys(Lab_Test_Name);
-	Method_Field.sendKeys(Method);
-	WebElement Method_type_list=   p.First_Virtual_List_holder();
-	List<WebElement> Method_type_list_options = Method_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
-    for(WebElement Method_option : Method_type_list_options) {
-    	String Method_option_text = Method_option.getText();
-		if(Method_option_text.equals(Method)) {
-			Method_option.click();
-			break;
-		}}
-    if(Method.equals("Walk-In")) {
-    	
-    	String Address_Line_1 = data.get("Address Line 1");
-    	String Address_Line_2 = data.get("Address Line 2");
-    	String Country = data.get("Country");
-    	String State = data.get("State");
-    	String City = data.get("City");
-    	String Postal_Code = data.get("Postal Code / Zip Code");
-    	
-    	List<WebElement> Address_info_Fields = Popup_Form.findElements(By.xpath(".//input[@id='address1' or @id='address2' or @id='country' or @id='city' or @id='zip']"));
-    	WebElement Address_Line_1_Field= Address_info_Fields.get(0);
-    	WebElement Address_Line_2_Field= Address_info_Fields.get(1);
-    	WebElement Country_Field= Address_info_Fields.get(2);
-    	WebElement City_Field= Address_info_Fields.get(3);
-    	WebElement Postal_Code_Field= Address_info_Fields.get(4);
-    	Address_Line_1_Field.sendKeys(Address_Line_1);
-    	Address_Line_2_Field.sendKeys(Address_Line_2);
-    	Country_Field.click();
-    	Country_Field.clear();
-    	Country_Field.sendKeys(Country);
-    	WebElement Country_type_list=   p.Second_Virtual_List_holder();
-    	List<WebElement> Country_type_list_options = Country_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
-        for(WebElement Country_option : Country_type_list_options) {
-        	String Country_option_text = Country_option.getText();
-    		if(Country_option_text.equals(Country)) {
-    			Country_option.click();
-    			break;}}
-        Thread.sleep(880);
-        WebElement State_Field= Popup_Form.findElement(By.xpath(".//input[@id='state']"));;
-        State_Field.click();
-        State_Field.clear();
-        State_Field.sendKeys(State);
-        WebElement State_type_list=   p.Thrid_Virtual_List_holder();
-    	List<WebElement> State_type_list_options = State_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
-        for(WebElement State_option : State_type_list_options) {
-        	String State_option_text = State_option.getText();
-    		if(State_option_text.equals(State)) {
-    			State_option.click();
-    			break;}}
-        City_Field.clear();
-        City_Field.sendKeys(City);
-        Postal_Code_Field.sendKeys(Postal_Code);}
-    if(Method.equals("Test Kit")){
-    	
-    	String Kit_Provided_By = data.get("Kit Provided By");
-    	WebElement Kit_Provided_By_Field= Popup_Form.findElement(By.xpath(".//input[@id='kit_provided_by']"));
-    	Kit_Provided_By_Field.sendKeys(Kit_Provided_By);
-    	WebElement Kit_type_list=   p.Second_Virtual_List_holder();
-    	List<WebElement> Kit_type_list_options = Kit_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
-        for(WebElement Kit_option : Kit_type_list_options) {
-        	String Kit_option_text = Kit_option.getText();
-    		if(Kit_option_text.equals(Kit_Provided_By)) {
-    			Kit_option.click();
-    			break;}}}
-    Price_Field.sendKeys(Price);
-	WebElement Save_Button = p.Save_Button();
-	Save_Button.click();
-	Thread.sleep(800);
-	p.Lab_Test_Add_Button();
-}
-
-
-
-@Test(dataProvider = "Category_Create_Data")
-public void Category_Add(TreeMap<String, String> data) throws Exception {
-	
-	String Category_Name_Data = data.get("Category Name");
-	String Drug_Class_Code_Data = data.get("Drug Class / Code");
-	String Category_Description_Data = data.get("Description");
-	
-	
-	ExtentTest log = Report_Listen.log_print_in_report();
-	Product_Module_Locaters p = new Product_Module_Locaters(d);
-
-	int step = 1;
-	
-	
-
-	try {
-		log.info("Step " + step + ": Starting the Category creation flow.");
-		System.out.println("🔹 Step " + step + ": Starting the Category creation flow.");
-		step++;
-
-		
-
-		log.info("Step " + step + ": Product Module locator class initialized successfully.");
-		System.out.println("🔹 Step " + step + ": Product Module locator class initialized successfully.");
-		step++;
-
-		
-
-		log.info("Step " + step + ": Category creation test data retrieved from the DataProvider.");
-		log.info("Category Name: " + Category_Name_Data);
-		log.info("Drug Class / Code: " + Drug_Class_Code_Data);
-		log.info("Description: " + Category_Description_Data);
-		System.out.println("🔹 Step " + step + ": Category creation test data retrieved from the DataProvider.");
-		System.out.println("   ➤ Category Name: " + Category_Name_Data);
-		System.out.println("   ➤ Drug Class / Code: " + Drug_Class_Code_Data);
-		System.out.println("   ➤ Description: " + Category_Description_Data);
-		step++;
-
-		log.info("Step " + step + ": Navigating to the Categories tab of the Product Module.");
-		System.out.println("🔹 Step " + step + ": Navigating to the Categories tab of the Product Module.");
-
-		Product_Module_Tab_Navigator("Categories");
-
-		log.pass("Step " + step + ": Categories tab opened successfully.");
-		System.out.println("✅ Step " + step + ": Categories tab opened successfully.");
-		step++;
-
-		log.info("Step " + step + ": Retrieving the Category Add button.");
-		System.out.println("🔹 Step " + step + ": Retrieving the Category Add button.");
-
-		WebElement Category_Add = p.Category_Add_Button();
-
-		log.pass("Step " + step + ": Category Add button retrieved successfully.");
-		System.out.println("✅ Step " + step + ": Category Add button retrieved successfully.");
-		step++;
-
-		log.info("Step " + step + ": Clicking the Category Add button.");
-		System.out.println("🔹 Step " + step + ": Clicking the Category Add button.");
-
-		Category_Add.click();
-
-		log.pass("Step " + step + ": Category Add button clicked successfully.");
-		System.out.println("✅ Step " + step + ": Category Add button clicked successfully.");
-		step++;
-
-		log.info("Step " + step + ": Retrieving the Category creation popup form.");
-		System.out.println("🔹 Step " + step + ": Retrieving the Category creation popup form.");
-
-		WebElement Popup_Form = p.Popup_Form();
-
-		log.pass("Step " + step + ": Category creation popup form displayed successfully.");
-		System.out.println("✅ Step " + step + ": Category creation popup form displayed successfully.");
-		step++;
-
-		log.info("Step " + step + ": Retrieving input fields from the Category creation popup form.");
-		System.out.println("🔹 Step " + step + ": Retrieving input fields from the Category creation popup form.");
-
-		List<WebElement> Form_Fields = Popup_Form.findElements(By.xpath(".//input"));
-		WebElement Category_Name = Form_Fields.get(0);
-		WebElement Drug_Class_Field = Form_Fields.get(1);
-		WebElement Category_Description = Popup_Form.findElement(By.xpath(".//textarea"));
-
-		log.pass("Step " + step + ": Category Name, Drug Class / Code and Description fields retrieved successfully.");
-		System.out.println("✅ Step " + step + ": Category Name, Drug Class / Code and Description fields retrieved successfully.");
-		step++;
-
-		log.info("Step " + step + ": Entering the Category Name: " + Category_Name_Data);
-		System.out.println("🔹 Step " + step + ": Entering the Category Name: " + Category_Name_Data);
-
-		Category_Name.clear();
-		Category_Name.sendKeys(Category_Name_Data);
-
-		log.pass("Step " + step + ": Category Name entered successfully.");
-		System.out.println("✅ Step " + step + ": Category Name entered successfully.");
-		step++;
-
-		log.info("Step " + step + ": Entering the Drug Class / Code: " + Drug_Class_Code_Data);
-		System.out.println("🔹 Step " + step + ": Entering the Drug Class / Code: " + Drug_Class_Code_Data);
-
-		Drug_Class_Field.clear();
-		Drug_Class_Field.sendKeys(Drug_Class_Code_Data);
-
-		log.pass("Step " + step + ": Drug Class / Code entered successfully.");
-		System.out.println("✅ Step " + step + ": Drug Class / Code entered successfully.");
-		step++;
-
-		log.info("Step " + step + ": Entering the Category Description.");
-		System.out.println("🔹 Step " + step + ": Entering the Category Description.");
-
-		Category_Description.clear();
-		Category_Description.sendKeys(Category_Description_Data);
-
-		log.pass("Step " + step + ": Category Description entered successfully.");
-		System.out.println("✅ Step " + step + ": Category Description entered successfully.");
-		step++;
-
-		log.info("Step " + step + ": Retrieving the Save button.");
-		System.out.println("🔹 Step " + step + ": Retrieving the Save button.");
-
-		WebElement Save_Button = p.Save_Button();
-
-		log.pass("Step " + step + ": Save button retrieved successfully.");
-		System.out.println("✅ Step " + step + ": Save button retrieved successfully.");
-		step++;
-
-		log.info("Step " + step + ": Clicking the Save button to create the Category.");
-		System.out.println("🔹 Step " + step + ": Clicking the Save button to create the Category.");
-
-		Save_Button.click();
-
-		log.pass("Step " + step + ": Save button clicked successfully.");
-		System.out.println("✅ Step " + step + ": Save button clicked successfully.");
-		step++;
-
-		log.info("Step " + step + ": Verifying that the Category creation process completed and the Category Add button is available again.");
-		System.out.println("🔹 Step " + step + ": Verifying that the Category creation process completed and the Category Add button is available again.");
-
-		p.Category_Add_Button();
-
-		log.pass("Category created successfully with Category Name: " + Category_Name_Data);
-		System.out.println("✅ Category created successfully with Category Name: " + Category_Name_Data);
-	} catch (Exception e) {
-		if (log != null) log.fail("Category creation failed for Category Name '" + Category_Name_Data + "'. Failure reason: " + e.getMessage());
-		System.out.println("❌ Category creation failed for Category Name: " + Category_Name_Data);
-		System.out.println("❌ Failure reason: " + e.getMessage());
-		throw e;
-	}
-}
-	
-   
-   public void Product_Module_Tab_Navigator(String Tab_Option) throws Exception{
-	   
-	   Product_Module_Locaters p = new Product_Module_Locaters(d);
-	   
-	   
-	   WebElement Nav_Bar;
-	/*   try {
-		   Nav_Bar=p.Top_Navigation_bar();} */
-	//   catch(Exception e) {
-		   Product_Module_Accessor();
-		   Nav_Bar=p.Top_Navigation_bar();
-		  // }
-	   List<WebElement> Tabs=Nav_Bar.findElements(By.xpath(".//div[@class='ant-tabs-tab']"));
-	   for(WebElement tab:Tabs) {
-		   String Tab_Name=tab.getText().trim();
-	       if(Tab_Name.equalsIgnoreCase(Tab_Option)) {
-	    	   tab.click();
-	    	   System.out.println("✅ Navigated to the "+ Tab_Option +" tab successfully.");
-	    	   break;}}}
-	   
-   
-	
-@Test(dataProvider="Product_Create_Data")
-public void Product_Add(TreeMap<String, String> Product_data) throws Exception{
-	
-	Product_Module_Locaters p = new Product_Module_Locaters(d);
-	
-	String Product_Name = Product_data.get("Product Name");
-	String Description = Product_data.get("Description");
-	String Product_Image = Product_data.get("Product Image");
-	String Product_Type = Product_data.get("Product Type");
-	String Category = Product_data.get("Category");
-	String Visibility = Product_data.get("Visibility");
-	String Minimum_Buy_Quantity = Product_data.get("Minimum Buy Quantity");
-	String Maximum_Buy_Quantity = Product_data.get("Maximum Buy Quantity");
-	String Stock_Count = Product_data.get("Stock Count");
-	String Intake_Form = Product_data.get("Intake Form");
-	String Default_SKU_Identifier = Product_data.get("Default SKU / Identifier");
-	String Condition_Treated = Product_data.get("Condition Treated");
-	String Restrict_Multiple_Active_Prescriptions = Product_data.get("Restrict Multiple Active Prescriptions");
-	String Pricing_Type = Product_data.get("Pricing Type");
-	String Intro_Price = Product_data.get("Intro Price");
-	String Default_Price = Product_data.get("Default Price");
-	String Sale_Price = Product_data.get("Sale Price");
-	String Sale_Start_Date = Product_data.get("Sale Start Date");
-	String Sales_End_Date = Product_data.get("Sales End Date");
-	String Lab_Test = Product_data.get("Lab Test");
-	
-	
-	WebElement Product_Add = Product_Module_Accessor();
-	Product_Add.click();
-	Thread.sleep(800);
-	WebElement Product_form= p.Form();
-	List<WebElement> Inputs;
-
-	try {
-		
-		Inputs = p.Form_Inputs(Product_form);
-
-		
-	} catch (Exception e) {
-		
-
-		Inputs = p.Form_Inputs(Product_form);
-
-		
-	}
-    WebElement Product_Name_Input = Inputs.get(0);
-    WebElement Product_Type_Input = Inputs.get(1);
-    WebElement Product_Category_Input = Inputs.get(2);
-    WebElement Product_Visibility_Input = Inputs.get(3);
-    WebElement Min_Quantity_Input = Inputs.get(4);
-    WebElement Max_Quantity_Input = Inputs.get(5);
-    WebElement Stock_Input = Inputs.get(6);
-    WebElement Eigth_input = Inputs.get(7);
-    WebElement Condition_treated_Input = Inputs.get(8);
-    WebElement Intro_Input = Inputs.get(9);
-    WebElement Default_Price_Input = Inputs.get(10);
-    WebElement Sales_Price_Input = Inputs.get(11);
-    
-    
-    
-    Product_Name_Input.sendKeys(Product_Name);
-    Product_Type_Input.sendKeys(Product_Type);
-    WebElement Prod_type_list=   p.First_Virtual_List_holder();
-	List<WebElement> Prod_type_list_options = Prod_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
-    for(WebElement option : Prod_type_list_options) {
-		if(option.getText().equals(Product_Type)) {
-			option.click();
-			break;
-		}}
-    Product_Category_Input.sendKeys(Category);
-    
-}	
-	
-
-
-@Test(dataProvider="Lab_Test_Create_Data")
-public void Product_Delete(TreeMap<String, String> Product_data) throws Exception{
-	
-	String Product_Name = Product_data.get("Lab Test Name");
-	Product_Module_Locaters p = new Product_Module_Locaters(d);
-	
-	WebElement Product_Add = Product_Module_Accessor();
-	WebElement Product_Search = p.Search();
-	Product_Search.sendKeys(Product_Name);
-	Thread.sleep(1800);
-	Three_Dot_Menu_Option_Selector("Delete");
-	
-}
-
-
-public void Three_Dot_Menu_Option_Selector(String Option) throws Exception {
-	
-	
-	Product_Module_Locaters p = new Product_Module_Locaters(d);
-	
-	List<WebElement> ThreeDot_Buttons = p.Threedot_Button_in_list();
-	
-	String Option_to_be_selected = Option.trim();
-	
-	for(WebElement ThreeDot_Button : ThreeDot_Buttons) {
-		WebElement Button=ThreeDot_Button;
-		Button.click();
-		WebElement Option_List = p.List_Dropdown_Menu();
-		List<WebElement> Options = Option_List.findElements(By.xpath(".//li"));
-		for(WebElement Option_Element : Options) {
-			String Option_Text = Option_Element.getText().trim();
-			
-			if(Option_Text.equalsIgnoreCase(Option_to_be_selected)) {
-				Option_Element.click();
-				System.out.println("✅ " + Option_to_be_selected + " option selected successfully.");
-				WebElement Popup_Delete_button = p.Red_color_Button();
-				Popup_Delete_button.click();
-				Thread.sleep(800);/*
-				WebElement Confirmation_Message = p.Success_Toast();
-				String Confirmation_Message_Text = Confirmation_Message.getText().trim();
-				System.out.println("✅ Confirmation message displayed: " + Confirmation_Message_Text);*/
-				break;
-			}}}
-
-}
 
 @DataProvider
 public Object[][] Product_Create_Data(){
@@ -1112,12 +729,12 @@ public Object[][] Product_Create_Data(){
 	data20.put("Sales End Date", "10/20/2026");
 	data20.put("Lab Test", "Yes");
 
-	return new Object[][] {
-		{ data1 },/*
+	return new Object[][] {/*
+		{ data1 },
 		{ data2 },
 		{ data3 },
-		{ data4 },
-		{ data5 },
+		{ data4 }, */
+		{ data5 },/*
 		{ data6 },
 		{ data7 },
 		{ data8 },
@@ -1135,6 +752,450 @@ public Object[][] Product_Create_Data(){
 		{ data20 } */
 	};
 }
+
+@DataProvider
+public Object[][] combined_data_provider() {
+
+	Object[][] Category_datas = Category_Create_Data();
+	Object[][] Lab_Test_datas = Lab_Test_Create_Data();
+	Object[][] Product_datas = Product_Create_Data();
+
+	int n = IntStream.of(Category_datas.length, Lab_Test_datas.length, Product_datas.length).min().orElse(0);
+
+	Object[][] combined_data = new Object[n][3];
+
+	int i = 0;
+	while (i < n) {
+		combined_data[i][0] = Category_datas[i][0]; // Category Create Data
+		combined_data[i][1] = Lab_Test_datas[i][0]; // Lab Test Create Data
+		combined_data[i][2] = Product_datas[i][0]; // Product Create Data
+		i++;
+	}
+
+	return combined_data;
+}
+
+
+
+@Test(dataProvider = "Lab_Test_Create_Data")
+public void Lab_Test_ADD(TreeMap<String, String> data) throws Exception {
+	
+	ExtentTest log = Report_Listen.log_print_in_report();
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+	
+	String Lab_Test_Name = data.get("Lab Test Name");
+	String Method = data.get("Method");
+	String Price = data.get("Price");
+	
+	
+	Product_Module_Tab_Navigator("Lab Tests");
+	WebElement Lab_Test_Add = p.Lab_Test_Add_Button();
+	Lab_Test_Add.click();
+	WebElement Popup_Form = p.Popup_Form();
+	List<WebElement> Form_Fields = Popup_Form.findElements(By.xpath(".//input[@id='name' or @id='method' or @id='price']"));
+	WebElement Name_Field= Form_Fields.get(0);
+	WebElement Method_Field= Form_Fields.get(1);
+	WebElement Price_Field= Form_Fields.get(2);
+	Name_Field.sendKeys(Lab_Test_Name);
+	Method_Field.sendKeys(Method);
+	WebElement Method_type_list=   p.First_Virtual_List_holder();
+	List<WebElement> Method_type_list_options = Method_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+    for(WebElement Method_option : Method_type_list_options) {
+    	String Method_option_text = Method_option.getText();
+		if(Method_option_text.equals(Method)) {
+			Method_option.click();
+			break;
+		}}
+    if(Method.equals("Walk-In")) {
+    	
+    	String Address_Line_1 = data.get("Address Line 1");
+    	String Address_Line_2 = data.get("Address Line 2");
+    	String Country = data.get("Country");
+    	String State = data.get("State");
+    	String City = data.get("City");
+    	String Postal_Code = data.get("Postal Code / Zip Code");
+    	
+    	List<WebElement> Address_info_Fields = Popup_Form.findElements(By.xpath(".//input[@id='address1' or @id='address2' or @id='country' or @id='city' or @id='zip']"));
+    	WebElement Address_Line_1_Field= Address_info_Fields.get(0);
+    	WebElement Address_Line_2_Field= Address_info_Fields.get(1);
+    	WebElement Country_Field= Address_info_Fields.get(2);
+    	WebElement City_Field= Address_info_Fields.get(3);
+    	WebElement Postal_Code_Field= Address_info_Fields.get(4);
+    	Address_Line_1_Field.sendKeys(Address_Line_1);
+    	Address_Line_2_Field.sendKeys(Address_Line_2);
+    	Country_Field.click();
+    	Country_Field.clear();
+    	Country_Field.sendKeys(Country);
+    	WebElement Country_type_list=   p.Second_Virtual_List_holder();
+    	List<WebElement> Country_type_list_options = Country_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+        for(WebElement Country_option : Country_type_list_options) {
+        	String Country_option_text = Country_option.getText();
+    		if(Country_option_text.equals(Country)) {
+    			Country_option.click();
+    			break;}}
+        Thread.sleep(880);
+        WebElement State_Field= Popup_Form.findElement(By.xpath(".//input[@id='state']"));;
+        State_Field.click();
+        State_Field.clear();
+        State_Field.sendKeys(State);
+        WebElement State_type_list=   p.Thrid_Virtual_List_holder();
+    	List<WebElement> State_type_list_options = State_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+        for(WebElement State_option : State_type_list_options) {
+        	String State_option_text = State_option.getText();
+    		if(State_option_text.equals(State)) {
+    			State_option.click();
+    			break;}}
+        City_Field.clear();
+        City_Field.sendKeys(City);
+        Postal_Code_Field.sendKeys(Postal_Code);}
+    if(Method.equals("Test Kit")){
+    	
+    	String Kit_Provided_By = data.get("Kit Provided By");
+    	WebElement Kit_Provided_By_Field= Popup_Form.findElement(By.xpath(".//input[@id='kit_provided_by']"));
+    	Kit_Provided_By_Field.sendKeys(Kit_Provided_By);
+    	WebElement Kit_type_list=   p.Second_Virtual_List_holder();
+    	List<WebElement> Kit_type_list_options = Kit_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+        for(WebElement Kit_option : Kit_type_list_options) {
+        	String Kit_option_text = Kit_option.getText();
+    		if(Kit_option_text.equals(Kit_Provided_By)) {
+    			Kit_option.click();
+    			break;}}}
+    Price_Field.sendKeys(Price);
+	WebElement Save_Button = p.Save_Button();
+	Save_Button.click();
+	Thread.sleep(800);
+	p.Lab_Test_Add_Button();
+}
+
+
+
+@Test(dataProvider = "Category_Create_Data")
+public void Category_Add(TreeMap<String, String> data) throws Exception {
+	
+	String Category_Name_Data = data.get("Category Name");
+	String Drug_Class_Code_Data = data.get("Drug Class / Code");
+	String Category_Description_Data = data.get("Description");
+	
+	
+	ExtentTest log = Report_Listen.log_print_in_report();
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+
+	int step = 1;
+	
+	
+
+	try {
+		log.info("Step " + step + ": Starting the Category creation flow.");
+		System.out.println("🔹 Step " + step + ": Starting the Category creation flow.");
+		step++;
+
+		
+
+		log.info("Step " + step + ": Product Module locator class initialized successfully.");
+		System.out.println("🔹 Step " + step + ": Product Module locator class initialized successfully.");
+		step++;
+
+		
+
+		log.info("Step " + step + ": Category creation test data retrieved from the DataProvider.");
+		log.info("Category Name: " + Category_Name_Data);
+		log.info("Drug Class / Code: " + Drug_Class_Code_Data);
+		log.info("Description: " + Category_Description_Data);
+		System.out.println("🔹 Step " + step + ": Category creation test data retrieved from the DataProvider.");
+		System.out.println("   ➤ Category Name: " + Category_Name_Data);
+		System.out.println("   ➤ Drug Class / Code: " + Drug_Class_Code_Data);
+		System.out.println("   ➤ Description: " + Category_Description_Data);
+		step++;
+
+		log.info("Step " + step + ": Navigating to the Categories tab of the Product Module.");
+		System.out.println("🔹 Step " + step + ": Navigating to the Categories tab of the Product Module.");
+
+		Product_Module_Tab_Navigator("Categories");
+
+		log.pass("Step " + step + ": Categories tab opened successfully.");
+		System.out.println("✅ Step " + step + ": Categories tab opened successfully.");
+		step++;
+
+		log.info("Step " + step + ": Retrieving the Category Add button.");
+		System.out.println("🔹 Step " + step + ": Retrieving the Category Add button.");
+
+		WebElement Category_Add = p.Category_Add_Button();
+
+		log.pass("Step " + step + ": Category Add button retrieved successfully.");
+		System.out.println("✅ Step " + step + ": Category Add button retrieved successfully.");
+		step++;
+
+		log.info("Step " + step + ": Clicking the Category Add button.");
+		System.out.println("🔹 Step " + step + ": Clicking the Category Add button.");
+
+		Category_Add.click();
+
+		log.pass("Step " + step + ": Category Add button clicked successfully.");
+		System.out.println("✅ Step " + step + ": Category Add button clicked successfully.");
+		step++;
+
+		log.info("Step " + step + ": Retrieving the Category creation popup form.");
+		System.out.println("🔹 Step " + step + ": Retrieving the Category creation popup form.");
+
+		WebElement Popup_Form = p.Popup_Form();
+
+		log.pass("Step " + step + ": Category creation popup form displayed successfully.");
+		System.out.println("✅ Step " + step + ": Category creation popup form displayed successfully.");
+		step++;
+
+		log.info("Step " + step + ": Retrieving input fields from the Category creation popup form.");
+		System.out.println("🔹 Step " + step + ": Retrieving input fields from the Category creation popup form.");
+
+		List<WebElement> Form_Fields = Popup_Form.findElements(By.xpath(".//input"));
+		WebElement Category_Name = Form_Fields.get(0);
+		WebElement Drug_Class_Field = Form_Fields.get(1);
+		WebElement Category_Description = Popup_Form.findElement(By.xpath(".//textarea"));
+
+		log.pass("Step " + step + ": Category Name, Drug Class / Code and Description fields retrieved successfully.");
+		System.out.println("✅ Step " + step + ": Category Name, Drug Class / Code and Description fields retrieved successfully.");
+		step++;
+
+		log.info("Step " + step + ": Entering the Category Name: " + Category_Name_Data);
+		System.out.println("🔹 Step " + step + ": Entering the Category Name: " + Category_Name_Data);
+
+		Category_Name.clear();
+		Category_Name.sendKeys(Category_Name_Data);
+
+		log.pass("Step " + step + ": Category Name entered successfully.");
+		System.out.println("✅ Step " + step + ": Category Name entered successfully.");
+		step++;
+
+		log.info("Step " + step + ": Entering the Drug Class / Code: " + Drug_Class_Code_Data);
+		System.out.println("🔹 Step " + step + ": Entering the Drug Class / Code: " + Drug_Class_Code_Data);
+
+		Drug_Class_Field.clear();
+		Drug_Class_Field.sendKeys(Drug_Class_Code_Data);
+
+		log.pass("Step " + step + ": Drug Class / Code entered successfully.");
+		System.out.println("✅ Step " + step + ": Drug Class / Code entered successfully.");
+		step++;
+
+		log.info("Step " + step + ": Entering the Category Description.");
+		System.out.println("🔹 Step " + step + ": Entering the Category Description.");
+
+		Category_Description.clear();
+		Category_Description.sendKeys(Category_Description_Data);
+
+		log.pass("Step " + step + ": Category Description entered successfully.");
+		System.out.println("✅ Step " + step + ": Category Description entered successfully.");
+		step++;
+
+		log.info("Step " + step + ": Retrieving the Save button.");
+		System.out.println("🔹 Step " + step + ": Retrieving the Save button.");
+
+		WebElement Save_Button = p.Save_Button();
+
+		log.pass("Step " + step + ": Save button retrieved successfully.");
+		System.out.println("✅ Step " + step + ": Save button retrieved successfully.");
+		step++;
+
+		log.info("Step " + step + ": Clicking the Save button to create the Category.");
+		System.out.println("🔹 Step " + step + ": Clicking the Save button to create the Category.");
+
+		Save_Button.click();
+
+		log.pass("Step " + step + ": Save button clicked successfully.");
+		System.out.println("✅ Step " + step + ": Save button clicked successfully.");
+		step++;
+
+		log.info("Step " + step + ": Verifying that the Category creation process completed and the Category Add button is available again.");
+		System.out.println("🔹 Step " + step + ": Verifying that the Category creation process completed and the Category Add button is available again.");
+
+		p.Category_Add_Button();
+
+		log.pass("Category created successfully with Category Name: " + Category_Name_Data);
+		System.out.println("✅ Category created successfully with Category Name: " + Category_Name_Data);
+	} catch (Exception e) {
+		if (log != null) log.fail("Category creation failed for Category Name '" + Category_Name_Data + "'. Failure reason: " + e.getMessage());
+		System.out.println("❌ Category creation failed for Category Name: " + Category_Name_Data);
+		System.out.println("❌ Failure reason: " + e.getMessage());
+		throw e;
+	}
+}
+	
+   
+   public void Product_Module_Tab_Navigator(String Tab_Option) throws Exception{
+	   
+	   Product_Module_Locaters p = new Product_Module_Locaters(d);
+	   
+	   
+	   WebElement Nav_Bar;
+	/*   try {
+		   Nav_Bar=p.Top_Navigation_bar();} */
+	//   catch(Exception e) {
+		   Product_Module_Accessor();
+		   Nav_Bar=p.Top_Navigation_bar();
+		  // }
+	   List<WebElement> Tabs=Nav_Bar.findElements(By.xpath(".//div[@class='ant-tabs-tab']"));
+	   for(WebElement tab:Tabs) {
+		   String Tab_Name=tab.getText().trim();
+	       if(Tab_Name.equalsIgnoreCase(Tab_Option)) {
+	    	   tab.click();
+	    	   System.out.println("✅ Navigated to the "+ Tab_Option +" tab successfully.");
+	    	   break;}}}
+	   
+   
+	
+@Test(dataProvider="combined_data_provider")
+public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<String, String> Lab_Test_Create_Data,TreeMap<String, String> Product_data) throws Exception{
+	
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+	
+	String Product_Name = Product_data.get("Product Name");
+	String Description = Product_data.get("Description");
+	String Product_Image = Product_data.get("Product Image");
+	String Product_Type = Product_data.get("Product Type");
+	String Category = Category_Create_Data.get("Category Name");
+	String Visibility = Product_data.get("Visibility");
+	String Minimum_Buy_Quantity = Product_data.get("Minimum Buy Quantity");
+	String Maximum_Buy_Quantity = Product_data.get("Maximum Buy Quantity");
+	String Stock_Count = Product_data.get("Stock Count");
+	String Intake_Form = Product_data.get("Intake Form");
+	String Default_SKU_Identifier = Product_data.get("Default SKU / Identifier");
+	String Condition_Treated = Product_data.get("Condition Treated");
+	String Restrict_Multiple_Active_Prescriptions = Product_data.get("Restrict Multiple Active Prescriptions");
+	String Pricing_Type = Product_data.get("Pricing Type");
+	String Intro_Price = Product_data.get("Intro Price");
+	String Default_Price = Product_data.get("Default Price");
+	String Sale_Price = Product_data.get("Sale Price");
+	String Sale_Start_Date = Product_data.get("Sale Start Date");
+	String Sales_End_Date = Product_data.get("Sales End Date");
+	String Lab_Test = Lab_Test_Create_Data.get("Lab Test Name");
+	
+	
+	WebElement Product_Add = Product_Module_Accessor();
+	Product_Add.click();
+	Thread.sleep(1200);
+	WebElement Product_form= p.Form();
+	List<WebElement> Inputs;
+
+	try {
+		Inputs = p.Product_Add_Form_Inputs(Product_form);
+      } catch (Exception e) {
+		
+        Inputs = p.Product_Add_Form_Inputs(Product_form);
+        }
+    WebElement Product_Name_Input = Inputs.get(0);
+    WebElement Product_Type_Input = Inputs.get(1);
+    WebElement Product_Category_Input = Inputs.get(2);
+    WebElement Product_Visibility_Input = Inputs.get(3);
+    WebElement Min_Quantity_Input = Inputs.get(4);
+    WebElement Max_Quantity_Input = Inputs.get(5);
+    WebElement Stock_Input = Inputs.get(6);
+    WebElement Default_SKU = Inputs.get(7);
+    WebElement Condition_treated_Input = Inputs.get(8);
+    WebElement Intro_Input = Inputs.get(9);
+    WebElement Default_Price_Input = Inputs.get(11);
+    WebElement Sales_Price_Input = Inputs.get(10);
+    WebElement Sales_Start_Date_Input = Inputs.get(12);
+    WebElement Sales_End_Date_Input = Inputs.get(13);
+    
+    Product_Name_Input.sendKeys(Product_Name);
+    Product_Type_Input.sendKeys(Product_Type);
+    WebElement Prod_type_list=   p.First_Virtual_List_holder();
+	List<WebElement> Prod_type_list_options = Prod_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+    for(WebElement option : Prod_type_list_options) {
+		if(option.getText().equals(Product_Type)) {
+			option.click();
+			break;
+		}}
+    Product_Category_Input.sendKeys(Category);
+    WebElement Categories_type_list=   p.Second_Virtual_List_holder();
+	List<WebElement> Categories_type_list_options = Categories_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+    for(WebElement option : Categories_type_list_options) {
+		if(option.getText().equals(Category)) {
+			option.click();
+			break;
+		}}
+    Product_Visibility_Input.sendKeys(Visibility);
+    WebElement Product_Visibility_list=   p.Thrid_Virtual_List_holder();
+	List<WebElement> Product_Visibility_list_options = Product_Visibility_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+    for(WebElement option : Product_Visibility_list_options) {
+		if(option.getText().equals(Visibility)) {
+			option.click();
+			break;
+		}}
+    Min_Quantity_Input.sendKeys(Minimum_Buy_Quantity);
+    Max_Quantity_Input.sendKeys(Maximum_Buy_Quantity);
+    Stock_Input.sendKeys(Stock_Count);
+    if(Product_Type.equals("Prescription")){
+    	WebElement Intake_Form_Input = p.Intake_form_field();
+    	Intake_Form_Input.sendKeys(Intake_Form);
+    	
+    }
+    Default_SKU.sendKeys(Default_SKU_Identifier);
+    Condition_treated_Input.sendKeys(Condition_Treated);
+    Intro_Input.sendKeys(Intro_Price);
+    Default_Price_Input.sendKeys(Default_Price);
+    Sales_Price_Input.sendKeys(Sale_Price);
+    Sales_Start_Date_Input.sendKeys(Sale_Start_Date);
+    p.Today_Button_Calender(0).click();
+    Sales_End_Date_Input.sendKeys(Sales_End_Date);
+    p.Today_Button_Calender(1).click();
+    WebElement Submit_Button = p.Product_Save_Button();
+    Submit_Button.click();
+    WebElement Confirmation_Message = p.Success_Toast();
+	String Confirmation_Message_Text = Confirmation_Message.getText().trim();
+	System.out.println("✅ Confirmation message displayed: " + Confirmation_Message_Text);
+    
+    
+    
+}	
+	
+
+
+@Test(dataProvider="Lab_Test_Create_Data")
+public void Product_Delete(TreeMap<String, String> Product_data) throws Exception{
+	
+	String Product_Name = Product_data.get("Lab Test Name");
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+	
+	WebElement Product_Add = Product_Module_Accessor();
+	WebElement Product_Search = p.Search();
+	Product_Search.sendKeys(Product_Name);
+	Thread.sleep(1800);
+	Three_Dot_Menu_Option_Selector("Delete");
+	
+}
+
+
+public void Three_Dot_Menu_Option_Selector(String Option) throws Exception {
+	
+	
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+	
+	List<WebElement> ThreeDot_Buttons = p.Threedot_Button_in_list();
+	
+	String Option_to_be_selected = Option.trim();
+	
+	for(WebElement ThreeDot_Button : ThreeDot_Buttons) {
+		WebElement Button=ThreeDot_Button;
+		Button.click();
+		WebElement Option_List = p.List_Dropdown_Menu();
+		List<WebElement> Options = Option_List.findElements(By.xpath(".//li"));
+		for(WebElement Option_Element : Options) {
+			String Option_Text = Option_Element.getText().trim();
+			
+			if(Option_Text.equalsIgnoreCase(Option_to_be_selected)) {
+				Option_Element.click();
+				System.out.println("✅ " + Option_to_be_selected + " option selected successfully.");
+				WebElement Popup_Delete_button = p.Red_color_Button();
+				Popup_Delete_button.click();
+				Thread.sleep(800);
+				WebElement Confirmation_Message = p.Success_Toast();
+				String Confirmation_Message_Text = Confirmation_Message.getText().trim();
+				System.out.println("✅ Confirmation message displayed: " + Confirmation_Message_Text);
+				break;
+			}}}
+
+}
+
+
 
 
 

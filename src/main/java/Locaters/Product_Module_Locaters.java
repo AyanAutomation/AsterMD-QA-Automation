@@ -43,16 +43,16 @@ public class Product_Module_Locaters extends Repeat{
 	private WebElement List_Dropdown_Menu; 
     @FindBy(xpath="//*[contains(@class,'ant-btn-dangerous ant-btn-color-dangerous ant-btn-variant-solid')]")
 	private WebElement Red_color_Button; 
-    @FindBy(xpath="//div[contains(@class,'ant-notification-notice') and contains(@class,'app-toast-success')][.//div[normalize-space()='Action Successful'] and .//div[normalize-space()='Product deleted successfully']]")
-	private WebElement Success_Toast; /*
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
+    @FindBy(xpath="//div[@class='ant-notification-notice-content']")
+	private WebElement Success_Toast; 
+    @FindBy(id="teleforms")
+	private WebElement Intake_form_field; 
+    @FindBy(xpath="(//div[@class='ant-picker-panel-layout'])[1]")
+	private WebElement First_Popup_Calendar; 
+    @FindBy(xpath="//button[@type='button' and contains(@class,'ant-btn-primary ant-btn-color-primary ant-btn-variant-solid')]")
+	private WebElement Product_Save_Button; 
+    @FindBy(xpath="(//div[@class='ant-picker-panel-layout'])[2]")
+	private WebElement Second_Popup_Calendar;  /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -279,10 +279,10 @@ public class Product_Module_Locaters extends Repeat{
 	public WebElement Top_Navigation_bar(){
 	wait_for_theElement(Top_Navigation_bar);
 	return Top_Navigation_bar;} 
-	public List<WebElement> Form_Inputs(WebElement element){
-	List<WebElement> Form_Inputs = element.findElements(By.xpath(".//input[@type='text' or @type='search' or @class='ant-input-number-input']"));
-	wait_for_theElement(Form_Inputs);
-	return Form_Inputs;} 
+	public List<WebElement> Product_Add_Form_Inputs(WebElement element){
+	List<WebElement> Product_Add_Form_Inputs = element.findElements(By.xpath(".//input[@id='name' or @id='type' or @id='categories' or @id='visibility' or @id='min_buy_qty' or @id='max_buy_qty' or @id='stock' or @id='sku' or @id='condition_treated' or @id='intro_price' or @id='sale_price' or @id='default_price'or @id='sale_start_date'or @id='sale_end_date']"));
+	wait_for_theElement(Product_Add_Form_Inputs);
+	return Product_Add_Form_Inputs;} 
 	public WebElement Product_Add_Button(){
 	wait_for_theElement(Product_Add_Button);
 	return Product_Add_Button;}
@@ -327,21 +327,31 @@ public class Product_Module_Locaters extends Repeat{
 	return Red_color_Button;}
 	public WebElement Success_Toast(){
 	wait_for_theElement(Success_Toast);
-	return Success_Toast;}  /*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return Success_Toast;}  
+	public WebElement Intake_form_field(){
+	wait_for_theElement(Intake_form_field);
+	return Intake_form_field;} 
+	public WebElement First_Popup_Calendar(){
+	wait_for_theElement(First_Popup_Calendar);
+	return First_Popup_Calendar;}
+	public WebElement Today_Button_Calender(int calender_index) {
+
+		if (calender_index == 0) {
+			WebElement Today_Button_Calender_One = First_Popup_Calendar().findElement(By.xpath(".//li[@class='ant-picker-now']"));
+			wait_for_theElement(Today_Button_Calender_One);
+			return Today_Button_Calender_One;
+		} else {
+			WebElement Today_Button_Calender_Two = Second_Popup_Calendar().findElement(By.xpath(".//li[@class='ant-picker-now']"));
+			wait_for_theElement(Today_Button_Calender_Two);
+			return Today_Button_Calender_Two;
+		}
+	}
+	public WebElement Product_Save_Button(){
+	wait_for_theElement(Product_Save_Button);
+	return Product_Save_Button;} 
+	public WebElement Second_Popup_Calendar(){
+	wait_for_theElement(Second_Popup_Calendar);
+	return Second_Popup_Calendar;} /*
 	public WebElement (){
 	wait_for_theElement();
 	return ;} public WebElement (){
