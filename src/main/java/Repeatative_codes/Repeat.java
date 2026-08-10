@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -49,8 +50,19 @@ public class Repeat {
 		a.moveToElement(element).build().perform();
 	}
 	
-	
-	
+	public WebElement wait_for_presence_of_theElement(By by) {
+
+		WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(10));
+		w.until(ExpectedConditions.presenceOfElementLocated(by));
+		return d.findElement(by);
+	}
+	public void wait_for_invisibilty_of_theElement(WebElement element){
+		 
+	     
+	   	 WebDriverWait w = new WebDriverWait(d,Duration.ofSeconds(10));
+	   	 w.until(ExpectedConditions.invisibilityOf(element));
+	   	 
+		 }
 	
 	public boolean check_element_visibility(WebElement element, int Wait_Time) {
 

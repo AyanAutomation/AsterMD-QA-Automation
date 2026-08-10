@@ -2,10 +2,12 @@ package AsterMD.Project.AsterMD;
 
 import java.io.IOException;
 
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import Listerners.Report_Listen;
 import Locaters.Login_Locaters;
+import Repeatative_codes.Repeat;
 
 @Listeners(Listerners.Report_Listen.class)
 public class Login extends Base {
@@ -14,6 +16,8 @@ public class Login extends Base {
 public void login() throws IOException {
 
 	int step = 1;
+	
+	Repeat rp= new Repeat(d);
 
 	try {
 
@@ -159,8 +163,9 @@ public void login() throws IOException {
 		System.out.println();
 
 		System.out.println("🔹 Step " + step + ": Verifying successful login confirmation.");
-		System.out.println();
-
+		System.out.println();/*
+        WebElement Progress_Bar =lg.Progress_bar();
+        rp.wait_for_invisibilty_of_theElement(Progress_Bar); */
 		lg.login_confirmation();
 
 		Report_Listen.log_print_in_report().pass("✅ Login completed and login confirmation was verified successfully.");

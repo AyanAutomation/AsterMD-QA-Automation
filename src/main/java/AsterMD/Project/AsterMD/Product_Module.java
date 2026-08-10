@@ -109,39 +109,104 @@ public WebElement Product_Module_Accessor() throws Exception {
 public Object[][] Category_Create_Data(){
 
 	TreeMap<String, String> data1 = new TreeMap<String, String>();
-	data1.put("Category Name", "Erectile Function Clinical Support Products");
-	data1.put("Drug Class / Code", "URO-EFC-201");
-	data1.put("Description", "Therapeutic products and clinically managed treatment options intended to support erectile function in eligible adult patients experiencing erectile dysfunction. This category covers products associated with improving erectile response, supporting sexual performance, and managing erectile difficulties following appropriate health assessment and evaluation of relevant cardiovascular, hormonal, and medication-related risk factors.");
+	data1.put("Category Name", "Male Vascular Performance Support Products");
+	data1.put("Drug Class / Code", "URO-MVP-301");
+	data1.put("Description", "Clinical and supportive products intended for adult patients experiencing erectile dysfunction where vascular response, circulation, sexual performance, and associated health factors may require structured assessment. This category supports catalog products used within erectile-function care pathways that may involve medical evaluation, cardiovascular risk review, treatment suitability checks, and ongoing monitoring of patient response.");
 
 	TreeMap<String, String> data2 = new TreeMap<String, String>();
-	data2.put("Category Name", "Scalp Follicle Preservation and Renewal Products");
-	data2.put("Drug Class / Code", "DERM-SFR-202");
-	data2.put("Description", "Hair and scalp treatment products intended to reduce progressive thinning, support follicular preservation, and encourage healthy hair regrowth in patients experiencing clinically significant hair loss. This category may include topical, oral, and supportive treatment options used as part of a structured hair restoration program following evaluation of the underlying cause and pattern of hair loss.");
+	data2.put("Category Name", "Erectile Response Enhancement Care Products");
+	data2.put("Drug Class / Code", "URO-ERE-302");
+	data2.put("Description", "Products developed for erectile dysfunction management and related male sexual health support where improving erectile response and maintaining satisfactory sexual function are primary treatment goals. Items in this category may be used within clinically guided care programs that consider medical history, concurrent medications, cardiovascular status, and individual response to therapy.");
 
 	TreeMap<String, String> data3 = new TreeMap<String, String>();
-	data3.put("Category Name", "Somatotropic Hormone Deficiency Management Products");
-	data3.put("Drug Class / Code", "ENDO-SHD-203");
-	data3.put("Description", "Specialized products used in the management of clinically confirmed human growth hormone deficiency where replacement or related endocrine support may be required. Products in this category are intended for treatment programs that typically involve physician supervision, hormone-level assessment, laboratory monitoring, dosage evaluation, and ongoing review of the patient's therapeutic response and overall endocrine health.");
+	data3.put("Category Name", "Male Intimate Function Management Products");
+	data3.put("Drug Class / Code", "URO-MIF-303");
+	data3.put("Description", "Therapeutic and supportive products associated with managing difficulties in male intimate function, particularly erectile dysfunction. This category is intended for catalog classification of products used after appropriate health screening and may support treatment pathways that evaluate symptom severity, underlying risk factors, medication interactions, and overall suitability for continued erectile-function management.");
 
 	TreeMap<String, String> data4 = new TreeMap<String, String>();
-	data4.put("Category Name", "Sleep Initiation and Maintenance Care Products");
-	data4.put("Drug Class / Code", "SLEEP-SIM-204");
-	data4.put("Description", "Treatment and supportive care products intended for patients experiencing difficulty falling asleep, maintaining continuous sleep, or obtaining adequate restorative sleep. This category supports insomnia-related care pathways where sleep patterns, contributing medical conditions, lifestyle factors, medication history, and treatment suitability may be evaluated before selecting an appropriate sleep management option.");
+	data4.put("Category Name", "Follicular Density Restoration Products");
+	data4.put("Drug Class / Code", "DERM-FDR-304");
+	data4.put("Description", "Hair-care and treatment products intended to support patients experiencing reduced follicular density, progressive thinning, or patterned hair loss. Products classified under this category may support preservation of existing hair, stimulation of follicular activity, and structured regrowth programs while allowing evaluation of scalp condition, hormonal influence, nutritional factors, and long-term treatment response.");
 
 	TreeMap<String, String> data5 = new TreeMap<String, String>();
-	data5.put("Category Name", "Mood Stability and Cognitive Wellness Products");
-	data5.put("Drug Class / Code", "NEU-MCW-205");
-	data5.put("Description", "Clinically managed products intended to support patients experiencing persistent low mood, reduced motivation, impaired concentration, diminished focus, or related cognitive and emotional wellness concerns. Products within this category may form part of a broader treatment pathway that considers symptom severity, previous treatment history, daily functioning, psychological wellbeing, and ongoing clinical response.");
+	data5.put("Category Name", "Androgenic Hair Loss Management Products");
+	data5.put("Drug Class / Code", "DERM-AHL-305");
+	data5.put("Description", "Products intended for the management of androgen-related hair thinning and progressive pattern hair loss in eligible patients. This category supports oral, topical, and supportive catalog products used within hair-restoration pathways that may involve assessment of progression pattern, family history, scalp health, hormonal contribution, treatment adherence, and expected long-term maintenance requirements.");
 
 	TreeMap<String, String> data6 = new TreeMap<String, String>();
-	data6.put("Category Name", "Male Hormonal Balance and Androgen Support Products");
-	data6.put("Drug Class / Code", "ENDO-MHA-206");
-	data6.put("Description", "Hormone-related treatment and support products intended for adult male patients with clinically evaluated low testosterone or other androgen-related deficiencies. This category supports medically supervised management that may involve testosterone assessment, symptom review, laboratory monitoring, treatment-response evaluation, and periodic safety checks before and during continued hormone-support therapy.");
+	data6.put("Category Name", "Scalp Regeneration and Hair Retention Products");
+	data6.put("Drug Class / Code", "DERM-SRH-306");
+	data6.put("Description", "Treatment and supportive products designed to encourage healthier scalp conditions, improve hair retention, and reduce progressive shedding in patients experiencing hair loss. Products within this category may be incorporated into structured regrowth programs that consider follicular health, nutritional status, hormonal factors, treatment consistency, and measurable changes in hair density over time.");
 
 	TreeMap<String, String> data7 = new TreeMap<String, String>();
-	data7.put("Category Name", "Metabolic Weight Reduction and Control Products");
-	data7.put("Drug Class / Code", "META-MWR-207");
-	data7.put("Description", "Medical weight-management products intended to support eligible patients with obesity through structured weight reduction and long-term weight-control programs. This category may include pharmacological and supportive treatment options used alongside nutritional planning, physical activity, metabolic health assessment, laboratory monitoring, and ongoing evaluation of weight-related risk factors and treatment progress.");
+	data7.put("Category Name", "Growth Hormone Axis Support Products");
+	data7.put("Drug Class / Code", "ENDO-GHA-307");
+	data7.put("Description", "Specialized endocrine products associated with the management of clinically evaluated growth hormone deficiency and abnormalities of the growth hormone axis. This category supports therapies requiring structured physician supervision, hormone-level assessment, laboratory testing, dosage monitoring, evaluation of treatment effectiveness, and periodic review of metabolic and endocrine health indicators.");
+
+	TreeMap<String, String> data8 = new TreeMap<String, String>();
+	data8.put("Category Name", "Somatotropin Replacement Care Products");
+	data8.put("Drug Class / Code", "ENDO-SRC-308");
+	data8.put("Description", "Products intended for structured growth hormone replacement programs in patients with confirmed or clinically supported hormone deficiency. Items in this category may require regular endocrine evaluation, IGF-related laboratory monitoring, dosage adjustment, assessment of therapeutic response, and continued medical oversight to ensure appropriate treatment progression and safety.");
+
+	TreeMap<String, String> data9 = new TreeMap<String, String>();
+	data9.put("Category Name", "Endocrine Growth Restoration Products");
+	data9.put("Drug Class / Code", "ENDO-EGR-309");
+	data9.put("Description", "Endocrine treatment products designed to support restoration of inadequate growth hormone activity in eligible patients with documented deficiency. This category is suitable for catalog products managed through specialist treatment pathways that may include baseline hormone assessment, laboratory investigations, treatment-response monitoring, metabolic review, and long-term evaluation of endocrine function.");
+
+	TreeMap<String, String> data10 = new TreeMap<String, String>();
+	data10.put("Category Name", "Restorative Sleep Regulation Products");
+	data10.put("Drug Class / Code", "SLEEP-RSR-310");
+	data10.put("Description", "Products used within insomnia management pathways to support healthier sleep initiation, continuity, and restorative sleep quality. This category may include treatment options intended for patients experiencing persistent difficulty falling asleep or maintaining sleep, with consideration given to sleep behavior, medical history, contributing medications, lifestyle patterns, and ongoing response to treatment.");
+
+	TreeMap<String, String> data11 = new TreeMap<String, String>();
+	data11.put("Category Name", "Nighttime Sleep Continuity Products");
+	data11.put("Drug Class / Code", "SLEEP-NSC-311");
+	data11.put("Description", "Sleep-support products intended for patients who experience frequent nighttime awakenings, shortened sleep duration, or difficulty maintaining uninterrupted sleep. Products classified here may form part of structured insomnia care where sleep patterns, daytime functioning, medication history, contributing health conditions, and treatment effectiveness are periodically reviewed.");
+
+	TreeMap<String, String> data12 = new TreeMap<String, String>();
+	data12.put("Category Name", "Circadian Sleep Support and Recovery Products");
+	data12.put("Drug Class / Code", "SLEEP-CSR-312");
+	data12.put("Description", "Treatment and supportive products associated with improving sleep timing, sleep onset, and overall nighttime recovery in patients with insomnia-related difficulties. This category supports catalog items used within sleep-management programs that may consider circadian rhythm, behavioral factors, medication use, sleep duration, daytime impairment, and the patient's response to ongoing care.");
+
+	TreeMap<String, String> data13 = new TreeMap<String, String>();
+	data13.put("Category Name", "Emotional Resilience and Focus Support Products");
+	data13.put("Drug Class / Code", "PSY-ERF-313");
+	data13.put("Description", "Clinically managed products intended to support patients experiencing persistent low mood, diminished motivation, reduced concentration, or difficulty maintaining focus during daily activities. Products in this category may be used within broader mental-wellness pathways that consider symptom patterns, previous treatment response, emotional functioning, cognitive performance, and ongoing clinical monitoring.");
+
+	TreeMap<String, String> data14 = new TreeMap<String, String>();
+	data14.put("Category Name", "Cognitive Drive and Mood Balance Products");
+	data14.put("Drug Class / Code", "PSY-CMB-314");
+	data14.put("Description", "Products associated with treatment pathways for patients reporting reduced mental drive, persistent low mood, impaired focus, or difficulty maintaining productive concentration. This category supports catalog classification for clinically supervised options where symptom duration, functional impact, medication history, treatment response, and overall emotional wellbeing may be assessed.");
+
+	TreeMap<String, String> data15 = new TreeMap<String, String>();
+	data15.put("Category Name", "Mental Energy and Motivation Support Products");
+	data15.put("Drug Class / Code", "PSY-MEM-315");
+	data15.put("Description", "Therapeutic and supportive products intended for patients experiencing low motivation, reduced mental energy, persistent mood decline, or concentration-related difficulties. This category may be used for catalog items within structured mood and focus care programs involving assessment of daily functioning, symptom progression, previous treatment experience, and continued monitoring of clinical response.");
+
+	TreeMap<String, String> data16 = new TreeMap<String, String>();
+	data16.put("Category Name", "Androgen Restoration and Vitality Products");
+	data16.put("Drug Class / Code", "ENDO-ARV-316");
+	data16.put("Description", "Hormone-related products intended for adult patients with clinically assessed low testosterone where androgen restoration may be considered as part of a supervised treatment program. Products in this category may require testosterone measurements, symptom assessment, laboratory monitoring, periodic safety evaluation, and continued review of therapeutic effectiveness and hormonal balance.");
+
+	TreeMap<String, String> data17 = new TreeMap<String, String>();
+	data17.put("Category Name", "Male Endocrine Vitality Support Products");
+	data17.put("Drug Class / Code", "ENDO-MEV-317");
+	data17.put("Description", "Products associated with medical management of reduced testosterone levels and related symptoms affecting male hormonal wellbeing and vitality. This category supports therapies requiring appropriate endocrine assessment, laboratory confirmation, treatment-response monitoring, evaluation of hematological and metabolic indicators, and periodic clinical review during continued use.");
+
+	TreeMap<String, String> data18 = new TreeMap<String, String>();
+	data18.put("Category Name", "Testicular Hormone Support and Balance Products");
+	data18.put("Drug Class / Code", "ENDO-THB-318");
+	data18.put("Description", "Hormonal treatment and supportive products intended for clinically evaluated testosterone deficiency and related androgen imbalance in adult male patients. Products within this category may be managed through structured care pathways involving baseline hormone testing, symptom evaluation, laboratory follow-up, dosage review, safety monitoring, and assessment of long-term therapeutic outcomes.");
+
+	TreeMap<String, String> data19 = new TreeMap<String, String>();
+	data19.put("Category Name", "Metabolic Body Weight Optimization Products");
+	data19.put("Drug Class / Code", "META-MWO-319");
+	data19.put("Description", "Medical and supportive products intended to assist eligible patients with obesity in achieving sustainable body-weight reduction and improved metabolic health. This category may include products used alongside nutritional planning, physical activity, behavioral modification, laboratory assessment, monitoring of metabolic risk factors, and periodic review of treatment progress and weight-related outcomes.");
+
+	TreeMap<String, String> data20 = new TreeMap<String, String>();
+	data20.put("Category Name", "Obesity Metabolic Intervention Products");
+	data20.put("Drug Class / Code", "META-OMI-320");
+	data20.put("Description", "Products used within medically supervised obesity-management programs aimed at supporting weight reduction, improving metabolic risk profiles, and helping patients maintain healthier long-term weight outcomes. This category may support treatment pathways involving dietary modification, physical activity planning, metabolic laboratory assessment, monitoring of treatment tolerance, and regular evaluation of overall weight-management progress.");
 
 	return new Object[][] {
 		{ data1 },
@@ -150,7 +215,20 @@ public Object[][] Category_Create_Data(){
 		{ data4 },
 		{ data5 },
 		{ data6 },
-		{ data7 }
+		{ data7 },
+		{ data8 },
+		{ data9 },
+		{ data10 },
+		{ data11 },
+		{ data12 },
+		{ data13 },
+		{ data14 },
+		{ data15 },
+		{ data16 },
+		{ data17 },
+		{ data18 },
+		{ data19 },
+		{ data20 }
 	};
 }
 
@@ -793,7 +871,7 @@ public Object[][] Product_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 }
+		{ data20 } 
 	};
 }
 
@@ -1225,7 +1303,12 @@ public void Category_Add(TreeMap<String, String> data) throws Exception {
 
 		WebElement Save_Button = p.Save_Button();
 		Save_Button.click();
+		WebElement Confirmation_Message = p.Success_Toast();
+		String Confirmation_Message_Text = Confirmation_Message.getText().trim();
 
+		Report_Listen.log_print_in_report().pass("✅ Confirmation Message: " + Confirmation_Message_Text);
+		System.out.println("✅ Confirmation message displayed: " + Confirmation_Message_Text);
+		System.out.println();
 		p.Category_Add_Button();
 
 		Report_Listen.log_print_in_report().pass("✅ Category created successfully with Category Name: " + Category_Name_Data);
@@ -1387,7 +1470,8 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 			Inputs = p.Product_Add_Form_Inputs(Product_form);
 
 		} catch(Exception e) {
-
+              
+			Thread.sleep(800);
 			Report_Listen.log_print_in_report().warning("⚠️ Initial Product form input retrieval failed. Retrying field retrieval.");
 			System.out.println("⚠️ Initial Product form input retrieval failed. Retrying.");
 			System.out.println();
@@ -1650,10 +1734,10 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 	
 
 
-@Test(dataProvider="Lab_Test_Create_Data")
+@Test(dataProvider="Product_Create_Data")
 public void Product_Delete(TreeMap<String, String> Product_data) throws Exception {
 
-	String Product_Name = Product_data.get("Lab Test Name");
+	String Product_Name = Product_data.get("Product Name");
 
 	Product_Module_Locaters p = new Product_Module_Locaters(d);
 
@@ -1707,8 +1791,10 @@ public void Product_Delete(TreeMap<String, String> Product_data) throws Exceptio
 		System.out.println();
 		System.out.println("🔹 Selecting Delete from the Product action menu.");
 		System.out.println();
+		
+		List<WebElement> ThreeDot_Buttons = p.Threedot_Button_in_list();
 
-		Three_Dot_Menu_Option_Selector("Delete");
+		Three_Dot_Menu_Option_Selector(ThreeDot_Buttons,"Delete");
 
 		Report_Listen.log_print_in_report().pass("✅ Product deletion flow completed successfully for: " + Product_Name);
 		System.out.println("✅ Product deletion flow completed successfully for: " + Product_Name);
@@ -1729,7 +1815,7 @@ public void Product_Delete(TreeMap<String, String> Product_data) throws Exceptio
 }
 
 
-public void Three_Dot_Menu_Option_Selector(String Option) throws Exception {
+public void Three_Dot_Menu_Option_Selector(List<WebElement> Number_of_Button,String Option) throws Exception {
 
 	Product_Module_Locaters p = new Product_Module_Locaters(d);
 
@@ -1745,7 +1831,7 @@ public void Three_Dot_Menu_Option_Selector(String Option) throws Exception {
 		System.out.println("🔹 Opening three-dot menu and searching for option: " + Option_to_be_selected);
 		System.out.println();
 
-		List<WebElement> ThreeDot_Buttons = p.Threedot_Button_in_list();
+		List<WebElement> ThreeDot_Buttons = Number_of_Button;
 
 		for(WebElement ThreeDot_Button : ThreeDot_Buttons) {
 

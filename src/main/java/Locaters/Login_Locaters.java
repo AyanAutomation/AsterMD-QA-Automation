@@ -26,6 +26,8 @@ public class Login_Locaters extends Repeat {
 	
 	@FindBy(xpath = "//*[contains(@class,'auth-error-alert')]")
 	private WebElement Login_error_alert;
+	@FindBy(xpath="//div[@role='progressbar']")
+	private WebElement Progress_bar;
 
 	public Login_Locaters(WebDriver d) {
 		super(d);
@@ -60,5 +62,10 @@ public class Login_Locaters extends Repeat {
 	public WebElement Login_error_alert() {
 		wait_for_theElement(Login_error_alert);
 		return Login_error_alert();
+	}
+	
+	public WebElement Progress_bar() {
+		wait_for_theElement(Progress_bar);
+		return Progress_bar();
 	}
 }
