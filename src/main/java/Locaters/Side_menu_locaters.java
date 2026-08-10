@@ -44,10 +44,9 @@ public class Side_menu_locaters extends Repeat{
 	return options;} 
 	public WebElement Menu_Expander(){
 	wait_for_theElement(Menu_Expander);
-	return Menu_Expander;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return Menu_Expander;}
+	public boolean Side_Menu_Presence_Check(){
+    return check_element_visibility(Side_menu, 4);}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;}

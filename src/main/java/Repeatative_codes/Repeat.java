@@ -48,7 +48,24 @@ public class Repeat {
 		Actions a = new Actions(d);
 		a.moveToElement(element).build().perform();
 	}
+	
+	
+	
+	
+	public boolean check_element_visibility(WebElement element, int Wait_Time) {
 
+		try {
+
+			WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(Wait_Time));
+			w.until(ExpectedConditions.visibilityOf(element));
+
+			return true;
+
+		} catch(Exception e) {
+
+			return false;
+		}
+	}
 	public void Scroll_to_element(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor)d;
 		js.executeScript("arguments[0].scrollIntoView(true);", element);

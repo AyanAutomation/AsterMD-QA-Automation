@@ -52,9 +52,9 @@ public class Product_Module_Locaters extends Repeat{
     @FindBy(xpath="//button[@type='button' and contains(@class,'ant-btn-primary ant-btn-color-primary ant-btn-variant-solid')]")
 	private WebElement Product_Save_Button; 
     @FindBy(xpath="(//div[@class='ant-picker-panel-layout'])[2]")
-	private WebElement Second_Popup_Calendar;  /*
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Second_Popup_Calendar;  
+    @FindBy(xpath="//textarea")
+	private WebElement Textarea_Description_Field; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -351,10 +351,11 @@ public class Product_Module_Locaters extends Repeat{
 	return Product_Save_Button;} 
 	public WebElement Second_Popup_Calendar(){
 	wait_for_theElement(Second_Popup_Calendar);
-	return Second_Popup_Calendar;} /*
+	return Second_Popup_Calendar;} 
+	public WebElement Textarea_Description_Field(){
+	wait_for_theElement(Textarea_Description_Field);
+	return Textarea_Description_Field;} /*
 	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){

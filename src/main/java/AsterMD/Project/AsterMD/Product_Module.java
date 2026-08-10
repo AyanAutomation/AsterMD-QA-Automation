@@ -20,95 +20,139 @@ public class Product_Module extends Side_Menu_Navigator{
 	
 	
 public WebElement Product_Module_Accessor() throws Exception {
-	
-	
-	ExtentTest log = Report_Listen.log_print_in_report();
+
 	int step = 1;
 
-	log.info("Product Module Step " + step + ": Initializing Product Module locators.");
-	System.out.println("🔹 Product Module Step " + step + ": Initializing Product Module locators.");
+	try {
 
-	Product_Module_Locaters p = new Product_Module_Locaters(d);
-	
-	
-	step++;
+		Report_Listen.log_print_in_report().info("──────────────────── 📦 PRODUCT MODULE ACCESS ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Initialize Product Module locators and access the Catalog module.");
 
-	log.info("Product Module Step " + step + ": Navigating to the Catalog option through the side menu.");
-	System.out.println("🔹 Product Module Step " + step + ": Navigating to the Catalog option through the side menu.");
+		System.out.println("📦 PRODUCT MODULE ACCESS");
+		System.out.println();
+		System.out.println("🔹 Initializing Product Module locators and accessing the Catalog module.");
+		System.out.println();
 
-	Side_Menu_Navigation("Catalog");
+		Product_Module_Locaters p = new Product_Module_Locaters(d);
 
-	log.pass("Catalog side-menu navigation flow completed.");
-	System.out.println("✅ Catalog side-menu navigation flow completed.");
-	step++;
+		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Product Module locator class initialized.");
+		System.out.println("🔹 Step " + step + ": Product Module locator class initialized.");
+		System.out.println();
 
-	log.info("Product Module Step " + step + ": Verifying the Product Module top navigation bar.");
-	System.out.println("🔹 Product Module Step " + step + ": Verifying the Product Module top navigation bar.");
+		step++;
 
-	p.Top_Navigation_bar();
+		Report_Listen.log_print_in_report().info("──────────────────── 🧭 CATALOG NAVIGATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Navigate to the Catalog option through the side menu.");
 
-	log.pass("Product Module top navigation bar verified successfully.");
-	System.out.println("✅ Product Module top navigation bar verified successfully.");
-	step++;
+		System.out.println("🧭 CATALOG NAVIGATION");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Navigating to the Catalog option through the side menu.");
+		System.out.println();
 
-	log.info("Product Module Step " + step + ": Retrieving the Product Add button.");
-	System.out.println("🔹 Product Module Step " + step + ": Retrieving the Product Add button.");
-	
-	WebElement Product_Add = p.Product_Add_Button();
- 
-	return Product_Add;
-	
+		Side_Menu_Navigation("Catalog");
+
+		Report_Listen.log_print_in_report().pass("✅ Catalog side-menu navigation completed successfully.");
+		System.out.println("✅ Catalog side-menu navigation completed successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🧭 PRODUCT NAVIGATION BAR ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Verify and retrieve the Product Module top navigation bar.");
+
+		System.out.println("🧭 PRODUCT NAVIGATION BAR");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Verifying the Product Module top navigation bar.");
+		System.out.println();
+
+		p.Top_Navigation_bar();
+
+		Report_Listen.log_print_in_report().pass("✅ Product Module top navigation bar verified successfully.");
+		System.out.println("✅ Product Module top navigation bar verified successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── ➕ PRODUCT ADD ACCESS ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Retrieve the Product Add button.");
+
+		System.out.println("➕ PRODUCT ADD ACCESS");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Retrieving the Product Add button.");
+		System.out.println();
+
+		WebElement Product_Add = p.Product_Add_Button();
+
+		Report_Listen.log_print_in_report().pass("✅ Product Add button retrieved successfully.");
+		System.out.println("✅ Product Add button retrieved successfully.");
+		System.out.println();
+
+		return Product_Add;
+
+	} catch(Exception e) {
+
+		if(Report_Listen.log_print_in_report() != null) Report_Listen.log_print_in_report().fail("❌ Product Module access failed. Failure reason: " + e.getMessage());
+
+		System.out.println("❌ Product Module access failed.");
+		System.out.println();
+
+		System.out.println("❌ Failure reason: " + e.getMessage());
+		System.out.println();
+
+		throw e;
+	}
 }
-   
+
+
+
 @DataProvider(name="Category_Create_Data")
 public Object[][] Category_Create_Data(){
 
 	TreeMap<String, String> data1 = new TreeMap<String, String>();
-	data1.put("Category Name", "Men's Sexual Health Therapies");
-	data1.put("Drug Class / Code", "MSH-PDE5-001");
-	data1.put("Description", "Prescription therapies used for the clinical management of erectile dysfunction and related men's sexual health conditions following medical assessment.");
+	data1.put("Category Name", "Erectile Function Clinical Support Products");
+	data1.put("Drug Class / Code", "URO-EFC-201");
+	data1.put("Description", "Therapeutic products and clinically managed treatment options intended to support erectile function in eligible adult patients experiencing erectile dysfunction. This category covers products associated with improving erectile response, supporting sexual performance, and managing erectile difficulties following appropriate health assessment and evaluation of relevant cardiovascular, hormonal, and medication-related risk factors.");
 
 	TreeMap<String, String> data2 = new TreeMap<String, String>();
-	data2.put("Category Name", "Hair Loss and Regrowth Therapies");
-	data2.put("Drug Class / Code", "DERM-HLR-002");
-	data2.put("Description", "Prescription and topical therapies used to reduce progressive hair loss and support hair regrowth in eligible patients with diagnosed alopecia.");
+	data2.put("Category Name", "Scalp Follicle Preservation and Renewal Products");
+	data2.put("Drug Class / Code", "DERM-SFR-202");
+	data2.put("Description", "Hair and scalp treatment products intended to reduce progressive thinning, support follicular preservation, and encourage healthy hair regrowth in patients experiencing clinically significant hair loss. This category may include topical, oral, and supportive treatment options used as part of a structured hair restoration program following evaluation of the underlying cause and pattern of hair loss.");
 
 	TreeMap<String, String> data3 = new TreeMap<String, String>();
-	data3.put("Category Name", "Growth Hormone Replacement Therapies");
-	data3.put("Drug Class / Code", "ENDO-GHR-003");
-	data3.put("Description", "Specialty hormone replacement therapies used for patients with clinically confirmed growth hormone deficiency under ongoing medical and laboratory monitoring.");
+	data3.put("Category Name", "Somatotropic Hormone Deficiency Management Products");
+	data3.put("Drug Class / Code", "ENDO-SHD-203");
+	data3.put("Description", "Specialized products used in the management of clinically confirmed human growth hormone deficiency where replacement or related endocrine support may be required. Products in this category are intended for treatment programs that typically involve physician supervision, hormone-level assessment, laboratory monitoring, dosage evaluation, and ongoing review of the patient's therapeutic response and overall endocrine health.");
 
 	TreeMap<String, String> data4 = new TreeMap<String, String>();
-	data4.put("Category Name", "Sleep Disorder Prescription Therapies");
-	data4.put("Drug Class / Code", "NEU-SLP-004");
-	data4.put("Description", "Prescription therapies used to manage insomnia and related sleep disturbances after assessment of sleep patterns, medical history, and treatment suitability.");
+	data4.put("Category Name", "Sleep Initiation and Maintenance Care Products");
+	data4.put("Drug Class / Code", "SLEEP-SIM-204");
+	data4.put("Description", "Treatment and supportive care products intended for patients experiencing difficulty falling asleep, maintaining continuous sleep, or obtaining adequate restorative sleep. This category supports insomnia-related care pathways where sleep patterns, contributing medical conditions, lifestyle factors, medication history, and treatment suitability may be evaluated before selecting an appropriate sleep management option.");
 
 	TreeMap<String, String> data5 = new TreeMap<String, String>();
-	data5.put("Category Name", "Mood and Focus Support Therapies");
-	data5.put("Drug Class / Code", "PSY-MFS-005");
-	data5.put("Description", "Clinically supervised therapies used to support patients experiencing persistent low mood, reduced motivation, concentration difficulty, or impaired focus.");
+	data5.put("Category Name", "Mood Stability and Cognitive Wellness Products");
+	data5.put("Drug Class / Code", "NEU-MCW-205");
+	data5.put("Description", "Clinically managed products intended to support patients experiencing persistent low mood, reduced motivation, impaired concentration, diminished focus, or related cognitive and emotional wellness concerns. Products within this category may form part of a broader treatment pathway that considers symptom severity, previous treatment history, daily functioning, psychological wellbeing, and ongoing clinical response.");
 
 	TreeMap<String, String> data6 = new TreeMap<String, String>();
-	data6.put("Category Name", "Testosterone Replacement Therapies");
-	data6.put("Drug Class / Code", "ENDO-TRT-006");
-	data6.put("Description", "Prescription testosterone replacement therapies used for clinically confirmed low testosterone following medical evaluation and appropriate laboratory testing.");
+	data6.put("Category Name", "Male Hormonal Balance and Androgen Support Products");
+	data6.put("Drug Class / Code", "ENDO-MHA-206");
+	data6.put("Description", "Hormone-related treatment and support products intended for adult male patients with clinically evaluated low testosterone or other androgen-related deficiencies. This category supports medically supervised management that may involve testosterone assessment, symptom review, laboratory monitoring, treatment-response evaluation, and periodic safety checks before and during continued hormone-support therapy.");
 
 	TreeMap<String, String> data7 = new TreeMap<String, String>();
-	data7.put("Category Name", "Medical Weight Management Therapies");
-	data7.put("Drug Class / Code", "META-WGT-007");
-	data7.put("Description", "Prescription therapies used as part of a medically supervised weight-management program for eligible patients with obesity or related metabolic risk factors.");
+	data7.put("Category Name", "Metabolic Weight Reduction and Control Products");
+	data7.put("Drug Class / Code", "META-MWR-207");
+	data7.put("Description", "Medical weight-management products intended to support eligible patients with obesity through structured weight reduction and long-term weight-control programs. This category may include pharmacological and supportive treatment options used alongside nutritional planning, physical activity, metabolic health assessment, laboratory monitoring, and ongoing evaluation of weight-related risk factors and treatment progress.");
 
-	return new Object[][] {/*
-		{ data1 }, 
+	return new Object[][] {
+		{ data1 },
 		{ data2 },
 		{ data3 },
 		{ data4 },
 		{ data5 },
-		{ data6 }, */
-		{ data7 } 
+		{ data6 },
+		{ data7 }
 	};
 }
-
 
 @DataProvider
 public Object[][] Lab_Test_Create_Data(){
@@ -267,9 +311,9 @@ public Object[][] Lab_Test_Create_Data(){
 		{ data3 },
 		{ data4 },
 		{ data5 },
-		{ data6 },/*
-		{ data7 }, */
-		{ data8 }, /*
+		{ data6 },
+		{ data7 }, 
+		{ data8 }, 
 		{ data9 },
 		{ data10 },
 		{ data11 },
@@ -281,7 +325,7 @@ public Object[][] Lab_Test_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } */
+		{ data20 } 
 	};
 }
 
@@ -290,451 +334,451 @@ public Object[][] Lab_Test_Create_Data(){
 public Object[][] Product_Create_Data(){
 
 	TreeMap<String, String> data1 = new TreeMap<String, String>();
-	data1.put("Product Name", "AsterVigor Sildenafil Response Therapy");
-	data1.put("Description", "Synthetic prescription catalog product containing a sildenafil-based PDE5 inhibitor therapy for the erectile dysfunction treatment workflow.");
+	data1.put("Product Name", "AsterErecta Vardenafil Response Tablets");
+	data1.put("Description", "Synthetic vardenafil-based product created for validating standard erectile dysfunction catalog configuration, category mapping, inventory, pricing, and quantity controls.");
 	data1.put("Product Image", "");
-	data1.put("Product Type", "Prescription");
+	data1.put("Product Type", "Standard");
 	data1.put("Category", "Men's Sexual Health Therapies");
 	data1.put("Visibility", "Public");
 	data1.put("Minimum Buy Quantity", "1");
-	data1.put("Maximum Buy Quantity", "1");
-	data1.put("Stock Count", "74");
-	data1.put("Intake Form", "Erectile Dysfunction Intake Form");
-	data1.put("Default SKU / Identifier", "AST-WELL-ED-101");
+	data1.put("Maximum Buy Quantity", "2");
+	data1.put("Stock Count", "86");
+	data1.put("Intake Form", "");
+	data1.put("Default SKU / Identifier", "AST-STD-ED-201");
 	data1.put("Condition Treated", "Erectile Dysfunction");
-	data1.put("Restrict Multiple Active Prescriptions", "Yes");
+	data1.put("Restrict Multiple Active Prescriptions", "No");
 	data1.put("Pricing Type", "Single Item");
-	data1.put("Intro Price", "29.00");
-	data1.put("Default Price", "119.00");
-	data1.put("Sale Price", "105.00");
+	data1.put("Intro Price", "27.00");
+	data1.put("Default Price", "108.00");
+	data1.put("Sale Price", "94.00");
 	data1.put("Sale Start Date", "09/01/2026");
 	data1.put("Sales End Date", "10/01/2026");
 	data1.put("Lab Test", "No");
 
 	TreeMap<String, String> data2 = new TreeMap<String, String>();
-	data2.put("Product Name", "AsterVigor Tadalafil Daily Therapy");
-	data2.put("Description", "Synthetic tadalafil-based prescription product created for validating daily erectile dysfunction treatment, inventory, intake, pricing, and restriction workflows.");
+	data2.put("Product Name", "AsterErecta Avanafil Rapid Response Tablets");
+	data2.put("Description", "Synthetic avanafil-based standard catalog product designed for erectile dysfunction workflow testing with product classification, pricing, availability, and stock validation.");
 	data2.put("Product Image", "");
-	data2.put("Product Type", "Prescription");
+	data2.put("Product Type", "Standard");
 	data2.put("Category", "Men's Sexual Health Therapies");
 	data2.put("Visibility", "Public");
 	data2.put("Minimum Buy Quantity", "1");
-	data2.put("Maximum Buy Quantity", "1");
-	data2.put("Stock Count", "68");
-	data2.put("Intake Form", "Erectile Dysfunction Intake Form");
-	data2.put("Default SKU / Identifier", "AST-WELL-ED-102");
+	data2.put("Maximum Buy Quantity", "2");
+	data2.put("Stock Count", "79");
+	data2.put("Intake Form", "");
+	data2.put("Default SKU / Identifier", "AST-STD-ED-202");
 	data2.put("Condition Treated", "Erectile Dysfunction");
-	data2.put("Restrict Multiple Active Prescriptions", "Yes");
+	data2.put("Restrict Multiple Active Prescriptions", "No");
 	data2.put("Pricing Type", "Single Item");
-	data2.put("Intro Price", "35.00");
-	data2.put("Default Price", "139.00");
-	data2.put("Sale Price", "124.00");
+	data2.put("Intro Price", "31.00");
+	data2.put("Default Price", "124.00");
+	data2.put("Sale Price", "109.00");
 	data2.put("Sale Start Date", "09/02/2026");
 	data2.put("Sales End Date", "10/02/2026");
 	data2.put("Lab Test", "No");
 
 	TreeMap<String, String> data3 = new TreeMap<String, String>();
-	data3.put("Product Name", "AsterVigor Tadalafil On-Demand Therapy");
-	data3.put("Description", "Synthetic on-demand tadalafil prescription product for testing erectile dysfunction product creation, quantity controls, condition mapping, and scheduled sale pricing.");
+	data3.put("Product Name", "AsterErecta Sildenafil Flex Support Tablets");
+	data3.put("Description", "Synthetic sildenafil-based standard product generated for validating erectile dysfunction catalog records, purchasing quantities, category association, stock, and promotional pricing.");
 	data3.put("Product Image", "");
-	data3.put("Product Type", "Prescription");
+	data3.put("Product Type", "Standard");
 	data3.put("Category", "Men's Sexual Health Therapies");
 	data3.put("Visibility", "Public");
 	data3.put("Minimum Buy Quantity", "1");
-	data3.put("Maximum Buy Quantity", "2");
-	data3.put("Stock Count", "81");
-	data3.put("Intake Form", "Erectile Dysfunction Intake Form");
-	data3.put("Default SKU / Identifier", "AST-WELL-ED-103");
+	data3.put("Maximum Buy Quantity", "3");
+	data3.put("Stock Count", "91");
+	data3.put("Intake Form", "");
+	data3.put("Default SKU / Identifier", "AST-STD-ED-203");
 	data3.put("Condition Treated", "Erectile Dysfunction");
-	data3.put("Restrict Multiple Active Prescriptions", "Yes");
+	data3.put("Restrict Multiple Active Prescriptions", "No");
 	data3.put("Pricing Type", "Single Item");
-	data3.put("Intro Price", "32.00");
-	data3.put("Default Price", "129.00");
-	data3.put("Sale Price", "115.00");
+	data3.put("Intro Price", "25.00");
+	data3.put("Default Price", "99.00");
+	data3.put("Sale Price", "86.00");
 	data3.put("Sale Start Date", "09/03/2026");
 	data3.put("Sales End Date", "10/03/2026");
 	data3.put("Lab Test", "No");
 
 	TreeMap<String, String> data4 = new TreeMap<String, String>();
-	data4.put("Product Name", "AsterFollicle Finasteride Maintenance Therapy");
-	data4.put("Description", "Synthetic finasteride-based prescription product created for validating the male-pattern hair loss catalog, intake form, SKU, pricing, and inventory workflow.");
+	data4.put("Product Name", "AsterRoot Minoxidil Follicle Solution");
+	data4.put("Description", "Synthetic minoxidil topical standard product for validating hair loss catalog creation, stock management, category mapping, purchase limits, and sale pricing.");
 	data4.put("Product Image", "");
-	data4.put("Product Type", "Prescription");
+	data4.put("Product Type", "Standard");
 	data4.put("Category", "Hair Loss and Regrowth Therapies");
 	data4.put("Visibility", "Public");
 	data4.put("Minimum Buy Quantity", "1");
-	data4.put("Maximum Buy Quantity", "1");
-	data4.put("Stock Count", "93");
-	data4.put("Intake Form", "Hair Loss Intake Form");
-	data4.put("Default SKU / Identifier", "AST-WELL-HL-104");
+	data4.put("Maximum Buy Quantity", "3");
+	data4.put("Stock Count", "142");
+	data4.put("Intake Form", "");
+	data4.put("Default SKU / Identifier", "AST-STD-HL-204");
 	data4.put("Condition Treated", "Hair Loss");
-	data4.put("Restrict Multiple Active Prescriptions", "Yes");
+	data4.put("Restrict Multiple Active Prescriptions", "No");
 	data4.put("Pricing Type", "Single Item");
-	data4.put("Intro Price", "24.00");
-	data4.put("Default Price", "89.00");
-	data4.put("Sale Price", "78.00");
+	data4.put("Intro Price", "18.00");
+	data4.put("Default Price", "61.00");
+	data4.put("Sale Price", "52.00");
 	data4.put("Sale Start Date", "09/04/2026");
 	data4.put("Sales End Date", "10/04/2026");
 	data4.put("Lab Test", "No");
 
 	TreeMap<String, String> data5 = new TreeMap<String, String>();
-	data5.put("Product Name", "AsterFollicle Minoxidil Topical Foam");
-	data5.put("Description", "Synthetic minoxidil topical hair-regrowth product for testing standard product creation, hair loss condition mapping, inventory limits, and promotional pricing.");
+	data5.put("Product Name", "AsterRoot Finasteride Follicle Support Tablets");
+	data5.put("Description", "Synthetic finasteride-based standard catalog product created for validating hair loss treatment classification, SKU uniqueness, inventory, quantities, and pricing behavior.");
 	data5.put("Product Image", "");
 	data5.put("Product Type", "Standard");
 	data5.put("Category", "Hair Loss and Regrowth Therapies");
 	data5.put("Visibility", "Public");
 	data5.put("Minimum Buy Quantity", "1");
-	data5.put("Maximum Buy Quantity", "3");
-	data5.put("Stock Count", "126");
+	data5.put("Maximum Buy Quantity", "2");
+	data5.put("Stock Count", "118");
 	data5.put("Intake Form", "");
-	data5.put("Default SKU / Identifier", "AST-WELL-HL-105");
+	data5.put("Default SKU / Identifier", "AST-STD-HL-205");
 	data5.put("Condition Treated", "Hair Loss");
 	data5.put("Restrict Multiple Active Prescriptions", "No");
 	data5.put("Pricing Type", "Single Item");
-	data5.put("Intro Price", "19.00");
-	data5.put("Default Price", "64.00");
-	data5.put("Sale Price", "55.00");
+	data5.put("Intro Price", "21.00");
+	data5.put("Default Price", "76.00");
+	data5.put("Sale Price", "66.00");
 	data5.put("Sale Start Date", "09/05/2026");
 	data5.put("Sales End Date", "10/05/2026");
 	data5.put("Lab Test", "No");
 
 	TreeMap<String, String> data6 = new TreeMap<String, String>();
-	data6.put("Product Name", "AsterGrowth Somatropin Daily Replacement");
-	data6.put("Description", "Synthetic daily somatropin prescription product for validating growth hormone replacement catalog, intake, laboratory requirement, stock, and pricing workflows.");
+	data6.put("Product Name", "AsterEndo Somatropin Growth Support Pen");
+	data6.put("Description", "Synthetic somatropin-based standard catalog product for testing growth hormone deficiency product configuration, laboratory association, inventory, quantities, and pricing.");
 	data6.put("Product Image", "");
-	data6.put("Product Type", "Prescription");
+	data6.put("Product Type", "Standard");
 	data6.put("Category", "Growth Hormone Replacement Therapies");
 	data6.put("Visibility", "Public");
 	data6.put("Minimum Buy Quantity", "1");
 	data6.put("Maximum Buy Quantity", "1");
-	data6.put("Stock Count", "34");
-	data6.put("Intake Form", "HGH Deficiency Intake Form");
-	data6.put("Default SKU / Identifier", "AST-WELL-HGH-106");
+	data6.put("Stock Count", "38");
+	data6.put("Intake Form", "");
+	data6.put("Default SKU / Identifier", "AST-STD-HGH-206");
 	data6.put("Condition Treated", "HGH Deficiency");
-	data6.put("Restrict Multiple Active Prescriptions", "Yes");
+	data6.put("Restrict Multiple Active Prescriptions", "No");
 	data6.put("Pricing Type", "Single Item");
-	data6.put("Intro Price", "149.00");
-	data6.put("Default Price", "925.00");
-	data6.put("Sale Price", "845.00");
+	data6.put("Intro Price", "135.00");
+	data6.put("Default Price", "875.00");
+	data6.put("Sale Price", "795.00");
 	data6.put("Sale Start Date", "09/06/2026");
 	data6.put("Sales End Date", "10/06/2026");
 	data6.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data7 = new TreeMap<String, String>();
-	data7.put("Product Name", "AsterGrowth Somapacitan Weekly Replacement");
-	data7.put("Description", "Synthetic long-acting somapacitan prescription product created for testing weekly growth hormone replacement, required laboratory testing, intake, and purchase restrictions.");
+	data7.put("Product Name", "AsterEndo Somatrogon Weekly Support Pen");
+	data7.put("Description", "Synthetic long-acting somatrogon standard product generated for validating HGH deficiency catalog classification, laboratory requirements, stock, and single-item pricing.");
 	data7.put("Product Image", "");
-	data7.put("Product Type", "Prescription");
+	data7.put("Product Type", "Standard");
 	data7.put("Category", "Growth Hormone Replacement Therapies");
 	data7.put("Visibility", "Public");
 	data7.put("Minimum Buy Quantity", "1");
 	data7.put("Maximum Buy Quantity", "1");
-	data7.put("Stock Count", "27");
-	data7.put("Intake Form", "HGH Deficiency Intake Form");
-	data7.put("Default SKU / Identifier", "AST-WELL-HGH-107");
+	data7.put("Stock Count", "29");
+	data7.put("Intake Form", "");
+	data7.put("Default SKU / Identifier", "AST-STD-HGH-207");
 	data7.put("Condition Treated", "HGH Deficiency");
-	data7.put("Restrict Multiple Active Prescriptions", "Yes");
+	data7.put("Restrict Multiple Active Prescriptions", "No");
 	data7.put("Pricing Type", "Single Item");
-	data7.put("Intro Price", "175.00");
-	data7.put("Default Price", "1180.00");
-	data7.put("Sale Price", "1065.00");
+	data7.put("Intro Price", "164.00");
+	data7.put("Default Price", "1095.00");
+	data7.put("Sale Price", "985.00");
 	data7.put("Sale Start Date", "09/07/2026");
 	data7.put("Sales End Date", "10/07/2026");
 	data7.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data8 = new TreeMap<String, String>();
-	data8.put("Product Name", "AsterGrowth Lonapegsomatropin Weekly Therapy");
-	data8.put("Description", "Synthetic long-acting growth hormone replacement product for validating HGH deficiency condition selection, laboratory association, inventory, and prescription restrictions.");
+	data8.put("Product Name", "AsterEndo Somatropin FlexPro Support Therapy");
+	data8.put("Description", "Synthetic growth hormone support product created for validating standard HGH deficiency product setup, category selection, inventory limits, laboratory flagging, and pricing.");
 	data8.put("Product Image", "");
-	data8.put("Product Type", "Prescription");
+	data8.put("Product Type", "Standard");
 	data8.put("Category", "Growth Hormone Replacement Therapies");
 	data8.put("Visibility", "Public");
 	data8.put("Minimum Buy Quantity", "1");
-	data8.put("Maximum Buy Quantity", "1");
-	data8.put("Stock Count", "31");
-	data8.put("Intake Form", "HGH Deficiency Intake Form");
-	data8.put("Default SKU / Identifier", "AST-WELL-HGH-108");
+	data8.put("Maximum Buy Quantity", "2");
+	data8.put("Stock Count", "33");
+	data8.put("Intake Form", "");
+	data8.put("Default SKU / Identifier", "AST-STD-HGH-208");
 	data8.put("Condition Treated", "HGH Deficiency");
-	data8.put("Restrict Multiple Active Prescriptions", "Yes");
+	data8.put("Restrict Multiple Active Prescriptions", "No");
 	data8.put("Pricing Type", "Single Item");
-	data8.put("Intro Price", "185.00");
-	data8.put("Default Price", "1245.00");
-	data8.put("Sale Price", "1120.00");
+	data8.put("Intro Price", "152.00");
+	data8.put("Default Price", "998.00");
+	data8.put("Sale Price", "899.00");
 	data8.put("Sale Start Date", "09/08/2026");
 	data8.put("Sales End Date", "10/08/2026");
 	data8.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data9 = new TreeMap<String, String>();
-	data9.put("Product Name", "AsterSleep Ramelteon Onset Therapy");
-	data9.put("Description", "Synthetic ramelteon prescription product designed for validating insomnia treatment catalog creation, intake selection, restricted prescriptions, and pricing.");
+	data9.put("Product Name", "AsterRest Suvorexant Night Support Tablets");
+	data9.put("Description", "Synthetic suvorexant-based standard product for validating insomnia catalog configuration, category mapping, inventory availability, quantities, and scheduled pricing.");
 	data9.put("Product Image", "");
-	data9.put("Product Type", "Prescription");
+	data9.put("Product Type", "Standard");
 	data9.put("Category", "Sleep Disorder Prescription Therapies");
 	data9.put("Visibility", "Public");
 	data9.put("Minimum Buy Quantity", "1");
-	data9.put("Maximum Buy Quantity", "1");
-	data9.put("Stock Count", "77");
-	data9.put("Intake Form", "Insomnia Intake Form");
-	data9.put("Default SKU / Identifier", "AST-WELL-INS-109");
+	data9.put("Maximum Buy Quantity", "2");
+	data9.put("Stock Count", "72");
+	data9.put("Intake Form", "");
+	data9.put("Default SKU / Identifier", "AST-STD-INS-209");
 	data9.put("Condition Treated", "Insomnia");
-	data9.put("Restrict Multiple Active Prescriptions", "Yes");
+	data9.put("Restrict Multiple Active Prescriptions", "No");
 	data9.put("Pricing Type", "Single Item");
-	data9.put("Intro Price", "28.00");
-	data9.put("Default Price", "109.00");
-	data9.put("Sale Price", "96.00");
+	data9.put("Intro Price", "34.00");
+	data9.put("Default Price", "132.00");
+	data9.put("Sale Price", "117.00");
 	data9.put("Sale Start Date", "09/09/2026");
 	data9.put("Sales End Date", "10/09/2026");
 	data9.put("Lab Test", "No");
 
 	TreeMap<String, String> data10 = new TreeMap<String, String>();
-	data10.put("Product Name", "AsterSleep Lemborexant Dual-Action Therapy");
-	data10.put("Description", "Synthetic lemborexant prescription product for testing sleep-onset and sleep-maintenance catalog workflows, stock control, intake forms, and sale pricing.");
+	data10.put("Product Name", "AsterRest Eszopiclone Sleep Cycle Tablets");
+	data10.put("Description", "Synthetic eszopiclone-based standard catalog product created for testing insomnia treatment mapping, stock control, SKU configuration, and sale price handling.");
 	data10.put("Product Image", "");
-	data10.put("Product Type", "Prescription");
+	data10.put("Product Type", "Standard");
 	data10.put("Category", "Sleep Disorder Prescription Therapies");
 	data10.put("Visibility", "Public");
 	data10.put("Minimum Buy Quantity", "1");
-	data10.put("Maximum Buy Quantity", "1");
-	data10.put("Stock Count", "59");
-	data10.put("Intake Form", "Insomnia Intake Form");
-	data10.put("Default SKU / Identifier", "AST-WELL-INS-110");
+	data10.put("Maximum Buy Quantity", "2");
+	data10.put("Stock Count", "67");
+	data10.put("Intake Form", "");
+	data10.put("Default SKU / Identifier", "AST-STD-INS-210");
 	data10.put("Condition Treated", "Insomnia");
-	data10.put("Restrict Multiple Active Prescriptions", "Yes");
+	data10.put("Restrict Multiple Active Prescriptions", "No");
 	data10.put("Pricing Type", "Single Item");
-	data10.put("Intro Price", "39.00");
-	data10.put("Default Price", "149.00");
-	data10.put("Sale Price", "134.00");
+	data10.put("Intro Price", "29.00");
+	data10.put("Default Price", "112.00");
+	data10.put("Sale Price", "98.00");
 	data10.put("Sale Start Date", "09/10/2026");
 	data10.put("Sales End Date", "10/10/2026");
 	data10.put("Lab Test", "No");
 
 	TreeMap<String, String> data11 = new TreeMap<String, String>();
-	data11.put("Product Name", "AsterSleep Doxepin Maintenance Therapy");
-	data11.put("Description", "Synthetic low-dose doxepin prescription product created for testing insomnia condition mapping, intake processing, SKU uniqueness, stock, and restricted prescriptions.");
+	data11.put("Product Name", "AsterRest Zaleplon Sleep Onset Tablets");
+	data11.put("Description", "Synthetic zaleplon-based standard product generated for validating sleep disorder catalog records, insomnia condition assignment, inventory, purchase limits, and pricing.");
 	data11.put("Product Image", "");
-	data11.put("Product Type", "Prescription");
+	data11.put("Product Type", "Standard");
 	data11.put("Category", "Sleep Disorder Prescription Therapies");
 	data11.put("Visibility", "Public");
 	data11.put("Minimum Buy Quantity", "1");
-	data11.put("Maximum Buy Quantity", "1");
-	data11.put("Stock Count", "66");
-	data11.put("Intake Form", "Insomnia Intake Form");
-	data11.put("Default SKU / Identifier", "AST-WELL-INS-111");
+	data11.put("Maximum Buy Quantity", "2");
+	data11.put("Stock Count", "83");
+	data11.put("Intake Form", "");
+	data11.put("Default SKU / Identifier", "AST-STD-INS-211");
 	data11.put("Condition Treated", "Insomnia");
-	data11.put("Restrict Multiple Active Prescriptions", "Yes");
+	data11.put("Restrict Multiple Active Prescriptions", "No");
 	data11.put("Pricing Type", "Single Item");
-	data11.put("Intro Price", "26.00");
-	data11.put("Default Price", "99.00");
-	data11.put("Sale Price", "87.00");
+	data11.put("Intro Price", "23.00");
+	data11.put("Default Price", "91.00");
+	data11.put("Sale Price", "79.00");
 	data11.put("Sale Start Date", "09/11/2026");
 	data11.put("Sales End Date", "10/11/2026");
 	data11.put("Lab Test", "No");
 
 	TreeMap<String, String> data12 = new TreeMap<String, String>();
-	data12.put("Product Name", "AsterMind Sertraline Mood Therapy");
-	data12.put("Description", "Synthetic sertraline-based prescription product for validating the low mood and focus pathway, medical intake, inventory, pricing, and prescription restrictions.");
+	data12.put("Product Name", "AsterClarity Escitalopram Balance Tablets");
+	data12.put("Description", "Synthetic escitalopram-based standard product for validating low mood and focus catalog mapping, product visibility, inventory, quantities, and pricing configuration.");
 	data12.put("Product Image", "");
-	data12.put("Product Type", "Prescription");
+	data12.put("Product Type", "Standard");
 	data12.put("Category", "Mood and Focus Support Therapies");
 	data12.put("Visibility", "Public");
 	data12.put("Minimum Buy Quantity", "1");
-	data12.put("Maximum Buy Quantity", "1");
-	data12.put("Stock Count", "88");
-	data12.put("Intake Form", "Mood and Focus Intake Form");
-	data12.put("Default SKU / Identifier", "AST-WELL-MF-112");
+	data12.put("Maximum Buy Quantity", "2");
+	data12.put("Stock Count", "96");
+	data12.put("Intake Form", "");
+	data12.put("Default SKU / Identifier", "AST-STD-MF-212");
 	data12.put("Condition Treated", "Low Mood / Focus");
-	data12.put("Restrict Multiple Active Prescriptions", "Yes");
+	data12.put("Restrict Multiple Active Prescriptions", "No");
 	data12.put("Pricing Type", "Single Item");
-	data12.put("Intro Price", "22.00");
-	data12.put("Default Price", "84.00");
-	data12.put("Sale Price", "73.00");
+	data12.put("Intro Price", "20.00");
+	data12.put("Default Price", "78.00");
+	data12.put("Sale Price", "67.00");
 	data12.put("Sale Start Date", "09/12/2026");
 	data12.put("Sales End Date", "10/12/2026");
 	data12.put("Lab Test", "No");
 
 	TreeMap<String, String> data13 = new TreeMap<String, String>();
-	data13.put("Product Name", "AsterMind Bupropion Mood Support Therapy");
-	data13.put("Description", "Synthetic bupropion-based prescription product created for testing low mood and focus catalog workflows, intake association, stock, and pricing.");
+	data13.put("Product Name", "AsterClarity Fluoxetine Mood Support Capsules");
+	data13.put("Description", "Synthetic fluoxetine-based standard catalog product designed for validating low mood and focus condition mapping, SKU uniqueness, inventory, and promotional pricing.");
 	data13.put("Product Image", "");
-	data13.put("Product Type", "Prescription");
+	data13.put("Product Type", "Standard");
 	data13.put("Category", "Mood and Focus Support Therapies");
 	data13.put("Visibility", "Public");
 	data13.put("Minimum Buy Quantity", "1");
-	data13.put("Maximum Buy Quantity", "1");
-	data13.put("Stock Count", "72");
-	data13.put("Intake Form", "Mood and Focus Intake Form");
-	data13.put("Default SKU / Identifier", "AST-WELL-MF-113");
+	data13.put("Maximum Buy Quantity", "3");
+	data13.put("Stock Count", "104");
+	data13.put("Intake Form", "");
+	data13.put("Default SKU / Identifier", "AST-STD-MF-213");
 	data13.put("Condition Treated", "Low Mood / Focus");
-	data13.put("Restrict Multiple Active Prescriptions", "Yes");
+	data13.put("Restrict Multiple Active Prescriptions", "No");
 	data13.put("Pricing Type", "Single Item");
-	data13.put("Intro Price", "25.00");
-	data13.put("Default Price", "94.00");
-	data13.put("Sale Price", "82.00");
+	data13.put("Intro Price", "18.00");
+	data13.put("Default Price", "72.00");
+	data13.put("Sale Price", "62.00");
 	data13.put("Sale Start Date", "09/13/2026");
 	data13.put("Sales End Date", "10/13/2026");
 	data13.put("Lab Test", "No");
 
 	TreeMap<String, String> data14 = new TreeMap<String, String>();
-	data14.put("Product Name", "AsterMind Desvenlafaxine Balance Therapy");
-	data14.put("Description", "Synthetic desvenlafaxine-based prescription product for validating condition selection, clinical intake, concurrent-prescription restriction, stock, and scheduled pricing.");
+	data14.put("Product Name", "AsterClarity Venlafaxine Focus Balance Tablets");
+	data14.put("Description", "Synthetic venlafaxine-based standard product generated for validating mood and focus catalog setup, category association, purchasing controls, stock, and sale pricing.");
 	data14.put("Product Image", "");
-	data14.put("Product Type", "Prescription");
+	data14.put("Product Type", "Standard");
 	data14.put("Category", "Mood and Focus Support Therapies");
 	data14.put("Visibility", "Public");
 	data14.put("Minimum Buy Quantity", "1");
-	data14.put("Maximum Buy Quantity", "1");
-	data14.put("Stock Count", "64");
-	data14.put("Intake Form", "Mood and Focus Intake Form");
-	data14.put("Default SKU / Identifier", "AST-WELL-MF-114");
+	data14.put("Maximum Buy Quantity", "2");
+	data14.put("Stock Count", "87");
+	data14.put("Intake Form", "");
+	data14.put("Default SKU / Identifier", "AST-STD-MF-214");
 	data14.put("Condition Treated", "Low Mood / Focus");
-	data14.put("Restrict Multiple Active Prescriptions", "Yes");
+	data14.put("Restrict Multiple Active Prescriptions", "No");
 	data14.put("Pricing Type", "Single Item");
-	data14.put("Intro Price", "31.00");
-	data14.put("Default Price", "116.00");
-	data14.put("Sale Price", "102.00");
+	data14.put("Intro Price", "26.00");
+	data14.put("Default Price", "103.00");
+	data14.put("Sale Price", "89.00");
 	data14.put("Sale Start Date", "09/14/2026");
 	data14.put("Sales End Date", "10/14/2026");
 	data14.put("Lab Test", "No");
 
 	TreeMap<String, String> data15 = new TreeMap<String, String>();
-	data15.put("Product Name", "AsterAndro Testosterone Gel Replacement");
-	data15.put("Description", "Synthetic testosterone gel prescription product for validating confirmed low-testosterone treatment, laboratory association, intake, pricing, and inventory workflows.");
+	data15.put("Product Name", "AsterAndroCore Testosterone Undecanoate Support");
+	data15.put("Description", "Synthetic testosterone undecanoate standard product created for validating low testosterone catalog configuration, laboratory requirement, stock, quantities, and pricing.");
 	data15.put("Product Image", "");
-	data15.put("Product Type", "Prescription");
+	data15.put("Product Type", "Standard");
 	data15.put("Category", "Testosterone Replacement Therapies");
 	data15.put("Visibility", "Public");
 	data15.put("Minimum Buy Quantity", "1");
 	data15.put("Maximum Buy Quantity", "1");
-	data15.put("Stock Count", "49");
-	data15.put("Intake Form", "Low Testosterone Intake Form");
-	data15.put("Default SKU / Identifier", "AST-WELL-LT-115");
+	data15.put("Stock Count", "46");
+	data15.put("Intake Form", "");
+	data15.put("Default SKU / Identifier", "AST-STD-LT-215");
 	data15.put("Condition Treated", "Low Testosterone");
-	data15.put("Restrict Multiple Active Prescriptions", "Yes");
+	data15.put("Restrict Multiple Active Prescriptions", "No");
 	data15.put("Pricing Type", "Single Item");
-	data15.put("Intro Price", "59.00");
-	data15.put("Default Price", "239.00");
-	data15.put("Sale Price", "215.00");
+	data15.put("Intro Price", "62.00");
+	data15.put("Default Price", "248.00");
+	data15.put("Sale Price", "224.00");
 	data15.put("Sale Start Date", "09/15/2026");
 	data15.put("Sales End Date", "10/15/2026");
 	data15.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data16 = new TreeMap<String, String>();
-	data16.put("Product Name", "AsterAndro Testosterone Cypionate Injection");
-	data16.put("Description", "Synthetic testosterone cypionate prescription product created for testing low-testosterone diagnosis workflows, required labs, stock, intake, and quantity limits.");
+	data16.put("Product Name", "AsterAndroCore Testosterone Enanthate Support");
+	data16.put("Description", "Synthetic testosterone enanthate standard catalog product for validating low testosterone treatment mapping, laboratory association, inventory, SKU, and pricing.");
 	data16.put("Product Image", "");
-	data16.put("Product Type", "Prescription");
+	data16.put("Product Type", "Standard");
 	data16.put("Category", "Testosterone Replacement Therapies");
 	data16.put("Visibility", "Public");
 	data16.put("Minimum Buy Quantity", "1");
 	data16.put("Maximum Buy Quantity", "1");
-	data16.put("Stock Count", "43");
-	data16.put("Intake Form", "Low Testosterone Intake Form");
-	data16.put("Default SKU / Identifier", "AST-WELL-LT-116");
+	data16.put("Stock Count", "51");
+	data16.put("Intake Form", "");
+	data16.put("Default SKU / Identifier", "AST-STD-LT-216");
 	data16.put("Condition Treated", "Low Testosterone");
-	data16.put("Restrict Multiple Active Prescriptions", "Yes");
+	data16.put("Restrict Multiple Active Prescriptions", "No");
 	data16.put("Pricing Type", "Single Item");
-	data16.put("Intro Price", "65.00");
-	data16.put("Default Price", "265.00");
-	data16.put("Sale Price", "238.00");
+	data16.put("Intro Price", "57.00");
+	data16.put("Default Price", "229.00");
+	data16.put("Sale Price", "205.00");
 	data16.put("Sale Start Date", "09/16/2026");
 	data16.put("Sales End Date", "10/16/2026");
 	data16.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data17 = new TreeMap<String, String>();
-	data17.put("Product Name", "AsterAndro Testosterone Transdermal Therapy");
-	data17.put("Description", "Synthetic transdermal testosterone replacement product for validating low-testosterone catalog configuration, laboratory requirements, prescription intake, and pricing.");
+	data17.put("Product Name", "AsterAndroCore Testosterone Nasal Gel");
+	data17.put("Description", "Synthetic testosterone nasal gel standard product generated for testing low testosterone catalog classification, laboratory flagging, inventory, and scheduled pricing.");
 	data17.put("Product Image", "");
-	data17.put("Product Type", "Prescription");
+	data17.put("Product Type", "Standard");
 	data17.put("Category", "Testosterone Replacement Therapies");
 	data17.put("Visibility", "Public");
 	data17.put("Minimum Buy Quantity", "1");
-	data17.put("Maximum Buy Quantity", "1");
-	data17.put("Stock Count", "52");
-	data17.put("Intake Form", "Low Testosterone Intake Form");
-	data17.put("Default SKU / Identifier", "AST-WELL-LT-117");
+	data17.put("Maximum Buy Quantity", "2");
+	data17.put("Stock Count", "58");
+	data17.put("Intake Form", "");
+	data17.put("Default SKU / Identifier", "AST-STD-LT-217");
 	data17.put("Condition Treated", "Low Testosterone");
-	data17.put("Restrict Multiple Active Prescriptions", "Yes");
+	data17.put("Restrict Multiple Active Prescriptions", "No");
 	data17.put("Pricing Type", "Single Item");
-	data17.put("Intro Price", "54.00");
-	data17.put("Default Price", "219.00");
-	data17.put("Sale Price", "196.00");
+	data17.put("Intro Price", "49.00");
+	data17.put("Default Price", "198.00");
+	data17.put("Sale Price", "177.00");
 	data17.put("Sale Start Date", "09/17/2026");
 	data17.put("Sales End Date", "10/17/2026");
 	data17.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data18 = new TreeMap<String, String>();
-	data18.put("Product Name", "AsterWeight Semaglutide Management Therapy");
-	data18.put("Description", "Synthetic semaglutide-based prescription product created for validating medical weight-management intake, laboratory association, inventory, and pricing workflows.");
+	data18.put("Product Name", "AsterLean Orlistat Weight Control Capsules");
+	data18.put("Description", "Synthetic orlistat-based standard product created for validating obesity catalog configuration, medical weight-management category assignment, stock, and pricing.");
 	data18.put("Product Image", "");
-	data18.put("Product Type", "Prescription");
+	data18.put("Product Type", "Standard");
 	data18.put("Category", "Medical Weight Management Therapies");
 	data18.put("Visibility", "Public");
 	data18.put("Minimum Buy Quantity", "1");
-	data18.put("Maximum Buy Quantity", "1");
-	data18.put("Stock Count", "38");
-	data18.put("Intake Form", "Obesity Weight Management Intake Form");
-	data18.put("Default SKU / Identifier", "AST-WELL-OB-118");
+	data18.put("Maximum Buy Quantity", "2");
+	data18.put("Stock Count", "92");
+	data18.put("Intake Form", "");
+	data18.put("Default SKU / Identifier", "AST-STD-OB-218");
 	data18.put("Condition Treated", "Obesity");
-	data18.put("Restrict Multiple Active Prescriptions", "Yes");
+	data18.put("Restrict Multiple Active Prescriptions", "No");
 	data18.put("Pricing Type", "Single Item");
-	data18.put("Intro Price", "89.00");
-	data18.put("Default Price", "429.00");
-	data18.put("Sale Price", "389.00");
+	data18.put("Intro Price", "38.00");
+	data18.put("Default Price", "154.00");
+	data18.put("Sale Price", "137.00");
 	data18.put("Sale Start Date", "09/18/2026");
 	data18.put("Sales End Date", "10/18/2026");
 	data18.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data19 = new TreeMap<String, String>();
-	data19.put("Product Name", "AsterWeight Tirzepatide Management Therapy");
-	data19.put("Description", "Synthetic tirzepatide-based prescription product for testing obesity treatment catalog creation, clinical intake, stock restrictions, laboratory requirements, and pricing.");
+	data19.put("Product Name", "AsterLean Naltrexone Bupropion Weight Support");
+	data19.put("Description", "Synthetic combination weight-management standard product generated for obesity catalog testing, inventory controls, laboratory association, and promotional pricing.");
 	data19.put("Product Image", "");
-	data19.put("Product Type", "Prescription");
+	data19.put("Product Type", "Standard");
 	data19.put("Category", "Medical Weight Management Therapies");
 	data19.put("Visibility", "Public");
 	data19.put("Minimum Buy Quantity", "1");
-	data19.put("Maximum Buy Quantity", "1");
-	data19.put("Stock Count", "35");
-	data19.put("Intake Form", "Obesity Weight Management Intake Form");
-	data19.put("Default SKU / Identifier", "AST-WELL-OB-119");
+	data19.put("Maximum Buy Quantity", "2");
+	data19.put("Stock Count", "73");
+	data19.put("Intake Form", "");
+	data19.put("Default SKU / Identifier", "AST-STD-OB-219");
 	data19.put("Condition Treated", "Obesity");
-	data19.put("Restrict Multiple Active Prescriptions", "Yes");
+	data19.put("Restrict Multiple Active Prescriptions", "No");
 	data19.put("Pricing Type", "Single Item");
-	data19.put("Intro Price", "99.00");
-	data19.put("Default Price", "475.00");
-	data19.put("Sale Price", "429.00");
+	data19.put("Intro Price", "44.00");
+	data19.put("Default Price", "179.00");
+	data19.put("Sale Price", "159.00");
 	data19.put("Sale Start Date", "09/19/2026");
 	data19.put("Sales End Date", "10/19/2026");
 	data19.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data20 = new TreeMap<String, String>();
-	data20.put("Product Name", "AsterWeight Liraglutide Management Therapy");
-	data20.put("Description", "Synthetic liraglutide-based prescription product designed for validating obesity condition mapping, medical intake, required laboratory testing, stock, and sale pricing.");
+	data20.put("Product Name", "AsterLean Phentermine Topiramate Balance Capsules");
+	data20.put("Description", "Synthetic combination standard product created for validating obesity condition mapping, weight-management catalog configuration, stock availability, and sale pricing.");
 	data20.put("Product Image", "");
-	data20.put("Product Type", "Prescription");
+	data20.put("Product Type", "Standard");
 	data20.put("Category", "Medical Weight Management Therapies");
 	data20.put("Visibility", "Public");
 	data20.put("Minimum Buy Quantity", "1");
 	data20.put("Maximum Buy Quantity", "1");
-	data20.put("Stock Count", "41");
-	data20.put("Intake Form", "Obesity Weight Management Intake Form");
-	data20.put("Default SKU / Identifier", "AST-WELL-OB-120");
+	data20.put("Stock Count", "61");
+	data20.put("Intake Form", "");
+	data20.put("Default SKU / Identifier", "AST-STD-OB-220");
 	data20.put("Condition Treated", "Obesity");
-	data20.put("Restrict Multiple Active Prescriptions", "Yes");
+	data20.put("Restrict Multiple Active Prescriptions", "No");
 	data20.put("Pricing Type", "Single Item");
-	data20.put("Intro Price", "79.00");
-	data20.put("Default Price", "395.00");
-	data20.put("Sale Price", "356.00");
+	data20.put("Intro Price", "52.00");
+	data20.put("Default Price", "207.00");
+	data20.put("Sale Price", "184.00");
 	data20.put("Sale Start Date", "09/20/2026");
 	data20.put("Sales End Date", "10/20/2026");
 	data20.put("Lab Test", "Yes");
 
-	return new Object[][] {/*
+	return new Object[][] {
 		{ data1 },
 		{ data2 },
 		{ data3 },
-		{ data4 }, */
-		{ data5 },/*
+		{ data4 },
+		{ data5 },
 		{ data6 },
 		{ data7 },
 		{ data8 },
@@ -749,7 +793,7 @@ public Object[][] Product_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } */
+		{ data20 }
 	};
 }
 
@@ -779,273 +823,495 @@ public Object[][] combined_data_provider() {
 
 @Test(dataProvider = "Lab_Test_Create_Data")
 public void Lab_Test_ADD(TreeMap<String, String> data) throws Exception {
-	
-	ExtentTest log = Report_Listen.log_print_in_report();
+
 	Product_Module_Locaters p = new Product_Module_Locaters(d);
-	
+
 	String Lab_Test_Name = data.get("Lab Test Name");
 	String Method = data.get("Method");
 	String Price = data.get("Price");
-	
-	
-	Product_Module_Tab_Navigator("Lab Tests");
-	WebElement Lab_Test_Add = p.Lab_Test_Add_Button();
-	Lab_Test_Add.click();
-	WebElement Popup_Form = p.Popup_Form();
-	List<WebElement> Form_Fields = Popup_Form.findElements(By.xpath(".//input[@id='name' or @id='method' or @id='price']"));
-	WebElement Name_Field= Form_Fields.get(0);
-	WebElement Method_Field= Form_Fields.get(1);
-	WebElement Price_Field= Form_Fields.get(2);
-	Name_Field.sendKeys(Lab_Test_Name);
-	Method_Field.sendKeys(Method);
-	WebElement Method_type_list=   p.First_Virtual_List_holder();
-	List<WebElement> Method_type_list_options = Method_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
-    for(WebElement Method_option : Method_type_list_options) {
-    	String Method_option_text = Method_option.getText();
-		if(Method_option_text.equals(Method)) {
-			Method_option.click();
-			break;
-		}}
-    if(Method.equals("Walk-In")) {
-    	
-    	String Address_Line_1 = data.get("Address Line 1");
-    	String Address_Line_2 = data.get("Address Line 2");
-    	String Country = data.get("Country");
-    	String State = data.get("State");
-    	String City = data.get("City");
-    	String Postal_Code = data.get("Postal Code / Zip Code");
-    	
-    	List<WebElement> Address_info_Fields = Popup_Form.findElements(By.xpath(".//input[@id='address1' or @id='address2' or @id='country' or @id='city' or @id='zip']"));
-    	WebElement Address_Line_1_Field= Address_info_Fields.get(0);
-    	WebElement Address_Line_2_Field= Address_info_Fields.get(1);
-    	WebElement Country_Field= Address_info_Fields.get(2);
-    	WebElement City_Field= Address_info_Fields.get(3);
-    	WebElement Postal_Code_Field= Address_info_Fields.get(4);
-    	Address_Line_1_Field.sendKeys(Address_Line_1);
-    	Address_Line_2_Field.sendKeys(Address_Line_2);
-    	Country_Field.click();
-    	Country_Field.clear();
-    	Country_Field.sendKeys(Country);
-    	WebElement Country_type_list=   p.Second_Virtual_List_holder();
-    	List<WebElement> Country_type_list_options = Country_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
-        for(WebElement Country_option : Country_type_list_options) {
-        	String Country_option_text = Country_option.getText();
-    		if(Country_option_text.equals(Country)) {
-    			Country_option.click();
-    			break;}}
-        Thread.sleep(880);
-        WebElement State_Field= Popup_Form.findElement(By.xpath(".//input[@id='state']"));;
-        State_Field.click();
-        State_Field.clear();
-        State_Field.sendKeys(State);
-        WebElement State_type_list=   p.Thrid_Virtual_List_holder();
-    	List<WebElement> State_type_list_options = State_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
-        for(WebElement State_option : State_type_list_options) {
-        	String State_option_text = State_option.getText();
-    		if(State_option_text.equals(State)) {
-    			State_option.click();
-    			break;}}
-        City_Field.clear();
-        City_Field.sendKeys(City);
-        Postal_Code_Field.sendKeys(Postal_Code);}
-    if(Method.equals("Test Kit")){
-    	
-    	String Kit_Provided_By = data.get("Kit Provided By");
-    	WebElement Kit_Provided_By_Field= Popup_Form.findElement(By.xpath(".//input[@id='kit_provided_by']"));
-    	Kit_Provided_By_Field.sendKeys(Kit_Provided_By);
-    	WebElement Kit_type_list=   p.Second_Virtual_List_holder();
-    	List<WebElement> Kit_type_list_options = Kit_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
-        for(WebElement Kit_option : Kit_type_list_options) {
-        	String Kit_option_text = Kit_option.getText();
-    		if(Kit_option_text.equals(Kit_Provided_By)) {
-    			Kit_option.click();
-    			break;}}}
-    Price_Field.sendKeys(Price);
-	WebElement Save_Button = p.Save_Button();
-	Save_Button.click();
-	Thread.sleep(800);
-	p.Lab_Test_Add_Button();
+
+	int step = 1;
+
+	try {
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🧪 LAB TEST CREATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Scenario:</b> Create a new Lab Test in the Product Module.");
+		Report_Listen.log_print_in_report().info("<b>Input:</b> Lab Test Name = " + Lab_Test_Name + " | Method = " + Method + " | Price = " + Price);
+		Report_Listen.log_print_in_report().info("<b>Expected:</b> Lab Test should be created successfully with the selected method and configured details.");
+
+		System.out.println("🧪 LAB TEST CREATION");
+		System.out.println();
+		System.out.println("🔹 Lab Test Name: " + Lab_Test_Name);
+		System.out.println();
+		System.out.println("🔹 Method: " + Method);
+		System.out.println();
+		System.out.println("🔹 Price: " + Price);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🧭 LAB TEST TAB NAVIGATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Navigate to the Lab Tests tab.");
+
+		System.out.println("🧭 LAB TEST TAB NAVIGATION");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Navigating to the Lab Tests tab.");
+		System.out.println();
+
+		Product_Module_Tab_Navigator("Lab Tests");
+
+		Report_Listen.log_print_in_report().pass("✅ Lab Tests tab opened successfully.");
+		System.out.println("✅ Lab Tests tab opened successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 📝 LAB TEST FORM ACCESS ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Open the Lab Test Add form and retrieve its primary fields.");
+
+		System.out.println("📝 LAB TEST FORM ACCESS");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Opening the Lab Test Add form.");
+		System.out.println();
+
+		WebElement Lab_Test_Add = p.Lab_Test_Add_Button();
+		Lab_Test_Add.click();
+
+		WebElement Popup_Form = p.Popup_Form();
+		List<WebElement> Form_Fields = Popup_Form.findElements(By.xpath(".//input[@id='name' or @id='method' or @id='price']"));
+		WebElement Name_Field = Form_Fields.get(0);
+		WebElement Method_Field = Form_Fields.get(1);
+		WebElement Price_Field = Form_Fields.get(2);
+
+		Report_Listen.log_print_in_report().pass("✅ Lab Test Add form and primary input fields retrieved successfully.");
+		System.out.println("✅ Lab Test Add form and primary input fields retrieved successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── ✏️ LAB TEST BASIC DETAILS ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Enter the Lab Test name.");
+
+		System.out.println("✏️ LAB TEST BASIC DETAILS");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Entering Lab Test Name: " + Lab_Test_Name);
+		System.out.println();
+
+		Name_Field.sendKeys(Lab_Test_Name);
+
+		Report_Listen.log_print_in_report().pass("✅ Lab Test Name entered successfully.");
+		System.out.println("✅ Lab Test Name entered successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── ⚙️ LAB TEST METHOD SELECTION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Select Lab Test Method = " + Method);
+
+		System.out.println("⚙️ LAB TEST METHOD SELECTION");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Selecting Lab Test Method: " + Method);
+		System.out.println();
+
+		Method_Field.sendKeys(Method);
+
+		WebElement Method_type_list = p.First_Virtual_List_holder();
+		List<WebElement> Method_type_list_options = Method_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+
+		for(WebElement Method_option : Method_type_list_options) {
+
+			String Method_option_text = Method_option.getText();
+
+			if(Method_option_text.equals(Method)) {
+
+				Method_option.click();
+
+				Report_Listen.log_print_in_report().pass("✅ Lab Test Method selected successfully: " + Method);
+				System.out.println("✅ Lab Test Method selected successfully: " + Method);
+				System.out.println();
+
+				break;
+			}
+		}
+
+		if(Method.equals("Walk-In")) {
+
+			String Address_Line_1 = data.get("Address Line 1");
+			String Address_Line_2 = data.get("Address Line 2");
+			String Country = data.get("Country");
+			String State = data.get("State");
+			String City = data.get("City");
+			String Postal_Code = data.get("Postal Code / Zip Code");
+
+			step++;
+
+			Report_Listen.log_print_in_report().info("──────────────────── 📍 WALK-IN LOCATION DETAILS ────────────────────");
+			Report_Listen.log_print_in_report().info("<b>Action:</b> Configure Walk-In laboratory address and location details.");
+			Report_Listen.log_print_in_report().info("<b>Input:</b> Country = " + Country + " | State = " + State + " | City = " + City + " | Postal Code = " + Postal_Code);
+
+			System.out.println("📍 WALK-IN LOCATION DETAILS");
+			System.out.println();
+			System.out.println("🔹 Step " + step + ": Entering Walk-In laboratory address details.");
+			System.out.println();
+
+			List<WebElement> Address_info_Fields = Popup_Form.findElements(By.xpath(".//input[@id='address1' or @id='address2' or @id='country' or @id='city' or @id='zip']"));
+			WebElement Address_Line_1_Field = Address_info_Fields.get(0);
+			WebElement Address_Line_2_Field = Address_info_Fields.get(1);
+			WebElement Country_Field = Address_info_Fields.get(2);
+			WebElement City_Field = Address_info_Fields.get(3);
+			WebElement Postal_Code_Field = Address_info_Fields.get(4);
+
+			Address_Line_1_Field.sendKeys(Address_Line_1);
+			Address_Line_2_Field.sendKeys(Address_Line_2);
+
+			Report_Listen.log_print_in_report().info("<b>Action:</b> Select Country = " + Country);
+			System.out.println("🔹 Selecting Country: " + Country);
+			System.out.println();
+
+			Country_Field.click();
+			Country_Field.clear();
+			Country_Field.sendKeys(Country);
+
+			WebElement Country_type_list = p.Second_Virtual_List_holder();
+			List<WebElement> Country_type_list_options = Country_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+
+			for(WebElement Country_option : Country_type_list_options) {
+
+				String Country_option_text = Country_option.getText();
+
+				if(Country_option_text.equals(Country)) {
+
+					Country_option.click();
+
+					Report_Listen.log_print_in_report().pass("✅ Country selected successfully: " + Country);
+					System.out.println("✅ Country selected successfully: " + Country);
+					System.out.println();
+
+					break;
+				}
+			}
+
+			Thread.sleep(880);
+
+			Report_Listen.log_print_in_report().info("<b>Action:</b> Select State = " + State);
+			System.out.println("🔹 Selecting State: " + State);
+			System.out.println();
+
+			WebElement State_Field = Popup_Form.findElement(By.xpath(".//input[@id='state']"));
+			State_Field.click();
+			State_Field.clear();
+			State_Field.sendKeys(State);
+
+			WebElement State_type_list = p.Thrid_Virtual_List_holder();
+			List<WebElement> State_type_list_options = State_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+
+			for(WebElement State_option : State_type_list_options) {
+
+				String State_option_text = State_option.getText();
+
+				if(State_option_text.equals(State)) {
+
+					State_option.click();
+
+					Report_Listen.log_print_in_report().pass("✅ State selected successfully: " + State);
+					System.out.println("✅ State selected successfully: " + State);
+					System.out.println();
+
+					break;
+				}
+			}
+
+			City_Field.clear();
+			City_Field.sendKeys(City);
+			Postal_Code_Field.sendKeys(Postal_Code);
+
+			Report_Listen.log_print_in_report().pass("✅ Walk-In laboratory location details entered successfully.");
+			System.out.println("✅ Walk-In laboratory location details entered successfully.");
+			System.out.println();
+		}
+
+		if(Method.equals("Test Kit")) {
+
+			String Kit_Provided_By = data.get("Kit Provided By");
+
+			step++;
+
+			Report_Listen.log_print_in_report().info("──────────────────── 📦 TEST KIT CONFIGURATION ────────────────────");
+			Report_Listen.log_print_in_report().info("<b>Action:</b> Configure Test Kit provider.");
+			Report_Listen.log_print_in_report().info("<b>Input:</b> Kit Provided By = " + Kit_Provided_By);
+
+			System.out.println("📦 TEST KIT CONFIGURATION");
+			System.out.println();
+			System.out.println("🔹 Step " + step + ": Selecting Kit Provided By: " + Kit_Provided_By);
+			System.out.println();
+
+			WebElement Kit_Provided_By_Field = Popup_Form.findElement(By.xpath(".//input[@id='kit_provided_by']"));
+			Kit_Provided_By_Field.sendKeys(Kit_Provided_By);
+
+			WebElement Kit_type_list = p.Second_Virtual_List_holder();
+			List<WebElement> Kit_type_list_options = Kit_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+
+			for(WebElement Kit_option : Kit_type_list_options) {
+
+				String Kit_option_text = Kit_option.getText();
+
+				if(Kit_option_text.equals(Kit_Provided_By)) {
+
+					Kit_option.click();
+
+					Report_Listen.log_print_in_report().pass("✅ Kit provider selected successfully: " + Kit_Provided_By);
+					System.out.println("✅ Kit provider selected successfully: " + Kit_Provided_By);
+					System.out.println();
+
+					break;
+				}
+			}
+		}
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 💲 LAB TEST PRICING ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Enter Lab Test Price = " + Price);
+
+		System.out.println("💲 LAB TEST PRICING");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Entering Lab Test Price: " + Price);
+		System.out.println();
+
+		Price_Field.sendKeys(Price);
+
+		Report_Listen.log_print_in_report().pass("✅ Lab Test Price entered successfully.");
+		System.out.println("✅ Lab Test Price entered successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 💾 LAB TEST SAVE & VERIFICATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Save the Lab Test and verify that the creation flow completes.");
+
+		System.out.println("💾 LAB TEST SAVE & VERIFICATION");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Saving the Lab Test.");
+		System.out.println();
+
+		WebElement Save_Button = p.Save_Button();
+		Save_Button.click();
+
+		Thread.sleep(800);
+
+		p.Lab_Test_Add_Button();
+
+		Report_Listen.log_print_in_report().pass("✅ Lab Test created successfully: " + Lab_Test_Name);
+		System.out.println("✅ Lab Test created successfully: " + Lab_Test_Name);
+		System.out.println();
+
+	} catch(Exception e) {
+
+		if(Report_Listen.log_print_in_report() != null) Report_Listen.log_print_in_report().fail("❌ Lab Test creation failed for '" + Lab_Test_Name + "'. Failure reason: " + e.getMessage());
+
+		System.out.println("❌ Lab Test creation failed for: " + Lab_Test_Name);
+		System.out.println();
+
+		System.out.println("❌ Failure reason: " + e.getMessage());
+		System.out.println();
+
+		throw e;
+	}
 }
 
 
 
 @Test(dataProvider = "Category_Create_Data")
 public void Category_Add(TreeMap<String, String> data) throws Exception {
-	
+
 	String Category_Name_Data = data.get("Category Name");
 	String Drug_Class_Code_Data = data.get("Drug Class / Code");
 	String Category_Description_Data = data.get("Description");
-	
-	
-	ExtentTest log = Report_Listen.log_print_in_report();
+
 	Product_Module_Locaters p = new Product_Module_Locaters(d);
 
 	int step = 1;
-	
-	
 
 	try {
-		log.info("Step " + step + ": Starting the Category creation flow.");
-		System.out.println("🔹 Step " + step + ": Starting the Category creation flow.");
-		step++;
 
-		
+		Report_Listen.log_print_in_report().info("──────────────────── 🗂️ CATEGORY CREATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Scenario:</b> Create a new Product Category.");
+		Report_Listen.log_print_in_report().info("<b>Input:</b> Category Name = " + Category_Name_Data + " | Drug Class / Code = " + Drug_Class_Code_Data);
+		Report_Listen.log_print_in_report().info("<b>Expected:</b> Category should be created successfully and become available in the Product Module.");
 
-		log.info("Step " + step + ": Product Module locator class initialized successfully.");
-		System.out.println("🔹 Step " + step + ": Product Module locator class initialized successfully.");
-		step++;
+		System.out.println("🗂️ CATEGORY CREATION");
+		System.out.println();
+		System.out.println("🔹 Category Name: " + Category_Name_Data);
+		System.out.println();
+		System.out.println("🔹 Drug Class / Code: " + Drug_Class_Code_Data);
+		System.out.println();
 
-		
+		Report_Listen.log_print_in_report().info("──────────────────── 🧭 CATEGORY TAB NAVIGATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Navigate to the Categories tab of the Product Module.");
 
-		log.info("Step " + step + ": Category creation test data retrieved from the DataProvider.");
-		log.info("Category Name: " + Category_Name_Data);
-		log.info("Drug Class / Code: " + Drug_Class_Code_Data);
-		log.info("Description: " + Category_Description_Data);
-		System.out.println("🔹 Step " + step + ": Category creation test data retrieved from the DataProvider.");
-		System.out.println("   ➤ Category Name: " + Category_Name_Data);
-		System.out.println("   ➤ Drug Class / Code: " + Drug_Class_Code_Data);
-		System.out.println("   ➤ Description: " + Category_Description_Data);
-		step++;
-
-		log.info("Step " + step + ": Navigating to the Categories tab of the Product Module.");
-		System.out.println("🔹 Step " + step + ": Navigating to the Categories tab of the Product Module.");
+		System.out.println("🧭 CATEGORY TAB NAVIGATION");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Navigating to the Categories tab.");
+		System.out.println();
 
 		Product_Module_Tab_Navigator("Categories");
 
-		log.pass("Step " + step + ": Categories tab opened successfully.");
-		System.out.println("✅ Step " + step + ": Categories tab opened successfully.");
+		Report_Listen.log_print_in_report().pass("✅ Categories tab opened successfully.");
+		System.out.println("✅ Categories tab opened successfully.");
+		System.out.println();
+
 		step++;
 
-		log.info("Step " + step + ": Retrieving the Category Add button.");
-		System.out.println("🔹 Step " + step + ": Retrieving the Category Add button.");
+		Report_Listen.log_print_in_report().info("──────────────────── 📝 CATEGORY FORM ACCESS ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Open the Category Add form.");
+
+		System.out.println("📝 CATEGORY FORM ACCESS");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Opening the Category Add form.");
+		System.out.println();
 
 		WebElement Category_Add = p.Category_Add_Button();
-
-		log.pass("Step " + step + ": Category Add button retrieved successfully.");
-		System.out.println("✅ Step " + step + ": Category Add button retrieved successfully.");
-		step++;
-
-		log.info("Step " + step + ": Clicking the Category Add button.");
-		System.out.println("🔹 Step " + step + ": Clicking the Category Add button.");
-
 		Category_Add.click();
-
-		log.pass("Step " + step + ": Category Add button clicked successfully.");
-		System.out.println("✅ Step " + step + ": Category Add button clicked successfully.");
-		step++;
-
-		log.info("Step " + step + ": Retrieving the Category creation popup form.");
-		System.out.println("🔹 Step " + step + ": Retrieving the Category creation popup form.");
 
 		WebElement Popup_Form = p.Popup_Form();
 
-		log.pass("Step " + step + ": Category creation popup form displayed successfully.");
-		System.out.println("✅ Step " + step + ": Category creation popup form displayed successfully.");
+		Report_Listen.log_print_in_report().pass("✅ Category Add form displayed successfully.");
+		System.out.println("✅ Category Add form displayed successfully.");
+		System.out.println();
+
 		step++;
 
-		log.info("Step " + step + ": Retrieving input fields from the Category creation popup form.");
-		System.out.println("🔹 Step " + step + ": Retrieving input fields from the Category creation popup form.");
+		Report_Listen.log_print_in_report().info("──────────────────── ✏️ CATEGORY DETAILS ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Enter Category Name, Drug Class / Code and Description.");
+
+		System.out.println("✏️ CATEGORY DETAILS");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Entering Category details.");
+		System.out.println();
 
 		List<WebElement> Form_Fields = Popup_Form.findElements(By.xpath(".//input"));
 		WebElement Category_Name = Form_Fields.get(0);
 		WebElement Drug_Class_Field = Form_Fields.get(1);
 		WebElement Category_Description = Popup_Form.findElement(By.xpath(".//textarea"));
 
-		log.pass("Step " + step + ": Category Name, Drug Class / Code and Description fields retrieved successfully.");
-		System.out.println("✅ Step " + step + ": Category Name, Drug Class / Code and Description fields retrieved successfully.");
-		step++;
-
-		log.info("Step " + step + ": Entering the Category Name: " + Category_Name_Data);
-		System.out.println("🔹 Step " + step + ": Entering the Category Name: " + Category_Name_Data);
-
 		Category_Name.clear();
 		Category_Name.sendKeys(Category_Name_Data);
 
-		log.pass("Step " + step + ": Category Name entered successfully.");
-		System.out.println("✅ Step " + step + ": Category Name entered successfully.");
-		step++;
-
-		log.info("Step " + step + ": Entering the Drug Class / Code: " + Drug_Class_Code_Data);
-		System.out.println("🔹 Step " + step + ": Entering the Drug Class / Code: " + Drug_Class_Code_Data);
+		Report_Listen.log_print_in_report().info("<b>Category Name:</b> " + Category_Name_Data);
+		System.out.println("✅ Category Name entered: " + Category_Name_Data);
+		System.out.println();
 
 		Drug_Class_Field.clear();
 		Drug_Class_Field.sendKeys(Drug_Class_Code_Data);
 
-		log.pass("Step " + step + ": Drug Class / Code entered successfully.");
-		System.out.println("✅ Step " + step + ": Drug Class / Code entered successfully.");
-		step++;
-
-		log.info("Step " + step + ": Entering the Category Description.");
-		System.out.println("🔹 Step " + step + ": Entering the Category Description.");
+		Report_Listen.log_print_in_report().info("<b>Drug Class / Code:</b> " + Drug_Class_Code_Data);
+		System.out.println("✅ Drug Class / Code entered: " + Drug_Class_Code_Data);
+		System.out.println();
 
 		Category_Description.clear();
 		Category_Description.sendKeys(Category_Description_Data);
 
-		log.pass("Step " + step + ": Category Description entered successfully.");
-		System.out.println("✅ Step " + step + ": Category Description entered successfully.");
+		Report_Listen.log_print_in_report().info("<b>Description:</b> " + Category_Description_Data);
+		System.out.println("✅ Category Description entered successfully.");
+		System.out.println();
+
 		step++;
 
-		log.info("Step " + step + ": Retrieving the Save button.");
-		System.out.println("🔹 Step " + step + ": Retrieving the Save button.");
+		Report_Listen.log_print_in_report().info("──────────────────── 💾 CATEGORY SAVE & VERIFICATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Save the Category and verify that the Category creation flow completes.");
+
+		System.out.println("💾 CATEGORY SAVE & VERIFICATION");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Saving the Category.");
+		System.out.println();
 
 		WebElement Save_Button = p.Save_Button();
-
-		log.pass("Step " + step + ": Save button retrieved successfully.");
-		System.out.println("✅ Step " + step + ": Save button retrieved successfully.");
-		step++;
-
-		log.info("Step " + step + ": Clicking the Save button to create the Category.");
-		System.out.println("🔹 Step " + step + ": Clicking the Save button to create the Category.");
-
 		Save_Button.click();
-
-		log.pass("Step " + step + ": Save button clicked successfully.");
-		System.out.println("✅ Step " + step + ": Save button clicked successfully.");
-		step++;
-
-		log.info("Step " + step + ": Verifying that the Category creation process completed and the Category Add button is available again.");
-		System.out.println("🔹 Step " + step + ": Verifying that the Category creation process completed and the Category Add button is available again.");
 
 		p.Category_Add_Button();
 
-		log.pass("Category created successfully with Category Name: " + Category_Name_Data);
+		Report_Listen.log_print_in_report().pass("✅ Category created successfully with Category Name: " + Category_Name_Data);
 		System.out.println("✅ Category created successfully with Category Name: " + Category_Name_Data);
-	} catch (Exception e) {
-		if (log != null) log.fail("Category creation failed for Category Name '" + Category_Name_Data + "'. Failure reason: " + e.getMessage());
+		System.out.println();
+
+	} catch(Exception e) {
+
+		if(Report_Listen.log_print_in_report() != null) Report_Listen.log_print_in_report().fail("❌ Category creation failed for Category Name '" + Category_Name_Data + "'. Failure reason: " + e.getMessage());
+
 		System.out.println("❌ Category creation failed for Category Name: " + Category_Name_Data);
+		System.out.println();
+
 		System.out.println("❌ Failure reason: " + e.getMessage());
+		System.out.println();
+
 		throw e;
 	}
 }
 	
    
-   public void Product_Module_Tab_Navigator(String Tab_Option) throws Exception{
-	   
-	   Product_Module_Locaters p = new Product_Module_Locaters(d);
-	   
-	   
-	   WebElement Nav_Bar;
-	/*   try {
-		   Nav_Bar=p.Top_Navigation_bar();} */
-	//   catch(Exception e) {
-		   Product_Module_Accessor();
-		   Nav_Bar=p.Top_Navigation_bar();
-		  // }
-	   List<WebElement> Tabs=Nav_Bar.findElements(By.xpath(".//div[@class='ant-tabs-tab']"));
-	   for(WebElement tab:Tabs) {
-		   String Tab_Name=tab.getText().trim();
-	       if(Tab_Name.equalsIgnoreCase(Tab_Option)) {
-	    	   tab.click();
-	    	   System.out.println("✅ Navigated to the "+ Tab_Option +" tab successfully.");
-	    	   break;}}}
+ public void Product_Module_Tab_Navigator(String Tab_Option) throws Exception {
+
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+
+	try {
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🧭 PRODUCT MODULE TAB NAVIGATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Access the Product Module and navigate to the '" + Tab_Option + "' tab.");
+
+		System.out.println("🧭 PRODUCT MODULE TAB NAVIGATION");
+		System.out.println();
+		System.out.println("🔹 Navigating to Product Module tab: " + Tab_Option);
+		System.out.println();
+
+		Product_Module_Accessor();
+
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Retrieve the Product Module top navigation bar.");
+		System.out.println("🔹 Retrieving the Product Module top navigation bar.");
+		System.out.println();
+
+		WebElement Nav_Bar = p.Top_Navigation_bar();
+
+		List<WebElement> Tabs = Nav_Bar.findElements(By.xpath(".//div[@class='ant-tabs-tab']"));
+
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Search the available tabs for '" + Tab_Option + "'.");
+		System.out.println("🔹 Searching available tabs for: " + Tab_Option);
+		System.out.println();
+
+		for(WebElement tab : Tabs) {
+
+			String Tab_Name = tab.getText().trim();
+
+			if(Tab_Name.equalsIgnoreCase(Tab_Option)) {
+
+				tab.click();
+
+				Report_Listen.log_print_in_report().pass("✅ Navigated to the '" + Tab_Option + "' tab successfully.");
+				System.out.println("✅ Navigated to the " + Tab_Option + " tab successfully.");
+				System.out.println();
+
+				break;
+			}
+		}
+
+	} catch(Exception e) {
+
+		if(Report_Listen.log_print_in_report() != null) Report_Listen.log_print_in_report().fail("❌ Failed to navigate to the '" + Tab_Option + "' tab. Failure reason: " + e.getMessage());
+
+		System.out.println("❌ Failed to navigate to the " + Tab_Option + " tab.");
+		System.out.println();
+
+		System.out.println("❌ Failure reason: " + e.getMessage());
+		System.out.println();
+
+		throw e;
+	}
+}
 	   
    
 	
 @Test(dataProvider="combined_data_provider")
-public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<String, String> Lab_Test_Create_Data,TreeMap<String, String> Product_data) throws Exception{
-	
+public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<String, String> Lab_Test_Create_Data,TreeMap<String, String> Product_data) throws Exception {
+
 	Product_Module_Locaters p = new Product_Module_Locaters(d);
-	
+
 	String Product_Name = Product_data.get("Product Name");
 	String Description = Product_data.get("Description");
 	String Product_Image = Product_data.get("Product Image");
@@ -1066,133 +1332,490 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 	String Sale_Start_Date = Product_data.get("Sale Start Date");
 	String Sales_End_Date = Product_data.get("Sales End Date");
 	String Lab_Test = Lab_Test_Create_Data.get("Lab Test Name");
-	
-	
-	WebElement Product_Add = Product_Module_Accessor();
-	Product_Add.click();
-	Thread.sleep(1200);
-	WebElement Product_form= p.Form();
-	List<WebElement> Inputs;
+
+	int step = 1;
 
 	try {
-		Inputs = p.Product_Add_Form_Inputs(Product_form);
-      } catch (Exception e) {
-		
-        Inputs = p.Product_Add_Form_Inputs(Product_form);
-        }
-    WebElement Product_Name_Input = Inputs.get(0);
-    WebElement Product_Type_Input = Inputs.get(1);
-    WebElement Product_Category_Input = Inputs.get(2);
-    WebElement Product_Visibility_Input = Inputs.get(3);
-    WebElement Min_Quantity_Input = Inputs.get(4);
-    WebElement Max_Quantity_Input = Inputs.get(5);
-    WebElement Stock_Input = Inputs.get(6);
-    WebElement Default_SKU = Inputs.get(7);
-    WebElement Condition_treated_Input = Inputs.get(8);
-    WebElement Intro_Input = Inputs.get(9);
-    WebElement Default_Price_Input = Inputs.get(11);
-    WebElement Sales_Price_Input = Inputs.get(10);
-    WebElement Sales_Start_Date_Input = Inputs.get(12);
-    WebElement Sales_End_Date_Input = Inputs.get(13);
-    
-    Product_Name_Input.sendKeys(Product_Name);
-    Product_Type_Input.sendKeys(Product_Type);
-    WebElement Prod_type_list=   p.First_Virtual_List_holder();
-	List<WebElement> Prod_type_list_options = Prod_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
-    for(WebElement option : Prod_type_list_options) {
-		if(option.getText().equals(Product_Type)) {
-			option.click();
-			break;
-		}}
-    Product_Category_Input.sendKeys(Category);
-    WebElement Categories_type_list=   p.Second_Virtual_List_holder();
-	List<WebElement> Categories_type_list_options = Categories_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
-    for(WebElement option : Categories_type_list_options) {
-		if(option.getText().equals(Category)) {
-			option.click();
-			break;
-		}}
-    Product_Visibility_Input.sendKeys(Visibility);
-    WebElement Product_Visibility_list=   p.Thrid_Virtual_List_holder();
-	List<WebElement> Product_Visibility_list_options = Product_Visibility_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
-    for(WebElement option : Product_Visibility_list_options) {
-		if(option.getText().equals(Visibility)) {
-			option.click();
-			break;
-		}}
-    Min_Quantity_Input.sendKeys(Minimum_Buy_Quantity);
-    Max_Quantity_Input.sendKeys(Maximum_Buy_Quantity);
-    Stock_Input.sendKeys(Stock_Count);
-    if(Product_Type.equals("Prescription")){
-    	WebElement Intake_Form_Input = p.Intake_form_field();
-    	Intake_Form_Input.sendKeys(Intake_Form);
-    	
-    }
-    Default_SKU.sendKeys(Default_SKU_Identifier);
-    Condition_treated_Input.sendKeys(Condition_Treated);
-    Intro_Input.sendKeys(Intro_Price);
-    Default_Price_Input.sendKeys(Default_Price);
-    Sales_Price_Input.sendKeys(Sale_Price);
-    Sales_Start_Date_Input.sendKeys(Sale_Start_Date);
-    p.Today_Button_Calender(0).click();
-    Sales_End_Date_Input.sendKeys(Sales_End_Date);
-    p.Today_Button_Calender(1).click();
-    WebElement Submit_Button = p.Product_Save_Button();
-    Submit_Button.click();
-    WebElement Confirmation_Message = p.Success_Toast();
-	String Confirmation_Message_Text = Confirmation_Message.getText().trim();
-	System.out.println("✅ Confirmation message displayed: " + Confirmation_Message_Text);
-    
-    
-    
-}	
+
+		Report_Listen.log_print_in_report().info("──────────────────── 📦 PRODUCT CREATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Scenario:</b> Create a new Product in the Product Module.");
+		Report_Listen.log_print_in_report().info("<b>Input:</b> Product Name = " + Product_Name + " | Product Type = " + Product_Type + " | Category = " + Category);
+		Report_Listen.log_print_in_report().info("<b>Expected:</b> Product should be created successfully with the configured catalog, inventory and pricing information.");
+
+		System.out.println("📦 PRODUCT CREATION");
+		System.out.println();
+		System.out.println("🔹 Product Name: " + Product_Name);
+		System.out.println();
+		System.out.println("🔹 Product Type: " + Product_Type);
+		System.out.println();
+		System.out.println("🔹 Category: " + Category);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().info("──────────────────── 📝 PRODUCT FORM ACCESS ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Access the Product Module and open the Product Add form.");
+
+		System.out.println("📝 PRODUCT FORM ACCESS");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Opening the Product Add form.");
+		System.out.println();
+
+		WebElement Product_Add = Product_Module_Accessor();
+		Product_Add.click();
+
+		Thread.sleep(1200);
+
+		WebElement Product_form = p.Form();
+
+		Report_Listen.log_print_in_report().pass("✅ Product Add form opened successfully.");
+		System.out.println("✅ Product Add form opened successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🔎 PRODUCT FORM FIELD RETRIEVAL ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Retrieve all required Product Add form input fields.");
+
+		System.out.println("🔎 PRODUCT FORM FIELD RETRIEVAL");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Retrieving Product Add form input fields.");
+		System.out.println();
+
+		List<WebElement> Inputs;
+
+		try {
+
+			Inputs = p.Product_Add_Form_Inputs(Product_form);
+
+		} catch(Exception e) {
+
+			Report_Listen.log_print_in_report().warning("⚠️ Initial Product form input retrieval failed. Retrying field retrieval.");
+			System.out.println("⚠️ Initial Product form input retrieval failed. Retrying.");
+			System.out.println();
+
+			Inputs = p.Product_Add_Form_Inputs(Product_form);
+		}
+
+		WebElement Product_Name_Input = Inputs.get(0);
+		WebElement Description_Input = p.Textarea_Description_Field();
+		WebElement Product_Type_Input = Inputs.get(1);
+		WebElement Product_Category_Input = Inputs.get(2);
+		WebElement Product_Visibility_Input = Inputs.get(3);
+		WebElement Min_Quantity_Input = Inputs.get(4);
+		WebElement Max_Quantity_Input = Inputs.get(5);
+		WebElement Stock_Input = Inputs.get(6);
+		WebElement Default_SKU = Inputs.get(7);
+		WebElement Condition_treated_Input = Inputs.get(8);
+		WebElement Intro_Input = Inputs.get(9);
+		WebElement Default_Price_Input = Inputs.get(11);
+		WebElement Sales_Price_Input = Inputs.get(10);
+		WebElement Sales_Start_Date_Input = Inputs.get(12);
+		WebElement Sales_End_Date_Input = Inputs.get(13);
+
+		Report_Listen.log_print_in_report().pass("✅ Required Product Add form fields retrieved successfully.");
+		System.out.println("✅ Required Product Add form fields retrieved successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── ✏️ PRODUCT BASIC DETAILS ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Enter Product Name and Product Description.");
+
+		System.out.println("✏️ PRODUCT BASIC DETAILS");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Entering Product Name and Description.");
+		System.out.println();
+
+		Product_Name_Input.sendKeys(Product_Name);
+		Description_Input.sendKeys(Description);
+
+		Report_Listen.log_print_in_report().pass("✅ Product Name and Description entered successfully.");
+		System.out.println("✅ Product Name and Description entered successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🏷️ PRODUCT TYPE & CATEGORY ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Select Product Type = " + Product_Type);
+
+		System.out.println("🏷️ PRODUCT TYPE & CATEGORY");
+		System.out.println();
+		System.out.println("🔹 Selecting Product Type: " + Product_Type);
+		System.out.println();
+
+		Product_Type_Input.sendKeys(Product_Type);
+
+		WebElement Prod_type_list = p.First_Virtual_List_holder();
+		List<WebElement> Prod_type_list_options = Prod_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+
+		for(WebElement option : Prod_type_list_options) {
+
+			if(option.getText().equals(Product_Type)) {
+
+				option.click();
+
+				Report_Listen.log_print_in_report().pass("✅ Product Type selected successfully: " + Product_Type);
+				System.out.println("✅ Product Type selected successfully: " + Product_Type);
+				System.out.println();
+
+				break;
+			}
+		}
+
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Select Product Category = " + Category);
+		System.out.println("🔹 Selecting Product Category: " + Category);
+		System.out.println();
+
+		Product_Category_Input.sendKeys(Category);
+
+		WebElement Categories_type_list = p.Second_Virtual_List_holder();
+		List<WebElement> Categories_type_list_options = Categories_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+
+		for(WebElement option : Categories_type_list_options) {
+
+			if(option.getText().equals(Category)) {
+
+				option.click();
+
+				Report_Listen.log_print_in_report().pass("✅ Product Category selected successfully: " + Category);
+				System.out.println("✅ Product Category selected successfully: " + Category);
+				System.out.println();
+
+				break;
+			}
+		}
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 👁️ PRODUCT VISIBILITY ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Select Product Visibility = " + Visibility);
+
+		System.out.println("👁️ PRODUCT VISIBILITY");
+		System.out.println();
+		System.out.println("🔹 Selecting Product Visibility: " + Visibility);
+		System.out.println();
+
+		Product_Visibility_Input.sendKeys(Visibility);
+
+		WebElement Product_Visibility_list = p.Thrid_Virtual_List_holder();
+		List<WebElement> Product_Visibility_list_options = Product_Visibility_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+
+		for(WebElement option : Product_Visibility_list_options) {
+
+			if(option.getText().equals(Visibility)) {
+
+				option.click();
+
+				Report_Listen.log_print_in_report().pass("✅ Product Visibility selected successfully: " + Visibility);
+				System.out.println("✅ Product Visibility selected successfully: " + Visibility);
+				System.out.println();
+
+				break;
+			}
+		}
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 📦 PRODUCT INVENTORY ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Configure minimum quantity, maximum quantity and stock count.");
+		Report_Listen.log_print_in_report().info("<b>Input:</b> Minimum = " + Minimum_Buy_Quantity + " | Maximum = " + Maximum_Buy_Quantity + " | Stock = " + Stock_Count);
+
+		System.out.println("📦 PRODUCT INVENTORY");
+		System.out.println();
+		System.out.println("🔹 Entering Product quantity and stock configuration.");
+		System.out.println();
+
+		Min_Quantity_Input.sendKeys(Minimum_Buy_Quantity);
+		Max_Quantity_Input.sendKeys(Maximum_Buy_Quantity);
+		Stock_Input.sendKeys(Stock_Count);
+
+		Report_Listen.log_print_in_report().pass("✅ Product inventory configuration entered successfully.");
+		System.out.println("✅ Product inventory configuration entered successfully.");
+		System.out.println();
+
+		if(Product_Type.equals("Prescription")) {
+
+			Report_Listen.log_print_in_report().info("──────────────────── 🩺 PRESCRIPTION CONFIGURATION ────────────────────");
+			Report_Listen.log_print_in_report().info("<b>Action:</b> Configure Prescription Intake Form = " + Intake_Form);
+
+			System.out.println("🩺 PRESCRIPTION CONFIGURATION");
+			System.out.println();
+			System.out.println("🔹 Configuring Prescription Intake Form: " + Intake_Form);
+			System.out.println();
+
+			WebElement Intake_Form_Input = p.Intake_form_field();
+			Intake_Form_Input.sendKeys(Intake_Form);
+
+			Report_Listen.log_print_in_report().pass("✅ Prescription Intake Form entered successfully.");
+			System.out.println("✅ Prescription Intake Form entered successfully.");
+			System.out.println();
+		}
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🆔 PRODUCT IDENTIFICATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Enter Default SKU / Identifier and Condition Treated.");
+
+		System.out.println("🆔 PRODUCT IDENTIFICATION");
+		System.out.println();
+		System.out.println("🔹 Entering SKU and Condition Treated.");
+		System.out.println();
+
+		Default_SKU.sendKeys(Default_SKU_Identifier);
+		Condition_treated_Input.sendKeys(Condition_Treated);
+
+		Report_Listen.log_print_in_report().pass("✅ Product SKU and Condition Treated entered successfully.");
+		System.out.println("✅ Product SKU and Condition Treated entered successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 💰 PRODUCT PRICING ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Configure Product Intro Price, Default Price and Sale Price.");
+		Report_Listen.log_print_in_report().info("<b>Input:</b> Intro Price = " + Intro_Price + " | Default Price = " + Default_Price + " | Sale Price = " + Sale_Price);
+
+		System.out.println("💰 PRODUCT PRICING");
+		System.out.println();
+		System.out.println("🔹 Entering Product pricing details.");
+		System.out.println();
+
+		Intro_Input.sendKeys(Intro_Price);
+		Default_Price_Input.sendKeys(Default_Price);
+		Sales_Price_Input.sendKeys(Sale_Price);
+
+		Report_Listen.log_print_in_report().pass("✅ Product pricing details entered successfully.");
+		System.out.println("✅ Product pricing details entered successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 📅 SALE DATE CONFIGURATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Configure Product Sale Start Date and Sale End Date.");
+		Report_Listen.log_print_in_report().info("<b>Input:</b> Start Date = " + Sale_Start_Date + " | End Date = " + Sales_End_Date);
+
+		System.out.println("📅 SALE DATE CONFIGURATION");
+		System.out.println();
+		System.out.println("🔹 Entering Sale Start Date: " + Sale_Start_Date);
+		System.out.println();
+
+		Sales_Start_Date_Input.sendKeys(Sale_Start_Date);
+		p.Today_Button_Calender(0).click();
+
+		System.out.println("🔹 Entering Sale End Date: " + Sales_End_Date);
+		System.out.println();
+
+		Sales_End_Date_Input.sendKeys(Sales_End_Date);
+		p.Today_Button_Calender(1).click();
+
+		Report_Listen.log_print_in_report().pass("✅ Product Sale dates configured successfully.");
+		System.out.println("✅ Product Sale dates configured successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 💾 PRODUCT SAVE & VERIFICATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Save the Product and verify the success confirmation message.");
+
+		System.out.println("💾 PRODUCT SAVE & VERIFICATION");
+		System.out.println();
+		System.out.println("🔹 Saving the Product.");
+		System.out.println();
+
+		WebElement Submit_Button = p.Product_Save_Button();
+		Submit_Button.click();
+
+		WebElement Confirmation_Message = p.Success_Toast();
+		String Confirmation_Message_Text = Confirmation_Message.getText().trim();
+
+		Report_Listen.log_print_in_report().pass("✅ Confirmation Message: " + Confirmation_Message_Text);
+		System.out.println("✅ Confirmation message displayed: " + Confirmation_Message_Text);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().pass("✅ Product creation completed successfully for Product: " + Product_Name);
+		System.out.println("✅ Product creation completed successfully for Product: " + Product_Name);
+		System.out.println();
+
+	} catch(Exception e) {
+
+		if(Report_Listen.log_print_in_report() != null) Report_Listen.log_print_in_report().fail("❌ Product creation failed for Product '" + Product_Name + "'. Failure reason: " + e.getMessage());
+
+		System.out.println("❌ Product creation failed for Product: " + Product_Name);
+		System.out.println();
+
+		System.out.println("❌ Failure reason: " + e.getMessage());
+		System.out.println();
+
+		throw e;
+	}
+}
 	
 
 
 @Test(dataProvider="Lab_Test_Create_Data")
-public void Product_Delete(TreeMap<String, String> Product_data) throws Exception{
-	
+public void Product_Delete(TreeMap<String, String> Product_data) throws Exception {
+
 	String Product_Name = Product_data.get("Lab Test Name");
+
 	Product_Module_Locaters p = new Product_Module_Locaters(d);
-	
-	WebElement Product_Add = Product_Module_Accessor();
-	WebElement Product_Search = p.Search();
-	Product_Search.sendKeys(Product_Name);
-	Thread.sleep(1800);
-	Three_Dot_Menu_Option_Selector("Delete");
-	
+
+	try {
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🗑️ PRODUCT DELETION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Scenario:</b> Search and delete a Product from the Product Module.");
+		Report_Listen.log_print_in_report().info("<b>Input:</b> Product Name = " + Product_Name);
+		Report_Listen.log_print_in_report().info("<b>Expected:</b> Matching Product should be located and deleted successfully.");
+
+		System.out.println("🗑️ PRODUCT DELETION");
+		System.out.println();
+		System.out.println("🔹 Product Name: " + Product_Name);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().info("──────────────────── 📦 PRODUCT MODULE ACCESS ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Access the Product Module before searching for the Product.");
+
+		System.out.println("📦 PRODUCT MODULE ACCESS");
+		System.out.println();
+		System.out.println("🔹 Accessing Product Module.");
+		System.out.println();
+
+		Product_Module_Accessor();
+
+		Report_Listen.log_print_in_report().pass("✅ Product Module accessed successfully.");
+		System.out.println("✅ Product Module accessed successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🔎 PRODUCT SEARCH ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Search for Product = " + Product_Name);
+
+		System.out.println("🔎 PRODUCT SEARCH");
+		System.out.println();
+		System.out.println("🔹 Searching for Product: " + Product_Name);
+		System.out.println();
+
+		WebElement Product_Search = p.Search();
+		Product_Search.sendKeys(Product_Name);
+
+		Thread.sleep(1800);
+
+		Report_Listen.log_print_in_report().pass("✅ Product search completed successfully.");
+		System.out.println("✅ Product search completed successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🗑️ DELETE PRODUCT ACTION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Open the Product action menu and select Delete.");
+
+		System.out.println("🗑️ DELETE PRODUCT ACTION");
+		System.out.println();
+		System.out.println("🔹 Selecting Delete from the Product action menu.");
+		System.out.println();
+
+		Three_Dot_Menu_Option_Selector("Delete");
+
+		Report_Listen.log_print_in_report().pass("✅ Product deletion flow completed successfully for: " + Product_Name);
+		System.out.println("✅ Product deletion flow completed successfully for: " + Product_Name);
+		System.out.println();
+
+	} catch(Exception e) {
+
+		if(Report_Listen.log_print_in_report() != null) Report_Listen.log_print_in_report().fail("❌ Product deletion failed for '" + Product_Name + "'. Failure reason: " + e.getMessage());
+
+		System.out.println("❌ Product deletion failed for: " + Product_Name);
+		System.out.println();
+
+		System.out.println("❌ Failure reason: " + e.getMessage());
+		System.out.println();
+
+		throw e;
+	}
 }
 
 
 public void Three_Dot_Menu_Option_Selector(String Option) throws Exception {
-	
-	
-	Product_Module_Locaters p = new Product_Module_Locaters(d);
-	
-	List<WebElement> ThreeDot_Buttons = p.Threedot_Button_in_list();
-	
-	String Option_to_be_selected = Option.trim();
-	
-	for(WebElement ThreeDot_Button : ThreeDot_Buttons) {
-		WebElement Button=ThreeDot_Button;
-		Button.click();
-		WebElement Option_List = p.List_Dropdown_Menu();
-		List<WebElement> Options = Option_List.findElements(By.xpath(".//li"));
-		for(WebElement Option_Element : Options) {
-			String Option_Text = Option_Element.getText().trim();
-			
-			if(Option_Text.equalsIgnoreCase(Option_to_be_selected)) {
-				Option_Element.click();
-				System.out.println("✅ " + Option_to_be_selected + " option selected successfully.");
-				WebElement Popup_Delete_button = p.Red_color_Button();
-				Popup_Delete_button.click();
-				Thread.sleep(800);
-				WebElement Confirmation_Message = p.Success_Toast();
-				String Confirmation_Message_Text = Confirmation_Message.getText().trim();
-				System.out.println("✅ Confirmation message displayed: " + Confirmation_Message_Text);
-				break;
-			}}}
 
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+
+	String Option_to_be_selected = Option.trim();
+
+	try {
+
+		Report_Listen.log_print_in_report().info("──────────────────── ⋮ ACTION MENU SELECTION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Open the three-dot action menu and select '" + Option_to_be_selected + "'.");
+
+		System.out.println("⋮ ACTION MENU SELECTION");
+		System.out.println();
+		System.out.println("🔹 Opening three-dot menu and searching for option: " + Option_to_be_selected);
+		System.out.println();
+
+		List<WebElement> ThreeDot_Buttons = p.Threedot_Button_in_list();
+
+		for(WebElement ThreeDot_Button : ThreeDot_Buttons) {
+
+			WebElement Button = ThreeDot_Button;
+			Button.click();
+
+			WebElement Option_List = p.List_Dropdown_Menu();
+			List<WebElement> Options = Option_List.findElements(By.xpath(".//li"));
+
+			for(WebElement Option_Element : Options) {
+
+				String Option_Text = Option_Element.getText().trim();
+
+				if(Option_Text.equalsIgnoreCase(Option_to_be_selected)) {
+
+					Report_Listen.log_print_in_report().info("<b>Action:</b> Select menu option = " + Option_to_be_selected);
+					System.out.println("🔹 Selecting menu option: " + Option_to_be_selected);
+					System.out.println();
+
+					Option_Element.click();
+
+					Report_Listen.log_print_in_report().pass("✅ " + Option_to_be_selected + " option selected successfully.");
+					System.out.println("✅ " + Option_to_be_selected + " option selected successfully.");
+					System.out.println();
+
+					Report_Listen.log_print_in_report().info("──────────────────── ⚠️ ACTION CONFIRMATION ────────────────────");
+					Report_Listen.log_print_in_report().info("<b>Action:</b> Confirm the '" + Option_to_be_selected + "' operation from the confirmation popup.");
+
+					System.out.println("⚠️ ACTION CONFIRMATION");
+					System.out.println();
+					System.out.println("🔹 Confirming " + Option_to_be_selected + " operation.");
+					System.out.println();
+
+					WebElement Popup_Delete_button = p.Red_color_Button();
+					Popup_Delete_button.click();
+
+					Thread.sleep(800);
+
+					Report_Listen.log_print_in_report().info("──────────────────── ✅ ACTION RESULT VERIFICATION ────────────────────");
+					Report_Listen.log_print_in_report().info("<b>Action:</b> Capture and verify the success confirmation message.");
+
+					System.out.println("✅ ACTION RESULT VERIFICATION");
+					System.out.println();
+					System.out.println("🔹 Verifying success confirmation message.");
+					System.out.println();
+
+					WebElement Confirmation_Message = p.Success_Toast();
+					String Confirmation_Message_Text = Confirmation_Message.getText().trim();
+
+					Report_Listen.log_print_in_report().pass("✅ Confirmation Message: " + Confirmation_Message_Text);
+					System.out.println("✅ Confirmation message displayed: " + Confirmation_Message_Text);
+					System.out.println();
+
+					break;
+				}
+			}
+		}
+
+	} catch(Exception e) {
+
+		if(Report_Listen.log_print_in_report() != null) Report_Listen.log_print_in_report().fail("❌ Three-dot menu option selection failed for '" + Option_to_be_selected + "'. Failure reason: " + e.getMessage());
+
+		System.out.println("❌ Three-dot menu option selection failed for: " + Option_to_be_selected);
+		System.out.println();
+
+		System.out.println("❌ Failure reason: " + e.getMessage());
+		System.out.println();
+
+		throw e;
+	}
 }
 
 
