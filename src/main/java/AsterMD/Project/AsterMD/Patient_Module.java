@@ -332,8 +332,8 @@ public Object[][] Patient_Create_Data(){
 	data20.put("City", "Charleston");
 	data20.put("ZIP / Postal Code", "29401");
 
-	return new Object[][] {
-		{ data1 },/*
+	return new Object[][] {/*
+		{ data1 }, */
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -352,7 +352,7 @@ public Object[][] Patient_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } */
+		{ data20 } 
 	};
 }
 	
@@ -672,7 +672,7 @@ public void Add_Patient(TreeMap<String, String> Patient_data) throws Exception {
 }
 	
 	
-	
+
 	
 	
 	

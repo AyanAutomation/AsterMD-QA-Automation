@@ -21,6 +21,20 @@ public class Repeat {
 		this.d = d;
 	}
 
+	
+	public void Scroll_up(){
+		
+		
+		JavascriptExecutor js = (JavascriptExecutor) d;
+
+	
+		js.executeScript("window.scrollBy(0, -180);");
+
+		
+	}
+	
+	
+	
 	public void wait_for_theElement(WebElement element) {
 		WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(10));
 		w.until(ExpectedConditions.visibilityOf(element));

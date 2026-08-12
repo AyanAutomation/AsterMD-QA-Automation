@@ -37,7 +37,7 @@ public class Base {
 	@AfterMethod(alwaysRun = true)
 	public void Kill() {
 		if (d != null) {
-       d.quit();
+    d.quit();
 			
 		}
 	}
