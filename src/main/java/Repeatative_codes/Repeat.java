@@ -92,6 +92,23 @@ public class Repeat {
 			return false;
 		}
 	}
+	public boolean check_element_visibility(List<WebElement> elements, int Wait_Time) {
+
+		try {
+
+			WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(Wait_Time));
+			w.until(ExpectedConditions.visibilityOfAllElements(elements));
+
+			return true;
+
+		} catch(Exception e) {
+
+			return false;
+		}
+	}
+	
+	
+	
 	public void Scroll_to_element(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor)d;
 		js.executeScript("arguments[0].scrollIntoView(true);", element);

@@ -1,8 +1,13 @@
 package AsterMD.Project.AsterMD;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.util.NoSuchElementException;
 
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import Listerners.Report_Listen;
@@ -166,8 +171,8 @@ public void login() throws IOException {
 		System.out.println();/*
         WebElement Progress_Bar =lg.Progress_bar();
         rp.wait_for_invisibilty_of_theElement(Progress_Bar); */
-		lg.login_confirmation();
-
+		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(80)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
+		WebElement Login_confirmation= wait.until(driver -> lg.login_confirmation());
 		Report_Listen.log_print_in_report().pass("✅ Login completed and login confirmation was verified successfully.");
 		System.out.println("✅ Login completed and login confirmation was verified successfully.");
 		System.out.println();

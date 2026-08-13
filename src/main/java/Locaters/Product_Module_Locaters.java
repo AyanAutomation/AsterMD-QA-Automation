@@ -35,6 +35,8 @@ public class Product_Module_Locaters extends Repeat{
 	private WebElement Second_Virtual_List_holder; 
     @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[3]")
 	private WebElement Thrid_Virtual_List_holder;  
+    @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[4]")
+	private WebElement Fourth_Virtual_List_holder;  
     @FindBy(id="search")
 	private WebElement Search; 
     @FindBy(xpath="//*[contains(@class,'ant-dropdown-trigger')] ")
@@ -54,13 +56,13 @@ public class Product_Module_Locaters extends Repeat{
     @FindBy(xpath="(//div[@class='ant-picker-panel-layout'])[2]")
 	private WebElement Second_Popup_Calendar;  
     @FindBy(xpath="//textarea")
-	private WebElement Textarea_Description_Field; /*
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Textarea_Description_Field; 
+    @FindBy(xpath="//div[@class='ant-form-item-explain-error']")
+	private List<WebElement> InLine_Error_Messages; 
+    @FindBy(xpath="//label[@class='ant-form-item-required']")
+	private List<WebElement> Required_fields;  
+    @FindBy(xpath="//*[@id='product-description']")
+	private WebElement Description_form; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -281,7 +283,7 @@ public class Product_Module_Locaters extends Repeat{
 	return Top_Navigation_bar;} 
 	public List<WebElement> Product_Add_Form_Inputs(WebElement element){
 	List<WebElement> Product_Add_Form_Inputs = element.findElements(By.xpath(".//input[@id='name' or @id='type' or @id='categories' or @id='visibility' or @id='min_buy_qty' or @id='max_buy_qty' or @id='stock' or @id='sku' or @id='condition_treated' or @id='intro_price' or @id='sale_price' or @id='default_price'or @id='sale_start_date'or @id='sale_end_date']"));
-	wait_for_theElement(Product_Add_Form_Inputs);
+	check_element_visibility(Product_Add_Form_Inputs,5);
 	return Product_Add_Form_Inputs;} 
 	public WebElement Product_Add_Button(){
 	wait_for_theElement(Product_Add_Button);
@@ -354,18 +356,19 @@ public class Product_Module_Locaters extends Repeat{
 	return Second_Popup_Calendar;} 
 	public WebElement Textarea_Description_Field(){
 	wait_for_theElement(Textarea_Description_Field);
-	return Textarea_Description_Field;} /*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return Textarea_Description_Field;} 
+	public List<WebElement> InLine_Error_Messages(){
+	wait_for_theElement(InLine_Error_Messages);
+	return InLine_Error_Messages;}
+	public List<WebElement> Required_fields(){
+	wait_for_theElement(Required_fields);
+	return Required_fields;} 
+	public WebElement Description_form(){
+	wait_for_theElement(Description_form);
+	return Description_form;} 
+	public WebElement Fourth_Virtual_List_holder(){
+	wait_for_theElement(Fourth_Virtual_List_holder);
+	return Fourth_Virtual_List_holder;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;}

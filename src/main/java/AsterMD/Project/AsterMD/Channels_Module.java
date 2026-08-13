@@ -1280,7 +1280,6 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 }
 
 @Test(dataProvider="FAQ_Section_Create_Data")
-
 public void Patient_Portal_FAQ_Add(TreeMap<String, String> FAQ_data) throws Exception{
 	
 	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
