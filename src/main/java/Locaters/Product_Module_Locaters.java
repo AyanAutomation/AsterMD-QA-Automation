@@ -46,7 +46,7 @@ public class Product_Module_Locaters extends Repeat{
     @FindBy(xpath="//*[contains(@class,'ant-btn-dangerous ant-btn-color-dangerous ant-btn-variant-solid')]")
 	private WebElement Red_color_Button; 
     @FindBy(xpath="//div[@class='ant-notification-notice-content']")
-	private WebElement Success_Toast; 
+	public WebElement Success_Toast; 
     @FindBy(id="teleforms")
 	private WebElement Intake_form_field; 
     @FindBy(xpath="(//div[@class='ant-picker-panel-layout'])[1]")
@@ -62,9 +62,9 @@ public class Product_Module_Locaters extends Repeat{
     @FindBy(xpath="//label[@class='ant-form-item-required']")
 	private List<WebElement> Required_fields;  
     @FindBy(xpath="//*[@id='product-description']")
-	private WebElement Description_form; /*
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Description_form; 
+    @FindBy(xpath="//h1[text()='Add Product']")
+	private WebElement Top_of_Product_form; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -368,10 +368,10 @@ public class Product_Module_Locaters extends Repeat{
 	return Description_form;} 
 	public WebElement Fourth_Virtual_List_holder(){
 	wait_for_theElement(Fourth_Virtual_List_holder);
-	return Fourth_Virtual_List_holder;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return Fourth_Virtual_List_holder;}
+	public WebElement Top_of_Product_form(){
+	wait_for_theElement(Top_of_Product_form);
+	return Top_of_Product_form;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;} public WebElement (){
