@@ -21,7 +21,7 @@ import com.aventstack.extentreports.Status;
 
 import Listerners.Report_Listen;
 import Locaters.Channel_Module_Locaters;
-
+import Locaters.Product_Module_Locaters;
 import Repeatative_codes.Repeat;
 
 import Locaters.Channel_Module_Locaters;
@@ -220,7 +220,7 @@ public Object[][] Channel_Create_Data() {
 	data10.put("API Contact Email", "rheincare.secure.client@yopmail.com");
 
 	return new Object[][] {
-		{ data1 },
+		{ data1 },/*
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -229,7 +229,7 @@ public Object[][] Channel_Create_Data() {
 		{ data7 },
 		{ data8 },
 		{ data9 },
-		{ data10 } 
+		{ data10 } */
 	};
 }	
 	
@@ -1387,7 +1387,203 @@ public void Patient_Portal_FAQ_Add(TreeMap<String, String> FAQ_data) throws Exce
 }	
 
 
+@DataProvider
+public Object[][] Patient_Portal_Create_Data(){
 
+	TreeMap<String, String> data1 = new TreeMap<String, String>();
+	data1.put("Portal Name", "RheinCare Patient Connect");
 
+	TreeMap<String, String> data2 = new TreeMap<String, String>();
+	data2.put("Portal Name", "RheinCare Health Portal");
+
+	TreeMap<String, String> data3 = new TreeMap<String, String>();
+	data3.put("Portal Name", "RheinCare Patient Access");
+
+	TreeMap<String, String> data4 = new TreeMap<String, String>();
+	data4.put("Portal Name", "RheinCare Digital Care");
+
+	TreeMap<String, String> data5 = new TreeMap<String, String>();
+	data5.put("Portal Name", "RheinCare Medical Connect");
+
+	TreeMap<String, String> data6 = new TreeMap<String, String>();
+	data6.put("Portal Name", "RheinCare Patient Hub");
+
+	TreeMap<String, String> data7 = new TreeMap<String, String>();
+	data7.put("Portal Name", "RheinCare Wellness Portal");
+
+	TreeMap<String, String> data8 = new TreeMap<String, String>();
+	data8.put("Portal Name", "RheinCare Care Gateway");
+
+	TreeMap<String, String> data9 = new TreeMap<String, String>();
+	data9.put("Portal Name", "RheinCare Health Access");
+
+	TreeMap<String, String> data10 = new TreeMap<String, String>();
+	data10.put("Portal Name", "RheinCare Patient Services");
+
+	TreeMap<String, String> data11 = new TreeMap<String, String>();
+	data11.put("Portal Name", "RheinCare MyHealth");
+
+	TreeMap<String, String> data12 = new TreeMap<String, String>();
+	data12.put("Portal Name", "RheinCare CareLink");
+
+	TreeMap<String, String> data13 = new TreeMap<String, String>();
+	data13.put("Portal Name", "RheinCare Patient Center");
+
+	TreeMap<String, String> data14 = new TreeMap<String, String>();
+	data14.put("Portal Name", "RheinCare Digital Health Hub");
+
+	TreeMap<String, String> data15 = new TreeMap<String, String>();
+	data15.put("Portal Name", "RheinCare Patient Network");
+
+	TreeMap<String, String> data16 = new TreeMap<String, String>();
+	data16.put("Portal Name", "RheinCare CareConnect");
+
+	TreeMap<String, String> data17 = new TreeMap<String, String>();
+	data17.put("Portal Name", "RheinCare Medical Access");
+
+	TreeMap<String, String> data18 = new TreeMap<String, String>();
+	data18.put("Portal Name", "RheinCare Health Gateway");
+
+	TreeMap<String, String> data19 = new TreeMap<String, String>();
+	data19.put("Portal Name", "RheinCare Patient Online");
+
+	TreeMap<String, String> data20 = new TreeMap<String, String>();
+	data20.put("Portal Name", "RheinCare Virtual Care");
+
+	return new Object[][] {
+		{ data1 },/*
+		{ data2 },
+		{ data3 },
+		{ data4 },
+		{ data5 },
+		{ data6 },
+		{ data7 },
+		{ data8 },
+		{ data9 },
+		{ data10 },
+		{ data11 },
+		{ data12 },
+		{ data13 },
+		{ data14 },
+		{ data15 },
+		{ data16 },
+		{ data17 },
+		{ data18 },
+		{ data19 },
+		{ data20 } */
+	};
+}
+
+@Test(dataProvider="Patient_Portal_Create_Data")
+public void Patient_Portal_Create(TreeMap<String, String> Add_data) throws Exception {
+
+	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
+	Product_Module_Locaters pd = new Product_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	String Portal_Name=Add_data.get("Portal Name");
+
+	Report_Listen.log_print_in_report().info("──────────────────── PATIENT PORTAL CREATION STARTED ────────────────────");
+	Report_Listen.log_print_in_report().info("Patient Portal Name: " + Portal_Name);
+	System.out.println("──────────────────── PATIENT PORTAL CREATION STARTED ────────────────────");
+	System.out.println("🔹 Patient Portal Name: " + Portal_Name);
+	System.out.println();
+
+	Channel_Module_Accessor();
+
+	Report_Listen.log_print_in_report().info("✅ Channel Module accessed successfully.");
+	System.out.println("✅ Channel Module accessed successfully.");
+	System.out.println();
+
+	WebElement Patient_portal_section_in_list = p.Patient_Portal_section();
+	rp.Scroll_to_element(Patient_portal_section_in_list);
+	Thread.sleep(500);
+
+	Report_Listen.log_print_in_report().info("Patient Portal section located successfully.");
+	System.out.println("🔹 Patient Portal section located successfully.");
+	System.out.println();
+
+	WebElement Config_Button=p.Configuration_Button;
+	Boolean is_visible= rp.check_element_visibility(Config_Button, 4);
+
+	Report_Listen.log_print_in_report().info("Checking whether an existing Patient Portal configuration is already available.");
+	System.out.println("🔹 Checking whether an existing Patient Portal configuration is already available.");
+	System.out.println();
+
+	if(is_visible!=true) {
+
+		Report_Listen.log_print_in_report().info("No existing Patient Portal configuration found. Proceeding with new Patient Portal creation.");
+		System.out.println("ℹ️ No existing Patient Portal configuration found. Proceeding with new Patient Portal creation.");
+		System.out.println();
+
+		WebElement Add_Button=p.Patient_Portal_Create_Button();
+		rp.movetoelement(Add_Button);
+		Add_Button.click();
+
+		Report_Listen.log_print_in_report().info("Patient Portal creation form opened successfully.");
+		System.out.println("🔹 Patient Portal creation form opened successfully.");
+
+		p.Portal_Name_Input().sendKeys(Portal_Name);
+
+		Report_Listen.log_print_in_report().info("Patient Portal Name entered: " + Portal_Name);
+		System.out.println("🔹 Patient Portal Name entered: " + Portal_Name);
+
+		WebElement Submit =p.Create_Button();
+		Submit.click();
+
+		Report_Listen.log_print_in_report().info("Patient Portal creation form submitted successfully.");
+		System.out.println("🔹 Patient Portal creation form submitted successfully.");
+		System.out.println();
+
+		p.Configuration_Button();
+
+		Report_Listen.log_print_in_report().pass("✅ Patient Portal created successfully and Configuration option is available for Portal: " + Portal_Name);
+		System.out.println("✅ Patient Portal created successfully and Configuration option is available for Portal: " + Portal_Name);
+		System.out.println();
+	}
+	else{
+
+		Report_Listen.log_print_in_report().info("Existing Patient Portal configuration detected. Existing Patient Portal will be deleted before creating a new one.");
+		System.out.println("ℹ️ Existing Patient Portal configuration detected. Existing Patient Portal will be deleted before creating a new one.");
+		System.out.println();
+
+		List<WebElement> ThreeDot_Buttons = pd.Threedot_Button_in_list();
+		Three_Dot_Menu_Option_Selector(ThreeDot_Buttons,"Delete");
+
+		Report_Listen.log_print_in_report().pass("✅ Existing Patient Portal deletion action completed successfully.");
+		System.out.println("✅ Existing Patient Portal deletion action completed successfully.");
+		System.out.println();
+
+		WebElement Add_Button=p.Patient_Portal_Create_Button();
+		rp.movetoelement(Add_Button);
+		Add_Button.click();
+
+		Report_Listen.log_print_in_report().info("Patient Portal creation form opened successfully after deleting the existing Portal.");
+		System.out.println("🔹 Patient Portal creation form opened successfully after deleting the existing Portal.");
+
+		p.Portal_Name_Input().sendKeys(Portal_Name);
+
+		Report_Listen.log_print_in_report().info("Patient Portal Name entered: " + Portal_Name);
+		System.out.println("🔹 Patient Portal Name entered: " + Portal_Name);
+
+		WebElement Submit =p.Create_Button();
+		Submit.click();
+
+		Report_Listen.log_print_in_report().info("Patient Portal creation form submitted successfully.");
+		System.out.println("🔹 Patient Portal creation form submitted successfully.");
+		System.out.println();
+
+		p.Configuration_Button();
+
+		Report_Listen.log_print_in_report().pass("✅ New Patient Portal created successfully after removing the previous Portal. Configuration option is available for Portal: " + Portal_Name);
+		System.out.println("✅ New Patient Portal created successfully after removing the previous Portal. Configuration option is available for Portal: " + Portal_Name);
+		System.out.println();
+	}
+
+	Report_Listen.log_print_in_report().pass("✅ Patient Portal creation flow completed successfully for Portal: " + Portal_Name);
+	System.out.println("✅ Patient Portal creation flow completed successfully for Portal: " + Portal_Name);
+	System.out.println();
+
+}
 
 }

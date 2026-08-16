@@ -33,7 +33,8 @@ public class Channel_Module_Locaters extends Repeat{
 	private WebElement Save_Button; 
 	@FindBy(xpath="//*[text()='Save Settings']/..")
     private WebElement Save_Settings_Button;
-	
+    @FindBy(xpath="//*[text()='Create']/..")
+	private WebElement Create_Button;
     @FindBy(xpath="//*[text()='Generate API Token']/..")
 	private WebElement Generate_API_Token_Button; 
     @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[2]")
@@ -52,8 +53,8 @@ public class Channel_Module_Locaters extends Repeat{
 	private WebElement Success_Toast; 
     @FindBy(xpath="(//*[contains(@class,'channels-section')])[1]//*[contains(@class,'ant-flex-align-flex-start ant-flex-vertical')]//*[contains(@class,'ant-flex-wrap-wrap ant-flex-align-center')][1]")
 	private List<WebElement> First_channel_card_text_in_list; 
-    @FindBy(xpath="(//div[@class='ant-picker-panel-layout'])[1]")
-	private WebElement First_Popup_Calendar; 
+    @FindBy(xpath="//*[text()='Configuration']/..")
+	public WebElement Configuration_Button; 
     @FindBy(xpath="//button[@type='button' and contains(@class,'ant-btn-primary ant-btn-color-primary ant-btn-variant-solid')]")
 	private WebElement Product_Save_Button; 
     @FindBy(xpath="//p[contains(text(),'Patient Portal')]/../..")
@@ -69,13 +70,13 @@ public class Channel_Module_Locaters extends Repeat{
     @FindBy(xpath="//input[contains(@id,'sections_0_questions')]")
 	private List<WebElement> All_Question_fields; 
     @FindBy(xpath="//textarea[contains(@id,'answer')]")
-	private List<WebElement> All_Answers_fields; /*
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
+	private List<WebElement> All_Answers_fields; 
+    @FindBy(xpath="//span[text()='patient portal']/..")
+	private WebElement Patient_Portal_Create_Button; 
+    @FindBy(id="portal_name")
+	private WebElement Portal_Name_Input; /*
+    @FindBy(xpath="//*[text()='Patient Portal']/../..//div[contains(@class,'channels-actions')]")
+	private WebElement Patient; 
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -340,7 +341,6 @@ public class Channel_Module_Locaters extends Repeat{
 	public WebElement Done_Button(){
 	wait_for_theElement(Done_Button);
 	return Done_Button;}
-	
 	public WebElement API_Contact_Mail_input(){
 	wait_for_theElement(API_Contact_Mail_input);
 	return API_Contact_Mail_input;} 
@@ -367,18 +367,19 @@ public class Channel_Module_Locaters extends Repeat{
 	return All_Question_fields;}
 	public List<WebElement> All_Answers_fields(){
 	wait_for_theElement(All_Answers_fields);
-	return All_Answers_fields;} /*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return All_Answers_fields;} 
+	public WebElement Patient_Portal_Create_Button(){
+	wait_for_theElement(Patient_Portal_Create_Button);
+	return Patient_Portal_Create_Button;}
+	public WebElement Portal_Name_Input(){
+	wait_for_theElement(Portal_Name_Input);
+	return Portal_Name_Input;}
+	public WebElement Create_Button(){
+	wait_for_theElement(Create_Button);
+	return Create_Button;} 
+	public WebElement Configuration_Button(){
+	wait_for_theElement(Configuration_Button);
+	return Configuration_Button;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;}
