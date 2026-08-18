@@ -1923,7 +1923,7 @@ public Object[][] Patient_Portal_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 }
+		{ data20 } 
 	};
 }
 
@@ -2138,7 +2138,7 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 	String Emergency_Disclaimer = Form_data.get("Emergency Disclaimer");
 	String Maximum_Extension = Form_data.get("Maximum Extension");
 	String Maximum_Reduction = Form_data.get("Maximum Reduction");
-	String Archive_Completed_Treatments_After = Form_data.get("Archive Completed Treatments");
+	String Archive_Completed_Treatments_After = Form_data.get("Archive Completed Treatments After");
 	String Delete_Archived_Treatments_After = Form_data.get("Delete Archived Treatments After");
 
 	try {
@@ -2417,10 +2417,10 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 				WebElement pop_up_form = p.Popup_Form();
 
-				List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='contact_number' or @id='title']"));
+				List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='contact_number']"));
 				rp.wait_for_theElement(pop_up_inputs);
 
-				List<WebElement> pop_up_Textareas = pop_up_form.findElements(By.xpath(".//textarea[@id='description' or @id='disclaimer']"));
+				List<WebElement> pop_up_Textareas = pop_up_form.findElements(By.xpath(".//textarea[@id='title' or @id='description' or @id='disclaimer']"));
 				rp.wait_for_theElement(pop_up_Textareas);
 
 				Report_Listen.log_print_in_report().pass("✅ Emergency Contact input and textarea fields retrieved successfully.");
@@ -2434,14 +2434,14 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				System.out.println("✅ Emergency Contact Number entered successfully: " + Emergency_Contact_Number);
 				System.out.println();
 
-				WebElement Emergency_Contact_Title_Field = pop_up_inputs.get(1);
+				WebElement Emergency_Contact_Title_Field = pop_up_Textareas.get(0);
 				Emergency_Contact_Title_Field.sendKeys(Emergency_Contact_Title);
 
 				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Title entered successfully: " + Emergency_Contact_Title);
 				System.out.println("✅ Emergency Contact Title entered successfully: " + Emergency_Contact_Title);
 				System.out.println();
 
-				WebElement Emergency_Contact_Description_Field = pop_up_Textareas.get(0);
+				WebElement Emergency_Contact_Description_Field = pop_up_Textareas.get(1);
 				Emergency_Contact_Description_Field.sendKeys(Emergency_Contact_Description);
 
 				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Description entered successfully.");
@@ -2450,7 +2450,7 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				System.out.println("🔹 Emergency Contact Description: " + Emergency_Contact_Description);
 				System.out.println();
 
-				WebElement Emergency_Disclaimer_Field = pop_up_Textareas.get(1);
+				WebElement Emergency_Disclaimer_Field = pop_up_Textareas.get(2);
 				Emergency_Disclaimer_Field.sendKeys(Emergency_Disclaimer);
 
 				Report_Listen.log_print_in_report().pass("✅ Emergency Disclaimer entered successfully.");
