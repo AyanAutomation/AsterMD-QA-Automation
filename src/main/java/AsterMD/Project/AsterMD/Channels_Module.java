@@ -1405,6 +1405,7 @@ public void Patient_Portal_FAQ_Add(TreeMap<String, String> FAQ_data) throws Exce
    WebElement Modal_Save_Button = p.Save_Button();
    rp.Scroll_to_element(Modal_Save_Button);
    Modal_Save_Button.click();
+   rp.wait_for_invisibilty_of_theElement(Modal_Save_Button);
    WebElement Save_Settings=p.Save_Settings_Button();
    Save_Settings.click();
    WebElement Confirmation_Message = p.Success_Toast();
@@ -1415,11 +1416,7 @@ public void Patient_Portal_FAQ_Add(TreeMap<String, String> FAQ_data) throws Exce
 	System.out.println();
     Report_Listen.log_print_in_report().pass("✅ Paiteint Portal Saved successfully for Product: ");
 	System.out.println("✅Paiteint Portal Saved successfully ");
-	System.out.println();
-	
-	
-	
-	}}	
+	System.out.println();}}	
 
 
 
@@ -1921,6 +1918,7 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 
 			patient_portal_form_editor(Patient_Portal_data, Config_Button, FAQ_data);
 
+			p.Configuration_Button();
 			Report_Listen.log_print_in_report().pass("✅ Patient Portal created and configured successfully: " + Portal_Name);
 			System.out.println("✅ Patient Portal created and configured successfully: " + Portal_Name);
 			System.out.println();
@@ -1987,7 +1985,7 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 			System.out.println();
 
 			patient_portal_form_editor(Patient_Portal_data, Config_Button, FAQ_data);
-
+			p.Configuration_Button();
 			Report_Listen.log_print_in_report().pass("✅ New Patient Portal created and configured successfully after removing the previous Portal: " + Portal_Name);
 			System.out.println("✅ New Patient Portal created and configured successfully after removing the previous Portal: " + Portal_Name);
 			System.out.println();
