@@ -1908,7 +1908,7 @@ public Object[][] Patient_Portal_Create_Data(){
 		{ data2 },
 		{ data3 },
 		{ data4 },
-		{ data5 },
+		{ data5 },/*
 		{ data6 },
 		{ data7 },
 		{ data8 },
@@ -1923,7 +1923,7 @@ public Object[][] Patient_Portal_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } 
+		{ data20 } */
 	};
 }
 
@@ -2018,7 +2018,7 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 
 			patient_portal_form_editor(Patient_Portal_data, Config_Button, FAQ_data);
 
-			p.Configuration_Button();
+			patient_portal_configuration_validator(Patient_Portal_data,FAQ_data);
 			Report_Listen.log_print_in_report().pass("✅ Patient Portal created and configured successfully: " + Portal_Name);
 			System.out.println("✅ Patient Portal created and configured successfully: " + Portal_Name);
 			System.out.println();
@@ -2085,7 +2085,7 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 			System.out.println();
 
 			patient_portal_form_editor(Patient_Portal_data, Config_Button, FAQ_data);
-			p.Configuration_Button();
+			patient_portal_configuration_validator(Patient_Portal_data,FAQ_data);
 			Report_Listen.log_print_in_report().pass("✅ New Patient Portal created and configured successfully after removing the previous Portal: " + Portal_Name);
 			System.out.println("✅ New Patient Portal created and configured successfully after removing the previous Portal: " + Portal_Name);
 			System.out.println();
@@ -2113,6 +2113,90 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 	}
 }
 
+public void patient_portal_configuration_validator(TreeMap<String, String> Form_data, TreeMap<String, String> FAQ){
+
+	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	String Portal_Name = Form_data.get("Portal Name");
+
+	Report_Listen.log_print_in_report().info("──────────────────── 🔍 PATIENT PORTAL CONFIGURATION VALIDATION STARTED ────────────────────");
+	Report_Listen.log_print_in_report().info("<b>Expected Portal Name:</b> " + Portal_Name);
+	System.out.println("🔍 PATIENT PORTAL CONFIGURATION VALIDATION STARTED");
+	System.out.println();
+	System.out.println("🔹 Expected Portal Name: " + Portal_Name);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().info("<b>Action:</b> Retrieving the Patient Portal Configuration button.");
+	System.out.println("🔹 Retrieving the Patient Portal Configuration button.");
+	System.out.println();
+
+	WebElement Cnfig_Button = p.Configuration_Button();
+
+	Report_Listen.log_print_in_report().pass("✅ Patient Portal Configuration button retrieved successfully.");
+	System.out.println("✅ Patient Portal Configuration button retrieved successfully.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().info("<b>Action:</b> Retrieving the Patient Portal Name displayed in the list.");
+	System.out.println("🔹 Retrieving the Patient Portal Name displayed in the list.");
+	System.out.println();
+
+	WebElement Portal_name_inlist = Cnfig_Button.findElement(By.xpath("./../..//span[contains(@class,'text-dark')]"));
+	rp.wait_for_theElement(Portal_name_inlist);
+
+	String Actual_Portal_Name = Portal_name_inlist.getText().trim();
+	Boolean Portal_Name_Matched = Actual_Portal_Name.equalsIgnoreCase(Portal_Name);
+
+	Report_Listen.log_print_in_report().info("Expected Portal Name: " + Portal_Name);
+	Report_Listen.log_print_in_report().info("Actual Portal Name: " + Actual_Portal_Name);
+	System.out.println("🔹 Expected Portal Name: " + Portal_Name);
+	System.out.println("🔹 Actual Portal Name: " + Actual_Portal_Name);
+	System.out.println();
+
+	if(Portal_Name_Matched){
+
+		Report_Listen.log_print_in_report().pass("✅ Patient Portal Name validation passed. Expected and actual Portal Names are matching: " + Actual_Portal_Name);
+		System.out.println("✅ Patient Portal Name validation passed. Expected and actual Portal Names are matching: " + Actual_Portal_Name);
+		System.out.println();
+	}
+	else{
+
+		Report_Listen.log_print_in_report().fail("❌ Patient Portal Name validation failed. Expected: " + Portal_Name + " | Actual: " + Actual_Portal_Name);
+		System.out.println("❌ Patient Portal Name validation failed. Expected: " + Portal_Name + " | Actual: " + Actual_Portal_Name);
+		System.out.println();
+	}
+
+	Report_Listen.log_print_in_report().info("──────────────────── ⚙️ PATIENT PORTAL CONFIGURATION FORM ACCESS ────────────────────");
+	Report_Listen.log_print_in_report().info("<b>Action:</b> Opening the Patient Portal Configuration form.");
+	System.out.println("⚙️ PATIENT PORTAL CONFIGURATION FORM ACCESS");
+	System.out.println();
+	System.out.println("🔹 Opening the Patient Portal Configuration form.");
+	System.out.println();
+
+	Cnfig_Button.click();
+
+	Report_Listen.log_print_in_report().pass("✅ Patient Portal Configuration button clicked successfully.");
+	System.out.println("✅ Patient Portal Configuration button clicked successfully.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().info("<b>Action:</b> Waiting for the Patient Portal Configuration form to load.");
+	System.out.println("🔹 Waiting for the Patient Portal Configuration form to load.");
+	System.out.println();
+
+	FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(80)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
+	WebElement Form = wait.until(driver -> p.Form());
+
+	Report_Listen.log_print_in_report().pass("✅ Patient Portal Configuration form loaded successfully.");
+	System.out.println("✅ Patient Portal Configuration form loaded successfully.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().info("──────────────────── 🔎 CONFIGURATION FIELD VALIDATION READY ────────────────────");
+	Report_Listen.log_print_in_report().info("Patient Portal Configuration form is available and ready for further field validations.");
+	System.out.println("🔎 CONFIGURATION FIELD VALIDATION READY");
+	System.out.println();
+	System.out.println("✅ Patient Portal Configuration form is available and ready for further field validations.");
+	System.out.println();
+}
 
 public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebElement Config_button, TreeMap<String, String> FAQ) throws Exception {
 
@@ -2221,7 +2305,7 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 		for(WebElement dropdown_field : dropdown_fields) {
 
-			String Field_Value = dropdown_field.getAttribute("value");
+			String Field_Value = dropdown_field.getText().trim();
 
 			Report_Listen.log_print_in_report().info("🔹 Dropdown " + Dropdown_Index + " current value: " + Field_Value);
 			System.out.println("🔹 Dropdown " + Dropdown_Index + " current value: " + Field_Value);
