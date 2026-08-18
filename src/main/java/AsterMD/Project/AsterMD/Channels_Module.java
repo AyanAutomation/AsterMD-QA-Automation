@@ -1436,6 +1436,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data1.put("Offer Cooldown", "30");
 	data1.put("Automatic Approval", "Enabled");
 	data1.put("Approval Timing", "Immediately");
+	data1.put("Maximum Extension", "15");
+	data1.put("Maximum Reduction", "7");
+	data1.put("Request Immediate Refill", "Enabled");
+	data1.put("Archive Completed Treatments After", "30");
+	data1.put("Delete Archived Treatments After", "180");
 	data1.put("Emergency Contact Country Code", "+49");
 	data1.put("Emergency Contact Number", "3000001001");
 	data1.put("Emergency Contact Title", "Urgent Medical Assistance");
@@ -1455,6 +1460,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data2.put("Offer Cooldown", "45");
 	data2.put("Automatic Approval", "Enabled");
 	data2.put("Approval Timing", "Immediately");
+	data2.put("Maximum Extension", "30");
+	data2.put("Maximum Reduction", "10");
+	data2.put("Request Immediate Refill", "Disabled");
+	data2.put("Archive Completed Treatments After", "45");
+	data2.put("Delete Archived Treatments After", "240");
 	data2.put("Emergency Contact Country Code", "+49");
 	data2.put("Emergency Contact Number", "4000001002");
 	data2.put("Emergency Contact Title", "Emergency Care Support");
@@ -1474,6 +1484,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data3.put("Offer Cooldown", "60");
 	data3.put("Automatic Approval", "Enabled");
 	data3.put("Approval Timing", "Immediately");
+	data3.put("Maximum Extension", "21");
+	data3.put("Maximum Reduction", "14");
+	data3.put("Request Immediate Refill", "Enabled");
+	data3.put("Archive Completed Treatments After", "60");
+	data3.put("Delete Archived Treatments After", "365");
 	data3.put("Emergency Contact Country Code", "+49");
 	data3.put("Emergency Contact Number", "8910001003");
 	data3.put("Emergency Contact Title", "Patient Emergency Help");
@@ -1493,6 +1508,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data4.put("Offer Cooldown", "14");
 	data4.put("Automatic Approval", "Enabled");
 	data4.put("Approval Timing", "Immediately");
+	data4.put("Maximum Extension", "10");
+	data4.put("Maximum Reduction", "5");
+	data4.put("Request Immediate Refill", "Enabled");
+	data4.put("Archive Completed Treatments After", "15");
+	data4.put("Delete Archived Treatments After", "120");
 	data4.put("Emergency Contact Country Code", "+49");
 	data4.put("Emergency Contact Number", "7110001004");
 	data4.put("Emergency Contact Title", "Digital Care Emergency Line");
@@ -1512,6 +1532,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data5.put("Offer Cooldown", "21");
 	data5.put("Automatic Approval", "Enabled");
 	data5.put("Approval Timing", "Immediately");
+	data5.put("Maximum Extension", "28");
+	data5.put("Maximum Reduction", "7");
+	data5.put("Request Immediate Refill", "Disabled");
+	data5.put("Archive Completed Treatments After", "90");
+	data5.put("Delete Archived Treatments After", "365");
 	data5.put("Emergency Contact Country Code", "+49");
 	data5.put("Emergency Contact Number", "6910001005");
 	data5.put("Emergency Contact Title", "Medical Emergency Contact");
@@ -1531,6 +1556,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data6.put("Offer Cooldown", "30");
 	data6.put("Automatic Approval", "Enabled");
 	data6.put("Approval Timing", "Immediately");
+	data6.put("Maximum Extension", "14");
+	data6.put("Maximum Reduction", "10");
+	data6.put("Request Immediate Refill", "Enabled");
+	data6.put("Archive Completed Treatments After", "21");
+	data6.put("Delete Archived Treatments After", "150");
 	data6.put("Emergency Contact Country Code", "+49");
 	data6.put("Emergency Contact Number", "2210001006");
 	data6.put("Emergency Contact Title", "Patient Safety Helpline");
@@ -1550,6 +1580,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data7.put("Offer Cooldown", "10");
 	data7.put("Automatic Approval", "Enabled");
 	data7.put("Approval Timing", "Immediately");
+	data7.put("Maximum Extension", "45");
+	data7.put("Maximum Reduction", "15");
+	data7.put("Request Immediate Refill", "Disabled");
+	data7.put("Archive Completed Treatments After", "45");
+	data7.put("Delete Archived Treatments After", "300");
 	data7.put("Emergency Contact Country Code", "+49");
 	data7.put("Emergency Contact Number", "3510001007");
 	data7.put("Emergency Contact Title", "Wellness Emergency Support");
@@ -1569,6 +1604,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data8.put("Offer Cooldown", "90");
 	data8.put("Automatic Approval", "Enabled");
 	data8.put("Approval Timing", "Immediately");
+	data8.put("Maximum Extension", "60");
+	data8.put("Maximum Reduction", "20");
+	data8.put("Request Immediate Refill", "Enabled");
+	data8.put("Archive Completed Treatments After", "75");
+	data8.put("Delete Archived Treatments After", "400");
 	data8.put("Emergency Contact Country Code", "+49");
 	data8.put("Emergency Contact Number", "3410001008");
 	data8.put("Emergency Contact Title", "Care Gateway Emergency Help");
@@ -1588,6 +1628,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data9.put("Offer Cooldown", "28");
 	data9.put("Automatic Approval", "Enabled");
 	data9.put("Approval Timing", "Immediately");
+	data9.put("Maximum Extension", "20");
+	data9.put("Maximum Reduction", "8");
+	data9.put("Request Immediate Refill", "Enabled");
+	data9.put("Archive Completed Treatments After", "28");
+	data9.put("Delete Archived Treatments After", "210");
 	data9.put("Emergency Contact Country Code", "+49");
 	data9.put("Emergency Contact Number", "5110001009");
 	data9.put("Emergency Contact Title", "Health Access Urgent Support");
@@ -1607,6 +1652,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data10.put("Offer Cooldown", "35");
 	data10.put("Automatic Approval", "Enabled");
 	data10.put("Approval Timing", "Immediately");
+	data10.put("Maximum Extension", "35");
+	data10.put("Maximum Reduction", "12");
+	data10.put("Request Immediate Refill", "Disabled");
+	data10.put("Archive Completed Treatments After", "35");
+	data10.put("Delete Archived Treatments After", "270");
 	data10.put("Emergency Contact Country Code", "+49");
 	data10.put("Emergency Contact Number", "4210001010");
 	data10.put("Emergency Contact Title", "Patient Services Emergency");
@@ -1626,6 +1676,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data11.put("Offer Cooldown", "40");
 	data11.put("Automatic Approval", "Enabled");
 	data11.put("Approval Timing", "Immediately");
+	data11.put("Maximum Extension", "25");
+	data11.put("Maximum Reduction", "9");
+	data11.put("Request Immediate Refill", "Enabled");
+	data11.put("Archive Completed Treatments After", "50");
+	data11.put("Delete Archived Treatments After", "330");
 	data11.put("Emergency Contact Country Code", "+49");
 	data11.put("Emergency Contact Number", "2110001011");
 	data11.put("Emergency Contact Title", "MyHealth Emergency Assistance");
@@ -1645,6 +1700,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data12.put("Offer Cooldown", "20");
 	data12.put("Automatic Approval", "Enabled");
 	data12.put("Approval Timing", "Immediately");
+	data12.put("Maximum Extension", "18");
+	data12.put("Maximum Reduction", "6");
+	data12.put("Request Immediate Refill", "Disabled");
+	data12.put("Archive Completed Treatments After", "14");
+	data12.put("Delete Archived Treatments After", "100");
 	data12.put("Emergency Contact Country Code", "+49");
 	data12.put("Emergency Contact Number", "2310001012");
 	data12.put("Emergency Contact Title", "CareLink Emergency Assistance");
@@ -1664,6 +1724,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data13.put("Offer Cooldown", "50");
 	data13.put("Automatic Approval", "Enabled");
 	data13.put("Approval Timing", "Immediately");
+	data13.put("Maximum Extension", "40");
+	data13.put("Maximum Reduction", "14");
+	data13.put("Request Immediate Refill", "Enabled");
+	data13.put("Archive Completed Treatments After", "120");
+	data13.put("Delete Archived Treatments After", "540");
 	data13.put("Emergency Contact Country Code", "+49");
 	data13.put("Emergency Contact Number", "9110001013");
 	data13.put("Emergency Contact Title", "Patient Center Urgent Line");
@@ -1683,6 +1748,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data14.put("Offer Cooldown", "60");
 	data14.put("Automatic Approval", "Enabled");
 	data14.put("Approval Timing", "Immediately");
+	data14.put("Maximum Extension", "12");
+	data14.put("Maximum Reduction", "4");
+	data14.put("Request Immediate Refill", "Enabled");
+	data14.put("Archive Completed Treatments After", "10");
+	data14.put("Delete Archived Treatments After", "90");
 	data14.put("Emergency Contact Country Code", "+49");
 	data14.put("Emergency Contact Number", "2280001014");
 	data14.put("Emergency Contact Title", "Digital Health Emergency Contact");
@@ -1702,6 +1772,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data15.put("Offer Cooldown", "15");
 	data15.put("Automatic Approval", "Enabled");
 	data15.put("Approval Timing", "Immediately");
+	data15.put("Maximum Extension", "50");
+	data15.put("Maximum Reduction", "18");
+	data15.put("Request Immediate Refill", "Disabled");
+	data15.put("Archive Completed Treatments After", "60");
+	data15.put("Delete Archived Treatments After", "420");
 	data15.put("Emergency Contact Country Code", "+49");
 	data15.put("Emergency Contact Number", "6210001015");
 	data15.put("Emergency Contact Title", "Patient Network Emergency Support");
@@ -1721,6 +1796,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data16.put("Offer Cooldown", "25");
 	data16.put("Automatic Approval", "Enabled");
 	data16.put("Approval Timing", "Immediately");
+	data16.put("Maximum Extension", "22");
+	data16.put("Maximum Reduction", "11");
+	data16.put("Request Immediate Refill", "Enabled");
+	data16.put("Archive Completed Treatments After", "25");
+	data16.put("Delete Archived Treatments After", "200");
 	data16.put("Emergency Contact Country Code", "+49");
 	data16.put("Emergency Contact Number", "7610001016");
 	data16.put("Emergency Contact Title", "CareConnect Urgent Assistance");
@@ -1740,6 +1820,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data17.put("Offer Cooldown", "32");
 	data17.put("Automatic Approval", "Enabled");
 	data17.put("Approval Timing", "Immediately");
+	data17.put("Maximum Extension", "16");
+	data17.put("Maximum Reduction", "5");
+	data17.put("Request Immediate Refill", "Disabled");
+	data17.put("Archive Completed Treatments After", "40");
+	data17.put("Delete Archived Treatments After", "250");
 	data17.put("Emergency Contact Country Code", "+49");
 	data17.put("Emergency Contact Number", "6131001017");
 	data17.put("Emergency Contact Title", "Medical Access Emergency Line");
@@ -1759,6 +1844,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data18.put("Offer Cooldown", "55");
 	data18.put("Automatic Approval", "Enabled");
 	data18.put("Approval Timing", "Immediately");
+	data18.put("Maximum Extension", "32");
+	data18.put("Maximum Reduction", "13");
+	data18.put("Request Immediate Refill", "Enabled");
+	data18.put("Archive Completed Treatments After", "70");
+	data18.put("Delete Archived Treatments After", "360");
 	data18.put("Emergency Contact Country Code", "+49");
 	data18.put("Emergency Contact Number", "6810001018");
 	data18.put("Emergency Contact Title", "Health Gateway Emergency Support");
@@ -1778,6 +1868,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data19.put("Offer Cooldown", "70");
 	data19.put("Automatic Approval", "Enabled");
 	data19.put("Approval Timing", "Immediately");
+	data19.put("Maximum Extension", "27");
+	data19.put("Maximum Reduction", "8");
+	data19.put("Request Immediate Refill", "Enabled");
+	data19.put("Archive Completed Treatments After", "32");
+	data19.put("Delete Archived Treatments After", "220");
 	data19.put("Emergency Contact Country Code", "+49");
 	data19.put("Emergency Contact Number", "3910001019");
 	data19.put("Emergency Contact Title", "Online Patient Emergency Help");
@@ -1797,6 +1892,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data20.put("Offer Cooldown", "45");
 	data20.put("Automatic Approval", "Enabled");
 	data20.put("Approval Timing", "Immediately");
+	data20.put("Maximum Extension", "42");
+	data20.put("Maximum Reduction", "16");
+	data20.put("Request Immediate Refill", "Disabled");
+	data20.put("Archive Completed Treatments After", "100");
+	data20.put("Delete Archived Treatments After", "500");
 	data20.put("Emergency Contact Country Code", "+49");
 	data20.put("Emergency Contact Number", "4310001020");
 	data20.put("Emergency Contact Title", "Virtual Care Emergency Assistance");
@@ -1823,7 +1923,7 @@ public Object[][] Patient_Portal_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } 
+		{ data20 }
 	};
 }
 
@@ -2036,6 +2136,10 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 	String Emergency_Contact_Title = Form_data.get("Emergency Contact Title");
 	String Emergency_Contact_Description = Form_data.get("Emergency Contact Description");
 	String Emergency_Disclaimer = Form_data.get("Emergency Disclaimer");
+	String Maximum_Extension = Form_data.get("Maximum Extension");
+	String Maximum_Reduction = Form_data.get("Maximum Reduction");
+	String Archive_Completed_Treatments_After = Form_data.get("Archive Completed Treatments");
+	String Delete_Archived_Treatments_After = Form_data.get("Delete Archived Treatments After");
 
 	try {
 
@@ -2057,6 +2161,15 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 		Report_Listen.log_print_in_report().info("Offer Cooldown: " + Offer_Cooldown);
 		Report_Listen.log_print_in_report().info("Automatic Approval: " + Automatic_Approval);
 		Report_Listen.log_print_in_report().info("Approval Timing: " + Approval_Timing);
+		Report_Listen.log_print_in_report().info("Maximum Extension: " + Maximum_Extension);
+		Report_Listen.log_print_in_report().info("Maximum Reduction: " + Maximum_Reduction);
+		Report_Listen.log_print_in_report().info("Emergency Contact Country Code: " + Emergency_Contact_Country_Code);
+		Report_Listen.log_print_in_report().info("Emergency Contact Number: " + Emergency_Contact_Number);
+		Report_Listen.log_print_in_report().info("Emergency Contact Title: " + Emergency_Contact_Title);
+		Report_Listen.log_print_in_report().info("Emergency Contact Description: " + Emergency_Contact_Description);
+		Report_Listen.log_print_in_report().info("Emergency Disclaimer: " + Emergency_Disclaimer);
+		Report_Listen.log_print_in_report().info("Archive Completed Treatments After: " + Archive_Completed_Treatments_After);
+		Report_Listen.log_print_in_report().info("Delete Archived Treatments After: " + Delete_Archived_Treatments_After);
 
 		System.out.println("📋 CONFIGURATION DATASET");
 		System.out.println();
@@ -2070,6 +2183,15 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 		System.out.println("🔹 Offer Cooldown: " + Offer_Cooldown);
 		System.out.println("🔹 Automatic Approval: " + Automatic_Approval);
 		System.out.println("🔹 Approval Timing: " + Approval_Timing);
+		System.out.println("🔹 Maximum Extension: " + Maximum_Extension);
+		System.out.println("🔹 Maximum Reduction: " + Maximum_Reduction);
+		System.out.println("🔹 Emergency Contact Country Code: " + Emergency_Contact_Country_Code);
+		System.out.println("🔹 Emergency Contact Number: " + Emergency_Contact_Number);
+		System.out.println("🔹 Emergency Contact Title: " + Emergency_Contact_Title);
+		System.out.println("🔹 Emergency Contact Description: " + Emergency_Contact_Description);
+		System.out.println("🔹 Emergency Disclaimer: " + Emergency_Disclaimer);
+		System.out.println("🔹 Archive Completed Treatments After: " + Archive_Completed_Treatments_After);
+		System.out.println("🔹 Delete Archived Treatments After: " + Delete_Archived_Treatments_After);
 		System.out.println();
 
 		Report_Listen.log_print_in_report().info("<b>Action:</b> Opening Patient Portal configuration form.");
@@ -2099,7 +2221,7 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 		for(WebElement dropdown_field : dropdown_fields) {
 
-			String Field_Value = dropdown_field.getAttribute("title");
+			String Field_Value = dropdown_field.getAttribute("value");
 
 			Report_Listen.log_print_in_report().info("🔹 Dropdown " + Dropdown_Index + " current value: " + Field_Value);
 			System.out.println("🔹 Dropdown " + Dropdown_Index + " current value: " + Field_Value);
@@ -2155,8 +2277,12 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 				System.out.println();
 
-				Report_Listen.log_print_in_report().info("✅ Cancel Treatment card identified.");
-				System.out.println("✅ Cancel Treatment card identified.");
+				Report_Listen.log_print_in_report().info("──────────────────── 🚫 CANCEL TREATMENT CONFIGURATION ────────────────────");
+				System.out.println("🚫 CANCEL TREATMENT CONFIGURATION");
+				System.out.println();
+
+				Report_Listen.log_print_in_report().pass("✅ Cancel Treatment card identified successfully.");
+				System.out.println("✅ Cancel Treatment card identified successfully.");
 				System.out.println();
 
 				WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
@@ -2194,8 +2320,8 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='discount_percent' or @id='offer_cooldown_days']"));
 				rp.wait_for_theElement(pop_up_inputs);
 
-				Report_Listen.log_print_in_report().info("🔹 Discount and Offer Cooldown input fields retrieved successfully.");
-				System.out.println("🔹 Discount and Offer Cooldown input fields retrieved successfully.");
+				Report_Listen.log_print_in_report().pass("✅ Discount Amount and Offer Cooldown input fields retrieved successfully.");
+				System.out.println("✅ Discount Amount and Offer Cooldown input fields retrieved successfully.");
 				System.out.println();
 
 				pop_up_inputs.get(0).sendKeys(Discount_Amount);
@@ -2215,25 +2341,185 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				Report_Listen.log_print_in_report().pass("✅ Cancel Treatment configuration saved successfully.");
 				System.out.println("✅ Cancel Treatment configuration saved successfully.");
 				System.out.println();
+			}
 
-				break;
+			if(Card_Text.contains("Change Refill Date")) {
+
+				System.out.println();
+
+				Report_Listen.log_print_in_report().info("──────────────────── 📅 CHANGE REFILL DATE CONFIGURATION ────────────────────");
+				System.out.println("📅 CHANGE REFILL DATE CONFIGURATION");
+				System.out.println();
+
+				Report_Listen.log_print_in_report().pass("✅ Change Refill Date card identified successfully.");
+				System.out.println("✅ Change Refill Date card identified successfully.");
+				System.out.println();
+
+				WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
+				rp.wait_for_theElement(Toggle_Button);
+				Thread.sleep(500);
+				Toggle_Button.click();
+
+				Report_Listen.log_print_in_report().pass("✅ Change Refill Date configuration popup opened successfully.");
+				System.out.println("✅ Change Refill Date configuration popup opened successfully.");
+				System.out.println();
+
+				WebElement pop_up_form = p.Popup_Form();
+
+				List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='max_extension_days' or @id='max_reduction_days']"));
+				rp.wait_for_theElement(pop_up_inputs);
+
+				Report_Listen.log_print_in_report().pass("✅ Maximum Extension and Maximum Reduction input fields retrieved successfully.");
+				System.out.println("✅ Maximum Extension and Maximum Reduction input fields retrieved successfully.");
+				System.out.println();
+
+				WebElement Max_Extension = pop_up_inputs.get(0);
+				Max_Extension.sendKeys(Maximum_Extension);
+
+				Report_Listen.log_print_in_report().pass("✅ Maximum Extension entered successfully: " + Maximum_Extension);
+				System.out.println("✅ Maximum Extension entered successfully: " + Maximum_Extension);
+				System.out.println();
+
+				WebElement MaximumReduction = pop_up_inputs.get(1);
+				MaximumReduction.sendKeys(Maximum_Reduction);
+
+				Report_Listen.log_print_in_report().pass("✅ Maximum Reduction entered successfully: " + Maximum_Reduction);
+				System.out.println("✅ Maximum Reduction entered successfully: " + Maximum_Reduction);
+				System.out.println();
+
+				p.Modal_Save_Settings_Button().click();
+
+				Report_Listen.log_print_in_report().pass("✅ Change Refill Date configuration saved successfully.");
+				System.out.println("✅ Change Refill Date configuration saved successfully.");
+				System.out.println();
+			}
+
+			if(Card_Text.contains("Emergency Contact Widget")) {
+
+				System.out.println();
+
+				Report_Listen.log_print_in_report().info("──────────────────── 🚨 EMERGENCY CONTACT WIDGET CONFIGURATION ────────────────────");
+				System.out.println("🚨 EMERGENCY CONTACT WIDGET CONFIGURATION");
+				System.out.println();
+
+				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Widget card identified successfully.");
+				System.out.println("✅ Emergency Contact Widget card identified successfully.");
+				System.out.println();
+
+				WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
+				rp.wait_for_theElement(Toggle_Button);
+				Thread.sleep(500);
+				Toggle_Button.click();
+
+				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Widget configuration popup opened successfully.");
+				System.out.println("✅ Emergency Contact Widget configuration popup opened successfully.");
+				System.out.println();
+
+				WebElement pop_up_form = p.Popup_Form();
+
+				List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='contact_number' or @id='title']"));
+				rp.wait_for_theElement(pop_up_inputs);
+
+				List<WebElement> pop_up_Textareas = pop_up_form.findElements(By.xpath(".//textarea[@id='description' or @id='disclaimer']"));
+				rp.wait_for_theElement(pop_up_Textareas);
+
+				Report_Listen.log_print_in_report().pass("✅ Emergency Contact input and textarea fields retrieved successfully.");
+				System.out.println("✅ Emergency Contact input and textarea fields retrieved successfully.");
+				System.out.println();
+
+				WebElement Emergency_Contact_Number_Field = pop_up_inputs.get(0);
+				Emergency_Contact_Number_Field.sendKeys(Emergency_Contact_Number);
+
+				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Number entered successfully: " + Emergency_Contact_Number);
+				System.out.println("✅ Emergency Contact Number entered successfully: " + Emergency_Contact_Number);
+				System.out.println();
+
+				WebElement Emergency_Contact_Title_Field = pop_up_inputs.get(1);
+				Emergency_Contact_Title_Field.sendKeys(Emergency_Contact_Title);
+
+				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Title entered successfully: " + Emergency_Contact_Title);
+				System.out.println("✅ Emergency Contact Title entered successfully: " + Emergency_Contact_Title);
+				System.out.println();
+
+				WebElement Emergency_Contact_Description_Field = pop_up_Textareas.get(0);
+				Emergency_Contact_Description_Field.sendKeys(Emergency_Contact_Description);
+
+				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Description entered successfully.");
+				Report_Listen.log_print_in_report().info("Emergency Contact Description: " + Emergency_Contact_Description);
+				System.out.println("✅ Emergency Contact Description entered successfully.");
+				System.out.println("🔹 Emergency Contact Description: " + Emergency_Contact_Description);
+				System.out.println();
+
+				WebElement Emergency_Disclaimer_Field = pop_up_Textareas.get(1);
+				Emergency_Disclaimer_Field.sendKeys(Emergency_Disclaimer);
+
+				Report_Listen.log_print_in_report().pass("✅ Emergency Disclaimer entered successfully.");
+				Report_Listen.log_print_in_report().info("Emergency Disclaimer: " + Emergency_Disclaimer);
+				System.out.println("✅ Emergency Disclaimer entered successfully.");
+				System.out.println("🔹 Emergency Disclaimer: " + Emergency_Disclaimer);
+				System.out.println();
+
+				p.Modal_Save_Settings_Button().click();
+
+				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Widget configuration saved successfully.");
+				System.out.println("✅ Emergency Contact Widget configuration saved successfully.");
+				System.out.println();
+			}
+
+			if(Card_Text.contains("Archived Treatments")) {
+
+				System.out.println();
+
+				Report_Listen.log_print_in_report().info("──────────────────── 🗄️ ARCHIVED TREATMENTS CONFIGURATION ────────────────────");
+				System.out.println("🗄️ ARCHIVED TREATMENTS CONFIGURATION");
+				System.out.println();
+
+				Report_Listen.log_print_in_report().pass("✅ Archived Treatments card identified successfully.");
+				System.out.println("✅ Archived Treatments card identified successfully.");
+				System.out.println();
+
+				WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
+				rp.wait_for_theElement(Toggle_Button);
+				Thread.sleep(500);
+				Toggle_Button.click();
+
+				Report_Listen.log_print_in_report().pass("✅ Archived Treatments configuration popup opened successfully.");
+				System.out.println("✅ Archived Treatments configuration popup opened successfully.");
+				System.out.println();
+
+				WebElement pop_up_form = p.Popup_Form();
+
+				List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='archive_after_days' or @id='delete_after_days']"));
+				rp.wait_for_theElement(pop_up_inputs);
+
+				Report_Listen.log_print_in_report().pass("✅ Archive and Delete duration fields retrieved successfully.");
+				System.out.println("✅ Archive and Delete duration fields retrieved successfully.");
+				System.out.println();
+
+				WebElement Archive_Completed_Treatments_After_Field = pop_up_inputs.get(0);
+				Archive_Completed_Treatments_After_Field.sendKeys(Archive_Completed_Treatments_After);
+
+				Report_Listen.log_print_in_report().pass("✅ Archive Completed Treatments After value entered successfully: " + Archive_Completed_Treatments_After);
+				System.out.println("✅ Archive Completed Treatments After value entered successfully: " + Archive_Completed_Treatments_After);
+				System.out.println();
+
+				WebElement Delete_Archived_Treatments_After_Field = pop_up_inputs.get(1);
+				Delete_Archived_Treatments_After_Field.sendKeys(Delete_Archived_Treatments_After);
+
+				Report_Listen.log_print_in_report().pass("✅ Delete Archived Treatments After value entered successfully: " + Delete_Archived_Treatments_After);
+				System.out.println("✅ Delete Archived Treatments After value entered successfully: " + Delete_Archived_Treatments_After);
+				System.out.println();
+
+				p.Modal_Save_Settings_Button().click();
+
+				Report_Listen.log_print_in_report().pass("✅ Archived Treatments configuration saved successfully.");
+				System.out.println("✅ Archived Treatments configuration saved successfully.");
+				System.out.println();
 			}
 		}
 
-		Report_Listen.log_print_in_report().info("──────────────────── 🚨 EMERGENCY CONTACT DATA ────────────────────");
-		Report_Listen.log_print_in_report().info("Emergency Contact Country Code: " + Emergency_Contact_Country_Code);
-		Report_Listen.log_print_in_report().info("Emergency Contact Number: " + Emergency_Contact_Number);
-		Report_Listen.log_print_in_report().info("Emergency Contact Title: " + Emergency_Contact_Title);
-		Report_Listen.log_print_in_report().info("Emergency Contact Description: " + Emergency_Contact_Description);
-		Report_Listen.log_print_in_report().info("Emergency Disclaimer: " + Emergency_Disclaimer);
-
-		System.out.println("🚨 EMERGENCY CONTACT DATA");
-		System.out.println();
-		System.out.println("🔹 Emergency Contact Country Code: " + Emergency_Contact_Country_Code);
-		System.out.println("🔹 Emergency Contact Number: " + Emergency_Contact_Number);
-		System.out.println("🔹 Emergency Contact Title: " + Emergency_Contact_Title);
-		System.out.println("🔹 Emergency Contact Description: " + Emergency_Contact_Description);
-		System.out.println("🔹 Emergency Disclaimer: " + Emergency_Disclaimer);
+		Report_Listen.log_print_in_report().pass("──────────────────── ✅ TREATMENT MANAGEMENT CONFIGURATION COMPLETED ────────────────────");
+		System.out.println("✅ TREATMENT MANAGEMENT CONFIGURATION COMPLETED");
 		System.out.println();
 
 		Report_Listen.log_print_in_report().info("──────────────────── ❓ PATIENT PORTAL FAQ CONFIGURATION ────────────────────");
@@ -2261,7 +2547,6 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 		Report_Listen.log_print_in_report().fail("❌ Patient Portal configuration failed for Portal: " + Portal_Name);
 		Report_Listen.log_print_in_report().fail("❌ Failure Reason: " + e.getMessage());
-
 		System.out.println("❌ Patient Portal configuration failed for Portal: " + Portal_Name);
 		System.out.println();
 		System.out.println("❌ Failure Reason: " + e.getMessage());
@@ -2270,7 +2555,6 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 		throw e;
 	}
 }
-
 
 
 }

@@ -154,7 +154,7 @@ public void login() throws IOException, InterruptedException {
 		System.out.println();
 
 		lg.Login_button().click();
-        Thread.sleep(1800);
+     
 		Report_Listen.log_print_in_report().pass("✅ Login button clicked successfully.");
 		System.out.println("✅ Login button clicked successfully.");
 		System.out.println();
