@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.stream.IntStream;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -220,7 +221,7 @@ public Object[][] Channel_Create_Data() {
 	data10.put("API Contact Email", "rheincare.secure.client@yopmail.com");
 
 	return new Object[][] {
-		{ data1 },/*
+		{ data1 },
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -229,7 +230,7 @@ public Object[][] Channel_Create_Data() {
 		{ data7 },
 		{ data8 },
 		{ data9 },
-		{ data10 } */
+		{ data10 } 
 	};
 }	
 	
@@ -1137,7 +1138,7 @@ public Object[][] FAQ_Section_Create_Data(){
 	data20.put("Answer 20", "Use the patient support information provided by your healthcare organization.");
 
 	return new Object[][] {
-		{ data1 },/*
+		{ data1 },
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -1156,9 +1157,31 @@ public Object[][] FAQ_Section_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 }  */
+		{ data20 }  
 	};
 }	
+
+@DataProvider
+public Object[][] Patient_Portal_Combined_Data(){
+
+	Object[][] Patient_Portal_datas = Patient_Portal_Create_Data();
+	Object[][] FAQ_Section_datas = FAQ_Section_Create_Data();
+
+	int n = IntStream.of(Patient_Portal_datas.length, FAQ_Section_datas.length).min().orElse(0);
+
+	Object[][] combined_data = new Object[n][2];
+
+	int i = 0;
+	while(i < n){
+
+		combined_data[i][0] = Patient_Portal_datas[i][0]; // Patient Portal Create and Configuration Data
+		combined_data[i][1] = FAQ_Section_datas[i][0]; // Patient Portal FAQ Section Data
+
+		i++;
+	}
+
+	return combined_data;
+}
 	
 @Test(dataProvider="Channel_Create_Data")
 public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
@@ -1279,16 +1302,21 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 	
 }
 
-@Test(dataProvider="FAQ_Section_Create_Data")
+
 public void Patient_Portal_FAQ_Add(TreeMap<String, String> FAQ_data) throws Exception{
 	
 	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
 	Repeat rp = new Repeat(d);
 	JavascriptExecutor js = (JavascriptExecutor)d;
 	
+	WebElement Treatment_Management_Section;
+	
 	String Group_Title=FAQ_data.get("Group Name");
 	String Group_Description=FAQ_data.get("Group Description");
 	
+	
+	Boolean visiblitiy=rp.check_element_visibility(p.Form(), 5);
+	if(visiblitiy!=true) {
 	Channel_Module_Accessor();
 	WebElement Patient_portal_section_in_list = p.Patient_Portal_section();
 	rp.Scroll_to_element(Patient_portal_section_in_list);
@@ -1300,11 +1328,15 @@ public void Patient_Portal_FAQ_Add(TreeMap<String, String> FAQ_data) throws Exce
 	Config_Button.click();
 	FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(80)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
     WebElement Form = wait.until(driver -> p.Form());
-	WebElement Treatment_Management_Section = p.Treatment_management_Section();
+    Treatment_Management_Section = p.Treatment_management_Section();
 	rp.wait_for_theElement(Treatment_Management_Section);
 	rp.Scroll_to_element(Treatment_Management_Section);
 	rp.Scroll_up();
-	Thread.sleep(500);
+	Thread.sleep(500);}
+	
+	else {
+		
+	Treatment_Management_Section = p.Treatment_management_Section();
 	List<WebElement> Cards = Treatment_Management_Section.findElements(By.xpath(".//*[contains(@class,'ant-typography text-dark')]/../../.."));
 	rp.wait_for_theElement(Cards);
 	for(WebElement Card:Cards){
@@ -1384,7 +1416,11 @@ public void Patient_Portal_FAQ_Add(TreeMap<String, String> FAQ_data) throws Exce
     Report_Listen.log_print_in_report().pass("✅ Paiteint Portal Saved successfully for Product: ");
 	System.out.println("✅Paiteint Portal Saved successfully ");
 	System.out.println();
-}	
+	
+	
+	
+	}}	
+
 
 
 @DataProvider
@@ -1392,63 +1428,383 @@ public Object[][] Patient_Portal_Create_Data(){
 
 	TreeMap<String, String> data1 = new TreeMap<String, String>();
 	data1.put("Portal Name", "RheinCare Patient Connect");
+	data1.put("Portal URL", "patients.rheincare-medizin.de");
+	data1.put("Status", "Inactive");
+	data1.put("Description", "RheinCare Patient Connect provides patients with a centralized digital portal for accessing treatment information, managing ongoing care, and communicating with healthcare support services.");
+	data1.put("Enable Search Engine Indexing", "Disabled");
+	data1.put("Login Method", "Magic Link (Email + Order ID)");
+	data1.put("Two-Factor Authentication", "Available with Email & Password only");
+	data1.put("Cancellation Offer", "Enabled");
+	data1.put("Discount Amount", "10");
+	data1.put("Offer Cooldown", "30");
+	data1.put("Automatic Approval", "Enabled");
+	data1.put("Approval Timing", "Immediately");
+	data1.put("Emergency Contact Country Code", "+49");
+	data1.put("Emergency Contact Number", "3000001001");
+	data1.put("Emergency Contact Title", "Urgent Medical Assistance");
+	data1.put("Emergency Contact Description", "Contact this emergency support number if you experience an urgent medical concern while using RheinCare treatment services.");
+	data1.put("Emergency Disclaimer", "This contact option is provided for urgent assistance and does not replace local emergency medical services.");
 
 	TreeMap<String, String> data2 = new TreeMap<String, String>();
 	data2.put("Portal Name", "RheinCare Health Portal");
+	data2.put("Portal URL", "patients.rheincare-medizin.de");
+	data2.put("Status", "Inactive");
+	data2.put("Description", "A secure patient-facing health portal designed to provide convenient access to treatment information, care resources, account details, and healthcare support services.");
+	data2.put("Enable Search Engine Indexing", "Enabled");
+	data2.put("Login Method", "Magic Link (Email + Order ID)");
+	data2.put("Two-Factor Authentication", "Available with Email & Password only");
+	data2.put("Cancellation Offer", "Enabled");
+	data2.put("Discount Amount", "15");
+	data2.put("Offer Cooldown", "45");
+	data2.put("Automatic Approval", "Enabled");
+	data2.put("Approval Timing", "Immediately");
+	data2.put("Emergency Contact Country Code", "+49");
+	data2.put("Emergency Contact Number", "4000001002");
+	data2.put("Emergency Contact Title", "Emergency Care Support");
+	data2.put("Emergency Contact Description", "Use this contact number when immediate assistance is required regarding an active RheinCare treatment or medical concern.");
+	data2.put("Emergency Disclaimer", "For life-threatening emergencies, contact the appropriate local emergency service immediately.");
 
 	TreeMap<String, String> data3 = new TreeMap<String, String>();
 	data3.put("Portal Name", "RheinCare Patient Access");
+	data3.put("Portal URL", "patients.rheincare-medizin.de");
+	data3.put("Status", "Inactive");
+	data3.put("Description", "RheinCare Patient Access allows patients to securely manage treatment-related information and interact with available digital healthcare services from one location.");
+	data3.put("Enable Search Engine Indexing", "Disabled");
+	data3.put("Login Method", "Magic Link (Email + Order ID)");
+	data3.put("Two-Factor Authentication", "Available with Email & Password only");
+	data3.put("Cancellation Offer", "Enabled");
+	data3.put("Discount Amount", "20");
+	data3.put("Offer Cooldown", "60");
+	data3.put("Automatic Approval", "Enabled");
+	data3.put("Approval Timing", "Immediately");
+	data3.put("Emergency Contact Country Code", "+49");
+	data3.put("Emergency Contact Number", "8910001003");
+	data3.put("Emergency Contact Title", "Patient Emergency Help");
+	data3.put("Emergency Contact Description", "Patients requiring urgent assistance related to their treatment can use this number to contact the designated support service.");
+	data3.put("Emergency Disclaimer", "This service should not be used as a substitute for emergency ambulance or hospital services.");
 
 	TreeMap<String, String> data4 = new TreeMap<String, String>();
 	data4.put("Portal Name", "RheinCare Digital Care");
+	data4.put("Portal URL", "patients.rheincare-medizin.de");
+	data4.put("Status", "Inactive");
+	data4.put("Description", "A digital care environment providing RheinCare patients with convenient access to treatment management tools, healthcare information, and support resources.");
+	data4.put("Enable Search Engine Indexing", "Enabled");
+	data4.put("Login Method", "Magic Link (Email + Order ID)");
+	data4.put("Two-Factor Authentication", "Available with Email & Password only");
+	data4.put("Cancellation Offer", "Enabled");
+	data4.put("Discount Amount", "12");
+	data4.put("Offer Cooldown", "14");
+	data4.put("Automatic Approval", "Enabled");
+	data4.put("Approval Timing", "Immediately");
+	data4.put("Emergency Contact Country Code", "+49");
+	data4.put("Emergency Contact Number", "7110001004");
+	data4.put("Emergency Contact Title", "Digital Care Emergency Line");
+	data4.put("Emergency Contact Description", "Use this emergency contact when urgent medical guidance or assistance related to your digital treatment journey is required.");
+	data4.put("Emergency Disclaimer", "If you believe your condition is immediately life-threatening, contact local emergency services without delay.");
 
 	TreeMap<String, String> data5 = new TreeMap<String, String>();
 	data5.put("Portal Name", "RheinCare Medical Connect");
+	data5.put("Portal URL", "patients.rheincare-medizin.de");
+	data5.put("Status", "Inactive");
+	data5.put("Description", "RheinCare Medical Connect offers a secure digital connection between patients and their treatment services, including care information and support functionality.");
+	data5.put("Enable Search Engine Indexing", "Disabled");
+	data5.put("Login Method", "Magic Link (Email + Order ID)");
+	data5.put("Two-Factor Authentication", "Available with Email & Password only");
+	data5.put("Cancellation Offer", "Enabled");
+	data5.put("Discount Amount", "18");
+	data5.put("Offer Cooldown", "21");
+	data5.put("Automatic Approval", "Enabled");
+	data5.put("Approval Timing", "Immediately");
+	data5.put("Emergency Contact Country Code", "+49");
+	data5.put("Emergency Contact Number", "6910001005");
+	data5.put("Emergency Contact Title", "Medical Emergency Contact");
+	data5.put("Emergency Contact Description", "This number provides an emergency contact point for patients requiring urgent assistance concerning RheinCare medical services.");
+	data5.put("Emergency Disclaimer", "Emergency contact availability does not replace professional emergency response services in your local area.");
 
 	TreeMap<String, String> data6 = new TreeMap<String, String>();
 	data6.put("Portal Name", "RheinCare Patient Hub");
+	data6.put("Portal URL", "patients.rheincare-medizin.de");
+	data6.put("Status", "Inactive");
+	data6.put("Description", "A centralized RheinCare patient hub for accessing treatment services, care information, treatment progress, and available patient support resources.");
+	data6.put("Enable Search Engine Indexing", "Enabled");
+	data6.put("Login Method", "Magic Link (Email + Order ID)");
+	data6.put("Two-Factor Authentication", "Available with Email & Password only");
+	data6.put("Cancellation Offer", "Enabled");
+	data6.put("Discount Amount", "25");
+	data6.put("Offer Cooldown", "30");
+	data6.put("Automatic Approval", "Enabled");
+	data6.put("Approval Timing", "Immediately");
+	data6.put("Emergency Contact Country Code", "+49");
+	data6.put("Emergency Contact Number", "2210001006");
+	data6.put("Emergency Contact Title", "Patient Safety Helpline");
+	data6.put("Emergency Contact Description", "Use the patient safety helpline for urgent treatment concerns requiring immediate attention from the RheinCare support team.");
+	data6.put("Emergency Disclaimer", "Call local emergency medical services first for serious or potentially life-threatening symptoms.");
 
 	TreeMap<String, String> data7 = new TreeMap<String, String>();
 	data7.put("Portal Name", "RheinCare Wellness Portal");
+	data7.put("Portal URL", "patients.rheincare-medizin.de");
+	data7.put("Status", "Inactive");
+	data7.put("Description", "A patient wellness portal designed to provide digital access to RheinCare treatment information, support services, and ongoing care management resources.");
+	data7.put("Enable Search Engine Indexing", "Disabled");
+	data7.put("Login Method", "Magic Link (Email + Order ID)");
+	data7.put("Two-Factor Authentication", "Available with Email & Password only");
+	data7.put("Cancellation Offer", "Enabled");
+	data7.put("Discount Amount", "8");
+	data7.put("Offer Cooldown", "10");
+	data7.put("Automatic Approval", "Enabled");
+	data7.put("Approval Timing", "Immediately");
+	data7.put("Emergency Contact Country Code", "+49");
+	data7.put("Emergency Contact Number", "3510001007");
+	data7.put("Emergency Contact Title", "Wellness Emergency Support");
+	data7.put("Emergency Contact Description", "Contact this number when urgent assistance is needed regarding symptoms or concerns arising during an active treatment.");
+	data7.put("Emergency Disclaimer", "This emergency support feature is informational and should not delay contact with emergency medical professionals.");
 
 	TreeMap<String, String> data8 = new TreeMap<String, String>();
 	data8.put("Portal Name", "RheinCare Care Gateway");
+	data8.put("Portal URL", "patients.rheincare-medizin.de");
+	data8.put("Status", "Inactive");
+	data8.put("Description", "RheinCare Care Gateway provides a secure access point for patients to manage care information and interact with available treatment-related services.");
+	data8.put("Enable Search Engine Indexing", "Enabled");
+	data8.put("Login Method", "Magic Link (Email + Order ID)");
+	data8.put("Two-Factor Authentication", "Available with Email & Password only");
+	data8.put("Cancellation Offer", "Enabled");
+	data8.put("Discount Amount", "30");
+	data8.put("Offer Cooldown", "90");
+	data8.put("Automatic Approval", "Enabled");
+	data8.put("Approval Timing", "Immediately");
+	data8.put("Emergency Contact Country Code", "+49");
+	data8.put("Emergency Contact Number", "3410001008");
+	data8.put("Emergency Contact Title", "Care Gateway Emergency Help");
+	data8.put("Emergency Contact Description", "Patients can use this contact for urgent concerns regarding treatment access, medication-related questions, or immediate care support.");
+	data8.put("Emergency Disclaimer", "For a medical emergency requiring immediate intervention, contact your regional emergency service.");
 
 	TreeMap<String, String> data9 = new TreeMap<String, String>();
 	data9.put("Portal Name", "RheinCare Health Access");
+	data9.put("Portal URL", "patients.rheincare-medizin.de");
+	data9.put("Status", "Inactive");
+	data9.put("Description", "A secure healthcare access portal enabling RheinCare patients to conveniently interact with treatment information and patient care resources.");
+	data9.put("Enable Search Engine Indexing", "Disabled");
+	data9.put("Login Method", "Magic Link (Email + Order ID)");
+	data9.put("Two-Factor Authentication", "Available with Email & Password only");
+	data9.put("Cancellation Offer", "Enabled");
+	data9.put("Discount Amount", "14");
+	data9.put("Offer Cooldown", "28");
+	data9.put("Automatic Approval", "Enabled");
+	data9.put("Approval Timing", "Immediately");
+	data9.put("Emergency Contact Country Code", "+49");
+	data9.put("Emergency Contact Number", "5110001009");
+	data9.put("Emergency Contact Title", "Health Access Urgent Support");
+	data9.put("Emergency Contact Description", "Use this number for urgent patient support associated with active treatment or unexpected treatment-related concerns.");
+	data9.put("Emergency Disclaimer", "This contact is not intended to replace emergency medical treatment provided by hospitals or ambulance services.");
 
 	TreeMap<String, String> data10 = new TreeMap<String, String>();
 	data10.put("Portal Name", "RheinCare Patient Services");
+	data10.put("Portal URL", "patients.rheincare-medizin.de");
+	data10.put("Status", "Inactive");
+	data10.put("Description", "RheinCare Patient Services provides patients with access to digital treatment management, healthcare information, and dedicated care support.");
+	data10.put("Enable Search Engine Indexing", "Enabled");
+	data10.put("Login Method", "Magic Link (Email + Order ID)");
+	data10.put("Two-Factor Authentication", "Available with Email & Password only");
+	data10.put("Cancellation Offer", "Enabled");
+	data10.put("Discount Amount", "16");
+	data10.put("Offer Cooldown", "35");
+	data10.put("Automatic Approval", "Enabled");
+	data10.put("Approval Timing", "Immediately");
+	data10.put("Emergency Contact Country Code", "+49");
+	data10.put("Emergency Contact Number", "4210001010");
+	data10.put("Emergency Contact Title", "Patient Services Emergency");
+	data10.put("Emergency Contact Description", "Contact the patient services emergency line for urgent treatment-related assistance requiring prompt support.");
+	data10.put("Emergency Disclaimer", "If symptoms represent a serious emergency, seek immediate professional emergency medical assistance.");
 
 	TreeMap<String, String> data11 = new TreeMap<String, String>();
 	data11.put("Portal Name", "RheinCare MyHealth");
+	data11.put("Portal URL", "patients.rheincare-medizin.de");
+	data11.put("Status", "Inactive");
+	data11.put("Description", "RheinCare MyHealth provides a personalized digital space where patients can access relevant treatment and healthcare support information.");
+	data11.put("Enable Search Engine Indexing", "Disabled");
+	data11.put("Login Method", "Magic Link (Email + Order ID)");
+	data11.put("Two-Factor Authentication", "Available with Email & Password only");
+	data11.put("Cancellation Offer", "Enabled");
+	data11.put("Discount Amount", "22");
+	data11.put("Offer Cooldown", "40");
+	data11.put("Automatic Approval", "Enabled");
+	data11.put("Approval Timing", "Immediately");
+	data11.put("Emergency Contact Country Code", "+49");
+	data11.put("Emergency Contact Number", "2110001011");
+	data11.put("Emergency Contact Title", "MyHealth Emergency Assistance");
+	data11.put("Emergency Contact Description", "Urgent health concerns associated with an active RheinCare treatment can be directed to this patient support contact.");
+	data11.put("Emergency Disclaimer", "This number does not replace emergency medical services for severe, acute, or life-threatening conditions.");
 
 	TreeMap<String, String> data12 = new TreeMap<String, String>();
 	data12.put("Portal Name", "RheinCare CareLink");
+	data12.put("Portal URL", "patients.rheincare-medizin.de");
+	data12.put("Status", "Inactive");
+	data12.put("Description", "A secure care-linking portal allowing patients to access relevant information and services associated with their RheinCare treatment journey.");
+	data12.put("Enable Search Engine Indexing", "Enabled");
+	data12.put("Login Method", "Magic Link (Email + Order ID)");
+	data12.put("Two-Factor Authentication", "Available with Email & Password only");
+	data12.put("Cancellation Offer", "Enabled");
+	data12.put("Discount Amount", "11");
+	data12.put("Offer Cooldown", "20");
+	data12.put("Automatic Approval", "Enabled");
+	data12.put("Approval Timing", "Immediately");
+	data12.put("Emergency Contact Country Code", "+49");
+	data12.put("Emergency Contact Number", "2310001012");
+	data12.put("Emergency Contact Title", "CareLink Emergency Assistance");
+	data12.put("Emergency Contact Description", "Use this contact for urgent assistance related to your active treatment, care instructions, or unexpected health concerns.");
+	data12.put("Emergency Disclaimer", "Always contact local emergency services immediately if urgent medical intervention is required.");
 
 	TreeMap<String, String> data13 = new TreeMap<String, String>();
 	data13.put("Portal Name", "RheinCare Patient Center");
+	data13.put("Portal URL", "patients.rheincare-medizin.de");
+	data13.put("Status", "Inactive");
+	data13.put("Description", "The RheinCare Patient Center provides centralized online access to patient treatment services, digital care resources, and support information.");
+	data13.put("Enable Search Engine Indexing", "Disabled");
+	data13.put("Login Method", "Magic Link (Email + Order ID)");
+	data13.put("Two-Factor Authentication", "Available with Email & Password only");
+	data13.put("Cancellation Offer", "Enabled");
+	data13.put("Discount Amount", "19");
+	data13.put("Offer Cooldown", "50");
+	data13.put("Automatic Approval", "Enabled");
+	data13.put("Approval Timing", "Immediately");
+	data13.put("Emergency Contact Country Code", "+49");
+	data13.put("Emergency Contact Number", "9110001013");
+	data13.put("Emergency Contact Title", "Patient Center Urgent Line");
+	data13.put("Emergency Contact Description", "This contact provides urgent patient assistance for treatment-related concerns that require prompt review or support.");
+	data13.put("Emergency Disclaimer", "The patient center urgent line should not delay calling emergency services for serious medical emergencies.");
 
 	TreeMap<String, String> data14 = new TreeMap<String, String>();
 	data14.put("Portal Name", "RheinCare Digital Health Hub");
+	data14.put("Portal URL", "patients.rheincare-medizin.de");
+	data14.put("Status", "Inactive");
+	data14.put("Description", "A digital health hub supporting RheinCare patients with centralized treatment information, healthcare services, and patient-support resources.");
+	data14.put("Enable Search Engine Indexing", "Enabled");
+	data14.put("Login Method", "Magic Link (Email + Order ID)");
+	data14.put("Two-Factor Authentication", "Available with Email & Password only");
+	data14.put("Cancellation Offer", "Enabled");
+	data14.put("Discount Amount", "24");
+	data14.put("Offer Cooldown", "60");
+	data14.put("Automatic Approval", "Enabled");
+	data14.put("Approval Timing", "Immediately");
+	data14.put("Emergency Contact Country Code", "+49");
+	data14.put("Emergency Contact Number", "2280001014");
+	data14.put("Emergency Contact Title", "Digital Health Emergency Contact");
+	data14.put("Emergency Contact Description", "Use this emergency contact when urgent health or treatment assistance is necessary while using the digital patient portal.");
+	data14.put("Emergency Disclaimer", "Patients experiencing severe symptoms should immediately contact their local emergency healthcare provider.");
 
 	TreeMap<String, String> data15 = new TreeMap<String, String>();
 	data15.put("Portal Name", "RheinCare Patient Network");
+	data15.put("Portal URL", "patients.rheincare-medizin.de");
+	data15.put("Status", "Inactive");
+	data15.put("Description", "RheinCare Patient Network connects patients with digital treatment management resources and healthcare support through a centralized portal.");
+	data15.put("Enable Search Engine Indexing", "Disabled");
+	data15.put("Login Method", "Magic Link (Email + Order ID)");
+	data15.put("Two-Factor Authentication", "Available with Email & Password only");
+	data15.put("Cancellation Offer", "Enabled");
+	data15.put("Discount Amount", "9");
+	data15.put("Offer Cooldown", "15");
+	data15.put("Automatic Approval", "Enabled");
+	data15.put("Approval Timing", "Immediately");
+	data15.put("Emergency Contact Country Code", "+49");
+	data15.put("Emergency Contact Number", "6210001015");
+	data15.put("Emergency Contact Title", "Patient Network Emergency Support");
+	data15.put("Emergency Contact Description", "Contact this support number when an urgent treatment-related issue requires timely assistance from the patient care team.");
+	data15.put("Emergency Disclaimer", "This service does not provide emergency transportation or substitute for emergency hospital care.");
 
 	TreeMap<String, String> data16 = new TreeMap<String, String>();
 	data16.put("Portal Name", "RheinCare CareConnect");
+	data16.put("Portal URL", "patients.rheincare-medizin.de");
+	data16.put("Status", "Inactive");
+	data16.put("Description", "A connected patient-care experience providing secure access to RheinCare treatment information, support resources, and care management.");
+	data16.put("Enable Search Engine Indexing", "Enabled");
+	data16.put("Login Method", "Magic Link (Email + Order ID)");
+	data16.put("Two-Factor Authentication", "Available with Email & Password only");
+	data16.put("Cancellation Offer", "Enabled");
+	data16.put("Discount Amount", "17");
+	data16.put("Offer Cooldown", "25");
+	data16.put("Automatic Approval", "Enabled");
+	data16.put("Approval Timing", "Immediately");
+	data16.put("Emergency Contact Country Code", "+49");
+	data16.put("Emergency Contact Number", "7610001016");
+	data16.put("Emergency Contact Title", "CareConnect Urgent Assistance");
+	data16.put("Emergency Contact Description", "Patients can use this contact when urgent treatment assistance or immediate care guidance is required.");
+	data16.put("Emergency Disclaimer", "Seek immediate emergency medical attention for severe symptoms or potentially life-threatening conditions.");
 
 	TreeMap<String, String> data17 = new TreeMap<String, String>();
 	data17.put("Portal Name", "RheinCare Medical Access");
+	data17.put("Portal URL", "patients.rheincare-medizin.de");
+	data17.put("Status", "Inactive");
+	data17.put("Description", "RheinCare Medical Access provides secure digital access to patient treatment resources, care information, and available medical support services.");
+	data17.put("Enable Search Engine Indexing", "Disabled");
+	data17.put("Login Method", "Magic Link (Email + Order ID)");
+	data17.put("Two-Factor Authentication", "Available with Email & Password only");
+	data17.put("Cancellation Offer", "Enabled");
+	data17.put("Discount Amount", "13");
+	data17.put("Offer Cooldown", "32");
+	data17.put("Automatic Approval", "Enabled");
+	data17.put("Approval Timing", "Immediately");
+	data17.put("Emergency Contact Country Code", "+49");
+	data17.put("Emergency Contact Number", "6131001017");
+	data17.put("Emergency Contact Title", "Medical Access Emergency Line");
+	data17.put("Emergency Contact Description", "Use this number when an urgent treatment or medication-related concern requires prompt patient support.");
+	data17.put("Emergency Disclaimer", "For immediate life-threatening medical emergencies, contact your local emergency response service.");
 
 	TreeMap<String, String> data18 = new TreeMap<String, String>();
 	data18.put("Portal Name", "RheinCare Health Gateway");
+	data18.put("Portal URL", "patients.rheincare-medizin.de");
+	data18.put("Status", "Inactive");
+	data18.put("Description", "A secure health gateway enabling RheinCare patients to access treatment information, patient services, and care-management functionality.");
+	data18.put("Enable Search Engine Indexing", "Enabled");
+	data18.put("Login Method", "Magic Link (Email + Order ID)");
+	data18.put("Two-Factor Authentication", "Available with Email & Password only");
+	data18.put("Cancellation Offer", "Enabled");
+	data18.put("Discount Amount", "21");
+	data18.put("Offer Cooldown", "55");
+	data18.put("Automatic Approval", "Enabled");
+	data18.put("Approval Timing", "Immediately");
+	data18.put("Emergency Contact Country Code", "+49");
+	data18.put("Emergency Contact Number", "6810001018");
+	data18.put("Emergency Contact Title", "Health Gateway Emergency Support");
+	data18.put("Emergency Contact Description", "Contact this number when urgent support is required regarding your treatment or healthcare services accessed through the portal.");
+	data18.put("Emergency Disclaimer", "Emergency portal support is not intended to replace emergency physicians, hospitals, or ambulance services.");
 
 	TreeMap<String, String> data19 = new TreeMap<String, String>();
 	data19.put("Portal Name", "RheinCare Patient Online");
+	data19.put("Portal URL", "patients.rheincare-medizin.de");
+	data19.put("Status", "Inactive");
+	data19.put("Description", "RheinCare Patient Online provides convenient digital access to treatment management, healthcare information, and patient support functions.");
+	data19.put("Enable Search Engine Indexing", "Disabled");
+	data19.put("Login Method", "Magic Link (Email + Order ID)");
+	data19.put("Two-Factor Authentication", "Available with Email & Password only");
+	data19.put("Cancellation Offer", "Enabled");
+	data19.put("Discount Amount", "27");
+	data19.put("Offer Cooldown", "70");
+	data19.put("Automatic Approval", "Enabled");
+	data19.put("Approval Timing", "Immediately");
+	data19.put("Emergency Contact Country Code", "+49");
+	data19.put("Emergency Contact Number", "3910001019");
+	data19.put("Emergency Contact Title", "Online Patient Emergency Help");
+	data19.put("Emergency Contact Description", "Patients experiencing urgent concerns during treatment can use this contact for immediate support guidance.");
+	data19.put("Emergency Disclaimer", "Do not rely on online patient support when immediate emergency medical intervention is necessary.");
 
 	TreeMap<String, String> data20 = new TreeMap<String, String>();
 	data20.put("Portal Name", "RheinCare Virtual Care");
+	data20.put("Portal URL", "patients.rheincare-medizin.de");
+	data20.put("Status", "Inactive");
+	data20.put("Description", "RheinCare Virtual Care provides patients with secure online access to treatment information, care-management functionality, and virtual healthcare support resources.");
+	data20.put("Enable Search Engine Indexing", "Enabled");
+	data20.put("Login Method", "Magic Link (Email + Order ID)");
+	data20.put("Two-Factor Authentication", "Available with Email & Password only");
+	data20.put("Cancellation Offer", "Enabled");
+	data20.put("Discount Amount", "20");
+	data20.put("Offer Cooldown", "45");
+	data20.put("Automatic Approval", "Enabled");
+	data20.put("Approval Timing", "Immediately");
+	data20.put("Emergency Contact Country Code", "+49");
+	data20.put("Emergency Contact Number", "4310001020");
+	data20.put("Emergency Contact Title", "Virtual Care Emergency Assistance");
+	data20.put("Emergency Contact Description", "Use this emergency contact when urgent treatment assistance is required while accessing RheinCare virtual care services.");
+	data20.put("Emergency Disclaimer", "Virtual care emergency assistance is not a replacement for local emergency medical services in critical situations.");
 
 	return new Object[][] {
 		{ data1 },
@@ -1474,117 +1830,449 @@ public Object[][] Patient_Portal_Create_Data(){
 	};
 }
 
-@Test(dataProvider="Patient_Portal_Create_Data")
 
-public void Patient_Portal_Create(TreeMap<String, String> Add_data) throws Exception {
+@Test(dataProvider="Patient_Portal_Combined_Data")
+public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, TreeMap<String, String> FAQ_data) throws Exception {
 
 	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
 	Product_Module_Locaters pd = new Product_Module_Locaters(d);
 	Repeat rp = new Repeat(d);
 
-	String Portal_Name=Add_data.get("Portal Name");
+	String Portal_Name = Patient_Portal_data.get("Portal Name");
 
-	Report_Listen.log_print_in_report().info("──────────────────── PATIENT PORTAL CREATION STARTED ────────────────────");
-	Report_Listen.log_print_in_report().info("Patient Portal Name: " + Portal_Name);
-	System.out.println("──────────────────── PATIENT PORTAL CREATION STARTED ────────────────────");
-	System.out.println("🔹 Patient Portal Name: " + Portal_Name);
-	System.out.println();
+	try {
 
-	Channel_Module_Accessor();
-
-	Report_Listen.log_print_in_report().info("✅ Channel Module accessed successfully.");
-	System.out.println("✅ Channel Module accessed successfully.");
-	System.out.println();
-
-	WebElement Patient_portal_section_in_list = p.Patient_Portal_section();
-	rp.Scroll_to_element(Patient_portal_section_in_list);
-	Thread.sleep(500);
-
-	Report_Listen.log_print_in_report().info("Patient Portal section located successfully.");
-	System.out.println("🔹 Patient Portal section located successfully.");
-	System.out.println();
-
-	WebElement Config_Button=p.Configuration_Button;
-	Boolean is_visible= rp.check_element_visibility(Config_Button, 4);
-
-	Report_Listen.log_print_in_report().info("Checking whether an existing Patient Portal configuration is already available.");
-	System.out.println("🔹 Checking whether an existing Patient Portal configuration is already available.");
-	System.out.println();
-
-	if(is_visible!=true) {
-
-		Report_Listen.log_print_in_report().info("No existing Patient Portal configuration found. Proceeding with new Patient Portal creation.");
-		System.out.println("ℹ️ No existing Patient Portal configuration found. Proceeding with new Patient Portal creation.");
+		Report_Listen.log_print_in_report().info("──────────────────── 🌐 PATIENT PORTAL CREATION STARTED ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Portal Name:</b> " + Portal_Name);
+		System.out.println("🌐 PATIENT PORTAL CREATION STARTED");
+		System.out.println();
+		System.out.println("🔹 Portal Name: " + Portal_Name);
 		System.out.println();
 
-		WebElement Add_Button=p.Patient_Portal_Create_Button();
-		rp.movetoelement(Add_Button);
-		Add_Button.click();
-
-		Report_Listen.log_print_in_report().info("Patient Portal creation form opened successfully.");
-		System.out.println("🔹 Patient Portal creation form opened successfully.");
-
-		p.Portal_Name_Input().sendKeys(Portal_Name);
-
-		Report_Listen.log_print_in_report().info("Patient Portal Name entered: " + Portal_Name);
-		System.out.println("🔹 Patient Portal Name entered: " + Portal_Name);
-
-		WebElement Submit =p.Create_Button();
-		Submit.click();
-
-		Report_Listen.log_print_in_report().info("Patient Portal creation form submitted successfully.");
-		System.out.println("🔹 Patient Portal creation form submitted successfully.");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Accessing the Channels module.");
+		System.out.println("🔹 Accessing the Channels module.");
 		System.out.println();
 
-		p.Configuration_Button();
+		Channel_Module_Accessor();
 
-		Report_Listen.log_print_in_report().pass("✅ Patient Portal created successfully and Configuration option is available for Portal: " + Portal_Name);
-		System.out.println("✅ Patient Portal created successfully and Configuration option is available for Portal: " + Portal_Name);
+		Report_Listen.log_print_in_report().pass("✅ Channels module accessed successfully.");
+		System.out.println("✅ Channels module accessed successfully.");
 		System.out.println();
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🔎 PATIENT PORTAL SECTION CHECK ────────────────────");
+		System.out.println("🔎 PATIENT PORTAL SECTION CHECK");
+		System.out.println();
+
+		WebElement Patient_portal_section_in_list = p.Patient_Portal_section();
+		rp.Scroll_to_element(Patient_portal_section_in_list);
+		Thread.sleep(500);
+
+		Report_Listen.log_print_in_report().pass("✅ Patient Portal section located successfully.");
+		System.out.println("✅ Patient Portal section located successfully.");
+		System.out.println();
+
+		WebElement Config_Button = p.Configuration_Button;
+		Boolean is_visible = rp.check_element_visibility(Config_Button, 4);
+
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Checking whether an existing Patient Portal configuration is available.");
+		System.out.println("🔹 Checking whether an existing Patient Portal configuration is available.");
+		System.out.println();
+
+		if(is_visible != true) {
+
+			Report_Listen.log_print_in_report().info("ℹ️ No existing Patient Portal configuration detected. Proceeding with new Patient Portal creation.");
+			System.out.println("ℹ️ No existing Patient Portal configuration detected.");
+			System.out.println();
+
+			Report_Listen.log_print_in_report().info("──────────────────── ➕ NEW PATIENT PORTAL CREATION ────────────────────");
+			System.out.println("➕ NEW PATIENT PORTAL CREATION");
+			System.out.println();
+
+			WebElement Add_Button = p.Patient_Portal_Create_Button();
+			rp.movetoelement(Add_Button);
+			Add_Button.click();
+
+			Report_Listen.log_print_in_report().pass("✅ Patient Portal creation form opened successfully.");
+			System.out.println("✅ Patient Portal creation form opened successfully.");
+			System.out.println();
+
+			p.Portal_Name_Input().sendKeys(Portal_Name);
+
+			Report_Listen.log_print_in_report().info("🔹 Patient Portal Name entered: " + Portal_Name);
+			System.out.println("🔹 Patient Portal Name entered: " + Portal_Name);
+			System.out.println();
+
+			WebElement Submit = p.Create_Button();
+			Submit.click();
+
+			Report_Listen.log_print_in_report().pass("✅ Patient Portal creation form submitted successfully.");
+			System.out.println("✅ Patient Portal creation form submitted successfully.");
+			System.out.println();
+
+			Report_Listen.log_print_in_report().info("<b>Action:</b> Opening Patient Portal Configuration.");
+			System.out.println("🔹 Opening Patient Portal Configuration.");
+			System.out.println();
+
+			Config_Button = p.Configuration_Button();
+
+			Report_Listen.log_print_in_report().pass("✅ Configuration button retrieved successfully for Portal: " + Portal_Name);
+			System.out.println("✅ Configuration button retrieved successfully for Portal: " + Portal_Name);
+			System.out.println();
+
+			patient_portal_form_editor(Patient_Portal_data, Config_Button, FAQ_data);
+
+			Report_Listen.log_print_in_report().pass("✅ Patient Portal created and configured successfully: " + Portal_Name);
+			System.out.println("✅ Patient Portal created and configured successfully: " + Portal_Name);
+			System.out.println();
+		}
+		else {
+
+			Report_Listen.log_print_in_report().info("ℹ️ Existing Patient Portal configuration detected.");
+			System.out.println("ℹ️ Existing Patient Portal configuration detected.");
+			System.out.println();
+
+			Report_Listen.log_print_in_report().info("──────────────────── 🗑️ EXISTING PATIENT PORTAL DELETION ────────────────────");
+			System.out.println("🗑️ EXISTING PATIENT PORTAL DELETION");
+			System.out.println();
+
+			Report_Listen.log_print_in_report().info("<b>Action:</b> Deleting the existing Patient Portal before creating the new Portal.");
+			System.out.println("🔹 Deleting the existing Patient Portal before creating the new Portal.");
+			System.out.println();
+
+			List<WebElement> ThreeDot_Buttons = pd.Threedot_Button_in_list();
+
+			Report_Listen.log_print_in_report().info("🔹 Three-dot action buttons retrieved. Total buttons found: " + ThreeDot_Buttons.size());
+			System.out.println("🔹 Three-dot action buttons retrieved. Total buttons found: " + ThreeDot_Buttons.size());
+			System.out.println();
+
+			Three_Dot_Menu_Option_Selector(ThreeDot_Buttons, "Delete");
+
+			Report_Listen.log_print_in_report().pass("✅ Existing Patient Portal deletion action completed successfully.");
+			System.out.println("✅ Existing Patient Portal deletion action completed successfully.");
+			System.out.println();
+
+			Report_Listen.log_print_in_report().info("──────────────────── ➕ NEW PATIENT PORTAL CREATION ────────────────────");
+			System.out.println("➕ NEW PATIENT PORTAL CREATION");
+			System.out.println();
+
+			WebElement Add_Button = p.Patient_Portal_Create_Button();
+			rp.movetoelement(Add_Button);
+			Add_Button.click();
+
+			Report_Listen.log_print_in_report().pass("✅ Patient Portal creation form opened successfully after deleting the existing Portal.");
+			System.out.println("✅ Patient Portal creation form opened successfully after deleting the existing Portal.");
+			System.out.println();
+
+			p.Portal_Name_Input().sendKeys(Portal_Name);
+
+			Report_Listen.log_print_in_report().info("🔹 Patient Portal Name entered: " + Portal_Name);
+			System.out.println("🔹 Patient Portal Name entered: " + Portal_Name);
+			System.out.println();
+
+			WebElement Submit = p.Create_Button();
+			Submit.click();
+
+			Report_Listen.log_print_in_report().pass("✅ New Patient Portal creation form submitted successfully.");
+			System.out.println("✅ New Patient Portal creation form submitted successfully.");
+			System.out.println();
+
+			Report_Listen.log_print_in_report().info("<b>Action:</b> Opening configuration for the newly created Patient Portal.");
+			System.out.println("🔹 Opening configuration for the newly created Patient Portal.");
+			System.out.println();
+
+			Config_Button = p.Configuration_Button();
+
+			Report_Listen.log_print_in_report().pass("✅ Configuration button retrieved successfully for newly created Portal: " + Portal_Name);
+			System.out.println("✅ Configuration button retrieved successfully for newly created Portal: " + Portal_Name);
+			System.out.println();
+
+			patient_portal_form_editor(Patient_Portal_data, Config_Button, FAQ_data);
+
+			Report_Listen.log_print_in_report().pass("✅ New Patient Portal created and configured successfully after removing the previous Portal: " + Portal_Name);
+			System.out.println("✅ New Patient Portal created and configured successfully after removing the previous Portal: " + Portal_Name);
+			System.out.println();
+		}
+
+		Report_Listen.log_print_in_report().pass("──────────────────── ✅ PATIENT PORTAL CREATION COMPLETED ────────────────────");
+		Report_Listen.log_print_in_report().pass("✅ Complete Patient Portal creation and configuration flow passed successfully for Portal: " + Portal_Name);
+		System.out.println("✅ PATIENT PORTAL CREATION COMPLETED");
+		System.out.println();
+		System.out.println("✅ Complete Patient Portal creation and configuration flow passed successfully for Portal: " + Portal_Name);
+		System.out.println();
+
 	}
-	else{
+	catch(Exception e) {
 
-		Report_Listen.log_print_in_report().info("Existing Patient Portal configuration detected. Existing Patient Portal will be deleted before creating a new one.");
-		System.out.println("ℹ️ Existing Patient Portal configuration detected. Existing Patient Portal will be deleted before creating a new one.");
+		Report_Listen.log_print_in_report().fail("❌ Patient Portal creation flow failed for Portal: " + Portal_Name);
+		Report_Listen.log_print_in_report().fail("❌ Failure Reason: " + e.getMessage());
+
+		System.out.println("❌ Patient Portal creation flow failed for Portal: " + Portal_Name);
+		System.out.println();
+		System.out.println("❌ Failure Reason: " + e.getMessage());
 		System.out.println();
 
-		List<WebElement> ThreeDot_Buttons = pd.Threedot_Button_in_list();
-		Three_Dot_Menu_Option_Selector(ThreeDot_Buttons,"Delete");
-
-		Report_Listen.log_print_in_report().pass("✅ Existing Patient Portal deletion action completed successfully.");
-		System.out.println("✅ Existing Patient Portal deletion action completed successfully.");
-		System.out.println();
-
-		WebElement Add_Button=p.Patient_Portal_Create_Button();
-		rp.movetoelement(Add_Button);
-		Add_Button.click();
-
-		Report_Listen.log_print_in_report().info("Patient Portal creation form opened successfully after deleting the existing Portal.");
-		System.out.println("🔹 Patient Portal creation form opened successfully after deleting the existing Portal.");
-
-		p.Portal_Name_Input().sendKeys(Portal_Name);
-
-		Report_Listen.log_print_in_report().info("Patient Portal Name entered: " + Portal_Name);
-		System.out.println("🔹 Patient Portal Name entered: " + Portal_Name);
-
-		WebElement Submit =p.Create_Button();
-		Submit.click();
-
-		Report_Listen.log_print_in_report().info("Patient Portal creation form submitted successfully.");
-		System.out.println("🔹 Patient Portal creation form submitted successfully.");
-		System.out.println();
-
-		p.Configuration_Button();
-
-		Report_Listen.log_print_in_report().pass("✅ New Patient Portal created successfully after removing the previous Portal. Configuration option is available for Portal: " + Portal_Name);
-		System.out.println("✅ New Patient Portal created successfully after removing the previous Portal. Configuration option is available for Portal: " + Portal_Name);
-		System.out.println();
+		throw e;
 	}
-
-	Report_Listen.log_print_in_report().pass("✅ Patient Portal creation flow completed successfully for Portal: " + Portal_Name);
-	System.out.println("✅ Patient Portal creation flow completed successfully for Portal: " + Portal_Name);
-	System.out.println();
-
 }
+
+
+public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebElement Config_button, TreeMap<String, String> FAQ) throws Exception {
+
+	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	String Portal_Name = Form_data.get("Portal Name");
+	String Portal_URL = Form_data.get("Portal URL");
+	String Status = Form_data.get("Status");
+	String Description = Form_data.get("Description");
+	String Search_Engine_Indexing = Form_data.get("Enable Search Engine Indexing");
+	String Login_Method = Form_data.get("Login Method");
+	String Two_Factor_Authentication = Form_data.get("Two-Factor Authentication");
+	String Cancellation_Offer = Form_data.get("Cancellation Offer");
+	String Discount_Amount = Form_data.get("Discount Amount");
+	String Offer_Cooldown = Form_data.get("Offer Cooldown");
+	String Automatic_Approval = Form_data.get("Automatic Approval");
+	String Approval_Timing = Form_data.get("Approval Timing");
+	String Emergency_Contact_Country_Code = Form_data.get("Emergency Contact Country Code");
+	String Emergency_Contact_Number = Form_data.get("Emergency Contact Number");
+	String Emergency_Contact_Title = Form_data.get("Emergency Contact Title");
+	String Emergency_Contact_Description = Form_data.get("Emergency Contact Description");
+	String Emergency_Disclaimer = Form_data.get("Emergency Disclaimer");
+
+	try {
+
+		Report_Listen.log_print_in_report().info("──────────────────── ⚙️ PATIENT PORTAL CONFIGURATION STARTED ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Portal:</b> " + Portal_Name);
+		System.out.println("⚙️ PATIENT PORTAL CONFIGURATION STARTED");
+		System.out.println();
+		System.out.println("🔹 Portal: " + Portal_Name);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().info("──────────────────── 📋 CONFIGURATION DATASET ────────────────────");
+		Report_Listen.log_print_in_report().info("Portal URL: " + Portal_URL);
+		Report_Listen.log_print_in_report().info("Status: " + Status);
+		Report_Listen.log_print_in_report().info("Search Engine Indexing: " + Search_Engine_Indexing);
+		Report_Listen.log_print_in_report().info("Login Method: " + Login_Method);
+		Report_Listen.log_print_in_report().info("Two-Factor Authentication: " + Two_Factor_Authentication);
+		Report_Listen.log_print_in_report().info("Cancellation Offer: " + Cancellation_Offer);
+		Report_Listen.log_print_in_report().info("Discount Amount: " + Discount_Amount);
+		Report_Listen.log_print_in_report().info("Offer Cooldown: " + Offer_Cooldown);
+		Report_Listen.log_print_in_report().info("Automatic Approval: " + Automatic_Approval);
+		Report_Listen.log_print_in_report().info("Approval Timing: " + Approval_Timing);
+
+		System.out.println("📋 CONFIGURATION DATASET");
+		System.out.println();
+		System.out.println("🔹 Portal URL: " + Portal_URL);
+		System.out.println("🔹 Status: " + Status);
+		System.out.println("🔹 Search Engine Indexing: " + Search_Engine_Indexing);
+		System.out.println("🔹 Login Method: " + Login_Method);
+		System.out.println("🔹 Two-Factor Authentication: " + Two_Factor_Authentication);
+		System.out.println("🔹 Cancellation Offer: " + Cancellation_Offer);
+		System.out.println("🔹 Discount Amount: " + Discount_Amount);
+		System.out.println("🔹 Offer Cooldown: " + Offer_Cooldown);
+		System.out.println("🔹 Automatic Approval: " + Automatic_Approval);
+		System.out.println("🔹 Approval Timing: " + Approval_Timing);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Opening Patient Portal configuration form.");
+		System.out.println("🔹 Opening Patient Portal configuration form.");
+		System.out.println();
+
+		Config_button.click();
+
+		Report_Listen.log_print_in_report().pass("✅ Configuration button clicked successfully.");
+		System.out.println("✅ Configuration button clicked successfully.");
+		System.out.println();
+
+		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(80)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
+		WebElement Form = wait.until(driver -> p.Form());
+
+		Report_Listen.log_print_in_report().pass("✅ Patient Portal configuration form loaded successfully.");
+		System.out.println("✅ Patient Portal configuration form loaded successfully.");
+		System.out.println();
+
+		List<WebElement> dropdown_fields = p.Patient_Portal_config_Form_Dropdown_fields(Form);
+
+		Report_Listen.log_print_in_report().info("🔹 Total dropdown fields detected in configuration form: " + dropdown_fields.size());
+		System.out.println("🔹 Total dropdown fields detected in configuration form: " + dropdown_fields.size());
+		System.out.println();
+
+		int Dropdown_Index = 1;
+
+		for(WebElement dropdown_field : dropdown_fields) {
+
+			String Field_Value = dropdown_field.getAttribute("title");
+
+			Report_Listen.log_print_in_report().info("🔹 Dropdown " + Dropdown_Index + " current value: " + Field_Value);
+			System.out.println("🔹 Dropdown " + Dropdown_Index + " current value: " + Field_Value);
+
+			Dropdown_Index++;
+		}
+
+		System.out.println();
+
+		Report_Listen.log_print_in_report().info("──────────────────── 📝 PORTAL DESCRIPTION ────────────────────");
+		System.out.println("📝 PORTAL DESCRIPTION");
+		System.out.println();
+
+		p.Textarea_Description_Field().sendKeys(Description);
+
+		Report_Listen.log_print_in_report().pass("✅ Portal Description entered successfully.");
+		Report_Listen.log_print_in_report().info("Description: " + Description);
+		System.out.println("✅ Portal Description entered successfully.");
+		System.out.println("🔹 Description: " + Description);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🩺 TREATMENT MANAGEMENT CONFIGURATION ────────────────────");
+		System.out.println("🩺 TREATMENT MANAGEMENT CONFIGURATION");
+		System.out.println();
+
+		WebElement Treatment_Management_Section = p.Treatment_management_Section();
+		rp.wait_for_theElement(Treatment_Management_Section);
+		rp.Scroll_to_element(Treatment_Management_Section);
+		Thread.sleep(500);
+
+		Report_Listen.log_print_in_report().pass("✅ Treatment Management section located successfully.");
+		System.out.println("✅ Treatment Management section located successfully.");
+		System.out.println();
+
+		List<WebElement> Cards = Treatment_Management_Section.findElements(By.xpath(".//*[contains(@class,'ant-typography text-dark')]/../../.."));
+		rp.wait_for_theElement(Cards);
+
+		Report_Listen.log_print_in_report().info("🔹 Total Treatment Management cards detected: " + Cards.size());
+		System.out.println("🔹 Total Treatment Management cards detected: " + Cards.size());
+		System.out.println();
+
+		for(WebElement Card : Cards) {
+
+			WebElement Card_Text_element = Card.findElement(By.xpath(".//*[contains(@class,'ant-typography text-dark')]"));
+			rp.wait_for_theElement(Card_Text_element);
+
+			String Card_Text = Card_Text_element.getText().trim();
+
+			Report_Listen.log_print_in_report().info("🔹 Checking Treatment Management card: " + Card_Text);
+			System.out.println("🔹 Checking Treatment Management card: " + Card_Text);
+
+			if(Card_Text.contains("Cancel Treatment")) {
+
+				System.out.println();
+
+				Report_Listen.log_print_in_report().info("✅ Cancel Treatment card identified.");
+				System.out.println("✅ Cancel Treatment card identified.");
+				System.out.println();
+
+				WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
+				rp.wait_for_theElement(Toggle_Button);
+				Thread.sleep(500);
+				Toggle_Button.click();
+
+				Report_Listen.log_print_in_report().pass("✅ Cancel Treatment configuration popup opened successfully.");
+				System.out.println("✅ Cancel Treatment configuration popup opened successfully.");
+				System.out.println();
+
+				WebElement pop_up_form = p.Popup_Form();
+
+				Report_Listen.log_print_in_report().info("🔹 Retrieving configuration toggles from Cancel Treatment popup.");
+				System.out.println("🔹 Retrieving configuration toggles from Cancel Treatment popup.");
+				System.out.println();
+
+				List<WebElement> popup_toggles = pop_up_form.findElements(By.xpath(".//button[@role='switch']"));
+				rp.wait_for_theElement(popup_toggles);
+
+				Report_Listen.log_print_in_report().info("🔹 Total popup toggles detected: " + popup_toggles.size());
+				System.out.println("🔹 Total popup toggles detected: " + popup_toggles.size());
+				System.out.println();
+
+				WebElement First_Toggle = popup_toggles.get(0);
+				rp.wait_for_theElement(First_Toggle);
+				First_Toggle.click();
+
+				Report_Listen.log_print_in_report().pass("✅ Cancellation Offer toggle configured successfully.");
+				Report_Listen.log_print_in_report().info("Expected Cancellation Offer: " + Cancellation_Offer);
+				System.out.println("✅ Cancellation Offer toggle configured successfully.");
+				System.out.println("🔹 Expected Cancellation Offer: " + Cancellation_Offer);
+				System.out.println();
+
+				List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='discount_percent' or @id='offer_cooldown_days']"));
+				rp.wait_for_theElement(pop_up_inputs);
+
+				Report_Listen.log_print_in_report().info("🔹 Discount and Offer Cooldown input fields retrieved successfully.");
+				System.out.println("🔹 Discount and Offer Cooldown input fields retrieved successfully.");
+				System.out.println();
+
+				pop_up_inputs.get(0).sendKeys(Discount_Amount);
+
+				Report_Listen.log_print_in_report().pass("✅ Discount Amount entered successfully: " + Discount_Amount);
+				System.out.println("✅ Discount Amount entered successfully: " + Discount_Amount);
+				System.out.println();
+
+				pop_up_inputs.get(1).sendKeys(Offer_Cooldown);
+
+				Report_Listen.log_print_in_report().pass("✅ Offer Cooldown entered successfully: " + Offer_Cooldown);
+				System.out.println("✅ Offer Cooldown entered successfully: " + Offer_Cooldown);
+				System.out.println();
+
+				p.Modal_Save_Settings_Button().click();
+
+				Report_Listen.log_print_in_report().pass("✅ Cancel Treatment configuration saved successfully.");
+				System.out.println("✅ Cancel Treatment configuration saved successfully.");
+				System.out.println();
+
+				break;
+			}
+		}
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🚨 EMERGENCY CONTACT DATA ────────────────────");
+		Report_Listen.log_print_in_report().info("Emergency Contact Country Code: " + Emergency_Contact_Country_Code);
+		Report_Listen.log_print_in_report().info("Emergency Contact Number: " + Emergency_Contact_Number);
+		Report_Listen.log_print_in_report().info("Emergency Contact Title: " + Emergency_Contact_Title);
+		Report_Listen.log_print_in_report().info("Emergency Contact Description: " + Emergency_Contact_Description);
+		Report_Listen.log_print_in_report().info("Emergency Disclaimer: " + Emergency_Disclaimer);
+
+		System.out.println("🚨 EMERGENCY CONTACT DATA");
+		System.out.println();
+		System.out.println("🔹 Emergency Contact Country Code: " + Emergency_Contact_Country_Code);
+		System.out.println("🔹 Emergency Contact Number: " + Emergency_Contact_Number);
+		System.out.println("🔹 Emergency Contact Title: " + Emergency_Contact_Title);
+		System.out.println("🔹 Emergency Contact Description: " + Emergency_Contact_Description);
+		System.out.println("🔹 Emergency Disclaimer: " + Emergency_Disclaimer);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().info("──────────────────── ❓ PATIENT PORTAL FAQ CONFIGURATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>FAQ Group:</b> " + FAQ.get("Group Name"));
+		System.out.println("❓ PATIENT PORTAL FAQ CONFIGURATION");
+		System.out.println();
+		System.out.println("🔹 FAQ Group: " + FAQ.get("Group Name"));
+		System.out.println();
+
+		Patient_Portal_FAQ_Add(FAQ);
+
+		Report_Listen.log_print_in_report().pass("✅ Patient Portal FAQ configuration completed successfully for Group: " + FAQ.get("Group Name"));
+		System.out.println("✅ Patient Portal FAQ configuration completed successfully for Group: " + FAQ.get("Group Name"));
+		System.out.println();
+
+		Report_Listen.log_print_in_report().pass("──────────────────── ✅ PATIENT PORTAL CONFIGURATION COMPLETED ────────────────────");
+		Report_Listen.log_print_in_report().pass("✅ Patient Portal configuration flow completed successfully for Portal: " + Portal_Name);
+		System.out.println("✅ PATIENT PORTAL CONFIGURATION COMPLETED");
+		System.out.println();
+		System.out.println("✅ Patient Portal configuration flow completed successfully for Portal: " + Portal_Name);
+		System.out.println();
+
+	}
+	catch(Exception e) {
+
+		Report_Listen.log_print_in_report().fail("❌ Patient Portal configuration failed for Portal: " + Portal_Name);
+		Report_Listen.log_print_in_report().fail("❌ Failure Reason: " + e.getMessage());
+
+		System.out.println("❌ Patient Portal configuration failed for Portal: " + Portal_Name);
+		System.out.println();
+		System.out.println("❌ Failure Reason: " + e.getMessage());
+		System.out.println();
+
+		throw e;
+	}
+}
+
+
 
 }

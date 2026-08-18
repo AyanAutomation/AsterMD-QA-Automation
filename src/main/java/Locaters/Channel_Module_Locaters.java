@@ -33,6 +33,8 @@ public class Channel_Module_Locaters extends Repeat{
 	private WebElement Save_Button; 
 	@FindBy(xpath="//*[text()='Save Settings']/..")
     private WebElement Save_Settings_Button;
+	@FindBy(xpath="//*[@class='ant-modal-footer']//*[text()='Save Settings']/..")
+	private WebElement Modal_Save_Settings_Button;
     @FindBy(xpath="//*[text()='Create']/..")
 	private WebElement Create_Button;
     @FindBy(xpath="//*[text()='Generate API Token']/..")
@@ -285,6 +287,10 @@ public class Channel_Module_Locaters extends Repeat{
 	public WebElement CLient_Id_Label(){
 	wait_for_theElement(CLient_Id_Label);
 	return CLient_Id_Label;} 
+	public List<WebElement> Patient_Portal_config_Form_Dropdown_fields(WebElement element){
+	List<WebElement> Patient_Portal_config_Form_Dropdown_fields = element.findElements(By.xpath(".//div[@class='ant-select-content ant-select-content-has-value']"));
+	wait_for_theElement(Patient_Portal_config_Form_Dropdown_fields);
+	return Patient_Portal_config_Form_Dropdown_fields;}
 	public List<WebElement> Channel_Add_Form_Inputs(WebElement element){
 	List<WebElement> Channel_Add_Form_Inputs = element.findElements(By.xpath(".//input[@id='channel_name' or @id='channel-ip-input']"));
 	wait_for_theElement(Channel_Add_Form_Inputs);
@@ -379,10 +385,10 @@ public class Channel_Module_Locaters extends Repeat{
 	return Create_Button;} 
 	public WebElement Configuration_Button(){
 	wait_for_theElement(Configuration_Button);
-	return Configuration_Button;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return Configuration_Button;}
+	public WebElement Modal_Save_Settings_Button(){
+	wait_for_theElement(Modal_Save_Settings_Button);
+	return Modal_Save_Settings_Button;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;} public WebElement (){

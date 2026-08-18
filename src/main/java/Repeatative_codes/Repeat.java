@@ -29,9 +29,7 @@ public class Repeat {
 
 	
 		js.executeScript("window.scrollBy(0, -180);");
-
-		
-	}
+}
 	
 	
 	
