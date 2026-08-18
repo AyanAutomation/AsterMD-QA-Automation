@@ -1451,7 +1451,7 @@ public Object[][] Patient_Portal_Create_Data(){
 	data20.put("Portal Name", "RheinCare Virtual Care");
 
 	return new Object[][] {
-		{ data1 },/*
+		{ data1 },
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -1470,7 +1470,7 @@ public Object[][] Patient_Portal_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } */
+		{ data20 } 
 	};
 }
 
