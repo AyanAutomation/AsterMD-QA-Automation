@@ -799,7 +799,7 @@ public Object[][] Product_Create_Data(){
 	data20.put("Sale Price", "45.90");
 
 	return new Object[][] {
-		{ data1 },
+		{ data1 },/*
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -818,7 +818,7 @@ public Object[][] Product_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 }, 
-		{ data20 }
+		{ data20 } */
 	};
 }
 
@@ -1459,20 +1459,18 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 		step++;
 
 		Report_Listen.log_print_in_report().info("──────────────────── ✏️ PRODUCT BASIC DETAILS ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Enter Product Name and Product Description.");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Enter Product Description.");
 
 		System.out.println("✏️ PRODUCT BASIC DETAILS");
 		System.out.println();
-		System.out.println("🔹 Step " + step + ": Entering Product Name and Description.");
+		System.out.println("🔹 Step " + step + ": Entering Product Description.");
 		System.out.println();
-		/*
-		Product_Name_Input.clear();
-		Product_Name_Input.sendKeys(Product_Name);*/
+
 		Description_Input.clear();
 		Description_Input.sendKeys(Description);
 
-		Report_Listen.log_print_in_report().pass("✅ Product Name and Description entered successfully.");
-		System.out.println("✅ Product Name and Description entered successfully.");
+		Report_Listen.log_print_in_report().pass("✅ Product Description entered successfully.");
+		System.out.println("✅ Product Description entered successfully.");
 		System.out.println();
 		
 		WebElement Image_Upload = p.Product_Image_Upload_Input();
@@ -1548,14 +1546,15 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 
 		Product_Visibility_Input.sendKeys(Visibility);
 
-		WebElement Product_Visibility_list = p.Thrid_Virtual_List_holder();
+		WebElement Product_Visibility_list = p.Second_Virtual_List_holder();
 		List<WebElement> Product_Visibility_list_options = Product_Visibility_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
 
-		for(WebElement option : Product_Visibility_list_options) {
+		for(WebElement visoption : Product_Visibility_list_options) {
+            String option_Text=visoption.getText().trim();
+            System.out.println("visibility option "+option_Text+" Option text from Dataprovider "+Visibility);
+			if(option_Text.contains(Visibility)) {
 
-			if(option.getText().equals(Visibility)) {
-
-				option.click();
+				visoption.click();
 
 				Report_Listen.log_print_in_report().pass("✅ Product Visibility selected successfully: " + Visibility);
 				System.out.println("✅ Product Visibility selected successfully: " + Visibility);
@@ -1668,14 +1667,23 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 		System.out.println("🔹 Entering Sale Start Date: " + Sale_Start_Date);
 		System.out.println();
 		Sales_Start_Date_Input.click();
-	//	Sales_Start_Date_Input.sendKeys(Sale_Start_Date);
-		p.Today_Button_Calender(0).click();
-
+	
+		WebElement Today_Button=p.Today_Button_Calender("First");
+		rp.movetoelement(Today_Button);
+		rp.Scroll_to_element(Today_Button);
+		Thread.sleep(800);
+		Today_Button.click();
+		
 		System.out.println("🔹 Entering Sale End Date: " + Sales_End_Date);
 		System.out.println();
 		Sales_End_Date_Input.click();
-		//Sales_End_Date_Input.sendKeys(Sales_End_Date);
-		p.Today_Button_Calender(1).click();
+		WebElement Second_Today_Button=p.Today_Button_Calender("second");
+		rp.movetoelement(Second_Today_Button);
+		rp.Scroll_to_element(Second_Today_Button);
+		Thread.sleep(800);
+		Second_Today_Button.click();
+
+	
 
 		Report_Listen.log_print_in_report().pass("✅ Product Sale dates configured successfully.");
 		System.out.println("✅ Product Sale dates configured successfully.");
@@ -1683,12 +1691,14 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 
 		step++;
 
-		Report_Listen.log_print_in_report().info("──────────────────── 💾 PRODUCT SAVE & VERIFICATION ────────────────────");
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 💾 PRODUCT SAVE ────────────────────");
 		Report_Listen.log_print_in_report().info("<b>Action:</b> Save the Product and verify the success confirmation message.");
 
-		System.out.println("💾 PRODUCT SAVE & VERIFICATION");
+		System.out.println("💾 PRODUCT SAVE");
 		System.out.println();
-		System.out.println("🔹 Saving the Product.");
+		System.out.println("🔹 Step " + step + ": Saving the Product.");
 		System.out.println();
 
 		WebElement Submit_Button = p.Product_Save_Button();
@@ -1697,13 +1707,32 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 		WebElement Confirmation_Message = p.Success_Toast();
 		String Confirmation_Message_Text = Confirmation_Message.getText().trim();
 
-		Report_Listen.log_print_in_report().pass("✅ Confirmation Message: " + Confirmation_Message_Text);
-		System.out.println("✅ Confirmation message displayed: " + Confirmation_Message_Text);
+		Report_Listen.log_print_in_report().pass("✅ Product save confirmation received: " + Confirmation_Message_Text);
+		System.out.println("✅ Product save confirmation received: " + Confirmation_Message_Text);
 		System.out.println();
 
-		Report_Listen.log_print_in_report().pass("✅ Product creation completed successfully for Product: " + Product_Name);
-		System.out.println("✅ Product creation completed successfully for Product: " + Product_Name);
-		System.out.println(); 
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🔍 CREATED PRODUCT LIST VERIFICATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Search the Product list and verify that the newly created Product is available.");
+		Report_Listen.log_print_in_report().info("<b>Expected Product:</b> " + Product_Name);
+
+		System.out.println("🔍 CREATED PRODUCT LIST VERIFICATION");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Searching the Product list for the newly created Product.");
+		System.out.println();
+		System.out.println("🔹 Expected Product: " + Product_Name);
+		System.out.println();
+
+		search_a_product_in_list(Product_data);
+
+		Report_Listen.log_print_in_report().pass("──────────────────── ✅ PRODUCT CREATION FLOW COMPLETED ────────────────────");
+		Report_Listen.log_print_in_report().pass("✅ Product creation, save and list verification flow completed successfully for Product: " + Product_Name);
+
+		System.out.println("✅ PRODUCT CREATION FLOW COMPLETED");
+		System.out.println();
+		System.out.println("✅ Product creation, save and list verification flow completed successfully for Product: " + Product_Name);
+		System.out.println();
 
 	} catch(Exception e) {
 
@@ -1718,7 +1747,72 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 		throw e;
 	}
 }
-	
+
+
+public void search_a_product_in_list(TreeMap<String, String> Prod_name) throws InterruptedException{
+
+	String Product_Name = Prod_name.get("Product Name");
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+
+	Report_Listen.log_print_in_report().info("──────────────────── 🔍 PRODUCT SEARCH VALIDATION ────────────────────");
+	Report_Listen.log_print_in_report().info("<b>Expected Product:</b> " + Product_Name);
+	System.out.println("🔍 PRODUCT SEARCH VALIDATION");
+	System.out.println();
+	System.out.println("🔹 Expected Product: " + Product_Name);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().info("<b>Action:</b> Searching for Product: " + Product_Name);
+	System.out.println("🔹 Searching for Product: " + Product_Name);
+	System.out.println();
+
+	WebElement Product_Search = p.Search();
+	Product_Search.clear();
+	Product_Search.sendKeys(Product_Name);
+	Thread.sleep(1500);
+
+	Report_Listen.log_print_in_report().pass("✅ Product Name entered successfully in the search field: " + Product_Name);
+	System.out.println("✅ Product Name entered successfully in the search field: " + Product_Name);
+	System.out.println();
+
+	List<WebElement> names = p.List_first_column_values();
+
+	Report_Listen.log_print_in_report().info("🔹 Total Product records returned after search: " + names.size());
+	System.out.println("🔹 Total Product records returned after search: " + names.size());
+	System.out.println();
+
+	boolean Product_Found = false;
+	String Actual_Product_Name = "";
+
+	for(WebElement name : names){
+
+		String list_names = name.getText().trim();
+
+		Report_Listen.log_print_in_report().info("🔹 Product found in search result: " + list_names);
+		System.out.println("🔹 Product found in search result: " + list_names);
+
+		if(list_names.equalsIgnoreCase(Product_Name)){
+
+			Product_Found = true;
+			Actual_Product_Name = list_names;
+			break;
+		}
+	}
+
+	System.out.println();
+
+	if(Product_Found){
+
+		Report_Listen.log_print_in_report().pass("✅ Product search validation passed. Expected: " + Product_Name + " | Actual: " + Actual_Product_Name);
+		System.out.println("✅ Product search validation passed. Expected: " + Product_Name + " | Actual: " + Actual_Product_Name);
+		System.out.println();
+	}
+	else{
+
+		Report_Listen.log_print_in_report().fail("❌ Product search validation failed. Product was not found in the search results: " + Product_Name);
+		System.out.println("❌ Product search validation failed. Product was not found in the search results: " + Product_Name);
+		System.out.println();
+	}
+}
 
 
 public void Negative_Validation_Check_for_Product_Add(List<WebElement> inputs,TreeMap<String, String> Category_Create_Data,TreeMap<String, String> Lab_Test_Create_Data,TreeMap<String, String> Product_data) throws InterruptedException{

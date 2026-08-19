@@ -66,9 +66,9 @@ public class Product_Module_Locaters extends Repeat{
     @FindBy(xpath="//h1[text()='Add Product']")
 	private WebElement Top_of_Product_form; 
     @FindBy(id="product_image")
-	private WebElement Product_Image_Upload_Input; /*
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Product_Image_Upload_Input; 
+    @FindBy(xpath="//tbody//td[contains(@class,'ant-table-cell-with-append')][1]")
+	private List<WebElement> List_first_column_values; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -336,9 +336,9 @@ public class Product_Module_Locaters extends Repeat{
 	public WebElement First_Popup_Calendar(){
 	wait_for_theElement(First_Popup_Calendar);
 	return First_Popup_Calendar;}
-	public WebElement Today_Button_Calender(int calender_index) {
+	public WebElement Today_Button_Calender(String calender_index) {
 
-		if (calender_index == 0) {
+		if (calender_index.contains("First")) {
 			WebElement Today_Button_Calender_One = First_Popup_Calendar().findElement(By.xpath(".//li[@class='ant-picker-now']"));
 			wait_for_theElement(Today_Button_Calender_One);
 			return Today_Button_Calender_One;
@@ -374,10 +374,10 @@ public class Product_Module_Locaters extends Repeat{
 	return Top_of_Product_form;}
 	public WebElement Product_Image_Upload_Input(){
 	wait_for_presence_of_theElement(By.id("product_image"));
-	return Product_Image_Upload_Input;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return Product_Image_Upload_Input;}
+	public List<WebElement> List_first_column_values(){
+	wait_for_theElement(List_first_column_values);
+	return List_first_column_values;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;}
