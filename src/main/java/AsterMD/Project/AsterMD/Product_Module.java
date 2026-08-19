@@ -799,7 +799,7 @@ public Object[][] Product_Create_Data(){
 	data20.put("Sale Price", "45.90");
 
 	return new Object[][] {
-		{ data1 },/*
+		{ data1 },
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -818,7 +818,7 @@ public Object[][] Product_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 }, 
-		{ data20 } */
+		{ data20 } 
 	};
 }
 
