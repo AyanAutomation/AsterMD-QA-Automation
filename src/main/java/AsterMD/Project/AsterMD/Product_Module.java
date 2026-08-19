@@ -1703,7 +1703,8 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 
 		WebElement Submit_Button = p.Product_Save_Button();
 		Submit_Button.click();
-
+		Thread.sleep(800);
+        rp.wait_for_invisibilty_of_theElement(Submit_Button);
 		WebElement Confirmation_Message = p.Success_Toast();
 		String Confirmation_Message_Text = Confirmation_Message.getText().trim();
 
