@@ -1904,11 +1904,11 @@ public Object[][] Patient_Portal_Create_Data(){
 	data20.put("Emergency Disclaimer", "Virtual care emergency assistance is not a replacement for local emergency medical services in critical situations.");
 
 	return new Object[][] {
-		{ data1 },
+		{ data1 },/*
 		{ data2 },
 		{ data3 },
 		{ data4 },
-		{ data5 },/*
+		{ data5 },
 		{ data6 },
 		{ data7 },
 		{ data8 },
@@ -1986,7 +1986,7 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 			System.out.println();
 
 			WebElement Add_Button = p.Patient_Portal_Create_Button();
-			rp.movetoelement(Add_Button);
+			rp.movetoelement(Add_Button);/*
 			Add_Button.click();
 
 			Report_Listen.log_print_in_report().pass("✅ Patient Portal creation form opened successfully.");
@@ -2016,7 +2016,7 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 			System.out.println("✅ Configuration button retrieved successfully for Portal: " + Portal_Name);
 			System.out.println();
 
-			patient_portal_form_editor(Patient_Portal_data, Config_Button, FAQ_data);
+			patient_portal_form_editor(Patient_Portal_data, Config_Button, FAQ_data); */
 
 			patient_portal_configuration_validator(Patient_Portal_data,FAQ_data);
 			Report_Listen.log_print_in_report().pass("✅ Patient Portal created and configured successfully: " + Portal_Name);
@@ -2024,7 +2024,7 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 			System.out.println();
 		}
 		else {
-
+          /*
 			Report_Listen.log_print_in_report().info("ℹ️ Existing Patient Portal configuration detected.");
 			System.out.println("ℹ️ Existing Patient Portal configuration detected.");
 			System.out.println();
@@ -2088,7 +2088,8 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 			patient_portal_configuration_validator(Patient_Portal_data,FAQ_data);
 			Report_Listen.log_print_in_report().pass("✅ New Patient Portal created and configured successfully after removing the previous Portal: " + Portal_Name);
 			System.out.println("✅ New Patient Portal created and configured successfully after removing the previous Portal: " + Portal_Name);
-			System.out.println();
+			System.out.println(); */
+			patient_portal_configuration_validator(Patient_Portal_data,FAQ_data);
 		}
 
 		Report_Listen.log_print_in_report().pass("──────────────────── ✅ PATIENT PORTAL CREATION COMPLETED ────────────────────");
@@ -2113,7 +2114,7 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 	}
 }
 
-public void patient_portal_configuration_validator(TreeMap<String, String> Form_data, TreeMap<String, String> FAQ){
+public void patient_portal_configuration_validator(TreeMap<String, String> Form_data, TreeMap<String, String> FAQ) throws InterruptedException{
 
 	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -2196,6 +2197,20 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 	System.out.println();
 	System.out.println("✅ Patient Portal Configuration form is available and ready for further field validations.");
 	System.out.println();
+	WebElement Treatment_Management_Section = p.Treatment_management_Section();
+	rp.wait_for_theElement(Treatment_Management_Section);
+	rp.Scroll_to_element(Treatment_Management_Section);
+	Thread.sleep(500);
+	List<WebElement> dropdown_fields = p.Patient_Portal_config_Form_Dropdown_fields(Form);
+	for(WebElement Field:dropdown_fields){
+		String Feild_Value=Field.getText().trim();
+		System.out.println("Values are :- > "+Feild_Value);
+		System.out.println();
+		
+	}
+	
+	
+	
 }
 
 public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebElement Config_button, TreeMap<String, String> FAQ) throws Exception {

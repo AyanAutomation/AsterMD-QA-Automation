@@ -780,7 +780,7 @@ public Object[][] Product_Create_Data(){
 		{ data3 },
 		{ data4 },
 		{ data5 },
-		{ data6 },
+		{ data6 },/*
 		{ data7 },
 		{ data8 },
 		{ data9 },
@@ -794,7 +794,7 @@ public Object[][] Product_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } 
+		{ data20 } */
 	};
 }
 

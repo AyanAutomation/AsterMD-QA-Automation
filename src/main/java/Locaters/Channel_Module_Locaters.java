@@ -288,7 +288,7 @@ public class Channel_Module_Locaters extends Repeat{
 	wait_for_theElement(CLient_Id_Label);
 	return CLient_Id_Label;} 
 	public List<WebElement> Patient_Portal_config_Form_Dropdown_fields(WebElement element){
-	List<WebElement> Patient_Portal_config_Form_Dropdown_fields = element.findElements(By.xpath(".//div[@class='ant-select-content ant-select-content-has-value']/.."));
+	List<WebElement> Patient_Portal_config_Form_Dropdown_fields = element.findElements(By.xpath(".//input[@id='_r_1n_' or @id='security_login_method'or @id='theme_font']/../.."));
 	wait_for_theElement(Patient_Portal_config_Form_Dropdown_fields);
 	return Patient_Portal_config_Form_Dropdown_fields;}
 	public List<WebElement> Channel_Add_Form_Inputs(WebElement element){
