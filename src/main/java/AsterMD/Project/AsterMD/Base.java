@@ -72,7 +72,7 @@ public class Base {
 	@AfterMethod(alwaysRun = true) // Runs after every TestNG test method even when the test fails.
 	public void Kill() {
 		if (d != null) {
-	//	d.quit();
+		d.quit();
 			
 		}
 	}
