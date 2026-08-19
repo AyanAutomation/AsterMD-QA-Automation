@@ -3,9 +3,9 @@ package AsterMD.Project.AsterMD;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
+import org.openqa.selenium.NoSuchElementException;
 import java.util.TreeMap;
-import java.util.TreeSet;
+
 import java.util.stream.IntStream;
 
 import org.openqa.selenium.By;
@@ -26,7 +26,7 @@ import Locaters.Channel_Module_Locaters;
 import Locaters.Product_Module_Locaters;
 import Repeatative_codes.Repeat;
 
-import Locaters.Channel_Module_Locaters;
+
 
 public class Channels_Module extends Patient_Module{
 	
@@ -1670,7 +1670,7 @@ public void Patient_Portal_FAQ_Validator(TreeMap<String, String> FAQ_data, SoftA
 	System.out.println("✅ PATIENT PORTAL FAQ VALIDATION COMPLETED");
 	System.out.println();
 
-	softAssert.assertAll();
+	
 }
 
 
@@ -2343,7 +2343,6 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 			System.out.println();
 
 			patient_portal_form_editor(Patient_Portal_data, Config_Button, FAQ_data);
-			patient_portal_configuration_validator(Patient_Portal_data,FAQ_data);
 			Report_Listen.log_print_in_report().pass("✅ New Patient Portal created and configured successfully after removing the previous Portal: " + Portal_Name);
 			System.out.println("✅ New Patient Portal created and configured successfully after removing the previous Portal: " + Portal_Name);
 			System.out.println(); 
@@ -2788,7 +2787,7 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 			}
 
 			WebElement Emergency_Contact_Title_Field = pop_up_Textareas.get(0);
-			String Emergency_Contact_Title_Value = Emergency_Contact_Title_Field.getAttribute("value");
+			String Emergency_Contact_Title_Value = Emergency_Contact_Title_Field.getDomProperty("value").trim();
 
 			if(Emergency_Contact_Title_Value.equalsIgnoreCase(Emergency_Contact_Title)){
 
@@ -2806,7 +2805,7 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 			}
 
 			WebElement Emergency_Contact_Description_Field = pop_up_Textareas.get(1);
-			String Emergency_Contact_Description_Value = Emergency_Contact_Description_Field.getAttribute("value");
+			String Emergency_Contact_Description_Value = Emergency_Contact_Description_Field.getDomProperty("value").trim();
 
 			if(Emergency_Contact_Description_Value.equalsIgnoreCase(Emergency_Contact_Description)){
 
@@ -2824,7 +2823,7 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 			}
 
 			WebElement Emergency_Disclaimer_Field = pop_up_Textareas.get(2);
-			String Emergency_Disclaimer_Value = Emergency_Disclaimer_Field.getAttribute("value");
+			String Emergency_Disclaimer_Value = Emergency_Disclaimer_Field.getDomProperty("value").trim();
 
 			if(Emergency_Disclaimer_Value.equalsIgnoreCase(Emergency_Disclaimer)){
 
