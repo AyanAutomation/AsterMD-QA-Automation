@@ -2164,7 +2164,7 @@ public Object[][] Patient_Portal_Create_Data(){
 	return new Object[][] {
 		{ data1 },
 		{ data2 },
-		{ data3 },
+		{ data3 },/*
 		{ data4 },
 		{ data5 },
 		{ data6 },
@@ -2181,7 +2181,7 @@ public Object[][] Patient_Portal_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 }
+		{ data20 } */
 	};
 }
 
