@@ -64,9 +64,9 @@ public class Product_Module_Locaters extends Repeat{
     @FindBy(xpath="//*[@id='product-description']")
 	private WebElement Description_form; 
     @FindBy(xpath="//h1[text()='Add Product']")
-	private WebElement Top_of_Product_form; /*
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Top_of_Product_form; 
+    @FindBy(id="product_image")
+	private WebElement Product_Image_Upload_Input; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -371,10 +371,11 @@ public class Product_Module_Locaters extends Repeat{
 	return Fourth_Virtual_List_holder;}
 	public WebElement Top_of_Product_form(){
 	wait_for_theElement(Top_of_Product_form);
-	return Top_of_Product_form;}/*
+	return Top_of_Product_form;}
+	public WebElement Product_Image_Upload_Input(){
+	wait_for_presence_of_theElement(By.id("product_image"));
+	return Product_Image_Upload_Input;}/*
 	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
