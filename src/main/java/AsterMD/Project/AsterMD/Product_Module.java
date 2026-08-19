@@ -1704,7 +1704,7 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 		WebElement Submit_Button = p.Product_Save_Button();
 		Submit_Button.click();
 		
-        rp.wait_for_invisibilty_of_theElement(Submit_Button);
+		
 		WebElement Confirmation_Message = p.Success_Toast();
 		String Confirmation_Message_Text = Confirmation_Message.getText().trim();
 
@@ -1724,7 +1724,7 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 		System.out.println();
 		System.out.println("🔹 Expected Product: " + Product_Name);
 		System.out.println();
-
+		p.Product_Add_Button();;
 		search_a_product_in_list(Product_data);
 
 		Report_Listen.log_print_in_report().pass("──────────────────── ✅ PRODUCT CREATION FLOW COMPLETED ────────────────────");
