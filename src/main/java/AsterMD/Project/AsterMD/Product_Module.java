@@ -609,8 +609,8 @@ public Object[][] Product_Create_Data(){
 	data10.put("Sale Price", "26.70");
 
 	TreeMap<String, String> data11 = new TreeMap<String, String>();
-	data11.put("Product Name", "AsterCalm_Sleep_Continuity_Capsules");
-	data11.put("Product Image", Paths.get(Image_Path, "AsterCalm Sleep Continuity Capsules.png").toString());
+	data11.put("Product Name", "AsterCalm Sleep Continuity Capsules");
+	data11.put("Product Image", Paths.get(Image_Path, "AsterCalm_Sleep_Continuity_Capsules.png").toString());
 	data11.put("Description", "A standard nighttime support product intended for testing sleep continuity and insomnia catalog functionality. It supplies unique values for product creation, condition mapping, stock controls, quantity restrictions, visibility, identifier handling, and configurable price states.");
 	data11.put("Product Type", "Standard");
 	data11.put("Category", "Nighttime Sleep Continuity Products");
@@ -629,7 +629,7 @@ public Object[][] Product_Create_Data(){
 
 	TreeMap<String, String> data12 = new TreeMap<String, String>();
 	data12.put("Product Name", "AsterNocturne Evening Reset Tablets");
-	data12.put("Product Image", Paths.get(Image_Path, "AsterNocturne Evening Reset Tablets.png").toString());
+	data12.put("Product Image", Paths.get(Image_Path, "AsterNocturne_Evening_Reset_Tablets.png").toString());
 	data12.put("Description", "A sleep-cycle wellness product generated for automated catalog testing within insomnia-related care pathways. This entry supports validation of patient-facing visibility, stock management, purchase quantities, condition association, pricing transitions, and category-based organization.");
 	data12.put("Product Type", "Standard");
 	data12.put("Category", "Circadian Sleep Support and Recovery Products");
@@ -648,7 +648,7 @@ public Object[][] Product_Create_Data(){
 
 	TreeMap<String, String> data13 = new TreeMap<String, String>();
 	data13.put("Product Name", "AsterLucid Focus Wellness Capsules");
-	data13.put("Product Image", Paths.get(Image_Path, "AsterLucid Focus Wellness Capsules.png").toString());
+	data13.put("Product Image", Paths.get(Image_Path, "AsterLucid_Focus_Wellness_Capsules.png").toString());
 	data13.put("Description", "A cognitive wellness support product designed for QA validation of low mood and focus catalog pathways. The dataset includes fresh descriptive content, inventory quantities, purchasing limits, visibility, pricing, SKU, condition, and category information.");
 	data13.put("Product Type", "Standard");
 	data13.put("Category", "Emotional Resilience and Focus Support Products");
@@ -667,7 +667,7 @@ public Object[][] Product_Create_Data(){
 
 	TreeMap<String, String> data14 = new TreeMap<String, String>();
 	data14.put("Product Name", "AsterMindset Cognitive Harmony Tablets");
-	data14.put("Product Image", Paths.get(Image_Path, "AsterMindset Cognitive Harmony Tablets.png").toString());
+	data14.put("Product Image", Paths.get(Image_Path, "AsterMindset_Cognitive_Harmony_Tablets.png").toString());
 	data14.put("Description", "A standard mood and focus wellness product prepared for automated product-management testing. The entry supports validation of cognitive-care categories, stock availability, purchase restrictions, SKU uniqueness, visibility options, descriptive content, and multiple catalog pricing states.");
 	data14.put("Product Type", "Standard");
 	data14.put("Category", "Cognitive Drive and Mood Balance Products");
@@ -686,7 +686,7 @@ public Object[][] Product_Create_Data(){
 
 	TreeMap<String, String> data15 = new TreeMap<String, String>();
 	data15.put("Product Name", "AsterUplift Daily Focus Support");
-	data15.put("Product Image", Paths.get(Image_Path, "AsterUplift Daily Focus Support.png").toString());
+	data15.put("Product Image", Paths.get(Image_Path, "AsterUplift_Daily_Focus_Support.png").toString());
 	data15.put("Description", "A synthetic daily wellness product designed for catalog testing of mood, motivation, and concentration support pathways. This entry provides unique inventory, quantity, SKU, visibility, category, condition, and pricing values for automation coverage.");
 	data15.put("Product Type", "Standard");
 	data15.put("Category", "Mental Energy and Motivation Support Products");
@@ -705,7 +705,7 @@ public Object[][] Product_Create_Data(){
 
 	TreeMap<String, String> data16 = new TreeMap<String, String>();
 	data16.put("Product Name", "AsterForge Androgen Vitality Gel");
-	data16.put("Product Image", Paths.get(Image_Path, "AsterForge Androgen Vitality Gel.png").toString());
+	data16.put("Product Image", Paths.get(Image_Path, "AsterForge_Androgen_Vitality_Gel.png").toString());
 	data16.put("Description", "A hormonal wellness support product intended for low-testosterone catalog automation. The dataset provides fresh values for endocrine category assignment, product visibility, quantity limits, inventory control, SKU handling, condition association, and multiple pricing configurations.");
 	data16.put("Product Type", "Standard");
 	data16.put("Category", "Androgen Restoration and Vitality Products");
@@ -724,7 +724,7 @@ public Object[][] Product_Create_Data(){
 
 	TreeMap<String, String> data17 = new TreeMap<String, String>();
 	data17.put("Product Name", "AsterPrime Male Hormone Support");
-	data17.put("Product Image", Paths.get(Image_Path, "AsterPrime Male Hormone Support.png").toString());
+	data17.put("Product Image", Paths.get(Image_Path, "AsterPrime_Male_Hormone_Support.png").toString());
 	data17.put("Description", "A standard male endocrine wellness product generated for testing low-testosterone catalog management. This entry offers unique values for inventory, quantity restrictions, visibility, condition mapping, endocrine category association, SKU uniqueness, and promotional pricing.");
 	data17.put("Product Type", "Standard");
 	data17.put("Category", "Male Endocrine Vitality Support Products");
@@ -743,7 +743,7 @@ public Object[][] Product_Create_Data(){
 
 	TreeMap<String, String> data18 = new TreeMap<String, String>();
 	data18.put("Product Name", "AsterValor Hormonal Balance System");
-	data18.put("Product Image", Paths.get(Image_Path, "AsterValor Hormonal Balance System.png").toString());
+	data18.put("Product Image", Paths.get(Image_Path, "AsterValor_Hormonal_Balance_System.png").toString());
 	data18.put("Description", "A synthetic hormonal balance product prepared for automated low-testosterone product workflows. The dataset supports validation of condition association, category selection, inventory quantities, buying limitations, visibility, SKU uniqueness, detailed descriptions, and pricing behavior.");
 	data18.put("Product Type", "Standard");
 	data18.put("Category", "Testicular Hormone Support and Balance Products");
@@ -762,7 +762,7 @@ public Object[][] Product_Create_Data(){
 
 	TreeMap<String, String> data19 = new TreeMap<String, String>();
 	data19.put("Product Name", "AsterLean Metabolic Control Capsules");
-	data19.put("Product Image", Paths.get(Image_Path, "AsterLean Metabolic Control Capsules.png").toString());
+	data19.put("Product Image", Paths.get(Image_Path, "AsterLean_Metabolic_Control_Capsules.png").toString());
 	data19.put("Description", "A standard metabolic wellness product designed for automated obesity-related catalog testing. This entry includes fresh stock, quantity, pricing, condition, category, visibility, descriptive, and identifier data for weight-management product workflows.");
 	data19.put("Product Type", "Standard");
 	data19.put("Category", "Metabolic Body Weight Optimization Products");
@@ -781,7 +781,7 @@ public Object[][] Product_Create_Data(){
 
 	TreeMap<String, String> data20 = new TreeMap<String, String>();
 	data20.put("Product Name", "AsterShape Weight Balance Support");
-	data20.put("Product Image", Paths.get(Image_Path, "AsterShape Weight Balance Support.png").toString());
+	data20.put("Product Image", Paths.get(Image_Path, "AsterShape_Weight_Balance_Support.png").toString());
 	data20.put("Description", "A synthetic weight-management support product prepared for obesity and metabolic-care QA automation. The dataset provides unique product metadata, inventory quantities, purchasing limits, visibility, category relationships, SKU information, and multiple price values for end-to-end testing.");
 	data20.put("Product Type", "Standard");
 	data20.put("Category", "Obesity Metabolic Intervention Products");
@@ -809,7 +809,7 @@ public Object[][] Product_Create_Data(){
 		{ data8 },
 		{ data9 },
 		{ data10 },*/
-		{ data11 },/*
+		{ data11 },
 		{ data12 },
 		{ data13 },
 		{ data14 },
@@ -818,7 +818,7 @@ public Object[][] Product_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } */
+		{ data20 } 
 	};
 }
 
