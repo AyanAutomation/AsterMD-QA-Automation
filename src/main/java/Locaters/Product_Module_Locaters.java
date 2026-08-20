@@ -16,7 +16,7 @@ public class Product_Module_Locaters extends Repeat{
 	@FindBy(xpath="//div[@class='ant-tabs-nav-list']")
 	private WebElement Top_Navigation_bar;
 	@FindBy(xpath="//*[text()='Add Product']/..")
-	private WebElement Product_Add_Button;
+	public WebElement Product_Add_Button;
 	@FindBy(xpath="//form")
 	private WebElement Form;
 	@FindBy(xpath="//*[contains(@class,'ant-btn-color-primary ant-btn-variant-solid')]")

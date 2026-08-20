@@ -1702,38 +1702,93 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 		System.out.println();
 
 		WebElement Submit_Button = p.Product_Save_Button();
+
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Clicking Save Product button.");
+		System.out.println("🔹 Clicking Save Product button.");
+		System.out.println();
+
 		Submit_Button.click();
-		
-		
+
 		WebElement Confirmation_Message = p.Success_Toast();
 		String Confirmation_Message_Text = Confirmation_Message.getText().trim();
 
-		Report_Listen.log_print_in_report().pass("✅ Product save confirmation received: " + Confirmation_Message_Text);
-		System.out.println("✅ Product save confirmation received: " + Confirmation_Message_Text);
+		Report_Listen.log_print_in_report().pass("✅ Product saved successfully. Confirmation Message: " + Confirmation_Message_Text);
+		System.out.println("✅ Product saved successfully.");
+		System.out.println("🔹 Confirmation Message: " + Confirmation_Message_Text);
 		System.out.println();
+
 		rp.wait_for_invisibilty_of_theElement(Confirmation_Message);
 
 		step++;
 
+		Report_Listen.log_print_in_report().info("──────────────────── 🔄 POST-SAVE REDIRECTION VALIDATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Verify that the application redirects to the Product List after Product creation.");
+
+		System.out.println("🔄 POST-SAVE REDIRECTION VALIDATION");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Verifying Product List redirection after Product creation.");
+		System.out.println();
+
+		WebElement Prd_Add_Button = p.Product_Add_Button;
+		Boolean Visibility_Status = rp.check_element_visibility(Prd_Add_Button, 3);
+
+		if(Visibility_Status == true){
+
+			String landed_page_url = d.getCurrentUrl();
+
+			Report_Listen.log_print_in_report().pass("✅ Post-save redirection validation passed. Product List page loaded successfully.");
+			Report_Listen.log_print_in_report().info("<b>Landed Page URL:</b> " + landed_page_url);
+
+			System.out.println("✅ Post-save redirection validation passed. Product List page loaded successfully.");
+			System.out.println("🔹 Landed Page URL: " + landed_page_url);
+			System.out.println();
+		}
+		else{
+
+			String landed_page_url = d.getCurrentUrl();
+
+			Report_Listen.log_print_in_report().fail("❌ Post-save redirection validation failed. Application did not redirect to the Product List after Product creation.");
+			Report_Listen.log_print_in_report().fail("❌ Expected: Product List page containing the Product Add button.");
+			Report_Listen.log_print_in_report().fail("❌ Actual Landed Page URL: " + landed_page_url);
+
+			System.out.println("❌ Post-save redirection validation failed.");
+			System.out.println("❌ Expected: Product List page containing the Product Add button.");
+			System.out.println("❌ Actual Landed Page URL: " + landed_page_url);
+			System.out.println();
+
+			Report_Listen.log_print_in_report().warning("⚠️ Performing fallback navigation to Catalog so Product List verification can continue.");
+			System.out.println("⚠️ Performing fallback navigation to Catalog so Product List verification can continue.");
+			System.out.println();
+
+			Side_Menu_Navigation("Catalog");
+			p.Product_Add_Button();
+
+			Report_Listen.log_print_in_report().pass("✅ Fallback navigation completed. Product List page is now accessible.");
+			System.out.println("✅ Fallback navigation completed. Product List page is now accessible.");
+			System.out.println();
+		}
+
+		step++;
+
 		Report_Listen.log_print_in_report().info("──────────────────── 🔍 CREATED PRODUCT LIST VERIFICATION ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Search the Product list and verify that the newly created Product is available.");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Search the Product List and verify that the newly created Product is available.");
 		Report_Listen.log_print_in_report().info("<b>Expected Product:</b> " + Product_Name);
 
 		System.out.println("🔍 CREATED PRODUCT LIST VERIFICATION");
 		System.out.println();
-		System.out.println("🔹 Step " + step + ": Searching the Product list for the newly created Product.");
+		System.out.println("🔹 Step " + step + ": Searching the Product List for the newly created Product.");
 		System.out.println();
 		System.out.println("🔹 Expected Product: " + Product_Name);
 		System.out.println();
-		p.Product_Add_Button();
+
 		search_a_product_in_list(Product_data);
 
 		Report_Listen.log_print_in_report().pass("──────────────────── ✅ PRODUCT CREATION FLOW COMPLETED ────────────────────");
-		Report_Listen.log_print_in_report().pass("✅ Product creation, save and list verification flow completed successfully for Product: " + Product_Name);
+		Report_Listen.log_print_in_report().pass("✅ Product creation, save and Product List verification flow completed for Product: " + Product_Name);
 
 		System.out.println("✅ PRODUCT CREATION FLOW COMPLETED");
 		System.out.println();
-		System.out.println("✅ Product creation, save and list verification flow completed successfully for Product: " + Product_Name);
+		System.out.println("✅ Product creation, save and Product List verification flow completed for Product: " + Product_Name);
 		System.out.println();
 
 	} catch(Exception e) {
