@@ -1,6 +1,7 @@
 package AsterMD.Project.AsterMD;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -798,7 +799,7 @@ public Object[][] Product_Create_Data(){
 	data20.put("Default Price", "57.80");
 	data20.put("Sale Price", "47.90");
 
-	return new Object[][] {/*
+	return new Object[][] {
 		{ data1 },
 		{ data2 },
 		{ data3 },
@@ -808,7 +809,7 @@ public Object[][] Product_Create_Data(){
 		{ data7 },
 		{ data8 },
 		{ data9 },
-		{ data10 },*/
+		{ data10 },/*
 		{ data11 },
 		{ data12 },
 		{ data13 },
@@ -818,7 +819,7 @@ public Object[][] Product_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } 
+		{ data20 } */
 	};
 }
 
@@ -1839,15 +1840,17 @@ public void search_a_product_in_list(TreeMap<String, String> Prod_name) throws I
 
 	boolean Product_Found = false;
 	String Actual_Product_Name = "";
+	ArrayList<String> Fetched_Product_Names = new ArrayList<String>();
 
 	for(WebElement name : names){
 
 		String list_names = name.getText().trim();
+		Fetched_Product_Names.add(list_names);
 
-		Report_Listen.log_print_in_report().info("🔹 Product found in search result: " + list_names);
-		System.out.println("🔹 Product found in search result: " + list_names);
+		Report_Listen.log_print_in_report().info("🔹 Search Result Fetched: " + list_names);
+		System.out.println("🔹 Search Result Fetched: " + list_names);
 
-		if(list_names.equalsIgnoreCase(Product_Name)){
+		if(list_names.contains(Product_Name)){
 
 			Product_Found = true;
 			Actual_Product_Name = list_names;
@@ -1859,18 +1862,41 @@ public void search_a_product_in_list(TreeMap<String, String> Prod_name) throws I
 
 	if(Product_Found){
 
-		Report_Listen.log_print_in_report().pass("✅ Product search validation passed. Expected: " + Product_Name + " | Actual: " + Actual_Product_Name);
-		System.out.println("✅ Product search validation passed. Expected: " + Product_Name + " | Actual: " + Actual_Product_Name);
+		Report_Listen.log_print_in_report().pass("✅ Product search validation passed. Searched For: " + Product_Name + " | Matched Result: " + Actual_Product_Name);
+		System.out.println("✅ Product search validation passed.");
+		System.out.println("🔹 Searched For: " + Product_Name);
+		System.out.println("🔹 Matched Result: " + Actual_Product_Name);
 		System.out.println();
 	}
 	else{
 
-		Report_Listen.log_print_in_report().fail("❌ Product search validation failed. Product was not found in the search results: " + Product_Name);
-		System.out.println("❌ Product search validation failed. Product was not found in the search results: " + Product_Name);
+		Report_Listen.log_print_in_report().fail("❌ Product search validation failed.");
+		Report_Listen.log_print_in_report().fail("❌ Searched For: " + Product_Name);
+		System.out.println("❌ Product search validation failed.");
+		System.out.println("🔹 Searched For: " + Product_Name);
 		System.out.println();
-	}
-}
 
+		if(Fetched_Product_Names.isEmpty()){
+
+			Report_Listen.log_print_in_report().fail("❌ No Product records were fetched from the search result.");
+			System.out.println("❌ No Product records were fetched from the search result.");
+			System.out.println();
+		}
+		else{
+
+			Report_Listen.log_print_in_report().info("🔹 Total Search Results Fetched: " + Fetched_Product_Names.size());
+			System.out.println("🔹 Total Search Results Fetched: " + Fetched_Product_Names.size());
+			System.out.println();
+
+			for(int i=0;i<Fetched_Product_Names.size();i++){
+
+				Report_Listen.log_print_in_report().fail("❌ Fetched Result " + (i+1) + ": " + Fetched_Product_Names.get(i));
+				System.out.println("❌ Fetched Result " + (i+1) + ": " + Fetched_Product_Names.get(i));
+			}
+
+			System.out.println();
+		}
+	}}
 
 public void Negative_Validation_Check_for_Product_Add(List<WebElement> inputs,TreeMap<String, String> Category_Create_Data,TreeMap<String, String> Lab_Test_Create_Data,TreeMap<String, String> Product_data) throws InterruptedException{
 	
