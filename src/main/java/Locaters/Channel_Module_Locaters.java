@@ -78,9 +78,9 @@ public class Channel_Module_Locaters extends Repeat{
     @FindBy(id="portal_name")
 	private WebElement Portal_Name_Input; /*
     @FindBy(xpath="//*[text()='Patient Portal']/../..//div[contains(@class,'channels-actions')]")
-	private WebElement Patient; 
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Patient; */
+    @FindBy(xpath="//*[@class='ant-modal-close']")
+	private WebElement Modal_close_button; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -388,10 +388,11 @@ public class Channel_Module_Locaters extends Repeat{
 	return Configuration_Button;}
 	public WebElement Modal_Save_Settings_Button(){
 	wait_for_theElement(Modal_Save_Settings_Button);
-	return Modal_Save_Settings_Button;}/*
+	return Modal_Save_Settings_Button;}
+	public WebElement Modal_close_button(){
+	wait_for_theElement(Modal_close_button);
+	return Modal_close_button;} /*
 	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
