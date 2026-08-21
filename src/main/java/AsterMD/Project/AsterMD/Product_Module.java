@@ -800,7 +800,7 @@ public Object[][] Product_Create_Data(){
 	data20.put("Sale Price", "49.85");
 
 	return new Object[][] {
-		{ data1 },
+		{ data1 }, 
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -819,7 +819,7 @@ public Object[][] Product_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 }
+		{ data20 } 
 	};
 }
 
@@ -1653,7 +1653,14 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 
 		Default_SKU.sendKeys(Default_SKU_Identifier);
 		Condition_treated_Input.sendKeys(Condition_Treated);
-	    WebElement Condition_treated_list = p.Fifth_Virtual_List_holder();
+	    WebElement Condition_treated_list;
+	    if(Product_Type.equals("Prescription")){
+	    
+	    Condition_treated_list= p.Fifth_Virtual_List_holder();}
+	    else{
+		    
+		    Condition_treated_list= p.Fourth_Virtual_List_holder();}
+	    
 	    List<WebElement> Condition_treated_list_options = Condition_treated_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
 
 	     for(WebElement Condition_option : Condition_treated_list_options) {
@@ -1661,7 +1668,7 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 		  String Condition_option_text =Condition_option.getText().trim();
 		
 
-		if(Condition_option_text.equals(Condition_Treated)) {
+		if(Condition_option_text.contains(Condition_Treated)) {
 
 			Condition_option.click();
 
@@ -1770,9 +1777,9 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 		System.out.println();
 
 		WebElement Prd_Add_Button = p.Product_Add_Button;
-		Boolean Visibility_Status = rp.check_element_visibility(Prd_Add_Button, 3);
+		Boolean Visibility_Status = rp.check_element_visibility(Prd_Add_Button, 5);
 
-		if(Visibility_Status == true){
+		if(Visibility_Status){
 
 			String landed_page_url = d.getCurrentUrl();
 
@@ -1782,6 +1789,19 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 			System.out.println("✅ Post-save redirection validation passed. Product List page loaded successfully.");
 			System.out.println("🔹 Landed Page URL: " + landed_page_url);
 			System.out.println();
+
+			Report_Listen.log_print_in_report().info("──────────────────── 🔍 CREATED PRODUCT LIST VERIFICATION ────────────────────");
+			Report_Listen.log_print_in_report().info("<b>Action:</b> Search the Product List and verify that the newly created Product is available.");
+			Report_Listen.log_print_in_report().info("<b>Expected Product:</b> " + Product_Name);
+
+			System.out.println("🔍 CREATED PRODUCT LIST VERIFICATION");
+			System.out.println();
+			System.out.println("🔹 Step " + step + ": Searching the Product List for the newly created Product.");
+			System.out.println();
+			System.out.println("🔹 Expected Product: " + Product_Name);
+			System.out.println();
+
+			search_a_product_in_list(Product_data);
 		}
 		else{
 
@@ -1801,27 +1821,30 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 			System.out.println();
 
 			Side_Menu_Navigation("Catalog");
+			Thread.sleep(800);
 			p.Product_Add_Button();
 
 			Report_Listen.log_print_in_report().pass("✅ Fallback navigation completed. Product List page is now accessible.");
 			System.out.println("✅ Fallback navigation completed. Product List page is now accessible.");
 			System.out.println();
+
+			Report_Listen.log_print_in_report().info("──────────────────── 🔍 CREATED PRODUCT LIST VERIFICATION ────────────────────");
+			Report_Listen.log_print_in_report().info("<b>Action:</b> Verify that the created Product exists after fallback navigation.");
+			Report_Listen.log_print_in_report().info("<b>Expected Product:</b> " + Product_Name);
+
+			System.out.println("🔍 CREATED PRODUCT LIST VERIFICATION");
+			System.out.println();
+			System.out.println("🔹 Searching for the created Product after fallback navigation.");
+			System.out.println();
+			System.out.println("🔹 Expected Product: " + Product_Name);
+			System.out.println();
+
+			search_a_product_in_list(Product_data);
 		}
 
 		step++;
 
-		Report_Listen.log_print_in_report().info("──────────────────── 🔍 CREATED PRODUCT LIST VERIFICATION ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Search the Product List and verify that the newly created Product is available.");
-		Report_Listen.log_print_in_report().info("<b>Expected Product:</b> " + Product_Name);
-
-		System.out.println("🔍 CREATED PRODUCT LIST VERIFICATION");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Searching the Product List for the newly created Product.");
-		System.out.println();
-		System.out.println("🔹 Expected Product: " + Product_Name);
-		System.out.println();
-
-		search_a_product_in_list(Product_data);
+		
 
 		Report_Listen.log_print_in_report().pass("──────────────────── ✅ PRODUCT CREATION FLOW COMPLETED ────────────────────");
 		Report_Listen.log_print_in_report().pass("✅ Product creation, save and Product List verification flow completed for Product: " + Product_Name);
@@ -1867,7 +1890,7 @@ public void search_a_product_in_list(TreeMap<String, String> Prod_name) throws I
 	WebElement Product_Search = p.Search();
 	Product_Search.clear();
 	Product_Search.sendKeys(Product_Name);
-	Thread.sleep(1500);
+	Thread.sleep(1900);
 
 	Report_Listen.log_print_in_report().pass("✅ Product Name entered successfully in the search field: " + Product_Name);
 	System.out.println("✅ Product Name entered successfully in the search field: " + Product_Name);
