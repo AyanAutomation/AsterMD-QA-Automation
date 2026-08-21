@@ -37,6 +37,10 @@ public class Product_Module_Locaters extends Repeat{
 	private WebElement Thrid_Virtual_List_holder;  
     @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[4]")
 	private WebElement Fourth_Virtual_List_holder;  
+    @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[5]")
+	private WebElement Fifth_Virtual_List_holder;   
+    @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[6]")
+	private WebElement Sixth_Virtual_List_holder;  
     @FindBy(id="search")
 	private WebElement Search; 
     @FindBy(xpath="//*[contains(@class,'ant-dropdown-trigger')] ")
@@ -48,7 +52,9 @@ public class Product_Module_Locaters extends Repeat{
     @FindBy(xpath="//div[@class='ant-notification-notice-content']")
 	public WebElement Success_Toast; 
     @FindBy(id="teleforms")
-	private WebElement Intake_form_field; 
+	private WebElement Intake_form_field;
+	@FindBy(id="renewal_teleforms")
+	private WebElement renewal_teleforms;
     @FindBy(xpath="(//div[@class='ant-picker-panel-layout'])[1]")
 	private WebElement First_Popup_Calendar; 
     @FindBy(xpath="//button[@type='button' and contains(@class,'ant-btn-primary ant-btn-color-primary ant-btn-variant-solid')]")
@@ -68,9 +74,9 @@ public class Product_Module_Locaters extends Repeat{
     @FindBy(id="product_image")
 	private WebElement Product_Image_Upload_Input; 
     @FindBy(xpath="//tbody//td[contains(@class,'ant-table-cell-with-append')][1]")
-	private List<WebElement> List_first_column_values; /*
-    @FindBy(xpath="")
-	private WebElement ; 
+	private List<WebElement> List_first_column_values; 
+    @FindBy(xpath="//div[@role='tooltip']")
+	private WebElement tooltip; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -377,18 +383,19 @@ public class Product_Module_Locaters extends Repeat{
 	return Product_Image_Upload_Input;}
 	public List<WebElement> List_first_column_values(){
 	wait_for_theElement(List_first_column_values);
-	return List_first_column_values;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return List_first_column_values;}
+	public WebElement renewal_teleforms(){
+	wait_for_theElement(renewal_teleforms);
+	return renewal_teleforms;}
+	public WebElement Sixth_Virtual_List_holder(){
+	wait_for_theElement(Sixth_Virtual_List_holder);
+	return Sixth_Virtual_List_holder;}
+	public WebElement Fifth_Virtual_List_holder(){
+	wait_for_theElement(Fifth_Virtual_List_holder);
+	return Fifth_Virtual_List_holder;} 
+	public WebElement tooltip(){
+	wait_for_theElement(tooltip);
+	return tooltip;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;} public WebElement (){

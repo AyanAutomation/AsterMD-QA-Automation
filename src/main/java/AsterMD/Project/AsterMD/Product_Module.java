@@ -420,384 +420,384 @@ public Object[][] Product_Create_Data(){
 	String Image_Path = Paths.get(System.getProperty("user.dir"), "Images").toString();
 
 	TreeMap<String, String> data1 = new TreeMap<String, String>();
-	data1.put("Product Name", "AsterVascor Performance Support Tablets");
-	data1.put("Product Image", Paths.get(Image_Path, "AsterVascor Performance Support Tablets.png").toString());
-	data1.put("Description", "A male wellness support product designed for catalog workflows associated with erectile function and vascular performance. This synthetic product entry supports QA validation of category assignment, condition mapping, inventory quantities, visibility settings, pricing configurations, SKU uniqueness, and patient-facing catalog presentation.");
-	data1.put("Product Type", "Standard");
+	data1.put("Product Name", "AsterSurge Vascular Wellness Tablets");
+	data1.put("Product Image", Paths.get(Image_Path, "AsterSurge Vascular Wellness Tablets.png").toString());
+	data1.put("Description", "A synthetic vascular wellness product created for QA testing of erectile-function product workflows. This dataset supports validation of prescription catalog creation, condition mapping, category assignment, inventory management, purchase limits, product visibility, SKU uniqueness, and multi-stage pricing configuration.");
+	data1.put("Product Type", "Prescription");
 	data1.put("Category", "Erectile Function Clinical Support Products");
 	data1.put("Visibility", "Public");
 	data1.put("Minimum Buy Quantity", "1");
 	data1.put("Maximum Buy Quantity", "3");
-	data1.put("Stock Count", "137");
-	data1.put("Intake Form", "");
-	data1.put("Default SKU / Identifier", "AST-VPS-501");
+	data1.put("Stock Count", "143");
+	data1.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data1.put("Default SKU / Identifier", "AST-SVW-601");
 	data1.put("Condition Treated", "Erectile Dysfunction");
 	data1.put("Restrict Multiple Active Prescriptions", "No");
 	data1.put("Pricing Type", "Single Item");
-	data1.put("Intro Price", "23.75");
-	data1.put("Default Price", "41.99");
-	data1.put("Sale Price", "34.60");
+	data1.put("Intro Price", "24.85");
+	data1.put("Default Price", "43.75");
+	data1.put("Sale Price", "35.90");
 
 	TreeMap<String, String> data2 = new TreeMap<String, String>();
-	data2.put("Product Name", "AsterMomentum Male Vitality Capsules");
-	data2.put("Product Image", Paths.get(Image_Path, "AsterMomentum Male Vitality Capsules.png").toString());
-	data2.put("Description", "A standard male vitality catalog product created for automated testing of erectile dysfunction related product management. The dataset provides distinct quantity limits, inventory levels, visibility, pricing, identifier, condition, and category values for repeated end-to-end catalog scenarios.");
+	data2.put("Product Name", "AsterNex Male Vitality Capsules");
+	data2.put("Product Image", Paths.get(Image_Path, "AsterNex Male Vitality Capsules.png").toString());
+	data2.put("Description", "A male vitality support product intended for standard catalog automation across erectile-function care pathways. It provides unique data for validating product creation, inventory counts, quantity controls, visibility, category association, condition filtering, SKU management, and promotional pricing.");
 	data2.put("Product Type", "Standard");
 	data2.put("Category", "Erectile Response Enhancement Care Products");
 	data2.put("Visibility", "Hidden");
 	data2.put("Minimum Buy Quantity", "1");
 	data2.put("Maximum Buy Quantity", "5");
-	data2.put("Stock Count", "194");
-	data2.put("Intake Form", "");
-	data2.put("Default SKU / Identifier", "AST-MMV-502");
+	data2.put("Stock Count", "207");
+	data2.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data2.put("Default SKU / Identifier", "AST-NMV-602");
 	data2.put("Condition Treated", "Erectile Dysfunction");
 	data2.put("Restrict Multiple Active Prescriptions", "No");
 	data2.put("Pricing Type", "Single Item");
-	data2.put("Intro Price", "26.40");
-	data2.put("Default Price", "45.80");
-	data2.put("Sale Price", "37.95");
+	data2.put("Intro Price", "27.30");
+	data2.put("Default Price", "47.90");
+	data2.put("Sale Price", "39.25");
 
 	TreeMap<String, String> data3 = new TreeMap<String, String>();
-	data3.put("Product Name", "AsterElevate Intimate Support Tablets");
-	data3.put("Product Image", Paths.get(Image_Path, "AsterElevate Intimate Support Tablets.png").toString());
-	data3.put("Description", "A synthetic intimate wellness product intended for testing standard product creation and management within erectile-function care pathways. It provides unique data for validating stock boundaries, purchase limits, product visibility, condition selection, pricing behavior, and catalog filtering.");
-	data3.put("Product Type", "Standard");
+	data3.put("Product Name", "AsterEvoke Intimate Response Tablets");
+	data3.put("Product Image", Paths.get(Image_Path, "AsterEvoke Intimate Response Tablets.png").toString());
+	data3.put("Description", "A synthetic intimate-response product designed for automated prescription product testing. The entry provides realistic catalog data for checking condition association, patient-facing visibility, buying restrictions, stock boundaries, pricing values, identifiers, and erectile-function category relationships.");
+	data3.put("Product Type", "Prescription");
 	data3.put("Category", "Male Intimate Function Management Products");
 	data3.put("Visibility", "Public");
 	data3.put("Minimum Buy Quantity", "1");
 	data3.put("Maximum Buy Quantity", "4");
-	data3.put("Stock Count", "112");
-	data3.put("Intake Form", "");
-	data3.put("Default SKU / Identifier", "AST-EIS-503");
+	data3.put("Stock Count", "121");
+	data3.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data3.put("Default SKU / Identifier", "AST-EIR-603");
 	data3.put("Condition Treated", "Erectile Dysfunction");
 	data3.put("Restrict Multiple Active Prescriptions", "No");
 	data3.put("Pricing Type", "Single Item");
-	data3.put("Intro Price", "21.90");
-	data3.put("Default Price", "39.65");
-	data3.put("Sale Price", "32.25");
+	data3.put("Intro Price", "22.65");
+	data3.put("Default Price", "40.95");
+	data3.put("Sale Price", "33.45");
 
 	TreeMap<String, String> data4 = new TreeMap<String, String>();
-	data4.put("Product Name", "AsterRoot Follicle Nourishing Serum");
-	data4.put("Product Image", Paths.get(Image_Path, "AsterRoot Follicle Nourishing Serum.png").toString());
-	data4.put("Description", "A topical scalp and follicle support product prepared for QA testing of hair-loss catalog workflows. This entry supports validation of descriptive content, category mapping, stock availability, minimum and maximum purchase quantities, unique identifiers, visibility, and promotional pricing.");
+	data4.put("Product Name", "AsterBloom Follicle Defense Serum");
+	data4.put("Product Image", Paths.get(Image_Path, "AsterBloom Follicle Defense Serum.png").toString());
+	data4.put("Description", "A topical follicular wellness product prepared for automation testing of hair-loss catalog workflows. This synthetic entry supports validation of stock quantities, purchase boundaries, descriptive content, category assignment, condition selection, visibility states, SKU storage, and product pricing.");
 	data4.put("Product Type", "Standard");
 	data4.put("Category", "Follicular Density Restoration Products");
 	data4.put("Visibility", "Public");
 	data4.put("Minimum Buy Quantity", "1");
 	data4.put("Maximum Buy Quantity", "6");
-	data4.put("Stock Count", "226");
-	data4.put("Intake Form", "");
-	data4.put("Default SKU / Identifier", "AST-RFN-504");
+	data4.put("Stock Count", "238");
+	data4.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data4.put("Default SKU / Identifier", "AST-BFD-604");
 	data4.put("Condition Treated", "Hair Loss");
 	data4.put("Restrict Multiple Active Prescriptions", "No");
 	data4.put("Pricing Type", "Single Item");
-	data4.put("Intro Price", "16.85");
-	data4.put("Default Price", "31.60");
-	data4.put("Sale Price", "25.40");
+	data4.put("Intro Price", "18.20");
+	data4.put("Default Price", "33.85");
+	data4.put("Sale Price", "27.15");
 
 	TreeMap<String, String> data5 = new TreeMap<String, String>();
-	data5.put("Product Name", "AsterThrive Hair Volume Foam");
-	data5.put("Product Image", Paths.get(Image_Path, "AsterThrive Hair Volume Foam.png").toString());
-	data5.put("Description", "A standard hair-density support product designed for automation testing of thinning-hair and follicular-care product workflows. The dataset contains varied stock, quantity, visibility, SKU, condition, and pricing information suitable for repeated positive catalog creation scenarios.");
-	data5.put("Product Type", "Standard");
+	data5.put("Product Name", "AsterThick Hair Renewal Foam");
+	data5.put("Product Image", Paths.get(Image_Path, "AsterThick Hair Renewal Foam.png").toString());
+	data5.put("Description", "A hair-density and follicular renewal product generated for prescription catalog testing. This dataset supplies unique values for product visibility, hair-loss condition mapping, inventory management, quantity limits, identifier validation, category relationships, and multiple product price states.");
+	data5.put("Product Type", "Prescription");
 	data5.put("Category", "Androgenic Hair Loss Management Products");
 	data5.put("Visibility", "Hidden");
 	data5.put("Minimum Buy Quantity", "1");
 	data5.put("Maximum Buy Quantity", "4");
-	data5.put("Stock Count", "173");
-	data5.put("Intake Form", "");
-	data5.put("Default SKU / Identifier", "AST-THV-505");
+	data5.put("Stock Count", "181");
+	data5.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data5.put("Default SKU / Identifier", "AST-THR-605");
 	data5.put("Condition Treated", "Hair Loss");
 	data5.put("Restrict Multiple Active Prescriptions", "No");
 	data5.put("Pricing Type", "Single Item");
-	data5.put("Intro Price", "20.70");
-	data5.put("Default Price", "38.90");
-	data5.put("Sale Price", "31.80");
+	data5.put("Intro Price", "21.80");
+	data5.put("Default Price", "40.25");
+	data5.put("Sale Price", "32.95");
 
 	TreeMap<String, String> data6 = new TreeMap<String, String>();
-	data6.put("Product Name", "AsterScalp Revive Botanical Solution");
-	data6.put("Product Image", Paths.get(Image_Path, "AsterScalp Revive Botanical Solution.png").toString());
-	data6.put("Description", "A scalp-care and hair-retention product generated for QA automation of product administration workflows. It provides a fresh catalog entry for validating hair-loss condition association, descriptive text, inventory configuration, purchasing limits, SKU storage, and multiple pricing states.");
+	data6.put("Product Name", "AsterDerm Scalp Vitality Solution");
+	data6.put("Product Image", Paths.get(Image_Path, "AsterDerm Scalp Vitality Solution.png").toString());
+	data6.put("Description", "A scalp vitality support solution intended for standard product automation under hair-loss care workflows. The entry supports verification of descriptions, inventory levels, category selection, visibility, condition association, buying limits, unique SKU values, and promotional pricing.");
 	data6.put("Product Type", "Standard");
 	data6.put("Category", "Scalp Regeneration and Hair Retention Products");
 	data6.put("Visibility", "Public");
 	data6.put("Minimum Buy Quantity", "1");
 	data6.put("Maximum Buy Quantity", "5");
-	data6.put("Stock Count", "158");
-	data6.put("Intake Form", "");
-	data6.put("Default SKU / Identifier", "AST-SRB-506");
+	data6.put("Stock Count", "164");
+	data6.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data6.put("Default SKU / Identifier", "AST-DSV-606");
 	data6.put("Condition Treated", "Hair Loss");
 	data6.put("Restrict Multiple Active Prescriptions", "No");
 	data6.put("Pricing Type", "Single Item");
-	data6.put("Intro Price", "19.35");
-	data6.put("Default Price", "36.20");
-	data6.put("Sale Price", "29.45");
+	data6.put("Intro Price", "20.10");
+	data6.put("Default Price", "37.45");
+	data6.put("Sale Price", "30.60");
 
 	TreeMap<String, String> data7 = new TreeMap<String, String>();
-	data7.put("Product Name", "AsterEndura Growth Support Pen");
-	data7.put("Product Image", Paths.get(Image_Path, "AsterEndura Growth Support Pen.png").toString());
-	data7.put("Description", "A synthetic endocrine-support product created for testing growth hormone deficiency catalog workflows. The entry is intended to validate endocrine category relationships, inventory levels, purchase restrictions, product identifiers, pricing configurations, visibility, and condition-based catalog filtering.");
-	data7.put("Product Type", "Standard");
+	data7.put("Product Name", "AsterGenesis Endocrine Support Pen");
+	data7.put("Product Image", Paths.get(Image_Path, "AsterGenesis Endocrine Support Pen.png").toString());
+	data7.put("Description", "A synthetic endocrine support product intended for prescription catalog testing involving growth hormone deficiency. The dataset enables validation of endocrine categorization, intake-form selection, stock configuration, quantity controls, SKU uniqueness, visibility, condition mapping, and variable product pricing.");
+	data7.put("Product Type", "Prescription");
 	data7.put("Category", "Growth Hormone Axis Support Products");
 	data7.put("Visibility", "Public");
 	data7.put("Minimum Buy Quantity", "1");
 	data7.put("Maximum Buy Quantity", "2");
-	data7.put("Stock Count", "81");
-	data7.put("Intake Form", "");
-	data7.put("Default SKU / Identifier", "AST-EGS-507");
+	data7.put("Stock Count", "86");
+	data7.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data7.put("Default SKU / Identifier", "AST-GES-607");
 	data7.put("Condition Treated", "HGH Deficiency");
 	data7.put("Restrict Multiple Active Prescriptions", "No");
 	data7.put("Pricing Type", "Single Item");
-	data7.put("Intro Price", "92.75");
-	data7.put("Default Price", "154.90");
-	data7.put("Sale Price", "132.40");
+	data7.put("Intro Price", "96.40");
+	data7.put("Default Price", "160.75");
+	data7.put("Sale Price", "136.90");
 
 	TreeMap<String, String> data8 = new TreeMap<String, String>();
-	data8.put("Product Name", "AsterVertex Growth Wellness Kit");
-	data8.put("Product Image", Paths.get(Image_Path, "AsterVertex Growth Wellness Kit.png").toString());
-	data8.put("Description", "A standard endocrine wellness kit generated for testing growth-related product configuration. This QA dataset provides unique inventory, price, quantity, category, visibility, SKU, and condition values for validating administration and patient-facing product workflows.");
+	data8.put("Product Name", "AsterRise Growth Optimization Kit");
+	data8.put("Product Image", Paths.get(Image_Path, "AsterRise Growth Optimization Kit.png").toString());
+	data8.put("Description", "A standard growth wellness kit prepared for QA automation of endocrine product-management scenarios. This catalog entry provides fresh inventory, purchase limits, pricing, SKU, visibility, category, intake-form, and condition values for repeated product creation testing.");
 	data8.put("Product Type", "Standard");
 	data8.put("Category", "Somatotropin Replacement Care Products");
 	data8.put("Visibility", "Hidden");
 	data8.put("Minimum Buy Quantity", "1");
 	data8.put("Maximum Buy Quantity", "3");
-	data8.put("Stock Count", "93");
-	data8.put("Intake Form", "");
-	data8.put("Default SKU / Identifier", "AST-VGW-508");
+	data8.put("Stock Count", "99");
+	data8.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data8.put("Default SKU / Identifier", "AST-RGO-608");
 	data8.put("Condition Treated", "HGH Deficiency");
 	data8.put("Restrict Multiple Active Prescriptions", "No");
 	data8.put("Pricing Type", "Single Item");
-	data8.put("Intro Price", "98.25");
-	data8.put("Default Price", "168.40");
-	data8.put("Sale Price", "143.75");
+	data8.put("Intro Price", "101.60");
+	data8.put("Default Price", "172.95");
+	data8.put("Sale Price", "147.50");
 
 	TreeMap<String, String> data9 = new TreeMap<String, String>();
-	data9.put("Product Name", "AsterAscend Hormonal Balance System");
-	data9.put("Product Image", Paths.get(Image_Path, "AsterAscend Hormonal Balance System.png").toString());
-	data9.put("Description", "A synthetic hormonal wellness system intended for automated testing of growth hormone deficiency product management. The dataset supports validation of condition mapping, endocrine categorization, stock controls, quantity boundaries, product visibility, unique SKU handling, and configurable pricing.");
-	data9.put("Product Type", "Standard");
+	data9.put("Product Name", "AsterAxis Hormonal Growth System");
+	data9.put("Product Image", Paths.get(Image_Path, "AsterAxis Hormonal Growth System.png").toString());
+	data9.put("Description", "A synthetic hormonal growth product generated for prescription product automation. The dataset supports QA validation of growth hormone deficiency condition mapping, endocrine categories, inventory boundaries, purchase quantities, visibility settings, intake-form integration, SKU uniqueness, and pricing behavior.");
+	data9.put("Product Type", "Prescription");
 	data9.put("Category", "Endocrine Growth Restoration Products");
 	data9.put("Visibility", "Public");
 	data9.put("Minimum Buy Quantity", "1");
 	data9.put("Maximum Buy Quantity", "2");
-	data9.put("Stock Count", "69");
-	data9.put("Intake Form", "");
-	data9.put("Default SKU / Identifier", "AST-AHB-509");
+	data9.put("Stock Count", "74");
+	data9.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data9.put("Default SKU / Identifier", "AST-AHG-609");
 	data9.put("Condition Treated", "HGH Deficiency");
 	data9.put("Restrict Multiple Active Prescriptions", "No");
 	data9.put("Pricing Type", "Single Item");
-	data9.put("Intro Price", "109.50");
-	data9.put("Default Price", "184.75");
-	data9.put("Sale Price", "158.90");
+	data9.put("Intro Price", "112.80");
+	data9.put("Default Price", "189.40");
+	data9.put("Sale Price", "162.75");
 
 	TreeMap<String, String> data10 = new TreeMap<String, String>();
-	data10.put("Product Name", "AsterDream Restful Night Tablets");
-	data10.put("Product Image", Paths.get(Image_Path, "AsterDream Restful Night Tablets.png").toString());
-	data10.put("Description", "A nighttime wellness product prepared for insomnia-related catalog automation. The entry provides fresh data for validating sleep-care category mapping, product visibility, stock availability, buying limitations, SKU uniqueness, descriptive information, and introductory and promotional pricing.");
+	data10.put("Product Name", "AsterSerene Sleep Onset Tablets");
+	data10.put("Product Image", Paths.get(Image_Path, "AsterSerene Sleep Onset Tablets.png").toString());
+	data10.put("Description", "A nighttime wellness product prepared for standard insomnia catalog testing. This dataset supports verification of sleep-care condition selection, visibility, inventory counts, purchase boundaries, SKU management, intake-form assignment, descriptive content, and configurable pricing.");
 	data10.put("Product Type", "Standard");
 	data10.put("Category", "Restorative Sleep Regulation Products");
 	data10.put("Visibility", "Public");
 	data10.put("Minimum Buy Quantity", "1");
 	data10.put("Maximum Buy Quantity", "4");
-	data10.put("Stock Count", "147");
-	data10.put("Intake Form", "");
-	data10.put("Default SKU / Identifier", "AST-DRN-510");
+	data10.put("Stock Count", "153");
+	data10.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data10.put("Default SKU / Identifier", "AST-SSO-610");
 	data10.put("Condition Treated", "Insomnia");
 	data10.put("Restrict Multiple Active Prescriptions", "No");
 	data10.put("Pricing Type", "Single Item");
-	data10.put("Intro Price", "17.25");
-	data10.put("Default Price", "32.80");
-	data10.put("Sale Price", "26.70");
+	data10.put("Intro Price", "18.45");
+	data10.put("Default Price", "34.20");
+	data10.put("Sale Price", "27.85");
 
 	TreeMap<String, String> data11 = new TreeMap<String, String>();
-	data11.put("Product Name", "AsterCalm Sleep Continuity Capsules");
-	data11.put("Product Image", Paths.get(Image_Path, "AsterCalm_Sleep_Continuity_Capsules.png").toString());
-	data11.put("Description", "A standard nighttime support product intended for testing sleep continuity and insomnia catalog functionality. It supplies unique values for product creation, condition mapping, stock controls, quantity restrictions, visibility, identifier handling, and configurable price states.");
-	data11.put("Product Type", "Standard");
+	data11.put("Product Name", "AsterRestor Sleep Maintenance Capsules");
+	data11.put("Product Image", Paths.get(Image_Path, "AsterRestor Sleep Maintenance Capsules.png").toString());
+	data11.put("Description", "A synthetic nighttime prescription product intended for automated insomnia and sleep-maintenance catalog testing. The entry includes distinct inventory levels, quantity boundaries, visibility, SKU, intake-form, condition, category, and pricing information.");
+	data11.put("Product Type", "Prescription");
 	data11.put("Category", "Nighttime Sleep Continuity Products");
 	data11.put("Visibility", "Hidden");
 	data11.put("Minimum Buy Quantity", "1");
 	data11.put("Maximum Buy Quantity", "5");
-	data11.put("Stock Count", "186");
-	data11.put("Intake Form", "");
-	data11.put("Default SKU / Identifier", "AST-CSC-511");
+	data11.put("Stock Count", "191");
+	data11.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data11.put("Default SKU / Identifier", "AST-RSM-611");
 	data11.put("Condition Treated", "Insomnia");
 	data11.put("Restrict Multiple Active Prescriptions", "No");
 	data11.put("Pricing Type", "Single Item");
-	data11.put("Intro Price", "18.60");
-	data11.put("Default Price", "34.95");
-	data11.put("Sale Price", "28.35");
+	data11.put("Intro Price", "19.95");
+	data11.put("Default Price", "36.75");
+	data11.put("Sale Price", "29.90");
 
 	TreeMap<String, String> data12 = new TreeMap<String, String>();
-	data12.put("Product Name", "AsterNocturne Evening Reset Tablets");
-	data12.put("Product Image", Paths.get(Image_Path, "AsterNocturne_Evening_Reset_Tablets.png").toString());
-	data12.put("Description", "A sleep-cycle wellness product generated for automated catalog testing within insomnia-related care pathways. This entry supports validation of patient-facing visibility, stock management, purchase quantities, condition association, pricing transitions, and category-based organization.");
+	data12.put("Product Name", "AsterLuna Circadian Reset Tablets");
+	data12.put("Product Image", Paths.get(Image_Path, "AsterLuna Circadian Reset Tablets.png").toString());
+	data12.put("Description", "A sleep-cycle support product designed for standard catalog automation across insomnia-related workflows. This product provides unique data for category assignment, condition filtering, stock controls, purchasing restrictions, visibility, SKU validation, intake-form configuration, and promotional pricing.");
 	data12.put("Product Type", "Standard");
 	data12.put("Category", "Circadian Sleep Support and Recovery Products");
 	data12.put("Visibility", "Public");
 	data12.put("Minimum Buy Quantity", "1");
 	data12.put("Maximum Buy Quantity", "3");
-	data12.put("Stock Count", "129");
-	data12.put("Intake Form", "");
-	data12.put("Default SKU / Identifier", "AST-NER-512");
+	data12.put("Stock Count", "136");
+	data12.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data12.put("Default SKU / Identifier", "AST-LCR-612");
 	data12.put("Condition Treated", "Insomnia");
 	data12.put("Restrict Multiple Active Prescriptions", "No");
 	data12.put("Pricing Type", "Single Item");
-	data12.put("Intro Price", "22.10");
-	data12.put("Default Price", "40.60");
-	data12.put("Sale Price", "33.15");
+	data12.put("Intro Price", "23.50");
+	data12.put("Default Price", "42.15");
+	data12.put("Sale Price", "34.60");
 
 	TreeMap<String, String> data13 = new TreeMap<String, String>();
-	data13.put("Product Name", "AsterLucid Focus Wellness Capsules");
-	data13.put("Product Image", Paths.get(Image_Path, "AsterLucid_Focus_Wellness_Capsules.png").toString());
-	data13.put("Description", "A cognitive wellness support product designed for QA validation of low mood and focus catalog pathways. The dataset includes fresh descriptive content, inventory quantities, purchasing limits, visibility, pricing, SKU, condition, and category information.");
-	data13.put("Product Type", "Standard");
+	data13.put("Product Name", "AsterCognia Focus Support Capsules");
+	data13.put("Product Image", Paths.get(Image_Path, "AsterCognia Focus Support Capsules.png").toString());
+	data13.put("Description", "A synthetic cognitive wellness product prepared for prescription catalog testing of low mood and focus pathways. The dataset supports validation of product descriptions, condition association, inventory levels, purchase limits, visibility, SKU uniqueness, intake-form selection, and multiple pricing states.");
+	data13.put("Product Type", "Prescription");
 	data13.put("Category", "Emotional Resilience and Focus Support Products");
 	data13.put("Visibility", "Public");
 	data13.put("Minimum Buy Quantity", "1");
 	data13.put("Maximum Buy Quantity", "4");
-	data13.put("Stock Count", "169");
-	data13.put("Intake Form", "");
-	data13.put("Default SKU / Identifier", "AST-LFW-513");
+	data13.put("Stock Count", "176");
+	data13.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data13.put("Default SKU / Identifier", "AST-CFS-613");
 	data13.put("Condition Treated", "Low Mood / Focus");
 	data13.put("Restrict Multiple Active Prescriptions", "No");
 	data13.put("Pricing Type", "Single Item");
-	data13.put("Intro Price", "20.40");
-	data13.put("Default Price", "37.25");
-	data13.put("Sale Price", "30.55");
+	data13.put("Intro Price", "21.65");
+	data13.put("Default Price", "39.10");
+	data13.put("Sale Price", "31.80");
 
 	TreeMap<String, String> data14 = new TreeMap<String, String>();
-	data14.put("Product Name", "AsterMindset Cognitive Harmony Tablets");
-	data14.put("Product Image", Paths.get(Image_Path, "AsterMindset_Cognitive_Harmony_Tablets.png").toString());
-	data14.put("Description", "A standard mood and focus wellness product prepared for automated product-management testing. The entry supports validation of cognitive-care categories, stock availability, purchase restrictions, SKU uniqueness, visibility options, descriptive content, and multiple catalog pricing states.");
+	data14.put("Product Name", "AsterClario Mood Balance Tablets");
+	data14.put("Product Image", Paths.get(Image_Path, "AsterClario Mood Balance Tablets.png").toString());
+	data14.put("Description", "A standard cognitive and emotional wellness product generated for low mood and focus catalog automation. This entry supplies fresh inventory quantities, purchasing restrictions, visibility, SKU, condition, intake-form, category, descriptive, and pricing values.");
 	data14.put("Product Type", "Standard");
 	data14.put("Category", "Cognitive Drive and Mood Balance Products");
 	data14.put("Visibility", "Hidden");
 	data14.put("Minimum Buy Quantity", "1");
 	data14.put("Maximum Buy Quantity", "5");
-	data14.put("Stock Count", "203");
-	data14.put("Intake Form", "");
-	data14.put("Default SKU / Identifier", "AST-MCH-514");
+	data14.put("Stock Count", "214");
+	data14.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data14.put("Default SKU / Identifier", "AST-CMB-614");
 	data14.put("Condition Treated", "Low Mood / Focus");
 	data14.put("Restrict Multiple Active Prescriptions", "No");
 	data14.put("Pricing Type", "Single Item");
-	data14.put("Intro Price", "23.30");
-	data14.put("Default Price", "43.90");
-	data14.put("Sale Price", "35.80");
+	data14.put("Intro Price", "24.60");
+	data14.put("Default Price", "45.25");
+	data14.put("Sale Price", "36.95");
 
 	TreeMap<String, String> data15 = new TreeMap<String, String>();
-	data15.put("Product Name", "AsterUplift Daily Focus Support");
-	data15.put("Product Image", Paths.get(Image_Path, "AsterUplift_Daily_Focus_Support.png").toString());
-	data15.put("Description", "A synthetic daily wellness product designed for catalog testing of mood, motivation, and concentration support pathways. This entry provides unique inventory, quantity, SKU, visibility, category, condition, and pricing values for automation coverage.");
-	data15.put("Product Type", "Standard");
+	data15.put("Product Name", "AsterSpark Motivation Support");
+	data15.put("Product Image", Paths.get(Image_Path, "AsterSpark Motivation Support.png").toString());
+	data15.put("Description", "A synthetic motivation and focus product designed for prescription catalog QA. The dataset provides new values for condition mapping, cognitive category selection, inventory management, visibility, purchase limits, intake-form association, identifier validation, and configurable pricing.");
+	data15.put("Product Type", "Prescription");
 	data15.put("Category", "Mental Energy and Motivation Support Products");
 	data15.put("Visibility", "Public");
 	data15.put("Minimum Buy Quantity", "1");
 	data15.put("Maximum Buy Quantity", "4");
-	data15.put("Stock Count", "151");
-	data15.put("Intake Form", "");
-	data15.put("Default SKU / Identifier", "AST-UDF-515");
+	data15.put("Stock Count", "159");
+	data15.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data15.put("Default SKU / Identifier", "AST-SMS-615");
 	data15.put("Condition Treated", "Low Mood / Focus");
 	data15.put("Restrict Multiple Active Prescriptions", "No");
 	data15.put("Pricing Type", "Single Item");
-	data15.put("Intro Price", "19.15");
-	data15.put("Default Price", "35.85");
-	data15.put("Sale Price", "29.10");
+	data15.put("Intro Price", "20.35");
+	data15.put("Default Price", "37.60");
+	data15.put("Sale Price", "30.45");
 
 	TreeMap<String, String> data16 = new TreeMap<String, String>();
-	data16.put("Product Name", "AsterForge Androgen Vitality Gel");
-	data16.put("Product Image", Paths.get(Image_Path, "AsterForge_Androgen_Vitality_Gel.png").toString());
-	data16.put("Description", "A hormonal wellness support product intended for low-testosterone catalog automation. The dataset provides fresh values for endocrine category assignment, product visibility, quantity limits, inventory control, SKU handling, condition association, and multiple pricing configurations.");
+	data16.put("Product Name", "AsterTitan Androgen Support Gel");
+	data16.put("Product Image", Paths.get(Image_Path, "AsterTitan Androgen Support Gel.png").toString());
+	data16.put("Description", "A standard hormonal wellness product intended for automated low-testosterone catalog workflows. This entry provides unique stock, buying-limit, SKU, visibility, intake-form, category, condition, and pricing values for endocrine product administration testing.");
 	data16.put("Product Type", "Standard");
 	data16.put("Category", "Androgen Restoration and Vitality Products");
 	data16.put("Visibility", "Public");
 	data16.put("Minimum Buy Quantity", "1");
 	data16.put("Maximum Buy Quantity", "3");
-	data16.put("Stock Count", "108");
-	data16.put("Intake Form", "");
-	data16.put("Default SKU / Identifier", "AST-FAV-516");
+	data16.put("Stock Count", "116");
+	data16.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data16.put("Default SKU / Identifier", "AST-TAS-616");
 	data16.put("Condition Treated", "Low Testosterone");
 	data16.put("Restrict Multiple Active Prescriptions", "No");
 	data16.put("Pricing Type", "Single Item");
-	data16.put("Intro Price", "47.20");
-	data16.put("Default Price", "76.90");
-	data16.put("Sale Price", "64.80");
+	data16.put("Intro Price", "49.75");
+	data16.put("Default Price", "80.40");
+	data16.put("Sale Price", "67.25");
 
 	TreeMap<String, String> data17 = new TreeMap<String, String>();
-	data17.put("Product Name", "AsterPrime Male Hormone Support");
-	data17.put("Product Image", Paths.get(Image_Path, "AsterPrime_Male_Hormone_Support.png").toString());
-	data17.put("Description", "A standard male endocrine wellness product generated for testing low-testosterone catalog management. This entry offers unique values for inventory, quantity restrictions, visibility, condition mapping, endocrine category association, SKU uniqueness, and promotional pricing.");
-	data17.put("Product Type", "Standard");
+	data17.put("Product Name", "AsterMann Hormone Vitality Capsules");
+	data17.put("Product Image", Paths.get(Image_Path, "AsterMann Hormone Vitality Capsules.png").toString());
+	data17.put("Description", "A synthetic male hormonal support product created for prescription low-testosterone catalog testing. It provides new data for endocrine category mapping, condition assignment, inventory boundaries, purchase restrictions, product visibility, intake-form linkage, SKU uniqueness, and pricing configuration.");
+	data17.put("Product Type", "Prescription");
 	data17.put("Category", "Male Endocrine Vitality Support Products");
 	data17.put("Visibility", "Hidden");
 	data17.put("Minimum Buy Quantity", "1");
 	data17.put("Maximum Buy Quantity", "2");
-	data17.put("Stock Count", "91");
-	data17.put("Intake Form", "");
-	data17.put("Default SKU / Identifier", "AST-PMH-517");
+	data17.put("Stock Count", "97");
+	data17.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data17.put("Default SKU / Identifier", "AST-MHV-617");
 	data17.put("Condition Treated", "Low Testosterone");
 	data17.put("Restrict Multiple Active Prescriptions", "No");
 	data17.put("Pricing Type", "Single Item");
-	data17.put("Intro Price", "51.30");
-	data17.put("Default Price", "83.75");
-	data17.put("Sale Price", "70.45");
+	data17.put("Intro Price", "53.85");
+	data17.put("Default Price", "87.90");
+	data17.put("Sale Price", "73.80");
 
 	TreeMap<String, String> data18 = new TreeMap<String, String>();
-	data18.put("Product Name", "AsterValor Hormonal Balance System");
-	data18.put("Product Image", Paths.get(Image_Path, "AsterValor_Hormonal_Balance_System.png").toString());
-	data18.put("Description", "A synthetic hormonal balance product prepared for automated low-testosterone product workflows. The dataset supports validation of condition association, category selection, inventory quantities, buying limitations, visibility, SKU uniqueness, detailed descriptions, and pricing behavior.");
+	data18.put("Product Name", "AsterEquil Androgen Balance System");
+	data18.put("Product Image", Paths.get(Image_Path, "AsterEquil Androgen Balance System.png").toString());
+	data18.put("Description", "A standard androgen wellness system prepared for automated low-testosterone catalog testing. The dataset offers fresh quantity, stock, visibility, identifier, intake-form, category, condition, description, and pricing values for end-to-end product workflows.");
 	data18.put("Product Type", "Standard");
 	data18.put("Category", "Testicular Hormone Support and Balance Products");
 	data18.put("Visibility", "Public");
 	data18.put("Minimum Buy Quantity", "1");
 	data18.put("Maximum Buy Quantity", "3");
-	data18.put("Stock Count", "104");
-	data18.put("Intake Form", "");
-	data18.put("Default SKU / Identifier", "AST-VHB-518");
+	data18.put("Stock Count", "111");
+	data18.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data18.put("Default SKU / Identifier", "AST-EAB-618");
 	data18.put("Condition Treated", "Low Testosterone");
 	data18.put("Restrict Multiple Active Prescriptions", "No");
 	data18.put("Pricing Type", "Single Item");
-	data18.put("Intro Price", "55.40");
-	data18.put("Default Price", "91.50");
-	data18.put("Sale Price", "77.25");
+	data18.put("Intro Price", "57.90");
+	data18.put("Default Price", "94.75");
+	data18.put("Sale Price", "79.60");
 
 	TreeMap<String, String> data19 = new TreeMap<String, String>();
-	data19.put("Product Name", "AsterLean Metabolic Control Capsules");
-	data19.put("Product Image", Paths.get(Image_Path, "AsterLean_Metabolic_Control_Capsules.png").toString());
-	data19.put("Description", "A standard metabolic wellness product designed for automated obesity-related catalog testing. This entry includes fresh stock, quantity, pricing, condition, category, visibility, descriptive, and identifier data for weight-management product workflows.");
-	data19.put("Product Type", "Standard");
+	data19.put("Product Name", "AsterBurn Metabolic Support Capsules");
+	data19.put("Product Image", Paths.get(Image_Path, "AsterBurn Metabolic Support Capsules.png").toString());
+	data19.put("Description", "A synthetic metabolic product intended for prescription catalog testing across obesity and weight-management workflows. The entry supports validation of stock configuration, condition mapping, category selection, purchase limits, visibility, SKU uniqueness, intake-form assignment, and multi-stage pricing.");
+	data19.put("Product Type", "Prescription");
 	data19.put("Category", "Metabolic Body Weight Optimization Products");
 	data19.put("Visibility", "Public");
 	data19.put("Minimum Buy Quantity", "1");
 	data19.put("Maximum Buy Quantity", "4");
-	data19.put("Stock Count", "146");
-	data19.put("Intake Form", "");
-	data19.put("Default SKU / Identifier", "AST-LMC-519");
+	data19.put("Stock Count", "152");
+	data19.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data19.put("Default SKU / Identifier", "AST-BMS-619");
 	data19.put("Condition Treated", "Obesity");
 	data19.put("Restrict Multiple Active Prescriptions", "No");
 	data19.put("Pricing Type", "Single Item");
-	data19.put("Intro Price", "31.80");
-	data19.put("Default Price", "52.90");
-	data19.put("Sale Price", "43.65");
+	data19.put("Intro Price", "33.20");
+	data19.put("Default Price", "55.40");
+	data19.put("Sale Price", "45.75");
 
 	TreeMap<String, String> data20 = new TreeMap<String, String>();
-	data20.put("Product Name", "AsterShape Weight Balance Support");
-	data20.put("Product Image", Paths.get(Image_Path, "AsterShape_Weight_Balance_Support.png").toString());
-	data20.put("Description", "A synthetic weight-management support product prepared for obesity and metabolic-care QA automation. The dataset provides unique product metadata, inventory quantities, purchasing limits, visibility, category relationships, SKU information, and multiple price values for end-to-end testing.");
+	data20.put("Product Name", "AsterBalance Weight Management Support");
+	data20.put("Product Image", Paths.get(Image_Path, "AsterBalance Weight Management Support.png").toString());
+	data20.put("Description", "A standard metabolic and weight-management support product generated for obesity-related QA automation. This dataset provides new product metadata, inventory quantities, purchase limits, visibility states, category relationships, intake-form configuration, SKU information, and multiple prices.");
 	data20.put("Product Type", "Standard");
 	data20.put("Category", "Obesity Metabolic Intervention Products");
 	data20.put("Visibility", "Hidden");
 	data20.put("Minimum Buy Quantity", "1");
 	data20.put("Maximum Buy Quantity", "5");
-	data20.put("Stock Count", "178");
-	data20.put("Intake Form", "");
-	data20.put("Default SKU / Identifier", "AST-SWB-520");
+	data20.put("Stock Count", "184");
+	data20.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
+	data20.put("Default SKU / Identifier", "AST-BWM-620");
 	data20.put("Condition Treated", "Obesity");
 	data20.put("Restrict Multiple Active Prescriptions", "No");
 	data20.put("Pricing Type", "Single Item");
-	data20.put("Intro Price", "34.25");
-	data20.put("Default Price", "57.80");
-	data20.put("Sale Price", "47.90");
+	data20.put("Intro Price", "35.70");
+	data20.put("Default Price", "60.25");
+	data20.put("Sale Price", "49.85");
 
 	return new Object[][] {
 		{ data1 },
@@ -809,7 +809,7 @@ public Object[][] Product_Create_Data(){
 		{ data7 },
 		{ data8 },
 		{ data9 },
-		{ data10 },/*
+		{ data10 },
 		{ data11 },
 		{ data12 },
 		{ data13 },
@@ -819,9 +819,11 @@ public Object[][] Product_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } */
+		{ data20 }
 	};
 }
+
+
 
 @DataProvider
 public Object[][] combined_data_provider() {
@@ -1437,6 +1439,9 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 			
 		}
       
+		
+		
+		
 		WebElement Product_Name_Input = Inputs.get(0);
 		WebElement Description_Input = p.Textarea_Description_Field();
 		WebElement Product_Type_Input = Inputs.get(1);
@@ -1596,6 +1601,40 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 
 			WebElement Intake_Form_Input = p.Intake_form_field();
 			Intake_Form_Input.sendKeys(Intake_Form);
+			
+			WebElement Intake_Form_list = p.Fourth_Virtual_List_holder();
+			List<WebElement> Intake_Form_list_options = Intake_Form_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+
+			for(WebElement intoption : Intake_Form_list_options) {
+	            String option_Text=intoption.getText().trim();
+	            System.out.println("visibility option "+option_Text+" Option text from Dataprovider "+Intake_Form);
+				if(option_Text.contains(Intake_Form)) {
+
+					intoption.click();
+
+					Report_Listen.log_print_in_report().pass("✅ Product Visibility selected successfully: " + Intake_Form);
+					System.out.println("✅ Product Visibility selected successfully: " + Intake_Form);
+					System.out.println();
+
+					break;}}
+			WebElement renewal_teleforms_Input = p.renewal_teleforms();
+			renewal_teleforms_Input.sendKeys(Intake_Form);
+			
+			WebElement renewal_teleforms_Input_list = p.Sixth_Virtual_List_holder();
+			List<WebElement> renewal_teleforms_Input_options = renewal_teleforms_Input_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+
+			for(WebElement renewaloption : renewal_teleforms_Input_options) {
+	            String reoption_Text=renewaloption.getText().trim();
+	            System.out.println("visibility option "+reoption_Text+" Option text from Dataprovider "+Intake_Form);
+				if(reoption_Text.contains(Intake_Form)) {
+
+					renewaloption.click();
+
+					Report_Listen.log_print_in_report().pass("✅ Product Visibility selected successfully: " + Intake_Form);
+					System.out.println("✅ Product Visibility selected successfully: " + Intake_Form);
+					System.out.println();
+
+					break;}}
 
 			Report_Listen.log_print_in_report().pass("✅ Prescription Intake Form entered successfully.");
 			System.out.println("✅ Prescription Intake Form entered successfully.");
@@ -1603,7 +1642,7 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 		}
 
 		step++;
-
+         
 		Report_Listen.log_print_in_report().info("──────────────────── 🆔 PRODUCT IDENTIFICATION ────────────────────");
 		Report_Listen.log_print_in_report().info("<b>Action:</b> Enter Default SKU / Identifier and Condition Treated.");
 
@@ -1614,7 +1653,7 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 
 		Default_SKU.sendKeys(Default_SKU_Identifier);
 		Condition_treated_Input.sendKeys(Condition_Treated);
-	    WebElement Condition_treated_list = p.Fourth_Virtual_List_holder();
+	    WebElement Condition_treated_list = p.Fifth_Virtual_List_holder();
 	    List<WebElement> Condition_treated_list_options = Condition_treated_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
 
 	     for(WebElement Condition_option : Condition_treated_list_options) {
@@ -1811,6 +1850,8 @@ public void search_a_product_in_list(TreeMap<String, String> Prod_name) throws I
 
 	String Product_Name = Prod_name.get("Product Name");
 	Product_Module_Locaters p = new Product_Module_Locaters(d);
+	
+	Repeat rp = new Repeat(d);
 
 	Report_Listen.log_print_in_report().info("──────────────────── 🔍 PRODUCT SEARCH VALIDATION ────────────────────");
 	Report_Listen.log_print_in_report().info("<b>Expected Product:</b> " + Product_Name);
@@ -1838,62 +1879,35 @@ public void search_a_product_in_list(TreeMap<String, String> Prod_name) throws I
 	System.out.println("🔹 Total Product records returned after search: " + names.size());
 	System.out.println();
 
-	boolean Product_Found = false;
-	String Actual_Product_Name = "";
-	ArrayList<String> Fetched_Product_Names = new ArrayList<String>();
-
 	for(WebElement name : names){
 
-		String list_names = name.getText().trim();
-		Fetched_Product_Names.add(list_names);
+		rp.movetoelement(name);
+		Thread.sleep(650);
 
-		Report_Listen.log_print_in_report().info("🔹 Search Result Fetched: " + list_names);
-		System.out.println("🔹 Search Result Fetched: " + list_names);
+		WebElement Tooltip = p.tooltip();
+		String list_names = Tooltip.getText().trim();
+
+		Report_Listen.log_print_in_report().info("🔹 Searched Product: " + Product_Name + " | Fetched Product: " + list_names);
+		System.out.println("🔹 Searched Product: " + Product_Name);
+		System.out.println("🔹 Fetched Product: " + list_names);
+		System.out.println();
 
 		if(list_names.contains(Product_Name)){
 
-			Product_Found = true;
-			Actual_Product_Name = list_names;
-			break;
-		}
-	}
-
-	System.out.println();
-
-	if(Product_Found){
-
-		Report_Listen.log_print_in_report().pass("✅ Product search validation passed. Searched For: " + Product_Name + " | Matched Result: " + Actual_Product_Name);
-		System.out.println("✅ Product search validation passed.");
-		System.out.println("🔹 Searched For: " + Product_Name);
-		System.out.println("🔹 Matched Result: " + Actual_Product_Name);
-		System.out.println();
-	}
-	else{
-
-		Report_Listen.log_print_in_report().fail("❌ Product search validation failed.");
-		Report_Listen.log_print_in_report().fail("❌ Searched For: " + Product_Name);
-		System.out.println("❌ Product search validation failed.");
-		System.out.println("🔹 Searched For: " + Product_Name);
-		System.out.println();
-
-		if(Fetched_Product_Names.isEmpty()){
-
-			Report_Listen.log_print_in_report().fail("❌ No Product records were fetched from the search result.");
-			System.out.println("❌ No Product records were fetched from the search result.");
+			Report_Listen.log_print_in_report().pass("✅ Product search validation passed. Searched Product: " + Product_Name + " | Fetched Product: " + list_names);
+			System.out.println("✅ Product search validation passed.");
+			System.out.println("✅ Searched Product: " + Product_Name);
+			System.out.println("✅ Fetched Product: " + list_names);
 			System.out.println();
+
+			break;
 		}
 		else{
 
-			Report_Listen.log_print_in_report().info("🔹 Total Search Results Fetched: " + Fetched_Product_Names.size());
-			System.out.println("🔹 Total Search Results Fetched: " + Fetched_Product_Names.size());
-			System.out.println();
-
-			for(int i=0;i<Fetched_Product_Names.size();i++){
-
-				Report_Listen.log_print_in_report().fail("❌ Fetched Result " + (i+1) + ": " + Fetched_Product_Names.get(i));
-				System.out.println("❌ Fetched Result " + (i+1) + ": " + Fetched_Product_Names.get(i));
-			}
-
+			Report_Listen.log_print_in_report().fail("❌ Product search validation failed. Searched Product: " + Product_Name + " | Fetched Product: " + list_names);
+			System.out.println("❌ Product search validation failed.");
+			System.out.println("❌ Searched Product: " + Product_Name);
+			System.out.println("❌ Fetched Product: " + list_names);
 			System.out.println();
 		}
 	}}
