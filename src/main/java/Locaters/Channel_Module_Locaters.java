@@ -59,7 +59,7 @@ public class Channel_Module_Locaters extends Repeat{
 	public WebElement Configuration_Button; 
     @FindBy(xpath="//button[@type='button' and contains(@class,'ant-btn-primary ant-btn-color-primary ant-btn-variant-solid')]")
 	private WebElement Product_Save_Button; 
-    @FindBy(xpath="//p[contains(text(),'Patient Portal')]/../..")
+    @FindBy(xpath="(//section)[2]")
 	private WebElement Patient_Portal_section;  
     @FindBy(xpath="//textarea")
 	private WebElement Textarea_Description_Field; 

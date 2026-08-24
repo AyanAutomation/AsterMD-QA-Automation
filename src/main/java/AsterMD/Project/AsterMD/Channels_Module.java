@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.NoSuchElementException;
 import java.util.TreeMap;
-
+import java.util.TreeSet;
 import java.util.stream.IntStream;
 
 import org.openqa.selenium.By;
@@ -1682,492 +1682,492 @@ public void Patient_Portal_FAQ_Validator(TreeMap<String, String> FAQ_data, SoftA
 public Object[][] Patient_Portal_Create_Data(){
 
 	TreeMap<String, String> data1 = new TreeMap<String, String>();
-	data1.put("Portal Name", "NovaRhein Patient Bridge");
+	data1.put("Portal Name", "ElbeCare Patient Compass");
 	data1.put("Portal URL", "patients.rheincare-medizin.de");
 	data1.put("Status", "Inactive");
-	data1.put("Description", "NovaRhein Patient Bridge provides patients with secure digital access to treatment information, care progress, healthcare resources, and communication services through a centralized patient experience.");
+	data1.put("Description", "ElbeCare Patient Compass provides a secure digital environment where patients can review treatment information, manage care activities, access support resources, and interact with available healthcare services.");
 	data1.put("Enable Search Engine Indexing", "Disabled");
 	data1.put("Login Method", "Magic Link (Email + Order ID)");
 	data1.put("Two-Factor Authentication", "Available with Email & Password only");
 	data1.put("Cancellation Offer", "Enabled");
-	data1.put("Discount Amount", "12");
-	data1.put("Offer Cooldown", "400");
+	data1.put("Discount Amount", "14");
+	data1.put("Offer Cooldown", "410");
 	data1.put("Automatic Approval", "Enabled");
 	data1.put("Approval Timing", "Immediately");
-	data1.put("Maximum Extension", "390");
-	data1.put("Maximum Reduction", "370");
+	data1.put("Maximum Extension", "395");
+	data1.put("Maximum Reduction", "372");
 	data1.put("Request Immediate Refill", "Enabled");
-	data1.put("Archive Completed Treatments After", "420");
-	data1.put("Delete Archived Treatments After", "820");
+	data1.put("Archive Completed Treatments After", "430");
+	data1.put("Delete Archived Treatments After", "845");
 	data1.put("Emergency Contact Country Code", "+49");
-	data1.put("Emergency Contact Number", "3015002001");
-	data1.put("Emergency Contact Title", "NovaRhein Urgent Care Line");
-	data1.put("Emergency Contact Description", "Patients may use this contact for urgent treatment-related concerns requiring prompt assistance from the NovaRhein patient care support team.");
-	data1.put("Emergency Disclaimer", "For serious or life-threatening medical emergencies, immediately contact the appropriate local emergency medical service.");
+	data1.put("Emergency Contact Number", "3026003101");
+	data1.put("Emergency Contact Title", "ElbeCare Urgent Patient Assistance");
+	data1.put("Emergency Contact Description", "Use this contact when an urgent treatment-related issue requires prompt assistance from the ElbeCare patient-support team.");
+	data1.put("Emergency Disclaimer", "For serious or life-threatening symptoms, immediately contact the appropriate local emergency medical service.");
 
 	TreeMap<String, String> data2 = new TreeMap<String, String>();
-	data2.put("Portal Name", "MediRhein Care Access");
+	data2.put("Portal Name", "MainMed Patient Access");
 	data2.put("Portal URL", "patients.rheincare-medizin.de");
 	data2.put("Status", "Inactive");
-	data2.put("Description", "MediRhein Care Access offers patients a secure online environment for reviewing treatment activity, accessing medical support information, and managing available healthcare services.");
+	data2.put("Description", "MainMed Patient Access allows patients to securely manage healthcare information, treatment progress, digital service interactions, and available patient-support resources.");
 	data2.put("Enable Search Engine Indexing", "Enabled");
 	data2.put("Login Method", "Magic Link (Email + Order ID)");
 	data2.put("Two-Factor Authentication", "Available with Email & Password only");
 	data2.put("Cancellation Offer", "Enabled");
-	data2.put("Discount Amount", "18");
-	data2.put("Offer Cooldown", "450");
+	data2.put("Discount Amount", "19");
+	data2.put("Offer Cooldown", "465");
 	data2.put("Automatic Approval", "Enabled");
 	data2.put("Approval Timing", "Immediately");
-	data2.put("Maximum Extension", "410");
-	data2.put("Maximum Reduction", "380");
+	data2.put("Maximum Extension", "420");
+	data2.put("Maximum Reduction", "385");
 	data2.put("Request Immediate Refill", "Disabled");
-	data2.put("Archive Completed Treatments After", "500");
-	data2.put("Delete Archived Treatments After", "900");
+	data2.put("Archive Completed Treatments After", "510");
+	data2.put("Delete Archived Treatments After", "925");
 	data2.put("Emergency Contact Country Code", "+49");
-	data2.put("Emergency Contact Number", "4015002002");
-	data2.put("Emergency Contact Title", "MediRhein Emergency Assistance");
-	data2.put("Emergency Contact Description", "Use this emergency assistance contact when an urgent concern occurs during an active treatment or patient-care workflow.");
-	data2.put("Emergency Disclaimer", "This contact does not replace ambulance, hospital, or emergency physician services when immediate medical intervention is required.");
+	data2.put("Emergency Contact Number", "6926003102");
+	data2.put("Emergency Contact Title", "MainMed Emergency Support Desk");
+	data2.put("Emergency Contact Description", "Patients may contact this support desk when an urgent concern develops during an active treatment or care-management process.");
+	data2.put("Emergency Disclaimer", "This patient-support contact does not replace professional ambulance, hospital, or emergency physician services.");
 
 	TreeMap<String, String> data3 = new TreeMap<String, String>();
-	data3.put("Portal Name", "VitaRhein Patient Gateway");
+	data3.put("Portal Name", "Schwarzwald Care Connect");
 	data3.put("Portal URL", "patients.rheincare-medizin.de");
 	data3.put("Status", "Inactive");
-	data3.put("Description", "VitaRhein Patient Gateway enables patients to securely access healthcare information, treatment details, patient resources, and ongoing care-management functionality.");
+	data3.put("Description", "Schwarzwald Care Connect provides patients with protected online access to treatment details, healthcare resources, care-management tools, and digital support functionality.");
 	data3.put("Enable Search Engine Indexing", "Disabled");
 	data3.put("Login Method", "Magic Link (Email + Order ID)");
 	data3.put("Two-Factor Authentication", "Available with Email & Password only");
 	data3.put("Cancellation Offer", "Enabled");
-	data3.put("Discount Amount", "22");
-	data3.put("Offer Cooldown", "500");
+	data3.put("Discount Amount", "23");
+	data3.put("Offer Cooldown", "520");
 	data3.put("Automatic Approval", "Enabled");
 	data3.put("Approval Timing", "Immediately");
-	data3.put("Maximum Extension", "430");
-	data3.put("Maximum Reduction", "395");
+	data3.put("Maximum Extension", "445");
+	data3.put("Maximum Reduction", "405");
 	data3.put("Request Immediate Refill", "Enabled");
-	data3.put("Archive Completed Treatments After", "550");
-	data3.put("Delete Archived Treatments After", "1000");
+	data3.put("Archive Completed Treatments After", "570");
+	data3.put("Delete Archived Treatments After", "1025");
 	data3.put("Emergency Contact Country Code", "+49");
-	data3.put("Emergency Contact Number", "8915002003");
-	data3.put("Emergency Contact Title", "VitaRhein Patient Safety Desk");
-	data3.put("Emergency Contact Description", "Contact the patient safety desk for urgent treatment concerns, unexpected symptoms, or immediate assistance related to active care.");
-	data3.put("Emergency Disclaimer", "Patients with severe or potentially life-threatening symptoms should contact local emergency services without delay.");
+	data3.put("Emergency Contact Number", "76126003103");
+	data3.put("Emergency Contact Title", "Schwarzwald Patient Safety Line");
+	data3.put("Emergency Contact Description", "Contact the patient safety line for urgent questions involving treatment complications, unexpected symptoms, or immediate healthcare-support needs.");
+	data3.put("Emergency Disclaimer", "Seek emergency medical assistance immediately if symptoms are severe, rapidly worsening, or potentially life-threatening.");
 
 	TreeMap<String, String> data4 = new TreeMap<String, String>();
-	data4.put("Portal Name", "RheinNova Digital Health");
+	data4.put("Portal Name", "HanseVital Patient Portal");
 	data4.put("Portal URL", "patients.rheincare-medizin.de");
 	data4.put("Status", "Inactive");
-	data4.put("Description", "RheinNova Digital Health provides a streamlined patient experience for accessing treatment information, healthcare support services, and digital care-management tools.");
+	data4.put("Description", "HanseVital Patient Portal delivers a centralized digital patient experience for managing treatments, reviewing healthcare information, accessing support services, and maintaining continuity of care.");
 	data4.put("Enable Search Engine Indexing", "Enabled");
 	data4.put("Login Method", "Magic Link (Email + Order ID)");
 	data4.put("Two-Factor Authentication", "Available with Email & Password only");
 	data4.put("Cancellation Offer", "Enabled");
-	data4.put("Discount Amount", "15");
-	data4.put("Offer Cooldown", "550");
+	data4.put("Discount Amount", "16");
+	data4.put("Offer Cooldown", "575");
 	data4.put("Automatic Approval", "Enabled");
 	data4.put("Approval Timing", "Immediately");
-	data4.put("Maximum Extension", "450");
-	data4.put("Maximum Reduction", "400");
+	data4.put("Maximum Extension", "470");
+	data4.put("Maximum Reduction", "415");
 	data4.put("Request Immediate Refill", "Enabled");
-	data4.put("Archive Completed Treatments After", "600");
-	data4.put("Delete Archived Treatments After", "1100");
+	data4.put("Archive Completed Treatments After", "625");
+	data4.put("Delete Archived Treatments After", "1140");
 	data4.put("Emergency Contact Country Code", "+49");
-	data4.put("Emergency Contact Number", "7115002004");
-	data4.put("Emergency Contact Title", "RheinNova Urgent Support");
-	data4.put("Emergency Contact Description", "Use this support line when urgent assistance is required concerning an active treatment, healthcare service, or patient portal care process.");
-	data4.put("Emergency Disclaimer", "Urgent support through the portal is not a substitute for professional emergency medical response services.");
+	data4.put("Emergency Contact Number", "4026003104");
+	data4.put("Emergency Contact Title", "HanseVital Urgent Care Support");
+	data4.put("Emergency Contact Description", "Use this support service for urgent treatment concerns requiring timely assistance from the HanseVital patient-care team.");
+	data4.put("Emergency Disclaimer", "Digital urgent-care support must not delay contacting emergency medical professionals when immediate intervention is necessary.");
 
 	TreeMap<String, String> data5 = new TreeMap<String, String>();
-	data5.put("Portal Name", "HeilRhein Patient Network");
+	data5.put("Portal Name", "IsarHealth Care Bridge");
 	data5.put("Portal URL", "patients.rheincare-medizin.de");
 	data5.put("Status", "Inactive");
-	data5.put("Description", "HeilRhein Patient Network provides patients with centralized digital access to ongoing treatments, medical information, care resources, and healthcare assistance.");
+	data5.put("Description", "IsarHealth Care Bridge connects patients to secure treatment-management features, healthcare information, care resources, and available patient-support services.");
 	data5.put("Enable Search Engine Indexing", "Disabled");
 	data5.put("Login Method", "Magic Link (Email + Order ID)");
 	data5.put("Two-Factor Authentication", "Available with Email & Password only");
 	data5.put("Cancellation Offer", "Enabled");
-	data5.put("Discount Amount", "20");
-	data5.put("Offer Cooldown", "600");
+	data5.put("Discount Amount", "21");
+	data5.put("Offer Cooldown", "625");
 	data5.put("Automatic Approval", "Enabled");
 	data5.put("Approval Timing", "Immediately");
-	data5.put("Maximum Extension", "475");
-	data5.put("Maximum Reduction", "420");
+	data5.put("Maximum Extension", "495");
+	data5.put("Maximum Reduction", "435");
 	data5.put("Request Immediate Refill", "Disabled");
-	data5.put("Archive Completed Treatments After", "650");
-	data5.put("Delete Archived Treatments After", "1200");
+	data5.put("Archive Completed Treatments After", "680");
+	data5.put("Delete Archived Treatments After", "1225");
 	data5.put("Emergency Contact Country Code", "+49");
-	data5.put("Emergency Contact Number", "6915002005");
-	data5.put("Emergency Contact Title", "HeilRhein Emergency Care Contact");
-	data5.put("Emergency Contact Description", "This emergency contact is intended for patients requiring urgent assistance regarding treatment-related health concerns or unexpected care issues.");
-	data5.put("Emergency Disclaimer", "Seek immediate emergency medical attention when symptoms may represent a serious or life-threatening condition.");
+	data5.put("Emergency Contact Number", "8926003105");
+	data5.put("Emergency Contact Title", "IsarHealth Immediate Assistance");
+	data5.put("Emergency Contact Description", "This contact provides prompt patient assistance for urgent treatment-related issues, medication concerns, or unexpected healthcare needs.");
+	data5.put("Emergency Disclaimer", "Contact emergency medical services immediately when a condition may pose an immediate risk to health or life.");
 
 	TreeMap<String, String> data6 = new TreeMap<String, String>();
-	data6.put("Portal Name", "RheinWell Care Hub");
+	data6.put("Portal Name", "NeckarMed Digital Patient");
 	data6.put("Portal URL", "patients.rheincare-medizin.de");
 	data6.put("Status", "Inactive");
-	data6.put("Description", "RheinWell Care Hub offers a secure digital environment where patients can review treatment information, access healthcare resources, and interact with care services.");
+	data6.put("Description", "NeckarMed Digital Patient offers secure access to treatment progress, healthcare resources, patient services, and digital tools intended to support ongoing care.");
 	data6.put("Enable Search Engine Indexing", "Enabled");
 	data6.put("Login Method", "Magic Link (Email + Order ID)");
 	data6.put("Two-Factor Authentication", "Available with Email & Password only");
 	data6.put("Cancellation Offer", "Enabled");
-	data6.put("Discount Amount", "25");
-	data6.put("Offer Cooldown", "650");
+	data6.put("Discount Amount", "26");
+	data6.put("Offer Cooldown", "675");
 	data6.put("Automatic Approval", "Enabled");
 	data6.put("Approval Timing", "Immediately");
-	data6.put("Maximum Extension", "500");
-	data6.put("Maximum Reduction", "440");
+	data6.put("Maximum Extension", "515");
+	data6.put("Maximum Reduction", "450");
 	data6.put("Request Immediate Refill", "Enabled");
-	data6.put("Archive Completed Treatments After", "700");
-	data6.put("Delete Archived Treatments After", "1250");
+	data6.put("Archive Completed Treatments After", "725");
+	data6.put("Delete Archived Treatments After", "1290");
 	data6.put("Emergency Contact Country Code", "+49");
-	data6.put("Emergency Contact Number", "2215002006");
-	data6.put("Emergency Contact Title", "RheinWell Patient Urgent Line");
-	data6.put("Emergency Contact Description", "Contact this urgent line if immediate patient support is required for an unexpected concern associated with ongoing treatment.");
-	data6.put("Emergency Disclaimer", "For emergency symptoms requiring immediate intervention, contact your regional emergency response provider first.");
+	data6.put("Emergency Contact Number", "71126003106");
+	data6.put("Emergency Contact Title", "NeckarMed Urgent Patient Line");
+	data6.put("Emergency Contact Description", "Patients can use this urgent line when an active treatment concern requires rapid guidance or support from the healthcare-service team.");
+	data6.put("Emergency Disclaimer", "For severe medical symptoms requiring immediate attention, contact local emergency response services first.");
 
 	TreeMap<String, String> data7 = new TreeMap<String, String>();
-	data7.put("Portal Name", "RheinVital Health Connect");
+	data7.put("Portal Name", "MoselCare Health Link");
 	data7.put("Portal URL", "patients.rheincare-medizin.de");
 	data7.put("Status", "Inactive");
-	data7.put("Description", "RheinVital Health Connect gives patients secure online access to care information, treatment resources, patient services, and healthcare-support functionality.");
+	data7.put("Description", "MoselCare Health Link provides a secure patient-facing connection to treatment information, healthcare support, care-management services, and account resources.");
 	data7.put("Enable Search Engine Indexing", "Disabled");
 	data7.put("Login Method", "Magic Link (Email + Order ID)");
 	data7.put("Two-Factor Authentication", "Available with Email & Password only");
 	data7.put("Cancellation Offer", "Enabled");
-	data7.put("Discount Amount", "10");
-	data7.put("Offer Cooldown", "700");
+	data7.put("Discount Amount", "11");
+	data7.put("Offer Cooldown", "730");
 	data7.put("Automatic Approval", "Enabled");
 	data7.put("Approval Timing", "Immediately");
-	data7.put("Maximum Extension", "525");
-	data7.put("Maximum Reduction", "460");
+	data7.put("Maximum Extension", "540");
+	data7.put("Maximum Reduction", "470");
 	data7.put("Request Immediate Refill", "Disabled");
-	data7.put("Archive Completed Treatments After", "750");
-	data7.put("Delete Archived Treatments After", "1300");
+	data7.put("Archive Completed Treatments After", "780");
+	data7.put("Delete Archived Treatments After", "1345");
 	data7.put("Emergency Contact Country Code", "+49");
-	data7.put("Emergency Contact Number", "3515002007");
-	data7.put("Emergency Contact Title", "RheinVital Emergency Support Center");
-	data7.put("Emergency Contact Description", "Patients may contact this support center when urgent treatment-related guidance or immediate patient assistance is required.");
-	data7.put("Emergency Disclaimer", "This service must not delay contacting professional emergency services during a critical medical situation.");
+	data7.put("Emergency Contact Number", "26126003107");
+	data7.put("Emergency Contact Title", "MoselCare Emergency Patient Support");
+	data7.put("Emergency Contact Description", "Urgent patient concerns involving treatment, symptoms, or care instructions may be directed to this dedicated support contact.");
+	data7.put("Emergency Disclaimer", "This service is not a substitute for professional emergency care during a critical or life-threatening medical event.");
 
 	TreeMap<String, String> data8 = new TreeMap<String, String>();
-	data8.put("Portal Name", "MedBrücke Patient Services");
+	data8.put("Portal Name", "AlpenMedi Patient Hub");
 	data8.put("Portal URL", "patients.rheincare-medizin.de");
 	data8.put("Status", "Inactive");
-	data8.put("Description", "MedBrücke Patient Services connects patients with secure treatment-management tools, healthcare information, clinical support resources, and available digital services.");
+	data8.put("Description", "AlpenMedi Patient Hub provides centralized digital access to active treatments, healthcare information, care services, and patient-support resources.");
 	data8.put("Enable Search Engine Indexing", "Enabled");
 	data8.put("Login Method", "Magic Link (Email + Order ID)");
 	data8.put("Two-Factor Authentication", "Available with Email & Password only");
 	data8.put("Cancellation Offer", "Enabled");
-	data8.put("Discount Amount", "30");
-	data8.put("Offer Cooldown", "750");
+	data8.put("Discount Amount", "28");
+	data8.put("Offer Cooldown", "785");
 	data8.put("Automatic Approval", "Enabled");
 	data8.put("Approval Timing", "Immediately");
-	data8.put("Maximum Extension", "550");
-	data8.put("Maximum Reduction", "480");
+	data8.put("Maximum Extension", "565");
+	data8.put("Maximum Reduction", "490");
 	data8.put("Request Immediate Refill", "Enabled");
-	data8.put("Archive Completed Treatments After", "800");
-	data8.put("Delete Archived Treatments After", "1400");
+	data8.put("Archive Completed Treatments After", "835");
+	data8.put("Delete Archived Treatments After", "1425");
 	data8.put("Emergency Contact Country Code", "+49");
-	data8.put("Emergency Contact Number", "3415002008");
-	data8.put("Emergency Contact Title", "MedBrücke Urgent Medical Support");
-	data8.put("Emergency Contact Description", "Use this contact when an urgent treatment concern requires immediate assistance from the patient-support or healthcare-service team.");
-	data8.put("Emergency Disclaimer", "Life-threatening medical conditions require immediate assistance from local emergency physicians or ambulance services.");
+	data8.put("Emergency Contact Number", "86126003108");
+	data8.put("Emergency Contact Title", "AlpenMedi Urgent Medical Help");
+	data8.put("Emergency Contact Description", "Use this contact when an urgent treatment or patient-care concern requires immediate assistance from the available healthcare-support team.");
+	data8.put("Emergency Disclaimer", "Call local emergency services immediately when urgent professional medical intervention is required.");
 
 	TreeMap<String, String> data9 = new TreeMap<String, String>();
-	data9.put("Portal Name", "RheinCare One Patient");
+	data9.put("Portal Name", "WeserHealth Direct");
 	data9.put("Portal URL", "patients.rheincare-medizin.de");
 	data9.put("Status", "Inactive");
-	data9.put("Description", "RheinCare One Patient provides a unified digital destination for managing treatment information, care resources, healthcare interactions, and patient support.");
+	data9.put("Description", "WeserHealth Direct enables patients to securely access treatment-management tools, healthcare information, care resources, and digital support functionality.");
 	data9.put("Enable Search Engine Indexing", "Disabled");
 	data9.put("Login Method", "Magic Link (Email + Order ID)");
 	data9.put("Two-Factor Authentication", "Available with Email & Password only");
 	data9.put("Cancellation Offer", "Enabled");
-	data9.put("Discount Amount", "14");
-	data9.put("Offer Cooldown", "800");
+	data9.put("Discount Amount", "15");
+	data9.put("Offer Cooldown", "825");
 	data9.put("Automatic Approval", "Enabled");
 	data9.put("Approval Timing", "Immediately");
-	data9.put("Maximum Extension", "575");
-	data9.put("Maximum Reduction", "500");
+	data9.put("Maximum Extension", "590");
+	data9.put("Maximum Reduction", "510");
 	data9.put("Request Immediate Refill", "Enabled");
-	data9.put("Archive Completed Treatments After", "850");
-	data9.put("Delete Archived Treatments After", "1450");
+	data9.put("Archive Completed Treatments After", "875");
+	data9.put("Delete Archived Treatments After", "1490");
 	data9.put("Emergency Contact Country Code", "+49");
-	data9.put("Emergency Contact Number", "5115002009");
-	data9.put("Emergency Contact Title", "RheinCare One Emergency Desk");
-	data9.put("Emergency Contact Description", "Patients can use this emergency desk for urgent issues affecting an ongoing treatment, medication workflow, or healthcare service.");
-	data9.put("Emergency Disclaimer", "For severe symptoms or immediate danger, contact local emergency medical services rather than waiting for portal assistance.");
+	data9.put("Emergency Contact Number", "42126003109");
+	data9.put("Emergency Contact Title", "WeserHealth Patient Response Desk");
+	data9.put("Emergency Contact Description", "The patient response desk provides urgent guidance when treatment-related concerns or unexpected healthcare issues require prompt review.");
+	data9.put("Emergency Disclaimer", "Patients experiencing severe symptoms should seek emergency medical care rather than waiting for digital support.");
 
 	TreeMap<String, String> data10 = new TreeMap<String, String>();
-	data10.put("Portal Name", "RheinMed Digital Patient");
+	data10.put("Portal Name", "SpreeCare Patient Gateway");
 	data10.put("Portal URL", "patients.rheincare-medizin.de");
 	data10.put("Status", "Inactive");
-	data10.put("Description", "RheinMed Digital Patient provides secure access to patient treatment records, digital healthcare functionality, service information, and ongoing care support.");
+	data10.put("Description", "SpreeCare Patient Gateway provides secure digital access to treatment services, care information, healthcare resources, and patient-support tools.");
 	data10.put("Enable Search Engine Indexing", "Enabled");
 	data10.put("Login Method", "Magic Link (Email + Order ID)");
 	data10.put("Two-Factor Authentication", "Available with Email & Password only");
 	data10.put("Cancellation Offer", "Enabled");
-	data10.put("Discount Amount", "16");
-	data10.put("Offer Cooldown", "850");
+	data10.put("Discount Amount", "17");
+	data10.put("Offer Cooldown", "875");
 	data10.put("Automatic Approval", "Enabled");
 	data10.put("Approval Timing", "Immediately");
-	data10.put("Maximum Extension", "600");
-	data10.put("Maximum Reduction", "520");
+	data10.put("Maximum Extension", "615");
+	data10.put("Maximum Reduction", "530");
 	data10.put("Request Immediate Refill", "Disabled");
-	data10.put("Archive Completed Treatments After", "900");
-	data10.put("Delete Archived Treatments After", "1500");
+	data10.put("Archive Completed Treatments After", "925");
+	data10.put("Delete Archived Treatments After", "1545");
 	data10.put("Emergency Contact Country Code", "+49");
-	data10.put("Emergency Contact Number", "4215002010");
-	data10.put("Emergency Contact Title", "RheinMed Patient Emergency Support");
-	data10.put("Emergency Contact Description", "Contact this patient emergency support service when an urgent treatment issue requires timely assistance or immediate guidance.");
-	data10.put("Emergency Disclaimer", "This patient support service does not provide emergency transportation or replace emergency hospital treatment.");
+	data10.put("Emergency Contact Number", "3026003110");
+	data10.put("Emergency Contact Title", "SpreeCare Emergency Assistance Desk");
+	data10.put("Emergency Contact Description", "Contact this assistance desk for urgent patient-support needs involving an active treatment or unexpected care-related concern.");
+	data10.put("Emergency Disclaimer", "Emergency assistance through the portal does not replace immediate evaluation by emergency medical professionals.");
 
 	TreeMap<String, String> data11 = new TreeMap<String, String>();
-	data11.put("Portal Name", "GesundRhein Patient Link");
+	data11.put("Portal Name", "TaunusMed Care Portal");
 	data11.put("Portal URL", "patients.rheincare-medizin.de");
 	data11.put("Status", "Inactive");
-	data11.put("Description", "GesundRhein Patient Link allows patients to securely access healthcare information, treatment workflows, support resources, and account-based care services.");
+	data11.put("Description", "TaunusMed Care Portal supports patients with secure online access to treatment information, digital care services, healthcare resources, and patient communication.");
 	data11.put("Enable Search Engine Indexing", "Disabled");
 	data11.put("Login Method", "Magic Link (Email + Order ID)");
 	data11.put("Two-Factor Authentication", "Available with Email & Password only");
 	data11.put("Cancellation Offer", "Enabled");
-	data11.put("Discount Amount", "21");
-	data11.put("Offer Cooldown", "900");
+	data11.put("Discount Amount", "22");
+	data11.put("Offer Cooldown", "925");
 	data11.put("Automatic Approval", "Enabled");
 	data11.put("Approval Timing", "Immediately");
-	data11.put("Maximum Extension", "625");
-	data11.put("Maximum Reduction", "540");
+	data11.put("Maximum Extension", "640");
+	data11.put("Maximum Reduction", "550");
 	data11.put("Request Immediate Refill", "Enabled");
-	data11.put("Archive Completed Treatments After", "950");
-	data11.put("Delete Archived Treatments After", "1600");
+	data11.put("Archive Completed Treatments After", "975");
+	data11.put("Delete Archived Treatments After", "1640");
 	data11.put("Emergency Contact Country Code", "+49");
-	data11.put("Emergency Contact Number", "2115002011");
-	data11.put("Emergency Contact Title", "GesundRhein Urgent Patient Help");
-	data11.put("Emergency Contact Description", "Urgent treatment concerns requiring timely care support may be directed to this dedicated patient assistance contact.");
-	data11.put("Emergency Disclaimer", "Critical medical emergencies should always be directed immediately to the appropriate local emergency healthcare service.");
+	data11.put("Emergency Contact Number", "6126003111");
+	data11.put("Emergency Contact Title", "TaunusMed Urgent Health Support");
+	data11.put("Emergency Contact Description", "Patients requiring rapid assistance for treatment-related health concerns may contact the TaunusMed urgent support service.");
+	data11.put("Emergency Disclaimer", "Critical medical conditions should always be handled immediately through appropriate emergency healthcare services.");
 
 	TreeMap<String, String> data12 = new TreeMap<String, String>();
-	data12.put("Portal Name", "RheinPlus Care Portal");
+	data12.put("Portal Name", "BalticHealth Patient Center");
 	data12.put("Portal URL", "patients.rheincare-medizin.de");
 	data12.put("Status", "Inactive");
-	data12.put("Description", "RheinPlus Care Portal supports patients with secure digital access to healthcare services, treatment information, patient resources, and care-management capabilities.");
+	data12.put("Description", "BalticHealth Patient Center offers centralized access to treatment activity, digital healthcare information, patient resources, and ongoing care-management support.");
 	data12.put("Enable Search Engine Indexing", "Enabled");
 	data12.put("Login Method", "Magic Link (Email + Order ID)");
 	data12.put("Two-Factor Authentication", "Available with Email & Password only");
 	data12.put("Cancellation Offer", "Enabled");
-	data12.put("Discount Amount", "11");
-	data12.put("Offer Cooldown", "950");
+	data12.put("Discount Amount", "13");
+	data12.put("Offer Cooldown", "980");
 	data12.put("Automatic Approval", "Enabled");
 	data12.put("Approval Timing", "Immediately");
-	data12.put("Maximum Extension", "650");
-	data12.put("Maximum Reduction", "560");
+	data12.put("Maximum Extension", "665");
+	data12.put("Maximum Reduction", "570");
 	data12.put("Request Immediate Refill", "Disabled");
-	data12.put("Archive Completed Treatments After", "1000");
-	data12.put("Delete Archived Treatments After", "1700");
+	data12.put("Archive Completed Treatments After", "1025");
+	data12.put("Delete Archived Treatments After", "1740");
 	data12.put("Emergency Contact Country Code", "+49");
-	data12.put("Emergency Contact Number", "2315002012");
-	data12.put("Emergency Contact Title", "RheinPlus Emergency Care Help");
-	data12.put("Emergency Contact Description", "Use this emergency care contact for urgent treatment concerns that require prompt assistance from the patient-support service.");
-	data12.put("Emergency Disclaimer", "If immediate medical intervention is required, contact local emergency services instead of relying on portal communication.");
+	data12.put("Emergency Contact Number", "45126003112");
+	data12.put("Emergency Contact Title", "BalticHealth Emergency Care Line");
+	data12.put("Emergency Contact Description", "Use this emergency care contact when an urgent treatment issue requires timely assistance from the patient-support team.");
+	data12.put("Emergency Disclaimer", "If a medical situation requires immediate intervention, contact emergency services instead of relying solely on portal communication.");
 
 	TreeMap<String, String> data13 = new TreeMap<String, String>();
-	data13.put("Portal Name", "CareRhein Patient Center");
+	data13.put("Portal Name", "OderCare Digital Access");
 	data13.put("Portal URL", "patients.rheincare-medizin.de");
 	data13.put("Status", "Inactive");
-	data13.put("Description", "CareRhein Patient Center provides a centralized digital environment for treatment information, healthcare resources, patient communication, and care-management services.");
+	data13.put("Description", "OderCare Digital Access provides patients with a secure online destination for treatment management, healthcare information, patient services, and care resources.");
 	data13.put("Enable Search Engine Indexing", "Disabled");
 	data13.put("Login Method", "Magic Link (Email + Order ID)");
 	data13.put("Two-Factor Authentication", "Available with Email & Password only");
 	data13.put("Cancellation Offer", "Enabled");
-	data13.put("Discount Amount", "19");
-	data13.put("Offer Cooldown", "1000");
+	data13.put("Discount Amount", "20");
+	data13.put("Offer Cooldown", "1035");
 	data13.put("Automatic Approval", "Enabled");
 	data13.put("Approval Timing", "Immediately");
-	data13.put("Maximum Extension", "675");
-	data13.put("Maximum Reduction", "580");
+	data13.put("Maximum Extension", "690");
+	data13.put("Maximum Reduction", "590");
 	data13.put("Request Immediate Refill", "Enabled");
-	data13.put("Archive Completed Treatments After", "1050");
-	data13.put("Delete Archived Treatments After", "1800");
+	data13.put("Archive Completed Treatments After", "1075");
+	data13.put("Delete Archived Treatments After", "1845");
 	data13.put("Emergency Contact Country Code", "+49");
-	data13.put("Emergency Contact Number", "9115002013");
-	data13.put("Emergency Contact Title", "CareRhein Immediate Assistance");
-	data13.put("Emergency Contact Description", "This contact provides urgent patient assistance for active treatment concerns, unexpected symptoms, or immediate care-support needs.");
-	data13.put("Emergency Disclaimer", "Do not delay contacting ambulance or emergency hospital services if the patient's condition may be life-threatening.");
+	data13.put("Emergency Contact Number", "33526003113");
+	data13.put("Emergency Contact Title", "OderCare Immediate Patient Support");
+	data13.put("Emergency Contact Description", "This contact offers prompt support for urgent concerns involving active treatments, unexpected symptoms, or patient-care instructions.");
+	data13.put("Emergency Disclaimer", "Emergency medical services should be contacted immediately whenever a patient's condition may be life-threatening.");
 
 	TreeMap<String, String> data14 = new TreeMap<String, String>();
-	data14.put("Portal Name", "RheinHealth Direct");
+	data14.put("Portal Name", "SaaleMed Patient Connect");
 	data14.put("Portal URL", "patients.rheincare-medizin.de");
 	data14.put("Status", "Inactive");
-	data14.put("Description", "RheinHealth Direct provides patients with protected access to treatment information, healthcare resources, ongoing care tools, and digital patient services.");
+	data14.put("Description", "SaaleMed Patient Connect delivers protected digital access to healthcare information, treatment services, care-management tools, and patient-support functionality.");
 	data14.put("Enable Search Engine Indexing", "Enabled");
 	data14.put("Login Method", "Magic Link (Email + Order ID)");
 	data14.put("Two-Factor Authentication", "Available with Email & Password only");
 	data14.put("Cancellation Offer", "Enabled");
-	data14.put("Discount Amount", "24");
-	data14.put("Offer Cooldown", "1050");
+	data14.put("Discount Amount", "25");
+	data14.put("Offer Cooldown", "1090");
 	data14.put("Automatic Approval", "Enabled");
 	data14.put("Approval Timing", "Immediately");
-	data14.put("Maximum Extension", "700");
-	data14.put("Maximum Reduction", "600");
+	data14.put("Maximum Extension", "715");
+	data14.put("Maximum Reduction", "610");
 	data14.put("Request Immediate Refill", "Enabled");
-	data14.put("Archive Completed Treatments After", "1100");
-	data14.put("Delete Archived Treatments After", "1900");
+	data14.put("Archive Completed Treatments After", "1125");
+	data14.put("Delete Archived Treatments After", "1945");
 	data14.put("Emergency Contact Country Code", "+49");
-	data14.put("Emergency Contact Number", "2285002014");
-	data14.put("Emergency Contact Title", "RheinHealth Direct Emergency Line");
-	data14.put("Emergency Contact Description", "Contact the emergency line when an urgent healthcare or treatment concern requires rapid patient-support assistance.");
-	data14.put("Emergency Disclaimer", "Use emergency physician, hospital, or ambulance services immediately when a serious medical emergency is suspected.");
+	data14.put("Emergency Contact Number", "34526003114");
+	data14.put("Emergency Contact Title", "SaaleMed Emergency Response Line");
+	data14.put("Emergency Contact Description", "Contact the emergency response line when an urgent healthcare or treatment concern requires rapid patient-support assistance.");
+	data14.put("Emergency Disclaimer", "For severe or potentially life-threatening emergencies, seek immediate assistance from emergency medical professionals.");
 
 	TreeMap<String, String> data15 = new TreeMap<String, String>();
-	data15.put("Portal Name", "RheinAktiv Patient Care");
+	data15.put("Portal Name", "EifelHealth Care Network");
 	data15.put("Portal URL", "patients.rheincare-medizin.de");
 	data15.put("Status", "Inactive");
-	data15.put("Description", "RheinAktiv Patient Care offers secure online access to patient treatment information, healthcare support, care resources, and digital service functionality.");
+	data15.put("Description", "EifelHealth Care Network provides patients with secure access to digital treatment information, healthcare services, care resources, and support functionality.");
 	data15.put("Enable Search Engine Indexing", "Disabled");
 	data15.put("Login Method", "Magic Link (Email + Order ID)");
 	data15.put("Two-Factor Authentication", "Available with Email & Password only");
 	data15.put("Cancellation Offer", "Enabled");
-	data15.put("Discount Amount", "9");
-	data15.put("Offer Cooldown", "1100");
+	data15.put("Discount Amount", "10");
+	data15.put("Offer Cooldown", "1145");
 	data15.put("Automatic Approval", "Enabled");
 	data15.put("Approval Timing", "Immediately");
-	data15.put("Maximum Extension", "725");
-	data15.put("Maximum Reduction", "620");
+	data15.put("Maximum Extension", "740");
+	data15.put("Maximum Reduction", "630");
 	data15.put("Request Immediate Refill", "Disabled");
-	data15.put("Archive Completed Treatments After", "1150");
-	data15.put("Delete Archived Treatments After", "2000");
+	data15.put("Archive Completed Treatments After", "1175");
+	data15.put("Delete Archived Treatments After", "2045");
 	data15.put("Emergency Contact Country Code", "+49");
-	data15.put("Emergency Contact Number", "6215002015");
-	data15.put("Emergency Contact Title", "RheinAktiv Urgent Patient Support");
-	data15.put("Emergency Contact Description", "Use this contact for urgent care concerns related to an active treatment, patient service, or medication-support workflow.");
-	data15.put("Emergency Disclaimer", "Portal-based urgent support does not substitute for professional emergency medical evaluation or treatment.");
+	data15.put("Emergency Contact Number", "65126003115");
+	data15.put("Emergency Contact Title", "EifelHealth Urgent Care Contact");
+	data15.put("Emergency Contact Description", "Use this contact when an urgent treatment-related concern requires timely patient-support guidance.");
+	data15.put("Emergency Disclaimer", "Portal-based assistance should not replace emergency medical evaluation when a serious condition is suspected.");
 
 	TreeMap<String, String> data16 = new TreeMap<String, String>();
-	data16.put("Portal Name", "RheinSecure Health Hub");
+	data16.put("Portal Name", "LahnCare Patient Services");
 	data16.put("Portal URL", "patients.rheincare-medizin.de");
 	data16.put("Status", "Inactive");
-	data16.put("Description", "RheinSecure Health Hub provides patients with protected access to treatment management, healthcare information, support resources, and digital care services.");
+	data16.put("Description", "LahnCare Patient Services enables secure management of treatment information, healthcare resources, patient-support interactions, and ongoing digital care activities.");
 	data16.put("Enable Search Engine Indexing", "Enabled");
 	data16.put("Login Method", "Magic Link (Email + Order ID)");
 	data16.put("Two-Factor Authentication", "Available with Email & Password only");
 	data16.put("Cancellation Offer", "Enabled");
-	data16.put("Discount Amount", "17");
-	data16.put("Offer Cooldown", "1150");
+	data16.put("Discount Amount", "18");
+	data16.put("Offer Cooldown", "1195");
 	data16.put("Automatic Approval", "Enabled");
 	data16.put("Approval Timing", "Immediately");
-	data16.put("Maximum Extension", "750");
-	data16.put("Maximum Reduction", "640");
+	data16.put("Maximum Extension", "765");
+	data16.put("Maximum Reduction", "650");
 	data16.put("Request Immediate Refill", "Enabled");
-	data16.put("Archive Completed Treatments After", "1200");
-	data16.put("Delete Archived Treatments After", "2100");
+	data16.put("Archive Completed Treatments After", "1225");
+	data16.put("Delete Archived Treatments After", "2145");
 	data16.put("Emergency Contact Country Code", "+49");
-	data16.put("Emergency Contact Number", "7615002016");
-	data16.put("Emergency Contact Title", "RheinSecure Emergency Assistance");
-	data16.put("Emergency Contact Description", "Patients requiring urgent treatment support can use this assistance contact for prompt guidance regarding ongoing healthcare services.");
-	data16.put("Emergency Disclaimer", "Always contact the appropriate emergency medical service immediately for severe or life-threatening symptoms.");
+	data16.put("Emergency Contact Number", "64126003116");
+	data16.put("Emergency Contact Title", "LahnCare Emergency Patient Assistance");
+	data16.put("Emergency Contact Description", "Patients requiring urgent help with treatment-related healthcare concerns may use this dedicated assistance contact.");
+	data16.put("Emergency Disclaimer", "Contact local emergency services immediately for serious symptoms requiring urgent medical intervention.");
 
 	TreeMap<String, String> data17 = new TreeMap<String, String>();
-	data17.put("Portal Name", "MediNova Rhein Portal");
+	data17.put("Portal Name", "RuhrMedi Health Portal");
 	data17.put("Portal URL", "patients.rheincare-medizin.de");
 	data17.put("Status", "Inactive");
-	data17.put("Description", "MediNova Rhein Portal delivers secure patient access to treatment details, digital medical resources, healthcare support, and ongoing care-management functionality.");
+	data17.put("Description", "RuhrMedi Health Portal provides secure online access to treatment details, patient healthcare resources, digital service functionality, and ongoing care support.");
 	data17.put("Enable Search Engine Indexing", "Disabled");
 	data17.put("Login Method", "Magic Link (Email + Order ID)");
 	data17.put("Two-Factor Authentication", "Available with Email & Password only");
 	data17.put("Cancellation Offer", "Enabled");
-	data17.put("Discount Amount", "13");
-	data17.put("Offer Cooldown", "1200");
+	data17.put("Discount Amount", "12");
+	data17.put("Offer Cooldown", "1245");
 	data17.put("Automatic Approval", "Enabled");
 	data17.put("Approval Timing", "Immediately");
-	data17.put("Maximum Extension", "775");
-	data17.put("Maximum Reduction", "660");
+	data17.put("Maximum Extension", "790");
+	data17.put("Maximum Reduction", "670");
 	data17.put("Request Immediate Refill", "Disabled");
-	data17.put("Archive Completed Treatments After", "1250");
-	data17.put("Delete Archived Treatments After", "2200");
+	data17.put("Archive Completed Treatments After", "1275");
+	data17.put("Delete Archived Treatments After", "2245");
 	data17.put("Emergency Contact Country Code", "+49");
-	data17.put("Emergency Contact Number", "6135002017");
-	data17.put("Emergency Contact Title", "MediNova Patient Emergency Contact");
-	data17.put("Emergency Contact Description", "Use this patient emergency contact when urgent medical or treatment-related concerns require immediate support assistance.");
-	data17.put("Emergency Disclaimer", "For an immediate medical emergency, contact emergency healthcare professionals instead of waiting for patient portal support.");
+	data17.put("Emergency Contact Number", "20126003117");
+	data17.put("Emergency Contact Title", "RuhrMedi Urgent Patient Desk");
+	data17.put("Emergency Contact Description", "Use this urgent patient desk when treatment complications or unexpected healthcare concerns require prompt support.");
+	data17.put("Emergency Disclaimer", "Immediate medical emergencies must be directed to professional emergency-response services rather than portal support.");
 
 	TreeMap<String, String> data18 = new TreeMap<String, String>();
-	data18.put("Portal Name", "RheinCare Horizon");
+	data18.put("Portal Name", "HavelCare Patient Link");
 	data18.put("Portal URL", "patients.rheincare-medizin.de");
 	data18.put("Status", "Inactive");
-	data18.put("Description", "RheinCare Horizon provides patients with a secure digital platform for managing treatment information, healthcare resources, and available patient-support services.");
+	data18.put("Description", "HavelCare Patient Link offers patients a secure digital connection to healthcare resources, treatment-management tools, patient services, and care support.");
 	data18.put("Enable Search Engine Indexing", "Enabled");
 	data18.put("Login Method", "Magic Link (Email + Order ID)");
 	data18.put("Two-Factor Authentication", "Available with Email & Password only");
 	data18.put("Cancellation Offer", "Enabled");
-	data18.put("Discount Amount", "23");
-	data18.put("Offer Cooldown", "1250");
+	data18.put("Discount Amount", "24");
+	data18.put("Offer Cooldown", "1295");
 	data18.put("Automatic Approval", "Enabled");
 	data18.put("Approval Timing", "Immediately");
-	data18.put("Maximum Extension", "800");
-	data18.put("Maximum Reduction", "680");
+	data18.put("Maximum Extension", "815");
+	data18.put("Maximum Reduction", "690");
 	data18.put("Request Immediate Refill", "Enabled");
-	data18.put("Archive Completed Treatments After", "1300");
-	data18.put("Delete Archived Treatments After", "2300");
+	data18.put("Archive Completed Treatments After", "1325");
+	data18.put("Delete Archived Treatments After", "2345");
 	data18.put("Emergency Contact Country Code", "+49");
-	data18.put("Emergency Contact Number", "6815002018");
-	data18.put("Emergency Contact Title", "RheinCare Horizon Urgent Help");
-	data18.put("Emergency Contact Description", "Urgent concerns involving an active treatment or patient-care service can be directed to this dedicated support contact.");
-	data18.put("Emergency Disclaimer", "Critical healthcare situations should be handled directly through appropriate emergency physicians, hospitals, or ambulance services.");
+	data18.put("Emergency Contact Number", "33126003118");
+	data18.put("Emergency Contact Title", "HavelCare Emergency Health Support");
+	data18.put("Emergency Contact Description", "Urgent concerns involving ongoing treatment or patient-care services can be directed to this dedicated health-support contact.");
+	data18.put("Emergency Disclaimer", "Patients with severe or critical symptoms should immediately contact local emergency healthcare professionals.");
 
 	TreeMap<String, String> data19 = new TreeMap<String, String>();
-	data19.put("Portal Name", "RheinCare Nexus Patient");
+	data19.put("Portal Name", "DonauHealth Digital Care");
 	data19.put("Portal URL", "patients.rheincare-medizin.de");
 	data19.put("Status", "Inactive");
-	data19.put("Description", "RheinCare Nexus Patient connects patients with secure digital treatment tools, healthcare information, medical support resources, and care-management functionality.");
+	data19.put("Description", "DonauHealth Digital Care connects patients with secure treatment-management services, healthcare information, digital care resources, and patient-support capabilities.");
 	data19.put("Enable Search Engine Indexing", "Disabled");
 	data19.put("Login Method", "Magic Link (Email + Order ID)");
 	data19.put("Two-Factor Authentication", "Available with Email & Password only");
 	data19.put("Cancellation Offer", "Enabled");
-	data19.put("Discount Amount", "27");
-	data19.put("Offer Cooldown", "1300");
+	data19.put("Discount Amount", "29");
+	data19.put("Offer Cooldown", "1345");
 	data19.put("Automatic Approval", "Enabled");
 	data19.put("Approval Timing", "Immediately");
-	data19.put("Maximum Extension", "825");
-	data19.put("Maximum Reduction", "700");
+	data19.put("Maximum Extension", "840");
+	data19.put("Maximum Reduction", "710");
 	data19.put("Request Immediate Refill", "Enabled");
-	data19.put("Archive Completed Treatments After", "1350");
-	data19.put("Delete Archived Treatments After", "2400");
+	data19.put("Archive Completed Treatments After", "1375");
+	data19.put("Delete Archived Treatments After", "2445");
 	data19.put("Emergency Contact Country Code", "+49");
-	data19.put("Emergency Contact Number", "3915002019");
-	data19.put("Emergency Contact Title", "RheinCare Nexus Emergency Desk");
-	data19.put("Emergency Contact Description", "This emergency desk supports patients requiring urgent assistance related to active treatment services or unexpected care concerns.");
-	data19.put("Emergency Disclaimer", "Do not rely on digital support when immediate professional emergency medical intervention is required.");
+	data19.put("Emergency Contact Number", "94126003119");
+	data19.put("Emergency Contact Title", "DonauHealth Immediate Care Desk");
+	data19.put("Emergency Contact Description", "This immediate care desk provides urgent assistance for treatment-related concerns requiring timely support from the patient-care team.");
+	data19.put("Emergency Disclaimer", "Do not wait for portal support when emergency medical evaluation or immediate professional intervention is required.");
 
 	TreeMap<String, String> data20 = new TreeMap<String, String>();
-	data20.put("Portal Name", "RheinCare Pulse Digital");
+	data20.put("Portal Name", "HarzMed Patient Horizon");
 	data20.put("Portal URL", "patients.rheincare-medizin.de");
 	data20.put("Status", "Inactive");
-	data20.put("Description", "RheinCare Pulse Digital offers patients secure access to healthcare services, treatment information, patient resources, and digital care-management functionality.");
+	data20.put("Description", "HarzMed Patient Horizon provides patients with secure digital access to healthcare services, treatment information, patient resources, and ongoing care-management functionality.");
 	data20.put("Enable Search Engine Indexing", "Enabled");
 	data20.put("Login Method", "Magic Link (Email + Order ID)");
 	data20.put("Two-Factor Authentication", "Available with Email & Password only");
 	data20.put("Cancellation Offer", "Enabled");
 	data20.put("Discount Amount", "20");
-	data20.put("Offer Cooldown", "1350");
+	data20.put("Offer Cooldown", "1395");
 	data20.put("Automatic Approval", "Enabled");
 	data20.put("Approval Timing", "Immediately");
-	data20.put("Maximum Extension", "850");
-	data20.put("Maximum Reduction", "720");
+	data20.put("Maximum Extension", "865");
+	data20.put("Maximum Reduction", "730");
 	data20.put("Request Immediate Refill", "Disabled");
-	data20.put("Archive Completed Treatments After", "1400");
-	data20.put("Delete Archived Treatments After", "2500");
+	data20.put("Archive Completed Treatments After", "1425");
+	data20.put("Delete Archived Treatments After", "2545");
 	data20.put("Emergency Contact Country Code", "+49");
-	data20.put("Emergency Contact Number", "4315002020");
-	data20.put("Emergency Contact Title", "RheinCare Pulse Emergency Assistance");
-	data20.put("Emergency Contact Description", "Use this emergency assistance contact when an urgent patient-care or treatment concern requires prompt support.");
-	data20.put("Emergency Disclaimer", "For severe, acute, or potentially life-threatening conditions, immediately contact your local emergency healthcare service.");
+	data20.put("Emergency Contact Number", "39426003120");
+	data20.put("Emergency Contact Title", "HarzMed Emergency Patient Support");
+	data20.put("Emergency Contact Description", "Use this emergency patient-support contact when an urgent care or treatment issue requires prompt guidance.");
+	data20.put("Emergency Disclaimer", "For acute, severe, or potentially life-threatening conditions, immediately contact the appropriate local emergency service.");
 
 	return new Object[][] {
-		{ data1 },
+		{ data1 },/*
 		{ data2 },
 		{ data3 },
 		{ data4 },
 		{ data5 },
-		{ data6 },/*
+		{ data6 },
 		{ data7 },
 		{ data8 },
 		{ data9 },
@@ -2219,14 +2219,15 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 		System.out.println();
 
 		WebElement Patient_portal_section_in_list = p.Patient_Portal_section();
-		rp.Scroll_to_element(Patient_portal_section_in_list);
-		Thread.sleep(500);
-
+		Thread.sleep(800);
+		rp.Scroll_to_Bottom_of_Page();
+		Thread.sleep(800);
+      
 		Report_Listen.log_print_in_report().pass("✅ Patient Portal section located successfully.");
 		System.out.println("✅ Patient Portal section located successfully.");
 		System.out.println();
 
-		WebElement Config_Button = p.Configuration_Button;
+		WebElement Config_Button = Patient_portal_section_in_list.findElement(By.xpath(".//*[text()='Configuration']/.."));
 		Boolean is_visible = rp.check_element_visibility(Config_Button, 4);
 
 		Report_Listen.log_print_in_report().info("<b>Action:</b> Checking whether an existing Patient Portal configuration is available.");
@@ -2295,12 +2296,16 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 			System.out.println("🔹 Deleting the existing Patient Portal before creating the new Portal.");
 			System.out.println();
           
-			List<WebElement> ThreeDot_Buttons = pd.Threedot_Button_in_list();
+			List<WebElement> ThreeDot_Buttons = Patient_portal_section_in_list.findElements(By.xpath(".//*[contains(@class,'ant-dropdown-trigger')] "));
+			rp.wait_for_theElement(ThreeDot_Buttons);
+		
 
 			Report_Listen.log_print_in_report().info("🔹 Three-dot action buttons retrieved. Total buttons found: " + ThreeDot_Buttons.size());
 			System.out.println("🔹 Three-dot action buttons retrieved. Total buttons found: " + ThreeDot_Buttons.size());
 			System.out.println();
             
+			
+			
 			Three_Dot_Menu_Option_Selector(ThreeDot_Buttons, "Delete");
 
 			Report_Listen.log_print_in_report().pass("✅ Existing Patient Portal deletion action completed successfully.");
@@ -2327,7 +2332,7 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 
 			WebElement Submit = p.Create_Button();
 			Submit.click();
-
+            rp.wait_for_invisibilty_of_theElement(Submit);
 			Report_Listen.log_print_in_report().pass("✅ New Patient Portal creation form submitted successfully.");
 			System.out.println("✅ New Patient Portal creation form submitted successfully.");
 			System.out.println();
@@ -2335,14 +2340,15 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 			Report_Listen.log_print_in_report().info("<b>Action:</b> Opening configuration for the newly created Patient Portal.");
 			System.out.println("🔹 Opening configuration for the newly created Patient Portal.");
 			System.out.println();
-
-			Config_Button = p.Configuration_Button();
-
+			WebElement Refetched_Patient_portal_section_in_list = p.Patient_Portal_section();
+			rp.wait_for_theElement(Refetched_Patient_portal_section_in_list);
+		    WebElement ConfigButton=Refetched_Patient_portal_section_in_list.findElement(By.xpath(".//*[text()='Configuration']/.."));
+		    rp.wait_for_theElement(ConfigButton);
 			Report_Listen.log_print_in_report().pass("✅ Configuration button retrieved successfully for newly created Portal: " + Portal_Name);
 			System.out.println("✅ Configuration button retrieved successfully for newly created Portal: " + Portal_Name);
 			System.out.println();
 
-			patient_portal_form_editor(Patient_Portal_data, Config_Button, FAQ_data);
+			patient_portal_form_editor(Patient_Portal_data, ConfigButton, FAQ_data);
 			Report_Listen.log_print_in_report().pass("✅ New Patient Portal created and configured successfully after removing the previous Portal: " + Portal_Name);
 			System.out.println("✅ New Patient Portal created and configured successfully after removing the previous Portal: " + Portal_Name);
 			System.out.println(); 
@@ -2949,7 +2955,7 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 	System.out.println("🔹 Expected FAQ Group: " + FAQ.get("Group Name"));
 	System.out.println();
 
-	// Patient_Portal_FAQ_Validator(FAQ, softAssert);
+    Patient_Portal_FAQ_Validator(FAQ, softAssert);
 
 	Report_Listen.log_print_in_report().info("✅ Patient Portal FAQ validation execution completed for Group: " + FAQ.get("Group Name"));
 	System.out.println("✅ Patient Portal FAQ validation execution completed for Group: " + FAQ.get("Group Name"));
@@ -3128,6 +3134,151 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 			Report_Listen.log_print_in_report().info("🔹 Checking Treatment Management card: " + Card_Text);
 			System.out.println("🔹 Checking Treatment Management card: " + Card_Text);
 
+			WebElement Feature_Toggle_Button = Card.findElement(By.xpath(".//button[@role='switch']"));
+			rp.wait_for_theElement(Feature_Toggle_Button);
+
+			String Toggle_State = Feature_Toggle_Button.getAttribute("aria-checked");
+
+			if(Card_Text.contains("Cancel Treatment")) {
+
+				if(Toggle_State.equals("true")) {
+
+					Report_Listen.log_print_in_report().pass("✅ Cancel Treatment default toggle state matched. Expected: true | Actual: " + Toggle_State);
+					System.out.println("✅ Cancel Treatment default toggle state matched. Expected: true | Actual: " + Toggle_State);
+				}
+				else {
+
+					Report_Listen.log_print_in_report().fail("❌ Cancel Treatment default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+					System.out.println("❌ Cancel Treatment default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+				}
+			}
+
+			if(Card_Text.contains("Doctor Consultation")) {
+
+				if(Toggle_State.equals("true")) {
+
+					Report_Listen.log_print_in_report().pass("✅ Doctor Consultation default toggle state matched. Expected: true | Actual: " + Toggle_State);
+					System.out.println("✅ Doctor Consultation default toggle state matched. Expected: true | Actual: " + Toggle_State);
+				}
+				else {
+
+					Report_Listen.log_print_in_report().fail("❌ Doctor Consultation default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+					System.out.println("❌ Doctor Consultation default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+				}
+			}
+
+			if(Card_Text.contains("Change Refill Date")) {
+
+				if(Toggle_State.equals("false")) {
+
+					Report_Listen.log_print_in_report().pass("✅ Change Refill Date default toggle state matched. Expected: false | Actual: " + Toggle_State);
+					System.out.println("✅ Change Refill Date default toggle state matched. Expected: false | Actual: " + Toggle_State);
+				}
+				else {
+
+					Report_Listen.log_print_in_report().fail("❌ Change Refill Date default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
+					System.out.println("❌ Change Refill Date default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
+				}
+			}
+
+			if(Card_Text.contains("Swap Treatment")) {
+
+				if(Toggle_State.equals("true")) {
+
+					Report_Listen.log_print_in_report().pass("✅ Swap Treatment default toggle state matched. Expected: true | Actual: " + Toggle_State);
+					System.out.println("✅ Swap Treatment default toggle state matched. Expected: true | Actual: " + Toggle_State);
+				}
+				else {
+
+					Report_Listen.log_print_in_report().fail("❌ Swap Treatment default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+					System.out.println("❌ Swap Treatment default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+				}
+			}
+
+			if(Card_Text.contains("Renew Treatment")) {
+
+				if(Toggle_State.equals("true")) {
+
+					Report_Listen.log_print_in_report().pass("✅ Renew Treatment default toggle state matched. Expected: true | Actual: " + Toggle_State);
+					System.out.println("✅ Renew Treatment default toggle state matched. Expected: true | Actual: " + Toggle_State);
+				}
+				else {
+
+					Report_Listen.log_print_in_report().fail("❌ Renew Treatment default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+					System.out.println("❌ Renew Treatment default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+				}
+			}
+
+			if(Card_Text.contains("Incomplete Treatments")) {
+
+				if(Toggle_State.equals("false")) {
+
+					Report_Listen.log_print_in_report().pass("✅ Incomplete Treatments default toggle state matched. Expected: false | Actual: " + Toggle_State);
+					System.out.println("✅ Incomplete Treatments default toggle state matched. Expected: false | Actual: " + Toggle_State);
+				}
+				else {
+
+					Report_Listen.log_print_in_report().fail("❌ Incomplete Treatments default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
+					System.out.println("❌ Incomplete Treatments default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
+				}
+			}
+
+			if(Card_Text.contains("Archived Treatments")) {
+
+				if(Toggle_State.equals("true")) {
+
+					Report_Listen.log_print_in_report().pass("✅ Archived Treatments default toggle state matched. Expected: true | Actual: " + Toggle_State);
+					System.out.println("✅ Archived Treatments default toggle state matched. Expected: true | Actual: " + Toggle_State);
+				}
+				else {
+
+					Report_Listen.log_print_in_report().fail("❌ Archived Treatments default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+					System.out.println("❌ Archived Treatments default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+				}
+			}
+
+			if(Card_Text.contains("Emergency Contact Widget")) {
+
+				if(Toggle_State.equals("false")) {
+
+					Report_Listen.log_print_in_report().pass("✅ Emergency Contact Widget default toggle state matched. Expected: false | Actual: " + Toggle_State);
+					System.out.println("✅ Emergency Contact Widget default toggle state matched. Expected: false | Actual: " + Toggle_State);
+				}
+				else {
+
+					Report_Listen.log_print_in_report().fail("❌ Emergency Contact Widget default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
+					System.out.println("❌ Emergency Contact Widget default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
+				}
+			}
+
+			if(Card_Text.contains("Treatment FAQs")) {
+
+				if(Toggle_State.equals("false")) {
+
+					Report_Listen.log_print_in_report().pass("✅ Treatment FAQs default toggle state matched. Expected: false | Actual: " + Toggle_State);
+					System.out.println("✅ Treatment FAQs default toggle state matched. Expected: false | Actual: " + Toggle_State);
+				}
+				else {
+
+					Report_Listen.log_print_in_report().fail("❌ Treatment FAQs default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
+					System.out.println("❌ Treatment FAQs default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
+				}
+			}
+
+			if(Card_Text.contains("Support Consultation")) {
+
+				if(Toggle_State.equals("true")) {
+
+					Report_Listen.log_print_in_report().pass("✅ Support Consultation default toggle state matched. Expected: true | Actual: " + Toggle_State);
+					System.out.println("✅ Support Consultation default toggle state matched. Expected: true | Actual: " + Toggle_State);
+				}
+				else {
+
+					Report_Listen.log_print_in_report().fail("❌ Support Consultation default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+					System.out.println("❌ Support Consultation default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+				}
+			}
+            
 			if(Card_Text.contains("Cancel Treatment")) {
 
 				System.out.println();
@@ -3140,10 +3291,10 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				System.out.println("✅ Cancel Treatment card identified successfully.");
 				System.out.println();
 
-				WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
-				rp.wait_for_theElement(Toggle_Button);
+				
+				rp.wait_for_theElement(Feature_Toggle_Button);
 				Thread.sleep(500);
-				Toggle_Button.click();
+				Feature_Toggle_Button.click();
 
 				Report_Listen.log_print_in_report().pass("✅ Cancel Treatment configuration popup opened successfully.");
 				System.out.println("✅ Cancel Treatment configuration popup opened successfully.");
@@ -3210,10 +3361,9 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				System.out.println("✅ Change Refill Date card identified successfully.");
 				System.out.println();
 
-				WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
-				rp.wait_for_theElement(Toggle_Button);
+				rp.wait_for_theElement(Feature_Toggle_Button);
 				Thread.sleep(500);
-				Toggle_Button.click();
+				Feature_Toggle_Button.click();
 
 				Report_Listen.log_print_in_report().pass("✅ Change Refill Date configuration popup opened successfully.");
 				System.out.println("✅ Change Refill Date configuration popup opened successfully.");
@@ -3261,10 +3411,9 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				System.out.println("✅ Emergency Contact Widget card identified successfully.");
 				System.out.println();
 
-				WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
-				rp.wait_for_theElement(Toggle_Button);
+				rp.wait_for_theElement(Feature_Toggle_Button);
 				Thread.sleep(500);
-				Toggle_Button.click();
+				Feature_Toggle_Button.click();
 
 				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Widget configuration popup opened successfully.");
 				System.out.println("✅ Emergency Contact Widget configuration popup opened successfully.");
@@ -3333,10 +3482,9 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				System.out.println("✅ Archived Treatments card identified successfully.");
 				System.out.println();
 
-				WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
-				rp.wait_for_theElement(Toggle_Button);
+				rp.wait_for_theElement(Feature_Toggle_Button);
 				Thread.sleep(500);
-				Toggle_Button.click();
+				Feature_Toggle_Button.click();
 
 				Report_Listen.log_print_in_report().pass("✅ Archived Treatments configuration popup opened successfully.");
 				System.out.println("✅ Archived Treatments configuration popup opened successfully.");
@@ -3384,7 +3532,7 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 		System.out.println("🔹 FAQ Group: " + FAQ.get("Group Name"));
 		System.out.println();
 
-		//Patient_Portal_FAQ_Add(FAQ);
+		Patient_Portal_FAQ_Add(FAQ);
 
 		Report_Listen.log_print_in_report().pass("✅ Patient Portal FAQ configuration completed successfully for Group: " + FAQ.get("Group Name"));
 		System.out.println("✅ Patient Portal FAQ configuration completed successfully for Group: " + FAQ.get("Group Name"));

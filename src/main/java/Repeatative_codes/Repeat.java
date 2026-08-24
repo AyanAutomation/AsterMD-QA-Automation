@@ -111,4 +111,11 @@ public class Repeat {
 		JavascriptExecutor js = (JavascriptExecutor)d;
 		js.executeScript("arguments[0].scrollIntoView(true);", element);
 	}
+	
+	public void Scroll_to_Bottom_of_Page() {
+		JavascriptExecutor js = (JavascriptExecutor)d;
+		js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+	}
 }
+
+
