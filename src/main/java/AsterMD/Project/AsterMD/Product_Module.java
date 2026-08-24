@@ -244,7 +244,7 @@ public Object[][] Category_Create_Data(){
 	data26.put("Drug Class / Code", "META-HMB-426");
 	data26.put("Description", "Specialized metabolic-support products associated with management of body-composition and fat-distribution changes occurring in patients with HIV-associated lipodystrophy. This category may support clinically supervised care involving metabolic assessment, antiretroviral treatment history, glucose and lipid monitoring, cardiovascular risk review, body-composition evaluation, treatment-response assessment, and continued specialist oversight.");
 
-	return new Object[][] {
+	return new Object[][] {/*
 		{ data1 },
 		{ data2 },
 		{ data3 },
@@ -262,15 +262,15 @@ public Object[][] Category_Create_Data(){
 		{ data15 },
 		{ data16 },
 		{ data17 },
-		{ data18 },
-		{ data19 },
+		{ data18 }, */
+		{ data19 },/*
 		{ data20 },
 		{ data21 },
 		{ data22 },
 		{ data23 },
 		{ data24 },
 		{ data25 },
-		{ data26 }
+		{ data26 } */
 	};
 }
 
