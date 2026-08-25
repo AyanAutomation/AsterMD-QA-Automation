@@ -55,6 +55,7 @@ public class Channel_Module_Locaters extends Repeat{
 	private WebElement Success_Toast; 
     @FindBy(xpath="(//*[contains(@class,'channels-section')])[1]//*[contains(@class,'ant-flex-align-flex-start ant-flex-vertical')]//*[contains(@class,'ant-flex-wrap-wrap ant-flex-align-center')][1]")
 	private List<WebElement> First_channel_card_text_in_list; 
+    
     @FindBy(xpath="//*[text()='Configuration']/..")
 	public WebElement Configuration_Button; 
     @FindBy(xpath="//button[@type='button' and contains(@class,'ant-btn-primary ant-btn-color-primary ant-btn-variant-solid')]")
@@ -76,19 +77,19 @@ public class Channel_Module_Locaters extends Repeat{
     @FindBy(xpath="//span[text()='patient portal']/..")
 	private WebElement Patient_Portal_Create_Button; 
     @FindBy(id="portal_name")
-	private WebElement Portal_Name_Input; /*
+	private WebElement Portal_Name_Input; 
     @FindBy(xpath="//*[text()='Patient Portal']/../..//div[contains(@class,'channels-actions')]")
-	private WebElement Patient; */
+	private WebElement Patient; 
     @FindBy(xpath="//*[@class='ant-modal-close']")
-	private WebElement Modal_close_button; /*
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Modal_close_button; 
+    @FindBy(xpath="(//*[contains(@class,'channels-section')])[1]//*[contains(@class,'channels-card-row')]")
+	private List<WebElement> All_Channel_Cards; 
+    @FindBy(css="tr.ant-table-placeholder svg[role='img']")
+	private WebElement Loader; 
+    @FindBy(xpath="//div[@class='ant-tooltip ant-tooltip-css-var css-tql0nm css-var-_R_1b_ ant-tooltip-placement-top']")
+	private WebElement Tooltip; 
+    @FindBy(xpath="//div[@role='dialog']")
+	private WebElement Pop_up; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -391,24 +392,31 @@ public class Channel_Module_Locaters extends Repeat{
 	return Modal_Save_Settings_Button;}
 	public WebElement Modal_close_button(){
 	wait_for_theElement(Modal_close_button);
-	return Modal_close_button;} /*
+	return Modal_close_button;} 
+	public List<WebElement> All_Channel_Cards(){
+	wait_for_theElement(All_Channel_Cards);
+	return All_Channel_Cards;}
+	public WebElement Particular_Cards_Config_Button(WebElement Card){
+	WebElement Particular_Cards_Config_Button=Card.findElement(By.xpath(".//span[text()='Configuration']/.."));
+	wait_for_theElement(Particular_Cards_Config_Button);
+	return Particular_Cards_Config_Button;} 
+	public WebElement Loader(){
+    Boolean visibility=check_element_visibility(Loader,2);
+    if(visibility==true){
+	return Loader;}
+    else{
+    	return null;}} 
+	public WebElement Tooltip(){
+	wait_for_theElement(Tooltip);
+	return Tooltip;}
+	public WebElement Modal_Submit_button(){
+	WebElement Modal_Submit_button=Pop_up().findElement(By.xpath(".//button[@type='button' and contains(@class,'ant-btn-primary ant-btn-color-primary ant-btn-variant-solid')]"));
+	wait_for_theElement(Modal_Submit_button);
+	return Modal_Submit_button;}
+	public WebElement Pop_up(){
+	wait_for_theElement(Pop_up);
+	return Pop_up;}/*
 	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){

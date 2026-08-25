@@ -426,9 +426,9 @@ public Object[][] Lab_Test_Create_Data(){
 	data20.put("Postal Code / Zip Code", "85034");
 
 	return new Object[][] {
-		{ data1 },
+		{ data1 }, /*
 		{ data2 }, 
-		{ data3 },
+		{ data3 }, 
 		{ data4 },
 		{ data5 },
 		{ data6 },
@@ -445,13 +445,13 @@ public Object[][] Lab_Test_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } 
+		{ data20 } */
 	};
 }
 
 
 @DataProvider
-public Object[][] Product_Create_Data(){
+public static Object[][] Product_Create_Data(){
 
 	String Image_Path = Paths.get(System.getProperty("user.dir"), "Images").toString();
 
@@ -1047,13 +1047,13 @@ public Object[][] Product_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 },/*
+		{ data20 },
 		{ data21 },
 		{ data22 },
 		{ data23 },
 		{ data24 },
 		{ data25 },
-		{ data26 } */
+		{ data26 } 
 	};
 }
 
@@ -2138,36 +2138,69 @@ public void search_a_product_in_list(TreeMap<String, String> Prod_name) throws I
 
 	for(WebElement name : names){
 
-		rp.movetoelement(name);
-		Thread.sleep(650);
+		String name_text = name.getText().trim();
 
-		WebElement Tooltip = p.tooltip();
-		String list_names = Tooltip.getText().trim();
+		if(name_text.endsWith("...")) {
 
-		Report_Listen.log_print_in_report().info("🔹 Searched Product: " + Product_Name + " | Fetched Product: " + list_names);
-		System.out.println("🔹 Searched Product: " + Product_Name);
-		System.out.println("🔹 Fetched Product: " + list_names);
-		System.out.println();
+			rp.movetoelement(name);
+			Thread.sleep(650);
 
-		if(list_names.contains(Product_Name)){
+			WebElement Tooltip = p.tooltip();
+			String list_names = Tooltip.getText().trim();
 
-			Report_Listen.log_print_in_report().pass("✅ Product search validation passed. Searched Product: " + Product_Name + " | Fetched Product: " + list_names);
-			System.out.println("✅ Product search validation passed.");
-			System.out.println("✅ Searched Product: " + Product_Name);
-			System.out.println("✅ Fetched Product: " + list_names);
+			Report_Listen.log_print_in_report().info("🔹 Searched Product: " + Product_Name + " | Fetched Product: " + list_names);
+			System.out.println("🔹 Searched Product: " + Product_Name);
+			System.out.println("🔹 Fetched Product: " + list_names);
 			System.out.println();
 
-			break;
-		}
-		else{
+			if(list_names.contains(Product_Name)){
 
-			Report_Listen.log_print_in_report().fail("❌ Product search validation failed. Searched Product: " + Product_Name + " | Fetched Product: " + list_names);
-			System.out.println("❌ Product search validation failed.");
-			System.out.println("❌ Searched Product: " + Product_Name);
-			System.out.println("❌ Fetched Product: " + list_names);
-			System.out.println();
+				Report_Listen.log_print_in_report().pass("✅ Product search validation passed. Searched Product: " + Product_Name + " | Fetched Product: " + list_names);
+				System.out.println("✅ Product search validation passed.");
+				System.out.println("✅ Searched Product: " + Product_Name);
+				System.out.println("✅ Fetched Product: " + list_names);
+				System.out.println();
+
+				break;
+			}
+			else{
+
+				Report_Listen.log_print_in_report().fail("❌ Product search validation failed. Searched Product: " + Product_Name + " | Fetched Product: " + list_names);
+				System.out.println("❌ Product search validation failed.");
+				System.out.println("❌ Searched Product: " + Product_Name);
+				System.out.println("❌ Fetched Product: " + list_names);
+				System.out.println();
+			}
 		}
-	}}
+		else {
+
+			Report_Listen.log_print_in_report().info("🔹 Searched Product: " + Product_Name + " | Fetched Product: " + name_text);
+			System.out.println("🔹 Searched Product: " + Product_Name);
+			System.out.println("🔹 Fetched Product: " + name_text);
+			System.out.println();
+
+			if(name_text.contains(Product_Name)){
+
+				Report_Listen.log_print_in_report().pass("✅ Product search validation passed. Searched Product: " + Product_Name + " | Fetched Product: " + name_text);
+				System.out.println("✅ Product search validation passed.");
+				System.out.println("✅ Searched Product: " + Product_Name);
+				System.out.println("✅ Fetched Product: " + name_text);
+				System.out.println();
+
+				break;
+			}
+			else{
+
+				Report_Listen.log_print_in_report().fail("❌ Product search validation failed. Searched Product: " + Product_Name + " | Fetched Product: " + name_text);
+				System.out.println("❌ Product search validation failed.");
+				System.out.println("❌ Searched Product: " + Product_Name);
+				System.out.println("❌ Fetched Product: " + name_text);
+				System.out.println();
+			}
+		}
+	}
+	
+}
 
 public void Negative_Validation_Check_for_Product_Add(List<WebElement> inputs,TreeMap<String, String> Category_Create_Data,TreeMap<String, String> Lab_Test_Create_Data,TreeMap<String, String> Product_data) throws InterruptedException{
 	

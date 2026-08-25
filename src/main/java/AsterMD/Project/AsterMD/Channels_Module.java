@@ -1184,6 +1184,7 @@ public Object[][] Patient_Portal_Combined_Data(){
 	return combined_data;
 }
 	
+
 @Test(dataProvider="Channel_Create_Data")
 public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 		
@@ -1301,6 +1302,448 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 	System.out.println();
 
 	
+}
+
+
+@Test(dataProvider="Product_Create_Data", dataProviderClass=Product_Module.class)
+public void Product_Assign_in_Channel_Add(TreeMap<String, String> Product_data) throws Exception {
+
+	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	String Product_Name = Product_data.get("Product Name");
+
+	int step = 1;
+	boolean Product_Assigned = false;
+
+	try {
+
+		Report_Listen.log_print_in_report().info("──────────────────── 📦 PRODUCT ASSIGNMENT IN CHANNEL STARTED ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Scenario:</b> Search, validate and assign an existing Product from the Channel configuration.");
+		Report_Listen.log_print_in_report().info("<b>Product Name:</b> " + Product_Name);
+		System.out.println("📦 PRODUCT ASSIGNMENT IN CHANNEL STARTED");
+		System.out.println();
+		System.out.println("🔹 Product Name: " + Product_Name);
+		System.out.println();
+		System.out.println("🐞 DEBUG | Product Name received from DataProvider: " + Product_Name);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🧭 CHANNEL MODULE ACCESS ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Access the Channels module.");
+		System.out.println("🧭 CHANNEL MODULE ACCESS");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Accessing the Channels module.");
+		System.out.println();
+
+		Channel_Module_Accessor();
+		Thread.sleep(580);
+
+		Report_Listen.log_print_in_report().pass("✅ Channels module accessed successfully.");
+		System.out.println("✅ Channels module accessed successfully.");
+		System.out.println();
+		System.out.println("🐞 DEBUG | Current URL after Channels module access: " + d.getCurrentUrl());
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 📋 CHANNEL CARD RETRIEVAL ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Retrieve the available Channel cards.");
+		System.out.println("📋 CHANNEL CARD RETRIEVAL");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Retrieving Channel cards.");
+		System.out.println();
+
+		List<WebElement> Card = p.All_Channel_Cards();
+
+		System.out.println("🐞 DEBUG | Total Channel cards fetched: " + Card.size());
+		System.out.println();
+		System.out.println("🐞 DEBUG | Selecting Channel card at index: 0");
+		System.out.println();
+
+		WebElement First_Card = Card.get(0);
+
+		Report_Listen.log_print_in_report().pass("✅ Channel card retrieved successfully.");
+		System.out.println("✅ Channel card retrieved successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── ⚙️ CHANNEL CONFIGURATION ACCESS ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Open the selected Channel configuration.");
+		System.out.println("⚙️ CHANNEL CONFIGURATION ACCESS");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Opening Channel configuration.");
+		System.out.println();
+
+		WebElement First_Card_Config_Button = p.Particular_Cards_Config_Button(First_Card);
+
+		System.out.println("🐞 DEBUG | Channel configuration button fetched successfully.");
+		System.out.println();
+
+		First_Card_Config_Button.click();
+
+		System.out.println("🐞 DEBUG | Channel configuration button clicked.");
+		System.out.println();
+
+		WebElement Form = p.Form();
+		Thread.sleep(880);
+
+		Report_Listen.log_print_in_report().pass("✅ Channel configuration form opened successfully.");
+		System.out.println("✅ Channel configuration form opened successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🛒 PRODUCTS SECTION ACCESS ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Locate the Products section inside Channel configuration.");
+		System.out.println("🛒 PRODUCTS SECTION ACCESS");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Locating Products section.");
+		System.out.println();
+
+		WebElement Products_Section = Form.findElement(By.xpath(".//div[@id='products']"));
+		rp.wait_for_theElement(Products_Section);
+
+		System.out.println("🐞 DEBUG | Products section element located.");
+		System.out.println();
+
+		rp.Scroll_to_element(Products_Section);
+		rp.Scroll_up();
+
+		Report_Listen.log_print_in_report().pass("✅ Products section located successfully.");
+		System.out.println("✅ Products section located successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── ➕ ASSIGN PRODUCTS MODAL ACCESS ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Open the Assign Products modal.");
+		System.out.println("➕ ASSIGN PRODUCTS MODAL ACCESS");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Opening Assign Products modal.");
+		System.out.println();
+
+		WebElement Assign_Product_Button = Products_Section.findElement(By.xpath(".//button[@type='button' and contains(@class,'ant-btn-color-primary ant-btn-variant-solid')]"));
+		rp.wait_for_theElement(Assign_Product_Button);
+
+		System.out.println("🐞 DEBUG | Assign Product button fetched successfully.");
+		System.out.println();
+
+		Assign_Product_Button.click();
+		Thread.sleep(800);
+
+		System.out.println("🐞 DEBUG | Assign Product button clicked.");
+		System.out.println();
+
+		WebElement modal = p.Popup_Modal();
+
+		System.out.println("🐞 DEBUG | Assign Products modal detected successfully.");
+		System.out.println();
+
+		WebElement First_Loader = p.Loader();
+
+		System.out.println("🐞 DEBUG | Initial Product table skeleton loader detected.");
+		System.out.println();
+
+		if(First_Loader != null) {
+			rp.wait_for_invisibilty_of_theElement(First_Loader);
+		}
+
+		System.out.println("🐞 DEBUG | Initial Product table loading completed.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().pass("✅ Assign Products modal opened and initial Product list loaded successfully.");
+		System.out.println("✅ Assign Products modal opened and initial Product list loaded successfully.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🔍 PRODUCT SEARCH ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Search for Product: " + Product_Name);
+		System.out.println("🔍 PRODUCT SEARCH");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Searching for Product: " + Product_Name);
+		System.out.println();
+
+		WebElement modal_search_box = modal.findElement(By.xpath(".//*[@id='search']"));
+		rp.wait_for_theElement(modal_search_box);
+
+		System.out.println("🐞 DEBUG | Assign Products search field fetched successfully.");
+		System.out.println();
+
+		modal_search_box.sendKeys(Product_Name);
+
+		Report_Listen.log_print_in_report().pass("✅ Product Name entered successfully in the Assign Products search field.");
+		System.out.println("✅ Product Name entered successfully in the Assign Products search field.");
+		System.out.println();
+		System.out.println("🐞 DEBUG | Search text entered: " + Product_Name);
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── ⏳ PRODUCT SEARCH LOADING ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Wait for the Product search loading process to complete.");
+		System.out.println("⏳ PRODUCT SEARCH LOADING");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Waiting for Product search results to load.");
+		System.out.println();
+		System.out.println("🐞 DEBUG | Waiting for Product table skeleton loader to disappear.");
+		System.out.println();
+
+		WebElement Loader = p.Loader();
+
+		System.out.println("🐞 DEBUG | Search skeleton loader detected.");
+		System.out.println();
+
+		if(Loader != null) {
+			rp.wait_for_invisibilty_of_theElement(Loader);
+		}
+
+		Report_Listen.log_print_in_report().pass("✅ Product search loading completed successfully.");
+		System.out.println("✅ Product search loading completed successfully.");
+		System.out.println();
+		System.out.println("🐞 DEBUG | Search skeleton loader disappeared.");
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 📋 SEARCH RESULT RETRIEVAL ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Retrieve the Product rows populated after search.");
+		System.out.println("📋 SEARCH RESULT RETRIEVAL");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Retrieving Product rows after search.");
+		System.out.println();
+		System.out.println("🐞 DEBUG | Initializing FluentWait for searched Product rows.");
+		System.out.println();
+
+		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(30)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
+
+		List<WebElement> modal_Table_rows = wait.until(driver -> {
+
+			List<WebElement> rows = modal.findElements(By.xpath(".//tbody//tr[contains(@class,'ant-table-row ant-table-row-level-')]"));
+
+			System.out.println("🐞 DEBUG | FluentWait polling | Product rows currently detected: " + rows.size());
+
+			if(!rows.isEmpty()) {
+				return rows;
+			}
+
+			return null;
+		});
+
+		Report_Listen.log_print_in_report().pass("✅ Product search result rows populated successfully.");
+		System.out.println("✅ Product search result rows populated successfully.");
+		System.out.println();
+		System.out.println("🐞 DEBUG | Total Product rows fetched after search: " + modal_Table_rows.size());
+		System.out.println();
+
+		step++;
+
+		Report_Listen.log_print_in_report().info("──────────────────── 🔎 PRODUCT SEARCH RESULT VALIDATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Validate the returned Product Name and identify the requested Product.");
+		Report_Listen.log_print_in_report().info("<b>Expected Product:</b> " + Product_Name);
+		System.out.println("🔎 PRODUCT SEARCH RESULT VALIDATION");
+		System.out.println();
+		System.out.println("🔹 Step " + step + ": Validating returned Product names.");
+		System.out.println();
+		System.out.println("🔹 Expected Product: " + Product_Name);
+		System.out.println();
+
+		int Row_Index = 1;
+
+		Main_Loop:
+		for(WebElement modal_Table_row : modal_Table_rows) {
+
+			System.out.println("🐞 DEBUG | Processing Product table row index: " + Row_Index);
+
+			List<WebElement> name_column_datas = modal_Table_row.findElements(By.xpath(".//td[2]"));
+			WebElement checkbox = modal_Table_row.findElement(By.xpath(".//label"));
+
+			System.out.println("🐞 DEBUG | Row " + Row_Index + " | Product Name column elements found: " + name_column_datas.size());
+
+			for(WebElement name_column_data : name_column_datas) {
+
+				String name_text = name_column_data.getText().trim();
+
+				System.out.println("🐞 DEBUG | Row " + Row_Index + " | Visible Product Name: " + name_text);
+				System.out.println();
+
+				if(name_text.endsWith("...")) {
+
+					System.out.println("🐞 DEBUG | Row " + Row_Index + " | Product Name is truncated.");
+					System.out.println("🐞 DEBUG | Hovering over Product Name to retrieve full name from tooltip.");
+					System.out.println();
+
+					rp.movetoelement(name_column_data);
+					Thread.sleep(650);
+
+					WebElement Tooltip = p.Tooltip();
+					String list_names = Tooltip.getText().trim();
+
+					System.out.println("🐞 DEBUG | Row " + Row_Index + " | Tooltip Product Name: " + list_names);
+					System.out.println("🐞 DEBUG | Expected Product Name: " + Product_Name);
+					System.out.println();
+
+					if(list_names.contains(Product_Name)) {
+
+						Report_Listen.log_print_in_report().pass("✅ Product search validation passed. Expected Product: " + Product_Name + " | Fetched Product: " + list_names);
+						System.out.println("✅ Product search validation passed.");
+						System.out.println("✅ Expected Product: " + Product_Name);
+						System.out.println("✅ Fetched Product: " + list_names);
+						System.out.println();
+
+						System.out.println("🐞 DEBUG | Matching truncated Product identified at row index: " + Row_Index);
+						System.out.println("🐞 DEBUG | Selecting Product checkbox.");
+						System.out.println();
+
+						checkbox.click();
+
+						Report_Listen.log_print_in_report().pass("✅ Matching Product selected successfully: " + Product_Name);
+						System.out.println("✅ Matching Product selected successfully: " + Product_Name);
+						System.out.println();
+
+						System.out.println("🐞 DEBUG | Retrieving Assign Products submit button.");
+						System.out.println();
+
+						WebElement Submit_Button = p.Modal_Submit_button();
+
+						System.out.println("🐞 DEBUG | Clicking Assign Products submit button.");
+						System.out.println();
+
+						Submit_Button.click();
+						rp.wait_for_invisibilty_of_theElement(Submit_Button);
+
+						System.out.println("🐞 DEBUG | Assign Products modal submission completed.");
+						System.out.println();
+
+						WebElement Confirmation_Message = p.Success_Toast();
+						String Confirmation_Message_Text = Confirmation_Message.getText().trim();
+
+						Report_Listen.log_print_in_report().pass("✅ Product assigned successfully. Confirmation Message: " + Confirmation_Message_Text);
+						System.out.println("✅ Product assigned successfully.");
+						System.out.println("✅ Confirmation Message: " + Confirmation_Message_Text);
+						System.out.println();
+
+						Product_Assigned = true;
+
+						break Main_Loop;
+					}
+					else {
+
+						System.out.println("🐞 DEBUG | Row " + Row_Index + " | Tooltip Product Name did not match expected Product.");
+						System.out.println("🐞 DEBUG | Expected: " + Product_Name);
+						System.out.println("🐞 DEBUG | Actual: " + list_names);
+						System.out.println();
+					}
+				}
+				else {
+
+					System.out.println("🐞 DEBUG | Row " + Row_Index + " | Product Name is not truncated. Tooltip validation is not required.");
+					System.out.println("🐞 DEBUG | Comparing visible Product Name directly with expected Product.");
+					System.out.println("🐞 DEBUG | Expected: " + Product_Name);
+					System.out.println("🐞 DEBUG | Actual: " + name_text);
+					System.out.println();
+
+					if(name_text.contains(Product_Name)) {
+
+						Report_Listen.log_print_in_report().pass("✅ Product search validation passed. Expected Product: " + Product_Name + " | Fetched Product: " + name_text);
+						System.out.println("✅ Product search validation passed.");
+						System.out.println("✅ Expected Product: " + Product_Name);
+						System.out.println("✅ Fetched Product: " + name_text);
+						System.out.println();
+
+						System.out.println("🐞 DEBUG | Matching non-truncated Product identified at row index: " + Row_Index);
+						System.out.println("🐞 DEBUG | Selecting Product checkbox.");
+						System.out.println();
+
+						checkbox.click();
+
+						Report_Listen.log_print_in_report().pass("✅ Matching Product selected successfully: " + Product_Name);
+						System.out.println("✅ Matching Product selected successfully: " + Product_Name);
+						System.out.println();
+
+						System.out.println("🐞 DEBUG | Retrieving Assign Products submit button.");
+						System.out.println();
+
+						WebElement Submit_Button = p.Modal_Submit_button();
+
+						System.out.println("🐞 DEBUG | Clicking Assign Products submit button.");
+						System.out.println();
+
+						Submit_Button.click();
+						rp.wait_for_invisibilty_of_theElement(Submit_Button);
+
+						System.out.println("🐞 DEBUG | Assign Products modal submission completed.");
+						System.out.println();
+
+						WebElement Confirmation_Message = p.Success_Toast();
+						String Confirmation_Message_Text = Confirmation_Message.getText().trim();
+
+						Report_Listen.log_print_in_report().pass("✅ Product assigned successfully. Confirmation Message: " + Confirmation_Message_Text);
+						System.out.println("✅ Product assigned successfully.");
+						System.out.println("✅ Confirmation Message: " + Confirmation_Message_Text);
+						System.out.println();
+
+						Product_Assigned = true;
+
+						break Main_Loop;
+					}
+					else {
+
+						System.out.println("🐞 DEBUG | Row " + Row_Index + " | Visible Product Name did not match expected Product.");
+						System.out.println("🐞 DEBUG | Expected: " + Product_Name);
+						System.out.println("🐞 DEBUG | Actual: " + name_text);
+						System.out.println();
+					}
+				}
+			}
+
+			Row_Index++;
+		}
+
+		if(Product_Assigned) {
+
+			Report_Listen.log_print_in_report().pass("──────────────────── ✅ PRODUCT ASSIGNMENT IN CHANNEL COMPLETED ────────────────────");
+			Report_Listen.log_print_in_report().pass("✅ Product assignment flow completed successfully for Product: " + Product_Name);
+			System.out.println("✅ PRODUCT ASSIGNMENT IN CHANNEL COMPLETED");
+			System.out.println();
+			System.out.println("✅ Product assignment flow completed successfully for Product: " + Product_Name);
+			System.out.println();
+			System.out.println("🐞 DEBUG | Product assignment status: SUCCESS");
+			System.out.println("🐞 DEBUG | Assigned Product: " + Product_Name);
+			System.out.println();
+		}
+		else {
+
+			Report_Listen.log_print_in_report().fail("❌ Product assignment failed because the searched Product was not found in the returned search results: " + Product_Name);
+			System.out.println("❌ Product assignment failed.");
+			System.out.println("❌ Searched Product was not found in the returned search results: " + Product_Name);
+			System.out.println();
+			System.out.println("🐞 DEBUG | Product assignment status: FAILED");
+			System.out.println("🐞 DEBUG | Total Product rows checked: " + modal_Table_rows.size());
+			System.out.println("🐞 DEBUG | Expected Product: " + Product_Name);
+			System.out.println();
+
+			throw new Exception("Searched Product was not found in Assign Products search results: " + Product_Name);
+		}
+	}
+	catch(Exception e) {
+
+		Report_Listen.log_print_in_report().fail("❌ Product assignment flow failed for Product: " + Product_Name);
+		Report_Listen.log_print_in_report().fail("❌ Failure Reason: " + e.getMessage());
+		System.out.println("❌ Product assignment flow failed for Product: " + Product_Name);
+		System.out.println();
+		System.out.println("❌ Failure Reason: " + e.getMessage());
+		System.out.println();
+		System.out.println("🐞 DEBUG | Exception Type: " + e.getClass().getName());
+		System.out.println("🐞 DEBUG | Exception Message: " + e.getMessage());
+		System.out.println("🐞 DEBUG | Current URL at failure: " + d.getCurrentUrl());
+		System.out.println("🐞 DEBUG | Product assignment flag at failure: " + Product_Assigned);
+		System.out.println("🐞 DEBUG | Failed while processing Product: " + Product_Name);
+		System.out.println();
+
+		throw e;
+	}
 }
 
 

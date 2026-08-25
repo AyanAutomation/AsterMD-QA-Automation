@@ -21,7 +21,7 @@ public class Login_Locaters extends Repeat {
 	@FindBy(xpath = "//button[@type='submit']")
 	private WebElement Login_button;
 
-	@FindBy(xpath = "//*[@class='ant-layout-sider-children']")
+	@FindBy(xpath = "//*[@class='header-profile-pill ']")
 	private WebElement login_confirmation;
 	
 	@FindBy(xpath = "//*[contains(@class,'auth-error-alert')]")
