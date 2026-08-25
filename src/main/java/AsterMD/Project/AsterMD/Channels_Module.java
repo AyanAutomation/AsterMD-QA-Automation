@@ -2605,7 +2605,7 @@ public Object[][] Patient_Portal_Create_Data(){
 	data20.put("Emergency Disclaimer", "For acute, severe, or potentially life-threatening conditions, immediately contact the appropriate local emergency service.");
 
 	return new Object[][] {
-		{ data1 },/*
+		{ data1 },
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -2614,7 +2614,7 @@ public Object[][] Patient_Portal_Create_Data(){
 		{ data7 },
 		{ data8 },
 		{ data9 },
-		{ data10 },
+		{ data10 },/*
 		{ data11 },
 		{ data12 },
 		{ data13 },
@@ -2861,8 +2861,9 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 	Report_Listen.log_print_in_report().info("<b>Action:</b> Retrieving the Patient Portal Configuration button.");
 	System.out.println("🔹 Retrieving the Patient Portal Configuration button.");
 	System.out.println();
-
-	WebElement Cnfig_Button = p.Configuration_Button;
+	WebElement Patient_portal_section_in_list = p.Patient_Portal_section();
+	Thread.sleep(800);
+	WebElement Cnfig_Button = Patient_portal_section_in_list.findElement(By.xpath(".//*[text()='Configuration']/.."));;
     Boolean Visibility_Status=rp.check_element_visibility(Cnfig_Button, 3);
 	if(Visibility_Status!=true){
 		 WebElement Save_Settings=p.Save_Settings_Button();
@@ -3514,10 +3515,12 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 		Report_Listen.log_print_in_report().pass("✅ Patient Portal configuration form loaded successfully.");
 		System.out.println("✅ Patient Portal configuration form loaded successfully.");
 		System.out.println();
+
 		WebElement Treatment_Management_Section = p.Treatment_management_Section();
 		rp.wait_for_theElement(Treatment_Management_Section);
 		rp.Scroll_to_element(Treatment_Management_Section);
 		Thread.sleep(500);
+
 		List<WebElement> dropdown_fields = p.Patient_Portal_config_Form_Dropdown_fields(Form);
 
 		Report_Listen.log_print_in_report().info("🔹 Total dropdown fields detected in configuration form: " + dropdown_fields.size());
@@ -3554,8 +3557,6 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 		System.out.println("🩺 TREATMENT MANAGEMENT CONFIGURATION");
 		System.out.println();
 
-		
-
 		Report_Listen.log_print_in_report().pass("✅ Treatment Management section located successfully.");
 		System.out.println("✅ Treatment Management section located successfully.");
 		System.out.println();
@@ -3581,6 +3582,8 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 			rp.wait_for_theElement(Feature_Toggle_Button);
 
 			String Toggle_State = Feature_Toggle_Button.getAttribute("aria-checked");
+
+			System.out.println("🐞 DEBUG | Feature: " + Card_Text + " | Toggle State: " + Toggle_State);
 
 			if(Card_Text.contains("Cancel Treatment")) {
 
@@ -3721,7 +3724,7 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 					System.out.println("❌ Support Consultation default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
 				}
 			}
-            
+
 			if(Card_Text.contains("Cancel Treatment")) {
 
 				System.out.println();
@@ -3730,14 +3733,23 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				System.out.println("🚫 CANCEL TREATMENT CONFIGURATION");
 				System.out.println();
 
-				Report_Listen.log_print_in_report().pass("✅ Cancel Treatment card identified successfully.");
-				System.out.println("✅ Cancel Treatment card identified successfully.");
-				System.out.println();
+				if(Toggle_State.equals("true")) {
 
-				
-				rp.wait_for_theElement(Feature_Toggle_Button);
-				Thread.sleep(500);
-				Feature_Toggle_Button.click();
+					System.out.println("🐞 DEBUG | Cancel Treatment is already enabled. Toggle will not be clicked.");
+					System.out.println("🐞 DEBUG | Opening configuration through Settings button.");
+
+					WebElement Settings_Button = Card.findElement(By.xpath(".//button[not(@role='switch')]"));
+					rp.wait_for_theElement(Settings_Button);
+					Settings_Button.click();
+				}
+				else {
+
+					System.out.println("🐞 DEBUG | Cancel Treatment is disabled. Enabling feature through toggle.");
+
+					rp.wait_for_theElement(Feature_Toggle_Button);
+					Thread.sleep(500);
+					Feature_Toggle_Button.click();
+				}
 
 				Report_Listen.log_print_in_report().pass("✅ Cancel Treatment configuration popup opened successfully.");
 				System.out.println("✅ Cancel Treatment configuration popup opened successfully.");
@@ -3769,10 +3781,6 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='discount_percent' or @id='offer_cooldown_days']"));
 				rp.wait_for_theElement(pop_up_inputs);
 
-				Report_Listen.log_print_in_report().pass("✅ Discount Amount and Offer Cooldown input fields retrieved successfully.");
-				System.out.println("✅ Discount Amount and Offer Cooldown input fields retrieved successfully.");
-				System.out.println();
-
 				pop_up_inputs.get(0).sendKeys(Discount_Amount);
 
 				Report_Listen.log_print_in_report().pass("✅ Discount Amount entered successfully: " + Discount_Amount);
@@ -3800,13 +3808,23 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				System.out.println("📅 CHANGE REFILL DATE CONFIGURATION");
 				System.out.println();
 
-				Report_Listen.log_print_in_report().pass("✅ Change Refill Date card identified successfully.");
-				System.out.println("✅ Change Refill Date card identified successfully.");
-				System.out.println();
+				if(Toggle_State.equals("true")) {
 
-				rp.wait_for_theElement(Feature_Toggle_Button);
-				Thread.sleep(500);
-				Feature_Toggle_Button.click();
+					System.out.println("🐞 DEBUG | Change Refill Date is already enabled. Toggle will not be clicked.");
+					System.out.println("🐞 DEBUG | Opening configuration through Settings button.");
+
+					WebElement Settings_Button = Card.findElement(By.xpath(".//button[not(@role='switch')]"));
+					rp.wait_for_theElement(Settings_Button);
+					Settings_Button.click();
+				}
+				else {
+
+					System.out.println("🐞 DEBUG | Change Refill Date is disabled. Enabling feature through toggle.");
+
+					rp.wait_for_theElement(Feature_Toggle_Button);
+					Thread.sleep(500);
+					Feature_Toggle_Button.click();
+				}
 
 				Report_Listen.log_print_in_report().pass("✅ Change Refill Date configuration popup opened successfully.");
 				System.out.println("✅ Change Refill Date configuration popup opened successfully.");
@@ -3816,10 +3834,6 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 				List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='max_extension_days' or @id='max_reduction_days']"));
 				rp.wait_for_theElement(pop_up_inputs);
-
-				Report_Listen.log_print_in_report().pass("✅ Maximum Extension and Maximum Reduction input fields retrieved successfully.");
-				System.out.println("✅ Maximum Extension and Maximum Reduction input fields retrieved successfully.");
-				System.out.println();
 
 				WebElement Max_Extension = pop_up_inputs.get(0);
 				Max_Extension.sendKeys(Maximum_Extension);
@@ -3850,13 +3864,23 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				System.out.println("🚨 EMERGENCY CONTACT WIDGET CONFIGURATION");
 				System.out.println();
 
-				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Widget card identified successfully.");
-				System.out.println("✅ Emergency Contact Widget card identified successfully.");
-				System.out.println();
+				if(Toggle_State.equals("true")) {
 
-				rp.wait_for_theElement(Feature_Toggle_Button);
-				Thread.sleep(500);
-				Feature_Toggle_Button.click();
+					System.out.println("🐞 DEBUG | Emergency Contact Widget is already enabled. Toggle will not be clicked.");
+					System.out.println("🐞 DEBUG | Opening configuration through Settings button.");
+
+					WebElement Settings_Button = Card.findElement(By.xpath(".//button[not(@role='switch')]"));
+					rp.wait_for_theElement(Settings_Button);
+					Settings_Button.click();
+				}
+				else {
+
+					System.out.println("🐞 DEBUG | Emergency Contact Widget is disabled. Enabling feature through toggle.");
+
+					rp.wait_for_theElement(Feature_Toggle_Button);
+					Thread.sleep(500);
+					Feature_Toggle_Button.click();
+				}
 
 				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Widget configuration popup opened successfully.");
 				System.out.println("✅ Emergency Contact Widget configuration popup opened successfully.");
@@ -3869,10 +3893,6 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 				List<WebElement> pop_up_Textareas = pop_up_form.findElements(By.xpath(".//textarea[@id='title' or @id='description' or @id='disclaimer']"));
 				rp.wait_for_theElement(pop_up_Textareas);
-
-				Report_Listen.log_print_in_report().pass("✅ Emergency Contact input and textarea fields retrieved successfully.");
-				System.out.println("✅ Emergency Contact input and textarea fields retrieved successfully.");
-				System.out.println();
 
 				WebElement Emergency_Contact_Number_Field = pop_up_inputs.get(0);
 				Emergency_Contact_Number_Field.sendKeys(Emergency_Contact_Number);
@@ -3892,18 +3912,14 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				Emergency_Contact_Description_Field.sendKeys(Emergency_Contact_Description);
 
 				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Description entered successfully.");
-				Report_Listen.log_print_in_report().info("Emergency Contact Description: " + Emergency_Contact_Description);
 				System.out.println("✅ Emergency Contact Description entered successfully.");
-				System.out.println("🔹 Emergency Contact Description: " + Emergency_Contact_Description);
 				System.out.println();
 
 				WebElement Emergency_Disclaimer_Field = pop_up_Textareas.get(2);
 				Emergency_Disclaimer_Field.sendKeys(Emergency_Disclaimer);
 
 				Report_Listen.log_print_in_report().pass("✅ Emergency Disclaimer entered successfully.");
-				Report_Listen.log_print_in_report().info("Emergency Disclaimer: " + Emergency_Disclaimer);
 				System.out.println("✅ Emergency Disclaimer entered successfully.");
-				System.out.println("🔹 Emergency Disclaimer: " + Emergency_Disclaimer);
 				System.out.println();
 
 				p.Modal_Save_Settings_Button().click();
@@ -3921,13 +3937,23 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				System.out.println("🗄️ ARCHIVED TREATMENTS CONFIGURATION");
 				System.out.println();
 
-				Report_Listen.log_print_in_report().pass("✅ Archived Treatments card identified successfully.");
-				System.out.println("✅ Archived Treatments card identified successfully.");
-				System.out.println();
+				if(Toggle_State.equals("true")) {
 
-				rp.wait_for_theElement(Feature_Toggle_Button);
-				Thread.sleep(500);
-				Feature_Toggle_Button.click();
+					System.out.println("🐞 DEBUG | Archived Treatments is already enabled. Toggle will not be clicked.");
+					System.out.println("🐞 DEBUG | Opening configuration through Settings button.");
+
+					WebElement Settings_Button = Card.findElement(By.xpath(".//button[not(@role='switch')]"));
+					rp.wait_for_theElement(Settings_Button);
+					Settings_Button.click();
+				}
+				else {
+
+					System.out.println("🐞 DEBUG | Archived Treatments is disabled. Enabling feature through toggle.");
+
+					rp.wait_for_theElement(Feature_Toggle_Button);
+					Thread.sleep(500);
+					Feature_Toggle_Button.click();
+				}
 
 				Report_Listen.log_print_in_report().pass("✅ Archived Treatments configuration popup opened successfully.");
 				System.out.println("✅ Archived Treatments configuration popup opened successfully.");
@@ -3937,10 +3963,6 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 				List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='archive_after_days' or @id='delete_after_days']"));
 				rp.wait_for_theElement(pop_up_inputs);
-
-				Report_Listen.log_print_in_report().pass("✅ Archive and Delete duration fields retrieved successfully.");
-				System.out.println("✅ Archive and Delete duration fields retrieved successfully.");
-				System.out.println();
 
 				WebElement Archive_Completed_Treatments_After_Field = pop_up_inputs.get(0);
 				Archive_Completed_Treatments_After_Field.sendKeys(Archive_Completed_Treatments_After);
@@ -3987,7 +4009,6 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 		System.out.println();
 		System.out.println("✅ Patient Portal configuration flow completed successfully for Portal: " + Portal_Name);
 		System.out.println();
-
 	}
 	catch(Exception e) {
 
