@@ -2,6 +2,7 @@ package Vrio;
 
 import java.util.List;
 import java.util.TreeMap;
+import java.util.stream.IntStream;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -106,7 +107,144 @@ public class Vrio_Enviorement_setup extends Vrio_Login{
 }
 	
 	
-	
+	@DataProvider
+	public Object[][] Offer_Create_Data(){
+
+		TreeMap<String, String> data1 = new TreeMap<String, String>();
+		data1.put("Name", "AsterMD Monthly Wellness Care Offer");
+		data1.put("Offer Type", "Recurring");
+		data1.put("Offer Configuration", "Shared");
+		data1.put("Charge Frequency", "Monthly");
+
+		TreeMap<String, String> data2 = new TreeMap<String, String>();
+		data2.put("Name", "AsterMD Weekly Treatment Access Offer");
+		data2.put("Offer Type", "Recurring");
+		data2.put("Offer Configuration", "Shared");
+		data2.put("Charge Frequency", "Weekly");
+
+		TreeMap<String, String> data3 = new TreeMap<String, String>();
+		data3.put("Name", "AsterMD Daily Care Support Offer");
+		data3.put("Offer Type", "Recurring");
+		data3.put("Offer Configuration", "Custom");
+		data3.put("Charge Frequency", "Daily");
+
+		TreeMap<String, String> data4 = new TreeMap<String, String>();
+		data4.put("Name", "AsterMD Quarterly Health Management Offer");
+		data4.put("Offer Type", "Recurring");
+		data4.put("Offer Configuration", "Shared");
+		data4.put("Charge Frequency", "Quarterly");
+
+		TreeMap<String, String> data5 = new TreeMap<String, String>();
+		data5.put("Name", "AsterMD Yearly Patient Wellness Offer");
+		data5.put("Offer Type", "Recurring");
+		data5.put("Offer Configuration", "Custom");
+		data5.put("Charge Frequency", "Yearly");
+
+		TreeMap<String, String> data6 = new TreeMap<String, String>();
+		data6.put("Name", "AsterMD Monthly Medicine Access Offer");
+		data6.put("Offer Type", "Recurring");
+		data6.put("Offer Configuration", "Custom");
+		data6.put("Charge Frequency", "Monthly");
+
+		TreeMap<String, String> data7 = new TreeMap<String, String>();
+		data7.put("Name", "AsterMD Weekly Care Continuity Offer");
+		data7.put("Offer Type", "Recurring");
+		data7.put("Offer Configuration", "Shared");
+		data7.put("Charge Frequency", "Weekly");
+
+		TreeMap<String, String> data8 = new TreeMap<String, String>();
+		data8.put("Name", "AsterMD Quarterly Wellness Access Offer");
+		data8.put("Offer Type", "Recurring");
+		data8.put("Offer Configuration", "Custom");
+		data8.put("Charge Frequency", "Quarterly");
+
+		TreeMap<String, String> data9 = new TreeMap<String, String>();
+		data9.put("Name", "AsterMD Daily Digital Care Offer");
+		data9.put("Offer Type", "Recurring");
+		data9.put("Offer Configuration", "Shared");
+		data9.put("Charge Frequency", "Daily");
+
+		TreeMap<String, String> data10 = new TreeMap<String, String>();
+		data10.put("Name", "AsterMD Yearly Treatment Support Offer");
+		data10.put("Offer Type", "Recurring");
+		data10.put("Offer Configuration", "Shared");
+		data10.put("Charge Frequency", "Yearly");
+
+		TreeMap<String, String> data11 = new TreeMap<String, String>();
+		data11.put("Name", "AsterMD Monthly Health Support Offer");
+		data11.put("Offer Type", "Recurring");
+		data11.put("Offer Configuration", "Custom");
+		data11.put("Charge Frequency", "Monthly");
+
+		TreeMap<String, String> data12 = new TreeMap<String, String>();
+		data12.put("Name", "AsterMD Weekly Wellness Program Offer");
+		data12.put("Offer Type", "Recurring");
+		data12.put("Offer Configuration", "Custom");
+		data12.put("Charge Frequency", "Weekly");
+
+		TreeMap<String, String> data13 = new TreeMap<String, String>();
+		data13.put("Name", "AsterMD Direct Patient Care Offer");
+		data13.put("Offer Type", "One Time Sale");
+		data13.put("Offer Configuration", "Shared");
+
+		TreeMap<String, String> data14 = new TreeMap<String, String>();
+		data14.put("Name", "AsterMD One Time Wellness Access Offer");
+		data14.put("Offer Type", "One Time Sale");
+		data14.put("Offer Configuration", "Custom");
+
+		TreeMap<String, String> data15 = new TreeMap<String, String>();
+		data15.put("Name", "AsterMD Immediate Treatment Access Offer");
+		data15.put("Offer Type", "One Time Sale");
+		data15.put("Offer Configuration", "Shared");
+
+		TreeMap<String, String> data16 = new TreeMap<String, String>();
+		data16.put("Name", "AsterMD Single Care Purchase Offer");
+		data16.put("Offer Type", "One Time Sale");
+		data16.put("Offer Configuration", "Custom");
+
+		TreeMap<String, String> data17 = new TreeMap<String, String>();
+		data17.put("Name", "AsterMD Patient Support Purchase Offer");
+		data17.put("Offer Type", "One Time Sale");
+		data17.put("Offer Configuration", "Shared");
+
+		TreeMap<String, String> data18 = new TreeMap<String, String>();
+		data18.put("Name", "AsterMD Direct Wellness Purchase Offer");
+		data18.put("Offer Type", "One Time Sale");
+		data18.put("Offer Configuration", "Custom");
+
+		TreeMap<String, String> data19 = new TreeMap<String, String>();
+		data19.put("Name", "AsterMD Care Access Purchase Offer");
+		data19.put("Offer Type", "One Time Sale");
+		data19.put("Offer Configuration", "Shared");
+
+		TreeMap<String, String> data20 = new TreeMap<String, String>();
+		data20.put("Name", "AsterMD Treatment Service Purchase Offer");
+		data20.put("Offer Type", "One Time Sale");
+		data20.put("Offer Configuration", "Custom");
+
+		return new Object[][] {
+			{ data1 },
+			{ data2 },
+			{ data3 },
+			{ data4 },
+			{ data5 },
+			{ data6 },
+			{ data7 },
+			{ data8 },
+			{ data9 },
+			{ data10 },
+			{ data11 },
+			{ data12 },
+			{ data13 },
+			{ data14 },
+			{ data15 },
+			{ data16 },
+			{ data17 },
+			{ data18 },
+			{ data19 },
+			{ data20 } 
+		};
+	}	
 	
 @DataProvider
 public Object[][] Campaign_Create_Data(){
@@ -564,7 +702,7 @@ public void item_Add_Vrio(TreeMap<String, String> Product_data) throws Exception
 	WebElement Submit = p.Submit_Button();
 	Submit.click();
 	rp.wait_for_invisibilty_of_theElement(Submit);
-	Thread.sleep(600);
+	
 	System.out.println("Result : Initial Item details submitted successfully.");
 	System.out.println();
 	
@@ -603,8 +741,179 @@ public void item_Add_Vrio(TreeMap<String, String> Product_data) throws Exception
 	Report_Listen.log_print_in_report().pass("──────────────────── ITEM CREATION COMPLETED ────────────────────");
 }
 
- 
- 
+
+@DataProvider
+public Object[][] Product_Offer_Combined_Data(){
+
+	
+	
+	Object[][] Product_datas = Product_Module.Product_Create_Data();
+	Object[][] Offer_datas = Offer_Create_Data();
+
+	int n = IntStream.of(Product_datas.length, Offer_datas.length).min().orElse(0);
+
+	Object[][] combined_data = new Object[n][2];
+
+	int i = 0;
+	while(i < n) {
+		combined_data[i][0] = Product_datas[i][0];
+		combined_data[i][1] = Offer_datas[i][0];
+		i++;
+	}
+
+	return combined_data;
+}
+
+
+@Test(dataProvider="Product_Offer_Combined_Data")
+public void Offer_Add_Vrio(TreeMap<String, String> Product_data,TreeMap<String, String> Offer_data) throws Exception{
+	 
+	Vrio_Master_Locaters p = new Vrio_Master_Locaters(d);
+	Repeat rp = new Repeat(d);
+	
+	String Product_Name = Product_data.get("Product Name");
+	String Price = Product_data.get("Default Price");
+	String Offer_Name = Offer_data.get("Name");
+	String OfferType = Offer_data.get("Offer Type");
+	String Offer_Config = Offer_data.get("Offer Configuration");
+	String Description = Product_data.get("Description");
+	
+	Module_Accessor("Offers");
+	
+	WebElement Add_Button = p.Offer_Add_Button();
+	Add_Button.click();
+	
+	WebElement add_form = p.Form();
+	
+	List<WebElement> Inputs = add_form.findElements(By.xpath(".//input[@id='offer_name']"));
+	rp.wait_for_theElement(Inputs);
+	
+	WebElement note = add_form.findElement(By.xpath(".//textarea"));
+	rp.wait_for_theElement(note);
+	
+	WebElement Offername = Inputs.get(0);
+	Offername.sendKeys(Offer_Name);
+	
+	List<WebElement> dropdown_field = d.findElements(By.xpath("//span[@id='select2-offer_type_id-container' or @id='select2-offer_cycle_product_type_id-container']"));
+	rp.wait_for_theElement(dropdown_field);
+	
+	WebElement Offer_Type = dropdown_field.get(0);
+	WebElement Offer_Configuration = dropdown_field.get(1);
+	
+	Offer_Type.click();
+	
+	List<WebElement> Offer_Type_options = p.Select_dropdown_options();
+	
+	for(WebElement Offer_Type_option : Offer_Type_options){
+		
+		String text = Offer_Type_option.getText().trim();
+		
+		if(text.contains(OfferType)){
+			
+			Offer_Type_option.click();
+			break;
+		}
+	}
+	
+	if(OfferType.contains("Recurring")){
+		
+		WebElement Time_frame_dropdown_field = d.findElement(By.xpath("//span[@id='select2-charge_timeframe_id-container']"));
+		rp.wait_for_theElement(Time_frame_dropdown_field);
+		Time_frame_dropdown_field.click();
+		
+		WebElement Time_frame_search_field = d.findElement(By.xpath("//input[@aria-controls='select2-charge_timeframe_id-results']"));
+		rp.wait_for_theElement(Time_frame_search_field);
+		
+		String TimeFrame = Offer_data.get("Charge Frequency");
+		Time_frame_search_field.sendKeys(TimeFrame);
+		
+		Thread.sleep(300);
+		
+		List<WebElement> Timeframe_Type_options = p.Select_dropdown_options();
+		
+		for(WebElement Timeframe_Type_option : Timeframe_Type_options){
+			
+			String text = Timeframe_Type_option.getText().trim();
+			
+			if(text.contains(TimeFrame)){
+				
+				Timeframe_Type_option.click();
+				break;
+			}
+		}
+	}
+	else{
+		
+		System.out.println("Offer Type : " + OfferType);
+		System.out.println("Charge Frequency field is not applicable.");
+		System.out.println();
+	}
+	
+	Offer_Configuration.click();
+	
+	List<WebElement> Offer_Configuration_options = p.Select_dropdown_options();
+	
+	for(WebElement Offer_Configuration_option : Offer_Configuration_options){
+		
+		String text = Offer_Configuration_option.getText().trim();
+		
+		if(text.contains(Offer_Config)){
+			
+			Offer_Configuration_option.click();
+			break;
+		}
+	}
+	
+	if(Offer_Config.contains("Custom")){
+		
+		WebElement Item_dropdown_field = d.findElement(By.xpath("//span[@id='select2-item_id-container']"));
+		rp.wait_for_theElement(Item_dropdown_field);
+		
+		WebElement Quick_Price = d.findElement(By.xpath("//input[@id='quick_add_price']"));
+		rp.wait_for_theElement(Quick_Price);
+		
+		Item_dropdown_field.click();
+		
+		WebElement Item_search_field = d.findElement(By.xpath("//input[@aria-controls='select2-item_id-results']"));
+		rp.wait_for_theElement(Item_search_field);
+		Item_search_field.sendKeys(Product_Name);
+		
+		Thread.sleep(300);
+		
+		List<WebElement> item_Type_options = p.Select_dropdown_options();
+		
+		for(WebElement item_Type_option : item_Type_options){
+			
+			String text = item_Type_option.getText().trim();
+			
+			if(text.contains(Product_Name)){
+				
+				item_Type_option.click();
+				break;
+			}
+		}
+		
+		Quick_Price.sendKeys(Price);
+	}
+	else{
+		
+		System.out.println("Offer Configuration : " + Offer_Config);
+		System.out.println("Custom Item and Quick Price fields are not applicable.");
+		System.out.println();
+	}
+	
+	rp.Scroll_to_element(note);
+	note.sendKeys(Description);
+	
+	WebElement Submit = p.Submit_Button();
+	rp.Scroll_to_element(Submit);
+	Thread.sleep(650);
+	Submit.click();
+	rp.wait_for_invisibilty_of_theElement(Submit);
+	WebElement Save = p.Edit_Form_Submit_Button();
+	Save.click();
+	Thread.sleep(400);
+}
  
  
 	public void Vrio_Toast_Printer_closer(WebElement toast){

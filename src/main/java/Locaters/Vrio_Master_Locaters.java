@@ -32,6 +32,8 @@ public class Vrio_Master_Locaters extends Repeat {
 	private WebElement Campaign_Add_Button; 
     @FindBy(xpath="//button[text()='Add Item']")
 	private WebElement Item_Add_Button; 
+    @FindBy(xpath="//button[text()='Add Offer']")
+	private WebElement Offer_Add_Button; 
     @FindBy(xpath="//form[@class='form-offcanvas']")
 	private WebElement Form; 
     @FindBy(xpath="//span[@class='select2-dropdown select2-dropdown--below']//li")
@@ -298,10 +300,10 @@ public class Vrio_Master_Locaters extends Repeat {
 	return Item_Add_Button;} 
 	public WebElement ck_editor(){
 	wait_for_theElement(ck_editor);
-	return ck_editor;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return ck_editor;}
+	public WebElement Offer_Add_Button(){
+	wait_for_theElement(Offer_Add_Button);
+	return Offer_Add_Button;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;} public WebElement (){
