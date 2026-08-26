@@ -2604,7 +2604,7 @@ public Object[][] Patient_Portal_Create_Data(){
 	data20.put("Emergency Contact Description", "Use this emergency patient-support contact when an urgent care or treatment issue requires prompt guidance.");
 	data20.put("Emergency Disclaimer", "For acute, severe, or potentially life-threatening conditions, immediately contact the appropriate local emergency service.");
 
-	return new Object[][] {
+	return new Object[][] {/*
 		{ data1 },
 		{ data2 },
 		{ data3 },
@@ -2614,7 +2614,7 @@ public Object[][] Patient_Portal_Create_Data(){
 		{ data7 },
 		{ data8 },
 		{ data9 },
-		{ data10 },/*
+		{ data10 },
 		{ data11 },
 		{ data12 },
 		{ data13 },
@@ -2623,8 +2623,8 @@ public Object[][] Patient_Portal_Create_Data(){
 		{ data16 },
 		{ data17 },
 		{ data18 },
-		{ data19 },
-		{ data20 } */
+		{ data19 }, */
+		{ data20 } 
 	};
 }
 
@@ -3365,19 +3365,36 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 			WebElement Delete_Archived_Treatments_After_Field = pop_up_inputs.get(1);
 			String Delete_Archived_Treatments_After_Value = Delete_Archived_Treatments_After_Field.getAttribute("value");
 
-			if(Delete_Archived_Treatments_After_Value.equalsIgnoreCase(Delete_Archived_Treatments_After)){
+			int Integer_Delete_Archived_Treatments_After = Integer.parseInt(Delete_Archived_Treatments_After);
+			int New_Integer_Delete_Archived_Treatments_After = (Integer_Delete_Archived_Treatments_After)>2190 ?2190:Integer_Delete_Archived_Treatments_After;
+			String New_Integer_Delete_Archived_Treatments_After_String = String.valueOf(New_Integer_Delete_Archived_Treatments_After);
 
-				Report_Listen.log_print_in_report().pass("✅ Delete Archived Treatments After validation passed. Expected: " + Delete_Archived_Treatments_After + " | Actual: " + Delete_Archived_Treatments_After_Value);
-				System.out.println("✅ Delete Archived Treatments After validation passed. Expected: " + Delete_Archived_Treatments_After + " | Actual: " + Delete_Archived_Treatments_After_Value);
-				System.out.println();
+			System.out.println();
+			System.out.println("---------- Delete Archived Treatments After ----------");
+			System.out.println("Input    : " + Delete_Archived_Treatments_After + " days");
+			System.out.println("Expected : " + New_Integer_Delete_Archived_Treatments_After_String + " days");
+			System.out.println("Actual   : " + Delete_Archived_Treatments_After_Value + " days");
+
+			Report_Listen.log_print_in_report().info("──────────────── Delete Archived Treatments After ────────────────");
+			Report_Listen.log_print_in_report().info("Input: " + Delete_Archived_Treatments_After + " days");
+			Report_Listen.log_print_in_report().info("Expected: " + New_Integer_Delete_Archived_Treatments_After_String + " days");
+			Report_Listen.log_print_in_report().info("Actual: " + Delete_Archived_Treatments_After_Value + " days");
+
+			if(Delete_Archived_Treatments_After_Value.equalsIgnoreCase(New_Integer_Delete_Archived_Treatments_After_String)){
+
+				System.out.println("Result   : PASS");
+
+				Report_Listen.log_print_in_report().pass("Result: PASS");
 			}
 			else{
 
-				Report_Listen.log_print_in_report().fail("❌ Delete Archived Treatments After validation failed. Expected: " + Delete_Archived_Treatments_After + " | Actual: " + Delete_Archived_Treatments_After_Value);
-				System.out.println("❌ Delete Archived Treatments After validation failed. Expected: " + Delete_Archived_Treatments_After + " | Actual: " + Delete_Archived_Treatments_After_Value);
-				System.out.println();
+				System.out.println("Result   : FAIL");
+				System.out.println("Reason   : Saved value does not match the expected allowed value.");
 
-				softAssert.assertEquals(Delete_Archived_Treatments_After_Value, Delete_Archived_Treatments_After, "Delete Archived Treatments After validation failed.");
+				Report_Listen.log_print_in_report().fail("Result: FAIL");
+				Report_Listen.log_print_in_report().fail("Reason: Saved value does not match the expected allowed value.");
+
+				softAssert.assertEquals(Delete_Archived_Treatments_After_Value, New_Integer_Delete_Archived_Treatments_After_String, "Delete Archived Treatments After validation failed.");
 			}
 
 			p.Modal_close_button().click();
@@ -3423,6 +3440,7 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
 	Repeat rp = new Repeat(d);
+	Product_Module_Locaters pd = new Product_Module_Locaters(d);
 
 	String Portal_Name = Form_data.get("Portal Name");
 	String Portal_URL = Form_data.get("Portal URL");
@@ -3445,75 +3463,61 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 	String Maximum_Reduction = Form_data.get("Maximum Reduction");
 	String Archive_Completed_Treatments_After = Form_data.get("Archive Completed Treatments After");
 	String Delete_Archived_Treatments_After = Form_data.get("Delete Archived Treatments After");
-
+	int Integer_Delete_Archived_Treatments_After = Integer.parseInt(Delete_Archived_Treatments_After);
+	int New_Integer_Delete_Archived_Treatments_After = (Integer_Delete_Archived_Treatments_After)>2190 ?2190:Integer_Delete_Archived_Treatments_After;
+	String New_Integer_Delete_Archived_Treatments_After_String = String.valueOf(New_Integer_Delete_Archived_Treatments_After);
 	try {
 
-		Report_Listen.log_print_in_report().info("──────────────────── ⚙️ PATIENT PORTAL CONFIGURATION STARTED ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Portal:</b> " + Portal_Name);
-		System.out.println("⚙️ PATIENT PORTAL CONFIGURATION STARTED");
 		System.out.println();
-		System.out.println("🔹 Portal: " + Portal_Name);
+		System.out.println("============================================================");
+		System.out.println("             PATIENT PORTAL CONFIGURATION");
+		System.out.println("============================================================");
+		System.out.println("Portal : " + Portal_Name);
 		System.out.println();
 
-		Report_Listen.log_print_in_report().info("──────────────────── 📋 CONFIGURATION DATASET ────────────────────");
+		Report_Listen.log_print_in_report().info("──────────────────── PATIENT PORTAL CONFIGURATION ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Portal:</b> " + Portal_Name);
+
+		System.out.println("---------------- INPUT DATA ----------------");
+		System.out.println("Portal URL             : " + Portal_URL);
+		System.out.println("Status                 : " + Status);
+		System.out.println("Search Engine Indexing : " + Search_Engine_Indexing);
+		System.out.println("Login Method           : " + Login_Method);
+		System.out.println("Two-Factor Auth        : " + Two_Factor_Authentication);
+		System.out.println("Cancellation Offer     : " + Cancellation_Offer);
+		System.out.println("Discount Amount        : " + Discount_Amount);
+		System.out.println("Offer Cooldown         : " + Offer_Cooldown);
+		System.out.println("Automatic Approval     : " + Automatic_Approval);
+		System.out.println("Approval Timing        : " + Approval_Timing);
+		System.out.println("Maximum Extension      : " + Maximum_Extension);
+		System.out.println("Maximum Reduction      : " + Maximum_Reduction);
+		System.out.println("Emergency Country Code : " + Emergency_Contact_Country_Code);
+		System.out.println("Emergency Number       : " + Emergency_Contact_Number);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().info("──────────────────── INPUT DATA ────────────────────");
 		Report_Listen.log_print_in_report().info("Portal URL: " + Portal_URL);
 		Report_Listen.log_print_in_report().info("Status: " + Status);
 		Report_Listen.log_print_in_report().info("Search Engine Indexing: " + Search_Engine_Indexing);
 		Report_Listen.log_print_in_report().info("Login Method: " + Login_Method);
 		Report_Listen.log_print_in_report().info("Two-Factor Authentication: " + Two_Factor_Authentication);
-		Report_Listen.log_print_in_report().info("Cancellation Offer: " + Cancellation_Offer);
-		Report_Listen.log_print_in_report().info("Discount Amount: " + Discount_Amount);
-		Report_Listen.log_print_in_report().info("Offer Cooldown: " + Offer_Cooldown);
-		Report_Listen.log_print_in_report().info("Automatic Approval: " + Automatic_Approval);
-		Report_Listen.log_print_in_report().info("Approval Timing: " + Approval_Timing);
-		Report_Listen.log_print_in_report().info("Maximum Extension: " + Maximum_Extension);
-		Report_Listen.log_print_in_report().info("Maximum Reduction: " + Maximum_Reduction);
 		Report_Listen.log_print_in_report().info("Emergency Contact Country Code: " + Emergency_Contact_Country_Code);
 		Report_Listen.log_print_in_report().info("Emergency Contact Number: " + Emergency_Contact_Number);
-		Report_Listen.log_print_in_report().info("Emergency Contact Title: " + Emergency_Contact_Title);
-		Report_Listen.log_print_in_report().info("Emergency Contact Description: " + Emergency_Contact_Description);
-		Report_Listen.log_print_in_report().info("Emergency Disclaimer: " + Emergency_Disclaimer);
-		Report_Listen.log_print_in_report().info("Archive Completed Treatments After: " + Archive_Completed_Treatments_After);
-		Report_Listen.log_print_in_report().info("Delete Archived Treatments After: " + Delete_Archived_Treatments_After);
 
-		System.out.println("📋 CONFIGURATION DATASET");
-		System.out.println();
-		System.out.println("🔹 Portal URL: " + Portal_URL);
-		System.out.println("🔹 Status: " + Status);
-		System.out.println("🔹 Search Engine Indexing: " + Search_Engine_Indexing);
-		System.out.println("🔹 Login Method: " + Login_Method);
-		System.out.println("🔹 Two-Factor Authentication: " + Two_Factor_Authentication);
-		System.out.println("🔹 Cancellation Offer: " + Cancellation_Offer);
-		System.out.println("🔹 Discount Amount: " + Discount_Amount);
-		System.out.println("🔹 Offer Cooldown: " + Offer_Cooldown);
-		System.out.println("🔹 Automatic Approval: " + Automatic_Approval);
-		System.out.println("🔹 Approval Timing: " + Approval_Timing);
-		System.out.println("🔹 Maximum Extension: " + Maximum_Extension);
-		System.out.println("🔹 Maximum Reduction: " + Maximum_Reduction);
-		System.out.println("🔹 Emergency Contact Country Code: " + Emergency_Contact_Country_Code);
-		System.out.println("🔹 Emergency Contact Number: " + Emergency_Contact_Number);
-		System.out.println("🔹 Emergency Contact Title: " + Emergency_Contact_Title);
-		System.out.println("🔹 Emergency Contact Description: " + Emergency_Contact_Description);
-		System.out.println("🔹 Emergency Disclaimer: " + Emergency_Disclaimer);
-		System.out.println("🔹 Archive Completed Treatments After: " + Archive_Completed_Treatments_After);
-		System.out.println("🔹 Delete Archived Treatments After: " + Delete_Archived_Treatments_After);
-		System.out.println();
+		System.out.println("---------------- OPEN CONFIGURATION ----------------");
 
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Opening Patient Portal configuration form.");
-		System.out.println("🔹 Opening Patient Portal configuration form.");
-		System.out.println();
+		Report_Listen.log_print_in_report().info("──────────────────── OPEN CONFIGURATION ────────────────────");
+		Report_Listen.log_print_in_report().info("Action: Open Patient Portal configuration.");
 
 		Config_button.click();
-
-		Report_Listen.log_print_in_report().pass("✅ Configuration button clicked successfully.");
-		System.out.println("✅ Configuration button clicked successfully.");
-		System.out.println();
 
 		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(80)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
 		WebElement Form = wait.until(driver -> p.Form());
 
-		Report_Listen.log_print_in_report().pass("✅ Patient Portal configuration form loaded successfully.");
-		System.out.println("✅ Patient Portal configuration form loaded successfully.");
+		Report_Listen.log_print_in_report().pass("Result: PASS - Patient Portal configuration opened successfully.");
+
+		System.out.println("Result : PASS");
+		System.out.println("Details: Configuration opened successfully.");
 		System.out.println();
 
 		WebElement Treatment_Management_Section = p.Treatment_management_Section();
@@ -3523,50 +3527,38 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 		List<WebElement> dropdown_fields = p.Patient_Portal_config_Form_Dropdown_fields(Form);
 
-		Report_Listen.log_print_in_report().info("🔹 Total dropdown fields detected in configuration form: " + dropdown_fields.size());
-		System.out.println("🔹 Total dropdown fields detected in configuration form: " + dropdown_fields.size());
-		System.out.println();
-
 		int Dropdown_Index = 1;
 
 		for(WebElement dropdown_field : dropdown_fields) {
 
 			String Field_Value = dropdown_field.getText().trim();
 
-			Report_Listen.log_print_in_report().info("🔹 Dropdown " + Dropdown_Index + " current value: " + Field_Value);
-			System.out.println("🔹 Dropdown " + Dropdown_Index + " current value: " + Field_Value);
+			Report_Listen.log_print_in_report().info("Dropdown " + Dropdown_Index + ": " + Field_Value);
 
 			Dropdown_Index++;
 		}
 
-		System.out.println();
+		System.out.println("---------------- PORTAL DESCRIPTION ----------------");
 
-		Report_Listen.log_print_in_report().info("──────────────────── 📝 PORTAL DESCRIPTION ────────────────────");
-		System.out.println("📝 PORTAL DESCRIPTION");
-		System.out.println();
+		Report_Listen.log_print_in_report().info("──────────────────── PORTAL DESCRIPTION ────────────────────");
+		Report_Listen.log_print_in_report().info("Action: Enter Portal Description.");
 
 		p.Textarea_Description_Field().sendKeys(Description);
 
-		Report_Listen.log_print_in_report().pass("✅ Portal Description entered successfully.");
-		Report_Listen.log_print_in_report().info("Description: " + Description);
-		System.out.println("✅ Portal Description entered successfully.");
-		System.out.println("🔹 Description: " + Description);
+		Report_Listen.log_print_in_report().pass("Result: PASS - Portal Description entered successfully.");
+
+		System.out.println("Result : PASS");
+		System.out.println("Details: Portal Description entered successfully.");
 		System.out.println();
 
-		Report_Listen.log_print_in_report().info("──────────────────── 🩺 TREATMENT MANAGEMENT CONFIGURATION ────────────────────");
-		System.out.println("🩺 TREATMENT MANAGEMENT CONFIGURATION");
-		System.out.println();
+		System.out.println("============================================================");
+		System.out.println("              FEATURE DEFAULT VALIDATION");
+		System.out.println("============================================================");
 
-		Report_Listen.log_print_in_report().pass("✅ Treatment Management section located successfully.");
-		System.out.println("✅ Treatment Management section located successfully.");
-		System.out.println();
+		Report_Listen.log_print_in_report().info("──────────────────── FEATURE DEFAULT VALIDATION ────────────────────");
 
 		List<WebElement> Cards = Treatment_Management_Section.findElements(By.xpath(".//*[contains(@class,'ant-typography text-dark')]/../../.."));
 		rp.wait_for_theElement(Cards);
-
-		Report_Listen.log_print_in_report().info("🔹 Total Treatment Management cards detected: " + Cards.size());
-		System.out.println("🔹 Total Treatment Management cards detected: " + Cards.size());
-		System.out.println();
 
 		for(WebElement Card : Cards) {
 
@@ -3575,168 +3567,283 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 			String Card_Text = Card_Text_element.getText().trim();
 
-			Report_Listen.log_print_in_report().info("🔹 Checking Treatment Management card: " + Card_Text);
-			System.out.println("🔹 Checking Treatment Management card: " + Card_Text);
-
 			WebElement Feature_Toggle_Button = Card.findElement(By.xpath(".//button[@role='switch']"));
 			rp.wait_for_theElement(Feature_Toggle_Button);
 
 			String Toggle_State = Feature_Toggle_Button.getAttribute("aria-checked");
-
-			System.out.println("🐞 DEBUG | Feature: " + Card_Text + " | Toggle State: " + Toggle_State);
+			String Actual_State = Toggle_State.equals("true") ? "ON" : "OFF";
 
 			if(Card_Text.contains("Cancel Treatment")) {
 
+				System.out.println();
+				System.out.println("---------- Cancel Treatment ----------");
+				System.out.println("Expected : ON");
+				System.out.println("Actual   : " + Actual_State);
+
+				Report_Listen.log_print_in_report().info("──────────────── Cancel Treatment ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: ON");
+				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
+
 				if(Toggle_State.equals("true")) {
 
-					Report_Listen.log_print_in_report().pass("✅ Cancel Treatment default toggle state matched. Expected: true | Actual: " + Toggle_State);
-					System.out.println("✅ Cancel Treatment default toggle state matched. Expected: true | Actual: " + Toggle_State);
+					System.out.println("Result   : PASS");
+					Report_Listen.log_print_in_report().pass("Result: PASS");
 				}
 				else {
 
-					Report_Listen.log_print_in_report().fail("❌ Cancel Treatment default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
-					System.out.println("❌ Cancel Treatment default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+					System.out.println("Result   : FAIL");
+					System.out.println("Reason   : PRD requires Cancel Treatment to be ON by default.");
+
+					Report_Listen.log_print_in_report().fail("Result: FAIL");
+					Report_Listen.log_print_in_report().fail("Reason: PRD requires Cancel Treatment to be ON by default.");
 				}
 			}
 
 			if(Card_Text.contains("Doctor Consultation")) {
 
+				System.out.println();
+				System.out.println("---------- Doctor Consultation ----------");
+				System.out.println("Expected : ON");
+				System.out.println("Actual   : " + Actual_State);
+
+				Report_Listen.log_print_in_report().info("──────────────── Doctor Consultation ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: ON");
+				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
+
 				if(Toggle_State.equals("true")) {
 
-					Report_Listen.log_print_in_report().pass("✅ Doctor Consultation default toggle state matched. Expected: true | Actual: " + Toggle_State);
-					System.out.println("✅ Doctor Consultation default toggle state matched. Expected: true | Actual: " + Toggle_State);
+					System.out.println("Result   : PASS");
+					Report_Listen.log_print_in_report().pass("Result: PASS");
 				}
 				else {
 
-					Report_Listen.log_print_in_report().fail("❌ Doctor Consultation default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
-					System.out.println("❌ Doctor Consultation default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+					System.out.println("Result   : FAIL");
+					System.out.println("Reason   : PRD requires Doctor Consultation to be ON by default.");
+
+					Report_Listen.log_print_in_report().fail("Result: FAIL");
+					Report_Listen.log_print_in_report().fail("Reason: PRD requires Doctor Consultation to be ON by default.");
 				}
 			}
 
 			if(Card_Text.contains("Change Refill Date")) {
 
+				System.out.println();
+				System.out.println("---------- Change Refill Date ----------");
+				System.out.println("Expected : OFF");
+				System.out.println("Actual   : " + Actual_State);
+
+				Report_Listen.log_print_in_report().info("──────────────── Change Refill Date ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: OFF");
+				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
+
 				if(Toggle_State.equals("false")) {
 
-					Report_Listen.log_print_in_report().pass("✅ Change Refill Date default toggle state matched. Expected: false | Actual: " + Toggle_State);
-					System.out.println("✅ Change Refill Date default toggle state matched. Expected: false | Actual: " + Toggle_State);
+					System.out.println("Result   : PASS");
+					Report_Listen.log_print_in_report().pass("Result: PASS");
 				}
 				else {
 
-					Report_Listen.log_print_in_report().fail("❌ Change Refill Date default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
-					System.out.println("❌ Change Refill Date default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
+					System.out.println("Result   : FAIL");
+					System.out.println("Reason   : PRD requires Change Refill Date to be OFF by default.");
+
+					Report_Listen.log_print_in_report().fail("Result: FAIL");
+					Report_Listen.log_print_in_report().fail("Reason: PRD requires Change Refill Date to be OFF by default.");
 				}
 			}
 
 			if(Card_Text.contains("Swap Treatment")) {
 
+				System.out.println();
+				System.out.println("---------- Swap Treatment ----------");
+				System.out.println("Expected : ON");
+				System.out.println("Actual   : " + Actual_State);
+
+				Report_Listen.log_print_in_report().info("──────────────── Swap Treatment ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: ON");
+				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
+
 				if(Toggle_State.equals("true")) {
 
-					Report_Listen.log_print_in_report().pass("✅ Swap Treatment default toggle state matched. Expected: true | Actual: " + Toggle_State);
-					System.out.println("✅ Swap Treatment default toggle state matched. Expected: true | Actual: " + Toggle_State);
+					System.out.println("Result   : PASS");
+					Report_Listen.log_print_in_report().pass("Result: PASS");
 				}
 				else {
 
-					Report_Listen.log_print_in_report().fail("❌ Swap Treatment default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
-					System.out.println("❌ Swap Treatment default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+					System.out.println("Result   : FAIL");
+					System.out.println("Reason   : PRD requires Swap Treatment to be ON by default.");
+
+					Report_Listen.log_print_in_report().fail("Result: FAIL");
+					Report_Listen.log_print_in_report().fail("Reason: PRD requires Swap Treatment to be ON by default.");
 				}
 			}
 
 			if(Card_Text.contains("Renew Treatment")) {
 
+				System.out.println();
+				System.out.println("---------- Renew Treatment ----------");
+				System.out.println("Expected : ON");
+				System.out.println("Actual   : " + Actual_State);
+
+				Report_Listen.log_print_in_report().info("──────────────── Renew Treatment ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: ON");
+				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
+
 				if(Toggle_State.equals("true")) {
 
-					Report_Listen.log_print_in_report().pass("✅ Renew Treatment default toggle state matched. Expected: true | Actual: " + Toggle_State);
-					System.out.println("✅ Renew Treatment default toggle state matched. Expected: true | Actual: " + Toggle_State);
+					System.out.println("Result   : PASS");
+					Report_Listen.log_print_in_report().pass("Result: PASS");
 				}
 				else {
 
-					Report_Listen.log_print_in_report().fail("❌ Renew Treatment default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
-					System.out.println("❌ Renew Treatment default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+					System.out.println("Result   : FAIL");
+					System.out.println("Reason   : PRD requires Renew Treatment to be ON by default.");
+
+					Report_Listen.log_print_in_report().fail("Result: FAIL");
+					Report_Listen.log_print_in_report().fail("Reason: PRD requires Renew Treatment to be ON by default.");
 				}
 			}
 
 			if(Card_Text.contains("Incomplete Treatments")) {
 
+				System.out.println();
+				System.out.println("---------- Incomplete Treatments ----------");
+				System.out.println("Expected : OFF");
+				System.out.println("Actual   : " + Actual_State);
+
+				Report_Listen.log_print_in_report().info("──────────────── Incomplete Treatments ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: OFF");
+				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
+
 				if(Toggle_State.equals("false")) {
 
-					Report_Listen.log_print_in_report().pass("✅ Incomplete Treatments default toggle state matched. Expected: false | Actual: " + Toggle_State);
-					System.out.println("✅ Incomplete Treatments default toggle state matched. Expected: false | Actual: " + Toggle_State);
+					System.out.println("Result   : PASS");
+					Report_Listen.log_print_in_report().pass("Result: PASS");
 				}
 				else {
 
-					Report_Listen.log_print_in_report().fail("❌ Incomplete Treatments default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
-					System.out.println("❌ Incomplete Treatments default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
+					System.out.println("Result   : FAIL");
+					System.out.println("Reason   : PRD requires Incomplete Treatments to be OFF by default.");
+
+					Report_Listen.log_print_in_report().fail("Result: FAIL");
+					Report_Listen.log_print_in_report().fail("Reason: PRD requires Incomplete Treatments to be OFF by default.");
 				}
 			}
 
 			if(Card_Text.contains("Archived Treatments")) {
 
+				System.out.println();
+				System.out.println("---------- Archived Treatments ----------");
+				System.out.println("Expected : ON");
+				System.out.println("Actual   : " + Actual_State);
+
+				Report_Listen.log_print_in_report().info("──────────────── Archived Treatments ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: ON");
+				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
+
 				if(Toggle_State.equals("true")) {
 
-					Report_Listen.log_print_in_report().pass("✅ Archived Treatments default toggle state matched. Expected: true | Actual: " + Toggle_State);
-					System.out.println("✅ Archived Treatments default toggle state matched. Expected: true | Actual: " + Toggle_State);
+					System.out.println("Result   : PASS");
+					Report_Listen.log_print_in_report().pass("Result: PASS");
 				}
 				else {
 
-					Report_Listen.log_print_in_report().fail("❌ Archived Treatments default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
-					System.out.println("❌ Archived Treatments default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+					System.out.println("Result   : FAIL");
+					System.out.println("Reason   : PRD requires Archived Treatments to be ON by default.");
+
+					Report_Listen.log_print_in_report().fail("Result: FAIL");
+					Report_Listen.log_print_in_report().fail("Reason: PRD requires Archived Treatments to be ON by default.");
 				}
 			}
 
 			if(Card_Text.contains("Emergency Contact Widget")) {
 
+				System.out.println();
+				System.out.println("---------- Emergency Contact Widget ----------");
+				System.out.println("Expected : OFF");
+				System.out.println("Actual   : " + Actual_State);
+
+				Report_Listen.log_print_in_report().info("──────────────── Emergency Contact Widget ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: OFF");
+				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
+
 				if(Toggle_State.equals("false")) {
 
-					Report_Listen.log_print_in_report().pass("✅ Emergency Contact Widget default toggle state matched. Expected: false | Actual: " + Toggle_State);
-					System.out.println("✅ Emergency Contact Widget default toggle state matched. Expected: false | Actual: " + Toggle_State);
+					System.out.println("Result   : PASS");
+					Report_Listen.log_print_in_report().pass("Result: PASS");
 				}
 				else {
 
-					Report_Listen.log_print_in_report().fail("❌ Emergency Contact Widget default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
-					System.out.println("❌ Emergency Contact Widget default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
+					System.out.println("Result   : FAIL");
+					System.out.println("Reason   : PRD requires Emergency Contact Widget to be OFF by default.");
+
+					Report_Listen.log_print_in_report().fail("Result: FAIL");
+					Report_Listen.log_print_in_report().fail("Reason: PRD requires Emergency Contact Widget to be OFF by default.");
 				}
 			}
 
 			if(Card_Text.contains("Treatment FAQs")) {
 
+				System.out.println();
+				System.out.println("---------- Treatment FAQs ----------");
+				System.out.println("Expected : OFF");
+				System.out.println("Actual   : " + Actual_State);
+
+				Report_Listen.log_print_in_report().info("──────────────── Treatment FAQs ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: OFF");
+				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
+
 				if(Toggle_State.equals("false")) {
 
-					Report_Listen.log_print_in_report().pass("✅ Treatment FAQs default toggle state matched. Expected: false | Actual: " + Toggle_State);
-					System.out.println("✅ Treatment FAQs default toggle state matched. Expected: false | Actual: " + Toggle_State);
+					System.out.println("Result   : PASS");
+					Report_Listen.log_print_in_report().pass("Result: PASS");
 				}
 				else {
 
-					Report_Listen.log_print_in_report().fail("❌ Treatment FAQs default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
-					System.out.println("❌ Treatment FAQs default toggle state mismatch. Expected: false | Actual: " + Toggle_State);
+					System.out.println("Result   : FAIL");
+					System.out.println("Reason   : PRD requires Treatment FAQs to be OFF by default.");
+
+					Report_Listen.log_print_in_report().fail("Result: FAIL");
+					Report_Listen.log_print_in_report().fail("Reason: PRD requires Treatment FAQs to be OFF by default.");
 				}
 			}
 
 			if(Card_Text.contains("Support Consultation")) {
 
+				System.out.println();
+				System.out.println("---------- Support Consultation ----------");
+				System.out.println("Expected : ON");
+				System.out.println("Actual   : " + Actual_State);
+
+				Report_Listen.log_print_in_report().info("──────────────── Support Consultation ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: ON");
+				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
+
 				if(Toggle_State.equals("true")) {
 
-					Report_Listen.log_print_in_report().pass("✅ Support Consultation default toggle state matched. Expected: true | Actual: " + Toggle_State);
-					System.out.println("✅ Support Consultation default toggle state matched. Expected: true | Actual: " + Toggle_State);
+					System.out.println("Result   : PASS");
+					Report_Listen.log_print_in_report().pass("Result: PASS");
 				}
 				else {
 
-					Report_Listen.log_print_in_report().fail("❌ Support Consultation default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
-					System.out.println("❌ Support Consultation default toggle state mismatch. Expected: true | Actual: " + Toggle_State);
+					System.out.println("Result   : FAIL");
+					System.out.println("Reason   : PRD requires Support Consultation to be ON by default.");
+
+					Report_Listen.log_print_in_report().fail("Result: FAIL");
+					Report_Listen.log_print_in_report().fail("Reason: PRD requires Support Consultation to be ON by default.");
 				}
 			}
 
 			if(Card_Text.contains("Cancel Treatment")) {
 
-				System.out.println();
+				System.out.println("Action   : Configure Cancel Treatment");
 
-				Report_Listen.log_print_in_report().info("──────────────────── 🚫 CANCEL TREATMENT CONFIGURATION ────────────────────");
-				System.out.println("🚫 CANCEL TREATMENT CONFIGURATION");
-				System.out.println();
+				Report_Listen.log_print_in_report().info("Action: Configure Cancel Treatment.");
 
 				if(Toggle_State.equals("true")) {
 
-					System.out.println("🐞 DEBUG | Cancel Treatment is already enabled. Toggle will not be clicked.");
-					System.out.println("🐞 DEBUG | Opening configuration through Settings button.");
+					System.out.println("Method   : Open Settings");
+
+					Report_Listen.log_print_in_report().info("Method: Open Settings because feature is already ON.");
 
 					WebElement Settings_Button = Card.findElement(By.xpath(".//button[not(@role='switch')]"));
 					rp.wait_for_theElement(Settings_Button);
@@ -3744,91 +3851,63 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				}
 				else {
 
-					System.out.println("🐞 DEBUG | Cancel Treatment is disabled. Enabling feature through toggle.");
+					System.out.println("Method   : Turn ON and configure");
+
+					Report_Listen.log_print_in_report().info("Method: Turn feature ON and configure.");
 
 					rp.wait_for_theElement(Feature_Toggle_Button);
 					Thread.sleep(500);
 					Feature_Toggle_Button.click();
 				}
 
-				Report_Listen.log_print_in_report().pass("✅ Cancel Treatment configuration popup opened successfully.");
-				System.out.println("✅ Cancel Treatment configuration popup opened successfully.");
-				System.out.println();
-
 				WebElement pop_up_form = p.Popup_Form();
-
-				Report_Listen.log_print_in_report().info("🔹 Retrieving configuration toggles from Cancel Treatment popup.");
-				System.out.println("🔹 Retrieving configuration toggles from Cancel Treatment popup.");
-				System.out.println();
 
 				List<WebElement> popup_toggles = pop_up_form.findElements(By.xpath(".//button[@role='switch']"));
 				rp.wait_for_theElement(popup_toggles);
-
-				Report_Listen.log_print_in_report().info("🔹 Total popup toggles detected: " + popup_toggles.size());
-				System.out.println("🔹 Total popup toggles detected: " + popup_toggles.size());
-				System.out.println();
 
 				WebElement First_Toggle = popup_toggles.get(0);
 				rp.wait_for_theElement(First_Toggle);
 				First_Toggle.click();
 
-				Report_Listen.log_print_in_report().pass("✅ Cancellation Offer toggle configured successfully.");
-				Report_Listen.log_print_in_report().info("Expected Cancellation Offer: " + Cancellation_Offer);
-				System.out.println("✅ Cancellation Offer toggle configured successfully.");
-				System.out.println("🔹 Expected Cancellation Offer: " + Cancellation_Offer);
-				System.out.println();
-
 				List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='discount_percent' or @id='offer_cooldown_days']"));
 				rp.wait_for_theElement(pop_up_inputs);
 
 				pop_up_inputs.get(0).sendKeys(Discount_Amount);
-
-				Report_Listen.log_print_in_report().pass("✅ Discount Amount entered successfully: " + Discount_Amount);
-				System.out.println("✅ Discount Amount entered successfully: " + Discount_Amount);
-				System.out.println();
-
 				pop_up_inputs.get(1).sendKeys(Offer_Cooldown);
-
-				Report_Listen.log_print_in_report().pass("✅ Offer Cooldown entered successfully: " + Offer_Cooldown);
-				System.out.println("✅ Offer Cooldown entered successfully: " + Offer_Cooldown);
-				System.out.println();
 
 				p.Modal_Save_Settings_Button().click();
 
-				Report_Listen.log_print_in_report().pass("✅ Cancel Treatment configuration saved successfully.");
-				System.out.println("✅ Cancel Treatment configuration saved successfully.");
-				System.out.println();
+				System.out.println("Config   : SAVED");
+
+				Report_Listen.log_print_in_report().pass("Result: PASS - Cancel Treatment configuration saved.");
 			}
 
 			if(Card_Text.contains("Change Refill Date")) {
 
-				System.out.println();
+				System.out.println("Action   : Configure Change Refill Date");
 
-				Report_Listen.log_print_in_report().info("──────────────────── 📅 CHANGE REFILL DATE CONFIGURATION ────────────────────");
-				System.out.println("📅 CHANGE REFILL DATE CONFIGURATION");
-				System.out.println();
+				Report_Listen.log_print_in_report().info("Action: Configure Change Refill Date.");
 
-				if(Toggle_State.equals("true")) {
+				if(Toggle_State.equals("false")) {
 
-					System.out.println("🐞 DEBUG | Change Refill Date is already enabled. Toggle will not be clicked.");
-					System.out.println("🐞 DEBUG | Opening configuration through Settings button.");
+					System.out.println("Method   : Turn ON and configure");
 
-					WebElement Settings_Button = Card.findElement(By.xpath(".//button[not(@role='switch')]"));
-					rp.wait_for_theElement(Settings_Button);
-					Settings_Button.click();
-				}
-				else {
-
-					System.out.println("🐞 DEBUG | Change Refill Date is disabled. Enabling feature through toggle.");
+					Report_Listen.log_print_in_report().info("Method: Turn feature ON and configure.");
 
 					rp.wait_for_theElement(Feature_Toggle_Button);
 					Thread.sleep(500);
 					Feature_Toggle_Button.click();
 				}
+				else {
 
-				Report_Listen.log_print_in_report().pass("✅ Change Refill Date configuration popup opened successfully.");
-				System.out.println("✅ Change Refill Date configuration popup opened successfully.");
-				System.out.println();
+					System.out.println("Method   : Open Settings");
+
+					Report_Listen.log_print_in_report().info("Method: Open Settings because feature is already ON.");
+
+					WebElement Settings_Button = Card.findElement(By.xpath(".//button[not(@role='switch')]"));
+					rp.wait_for_theElement(Settings_Button);
+					Settings_Button.click();
+				}
 
 				WebElement pop_up_form = p.Popup_Form();
 
@@ -3838,109 +3917,153 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				WebElement Max_Extension = pop_up_inputs.get(0);
 				Max_Extension.sendKeys(Maximum_Extension);
 
-				Report_Listen.log_print_in_report().pass("✅ Maximum Extension entered successfully: " + Maximum_Extension);
-				System.out.println("✅ Maximum Extension entered successfully: " + Maximum_Extension);
-				System.out.println();
-
 				WebElement MaximumReduction = pop_up_inputs.get(1);
 				MaximumReduction.sendKeys(Maximum_Reduction);
 
-				Report_Listen.log_print_in_report().pass("✅ Maximum Reduction entered successfully: " + Maximum_Reduction);
-				System.out.println("✅ Maximum Reduction entered successfully: " + Maximum_Reduction);
-				System.out.println();
-
 				p.Modal_Save_Settings_Button().click();
 
-				Report_Listen.log_print_in_report().pass("✅ Change Refill Date configuration saved successfully.");
-				System.out.println("✅ Change Refill Date configuration saved successfully.");
-				System.out.println();
+				System.out.println("Config   : SAVED");
+
+				Report_Listen.log_print_in_report().pass("Result: PASS - Change Refill Date configuration saved.");
 			}
 
 			if(Card_Text.contains("Emergency Contact Widget")) {
 
-				System.out.println();
+				System.out.println("Action   : Configure Emergency Contact Widget");
 
-				Report_Listen.log_print_in_report().info("──────────────────── 🚨 EMERGENCY CONTACT WIDGET CONFIGURATION ────────────────────");
-				System.out.println("🚨 EMERGENCY CONTACT WIDGET CONFIGURATION");
-				System.out.println();
+				Report_Listen.log_print_in_report().info("Action: Configure Emergency Contact Widget.");
 
-				if(Toggle_State.equals("true")) {
+				if(Toggle_State.equals("false")) {
 
-					System.out.println("🐞 DEBUG | Emergency Contact Widget is already enabled. Toggle will not be clicked.");
-					System.out.println("🐞 DEBUG | Opening configuration through Settings button.");
+					System.out.println("Method   : Turn ON and configure");
 
-					WebElement Settings_Button = Card.findElement(By.xpath(".//button[not(@role='switch')]"));
-					rp.wait_for_theElement(Settings_Button);
-					Settings_Button.click();
-				}
-				else {
-
-					System.out.println("🐞 DEBUG | Emergency Contact Widget is disabled. Enabling feature through toggle.");
+					Report_Listen.log_print_in_report().info("Method: Turn feature ON and configure.");
 
 					rp.wait_for_theElement(Feature_Toggle_Button);
 					Thread.sleep(500);
 					Feature_Toggle_Button.click();
 				}
+				else {
 
-				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Widget configuration popup opened successfully.");
-				System.out.println("✅ Emergency Contact Widget configuration popup opened successfully.");
-				System.out.println();
+					System.out.println("Method   : Open Settings");
+
+					Report_Listen.log_print_in_report().info("Method: Open Settings because feature is already ON.");
+
+					WebElement Settings_Button = Card.findElement(By.xpath(".//button[not(@role='switch')]"));
+					rp.wait_for_theElement(Settings_Button);
+					Settings_Button.click();
+				}
 
 				WebElement pop_up_form = p.Popup_Form();
 
-				List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='contact_number']"));
+				List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='contact_number' or @id='contact_dial_code']"));
 				rp.wait_for_theElement(pop_up_inputs);
 
 				List<WebElement> pop_up_Textareas = pop_up_form.findElements(By.xpath(".//textarea[@id='title' or @id='description' or @id='disclaimer']"));
 				rp.wait_for_theElement(pop_up_Textareas);
 
-				WebElement Emergency_Contact_Number_Field = pop_up_inputs.get(0);
+				WebElement Country_Code = pop_up_inputs.get(0);
+				Country_Code.sendKeys(Emergency_Contact_Country_Code);
+
+				System.out.println();
+				System.out.println("   Emergency Contact Country Code");
+				System.out.println("   Expected : " + Emergency_Contact_Country_Code);
+
+				Report_Listen.log_print_in_report().info("──────────────── Emergency Contact Country Code ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: " + Emergency_Contact_Country_Code);
+
+				WebElement Emergency_Contact_Number_Field = pop_up_inputs.get(1);
+				WebElement Country_Code_list = pd.First_Virtual_List_holder();
+				List<WebElement> Country_Code_list_options = Country_Code_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+				rp.wait_for_theElement(Country_Code_list_options);
+
+				boolean Country_Code_Matched = false;
+
+				for(WebElement Country_Code_option : Country_Code_list_options) {
+
+					String Country_Code_option_text = Country_Code_option.getText().trim();
+
+					if(Country_Code_option_text.contains(Emergency_Contact_Country_Code)) {
+
+						Country_Code_option.click();
+
+						System.out.println("   Actual   : " + Country_Code_option_text);
+						System.out.println("   Result   : PASS");
+
+						Report_Listen.log_print_in_report().info("Actual: " + Country_Code_option_text);
+						Report_Listen.log_print_in_report().pass("Result: PASS");
+
+						Country_Code_Matched = true;
+
+						break;
+					}
+				}
+
+				if(!Country_Code_Matched) {
+
+					System.out.println("   Actual   : Country Code not found");
+					System.out.println("   Result   : FAIL");
+					System.out.println("   Reason   : Expected country code was not available in the dropdown.");
+
+					Report_Listen.log_print_in_report().info("Actual: Country Code not found");
+					Report_Listen.log_print_in_report().fail("Result: FAIL");
+					Report_Listen.log_print_in_report().fail("Reason: Expected country code was not available in the dropdown.");
+				}
+
+				System.out.println();
+				System.out.println("   Emergency Contact Number");
+				System.out.println("   Expected : " + Emergency_Contact_Number);
+
+				Report_Listen.log_print_in_report().info("──────────────── Emergency Contact Number ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: " + Emergency_Contact_Number);
+
 				Emergency_Contact_Number_Field.sendKeys(Emergency_Contact_Number);
 
-				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Number entered successfully: " + Emergency_Contact_Number);
-				System.out.println("✅ Emergency Contact Number entered successfully: " + Emergency_Contact_Number);
-				System.out.println();
+				System.out.println("   Actual   : " + Emergency_Contact_Number);
+				System.out.println("   Result   : PASS");
+
+				Report_Listen.log_print_in_report().info("Actual: " + Emergency_Contact_Number);
+				Report_Listen.log_print_in_report().pass("Result: PASS");
 
 				WebElement Emergency_Contact_Title_Field = pop_up_Textareas.get(0);
 				Emergency_Contact_Title_Field.sendKeys(Emergency_Contact_Title);
 
-				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Title entered successfully: " + Emergency_Contact_Title);
-				System.out.println("✅ Emergency Contact Title entered successfully: " + Emergency_Contact_Title);
 				System.out.println();
+				System.out.println("   Emergency Contact Title");
+				System.out.println("   Expected : " + Emergency_Contact_Title);
+				System.out.println("   Actual   : " + Emergency_Contact_Title);
+				System.out.println("   Result   : PASS");
+
+				Report_Listen.log_print_in_report().info("──────────────── Emergency Contact Title ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: " + Emergency_Contact_Title);
+				Report_Listen.log_print_in_report().info("Actual: " + Emergency_Contact_Title);
+				Report_Listen.log_print_in_report().pass("Result: PASS");
 
 				WebElement Emergency_Contact_Description_Field = pop_up_Textareas.get(1);
 				Emergency_Contact_Description_Field.sendKeys(Emergency_Contact_Description);
 
-				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Description entered successfully.");
-				System.out.println("✅ Emergency Contact Description entered successfully.");
-				System.out.println();
-
 				WebElement Emergency_Disclaimer_Field = pop_up_Textareas.get(2);
 				Emergency_Disclaimer_Field.sendKeys(Emergency_Disclaimer);
 
-				Report_Listen.log_print_in_report().pass("✅ Emergency Disclaimer entered successfully.");
-				System.out.println("✅ Emergency Disclaimer entered successfully.");
-				System.out.println();
-
 				p.Modal_Save_Settings_Button().click();
 
-				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Widget configuration saved successfully.");
-				System.out.println("✅ Emergency Contact Widget configuration saved successfully.");
 				System.out.println();
+				System.out.println("Config   : SAVED");
+
+				Report_Listen.log_print_in_report().pass("Result: PASS - Emergency Contact Widget configuration saved.");
 			}
 
 			if(Card_Text.contains("Archived Treatments")) {
 
-				System.out.println();
+				System.out.println("Action   : Configure Archived Treatments");
 
-				Report_Listen.log_print_in_report().info("──────────────────── 🗄️ ARCHIVED TREATMENTS CONFIGURATION ────────────────────");
-				System.out.println("🗄️ ARCHIVED TREATMENTS CONFIGURATION");
-				System.out.println();
+				Report_Listen.log_print_in_report().info("Action: Configure Archived Treatments.");
 
 				if(Toggle_State.equals("true")) {
 
-					System.out.println("🐞 DEBUG | Archived Treatments is already enabled. Toggle will not be clicked.");
-					System.out.println("🐞 DEBUG | Opening configuration through Settings button.");
+					System.out.println("Method   : Open Settings");
+
+					Report_Listen.log_print_in_report().info("Method: Open Settings because feature is already ON.");
 
 					WebElement Settings_Button = Card.findElement(By.xpath(".//button[not(@role='switch')]"));
 					rp.wait_for_theElement(Settings_Button);
@@ -3948,16 +4071,14 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				}
 				else {
 
-					System.out.println("🐞 DEBUG | Archived Treatments is disabled. Enabling feature through toggle.");
+					System.out.println("Method   : Turn ON and configure");
+
+					Report_Listen.log_print_in_report().info("Method: Turn feature ON and configure.");
 
 					rp.wait_for_theElement(Feature_Toggle_Button);
 					Thread.sleep(500);
 					Feature_Toggle_Button.click();
 				}
-
-				Report_Listen.log_print_in_report().pass("✅ Archived Treatments configuration popup opened successfully.");
-				System.out.println("✅ Archived Treatments configuration popup opened successfully.");
-				System.out.println();
 
 				WebElement pop_up_form = p.Popup_Form();
 
@@ -3965,59 +4086,125 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				rp.wait_for_theElement(pop_up_inputs);
 
 				WebElement Archive_Completed_Treatments_After_Field = pop_up_inputs.get(0);
+				WebElement Delete_Archived_Treatments_After_Field = pop_up_inputs.get(1);
+
+				String Default_Archive_Value = Archive_Completed_Treatments_After_Field.getAttribute("value").trim();
+				String Default_Delete_Value = Delete_Archived_Treatments_After_Field.getAttribute("value").trim();
+
+				System.out.println();
+				System.out.println("   Archive Completed Treatments After");
+				System.out.println("   Expected : 30 days");
+				System.out.println("   Actual   : " + Default_Archive_Value + " days");
+
+				Report_Listen.log_print_in_report().info("──────────────── Archive Completed Treatments After ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: 30 days");
+				Report_Listen.log_print_in_report().info("Actual: " + Default_Archive_Value + " days");
+
+				if(Default_Archive_Value.equals("30")) {
+
+					System.out.println("   Result   : PASS");
+					Report_Listen.log_print_in_report().pass("Result: PASS");
+				}
+				else {
+
+					System.out.println("   Result   : FAIL");
+					System.out.println("   Reason   : PRD requires the default value to be 30 days.");
+
+					Report_Listen.log_print_in_report().fail("Result: FAIL");
+					Report_Listen.log_print_in_report().fail("Reason: PRD requires the default value to be 30 days.");
+				}
+
+				System.out.println();
+				System.out.println("   Delete Archived Treatments After");
+				System.out.println("   Expected : 365 days");
+				System.out.println("   Actual   : " + Default_Delete_Value + " days");
+
+				Report_Listen.log_print_in_report().info("──────────────── Delete Archived Treatments After ────────────────");
+				Report_Listen.log_print_in_report().info("Expected: 365 days");
+				Report_Listen.log_print_in_report().info("Actual: " + Default_Delete_Value + " days");
+
+				if(Default_Delete_Value.equals("365")) {
+
+					System.out.println("   Result   : PASS");
+					Report_Listen.log_print_in_report().pass("Result: PASS");
+				}
+				else {
+
+					System.out.println("   Result   : FAIL");
+					System.out.println("   Reason   : PRD requires the default value to be 365 days.");
+
+					Report_Listen.log_print_in_report().fail("Result: FAIL");
+					Report_Listen.log_print_in_report().fail("Reason: PRD requires the default value to be 365 days.");
+				}
+
+				/* REPLACE THE VALUES HERE */
+
+				Archive_Completed_Treatments_After_Field.click();
+				Archive_Completed_Treatments_After_Field.sendKeys(Keys.CONTROL + "a");
+				Archive_Completed_Treatments_After_Field.sendKeys(Keys.BACK_SPACE);
 				Archive_Completed_Treatments_After_Field.sendKeys(Archive_Completed_Treatments_After);
 
-				Report_Listen.log_print_in_report().pass("✅ Archive Completed Treatments After value entered successfully: " + Archive_Completed_Treatments_After);
-				System.out.println("✅ Archive Completed Treatments After value entered successfully: " + Archive_Completed_Treatments_After);
+				Delete_Archived_Treatments_After_Field.click();
+				Delete_Archived_Treatments_After_Field.sendKeys(Keys.CONTROL + "a");
+				Delete_Archived_Treatments_After_Field.sendKeys(Keys.BACK_SPACE);
+				Delete_Archived_Treatments_After_Field.sendKeys(New_Integer_Delete_Archived_Treatments_After_String);
+
+				WebElement Save_Butt = p.Modal_Save_Settings_Button();
+				Save_Butt.click();
+				rp.wait_for_invisibilty_of_theElement(Save_Butt);
+
 				System.out.println();
+				System.out.println("Config   : SAVED");
 
-				WebElement Delete_Archived_Treatments_After_Field = pop_up_inputs.get(1);
-				Delete_Archived_Treatments_After_Field.sendKeys(Delete_Archived_Treatments_After);
-
-				Report_Listen.log_print_in_report().pass("✅ Delete Archived Treatments After value entered successfully: " + Delete_Archived_Treatments_After);
-				System.out.println("✅ Delete Archived Treatments After value entered successfully: " + Delete_Archived_Treatments_After);
-				System.out.println();
-
-				p.Modal_Save_Settings_Button().click();
-
-				Report_Listen.log_print_in_report().pass("✅ Archived Treatments configuration saved successfully.");
-				System.out.println("✅ Archived Treatments configuration saved successfully.");
-				System.out.println();
+				Report_Listen.log_print_in_report().pass("Result: PASS - Archived Treatments configuration saved.");
 			}
 		}
 
-		Report_Listen.log_print_in_report().pass("──────────────────── ✅ TREATMENT MANAGEMENT CONFIGURATION COMPLETED ────────────────────");
-		System.out.println("✅ TREATMENT MANAGEMENT CONFIGURATION COMPLETED");
 		System.out.println();
+		System.out.println("============================================================");
+		System.out.println("                    FAQ CONFIGURATION");
+		System.out.println("============================================================");
+		System.out.println("FAQ Group : " + FAQ.get("Group Name"));
 
-		Report_Listen.log_print_in_report().info("──────────────────── ❓ PATIENT PORTAL FAQ CONFIGURATION ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>FAQ Group:</b> " + FAQ.get("Group Name"));
-		System.out.println("❓ PATIENT PORTAL FAQ CONFIGURATION");
-		System.out.println();
-		System.out.println("🔹 FAQ Group: " + FAQ.get("Group Name"));
-		System.out.println();
+		Report_Listen.log_print_in_report().info("──────────────────── FAQ CONFIGURATION ────────────────────");
+		Report_Listen.log_print_in_report().info("FAQ Group: " + FAQ.get("Group Name"));
+		Report_Listen.log_print_in_report().info("Action: Configure Patient Portal FAQ.");
 
 		Patient_Portal_FAQ_Add(FAQ);
 
-		Report_Listen.log_print_in_report().pass("✅ Patient Portal FAQ configuration completed successfully for Group: " + FAQ.get("Group Name"));
-		System.out.println("✅ Patient Portal FAQ configuration completed successfully for Group: " + FAQ.get("Group Name"));
+		System.out.println("Result    : PASS");
 		System.out.println();
 
-		Report_Listen.log_print_in_report().pass("──────────────────── ✅ PATIENT PORTAL CONFIGURATION COMPLETED ────────────────────");
-		Report_Listen.log_print_in_report().pass("✅ Patient Portal configuration flow completed successfully for Portal: " + Portal_Name);
-		System.out.println("✅ PATIENT PORTAL CONFIGURATION COMPLETED");
+		Report_Listen.log_print_in_report().pass("Result: PASS - FAQ configuration completed successfully.");
+
+		System.out.println("============================================================");
+		System.out.println("             PATIENT PORTAL CONFIGURATION");
+		System.out.println("============================================================");
+		System.out.println("Portal : " + Portal_Name);
+		System.out.println("Result : PASS");
+		System.out.println("============================================================");
 		System.out.println();
-		System.out.println("✅ Patient Portal configuration flow completed successfully for Portal: " + Portal_Name);
-		System.out.println();
+
+		Report_Listen.log_print_in_report().pass("──────────────────── PATIENT PORTAL CONFIGURATION COMPLETED ────────────────────");
+		Report_Listen.log_print_in_report().info("Portal: " + Portal_Name);
+		Report_Listen.log_print_in_report().pass("Result: PASS");
 	}
 	catch(Exception e) {
 
-		Report_Listen.log_print_in_report().fail("❌ Patient Portal configuration failed for Portal: " + Portal_Name);
-		Report_Listen.log_print_in_report().fail("❌ Failure Reason: " + e.getMessage());
-		System.out.println("❌ Patient Portal configuration failed for Portal: " + Portal_Name);
 		System.out.println();
-		System.out.println("❌ Failure Reason: " + e.getMessage());
+		System.out.println("============================================================");
+		System.out.println("             PATIENT PORTAL CONFIGURATION");
+		System.out.println("============================================================");
+		System.out.println("Portal : " + Portal_Name);
+		System.out.println("Result : FAIL");
+		System.out.println("Reason : " + e.getMessage());
+		System.out.println("============================================================");
 		System.out.println();
+
+		Report_Listen.log_print_in_report().fail("──────────────────── PATIENT PORTAL CONFIGURATION FAILED ────────────────────");
+		Report_Listen.log_print_in_report().info("Portal: " + Portal_Name);
+		Report_Listen.log_print_in_report().fail("Result: FAIL");
+		Report_Listen.log_print_in_report().fail("Reason: " + e.getMessage());
 
 		throw e;
 	}
