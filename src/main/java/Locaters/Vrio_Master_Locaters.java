@@ -51,15 +51,15 @@ public class Vrio_Master_Locaters extends Repeat {
     @FindBy(xpath="//*[@id='jGrowl']//*[contains(@class,'jGrowl-close')]")
     private WebElement Toast_Close_Button; 
     @FindBy(xpath="//*[contains(@class,'ck ck-content ck-editor__editable')]")
-	private WebElement ck_editor; /*
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement ck_editor; 
+    @FindBy(xpath="//input[@id='quick_search_trigger']")
+	private WebElement Search; 
+    @FindBy(xpath="//a[@class='clear_search_filters']")
+	private WebElement Filter_Clear_Button; 
+    @FindBy(xpath="//tbody//tr")
+	private List <WebElement> Table_rows; 
+    @FindBy(xpath="//div[@role='tablist' and @aria-orientation='vertical']")
+	private WebElement Side_Menu_in_Edit_Form; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -303,18 +303,20 @@ public class Vrio_Master_Locaters extends Repeat {
 	return ck_editor;}
 	public WebElement Offer_Add_Button(){
 	wait_for_theElement(Offer_Add_Button);
-	return Offer_Add_Button;}/*
+	return Offer_Add_Button;}
+	public WebElement Search(){
+	wait_for_theElement(Search);
+	return Search;} 
+	public WebElement Filter_Clear_Button(){
+	wait_for_theElement(Filter_Clear_Button);
+	return Filter_Clear_Button;}
+	public List <WebElement> Table_rows(){
+	wait_for_theElement(Table_rows);
+	return Table_rows;}
+	public WebElement Side_Menu_in_Edit_Form(){
+	wait_for_theElement(Side_Menu_in_Edit_Form);
+	return Side_Menu_in_Edit_Form;} /*
 	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){

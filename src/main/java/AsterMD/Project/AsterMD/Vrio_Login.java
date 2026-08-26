@@ -89,7 +89,7 @@ public void Login_to_Vrio() throws Exception{
 		System.out.println("---------------- LOGIN NOTIFICATION CHECK ----------------");
 		
 		WebElement Login_Toast = p.Success_Toast;
-		Boolean Toast_Visibility = rp.check_element_visibility(Login_Toast, 3);
+		Boolean Toast_Visibility = rp.check_element_visibility(Login_Toast, 2);
 		
 		if(Toast_Visibility==true){
 			

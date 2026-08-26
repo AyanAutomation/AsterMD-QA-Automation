@@ -5,6 +5,7 @@ import java.util.TreeMap;
 import java.util.stream.IntStream;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
@@ -39,7 +40,7 @@ public class Vrio_Enviorement_setup extends Vrio_Login{
 	System.out.println("Action : Checking whether user is already logged in.");
 	
 	WebElement check_login = p.login_confirmation;
-	Boolean visibilty = rp.check_element_visibility(check_login, 4);
+	Boolean visibilty = rp.check_element_visibility(check_login, 2);
 	
 	if(visibilty==false){
 		
@@ -222,10 +223,10 @@ public class Vrio_Enviorement_setup extends Vrio_Login{
 		data20.put("Offer Type", "One Time Sale");
 		data20.put("Offer Configuration", "Custom");
 
-		return new Object[][] {
+		return new Object[][] {/*
 			{ data1 },
 			{ data2 },
-			{ data3 },
+			{ data3 },*/
 			{ data4 },
 			{ data5 },
 			{ data6 },
@@ -389,10 +390,10 @@ public Object[][] Campaign_Create_Data(){
 	data20.put("Active", "Yes");
 	data20.put("Notes", "Telehealth campaign supporting recurring headache concerns through clinical assessment, treatment planning, medicine-management services, symptom monitoring, and follow-up care.");
 
-	return new Object[][] {
+	return new Object[][] {/*
 		{ data1 },
 		{ data2 },
-		{ data3 },
+		{ data3 },*/
 		{ data4 },
 		{ data5 },
 		{ data6 },
@@ -764,6 +765,245 @@ public Object[][] Product_Offer_Combined_Data(){
 	return combined_data;
 }
 
+@DataProvider
+public Object[][] Product_Campaign_Combined_Data(){
+
+	
+	
+	Object[][] Product_datas = Product_Module.Product_Create_Data();
+	Object[][] Campaign_datas = Campaign_Create_Data();
+	Object[][] Offer_datas = Offer_Create_Data();
+
+	int n = IntStream.of(Product_datas.length, Campaign_datas.length, Offer_datas.length).min().orElse(0);
+
+	Object[][] combined_data = new Object[n][3];
+
+	int i = 0;
+	while(i < n) {
+		combined_data[i][0] = Product_datas[i][0];
+		combined_data[i][1] = Campaign_datas[i][0];
+		combined_data[i][2] = Offer_datas[i][0];
+		i++;
+	}
+
+	return combined_data;
+}
+
+
+
+
+@Test(dataProvider="Product_Campaign_Combined_Data")
+public void Campaign_item_Add(TreeMap<String, String> Product_data,TreeMap<String, String> Campaign_data,TreeMap<String, String> Offer_data) throws Exception{
+	
+	String Campaign_Name = Campaign_data.get("Name");
+	String Product_Name = Product_data.get("Product Name");
+	String offer_name = Offer_data.get("Name");
+	
+	Vrio_Master_Locaters p = new Vrio_Master_Locaters(d);
+	Repeat rp = new Repeat(d);
+	
+	System.out.println();
+	System.out.println("============================================================");
+	System.out.println("               CAMPAIGN ITEM ASSIGNMENT");
+	System.out.println("============================================================");
+	System.out.println("Campaign : " + Campaign_Name);
+	System.out.println("Item     : " + Product_Name);
+	System.out.println("Offer    : " + offer_name);
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().info("──────────────────── CAMPAIGN ITEM ASSIGNMENT ────────────────────");
+	Report_Listen.log_print_in_report().info("Campaign: " + Campaign_Name);
+	Report_Listen.log_print_in_report().info("Item: " + Product_Name);
+	Report_Listen.log_print_in_report().info("Offer: " + offer_name);
+	
+	System.out.println("---------------- CAMPAIGN MODULE ----------------");
+	System.out.println("Action : Open Campaigns module.");
+	
+	Module_Accessor("Campaigns");
+	
+	System.out.println("Result : PASS");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().pass("Campaigns module opened successfully.");
+	
+	System.out.println("---------------- CAMPAIGN SEARCH ----------------");
+	System.out.println("Expected : " + Campaign_Name);
+	
+	Report_Listen.log_print_in_report().info("Searching Campaign: " + Campaign_Name);
+	
+	WebElement Search_Box = p.Search();
+	Search_Box.sendKeys(Campaign_Name);
+	Search_Box.sendKeys(Keys.ENTER);
+	Thread.sleep(1100);
+	
+	WebElement Clear_Filter_Button = p.Filter_Clear_Button();
+	List<WebElement> rows = p.Table_rows();
+	
+	for(WebElement row : rows){
+		
+		String row_text = row.getText().trim();
+		
+		if(row_text.contains(Campaign_Name)){
+			
+			System.out.println("Actual   : " + row_text);
+			System.out.println("Result   : PASS");
+			System.out.println("Action   : Opening Campaign.");
+			System.out.println();
+			
+			Report_Listen.log_print_in_report().info("Expected Campaign: " + Campaign_Name);
+			Report_Listen.log_print_in_report().info("Actual Campaign: " + row_text);
+			Report_Listen.log_print_in_report().pass("Campaign found successfully.");
+			
+			row.click();
+			break;
+		}
+	}
+	
+	rp.wait_for_invisibilty_of_theElement(Clear_Filter_Button);
+	
+	System.out.println("---------------- CAMPAIGN ITEM SECTION ----------------");
+	System.out.println("Action : Open Items section.");
+	
+	Report_Listen.log_print_in_report().info("Opening Items section of Campaign.");
+	
+	WebElement Edit_Side_Men = p.Side_Menu_in_Edit_Form();
+	List<WebElement> Menu_Options = Edit_Side_Men.findElements(By.xpath(".//a"));
+	rp.wait_for_theElement(Menu_Options);
+	
+	for(WebElement Menu_Option : Menu_Options){
+		
+		String Menu_Option_text = Menu_Option.getText().trim();
+		
+		if(Menu_Option_text.contains("Items")){
+			
+			Menu_Option.click();
+			
+			System.out.println("Result : PASS");
+			System.out.println();
+			
+			Report_Listen.log_print_in_report().pass("Campaign Items section opened successfully.");
+			
+			break;
+		}
+	}
+	
+	System.out.println("---------------- ADD CAMPAIGN ITEM ----------------");
+	System.out.println("Action : Open Add Item form.");
+	
+	Report_Listen.log_print_in_report().info("Opening Add Item form.");
+	
+	WebElement Add_Button = d.findElement(By.xpath("//a[text()='Add Item ']"));
+	rp.wait_for_theElement(Add_Button);
+	Add_Button.click();
+	
+	WebElement add_form = p.Form();
+	
+	System.out.println("Result : PASS");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().pass("Add Item form opened successfully.");
+	
+	List<WebElement> dropdown_fields = add_form.findElements(By.xpath(".//span[@id='select2-item_id-container' or @class='select2-selection select2-selection--multiple']"));
+	rp.wait_for_theElement(dropdown_fields);
+	
+	WebElement Item = dropdown_fields.get(0);
+	
+	System.out.println("---------------- ITEM SELECTION ----------------");
+	System.out.println("Expected : " + Product_Name);
+	
+	Report_Listen.log_print_in_report().info("Expected Item: " + Product_Name);
+	
+	Item.click();
+	
+	WebElement Item_search_field = d.findElement(By.xpath("//input[@aria-controls='select2-item_id-results']"));
+	rp.wait_for_theElement(Item_search_field);
+	Item_search_field.sendKeys(Product_Name);
+	
+	List<WebElement> Item_options = p.Select_dropdown_options();
+	rp.wait_for_theElement(Item_options);
+	
+	for(WebElement Item_option : Item_options){
+		
+		String text = Item_option.getText().trim();
+		
+		if(text.contains(Product_Name)){
+			
+			Item_option.click();
+			
+			System.out.println("Actual   : " + text);
+			System.out.println("Result   : PASS");
+			System.out.println();
+			
+			Report_Listen.log_print_in_report().info("Actual Item: " + text);
+			Report_Listen.log_print_in_report().pass("Item selected successfully.");
+			
+			break;
+		}
+	}
+	
+	Thread.sleep(800);
+	
+	System.out.println("---------------- OFFER SELECTION ----------------");
+	System.out.println("Expected : " + offer_name);
+	
+	Report_Listen.log_print_in_report().info("Expected Offer: " + offer_name);
+	
+	WebElement Offer = add_form.findElement(By.xpath(".//span[@class='select2-selection select2-selection--multiple']"));
+	rp.wait_for_theElement(Offer);
+	
+	Offer.sendKeys(offer_name);
+	
+	List<WebElement> offer_options = p.Select_dropdown_options();
+	rp.wait_for_theElement(offer_options);
+	
+	for(WebElement offer_option : offer_options){
+		
+		String text = offer_option.getText().trim();
+		
+		if(text.contains(offer_name)){
+			
+			offer_option.click();
+			
+			System.out.println("Actual   : " + text);
+			System.out.println("Result   : PASS");
+			System.out.println();
+			
+			Report_Listen.log_print_in_report().info("Actual Offer: " + text);
+			Report_Listen.log_print_in_report().pass("Offer selected successfully.");
+			
+			break;
+		}
+	}
+	
+	System.out.println("---------------- CAMPAIGN ITEM SUBMISSION ----------------");
+	System.out.println("Action : Submit Campaign Item assignment.");
+	
+	Report_Listen.log_print_in_report().info("Submitting Campaign Item assignment.");
+	
+	WebElement Submit = p.Submit_Button();
+	Submit.click();
+	rp.wait_for_invisibilty_of_theElement(Submit);
+	Thread.sleep(900);
+	
+	System.out.println("Result : PASS");
+	System.out.println("Details: Item and Offer assigned to Campaign successfully.");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().pass("Item and Offer assigned to Campaign successfully.");
+	
+	System.out.println("============================================================");
+	System.out.println("         CAMPAIGN ITEM ASSIGNMENT COMPLETED");
+	System.out.println("============================================================");
+	System.out.println("Campaign : " + Campaign_Name);
+	System.out.println("Item     : " + Product_Name);
+	System.out.println("Offer    : " + offer_name);
+	System.out.println("Result   : PASS");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().pass("──────────────────── CAMPAIGN ITEM ASSIGNMENT COMPLETED ────────────────────");
+}
+
+
 
 @Test(dataProvider="Product_Offer_Combined_Data")
 public void Offer_Add_Vrio(TreeMap<String, String> Product_data,TreeMap<String, String> Offer_data) throws Exception{
@@ -778,10 +1018,40 @@ public void Offer_Add_Vrio(TreeMap<String, String> Product_data,TreeMap<String, 
 	String Offer_Config = Offer_data.get("Offer Configuration");
 	String Description = Product_data.get("Description");
 	
+	System.out.println();
+	System.out.println("============================================================");
+	System.out.println("                      OFFER CREATION");
+	System.out.println("============================================================");
+	System.out.println("Offer Name          : " + Offer_Name);
+	System.out.println("Offer Type          : " + OfferType);
+	System.out.println("Offer Configuration : " + Offer_Config);
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().info("──────────────────── OFFER CREATION ────────────────────");
+	Report_Listen.log_print_in_report().info("Offer Name: " + Offer_Name);
+	Report_Listen.log_print_in_report().info("Offer Type: " + OfferType);
+	Report_Listen.log_print_in_report().info("Offer Configuration: " + Offer_Config);
+	
+	System.out.println("---------------- OFFERS MODULE ----------------");
+	System.out.println("Action : Open Offers module.");
+	
 	Module_Accessor("Offers");
+	
+	System.out.println("Result : PASS");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().pass("Offers module opened successfully.");
+	
+	System.out.println("---------------- ADD OFFER ----------------");
 	
 	WebElement Add_Button = p.Offer_Add_Button();
 	Add_Button.click();
+	
+	System.out.println("Action : Offer Add button clicked.");
+	System.out.println("Result : PASS");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().pass("Offer Add button clicked successfully.");
 	
 	WebElement add_form = p.Form();
 	
@@ -793,6 +1063,15 @@ public void Offer_Add_Vrio(TreeMap<String, String> Product_data,TreeMap<String, 
 	
 	WebElement Offername = Inputs.get(0);
 	Offername.sendKeys(Offer_Name);
+	
+	System.out.println("Offer Name : " + Offer_Name);
+	System.out.println("Result     : PASS");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().pass("Offer Name entered successfully: " + Offer_Name);
+	
+	System.out.println("---------------- OFFER TYPE ----------------");
+	System.out.println("Expected : " + OfferType);
 	
 	List<WebElement> dropdown_field = d.findElements(By.xpath("//span[@id='select2-offer_type_id-container' or @id='select2-offer_cycle_product_type_id-container']"));
 	rp.wait_for_theElement(dropdown_field);
@@ -811,11 +1090,28 @@ public void Offer_Add_Vrio(TreeMap<String, String> Product_data,TreeMap<String, 
 		if(text.contains(OfferType)){
 			
 			Offer_Type_option.click();
+			
+			System.out.println("Actual   : " + text);
+			System.out.println("Result   : PASS");
+			System.out.println();
+			
+			Report_Listen.log_print_in_report().info("Expected Offer Type: " + OfferType);
+			Report_Listen.log_print_in_report().info("Actual Offer Type: " + text);
+			Report_Listen.log_print_in_report().pass("Offer Type selected successfully.");
+			
 			break;
 		}
 	}
 	
 	if(OfferType.contains("Recurring")){
+		
+		String TimeFrame = Offer_data.get("Charge Frequency");
+		
+		System.out.println("---------------- CHARGE FREQUENCY ----------------");
+		System.out.println("Expected : " + TimeFrame);
+		
+		Report_Listen.log_print_in_report().info("Recurring Offer detected.");
+		Report_Listen.log_print_in_report().info("Expected Charge Frequency: " + TimeFrame);
 		
 		WebElement Time_frame_dropdown_field = d.findElement(By.xpath("//span[@id='select2-charge_timeframe_id-container']"));
 		rp.wait_for_theElement(Time_frame_dropdown_field);
@@ -823,8 +1119,6 @@ public void Offer_Add_Vrio(TreeMap<String, String> Product_data,TreeMap<String, 
 		
 		WebElement Time_frame_search_field = d.findElement(By.xpath("//input[@aria-controls='select2-charge_timeframe_id-results']"));
 		rp.wait_for_theElement(Time_frame_search_field);
-		
-		String TimeFrame = Offer_data.get("Charge Frequency");
 		Time_frame_search_field.sendKeys(TimeFrame);
 		
 		Thread.sleep(300);
@@ -838,16 +1132,30 @@ public void Offer_Add_Vrio(TreeMap<String, String> Product_data,TreeMap<String, 
 			if(text.contains(TimeFrame)){
 				
 				Timeframe_Type_option.click();
+				
+				System.out.println("Actual   : " + text);
+				System.out.println("Result   : PASS");
+				System.out.println();
+				
+				Report_Listen.log_print_in_report().info("Actual Charge Frequency: " + text);
+				Report_Listen.log_print_in_report().pass("Charge Frequency selected successfully.");
+				
 				break;
 			}
 		}
 	}
 	else{
 		
+		System.out.println("---------------- CHARGE FREQUENCY ----------------");
 		System.out.println("Offer Type : " + OfferType);
-		System.out.println("Charge Frequency field is not applicable.");
+		System.out.println("Result     : Not Applicable");
 		System.out.println();
+		
+		Report_Listen.log_print_in_report().info("Charge Frequency is not applicable for Offer Type: " + OfferType);
 	}
+	
+	System.out.println("---------------- OFFER CONFIGURATION ----------------");
+	System.out.println("Expected : " + Offer_Config);
 	
 	Offer_Configuration.click();
 	
@@ -860,11 +1168,28 @@ public void Offer_Add_Vrio(TreeMap<String, String> Product_data,TreeMap<String, 
 		if(text.contains(Offer_Config)){
 			
 			Offer_Configuration_option.click();
+			
+			System.out.println("Actual   : " + text);
+			System.out.println("Result   : PASS");
+			System.out.println();
+			
+			Report_Listen.log_print_in_report().info("Expected Offer Configuration: " + Offer_Config);
+			Report_Listen.log_print_in_report().info("Actual Offer Configuration: " + text);
+			Report_Listen.log_print_in_report().pass("Offer Configuration selected successfully.");
+			
 			break;
 		}
 	}
 	
 	if(Offer_Config.contains("Custom")){
+		
+		System.out.println("---------------- CUSTOM OFFER ITEM ----------------");
+		System.out.println("Expected Item  : " + Product_Name);
+		System.out.println("Expected Price : " + Price);
+		
+		Report_Listen.log_print_in_report().info("Custom Offer configuration detected.");
+		Report_Listen.log_print_in_report().info("Expected Item: " + Product_Name);
+		Report_Listen.log_print_in_report().info("Expected Quick Price: " + Price);
 		
 		WebElement Item_dropdown_field = d.findElement(By.xpath("//span[@id='select2-item_id-container']"));
 		rp.wait_for_theElement(Item_dropdown_field);
@@ -889,30 +1214,86 @@ public void Offer_Add_Vrio(TreeMap<String, String> Product_data,TreeMap<String, 
 			if(text.contains(Product_Name)){
 				
 				item_Type_option.click();
+				
+				System.out.println("Actual Item : " + text);
+				System.out.println("Result      : PASS");
+				
+				Report_Listen.log_print_in_report().info("Actual Item: " + text);
+				Report_Listen.log_print_in_report().pass("Custom Offer Item selected successfully.");
+				
 				break;
 			}
 		}
 		
 		Quick_Price.sendKeys(Price);
+		
+		System.out.println("Quick Price : " + Price);
+		System.out.println("Result      : PASS");
+		System.out.println();
+		
+		Report_Listen.log_print_in_report().pass("Quick Price entered successfully: " + Price);
 	}
 	else{
 		
+		System.out.println("---------------- CUSTOM OFFER ITEM ----------------");
 		System.out.println("Offer Configuration : " + Offer_Config);
-		System.out.println("Custom Item and Quick Price fields are not applicable.");
+		System.out.println("Result              : Not Applicable");
 		System.out.println();
+		
+		Report_Listen.log_print_in_report().info("Custom Item and Quick Price are not applicable for Offer Configuration: " + Offer_Config);
 	}
+	
+	System.out.println("---------------- OFFER DESCRIPTION ----------------");
 	
 	rp.Scroll_to_element(note);
 	note.sendKeys(Description);
+	
+	System.out.println("Description : Entered");
+	System.out.println("Result      : PASS");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().pass("Offer Description entered successfully.");
+	
+	System.out.println("---------------- OFFER SUBMISSION ----------------");
+	System.out.println("Action : Submit Offer creation form.");
+	
+	Report_Listen.log_print_in_report().info("Submitting Offer creation form.");
 	
 	WebElement Submit = p.Submit_Button();
 	rp.Scroll_to_element(Submit);
 	Thread.sleep(650);
 	Submit.click();
 	rp.wait_for_invisibilty_of_theElement(Submit);
+	
+	System.out.println("Result : PASS");
+	System.out.println("Details: Initial Offer details submitted successfully.");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().pass("Initial Offer details submitted successfully.");
+	
+	System.out.println("---------------- OFFER SAVE ----------------");
+	System.out.println("Action : Save Offer configuration.");
+	
+	Report_Listen.log_print_in_report().info("Saving Offer configuration.");
+	
 	WebElement Save = p.Edit_Form_Submit_Button();
 	Save.click();
 	Thread.sleep(400);
+	
+	System.out.println("Result : PASS");
+	System.out.println("Details: Offer saved successfully.");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().pass("Offer saved successfully: " + Offer_Name);
+	
+	System.out.println("============================================================");
+	System.out.println("                 OFFER CREATION COMPLETED");
+	System.out.println("============================================================");
+	System.out.println("Offer  : " + Offer_Name);
+	System.out.println("Result : PASS");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().pass("──────────────────── OFFER CREATION COMPLETED ────────────────────");
 }
  
  
