@@ -2550,7 +2550,7 @@ public Object[][] Patient_Portal_Create_Data(){
 	data20.put("Emergency Contact Description", "Use this emergency patient-support contact when an urgent care or treatment issue requires prompt guidance.");
 	data20.put("Emergency Disclaimer", "For acute, severe, or potentially life-threatening conditions, immediately contact the appropriate local emergency service.");
 
-	return new Object[][] {/*
+	return new Object[][] {
 		{ data1 },
 		{ data2 },
 		{ data3 },
@@ -2562,15 +2562,15 @@ public Object[][] Patient_Portal_Create_Data(){
 		{ data9 },
 		{ data10 },
 		{ data11 },
-		{ data12 }*/
-		{ data13 },/*
+		{ data12 },
+		{ data13 },
 		{ data14 },
 		{ data15 },
 		{ data16 },
 		{ data17 },
 		{ data18 },
 		{ data19 }, 
-		{ data20 } */
+		{ data20 } 
 	};
 }
 
