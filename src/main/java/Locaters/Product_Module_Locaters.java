@@ -76,9 +76,9 @@ public class Product_Module_Locaters extends Repeat{
     @FindBy(xpath="//tbody//td[contains(@class,'ant-table-cell-with-append')][1]")
 	private List<WebElement> List_first_column_values; 
     @FindBy(xpath="//div[@role='tooltip']")
-	private WebElement tooltip; /*
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement tooltip; 
+    @FindBy(id="pricing")
+	private WebElement Pricing_Section; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -395,10 +395,11 @@ public class Product_Module_Locaters extends Repeat{
 	return Fifth_Virtual_List_holder;} 
 	public WebElement tooltip(){
 	wait_for_theElement(tooltip);
-	return tooltip;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
+	return tooltip;}
+	public WebElement Pricing_Section(){
+	wait_for_theElement(Pricing_Section);
+	return Pricing_Section;}/*
+	 public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){

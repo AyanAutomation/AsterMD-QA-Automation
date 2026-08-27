@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.stream.IntStream;
 
 import com.aventstack.extentreports.ExtentTest;
@@ -426,7 +427,7 @@ public Object[][] Lab_Test_Create_Data(){
 	data20.put("Postal Code / Zip Code", "85034");
 
 	return new Object[][] {
-		{ data1 }, /*
+		{ data1 }, 
 		{ data2 }, 
 		{ data3 }, 
 		{ data4 },
@@ -445,7 +446,7 @@ public Object[][] Lab_Test_Create_Data(){
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } */
+		{ data20 } 
 	};
 }
 
@@ -469,12 +470,35 @@ public static Object[][] Product_Create_Data(){
 	data1.put("Default SKU / Identifier", "AST-VED-701");
 	data1.put("Condition Treated", "Erectile Dysfunction");
 	data1.put("Restrict Multiple Active Prescriptions", "No");
-	data1.put("Pricing Type", "Single Item");
-	data1.put("Intro Price", "27.40");
-	data1.put("Default Price", "46.90");
-	data1.put("Sale Price", "38.25");
-	data1.put("Sale Start Date", "09/01/2026");
-	data1.put("Sales End Date", "12/31/2026");
+	data1.put("Pricing Type", "Variant Based");
+	data1.put("Variant Count", "3");
+	data1.put("Variant 1 Name", "30 Tablet Supply");
+	data1.put("Variant 1 Description", "Thirty-tablet treatment supply configured as the entry-level AsterVigora product variant for short-duration patient treatment and catalog testing.");
+	data1.put("Variant 1 Intro Price", "27.40");
+	data1.put("Variant 1 Default Price", "46.90");
+	data1.put("Variant 1 Sale Price", "38.25");
+	data1.put("Variant 1 Sale Start Date", "09/01/2026");
+	data1.put("Variant 1 Sales End Date", "12/31/2026");
+	data1.put("Variant 1 SKU / Identifier", "AST-VED-701-V1");
+	data1.put("Variant 1 Swappable with", "");
+	data1.put("Variant 2 Name", "60 Tablet Supply");
+	data1.put("Variant 2 Description", "Sixty-tablet treatment supply intended for patients requiring an extended AsterVigora treatment quantity within the same product configuration.");
+	data1.put("Variant 2 Intro Price", "49.90");
+	data1.put("Variant 2 Default Price", "84.50");
+	data1.put("Variant 2 Sale Price", "69.80");
+	data1.put("Variant 2 Sale Start Date", "09/01/2026");
+	data1.put("Variant 2 Sales End Date", "12/31/2026");
+	data1.put("Variant 2 SKU / Identifier", "AST-VED-701-V2");
+	data1.put("Variant 2 Swappable with", "");
+	data1.put("Variant 3 Name", "90 Tablet Supply");
+	data1.put("Variant 3 Description", "Ninety-tablet extended treatment supply configured for longer-duration AsterVigora product-management and recurring patient-care scenarios.");
+	data1.put("Variant 3 Intro Price", "69.75");
+	data1.put("Variant 3 Default Price", "119.90");
+	data1.put("Variant 3 Sale Price", "98.40");
+	data1.put("Variant 3 Sale Start Date", "09/01/2026");
+	data1.put("Variant 3 Sales End Date", "12/31/2026");
+	data1.put("Variant 3 SKU / Identifier", "AST-VED-701-V3");
+	data1.put("Variant 3 Swappable with", "");
 	data1.put("Lab Test", "No");
 
 	TreeMap<String, String> data2 = new TreeMap<String, String>();
@@ -491,18 +515,41 @@ public static Object[][] Product_Create_Data(){
 	data2.put("Default SKU / Identifier", "AST-TCC-702");
 	data2.put("Condition Treated", "Premature Ejaculation");
 	data2.put("Restrict Multiple Active Prescriptions", "No");
-	data2.put("Pricing Type", "Single Item");
-	data2.put("Intro Price", "24.65");
-	data2.put("Default Price", "42.80");
-	data2.put("Sale Price", "34.95");
-	data2.put("Sale Start Date", "09/03/2026");
-	data2.put("Sales End Date", "12/28/2026");
+	data2.put("Pricing Type", "Variant Based");
+	data2.put("Variant Count", "3");
+	data2.put("Variant 1 Name", "30 Capsule Supply");
+	data2.put("Variant 1 Description", "Thirty-capsule starter supply of AsterTempo configured for initial treatment and short-duration catalog workflows.");
+	data2.put("Variant 1 Intro Price", "24.65");
+	data2.put("Variant 1 Default Price", "42.80");
+	data2.put("Variant 1 Sale Price", "34.95");
+	data2.put("Variant 1 Sale Start Date", "09/03/2026");
+	data2.put("Variant 1 Sales End Date", "12/28/2026");
+	data2.put("Variant 1 SKU / Identifier", "AST-TCC-702-V1");
+	data2.put("Variant 1 Swappable with", "");
+	data2.put("Variant 2 Name", "60 Capsule Supply");
+	data2.put("Variant 2 Description", "Sixty-capsule extended supply configured for patients continuing AsterTempo treatment beyond the initial treatment quantity.");
+	data2.put("Variant 2 Intro Price", "45.90");
+	data2.put("Variant 2 Default Price", "78.50");
+	data2.put("Variant 2 Sale Price", "64.25");
+	data2.put("Variant 2 Sale Start Date", "09/03/2026");
+	data2.put("Variant 2 Sales End Date", "12/28/2026");
+	data2.put("Variant 2 SKU / Identifier", "AST-TCC-702-V2");
+	data2.put("Variant 2 Swappable with", "");
+	data2.put("Variant 3 Name", "90 Capsule Supply");
+	data2.put("Variant 3 Description", "Ninety-capsule long-duration supply configured for extended AsterTempo treatment-management and prescription workflow testing.");
+	data2.put("Variant 3 Intro Price", "65.40");
+	data2.put("Variant 3 Default Price", "111.90");
+	data2.put("Variant 3 Sale Price", "91.80");
+	data2.put("Variant 3 Sale Start Date", "09/03/2026");
+	data2.put("Variant 3 Sales End Date", "12/28/2026");
+	data2.put("Variant 3 SKU / Identifier", "AST-TCC-702-V3");
+	data2.put("Variant 3 Swappable with", "");
 	data2.put("Lab Test", "No");
 
 	TreeMap<String, String> data3 = new TreeMap<String, String>();
 	data3.put("Product Name", "AsterAmora Libido Support Tablets");
 	data3.put("Product Image", Paths.get(Image_Path, "AsterAmora Libido Support Tablets.png").toString());
-	data3.put("Description", "A synthetic libido-support catalog product prepared for QA validation of male sexual-wellness workflows, condition association, stock availability, quantity boundaries, product visibility, intake-form linkage, SKU uniqueness, and pricing configuration.");
+	data3.put("Description", "A synthetic libido-support catalog product prepared for QA validation of wellness workflows, condition association, stock availability, quantity boundaries, product visibility, intake-form linkage, SKU uniqueness, and pricing configuration.");
 	data3.put("Product Type", "Standard");
 	data3.put("Category", "Male Libido Wellness Support Products");
 	data3.put("Visibility", "Public");
@@ -513,12 +560,35 @@ public static Object[][] Product_Create_Data(){
 	data3.put("Default SKU / Identifier", "AST-ALS-703");
 	data3.put("Condition Treated", "Low Libido");
 	data3.put("Restrict Multiple Active Prescriptions", "No");
-	data3.put("Pricing Type", "Single Item");
-	data3.put("Intro Price", "22.30");
-	data3.put("Default Price", "39.75");
-	data3.put("Sale Price", "32.10");
-	data3.put("Sale Start Date", "09/05/2026");
-	data3.put("Sales End Date", "12/26/2026");
+	data3.put("Pricing Type", "Variant Based");
+	data3.put("Variant Count", "3");
+	data3.put("Variant 1 Name", "30 Tablet Supply");
+	data3.put("Variant 1 Description", "Thirty-tablet AsterAmora wellness supply configured for initial patient-use and short-duration product-management scenarios.");
+	data3.put("Variant 1 Intro Price", "22.30");
+	data3.put("Variant 1 Default Price", "39.75");
+	data3.put("Variant 1 Sale Price", "32.10");
+	data3.put("Variant 1 Sale Start Date", "09/05/2026");
+	data3.put("Variant 1 Sales End Date", "12/26/2026");
+	data3.put("Variant 1 SKU / Identifier", "AST-ALS-703-V1");
+	data3.put("Variant 1 Swappable with", "");
+	data3.put("Variant 2 Name", "60 Tablet Supply");
+	data3.put("Variant 2 Description", "Sixty-tablet AsterAmora supply created for extended wellness-support and longer patient-care product workflows.");
+	data3.put("Variant 2 Intro Price", "41.90");
+	data3.put("Variant 2 Default Price", "72.50");
+	data3.put("Variant 2 Sale Price", "58.90");
+	data3.put("Variant 2 Sale Start Date", "09/05/2026");
+	data3.put("Variant 2 Sales End Date", "12/26/2026");
+	data3.put("Variant 2 SKU / Identifier", "AST-ALS-703-V2");
+	data3.put("Variant 2 Swappable with", "");
+	data3.put("Variant 3 Name", "90 Tablet Supply");
+	data3.put("Variant 3 Description", "Ninety-tablet AsterAmora supply intended for extended-duration wellness support and variant-based catalog validation.");
+	data3.put("Variant 3 Intro Price", "59.40");
+	data3.put("Variant 3 Default Price", "103.90");
+	data3.put("Variant 3 Sale Price", "84.50");
+	data3.put("Variant 3 Sale Start Date", "09/05/2026");
+	data3.put("Variant 3 Sales End Date", "12/26/2026");
+	data3.put("Variant 3 SKU / Identifier", "AST-ALS-703-V3");
+	data3.put("Variant 3 Swappable with", "");
 	data3.put("Lab Test", "No");
 
 	TreeMap<String, String> data4 = new TreeMap<String, String>();
@@ -535,12 +605,35 @@ public static Object[][] Product_Create_Data(){
 	data4.put("Default SKU / Identifier", "AST-ATG-704");
 	data4.put("Condition Treated", "Low Testosterone");
 	data4.put("Restrict Multiple Active Prescriptions", "No");
-	data4.put("Pricing Type", "Single Item");
-	data4.put("Intro Price", "52.80");
-	data4.put("Default Price", "86.45");
-	data4.put("Sale Price", "72.90");
-	data4.put("Sale Start Date", "09/07/2026");
-	data4.put("Sales End Date", "12/24/2026");
+	data4.put("Pricing Type", "Variant Based");
+	data4.put("Variant Count", "3");
+	data4.put("Variant 1 Name", "30 g Tube");
+	data4.put("Variant 1 Description", "Single 30 gram AsterAndrix gel tube configured as the base treatment variant for low-testosterone product workflows.");
+	data4.put("Variant 1 Intro Price", "52.80");
+	data4.put("Variant 1 Default Price", "86.45");
+	data4.put("Variant 1 Sale Price", "72.90");
+	data4.put("Variant 1 Sale Start Date", "09/07/2026");
+	data4.put("Variant 1 Sales End Date", "12/24/2026");
+	data4.put("Variant 1 SKU / Identifier", "AST-ATG-704-V1");
+	data4.put("Variant 1 Swappable with", "");
+	data4.put("Variant 2 Name", "60 g Twin Pack");
+	data4.put("Variant 2 Description", "Two-tube AsterAndrix gel configuration providing a combined 60 gram supply for extended treatment-management workflows.");
+	data4.put("Variant 2 Intro Price", "96.50");
+	data4.put("Variant 2 Default Price", "158.90");
+	data4.put("Variant 2 Sale Price", "134.75");
+	data4.put("Variant 2 Sale Start Date", "09/07/2026");
+	data4.put("Variant 2 Sales End Date", "12/24/2026");
+	data4.put("Variant 2 SKU / Identifier", "AST-ATG-704-V2");
+	data4.put("Variant 2 Swappable with", "");
+	data4.put("Variant 3 Name", "90 g Triple Pack");
+	data4.put("Variant 3 Description", "Three-tube AsterAndrix gel configuration providing a 90 gram extended supply for longer treatment-duration scenarios.");
+	data4.put("Variant 3 Intro Price", "137.40");
+	data4.put("Variant 3 Default Price", "224.60");
+	data4.put("Variant 3 Sale Price", "189.90");
+	data4.put("Variant 3 Sale Start Date", "09/07/2026");
+	data4.put("Variant 3 Sales End Date", "12/24/2026");
+	data4.put("Variant 3 SKU / Identifier", "AST-ATG-704-V3");
+	data4.put("Variant 3 Swappable with", "");
 	data4.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data5 = new TreeMap<String, String>();
@@ -557,12 +650,35 @@ public static Object[][] Product_Create_Data(){
 	data5.put("Default SKU / Identifier", "AST-FMF-705");
 	data5.put("Condition Treated", "Male Infertility");
 	data5.put("Restrict Multiple Active Prescriptions", "No");
-	data5.put("Pricing Type", "Single Item");
-	data5.put("Intro Price", "44.75");
-	data5.put("Default Price", "75.60");
-	data5.put("Sale Price", "62.85");
-	data5.put("Sale Start Date", "09/09/2026");
-	data5.put("Sales End Date", "12/22/2026");
+	data5.put("Pricing Type", "Variant Based");
+	data5.put("Variant Count", "3");
+	data5.put("Variant 1 Name", "30 Capsule Supply");
+	data5.put("Variant 1 Description", "Thirty-capsule AsterFertilux supply configured for initial fertility-support treatment and patient-care workflows.");
+	data5.put("Variant 1 Intro Price", "44.75");
+	data5.put("Variant 1 Default Price", "75.60");
+	data5.put("Variant 1 Sale Price", "62.85");
+	data5.put("Variant 1 Sale Start Date", "09/09/2026");
+	data5.put("Variant 1 Sales End Date", "12/22/2026");
+	data5.put("Variant 1 SKU / Identifier", "AST-FMF-705-V1");
+	data5.put("Variant 1 Swappable with", "");
+	data5.put("Variant 2 Name", "60 Capsule Supply");
+	data5.put("Variant 2 Description", "Sixty-capsule AsterFertilux configuration designed for extended fertility-support and treatment-management scenarios.");
+	data5.put("Variant 2 Intro Price", "83.50");
+	data5.put("Variant 2 Default Price", "139.90");
+	data5.put("Variant 2 Sale Price", "116.75");
+	data5.put("Variant 2 Sale Start Date", "09/09/2026");
+	data5.put("Variant 2 Sales End Date", "12/22/2026");
+	data5.put("Variant 2 SKU / Identifier", "AST-FMF-705-V2");
+	data5.put("Variant 2 Swappable with", "");
+	data5.put("Variant 3 Name", "90 Capsule Supply");
+	data5.put("Variant 3 Description", "Ninety-capsule AsterFertilux extended supply intended for longer fertility-care programs and variant-based product testing.");
+	data5.put("Variant 3 Intro Price", "119.75");
+	data5.put("Variant 3 Default Price", "198.40");
+	data5.put("Variant 3 Sale Price", "164.90");
+	data5.put("Variant 3 Sale Start Date", "09/09/2026");
+	data5.put("Variant 3 Sales End Date", "12/22/2026");
+	data5.put("Variant 3 SKU / Identifier", "AST-FMF-705-V3");
+	data5.put("Variant 3 Swappable with", "");
 	data5.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data6 = new TreeMap<String, String>();
@@ -579,12 +695,35 @@ public static Object[][] Product_Create_Data(){
 	data6.put("Default SKU / Identifier", "AST-CFD-706");
 	data6.put("Condition Treated", "Male Pattern Hair Loss");
 	data6.put("Restrict Multiple Active Prescriptions", "No");
-	data6.put("Pricing Type", "Single Item");
-	data6.put("Intro Price", "19.80");
-	data6.put("Default Price", "36.95");
-	data6.put("Sale Price", "29.70");
-	data6.put("Sale Start Date", "09/11/2026");
-	data6.put("Sales End Date", "12/20/2026");
+	data6.put("Pricing Type", "Variant Based");
+	data6.put("Variant Count", "3");
+	data6.put("Variant 1 Name", "60 g Can");
+	data6.put("Variant 1 Description", "Single 60 gram AsterCrest foam can configured as the standard follicular-care treatment variant.");
+	data6.put("Variant 1 Intro Price", "19.80");
+	data6.put("Variant 1 Default Price", "36.95");
+	data6.put("Variant 1 Sale Price", "29.70");
+	data6.put("Variant 1 Sale Start Date", "09/11/2026");
+	data6.put("Variant 1 Sales End Date", "12/20/2026");
+	data6.put("Variant 1 SKU / Identifier", "AST-CFD-706-V1");
+	data6.put("Variant 1 Swappable with", "");
+	data6.put("Variant 2 Name", "120 g Twin Pack");
+	data6.put("Variant 2 Description", "Twin-pack AsterCrest configuration containing two 60 gram foam cans for extended hair-care treatment.");
+	data6.put("Variant 2 Intro Price", "36.75");
+	data6.put("Variant 2 Default Price", "68.90");
+	data6.put("Variant 2 Sale Price", "55.40");
+	data6.put("Variant 2 Sale Start Date", "09/11/2026");
+	data6.put("Variant 2 Sales End Date", "12/20/2026");
+	data6.put("Variant 2 SKU / Identifier", "AST-CFD-706-V2");
+	data6.put("Variant 2 Swappable with", "");
+	data6.put("Variant 3 Name", "180 g Triple Pack");
+	data6.put("Variant 3 Description", "Three-can AsterCrest configuration providing a combined 180 gram supply for longer hair-restoration programs.");
+	data6.put("Variant 3 Intro Price", "52.90");
+	data6.put("Variant 3 Default Price", "98.50");
+	data6.put("Variant 3 Sale Price", "79.25");
+	data6.put("Variant 3 Sale Start Date", "09/11/2026");
+	data6.put("Variant 3 Sales End Date", "12/20/2026");
+	data6.put("Variant 3 SKU / Identifier", "AST-CFD-706-V3");
+	data6.put("Variant 3 Swappable with", "");
 	data6.put("Lab Test", "No");
 
 	TreeMap<String, String> data7 = new TreeMap<String, String>();
@@ -601,12 +740,35 @@ public static Object[][] Product_Create_Data(){
 	data7.put("Default SKU / Identifier", "AST-ASR-707");
 	data7.put("Condition Treated", "Alopecia");
 	data7.put("Restrict Multiple Active Prescriptions", "No");
-	data7.put("Pricing Type", "Single Item");
-	data7.put("Intro Price", "18.55");
-	data7.put("Default Price", "34.70");
-	data7.put("Sale Price", "27.95");
-	data7.put("Sale Start Date", "09/13/2026");
-	data7.put("Sales End Date", "12/18/2026");
+	data7.put("Pricing Type", "Variant Based");
+	data7.put("Variant Count", "3");
+	data7.put("Variant 1 Name", "30 mL Bottle");
+	data7.put("Variant 1 Description", "Single 30 mL AsterAlovera serum bottle configured for short-duration scalp-renewal and alopecia-care workflows.");
+	data7.put("Variant 1 Intro Price", "18.55");
+	data7.put("Variant 1 Default Price", "34.70");
+	data7.put("Variant 1 Sale Price", "27.95");
+	data7.put("Variant 1 Sale Start Date", "09/13/2026");
+	data7.put("Variant 1 Sales End Date", "12/18/2026");
+	data7.put("Variant 1 SKU / Identifier", "AST-ASR-707-V1");
+	data7.put("Variant 1 Swappable with", "");
+	data7.put("Variant 2 Name", "60 mL Bottle");
+	data7.put("Variant 2 Description", "Sixty-milliliter AsterAlovera serum configuration designed for extended scalp-treatment and hair-care use.");
+	data7.put("Variant 2 Intro Price", "34.20");
+	data7.put("Variant 2 Default Price", "64.50");
+	data7.put("Variant 2 Sale Price", "51.80");
+	data7.put("Variant 2 Sale Start Date", "09/13/2026");
+	data7.put("Variant 2 Sales End Date", "12/18/2026");
+	data7.put("Variant 2 SKU / Identifier", "AST-ASR-707-V2");
+	data7.put("Variant 2 Swappable with", "");
+	data7.put("Variant 3 Name", "90 mL Bottle");
+	data7.put("Variant 3 Description", "Ninety-milliliter AsterAlovera serum configuration intended for longer scalp-renewal treatment and catalog scenarios.");
+	data7.put("Variant 3 Intro Price", "48.90");
+	data7.put("Variant 3 Default Price", "91.75");
+	data7.put("Variant 3 Sale Price", "73.60");
+	data7.put("Variant 3 Sale Start Date", "09/13/2026");
+	data7.put("Variant 3 Sales End Date", "12/18/2026");
+	data7.put("Variant 3 SKU / Identifier", "AST-ASR-707-V3");
+	data7.put("Variant 3 Swappable with", "");
 	data7.put("Lab Test", "No");
 
 	TreeMap<String, String> data8 = new TreeMap<String, String>();
@@ -623,12 +785,35 @@ public static Object[][] Product_Create_Data(){
 	data8.put("Default SKU / Identifier", "AST-MWC-708");
 	data8.put("Condition Treated", "Obesity");
 	data8.put("Restrict Multiple Active Prescriptions", "No");
-	data8.put("Pricing Type", "Single Item");
-	data8.put("Intro Price", "36.40");
-	data8.put("Default Price", "61.80");
-	data8.put("Sale Price", "50.25");
-	data8.put("Sale Start Date", "09/15/2026");
-	data8.put("Sales End Date", "12/16/2026");
+	data8.put("Pricing Type", "Variant Based");
+	data8.put("Variant Count", "3");
+	data8.put("Variant 1 Name", "30 Capsule Supply");
+	data8.put("Variant 1 Description", "Thirty-capsule AsterMetrix supply configured as the introductory weight-management treatment variant.");
+	data8.put("Variant 1 Intro Price", "36.40");
+	data8.put("Variant 1 Default Price", "61.80");
+	data8.put("Variant 1 Sale Price", "50.25");
+	data8.put("Variant 1 Sale Start Date", "09/15/2026");
+	data8.put("Variant 1 Sales End Date", "12/16/2026");
+	data8.put("Variant 1 SKU / Identifier", "AST-MWC-708-V1");
+	data8.put("Variant 1 Swappable with", "");
+	data8.put("Variant 2 Name", "60 Capsule Supply");
+	data8.put("Variant 2 Description", "Sixty-capsule AsterMetrix configuration intended for extended weight-management and metabolic-care programs.");
+	data8.put("Variant 2 Intro Price", "68.50");
+	data8.put("Variant 2 Default Price", "114.90");
+	data8.put("Variant 2 Sale Price", "93.80");
+	data8.put("Variant 2 Sale Start Date", "09/15/2026");
+	data8.put("Variant 2 Sales End Date", "12/16/2026");
+	data8.put("Variant 2 SKU / Identifier", "AST-MWC-708-V2");
+	data8.put("Variant 2 Swappable with", "");
+	data8.put("Variant 3 Name", "90 Capsule Supply");
+	data8.put("Variant 3 Description", "Ninety-capsule AsterMetrix extended treatment supply created for longer-duration weight-management workflows.");
+	data8.put("Variant 3 Intro Price", "97.25");
+	data8.put("Variant 3 Default Price", "164.50");
+	data8.put("Variant 3 Sale Price", "133.90");
+	data8.put("Variant 3 Sale Start Date", "09/15/2026");
+	data8.put("Variant 3 Sales End Date", "12/16/2026");
+	data8.put("Variant 3 SKU / Identifier", "AST-MWC-708-V3");
+	data8.put("Variant 3 Swappable with", "");
 	data8.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data9 = new TreeMap<String, String>();
@@ -645,12 +830,35 @@ public static Object[][] Product_Create_Data(){
 	data9.put("Default SKU / Identifier", "AST-THW-709");
 	data9.put("Condition Treated", "Overweight");
 	data9.put("Restrict Multiple Active Prescriptions", "No");
-	data9.put("Pricing Type", "Single Item");
-	data9.put("Intro Price", "29.90");
-	data9.put("Default Price", "51.65");
-	data9.put("Sale Price", "42.20");
-	data9.put("Sale Start Date", "09/17/2026");
-	data9.put("Sales End Date", "12/14/2026");
+	data9.put("Pricing Type", "Variant Based");
+	data9.put("Variant Count", "3");
+	data9.put("Variant 1 Name", "30 Tablet Supply");
+	data9.put("Variant 1 Description", "Thirty-tablet AsterTrimora supply configured as the standard introductory healthy-weight management variant.");
+	data9.put("Variant 1 Intro Price", "29.90");
+	data9.put("Variant 1 Default Price", "51.65");
+	data9.put("Variant 1 Sale Price", "42.20");
+	data9.put("Variant 1 Sale Start Date", "09/17/2026");
+	data9.put("Variant 1 Sales End Date", "12/14/2026");
+	data9.put("Variant 1 SKU / Identifier", "AST-THW-709-V1");
+	data9.put("Variant 1 Swappable with", "");
+	data9.put("Variant 2 Name", "60 Tablet Supply");
+	data9.put("Variant 2 Description", "Sixty-tablet AsterTrimora configuration created for patients continuing a longer healthy-weight support program.");
+	data9.put("Variant 2 Intro Price", "56.50");
+	data9.put("Variant 2 Default Price", "96.90");
+	data9.put("Variant 2 Sale Price", "79.25");
+	data9.put("Variant 2 Sale Start Date", "09/17/2026");
+	data9.put("Variant 2 Sales End Date", "12/14/2026");
+	data9.put("Variant 2 SKU / Identifier", "AST-THW-709-V2");
+	data9.put("Variant 2 Swappable with", "");
+	data9.put("Variant 3 Name", "90 Tablet Supply");
+	data9.put("Variant 3 Description", "Ninety-tablet AsterTrimora extended supply configured for longer-term weight-management and variant testing.");
+	data9.put("Variant 3 Intro Price", "80.40");
+	data9.put("Variant 3 Default Price", "139.50");
+	data9.put("Variant 3 Sale Price", "113.80");
+	data9.put("Variant 3 Sale Start Date", "09/17/2026");
+	data9.put("Variant 3 Sales End Date", "12/14/2026");
+	data9.put("Variant 3 SKU / Identifier", "AST-THW-709-V3");
+	data9.put("Variant 3 Swappable with", "");
 	data9.put("Lab Test", "No");
 
 	TreeMap<String, String> data10 = new TreeMap<String, String>();
@@ -689,12 +897,35 @@ public static Object[][] Product_Create_Data(){
 	data11.put("Default SKU / Identifier", "AST-DMT-711");
 	data11.put("Condition Treated", "Type 2 Diabetes");
 	data11.put("Restrict Multiple Active Prescriptions", "No");
-	data11.put("Pricing Type", "Single Item");
-	data11.put("Intro Price", "42.60");
-	data11.put("Default Price", "72.85");
-	data11.put("Sale Price", "60.40");
-	data11.put("Sale Start Date", "09/21/2026");
-	data11.put("Sales End Date", "12/10/2026");
+	data11.put("Pricing Type", "Variant Based");
+	data11.put("Variant Count", "3");
+	data11.put("Variant 1 Name", "30 Tablet Supply");
+	data11.put("Variant 1 Description", "Thirty-tablet AsterDiaBalance treatment supply configured as the initial metabolic-care product variant.");
+	data11.put("Variant 1 Intro Price", "42.60");
+	data11.put("Variant 1 Default Price", "72.85");
+	data11.put("Variant 1 Sale Price", "60.40");
+	data11.put("Variant 1 Sale Start Date", "09/21/2026");
+	data11.put("Variant 1 Sales End Date", "12/10/2026");
+	data11.put("Variant 1 SKU / Identifier", "AST-DMT-711-V1");
+	data11.put("Variant 1 Swappable with", "");
+	data11.put("Variant 2 Name", "60 Tablet Supply");
+	data11.put("Variant 2 Description", "Sixty-tablet AsterDiaBalance treatment supply intended for extended metabolic and glucose-management workflows.");
+	data11.put("Variant 2 Intro Price", "79.90");
+	data11.put("Variant 2 Default Price", "136.40");
+	data11.put("Variant 2 Sale Price", "112.90");
+	data11.put("Variant 2 Sale Start Date", "09/21/2026");
+	data11.put("Variant 2 Sales End Date", "12/10/2026");
+	data11.put("Variant 2 SKU / Identifier", "AST-DMT-711-V2");
+	data11.put("Variant 2 Swappable with", "");
+	data11.put("Variant 3 Name", "90 Tablet Supply");
+	data11.put("Variant 3 Description", "Ninety-tablet AsterDiaBalance extended treatment supply configured for longer metabolic-care programs.");
+	data11.put("Variant 3 Intro Price", "114.50");
+	data11.put("Variant 3 Default Price", "195.75");
+	data11.put("Variant 3 Sale Price", "161.90");
+	data11.put("Variant 3 Sale Start Date", "09/21/2026");
+	data11.put("Variant 3 Sales End Date", "12/10/2026");
+	data11.put("Variant 3 SKU / Identifier", "AST-DMT-711-V3");
+	data11.put("Variant 3 Swappable with", "");
 	data11.put("Lab Test", "Yes");
 
 	TreeMap<String, String> data12 = new TreeMap<String, String>();
@@ -711,12 +942,35 @@ public static Object[][] Product_Create_Data(){
 	data12.put("Default SKU / Identifier", "AST-SSS-712");
 	data12.put("Condition Treated", "Insomnia");
 	data12.put("Restrict Multiple Active Prescriptions", "No");
-	data12.put("Pricing Type", "Single Item");
-	data12.put("Intro Price", "21.40");
-	data12.put("Default Price", "39.95");
-	data12.put("Sale Price", "32.60");
-	data12.put("Sale Start Date", "09/23/2026");
-	data12.put("Sales End Date", "12/08/2026");
+	data12.put("Pricing Type", "Variant Based");
+	data12.put("Variant Count", "3");
+	data12.put("Variant 1 Name", "30 Tablet Supply");
+	data12.put("Variant 1 Description", "Thirty-tablet AsterSomnera sleep-treatment supply configured for short-duration insomnia-care and initial treatment workflows.");
+	data12.put("Variant 1 Intro Price", "21.40");
+	data12.put("Variant 1 Default Price", "39.95");
+	data12.put("Variant 1 Sale Price", "32.60");
+	data12.put("Variant 1 Sale Start Date", "09/23/2026");
+	data12.put("Variant 1 Sales End Date", "12/08/2026");
+	data12.put("Variant 1 SKU / Identifier", "AST-SSS-712-V1");
+	data12.put("Variant 1 Swappable with", "");
+	data12.put("Variant 2 Name", "60 Tablet Supply");
+	data12.put("Variant 2 Description", "Sixty-tablet AsterSomnera treatment supply intended for extended insomnia-management and continued sleep-care scenarios.");
+	data12.put("Variant 2 Intro Price", "39.60");
+	data12.put("Variant 2 Default Price", "73.90");
+	data12.put("Variant 2 Sale Price", "60.25");
+	data12.put("Variant 2 Sale Start Date", "09/23/2026");
+	data12.put("Variant 2 Sales End Date", "12/08/2026");
+	data12.put("Variant 2 SKU / Identifier", "AST-SSS-712-V2");
+	data12.put("Variant 2 Swappable with", "");
+	data12.put("Variant 3 Name", "90 Tablet Supply");
+	data12.put("Variant 3 Description", "Ninety-tablet AsterSomnera extended treatment supply configured for longer-duration insomnia and sleep-management workflows.");
+	data12.put("Variant 3 Intro Price", "56.75");
+	data12.put("Variant 3 Default Price", "105.40");
+	data12.put("Variant 3 Sale Price", "85.90");
+	data12.put("Variant 3 Sale Start Date", "09/23/2026");
+	data12.put("Variant 3 Sales End Date", "12/08/2026");
+	data12.put("Variant 3 SKU / Identifier", "AST-SSS-712-V3");
+	data12.put("Variant 3 Swappable with", "");
 	data12.put("Lab Test", "No");
 
 	TreeMap<String, String> data13 = new TreeMap<String, String>();
@@ -986,7 +1240,7 @@ public static Object[][] Product_Create_Data(){
 	TreeMap<String, String> data25 = new TreeMap<String, String>();
 	data25.put("Product Name", "AsterSafeGuard STI Care Pack");
 	data25.put("Product Image", Paths.get(Image_Path, "AsterSafeGuard STI Care Pack.png").toString());
-	data25.put("Description", "A synthetic sexual-health care product created for automated STI-related catalog scenarios. The dataset supports condition selection, category mapping, inventory controls, visibility, purchase restrictions, intake-form assignment, product identifier testing, pricing, and lab-test workflow coverage.");
+	data25.put("Description", "A synthetic care product created for automated STI-related catalog scenarios. The dataset supports condition selection, category mapping, inventory controls, visibility, purchase restrictions, intake-form assignment, product identifier testing, pricing, and lab-test workflow coverage.");
 	data25.put("Product Type", "Prescription");
 	data25.put("Category", "Sexually Transmitted Infection Care Products");
 	data25.put("Visibility", "Hidden");
@@ -1028,7 +1282,7 @@ public static Object[][] Product_Create_Data(){
 	data26.put("Lab Test", "Yes");
 
 	return new Object[][] {
-		{ data1 },
+		{ data1 },/*
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -1053,7 +1307,7 @@ public static Object[][] Product_Create_Data(){
 		{ data23 },
 		{ data24 },
 		{ data25 },
-		{ data26 } 
+		{ data26 } */
 	};
 }
 
@@ -2103,13 +2357,38 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 }
 
 
-public void search_a_product_in_list(TreeMap<String, String> Prod_name) throws InterruptedException{
 
+@Test(dataProvider="Product_Create_Data")
+public void Variant_Adder(TreeMap<String, String> Prod_name) throws Exception{
+	
+	
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+	
+	Product_Module_Accessor();
+    ArrayList<WebElement> Cell= search_a_product_in_list(Prod_name);
+    WebElement Edit_Button= Cell.get(0).findElement(By.xpath("./..//td[7]//button"));
+    Edit_Button.click();
+    WebElement Product_form = p.Form();
+    WebElement price_section= p.Pricing_Section();
+    rp.Scroll_to_element(price_section);
+    
+}
+
+
+
+public ArrayList<WebElement> search_a_product_in_list(TreeMap<String, String> Prod_name) throws InterruptedException{
+
+	
+	
+	
 	String Product_Name = Prod_name.get("Product Name");
 	Product_Module_Locaters p = new Product_Module_Locaters(d);
 	
 	Repeat rp = new Repeat(d);
-
+    
+	ArrayList<WebElement> Product_Cell= new ArrayList<WebElement>();
+	
 	Report_Listen.log_print_in_report().info("──────────────────── 🔍 PRODUCT SEARCH VALIDATION ────────────────────");
 	Report_Listen.log_print_in_report().info("<b>Expected Product:</b> " + Product_Name);
 	System.out.println("🔍 PRODUCT SEARCH VALIDATION");
@@ -2135,7 +2414,8 @@ public void search_a_product_in_list(TreeMap<String, String> Prod_name) throws I
 	Report_Listen.log_print_in_report().info("🔹 Total Product records returned after search: " + names.size());
 	System.out.println("🔹 Total Product records returned after search: " + names.size());
 	System.out.println();
-
+    
+	
 	for(WebElement name : names){
 
 		String name_text = name.getText().trim();
@@ -2160,7 +2440,7 @@ public void search_a_product_in_list(TreeMap<String, String> Prod_name) throws I
 				System.out.println("✅ Searched Product: " + Product_Name);
 				System.out.println("✅ Fetched Product: " + list_names);
 				System.out.println();
-
+				Product_Cell.add(name);
 				break;
 			}
 			else{
@@ -2186,7 +2466,7 @@ public void search_a_product_in_list(TreeMap<String, String> Prod_name) throws I
 				System.out.println("✅ Searched Product: " + Product_Name);
 				System.out.println("✅ Fetched Product: " + name_text);
 				System.out.println();
-
+				Product_Cell.add(name);
 				break;
 			}
 			else{
@@ -2199,7 +2479,7 @@ public void search_a_product_in_list(TreeMap<String, String> Prod_name) throws I
 			}
 		}
 	}
-	
+	return Product_Cell;
 }
 
 public void Negative_Validation_Check_for_Product_Add(List<WebElement> inputs,TreeMap<String, String> Category_Create_Data,TreeMap<String, String> Lab_Test_Create_Data,TreeMap<String, String> Product_data) throws InterruptedException{

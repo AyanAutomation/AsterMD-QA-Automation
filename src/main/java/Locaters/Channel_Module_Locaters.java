@@ -70,8 +70,11 @@ public class Channel_Module_Locaters extends Repeat{
 	private WebElement API_Contact_Mail_input; 
     @FindBy(xpath="//*[text()='Add Question']/..")
 	private WebElement Add_Question_Button; 
-    @FindBy(xpath="//input[contains(@id,'sections_0_questions')]")
-	private List<WebElement> All_Question_fields; 
+
+    
+    @FindBy(xpath="//input[contains(@id,'sections_1_questions')]")
+	private List<WebElement> Second_Sections_All_Question_fields;
+   
     @FindBy(xpath="//textarea[contains(@id,'answer')]")
 	private List<WebElement> All_Answers_fields; 
     @FindBy(xpath="//span[text()='patient portal']/..")
@@ -89,11 +92,11 @@ public class Channel_Module_Locaters extends Repeat{
     @FindBy(xpath="//div[@class='ant-tooltip ant-tooltip-css-var css-tql0nm css-var-_R_1b_ ant-tooltip-placement-top']")
 	private WebElement Tooltip; 
     @FindBy(xpath="//div[@role='dialog']")
-	private WebElement Pop_up; /*
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Pop_up; 
+    @FindBy(xpath=" //*[text()='Add New Section']/..")
+	private WebElement Add_Section_Button; 
+    @FindBy(xpath="//div[@class='style-module__g-miaa__faqSectionCard']")
+	private List<WebElement> Question_Sections; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -369,9 +372,6 @@ public class Channel_Module_Locaters extends Repeat{
 	public WebElement Add_Question_Button(){
 	wait_for_theElement(Add_Question_Button);
 	return Add_Question_Button;}
-	public List<WebElement> All_Question_fields(){
-	wait_for_theElement(All_Question_fields);
-	return All_Question_fields;}
 	public List<WebElement> All_Answers_fields(){
 	wait_for_theElement(All_Answers_fields);
 	return All_Answers_fields;} 
@@ -415,16 +415,17 @@ public class Channel_Module_Locaters extends Repeat{
 	return Modal_Submit_button;}
 	public WebElement Pop_up(){
 	wait_for_theElement(Pop_up);
-	return Pop_up;}/*
+	return Pop_up;}
+	public List<WebElement> Second_Sections_All_Question_fields(){
+	wait_for_theElement(Second_Sections_All_Question_fields);
+	return Second_Sections_All_Question_fields;}
+	public WebElement Add_Section_Button(){
+	wait_for_theElement(Add_Section_Button);
+	return Add_Section_Button;}
+	public List<WebElement> Question_Sections(){
+	wait_for_theElement(Question_Sections);
+	return Question_Sections;} /*
 	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
