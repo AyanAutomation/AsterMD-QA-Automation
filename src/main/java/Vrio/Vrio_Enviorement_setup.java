@@ -390,10 +390,10 @@ public Object[][] Campaign_Create_Data(){
 	data20.put("Active", "Yes");
 	data20.put("Notes", "Telehealth campaign supporting recurring headache concerns through clinical assessment, treatment planning, medicine-management services, symptom monitoring, and follow-up care.");
 
-	return new Object[][] {/*
+	return new Object[][] {
 		{ data1 },
 		{ data2 },
-		{ data3 },*/
+		{ data3 },
 		{ data4 },
 		{ data5 },
 		{ data6 },
@@ -941,7 +941,7 @@ public void Campaign_item_Add(TreeMap<String, String> Product_data,TreeMap<Strin
 		}
 	}
 	
-	Thread.sleep(800);
+	Thread.sleep(1800);
 	
 	System.out.println("---------------- OFFER SELECTION ----------------");
 	System.out.println("Expected : " + offer_name);

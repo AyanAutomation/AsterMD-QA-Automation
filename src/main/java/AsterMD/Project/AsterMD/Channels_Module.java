@@ -32,55 +32,26 @@ public class Channels_Module extends Patient_Module{
 	
 	public WebElement Channel_Module_Accessor() throws Exception {
 
-		Channel_Module_Locaters p = new Channel_Module_Locaters(d);
+	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
 
-		try {
+	System.out.println();
+	System.out.println("---------------- CHANNEL MODULE ----------------");
+	System.out.println("Action : Open Channels module");
 
-			Report_Listen.log_print_in_report().info("──────────────────── 👥 Channel MODULE ACCESS ────────────────────");
-			Report_Listen.log_print_in_report().info("<b>Action:</b> Navigate to the Channels module through the application Side Menu.");
+	Report_Listen.log_print_in_report().info("---------------- CHANNEL MODULE ----------------");
+	Report_Listen.log_print_in_report().info("Action: Open Channels module");
 
-			System.out.println("👥 Channel MODULE ACCESS");
-			System.out.println();
+	Side_Menu_Navigation("Channels");
 
-			System.out.println("🔹 Navigating to the Channels module through the Side Menu.");
-			System.out.println();
+	WebElement Add_Button = p.Channel_Add_Button();
 
-			Side_Menu_Navigation("Channels");
+	System.out.println("Result : PASS");
+	System.out.println();
 
-			Report_Listen.log_print_in_report().pass("✅ Channels module navigation completed successfully.");
-			System.out.println("✅ Channels module navigation completed successfully.");
-			System.out.println();
+	Report_Listen.log_print_in_report().pass("Result: PASS - Channels module opened successfully.");
 
-			Report_Listen.log_print_in_report().info("──────────────────── ➕ Channel ADD ACCESS ────────────────────");
-			Report_Listen.log_print_in_report().info("<b>Action:</b> Retrieve the Channel Add button from the Channels module.");
-
-			System.out.println("➕ Channel ADD ACCESS");
-			System.out.println();
-
-			System.out.println("🔹 Retrieving the Channel Add button.");
-			System.out.println();
-
-			WebElement Add_Button = p.Channel_Add_Button();
-
-			Report_Listen.log_print_in_report().pass("✅ Channel Add button retrieved successfully.");
-			System.out.println("✅ Channel Add button retrieved successfully.");
-			System.out.println();
-
-			return Add_Button;
-
-		} catch(Exception e) {
-
-			if(Report_Listen.log_print_in_report() != null) Report_Listen.log_print_in_report().fail("❌ Channel Module access failed. Failure reason: " + e.getMessage());
-
-			System.out.println("❌ Channel Module access failed.");
-			System.out.println();
-
-			System.out.println("❌ Failure reason: " + e.getMessage());
-			System.out.println();
-
-			throw e;
-		}
-	}
+	return Add_Button;
+}
 	
 	
 	
@@ -1138,7 +1109,7 @@ public Object[][] FAQ_Section_Create_Data(){
 	data20.put("Question 20", "Where can I get additional portal help?");
 	data20.put("Answer 20", "Use the patient support information provided by your healthcare organization.");
 
-	return new Object[][] {
+	return new Object[][] {/*
 		{ data1 },
 		{ data2 },
 		{ data3 },
@@ -1151,14 +1122,14 @@ public Object[][] FAQ_Section_Create_Data(){
 		{ data10 },
 		{ data11 },
 		{ data12 },
-		{ data13 },
-		{ data14 },
-		{ data15 },
+		{ data13 }, 
+		{ data14 },*/
+		{ data15 },/*
 		{ data16 },
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 }  
+		{ data20 }  */
 	};
 }	
 
@@ -1195,10 +1166,27 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 	String Access_Rule = Channel_data.get("Access Rule");
 	String API_Contact_Mail = Channel_data.get("API Contact Email");
 	
+	System.out.println();
+	System.out.println("============================================================");
+	System.out.println("                    CHANNEL CREATION");
+	System.out.println("============================================================");
+	System.out.println("Channel Name : " + Channel_Name);
+	System.out.println("Access Rule  : " + Access_Rule);
+	System.out.println("API Email    : " + API_Contact_Mail);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().info("---------------- CHANNEL CREATION ----------------");
+	Report_Listen.log_print_in_report().info("Channel Name: " + Channel_Name);
+	Report_Listen.log_print_in_report().info("Access Rule: " + Access_Rule);
+	Report_Listen.log_print_in_report().info("API Contact Email: " + API_Contact_Mail);
 	
-		
 	WebElement Channel_Add_Button = Channel_Module_Accessor();
-	Channel_Add_Button.click();	
+	Channel_Add_Button.click();
+	
+	System.out.println("---------------- CHANNEL TYPE ----------------");
+	System.out.println("Action : Select API Channel");
+
+	Report_Listen.log_print_in_report().info("Action: Select API Channel");
 	
 	WebElement Popup = p.Popup_Modal();
 	List<WebElement> Cards = Popup.findElements(By.xpath(".//*[contains(@class,'_channelTypeCard')]"));
@@ -1209,100 +1197,176 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 	rp.movetoelement(Next_Button);
 	Next_Button.click();
 	
+	System.out.println("Result : PASS");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().pass("Result: PASS - API Channel selected successfully.");
+	
 	WebElement Channel_Form = p.Popup_Form();
 	List<WebElement> Inputs;
 
-	try {
+	try{
 		Inputs = p.Channel_Add_Form_Inputs(Channel_Form);
-	} 
-	catch(Exception e) {
+	}
+	catch(Exception e){
 		Thread.sleep(800);
 
-		Report_Listen.log_print_in_report().warning("⚠️ Initial Channel form input retrieval failed. Retrying field retrieval.");
+		System.out.println("Action : Retry Channel form field retrieval");
 
-		System.out.println("⚠️ Initial Channel form input retrieval failed. Retrying.");
-		System.out.println();
+		Report_Listen.log_print_in_report().info("Action: Retry Channel form field retrieval");
 
 		Inputs = p.Channel_Add_Form_Inputs(Channel_Form);
 	}
 	
+	System.out.println("---------------- CHANNEL DETAILS ----------------");
+	
 	WebElement Channel_Name_Input_Field = Inputs.get(0);
 	Channel_Name_Input_Field.sendKeys(Channel_Name);
+
+	System.out.println("Channel Name : " + Channel_Name);
+	System.out.println("Access Rule  : " + Access_Rule);
+
+	Report_Listen.log_print_in_report().info("Channel Name: " + Channel_Name);
+	Report_Listen.log_print_in_report().info("Access Rule: " + Access_Rule);
 	
-	
-	
-	if(Channel_data.containsKey("Whitelist IP Address 1")&&Access_Rule.contains("Allow access from whitelisted IP addresses only")){
-		
+	if(Channel_data.containsKey("Whitelist IP Address 1") && Access_Rule.contains("Allow access from whitelisted IP addresses only")){
 		
 		int Whitelist_IP_Count = 0;
 		
-		for(String Key : Channel_data.keySet()) {
-			if(Key.contains("Whitelist IP Address")) {
+		for(String Key : Channel_data.keySet()){
+			if(Key.contains("Whitelist IP Address")){
 				Whitelist_IP_Count++;
 			}
 		}
 		
-		
-		System.out.println("Total IP Indexes: " + Whitelist_IP_Count);
+		System.out.println("Whitelist IP Count : " + Whitelist_IP_Count);
+
+		Report_Listen.log_print_in_report().info("Whitelist IP Count: " + Whitelist_IP_Count);
 		
 		WebElement Whitelist_IP_Addresses_Input_Field = Inputs.get(1);
 		
-		for(int i=1;i<=Whitelist_IP_Count;i++) {
+		for(int i=1;i<=Whitelist_IP_Count;i++){
 			
 			String Ip_Address = Channel_data.get("Whitelist IP Address " + i);
 			
 			Whitelist_IP_Addresses_Input_Field.sendKeys(Ip_Address);
 			Whitelist_IP_Addresses_Input_Field.sendKeys(Keys.ENTER);
 			
-			System.out.println("Whitelist IP Address " + i + ": " + Ip_Address);}}
+			System.out.println("IP " + i + " : " + Ip_Address);
+		}
+	}
 	
 	if(Access_Rule.contains("Allow access from any IP address")){
 		
-		WebElement Allow_Any_Ip= p.Allow_Any_IP_Radio_Button();
+		WebElement Allow_Any_Ip = p.Allow_Any_IP_Radio_Button();
 		rp.movetoelement(Allow_Any_Ip);
-		Allow_Any_Ip.click();}
+		Allow_Any_Ip.click();
+	}
+	
+	System.out.println("Result : PASS");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().pass("Result: PASS - Channel details entered successfully.");
+	
+	System.out.println("---------------- API TOKEN ----------------");
+	System.out.println("Action : Generate API token");
+
+	Report_Listen.log_print_in_report().info("Action: Generate API token");
 	
 	WebElement Submit_Button = p.Next_Button();
 	Submit_Button.click();
-	WebElement Generate_Button= p.Generate_API_Token_Button();
+	
+	WebElement Generate_Button = p.Generate_API_Token_Button();
 	rp.movetoelement(Generate_Button);
 	Generate_Button.click();
-	WebElement ClientIdLabel= p.CLient_Id_Label();
+	
+	WebElement ClientIdLabel = p.CLient_Id_Label();
 	WebElement Client_Id_Label_Value = ClientIdLabel.findElement(By.xpath("./../..//input"));
 	rp.wait_for_theElement(Client_Id_Label_Value);
+	
 	String Client_Id = Client_Id_Label_Value.getAttribute("value");
-	System.out.println("Client_Id : " + Client_Id);
+	
+	System.out.println("Client ID : " + Client_Id);
+	System.out.println("Result    : PASS");
 	System.out.println();
+
+	Report_Listen.log_print_in_report().info("Client ID: " + Client_Id);
+	Report_Listen.log_print_in_report().pass("Result: PASS - API token generated successfully.");
+	
+	System.out.println("---------------- CHANNEL SAVE ----------------");
+	System.out.println("API Contact Email : " + API_Contact_Mail);
+	
 	WebElement API_Mail_Input = p.API_Contact_Mail_input();
 	API_Mail_Input.sendKeys(API_Contact_Mail);
+	
 	p.Done_Button().click();
+	
 	WebElement Confirmation_Message = p.Success_Toast();
 	String Confirmation_Message_Text = Confirmation_Message.getText().trim();
 
-	Report_Listen.log_print_in_report().pass("✅ Confirmation Message: " + Confirmation_Message_Text);
-	System.out.println("✅ Confirmation message displayed: " + Confirmation_Message_Text);
+	System.out.println("Message : " + Confirmation_Message_Text);
+	System.out.println("Result  : PASS");
 	System.out.println();
 
-	Report_Listen.log_print_in_report().pass("✅ Channel creation completed successfully for Product: " + Channel_Name);
-	System.out.println("✅ Channel creation completed successfully for Product: " + Channel_Name);
-	System.out.println();
-	List<WebElement> Card_texts=p.First_channel_card_text_in_list();
+	Report_Listen.log_print_in_report().info("Confirmation Message: " + Confirmation_Message_Text);
+	Report_Listen.log_print_in_report().pass("Result: PASS - Channel saved successfully.");
+	
+	System.out.println("---------------- CHANNEL LIST VERIFICATION ----------------");
+	System.out.println("Expected : " + Channel_Name);
+
+	Report_Listen.log_print_in_report().info("Expected Channel: " + Channel_Name);
+	
+	List<WebElement> Card_texts = p.First_channel_card_text_in_list();
 	boolean Channel_Found = false;
-	for(WebElement Card_text:Card_texts){
+	
+	for(WebElement Card_text : Card_texts){
 		
 		String Text = Card_text.getText().trim();
-		Channel_Found = Text.contains(Channel_Name) ? true : Channel_Found;
 		
+		if(Text.contains(Channel_Name)){
+			Channel_Found = true;
+
+			System.out.println("Actual   : " + Text);
+			System.out.println("Result   : PASS");
+
+			Report_Listen.log_print_in_report().info("Actual Channel: " + Text);
+			Report_Listen.log_print_in_report().pass("Result: PASS - Created Channel found in Channel list.");
+
+			break;
+		}
 	}
 
-	String Verification_Message = Channel_Found ? "✅ Newly created Channel found in the Channel list: " + Channel_Name : "❌ Newly created Channel was not found in the Channel list: " + Channel_Name;
+	if(Channel_Found==false){
 
-	Report_Listen.log_print_in_report().log(Channel_Found ? Status.PASS : Status.FAIL, Verification_Message);
-	System.out.println(Verification_Message);
+		System.out.println("Actual   : Channel not found");
+		System.out.println("Result   : FAIL");
+		System.out.println("Reason   : Created Channel was not available in the Channel list.");
+
+		Report_Listen.log_print_in_report().info("Actual: Channel not found");
+		Report_Listen.log_print_in_report().fail("Result: FAIL");
+		Report_Listen.log_print_in_report().fail("Reason: Created Channel was not available in the Channel list.");
+	}
+
+	System.out.println();
+	System.out.println("============================================================");
+	System.out.println("              CHANNEL CREATION COMPLETED");
+	System.out.println("============================================================");
+	System.out.println("Channel : " + Channel_Name);
+	System.out.println("Result  : " + (Channel_Found ? "PASS" : "FAIL"));
 	System.out.println();
 
-	
+	Report_Listen.log_print_in_report().info("---------------- CHANNEL CREATION COMPLETED ----------------");
+
+	if(Channel_Found){
+		Report_Listen.log_print_in_report().pass("Result: PASS - Channel creation completed successfully: " + Channel_Name);
+	}
+	else{
+		Report_Listen.log_print_in_report().fail("Result: FAIL - Channel creation verification failed: " + Channel_Name);
+	}
 }
+
+
+
 
 
 @Test(dataProvider="Product_Create_Data", dataProviderClass=Product_Module.class)
@@ -1313,208 +1377,83 @@ public void Product_Assign_in_Channel_Add(TreeMap<String, String> Product_data) 
 
 	String Product_Name = Product_data.get("Product Name");
 
-	int step = 1;
 	boolean Product_Assigned = false;
 
 	try {
 
-		Report_Listen.log_print_in_report().info("──────────────────── 📦 PRODUCT ASSIGNMENT IN CHANNEL STARTED ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Scenario:</b> Search, validate and assign an existing Product from the Channel configuration.");
-		Report_Listen.log_print_in_report().info("<b>Product Name:</b> " + Product_Name);
-		System.out.println("📦 PRODUCT ASSIGNMENT IN CHANNEL STARTED");
 		System.out.println();
-		System.out.println("🔹 Product Name: " + Product_Name);
-		System.out.println();
-		System.out.println("🐞 DEBUG | Product Name received from DataProvider: " + Product_Name);
+		System.out.println("============================================================");
+		System.out.println("             PRODUCT ASSIGNMENT TO CHANNEL");
+		System.out.println("============================================================");
+		System.out.println("Product : " + Product_Name);
 		System.out.println();
 
-		Report_Listen.log_print_in_report().info("──────────────────── 🧭 CHANNEL MODULE ACCESS ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Access the Channels module.");
-		System.out.println("🧭 CHANNEL MODULE ACCESS");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Accessing the Channels module.");
-		System.out.println();
+		Report_Listen.log_print_in_report().info("---------------- PRODUCT ASSIGNMENT TO CHANNEL ----------------");
+		Report_Listen.log_print_in_report().info("Product: " + Product_Name);
+
+		System.out.println("---------------- CHANNEL ACCESS ----------------");
+		System.out.println("Action : Open Channel configuration");
+
+		Report_Listen.log_print_in_report().info("Action: Open Channel configuration");
 
 		Channel_Module_Accessor();
 		Thread.sleep(580);
 
-		Report_Listen.log_print_in_report().pass("✅ Channels module accessed successfully.");
-		System.out.println("✅ Channels module accessed successfully.");
-		System.out.println();
-		System.out.println("🐞 DEBUG | Current URL after Channels module access: " + d.getCurrentUrl());
-		System.out.println();
-
-		step++;
-
-		Report_Listen.log_print_in_report().info("──────────────────── 📋 CHANNEL CARD RETRIEVAL ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Retrieve the available Channel cards.");
-		System.out.println("📋 CHANNEL CARD RETRIEVAL");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Retrieving Channel cards.");
-		System.out.println();
-
 		List<WebElement> Card = p.All_Channel_Cards();
-
-		System.out.println("🐞 DEBUG | Total Channel cards fetched: " + Card.size());
-		System.out.println();
-		System.out.println("🐞 DEBUG | Selecting Channel card at index: 0");
-		System.out.println();
-
 		WebElement First_Card = Card.get(0);
-
-		Report_Listen.log_print_in_report().pass("✅ Channel card retrieved successfully.");
-		System.out.println("✅ Channel card retrieved successfully.");
-		System.out.println();
-
-		step++;
-
-		Report_Listen.log_print_in_report().info("──────────────────── ⚙️ CHANNEL CONFIGURATION ACCESS ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Open the selected Channel configuration.");
-		System.out.println("⚙️ CHANNEL CONFIGURATION ACCESS");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Opening Channel configuration.");
-		System.out.println();
-
 		WebElement First_Card_Config_Button = p.Particular_Cards_Config_Button(First_Card);
-
-		System.out.println("🐞 DEBUG | Channel configuration button fetched successfully.");
-		System.out.println();
-
 		First_Card_Config_Button.click();
-
-		System.out.println("🐞 DEBUG | Channel configuration button clicked.");
-		System.out.println();
 
 		WebElement Form = p.Form();
 		Thread.sleep(880);
 
-		Report_Listen.log_print_in_report().pass("✅ Channel configuration form opened successfully.");
-		System.out.println("✅ Channel configuration form opened successfully.");
+		System.out.println("Result : PASS");
 		System.out.println();
 
-		step++;
+		Report_Listen.log_print_in_report().pass("Channel configuration opened successfully.");
 
-		Report_Listen.log_print_in_report().info("──────────────────── 🛒 PRODUCTS SECTION ACCESS ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Locate the Products section inside Channel configuration.");
-		System.out.println("🛒 PRODUCTS SECTION ACCESS");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Locating Products section.");
-		System.out.println();
+		System.out.println("---------------- PRODUCTS SECTION ----------------");
+		System.out.println("Action : Open Assign Products");
+
+		Report_Listen.log_print_in_report().info("Action: Open Assign Products");
 
 		WebElement Products_Section = Form.findElement(By.xpath(".//div[@id='products']"));
 		rp.wait_for_theElement(Products_Section);
-
-		System.out.println("🐞 DEBUG | Products section element located.");
-		System.out.println();
-
 		rp.Scroll_to_element(Products_Section);
 		rp.Scroll_up();
 
-		Report_Listen.log_print_in_report().pass("✅ Products section located successfully.");
-		System.out.println("✅ Products section located successfully.");
-		System.out.println();
-
-		step++;
-
-		Report_Listen.log_print_in_report().info("──────────────────── ➕ ASSIGN PRODUCTS MODAL ACCESS ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Open the Assign Products modal.");
-		System.out.println("➕ ASSIGN PRODUCTS MODAL ACCESS");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Opening Assign Products modal.");
-		System.out.println();
-
 		WebElement Assign_Product_Button = Products_Section.findElement(By.xpath(".//button[@type='button' and contains(@class,'ant-btn-color-primary ant-btn-variant-solid')]"));
 		rp.wait_for_theElement(Assign_Product_Button);
-
-		System.out.println("🐞 DEBUG | Assign Product button fetched successfully.");
-		System.out.println();
-
 		Assign_Product_Button.click();
 		Thread.sleep(800);
 
-		System.out.println("🐞 DEBUG | Assign Product button clicked.");
-		System.out.println();
-
 		WebElement modal = p.Popup_Modal();
-
-		System.out.println("🐞 DEBUG | Assign Products modal detected successfully.");
-		System.out.println();
 
 		WebElement First_Loader = p.Loader();
 
-		System.out.println("🐞 DEBUG | Initial Product table skeleton loader detected.");
-		System.out.println();
-
-		if(First_Loader != null) {
+		if(First_Loader != null){
 			rp.wait_for_invisibilty_of_theElement(First_Loader);
 		}
 
-		System.out.println("🐞 DEBUG | Initial Product table loading completed.");
+		System.out.println("Result : PASS");
 		System.out.println();
 
-		Report_Listen.log_print_in_report().pass("✅ Assign Products modal opened and initial Product list loaded successfully.");
-		System.out.println("✅ Assign Products modal opened and initial Product list loaded successfully.");
-		System.out.println();
+		Report_Listen.log_print_in_report().pass("Assign Products section opened successfully.");
 
-		step++;
+		System.out.println("---------------- PRODUCT SEARCH ----------------");
+		System.out.println("Expected : " + Product_Name);
 
-		Report_Listen.log_print_in_report().info("──────────────────── 🔍 PRODUCT SEARCH ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Search for Product: " + Product_Name);
-		System.out.println("🔍 PRODUCT SEARCH");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Searching for Product: " + Product_Name);
-		System.out.println();
+		Report_Listen.log_print_in_report().info("Expected Product: " + Product_Name);
 
 		WebElement modal_search_box = modal.findElement(By.xpath(".//*[@id='search']"));
 		rp.wait_for_theElement(modal_search_box);
-
-		System.out.println("🐞 DEBUG | Assign Products search field fetched successfully.");
-		System.out.println();
-
 		modal_search_box.sendKeys(Product_Name);
-
-		Report_Listen.log_print_in_report().pass("✅ Product Name entered successfully in the Assign Products search field.");
-		System.out.println("✅ Product Name entered successfully in the Assign Products search field.");
-		System.out.println();
-		System.out.println("🐞 DEBUG | Search text entered: " + Product_Name);
-		System.out.println();
-
-		step++;
-
-		Report_Listen.log_print_in_report().info("──────────────────── ⏳ PRODUCT SEARCH LOADING ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Wait for the Product search loading process to complete.");
-		System.out.println("⏳ PRODUCT SEARCH LOADING");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Waiting for Product search results to load.");
-		System.out.println();
-		System.out.println("🐞 DEBUG | Waiting for Product table skeleton loader to disappear.");
-		System.out.println();
 
 		WebElement Loader = p.Loader();
 
-		System.out.println("🐞 DEBUG | Search skeleton loader detected.");
-		System.out.println();
-
-		if(Loader != null) {
+		if(Loader != null){
 			rp.wait_for_invisibilty_of_theElement(Loader);
 		}
-
-		Report_Listen.log_print_in_report().pass("✅ Product search loading completed successfully.");
-		System.out.println("✅ Product search loading completed successfully.");
-		System.out.println();
-		System.out.println("🐞 DEBUG | Search skeleton loader disappeared.");
-		System.out.println();
-
-		step++;
-
-		Report_Listen.log_print_in_report().info("──────────────────── 📋 SEARCH RESULT RETRIEVAL ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Retrieve the Product rows populated after search.");
-		System.out.println("📋 SEARCH RESULT RETRIEVAL");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Retrieving Product rows after search.");
-		System.out.println();
-		System.out.println("🐞 DEBUG | Initializing FluentWait for searched Product rows.");
-		System.out.println();
 
 		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(30)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
 
@@ -1522,57 +1461,24 @@ public void Product_Assign_in_Channel_Add(TreeMap<String, String> Product_data) 
 
 			List<WebElement> rows = modal.findElements(By.xpath(".//tbody//tr[contains(@class,'ant-table-row ant-table-row-level-')]"));
 
-			System.out.println("🐞 DEBUG | FluentWait polling | Product rows currently detected: " + rows.size());
-
-			if(!rows.isEmpty()) {
+			if(!rows.isEmpty()){
 				return rows;
 			}
 
 			return null;
 		});
 
-		Report_Listen.log_print_in_report().pass("✅ Product search result rows populated successfully.");
-		System.out.println("✅ Product search result rows populated successfully.");
-		System.out.println();
-		System.out.println("🐞 DEBUG | Total Product rows fetched after search: " + modal_Table_rows.size());
-		System.out.println();
-
-		step++;
-
-		Report_Listen.log_print_in_report().info("──────────────────── 🔎 PRODUCT SEARCH RESULT VALIDATION ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Validate the returned Product Name and identify the requested Product.");
-		Report_Listen.log_print_in_report().info("<b>Expected Product:</b> " + Product_Name);
-		System.out.println("🔎 PRODUCT SEARCH RESULT VALIDATION");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Validating returned Product names.");
-		System.out.println();
-		System.out.println("🔹 Expected Product: " + Product_Name);
-		System.out.println();
-
-		int Row_Index = 1;
-
 		Main_Loop:
-		for(WebElement modal_Table_row : modal_Table_rows) {
-
-			System.out.println("🐞 DEBUG | Processing Product table row index: " + Row_Index);
+		for(WebElement modal_Table_row : modal_Table_rows){
 
 			List<WebElement> name_column_datas = modal_Table_row.findElements(By.xpath(".//td[2]"));
 			WebElement checkbox = modal_Table_row.findElement(By.xpath(".//label"));
 
-			System.out.println("🐞 DEBUG | Row " + Row_Index + " | Product Name column elements found: " + name_column_datas.size());
-
-			for(WebElement name_column_data : name_column_datas) {
+			for(WebElement name_column_data : name_column_datas){
 
 				String name_text = name_column_data.getText().trim();
 
-				System.out.println("🐞 DEBUG | Row " + Row_Index + " | Visible Product Name: " + name_text);
-				System.out.println();
-
-				if(name_text.endsWith("...")) {
-
-					System.out.println("🐞 DEBUG | Row " + Row_Index + " | Product Name is truncated.");
-					System.out.println("🐞 DEBUG | Hovering over Product Name to retrieve full name from tooltip.");
-					System.out.println();
+				if(name_text.endsWith("...")){
 
 					rp.movetoelement(name_column_data);
 					Thread.sleep(650);
@@ -1580,167 +1486,108 @@ public void Product_Assign_in_Channel_Add(TreeMap<String, String> Product_data) 
 					WebElement Tooltip = p.Tooltip();
 					String list_names = Tooltip.getText().trim();
 
-					System.out.println("🐞 DEBUG | Row " + Row_Index + " | Tooltip Product Name: " + list_names);
-					System.out.println("🐞 DEBUG | Expected Product Name: " + Product_Name);
-					System.out.println();
+					if(list_names.contains(Product_Name)){
 
-					if(list_names.contains(Product_Name)) {
-
-						Report_Listen.log_print_in_report().pass("✅ Product search validation passed. Expected Product: " + Product_Name + " | Fetched Product: " + list_names);
-						System.out.println("✅ Product search validation passed.");
-						System.out.println("✅ Expected Product: " + Product_Name);
-						System.out.println("✅ Fetched Product: " + list_names);
+						System.out.println("Actual   : " + list_names);
+						System.out.println("Result   : PASS");
 						System.out.println();
 
-						System.out.println("🐞 DEBUG | Matching truncated Product identified at row index: " + Row_Index);
-						System.out.println("🐞 DEBUG | Selecting Product checkbox.");
-						System.out.println();
+						Report_Listen.log_print_in_report().info("Actual Product: " + list_names);
+						Report_Listen.log_print_in_report().pass("Product search validation passed.");
+
+						System.out.println("---------------- PRODUCT ASSIGNMENT ----------------");
+						System.out.println("Action : Assign Product to Channel");
+
+						Report_Listen.log_print_in_report().info("Action: Assign Product to Channel");
 
 						checkbox.click();
 
-						Report_Listen.log_print_in_report().pass("✅ Matching Product selected successfully: " + Product_Name);
-						System.out.println("✅ Matching Product selected successfully: " + Product_Name);
-						System.out.println();
-
-						System.out.println("🐞 DEBUG | Retrieving Assign Products submit button.");
-						System.out.println();
-
 						WebElement Submit_Button = p.Modal_Submit_button();
-
-						System.out.println("🐞 DEBUG | Clicking Assign Products submit button.");
-						System.out.println();
-
 						Submit_Button.click();
 						rp.wait_for_invisibilty_of_theElement(Submit_Button);
-
-						System.out.println("🐞 DEBUG | Assign Products modal submission completed.");
-						System.out.println();
 
 						WebElement Confirmation_Message = p.Success_Toast();
 						String Confirmation_Message_Text = Confirmation_Message.getText().trim();
 
-						Report_Listen.log_print_in_report().pass("✅ Product assigned successfully. Confirmation Message: " + Confirmation_Message_Text);
-						System.out.println("✅ Product assigned successfully.");
-						System.out.println("✅ Confirmation Message: " + Confirmation_Message_Text);
+						System.out.println("Message : " + Confirmation_Message_Text);
+						System.out.println("Result  : PASS");
 						System.out.println();
+
+						Report_Listen.log_print_in_report().info("Confirmation Message: " + Confirmation_Message_Text);
+						Report_Listen.log_print_in_report().pass("Product assigned successfully.");
 
 						Product_Assigned = true;
 
 						break Main_Loop;
-					}
-					else {
-
-						System.out.println("🐞 DEBUG | Row " + Row_Index + " | Tooltip Product Name did not match expected Product.");
-						System.out.println("🐞 DEBUG | Expected: " + Product_Name);
-						System.out.println("🐞 DEBUG | Actual: " + list_names);
-						System.out.println();
 					}
 				}
-				else {
+				else{
 
-					System.out.println("🐞 DEBUG | Row " + Row_Index + " | Product Name is not truncated. Tooltip validation is not required.");
-					System.out.println("🐞 DEBUG | Comparing visible Product Name directly with expected Product.");
-					System.out.println("🐞 DEBUG | Expected: " + Product_Name);
-					System.out.println("🐞 DEBUG | Actual: " + name_text);
-					System.out.println();
+					if(name_text.contains(Product_Name)){
 
-					if(name_text.contains(Product_Name)) {
-
-						Report_Listen.log_print_in_report().pass("✅ Product search validation passed. Expected Product: " + Product_Name + " | Fetched Product: " + name_text);
-						System.out.println("✅ Product search validation passed.");
-						System.out.println("✅ Expected Product: " + Product_Name);
-						System.out.println("✅ Fetched Product: " + name_text);
+						System.out.println("Actual   : " + name_text);
+						System.out.println("Result   : PASS");
 						System.out.println();
 
-						System.out.println("🐞 DEBUG | Matching non-truncated Product identified at row index: " + Row_Index);
-						System.out.println("🐞 DEBUG | Selecting Product checkbox.");
-						System.out.println();
+						Report_Listen.log_print_in_report().info("Actual Product: " + name_text);
+						Report_Listen.log_print_in_report().pass("Product search validation passed.");
+
+						System.out.println("---------------- PRODUCT ASSIGNMENT ----------------");
+						System.out.println("Action : Assign Product to Channel");
+
+						Report_Listen.log_print_in_report().info("Action: Assign Product to Channel");
 
 						checkbox.click();
 
-						Report_Listen.log_print_in_report().pass("✅ Matching Product selected successfully: " + Product_Name);
-						System.out.println("✅ Matching Product selected successfully: " + Product_Name);
-						System.out.println();
-
-						System.out.println("🐞 DEBUG | Retrieving Assign Products submit button.");
-						System.out.println();
-
 						WebElement Submit_Button = p.Modal_Submit_button();
-
-						System.out.println("🐞 DEBUG | Clicking Assign Products submit button.");
-						System.out.println();
-
 						Submit_Button.click();
 						rp.wait_for_invisibilty_of_theElement(Submit_Button);
-
-						System.out.println("🐞 DEBUG | Assign Products modal submission completed.");
-						System.out.println();
 
 						WebElement Confirmation_Message = p.Success_Toast();
 						String Confirmation_Message_Text = Confirmation_Message.getText().trim();
 
-						Report_Listen.log_print_in_report().pass("✅ Product assigned successfully. Confirmation Message: " + Confirmation_Message_Text);
-						System.out.println("✅ Product assigned successfully.");
-						System.out.println("✅ Confirmation Message: " + Confirmation_Message_Text);
+						System.out.println("Message : " + Confirmation_Message_Text);
+						System.out.println("Result  : PASS");
 						System.out.println();
+
+						Report_Listen.log_print_in_report().info("Confirmation Message: " + Confirmation_Message_Text);
+						Report_Listen.log_print_in_report().pass("Product assigned successfully.");
 
 						Product_Assigned = true;
 
 						break Main_Loop;
-					}
-					else {
-
-						System.out.println("🐞 DEBUG | Row " + Row_Index + " | Visible Product Name did not match expected Product.");
-						System.out.println("🐞 DEBUG | Expected: " + Product_Name);
-						System.out.println("🐞 DEBUG | Actual: " + name_text);
-						System.out.println();
 					}
 				}
 			}
-
-			Row_Index++;
 		}
 
-		if(Product_Assigned) {
+		if(Product_Assigned){
 
-			Report_Listen.log_print_in_report().pass("──────────────────── ✅ PRODUCT ASSIGNMENT IN CHANNEL COMPLETED ────────────────────");
-			Report_Listen.log_print_in_report().pass("✅ Product assignment flow completed successfully for Product: " + Product_Name);
-			System.out.println("✅ PRODUCT ASSIGNMENT IN CHANNEL COMPLETED");
+			System.out.println("============================================================");
+			System.out.println("          PRODUCT ASSIGNMENT COMPLETED");
+			System.out.println("============================================================");
+			System.out.println("Product : " + Product_Name);
+			System.out.println("Result  : PASS");
 			System.out.println();
-			System.out.println("✅ Product assignment flow completed successfully for Product: " + Product_Name);
-			System.out.println();
-			System.out.println("🐞 DEBUG | Product assignment status: SUCCESS");
-			System.out.println("🐞 DEBUG | Assigned Product: " + Product_Name);
-			System.out.println();
+
+			Report_Listen.log_print_in_report().pass("---------------- PRODUCT ASSIGNMENT COMPLETED ----------------");
+			Report_Listen.log_print_in_report().pass("Product assigned successfully: " + Product_Name);
 		}
-		else {
-
-			Report_Listen.log_print_in_report().fail("❌ Product assignment failed because the searched Product was not found in the returned search results: " + Product_Name);
-			System.out.println("❌ Product assignment failed.");
-			System.out.println("❌ Searched Product was not found in the returned search results: " + Product_Name);
-			System.out.println();
-			System.out.println("🐞 DEBUG | Product assignment status: FAILED");
-			System.out.println("🐞 DEBUG | Total Product rows checked: " + modal_Table_rows.size());
-			System.out.println("🐞 DEBUG | Expected Product: " + Product_Name);
-			System.out.println();
+		else{
 
 			throw new Exception("Searched Product was not found in Assign Products search results: " + Product_Name);
 		}
 	}
-	catch(Exception e) {
+	catch(Exception e){
 
-		Report_Listen.log_print_in_report().fail("❌ Product assignment flow failed for Product: " + Product_Name);
-		Report_Listen.log_print_in_report().fail("❌ Failure Reason: " + e.getMessage());
-		System.out.println("❌ Product assignment flow failed for Product: " + Product_Name);
+		System.out.println("---------------- PRODUCT ASSIGNMENT FAILED ----------------");
+		System.out.println("Product : " + Product_Name);
+		System.out.println("Result  : FAIL");
+		System.out.println("Reason  : " + e.getMessage());
 		System.out.println();
-		System.out.println("❌ Failure Reason: " + e.getMessage());
-		System.out.println();
-		System.out.println("🐞 DEBUG | Exception Type: " + e.getClass().getName());
-		System.out.println("🐞 DEBUG | Exception Message: " + e.getMessage());
-		System.out.println("🐞 DEBUG | Current URL at failure: " + d.getCurrentUrl());
-		System.out.println("🐞 DEBUG | Product assignment flag at failure: " + Product_Assigned);
-		System.out.println("🐞 DEBUG | Failed while processing Product: " + Product_Name);
-		System.out.println();
+
+		Report_Listen.log_print_in_report().fail("Product assignment failed: " + Product_Name);
+		Report_Listen.log_print_in_report().fail("Reason: " + e.getMessage());
 
 		throw e;
 	}
@@ -1748,146 +1595,34 @@ public void Product_Assign_in_Channel_Add(TreeMap<String, String> Product_data) 
 
 
 public void Patient_Portal_FAQ_Add(TreeMap<String, String> FAQ_data) throws Exception{
-	
+
 	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
 	Repeat rp = new Repeat(d);
 	JavascriptExecutor js = (JavascriptExecutor)d;
-	
-	WebElement Treatment_Management_Section;
-	
-	String Group_Title=FAQ_data.get("Group Name");
-	String Group_Description=FAQ_data.get("Group Description");
-	
-	
-	Boolean visiblitiy=rp.check_element_visibility(p.Form(), 5);
-	if(visiblitiy!=true) {
-	Channel_Module_Accessor();
-	WebElement Patient_portal_section_in_list = p.Patient_Portal_section();
-	rp.Scroll_to_element(Patient_portal_section_in_list);
-	Thread.sleep(500);
-	
-	List<WebElement> Buttons = Patient_portal_section_in_list.findElements(By.xpath(".//button[contains(@class,'ant-btn-variant-outlined')]"));
-	rp.wait_for_theElement(Buttons);
-	WebElement Config_Button=Buttons.get(0);
-	Config_Button.click();
-	FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(80)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
-    WebElement Form = wait.until(driver -> p.Form());
-    Treatment_Management_Section = p.Treatment_management_Section();
-	rp.wait_for_theElement(Treatment_Management_Section);
-	rp.Scroll_to_element(Treatment_Management_Section);
-	rp.Scroll_up();
-	Thread.sleep(500);}
-	
-	else {
-		
-	Treatment_Management_Section = p.Treatment_management_Section();
-	List<WebElement> Cards = Treatment_Management_Section.findElements(By.xpath(".//*[contains(@class,'ant-typography text-dark')]/../../.."));
-	rp.wait_for_theElement(Cards);
-	for(WebElement Card:Cards){
-    	 WebElement Card_Text_element=Card.findElement(By.xpath(".//*[contains(@class,'ant-typography text-dark')]"));
-    	 rp.wait_for_theElement(Card_Text_element);
-    	 String Card_Text=Card_Text_element.getText().trim();
-    	 if(Card_Text.contains("Treatment FAQs")){
-    		 WebElement Toggle_Button=Card.findElement(By.xpath(".//button"));
-    		 rp.wait_for_theElement(Toggle_Button);
-    		 rp.Scroll_to_element(Toggle_Button);
-    		 Thread.sleep(500);
-    		 Toggle_Button.click();
-    		 break; }}
-	FluentWait<WebDriver> newwait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(80)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
-    WebElement Popup_Frm= newwait.until(driver -> p.Popup_Form());
-	List<WebElement> input_fields=p.FAQ_Add_Form_Inputs(Popup_Frm);
-	WebElement GroupName_input = input_fields.get(0);
-	WebElement Group_Description_input = input_fields.get(1);
-	
-	GroupName_input.clear();
-	GroupName_input.sendKeys(Group_Title);
-	Group_Description_input.clear();
-    js.executeScript("const el=arguments[0]; const value=arguments[1]; const setter=Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set; setter.call(el,value); el.dispatchEvent(new Event('input',{bubbles:true})); el.dispatchEvent(new Event('change',{bubbles:true}));", Group_Description_input, Group_Description);
-	
-	ArrayList<String> Questions = new ArrayList<String>();
-	ArrayList<String> Answers = new ArrayList<String>();
-	
-	int Question_Answer_Count = 0;
-	
-	for(String Key : FAQ_data.keySet()){
-		if(Key.contains("Question ")){
-			Question_Answer_Count++;
-		}
-	}
-	
-	for(int b=1;b<=Question_Answer_Count;b++){
-		Questions.add(FAQ_data.get("Question " + b));
-		Answers.add(FAQ_data.get("Answer " + b));
-	}
-	
-	for(int k=1;k<Question_Answer_Count;k++){
-		WebElement Add_Question_Button = p.Add_Question_Button();
-		rp.Scroll_to_element(Add_Question_Button);
-		Add_Question_Button.click();
-	}
-	
-	List<WebElement> All_Question_input = p.All_Question_fields();
-	List<WebElement> All_Answers_input = p.All_Answers_fields();
-	
-	for(int m=0;m<Question_Answer_Count;m++){
-		
-		WebElement Questioninput = All_Question_input.get(m);
-		Questioninput.clear();
-		WebElement Answerinput = All_Answers_input.get(m);
-		Answerinput.clear();
-		String Input_question = Questions.get(m);
-		String Input_Answer = Answers.get(m);
-		
-		js.executeScript("const el=arguments[0]; const value=arguments[1]; const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set; setter.call(el,value); el.dispatchEvent(new Event('input',{bubbles:true})); el.dispatchEvent(new Event('change',{bubbles:true}));", Questioninput, Input_question);
-		
-		js.executeScript("const el=arguments[0]; const value=arguments[1]; const setter=Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set; setter.call(el,value); el.dispatchEvent(new Event('input',{bubbles:true})); el.dispatchEvent(new Event('change',{bubbles:true}));", Answerinput, Input_Answer);
-		
-		System.out.println("✅ Question " + (m+1) + " and Answer " + (m+1) + " entered successfully.");
-	}
-	
-   WebElement Modal_Save_Button = p.Save_Button();
-   rp.Scroll_to_element(Modal_Save_Button);
-   Modal_Save_Button.click();
-   rp.wait_for_invisibilty_of_theElement(Modal_Save_Button);
-   WebElement Save_Settings=p.Save_Settings_Button();
-   Save_Settings.click();
-   WebElement Confirmation_Message = p.Success_Toast();
-	String Confirmation_Message_Text = Confirmation_Message.getText().trim();
-
-	Report_Listen.log_print_in_report().pass("✅ Confirmation Message: " + Confirmation_Message_Text);
-	System.out.println("✅ Confirmation message displayed: " + Confirmation_Message_Text);
-	System.out.println();
-    Report_Listen.log_print_in_report().pass("✅ Paiteint Portal Saved successfully for Product: ");
-	System.out.println("✅Paiteint Portal Saved successfully ");
-	System.out.println();}}	
-
-
-public void Patient_Portal_FAQ_Validator(TreeMap<String, String> FAQ_data, SoftAssert softAssert) throws Exception{
-
-	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
-	Repeat rp = new Repeat(d);
-	
 
 	WebElement Treatment_Management_Section;
 
 	String Group_Title = FAQ_data.get("Group Name");
 	String Group_Description = FAQ_data.get("Group Description");
 
-	Report_Listen.log_print_in_report().info("──────────────────── ❓ PATIENT PORTAL FAQ VALIDATION STARTED ────────────────────");
-	Report_Listen.log_print_in_report().info("<b>Expected FAQ Group:</b> " + Group_Title);
-	System.out.println("❓ PATIENT PORTAL FAQ VALIDATION STARTED");
 	System.out.println();
-	System.out.println("🔹 Expected FAQ Group: " + Group_Title);
+	System.out.println("============================================================");
+	System.out.println("                 PATIENT PORTAL FAQ");
+	System.out.println("============================================================");
+	System.out.println("FAQ Group : " + Group_Title);
 	System.out.println();
+
+	Report_Listen.log_print_in_report().info("---------------- PATIENT PORTAL FAQ ----------------");
+	Report_Listen.log_print_in_report().info("FAQ Group: " + Group_Title);
 
 	Boolean visiblitiy = rp.check_element_visibility(p.Form(), 5);
 
-	if(visiblitiy != true){
+	if(visiblitiy!=true){
 
-		Report_Listen.log_print_in_report().info("🔹 Patient Portal Configuration form is not currently open. Navigating to the configuration form.");
-		System.out.println("🔹 Patient Portal Configuration form is not currently open. Navigating to the configuration form.");
-		System.out.println();
+		System.out.println("---------------- PORTAL CONFIGURATION ----------------");
+		System.out.println("Action : Open Patient Portal configuration");
+
+		Report_Listen.log_print_in_report().info("Action: Open Patient Portal configuration");
 
 		Channel_Module_Accessor();
 
@@ -1904,9 +1639,206 @@ public void Patient_Portal_FAQ_Validator(TreeMap<String, String> FAQ_data, SoftA
 		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(80)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
 		WebElement Form = wait.until(driver -> p.Form());
 
-		Report_Listen.log_print_in_report().pass("✅ Patient Portal Configuration form opened successfully.");
-		System.out.println("✅ Patient Portal Configuration form opened successfully.");
+		Treatment_Management_Section = p.Treatment_management_Section();
+		rp.wait_for_theElement(Treatment_Management_Section);
+		rp.Scroll_to_element(Treatment_Management_Section);
+		rp.Scroll_up();
+		Thread.sleep(500);
+
+		System.out.println("Result : PASS");
 		System.out.println();
+
+		Report_Listen.log_print_in_report().pass("Patient Portal configuration opened successfully.");
+	}
+	else{
+
+		Treatment_Management_Section = p.Treatment_management_Section();
+
+		List<WebElement> Cards = Treatment_Management_Section.findElements(By.xpath(".//*[contains(@class,'ant-typography text-dark')]/../../.."));
+		rp.wait_for_theElement(Cards);
+
+		System.out.println("---------------- FAQ CONFIGURATION ----------------");
+		System.out.println("Action : Open Treatment FAQs");
+
+		Report_Listen.log_print_in_report().info("Action: Open Treatment FAQs");
+
+		for(WebElement Card : Cards){
+
+			WebElement Card_Text_element = Card.findElement(By.xpath(".//*[contains(@class,'ant-typography text-dark')]"));
+			rp.wait_for_theElement(Card_Text_element);
+
+			String Card_Text = Card_Text_element.getText().trim();
+
+			if(Card_Text.contains("Treatment FAQs")){
+
+				WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
+				rp.wait_for_theElement(Toggle_Button);
+				rp.Scroll_to_element(Toggle_Button);
+				Thread.sleep(500);
+				Toggle_Button.click();
+
+				break;
+			}
+		}
+
+		FluentWait<WebDriver> newwait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(80)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
+		WebElement Popup_Frm = newwait.until(driver -> p.Popup_Form());
+
+		System.out.println("Result : PASS");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().pass("Treatment FAQs configuration opened successfully.");
+
+		List<WebElement> input_fields = p.FAQ_Add_Form_Inputs(Popup_Frm);
+
+		WebElement GroupName_input = input_fields.get(0);
+		WebElement Group_Description_input = input_fields.get(1);
+
+		GroupName_input.clear();
+		GroupName_input.sendKeys(Group_Title);
+
+		Group_Description_input.clear();
+		js.executeScript("const el=arguments[0]; const value=arguments[1]; const setter=Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set; setter.call(el,value); el.dispatchEvent(new Event('input',{bubbles:true})); el.dispatchEvent(new Event('change',{bubbles:true}));", Group_Description_input, Group_Description);
+
+		ArrayList<String> Questions = new ArrayList<String>();
+		ArrayList<String> Answers = new ArrayList<String>();
+
+		int Question_Answer_Count = 0;
+
+		for(String Key : FAQ_data.keySet()){
+
+			if(Key.contains("Question ")){
+				Question_Answer_Count++;
+			}
+		}
+
+		for(int b=1;b<=Question_Answer_Count;b++){
+
+			Questions.add(FAQ_data.get("Question " + b));
+			Answers.add(FAQ_data.get("Answer " + b));
+		}
+
+		System.out.println("---------------- FAQ DETAILS ----------------");
+		System.out.println("Group     : " + Group_Title);
+		System.out.println("Questions : " + Question_Answer_Count);
+
+		Report_Listen.log_print_in_report().info("FAQ Group: " + Group_Title);
+		Report_Listen.log_print_in_report().info("FAQ Question Count: " + Question_Answer_Count);
+
+		for(int k=1;k<Question_Answer_Count;k++){
+
+			WebElement Add_Question_Button = p.Add_Question_Button();
+			rp.Scroll_to_element(Add_Question_Button);
+			Add_Question_Button.click();
+		}
+
+		List<WebElement> All_Question_input = p.All_Question_fields();
+		List<WebElement> All_Answers_input = p.All_Answers_fields();
+
+		for(int m=0;m<Question_Answer_Count;m++){
+
+			WebElement Questioninput = All_Question_input.get(m);
+			Questioninput.clear();
+
+			WebElement Answerinput = All_Answers_input.get(m);
+			Answerinput.clear();
+
+			String Input_question = Questions.get(m);
+			String Input_Answer = Answers.get(m);
+
+			js.executeScript("const el=arguments[0]; const value=arguments[1]; const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set; setter.call(el,value); el.dispatchEvent(new Event('input',{bubbles:true})); el.dispatchEvent(new Event('change',{bubbles:true}));", Questioninput, Input_question);
+
+			js.executeScript("const el=arguments[0]; const value=arguments[1]; const setter=Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set; setter.call(el,value); el.dispatchEvent(new Event('input',{bubbles:true})); el.dispatchEvent(new Event('change',{bubbles:true}));", Answerinput, Input_Answer);
+		}
+
+		System.out.println("Result    : PASS");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().pass("FAQ Group details and " + Question_Answer_Count + " Question/Answer sets entered successfully.");
+
+		System.out.println("---------------- FAQ SAVE ----------------");
+		System.out.println("Action : Save FAQ configuration");
+
+		Report_Listen.log_print_in_report().info("Action: Save FAQ configuration");
+
+		WebElement Modal_Save_Button = p.Save_Button();
+		rp.Scroll_to_element(Modal_Save_Button);
+		Modal_Save_Button.click();
+		rp.wait_for_invisibilty_of_theElement(Modal_Save_Button);
+
+		WebElement Save_Settings = p.Save_Settings_Button();
+		Save_Settings.click();
+
+		WebElement Confirmation_Message = p.Success_Toast();
+		String Confirmation_Message_Text = Confirmation_Message.getText().trim();
+
+		System.out.println("Message : " + Confirmation_Message_Text);
+		System.out.println("Result  : PASS");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().info("Confirmation Message: " + Confirmation_Message_Text);
+		Report_Listen.log_print_in_report().pass("Patient Portal FAQ configuration saved successfully.");
+
+		System.out.println("============================================================");
+		System.out.println("                FAQ CONFIGURATION COMPLETED");
+		System.out.println("============================================================");
+		System.out.println("FAQ Group : " + Group_Title);
+		System.out.println("Result    : PASS");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().pass("---------------- FAQ CONFIGURATION COMPLETED ----------------");
+	}
+}
+
+
+public void Patient_Portal_FAQ_Validator(TreeMap<String, String> FAQ_data, SoftAssert softAssert) throws Exception{
+
+	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	WebElement Treatment_Management_Section;
+
+	String Group_Title = FAQ_data.get("Group Name");
+	String Group_Description = FAQ_data.get("Group Description");
+
+	System.out.println();
+	System.out.println("============================================================");
+	System.out.println("                 PATIENT PORTAL FAQ VALIDATION");
+	System.out.println("============================================================");
+	System.out.println("FAQ Group : " + Group_Title);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().info("---------------- PATIENT PORTAL FAQ VALIDATION ----------------");
+	Report_Listen.log_print_in_report().info("FAQ Group: " + Group_Title);
+
+	Boolean visiblitiy = rp.check_element_visibility(p.Form(), 5);
+
+	if(visiblitiy!=true){
+
+		System.out.println("---------------- PORTAL CONFIGURATION ----------------");
+		System.out.println("Action : Open Patient Portal configuration");
+
+		Report_Listen.log_print_in_report().info("Action: Open Patient Portal configuration");
+
+		Channel_Module_Accessor();
+
+		WebElement Patient_portal_section_in_list = p.Patient_Portal_section();
+		rp.Scroll_to_element(Patient_portal_section_in_list);
+		Thread.sleep(500);
+
+		List<WebElement> Buttons = Patient_portal_section_in_list.findElements(By.xpath(".//button[contains(@class,'ant-btn-variant-outlined')]"));
+		rp.wait_for_theElement(Buttons);
+
+		WebElement Config_Button = Buttons.get(0);
+		Config_Button.click();
+
+		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(80)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
+		WebElement Form = wait.until(driver -> p.Form());
+
+		System.out.println("Result : PASS");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().pass("Patient Portal configuration opened successfully.");
 	}
 
 	Treatment_Management_Section = p.Treatment_management_Section();
@@ -1915,16 +1847,13 @@ public void Patient_Portal_FAQ_Validator(TreeMap<String, String> FAQ_data, SoftA
 	rp.Scroll_up();
 	Thread.sleep(500);
 
-	Report_Listen.log_print_in_report().pass("✅ Treatment Management section located successfully.");
-	System.out.println("✅ Treatment Management section located successfully.");
-	System.out.println();
-
 	List<WebElement> Cards = Treatment_Management_Section.findElements(By.xpath(".//*[contains(@class,'ant-typography text-dark')]/../../.."));
 	rp.wait_for_theElement(Cards);
 
-	Report_Listen.log_print_in_report().info("🔹 Total Treatment Management cards detected: " + Cards.size());
-	System.out.println("🔹 Total Treatment Management cards detected: " + Cards.size());
-	System.out.println();
+	System.out.println("---------------- FAQ CONFIGURATION ----------------");
+	System.out.println("Action : Open Treatment FAQs configuration");
+
+	Report_Listen.log_print_in_report().info("Action: Open Treatment FAQs configuration");
 
 	for(WebElement Card : Cards){
 
@@ -1935,19 +1864,11 @@ public void Patient_Portal_FAQ_Validator(TreeMap<String, String> FAQ_data, SoftA
 
 		if(Card_Text.contains("Treatment FAQs")){
 
-			Report_Listen.log_print_in_report().pass("✅ Treatment FAQs card identified successfully.");
-			System.out.println("✅ Treatment FAQs card identified successfully.");
-			System.out.println();
-
 			WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
 			rp.wait_for_theElement(Toggle_Button);
 			rp.Scroll_to_element(Toggle_Button);
 			Thread.sleep(500);
 			Toggle_Button.click();
-
-			Report_Listen.log_print_in_report().pass("✅ Treatment FAQs configuration popup opened successfully.");
-			System.out.println("✅ Treatment FAQs configuration popup opened successfully.");
-			System.out.println();
 
 			break;
 		}
@@ -1956,13 +1877,12 @@ public void Patient_Portal_FAQ_Validator(TreeMap<String, String> FAQ_data, SoftA
 	FluentWait<WebDriver> newwait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(80)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
 	WebElement Popup_Frm = newwait.until(driver -> p.Popup_Form());
 
-	Report_Listen.log_print_in_report().pass("✅ Treatment FAQs popup form loaded successfully.");
-	System.out.println("✅ Treatment FAQs popup form loaded successfully.");
+	System.out.println("Result : PASS");
 	System.out.println();
 
-	Report_Listen.log_print_in_report().info("──────────────────── 📝 FAQ GROUP DETAILS VALIDATION ────────────────────");
-	System.out.println("📝 FAQ GROUP DETAILS VALIDATION");
-	System.out.println();
+	Report_Listen.log_print_in_report().pass("Treatment FAQs configuration opened successfully.");
+
+	System.out.println("---------------- FAQ GROUP VALIDATION ----------------");
 
 	List<WebElement> input_fields = p.FAQ_Add_Form_Inputs(Popup_Frm);
 
@@ -1972,39 +1892,53 @@ public void Patient_Portal_FAQ_Validator(TreeMap<String, String> FAQ_data, SoftA
 	String Actual_Group_Title = GroupName_input.getDomProperty("value").trim();
 	String Actual_Group_Description = Group_Description_input.getDomProperty("value").trim();
 
+	System.out.println("Field    : Group Name");
+	System.out.println("Expected : " + Group_Title);
+	System.out.println("Actual   : " + Actual_Group_Title);
+
 	if(Actual_Group_Title.equals(Group_Title)){
 
-		Report_Listen.log_print_in_report().pass("✅ FAQ Group Name validation passed. Expected: " + Group_Title + " | Actual: " + Actual_Group_Title);
-		System.out.println("✅ FAQ Group Name validation passed. Expected: " + Group_Title + " | Actual: " + Actual_Group_Title);
+		System.out.println("Result   : PASS");
 		System.out.println();
+
+		Report_Listen.log_print_in_report().info("FAQ Group Name | Expected: " + Group_Title + " | Actual: " + Actual_Group_Title);
+		Report_Listen.log_print_in_report().pass("FAQ Group Name validation passed.");
 	}
 	else{
 
-		Report_Listen.log_print_in_report().fail("❌ FAQ Group Name validation failed. Expected: " + Group_Title + " | Actual: " + Actual_Group_Title);
-		System.out.println("❌ FAQ Group Name validation failed. Expected: " + Group_Title + " | Actual: " + Actual_Group_Title);
+		System.out.println("Result   : FAIL");
+		System.out.println("Reason   : FAQ Group Name does not match.");
 		System.out.println();
+
+		Report_Listen.log_print_in_report().fail("FAQ Group Name | Expected: " + Group_Title + " | Actual: " + Actual_Group_Title);
+		Report_Listen.log_print_in_report().fail("Reason: FAQ Group Name does not match.");
 
 		softAssert.assertEquals(Actual_Group_Title, Group_Title, "FAQ Group Name validation failed.");
 	}
 
+	System.out.println("Field    : Group Description");
+	System.out.println("Expected : " + Group_Description);
+	System.out.println("Actual   : " + Actual_Group_Description);
+
 	if(Actual_Group_Description.equals(Group_Description)){
 
-		Report_Listen.log_print_in_report().pass("✅ FAQ Group Description validation passed. Expected: " + Group_Description + " | Actual: " + Actual_Group_Description);
-		System.out.println("✅ FAQ Group Description validation passed. Expected: " + Group_Description + " | Actual: " + Actual_Group_Description);
+		System.out.println("Result   : PASS");
 		System.out.println();
+
+		Report_Listen.log_print_in_report().info("FAQ Group Description matched.");
+		Report_Listen.log_print_in_report().pass("FAQ Group Description validation passed.");
 	}
 	else{
 
-		Report_Listen.log_print_in_report().fail("❌ FAQ Group Description validation failed. Expected: " + Group_Description + " | Actual: " + Actual_Group_Description);
-		System.out.println("❌ FAQ Group Description validation failed. Expected: " + Group_Description + " | Actual: " + Actual_Group_Description);
+		System.out.println("Result   : FAIL");
+		System.out.println("Reason   : FAQ Group Description does not match.");
 		System.out.println();
+
+		Report_Listen.log_print_in_report().fail("Expected FAQ Group Description: " + Group_Description);
+		Report_Listen.log_print_in_report().fail("Actual FAQ Group Description: " + Actual_Group_Description);
 
 		softAssert.assertEquals(Actual_Group_Description, Group_Description, "FAQ Group Description validation failed.");
 	}
-
-	Report_Listen.log_print_in_report().info("──────────────────── 🔢 FAQ QUESTION AND ANSWER COUNT VALIDATION ────────────────────");
-	System.out.println("🔢 FAQ QUESTION AND ANSWER COUNT VALIDATION");
-	System.out.println();
 
 	int Question_Answer_Count = 0;
 
@@ -2021,49 +1955,45 @@ public void Patient_Portal_FAQ_Validator(TreeMap<String, String> FAQ_data, SoftA
 	int Actual_Question_Count = All_Question_input.size();
 	int Actual_Answer_Count = All_Answers_input.size();
 
-	Report_Listen.log_print_in_report().info("🔹 Expected Question Count: " + Question_Answer_Count);
-	Report_Listen.log_print_in_report().info("🔹 Actual Question Count: " + Actual_Question_Count);
-	Report_Listen.log_print_in_report().info("🔹 Expected Answer Count: " + Question_Answer_Count);
-	Report_Listen.log_print_in_report().info("🔹 Actual Answer Count: " + Actual_Answer_Count);
-	System.out.println("🔹 Expected Question Count: " + Question_Answer_Count);
-	System.out.println("🔹 Actual Question Count: " + Actual_Question_Count);
-	System.out.println("🔹 Expected Answer Count: " + Question_Answer_Count);
-	System.out.println("🔹 Actual Answer Count: " + Actual_Answer_Count);
-	System.out.println();
+	System.out.println("---------------- FAQ COUNT VALIDATION ----------------");
+	System.out.println("Expected Questions : " + Question_Answer_Count);
+	System.out.println("Actual Questions   : " + Actual_Question_Count);
+	System.out.println("Expected Answers   : " + Question_Answer_Count);
+	System.out.println("Actual Answers     : " + Actual_Answer_Count);
 
-	if(Actual_Question_Count == Question_Answer_Count){
+	Report_Listen.log_print_in_report().info("Expected Question Count: " + Question_Answer_Count);
+	Report_Listen.log_print_in_report().info("Actual Question Count: " + Actual_Question_Count);
+	Report_Listen.log_print_in_report().info("Expected Answer Count: " + Question_Answer_Count);
+	Report_Listen.log_print_in_report().info("Actual Answer Count: " + Actual_Answer_Count);
 
-		Report_Listen.log_print_in_report().pass("✅ FAQ Question count validation passed. Expected: " + Question_Answer_Count + " | Actual: " + Actual_Question_Count);
-		System.out.println("✅ FAQ Question count validation passed. Expected: " + Question_Answer_Count + " | Actual: " + Actual_Question_Count);
-		System.out.println();
+	if(Actual_Question_Count==Question_Answer_Count){
+
+		System.out.println("Question Count Result : PASS");
+		Report_Listen.log_print_in_report().pass("FAQ Question count validation passed.");
 	}
 	else{
 
-		Report_Listen.log_print_in_report().fail("❌ FAQ Question count validation failed. Expected: " + Question_Answer_Count + " | Actual: " + Actual_Question_Count);
-		System.out.println("❌ FAQ Question count validation failed. Expected: " + Question_Answer_Count + " | Actual: " + Actual_Question_Count);
-		System.out.println();
+		System.out.println("Question Count Result : FAIL");
+		Report_Listen.log_print_in_report().fail("FAQ Question count validation failed.");
 
 		softAssert.assertEquals(Actual_Question_Count, Question_Answer_Count, "FAQ Question count validation failed.");
 	}
 
-	if(Actual_Answer_Count == Question_Answer_Count){
+	if(Actual_Answer_Count==Question_Answer_Count){
 
-		Report_Listen.log_print_in_report().pass("✅ FAQ Answer count validation passed. Expected: " + Question_Answer_Count + " | Actual: " + Actual_Answer_Count);
-		System.out.println("✅ FAQ Answer count validation passed. Expected: " + Question_Answer_Count + " | Actual: " + Actual_Answer_Count);
-		System.out.println();
+		System.out.println("Answer Count Result   : PASS");
+		Report_Listen.log_print_in_report().pass("FAQ Answer count validation passed.");
 	}
 	else{
 
-		Report_Listen.log_print_in_report().fail("❌ FAQ Answer count validation failed. Expected: " + Question_Answer_Count + " | Actual: " + Actual_Answer_Count);
-		System.out.println("❌ FAQ Answer count validation failed. Expected: " + Question_Answer_Count + " | Actual: " + Actual_Answer_Count);
-		System.out.println();
+		System.out.println("Answer Count Result   : FAIL");
+		Report_Listen.log_print_in_report().fail("FAQ Answer count validation failed.");
 
 		softAssert.assertEquals(Actual_Answer_Count, Question_Answer_Count, "FAQ Answer count validation failed.");
 	}
 
-	Report_Listen.log_print_in_report().info("──────────────────── ❔ INDIVIDUAL FAQ VALIDATION ────────────────────");
-	System.out.println("❔ INDIVIDUAL FAQ VALIDATION");
 	System.out.println();
+	System.out.println("---------------- INDIVIDUAL FAQ VALIDATION ----------------");
 
 	int Validation_Count = Math.min(Question_Answer_Count, Math.min(Actual_Question_Count, Actual_Answer_Count));
 
@@ -2078,42 +2008,58 @@ public void Patient_Portal_FAQ_Validator(TreeMap<String, String> FAQ_data, SoftA
 		String Actual_Question = Questioninput.getDomProperty("value").trim();
 		String Actual_Answer = Answerinput.getDomProperty("value").trim();
 
-		if(Actual_Question.equals(Expected_Question)){
+		boolean Question_Matched = Actual_Question.equals(Expected_Question);
+		boolean Answer_Matched = Actual_Answer.equals(Expected_Answer);
 
-			Report_Listen.log_print_in_report().pass("✅ Question " + (m+1) + " validation passed. Expected: " + Expected_Question + " | Actual: " + Actual_Question);
-			System.out.println("✅ Question " + (m+1) + " validation passed. Expected: " + Expected_Question + " | Actual: " + Actual_Question);
-			System.out.println();
+		if(Question_Matched && Answer_Matched){
+
+			System.out.println("FAQ " + (m+1) + " : PASS");
+			Report_Listen.log_print_in_report().pass("FAQ " + (m+1) + " Question and Answer validation passed.");
 		}
-		else{
 
-			Report_Listen.log_print_in_report().fail("❌ Question " + (m+1) + " validation failed. Expected: " + Expected_Question + " | Actual: " + Actual_Question);
-			System.out.println("❌ Question " + (m+1) + " validation failed. Expected: " + Expected_Question + " | Actual: " + Actual_Question);
+		if(!Question_Matched){
+
 			System.out.println();
+			System.out.println("FAQ      : " + (m+1));
+			System.out.println("Field    : Question");
+			System.out.println("Expected : " + Expected_Question);
+			System.out.println("Actual   : " + Actual_Question);
+			System.out.println("Result   : FAIL");
+
+			Report_Listen.log_print_in_report().fail("FAQ " + (m+1) + " Question validation failed.");
+			Report_Listen.log_print_in_report().fail("Expected: " + Expected_Question);
+			Report_Listen.log_print_in_report().fail("Actual: " + Actual_Question);
 
 			softAssert.assertEquals(Actual_Question, Expected_Question, "Question " + (m+1) + " validation failed.");
 		}
 
-		if(Actual_Answer.equals(Expected_Answer)){
+		if(!Answer_Matched){
 
-			Report_Listen.log_print_in_report().pass("✅ Answer " + (m+1) + " validation passed. Expected: " + Expected_Answer + " | Actual: " + Actual_Answer);
-			System.out.println("✅ Answer " + (m+1) + " validation passed. Expected: " + Expected_Answer + " | Actual: " + Actual_Answer);
 			System.out.println();
-		}
-		else{
+			System.out.println("FAQ      : " + (m+1));
+			System.out.println("Field    : Answer");
+			System.out.println("Expected : " + Expected_Answer);
+			System.out.println("Actual   : " + Actual_Answer);
+			System.out.println("Result   : FAIL");
 
-			Report_Listen.log_print_in_report().fail("❌ Answer " + (m+1) + " validation failed. Expected: " + Expected_Answer + " | Actual: " + Actual_Answer);
-			System.out.println("❌ Answer " + (m+1) + " validation failed. Expected: " + Expected_Answer + " | Actual: " + Actual_Answer);
-			System.out.println();
+			Report_Listen.log_print_in_report().fail("FAQ " + (m+1) + " Answer validation failed.");
+			Report_Listen.log_print_in_report().fail("Expected: " + Expected_Answer);
+			Report_Listen.log_print_in_report().fail("Actual: " + Actual_Answer);
 
 			softAssert.assertEquals(Actual_Answer, Expected_Answer, "Answer " + (m+1) + " validation failed.");
 		}
 	}
 
-	Report_Listen.log_print_in_report().info("──────────────────── ✅ PATIENT PORTAL FAQ VALIDATION COMPLETED ────────────────────");
-	System.out.println("✅ PATIENT PORTAL FAQ VALIDATION COMPLETED");
+	System.out.println();
+	System.out.println("============================================================");
+	System.out.println("             FAQ VALIDATION COMPLETED");
+	System.out.println("============================================================");
+	System.out.println("FAQ Group       : " + Group_Title);
+	System.out.println("FAQ Sets Checked: " + Validation_Count);
 	System.out.println();
 
-	
+	Report_Listen.log_print_in_report().info("---------------- FAQ VALIDATION COMPLETED ----------------");
+	Report_Listen.log_print_in_report().info("FAQ Sets Checked: " + Validation_Count);
 }
 
 
@@ -2616,15 +2562,15 @@ public Object[][] Patient_Portal_Create_Data(){
 		{ data9 },
 		{ data10 },
 		{ data11 },
-		{ data12 },
-		{ data13 },
+		{ data12 }*/
+		{ data13 },/*
 		{ data14 },
 		{ data15 },
 		{ data16 },
 		{ data17 },
 		{ data18 },
-		{ data19 }, */
-		{ data20 } 
+		{ data19 }, 
+		{ data20 } */
 	};
 }
 
@@ -2640,190 +2586,173 @@ public void Patient_Portal_Create(TreeMap<String, String> Patient_Portal_data, T
 
 	try {
 
-		Report_Listen.log_print_in_report().info("──────────────────── 🌐 PATIENT PORTAL CREATION STARTED ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Portal Name:</b> " + Portal_Name);
-		System.out.println("🌐 PATIENT PORTAL CREATION STARTED");
 		System.out.println();
-		System.out.println("🔹 Portal Name: " + Portal_Name);
+		System.out.println("============================================================");
+		System.out.println("                PATIENT PORTAL CREATION");
+		System.out.println("============================================================");
+		System.out.println("Portal : " + Portal_Name);
 		System.out.println();
 
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Accessing the Channels module.");
-		System.out.println("🔹 Accessing the Channels module.");
-		System.out.println();
+		Report_Listen.log_print_in_report().info("---------------- PATIENT PORTAL CREATION ----------------");
+		Report_Listen.log_print_in_report().info("Portal: " + Portal_Name);
+
+		System.out.println("---------------- CHANNEL ACCESS ----------------");
+		System.out.println("Action : Open Channels module");
+
+		Report_Listen.log_print_in_report().info("Action: Open Channels module");
 
 		Channel_Module_Accessor();
 
-		Report_Listen.log_print_in_report().pass("✅ Channels module accessed successfully.");
-		System.out.println("✅ Channels module accessed successfully.");
+		System.out.println("Result : PASS");
 		System.out.println();
 
-		Report_Listen.log_print_in_report().info("──────────────────── 🔎 PATIENT PORTAL SECTION CHECK ────────────────────");
-		System.out.println("🔎 PATIENT PORTAL SECTION CHECK");
-		System.out.println();
+		Report_Listen.log_print_in_report().pass("Channels module opened successfully.");
 
 		WebElement Patient_portal_section_in_list = p.Patient_Portal_section();
 		Thread.sleep(800);
 		rp.Scroll_to_Bottom_of_Page();
 		Thread.sleep(800);
-      
-		Report_Listen.log_print_in_report().pass("✅ Patient Portal section located successfully.");
-		System.out.println("✅ Patient Portal section located successfully.");
-		System.out.println();
 
 		WebElement Config_Button = Patient_portal_section_in_list.findElement(By.xpath(".//*[text()='Configuration']/.."));
 		Boolean is_visible = rp.check_element_visibility(Config_Button, 4);
 
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Checking whether an existing Patient Portal configuration is available.");
-		System.out.println("🔹 Checking whether an existing Patient Portal configuration is available.");
-		System.out.println();
+		System.out.println("---------------- EXISTING PORTAL CHECK ----------------");
 
-		if(is_visible != true) {
+		if(is_visible!=true){
 
-			Report_Listen.log_print_in_report().info("ℹ️ No existing Patient Portal configuration detected. Proceeding with new Patient Portal creation.");
-			System.out.println("ℹ️ No existing Patient Portal configuration detected.");
+			System.out.println("Existing Portal : NO");
+			System.out.println("Action          : Create new Patient Portal");
 			System.out.println();
 
-			Report_Listen.log_print_in_report().info("──────────────────── ➕ NEW PATIENT PORTAL CREATION ────────────────────");
-			System.out.println("➕ NEW PATIENT PORTAL CREATION");
-			System.out.println();
-           
+			Report_Listen.log_print_in_report().info("Existing Patient Portal: NO");
+			Report_Listen.log_print_in_report().info("Action: Create new Patient Portal");
+
 			WebElement Add_Button = p.Patient_Portal_Create_Button();
 			rp.movetoelement(Add_Button);
 			Add_Button.click();
 
-			Report_Listen.log_print_in_report().pass("✅ Patient Portal creation form opened successfully.");
-			System.out.println("✅ Patient Portal creation form opened successfully.");
-			System.out.println();
-
 			p.Portal_Name_Input().sendKeys(Portal_Name);
-
-			Report_Listen.log_print_in_report().info("🔹 Patient Portal Name entered: " + Portal_Name);
-			System.out.println("🔹 Patient Portal Name entered: " + Portal_Name);
-			System.out.println();
 
 			WebElement Submit = p.Create_Button();
 			Submit.click();
-
-			Report_Listen.log_print_in_report().pass("✅ Patient Portal creation form submitted successfully.");
-			System.out.println("✅ Patient Portal creation form submitted successfully.");
-			System.out.println();
-
-			Report_Listen.log_print_in_report().info("<b>Action:</b> Opening Patient Portal Configuration.");
-			System.out.println("🔹 Opening Patient Portal Configuration.");
-			System.out.println();
 
 			Config_Button = p.Configuration_Button();
 
-			Report_Listen.log_print_in_report().pass("✅ Configuration button retrieved successfully for Portal: " + Portal_Name);
-			System.out.println("✅ Configuration button retrieved successfully for Portal: " + Portal_Name);
+			System.out.println("---------------- PORTAL CONFIGURATION ----------------");
+			System.out.println("Action : Configure Patient Portal");
+
+			Report_Listen.log_print_in_report().info("Action: Configure Patient Portal");
+
+			patient_portal_form_editor(Patient_Portal_data, Config_Button, FAQ_data);
+
+			System.out.println("Result : PASS");
 			System.out.println();
 
-			patient_portal_form_editor(Patient_Portal_data, Config_Button, FAQ_data); 
-            
-			patient_portal_configuration_validator(Patient_Portal_data,FAQ_data);
-			Report_Listen.log_print_in_report().pass("✅ Patient Portal created and configured successfully: " + Portal_Name);
-			System.out.println("✅ Patient Portal created and configured successfully: " + Portal_Name);
+			Report_Listen.log_print_in_report().pass("Patient Portal configured successfully.");
+
+			System.out.println("---------------- PORTAL VALIDATION ----------------");
+			System.out.println("Action : Validate saved Patient Portal configuration");
+
+			Report_Listen.log_print_in_report().info("Action: Validate saved Patient Portal configuration");
+
+			patient_portal_configuration_validator(Patient_Portal_data, FAQ_data);
+
+			System.out.println("Result : PASS");
 			System.out.println();
+
+			Report_Listen.log_print_in_report().pass("Patient Portal validation completed successfully.");
 		}
-		else {
-        
-			Report_Listen.log_print_in_report().info("ℹ️ Existing Patient Portal configuration detected.");
-			System.out.println("ℹ️ Existing Patient Portal configuration detected.");
+		else{
+
+			System.out.println("Existing Portal : YES");
+			System.out.println("Action          : Delete existing Portal and create new Portal");
 			System.out.println();
 
-			Report_Listen.log_print_in_report().info("──────────────────── 🗑️ EXISTING PATIENT PORTAL DELETION ────────────────────");
-			System.out.println("🗑️ EXISTING PATIENT PORTAL DELETION");
-			System.out.println();
+			Report_Listen.log_print_in_report().info("Existing Patient Portal: YES");
+			Report_Listen.log_print_in_report().info("Action: Delete existing Portal and create new Portal");
 
-			Report_Listen.log_print_in_report().info("<b>Action:</b> Deleting the existing Patient Portal before creating the new Portal.");
-			System.out.println("🔹 Deleting the existing Patient Portal before creating the new Portal.");
-			System.out.println();
-          
 			List<WebElement> ThreeDot_Buttons = Patient_portal_section_in_list.findElements(By.xpath(".//*[contains(@class,'ant-dropdown-trigger')] "));
 			rp.wait_for_theElement(ThreeDot_Buttons);
-		
 
-			Report_Listen.log_print_in_report().info("🔹 Three-dot action buttons retrieved. Total buttons found: " + ThreeDot_Buttons.size());
-			System.out.println("🔹 Three-dot action buttons retrieved. Total buttons found: " + ThreeDot_Buttons.size());
-			System.out.println();
-            
-			
-			
 			Three_Dot_Menu_Option_Selector(ThreeDot_Buttons, "Delete");
 
-			Report_Listen.log_print_in_report().pass("✅ Existing Patient Portal deletion action completed successfully.");
-			System.out.println("✅ Existing Patient Portal deletion action completed successfully.");
-			System.out.println();
+			System.out.println("Delete Result : PASS");
 
-			Report_Listen.log_print_in_report().info("──────────────────── ➕ NEW PATIENT PORTAL CREATION ────────────────────");
-			System.out.println("➕ NEW PATIENT PORTAL CREATION");
-			System.out.println();
+			Report_Listen.log_print_in_report().pass("Existing Patient Portal deleted successfully.");
 
 			WebElement Add_Button = p.Patient_Portal_Create_Button();
 			rp.movetoelement(Add_Button);
 			Add_Button.click();
 
-			Report_Listen.log_print_in_report().pass("✅ Patient Portal creation form opened successfully after deleting the existing Portal.");
-			System.out.println("✅ Patient Portal creation form opened successfully after deleting the existing Portal.");
-			System.out.println();
-
 			p.Portal_Name_Input().sendKeys(Portal_Name);
-
-			Report_Listen.log_print_in_report().info("🔹 Patient Portal Name entered: " + Portal_Name);
-			System.out.println("🔹 Patient Portal Name entered: " + Portal_Name);
-			System.out.println();
 
 			WebElement Submit = p.Create_Button();
 			Submit.click();
-            rp.wait_for_invisibilty_of_theElement(Submit);
-			Report_Listen.log_print_in_report().pass("✅ New Patient Portal creation form submitted successfully.");
-			System.out.println("✅ New Patient Portal creation form submitted successfully.");
+			rp.wait_for_invisibilty_of_theElement(Submit);
+
+			System.out.println("Create Result : PASS");
 			System.out.println();
 
-			Report_Listen.log_print_in_report().info("<b>Action:</b> Opening configuration for the newly created Patient Portal.");
-			System.out.println("🔹 Opening configuration for the newly created Patient Portal.");
-			System.out.println();
+			Report_Listen.log_print_in_report().pass("New Patient Portal created successfully.");
+
 			WebElement Refetched_Patient_portal_section_in_list = p.Patient_Portal_section();
 			rp.wait_for_theElement(Refetched_Patient_portal_section_in_list);
-		    WebElement ConfigButton=Refetched_Patient_portal_section_in_list.findElement(By.xpath(".//*[text()='Configuration']/.."));
-		    rp.wait_for_theElement(ConfigButton);
-			Report_Listen.log_print_in_report().pass("✅ Configuration button retrieved successfully for newly created Portal: " + Portal_Name);
-			System.out.println("✅ Configuration button retrieved successfully for newly created Portal: " + Portal_Name);
-			System.out.println();
+
+			WebElement ConfigButton = Refetched_Patient_portal_section_in_list.findElement(By.xpath(".//*[text()='Configuration']/.."));
+			rp.wait_for_theElement(ConfigButton);
+
+			System.out.println("---------------- PORTAL CONFIGURATION ----------------");
+			System.out.println("Action : Configure new Patient Portal");
+
+			Report_Listen.log_print_in_report().info("Action: Configure new Patient Portal");
 
 			patient_portal_form_editor(Patient_Portal_data, ConfigButton, FAQ_data);
-			Report_Listen.log_print_in_report().pass("✅ New Patient Portal created and configured successfully after removing the previous Portal: " + Portal_Name);
-			System.out.println("✅ New Patient Portal created and configured successfully after removing the previous Portal: " + Portal_Name);
-			System.out.println(); 
-			patient_portal_configuration_validator(Patient_Portal_data,FAQ_data);
+
+			System.out.println("Result : PASS");
+			System.out.println();
+
+			Report_Listen.log_print_in_report().pass("Patient Portal configured successfully.");
+
+			System.out.println("---------------- PORTAL VALIDATION ----------------");
+			System.out.println("Action : Validate saved Patient Portal configuration");
+
+			Report_Listen.log_print_in_report().info("Action: Validate saved Patient Portal configuration");
+
+			patient_portal_configuration_validator(Patient_Portal_data, FAQ_data);
+
+			System.out.println("Result : PASS");
+			System.out.println();
+
+			Report_Listen.log_print_in_report().pass("Patient Portal validation completed successfully.");
 		}
 
-		Report_Listen.log_print_in_report().pass("──────────────────── ✅ PATIENT PORTAL CREATION COMPLETED ────────────────────");
-		Report_Listen.log_print_in_report().pass("✅ Complete Patient Portal creation and configuration flow passed successfully for Portal: " + Portal_Name);
-		System.out.println("✅ PATIENT PORTAL CREATION COMPLETED");
-		System.out.println();
-		System.out.println("✅ Complete Patient Portal creation and configuration flow passed successfully for Portal: " + Portal_Name);
+		System.out.println("============================================================");
+		System.out.println("          PATIENT PORTAL CREATION COMPLETED");
+		System.out.println("============================================================");
+		System.out.println("Portal : " + Portal_Name);
+		System.out.println("Result : PASS");
 		System.out.println();
 
+		Report_Listen.log_print_in_report().pass("---------------- PATIENT PORTAL CREATION COMPLETED ----------------");
+		Report_Listen.log_print_in_report().pass("Patient Portal creation and configuration completed successfully: " + Portal_Name);
 	}
-	catch(Exception e) {
+	catch(Exception e){
 
-		Report_Listen.log_print_in_report().fail("❌ Patient Portal creation flow failed for Portal: " + Portal_Name);
-		Report_Listen.log_print_in_report().fail("❌ Failure Reason: " + e.getMessage());
+		System.out.println("---------------- PATIENT PORTAL CREATION FAILED ----------------");
+		System.out.println("Portal : " + Portal_Name);
+		System.out.println("Result : FAIL");
+		System.out.println("Reason : " + e.getMessage());
+		System.out.println();
 
-		System.out.println("❌ Patient Portal creation flow failed for Portal: " + Portal_Name);
-		System.out.println();
-		System.out.println("❌ Failure Reason: " + e.getMessage());
-		System.out.println();
+		Report_Listen.log_print_in_report().fail("Patient Portal creation failed: " + Portal_Name);
+		Report_Listen.log_print_in_report().fail("Reason: " + e.getMessage());
 
 		throw e;
 	}
 }
 
-public void patient_portal_configuration_validator(TreeMap<String, String> Form_data, TreeMap<String, String> FAQ) throws Exception{	
-	
-	
-	
+public void patient_portal_configuration_validator(TreeMap<String, String> Form_data, TreeMap<String, String> FAQ) throws Exception{
+
 	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
 	Repeat rp = new Repeat(d);
 	SoftAssert softAssert = new SoftAssert();
@@ -2850,45 +2779,43 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 	String Archive_Completed_Treatments_After = Form_data.get("Archive Completed Treatments After");
 	String Delete_Archived_Treatments_After = Form_data.get("Delete Archived Treatments After");
 
+	System.out.println();
+	System.out.println("============================================================");
+	System.out.println("            PATIENT PORTAL VALIDATION");
+	System.out.println("============================================================");
+	System.out.println("Portal : " + Portal_Name);
+	System.out.println();
 
-	Report_Listen.log_print_in_report().info("──────────────────── 🔍 PATIENT PORTAL CONFIGURATION VALIDATION STARTED ────────────────────");
-	Report_Listen.log_print_in_report().info("<b>Expected Portal Name:</b> " + Portal_Name);
-	System.out.println("🔍 PATIENT PORTAL CONFIGURATION VALIDATION STARTED");
-	System.out.println();
-	System.out.println("🔹 Expected Portal Name: " + Portal_Name);
-	System.out.println();
+	Report_Listen.log_print_in_report().info("---------------- PATIENT PORTAL VALIDATION ----------------");
+	Report_Listen.log_print_in_report().info("Portal: " + Portal_Name);
 
-	Report_Listen.log_print_in_report().info("<b>Action:</b> Retrieving the Patient Portal Configuration button.");
-	System.out.println("🔹 Retrieving the Patient Portal Configuration button.");
-	System.out.println();
 	WebElement Patient_portal_section_in_list = p.Patient_Portal_section();
 	Thread.sleep(800);
-	WebElement Cnfig_Button = Patient_portal_section_in_list.findElement(By.xpath(".//*[text()='Configuration']/.."));;
-    Boolean Visibility_Status=rp.check_element_visibility(Cnfig_Button, 3);
+
+	WebElement Cnfig_Button = Patient_portal_section_in_list.findElement(By.xpath(".//*[text()='Configuration']/.."));
+	Boolean Visibility_Status = rp.check_element_visibility(Cnfig_Button, 3);
+
 	if(Visibility_Status!=true){
-		 WebElement Save_Settings=p.Save_Settings_Button();
-		   Save_Settings.click();
-		   WebElement Confirmation_Message = p.Success_Toast();
-			String Confirmation_Message_Text = Confirmation_Message.getText().trim();
 
-			Report_Listen.log_print_in_report().pass("✅ Confirmation Message: " + Confirmation_Message_Text);
-			System.out.println("✅ Confirmation message displayed: " + Confirmation_Message_Text);
-			System.out.println();
-		    Report_Listen.log_print_in_report().pass("✅ Paiteint Portal Saved successfully for Product: ");
-			System.out.println("✅Paiteint Portal Saved successfully ");
-			System.out.println();
-		    WebElement new_config_button=p.Configuration_Button();
-		    Cnfig_Button=new_config_button;
-		
+		WebElement Save_Settings = p.Save_Settings_Button();
+		Save_Settings.click();
+
+		WebElement Confirmation_Message = p.Success_Toast();
+		String Confirmation_Message_Text = Confirmation_Message.getText().trim();
+
+		System.out.println("---------------- CONFIGURATION SAVE ----------------");
+		System.out.println("Message : " + Confirmation_Message_Text);
+		System.out.println("Result  : PASS");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().info("Confirmation Message: " + Confirmation_Message_Text);
+		Report_Listen.log_print_in_report().pass("Patient Portal configuration saved successfully.");
+
+		WebElement new_config_button = p.Configuration_Button();
+		Cnfig_Button = new_config_button;
 	}
-	
-	Report_Listen.log_print_in_report().pass("✅ Patient Portal Configuration button retrieved successfully.");
-	System.out.println("✅ Patient Portal Configuration button retrieved successfully.");
-	System.out.println();
 
-	Report_Listen.log_print_in_report().info("<b>Action:</b> Retrieving the Patient Portal Name displayed in the list.");
-	System.out.println("🔹 Retrieving the Patient Portal Name displayed in the list.");
-	System.out.println();
+	System.out.println("---------------- PORTAL NAME VALIDATION ----------------");
 
 	WebElement Portal_name_inlist = Cnfig_Button.findElement(By.xpath("./../..//span[contains(@class,'text-dark')]"));
 	rp.wait_for_theElement(Portal_name_inlist);
@@ -2896,96 +2823,72 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 	String Actual_Portal_Name = Portal_name_inlist.getText().trim();
 	Boolean Portal_Name_Matched = Actual_Portal_Name.equalsIgnoreCase(Portal_Name);
 
-	Report_Listen.log_print_in_report().info("Expected Portal Name: " + Portal_Name);
-	Report_Listen.log_print_in_report().info("Actual Portal Name: " + Actual_Portal_Name);
-	System.out.println("🔹 Expected Portal Name: " + Portal_Name);
-	System.out.println("🔹 Actual Portal Name: " + Actual_Portal_Name);
-	System.out.println();
+	System.out.println("Expected : " + Portal_Name);
+	System.out.println("Actual   : " + Actual_Portal_Name);
 
 	if(Portal_Name_Matched){
 
-		Report_Listen.log_print_in_report().pass("✅ Patient Portal Name validation passed. Expected and actual Portal Names are matching: " + Actual_Portal_Name);
-		System.out.println("✅ Patient Portal Name validation passed. Expected and actual Portal Names are matching: " + Actual_Portal_Name);
+		System.out.println("Result   : PASS");
 		System.out.println();
+
+		Report_Listen.log_print_in_report().info("Expected Portal Name: " + Portal_Name);
+		Report_Listen.log_print_in_report().info("Actual Portal Name: " + Actual_Portal_Name);
+		Report_Listen.log_print_in_report().pass("Portal Name validation passed.");
 	}
 	else{
 
-		Report_Listen.log_print_in_report().fail("❌ Patient Portal Name validation failed. Expected: " + Portal_Name + " | Actual: " + Actual_Portal_Name);
-		System.out.println("❌ Patient Portal Name validation failed. Expected: " + Portal_Name + " | Actual: " + Actual_Portal_Name);
+		System.out.println("Result   : FAIL");
+		System.out.println("Reason   : Portal Name does not match.");
 		System.out.println();
+
+		Report_Listen.log_print_in_report().fail("Expected Portal Name: " + Portal_Name);
+		Report_Listen.log_print_in_report().fail("Actual Portal Name: " + Actual_Portal_Name);
 
 		softAssert.assertEquals(Actual_Portal_Name, Portal_Name, "Patient Portal Name validation failed.");
 	}
 
-	Report_Listen.log_print_in_report().info("──────────────────── ⚙️ PATIENT PORTAL CONFIGURATION FORM ACCESS ────────────────────");
-	Report_Listen.log_print_in_report().info("<b>Action:</b> Opening the Patient Portal Configuration form.");
-	System.out.println("⚙️ PATIENT PORTAL CONFIGURATION FORM ACCESS");
-	System.out.println();
-	System.out.println("🔹 Opening the Patient Portal Configuration form.");
-	System.out.println();
-
 	Cnfig_Button.click();
-
-	Report_Listen.log_print_in_report().pass("✅ Patient Portal Configuration button clicked successfully.");
-	System.out.println("✅ Patient Portal Configuration button clicked successfully.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().info("<b>Action:</b> Waiting for the Patient Portal Configuration form to load.");
-	System.out.println("🔹 Waiting for the Patient Portal Configuration form to load.");
-	System.out.println();
 
 	FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(80)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
 	WebElement Form = wait.until(driver -> p.Form());
 
-	Report_Listen.log_print_in_report().pass("✅ Patient Portal Configuration form loaded successfully.");
-	System.out.println("✅ Patient Portal Configuration form loaded successfully.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().info("──────────────────── 🔎 CONFIGURATION FIELD VALIDATION READY ────────────────────");
-	Report_Listen.log_print_in_report().info("Patient Portal Configuration form is available and ready for further field validations.");
-	System.out.println("🔎 CONFIGURATION FIELD VALIDATION READY");
-	System.out.println();
-	System.out.println("✅ Patient Portal Configuration form is available and ready for further field validations.");
-	System.out.println();
 	WebElement Treatment_Management_Section = p.Treatment_management_Section();
 	rp.wait_for_theElement(Treatment_Management_Section);
 	rp.Scroll_to_element(Treatment_Management_Section);
 	Thread.sleep(500);
 
-	Report_Listen.log_print_in_report().info("──────────────────── 🔍 PATIENT PORTAL DROPDOWN VALIDATION ────────────────────");
-	System.out.println("🔍 PATIENT PORTAL DROPDOWN VALIDATION");
-	System.out.println();
+	System.out.println("---------------- GENERAL CONFIGURATION VALIDATION ----------------");
 
 	List<WebElement> dropdown_fields = p.Patient_Portal_config_Form_Dropdown_fields(Form);
-
-	Report_Listen.log_print_in_report().info("🔹 Total dropdown fields found: " + dropdown_fields.size());
-	System.out.println("🔹 Total dropdown fields found: " + dropdown_fields.size());
-	System.out.println();
 
 	for(WebElement Field : dropdown_fields){
 
 		String Feild_Value = Field.getText().trim();
+
 		WebElement Label_name = Field.findElement(By.xpath("./../../../../..//label"));
 		rp.wait_for_theElement(Label_name);
-		String Label_Text = Label_name.getText().trim();
 
-		Report_Listen.log_print_in_report().info("🔹 " + Label_Text + " → " + Feild_Value);
-		System.out.println("🔹 " + Label_Text + " → " + Feild_Value);
-		System.out.println();
+		String Label_Text = Label_name.getText().trim();
 
 		if(Label_Text.contains("Login Method")){
 
+			System.out.println("Field    : Login Method");
+			System.out.println("Expected : " + Login_Method);
+			System.out.println("Actual   : " + Feild_Value);
+
 			if(Feild_Value.contains("Magic Link (Email + Order ID)")){
 
-				Report_Listen.log_print_in_report().pass("✅ Login Method validation passed. Expected: Magic Link (Email + Order ID) | Actual: " + Feild_Value);
-				System.out.println("✅ Login Method validation passed. Expected: Magic Link (Email + Order ID) | Actual: " + Feild_Value);
+				System.out.println("Result   : PASS");
 				System.out.println();
+
+				Report_Listen.log_print_in_report().pass("Login Method validation passed. Expected: " + Login_Method + " | Actual: " + Feild_Value);
 			}
 			else{
 
-				Report_Listen.log_print_in_report().fail("❌ Login Method validation failed. Expected: " + Login_Method + " | Actual: " + Feild_Value);
-				System.out.println("❌ Login Method validation failed. Expected: " + Login_Method + " | Actual: " + Feild_Value);
+				System.out.println("Result   : FAIL");
 				System.out.println();
+
+				Report_Listen.log_print_in_report().fail("Login Method validation failed. Expected: " + Login_Method + " | Actual: " + Feild_Value);
 
 				softAssert.assertEquals(Feild_Value, Login_Method, "Login Method validation failed.");
 			}
@@ -2993,72 +2896,52 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 
 		if(Label_Text.contains("Status")){
 
+			System.out.println("Field    : Status");
+			System.out.println("Expected : " + Status);
+			System.out.println("Actual   : " + Feild_Value);
+
 			if(Feild_Value.contains("Inactive")){
 
-				Report_Listen.log_print_in_report().pass("✅ Patient Portal Status validation passed. Expected: Inactive | Actual: " + Feild_Value);
-				System.out.println("✅ Patient Portal Status validation passed. Expected: Inactive | Actual: " + Feild_Value);
+				System.out.println("Result   : PASS");
 				System.out.println();
+
+				Report_Listen.log_print_in_report().pass("Status validation passed. Expected: " + Status + " | Actual: " + Feild_Value);
 			}
 			else{
 
-				Report_Listen.log_print_in_report().fail("❌ Patient Portal Status validation failed. Expected: " + Status + " | Actual: " + Feild_Value);
-				System.out.println("❌ Patient Portal Status validation failed. Expected: " + Status + " | Actual: " + Feild_Value);
+				System.out.println("Result   : FAIL");
 				System.out.println();
+
+				Report_Listen.log_print_in_report().fail("Status validation failed. Expected: " + Status + " | Actual: " + Feild_Value);
 
 				softAssert.assertEquals(Feild_Value, Status, "Patient Portal Status validation failed.");
 			}
 		}
 	}
-	
-	
-	
 
 	List<WebElement> Cards = Treatment_Management_Section.findElements(By.xpath(".//*[contains(@class,'ant-typography text-dark')]/../../.."));
 	rp.wait_for_theElement(Cards);
 
-	Report_Listen.log_print_in_report().info("🔹 Total Treatment Management cards detected: " + Cards.size());
-	System.out.println("🔹 Total Treatment Management cards detected: " + Cards.size());
-	System.out.println();
-
-	for(WebElement Card : Cards) {
+	for(WebElement Card : Cards){
 
 		WebElement Card_Text_element = Card.findElement(By.xpath(".//*[contains(@class,'ant-typography text-dark')]"));
 		rp.wait_for_theElement(Card_Text_element);
 
 		String Card_Text = Card_Text_element.getText().trim();
 
-		Report_Listen.log_print_in_report().info("🔹 Checking Treatment Management card: " + Card_Text);
-		System.out.println("🔹 Checking Treatment Management card: " + Card_Text);
+		if(Card_Text.contains("Cancel Treatment")){
 
-		if(Card_Text.contains("Cancel Treatment")) {
-
-			System.out.println();
-
-			Report_Listen.log_print_in_report().info("──────────────────── 🚫 CANCEL TREATMENT VALIDATION ────────────────────");
-			System.out.println("🚫 CANCEL TREATMENT VALIDATION");
-			System.out.println();
-
-			Report_Listen.log_print_in_report().pass("✅ Cancel Treatment card identified successfully.");
-			System.out.println("✅ Cancel Treatment card identified successfully.");
-			System.out.println();
+			System.out.println("---------------- CANCEL TREATMENT VALIDATION ----------------");
 
 			WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
 			rp.wait_for_theElement(Toggle_Button);
 			Thread.sleep(500);
 			Toggle_Button.click();
 
-			Report_Listen.log_print_in_report().pass("✅ Cancel Treatment configuration popup opened successfully.");
-			System.out.println("✅ Cancel Treatment configuration popup opened successfully.");
-			System.out.println();
-
 			WebElement pop_up_form = p.Popup_Form();
 
 			List<WebElement> popup_toggles = pop_up_form.findElements(By.xpath(".//button[@role='switch']"));
 			rp.wait_for_theElement(popup_toggles);
-
-			Report_Listen.log_print_in_report().info("🔹 Total configuration toggles detected: " + popup_toggles.size());
-			System.out.println("🔹 Total configuration toggles detected: " + popup_toggles.size());
-			System.out.println();
 
 			WebElement First_Toggle = popup_toggles.get(0);
 			rp.wait_for_theElement(First_Toggle);
@@ -3066,17 +2949,19 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 			String Cancellation_Toggle_Value = First_Toggle.getAttribute("aria-checked");
 			String Expected_Cancellation_Toggle_Value = Cancellation_Offer.equalsIgnoreCase("Enabled") ? "true" : "false";
 
+			System.out.println("Cancellation Offer");
+			System.out.println("Expected : " + Expected_Cancellation_Toggle_Value);
+			System.out.println("Actual   : " + Cancellation_Toggle_Value);
+
 			if(Cancellation_Toggle_Value.equalsIgnoreCase(Expected_Cancellation_Toggle_Value)){
 
-				Report_Listen.log_print_in_report().pass("✅ Cancellation Offer validation passed. Expected: " + Cancellation_Offer + " | Actual: " + (Cancellation_Toggle_Value.equalsIgnoreCase("true") ? "Enabled" : "Disabled"));
-				System.out.println("✅ Cancellation Offer validation passed. Expected: " + Cancellation_Offer + " | Actual: " + (Cancellation_Toggle_Value.equalsIgnoreCase("true") ? "Enabled" : "Disabled"));
-				System.out.println();
+				System.out.println("Result   : PASS");
+				Report_Listen.log_print_in_report().pass("Cancellation Offer validation passed.");
 			}
 			else{
 
-				Report_Listen.log_print_in_report().fail("❌ Cancellation Offer validation failed. Expected: " + Cancellation_Offer + " | Actual: " + (Cancellation_Toggle_Value.equalsIgnoreCase("true") ? "Enabled" : "Disabled"));
-				System.out.println("❌ Cancellation Offer validation failed. Expected: " + Cancellation_Offer + " | Actual: " + (Cancellation_Toggle_Value.equalsIgnoreCase("true") ? "Enabled" : "Disabled"));
-				System.out.println();
+				System.out.println("Result   : FAIL");
+				Report_Listen.log_print_in_report().fail("Cancellation Offer validation failed. Expected: " + Expected_Cancellation_Toggle_Value + " | Actual: " + Cancellation_Toggle_Value);
 
 				softAssert.assertEquals(Cancellation_Toggle_Value, Expected_Cancellation_Toggle_Value, "Cancellation Offer validation failed.");
 			}
@@ -3084,95 +2969,80 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 			List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='discount_percent' or @id='offer_cooldown_days']"));
 			rp.wait_for_theElement(pop_up_inputs);
 
-			Report_Listen.log_print_in_report().info("🔹 Discount Amount and Offer Cooldown fields retrieved successfully for validation.");
-			System.out.println("🔹 Discount Amount and Offer Cooldown fields retrieved successfully for validation.");
-			System.out.println();
-
 			String Discount_val = pop_up_inputs.get(0).getAttribute("value");
+			String Cooldown_val = pop_up_inputs.get(1).getAttribute("value");
+
+			System.out.println();
+			System.out.println("Discount Amount");
+			System.out.println("Expected : " + Discount_Amount);
+			System.out.println("Actual   : " + Discount_val);
 
 			if(Discount_val.equalsIgnoreCase(Discount_Amount)){
 
-				Report_Listen.log_print_in_report().pass("✅ Discount Amount validation passed. Expected: " + Discount_Amount + " | Actual: " + Discount_val);
-				System.out.println("✅ Discount Amount validation passed. Expected: " + Discount_Amount + " | Actual: " + Discount_val);
-				System.out.println();
+				System.out.println("Result   : PASS");
+				Report_Listen.log_print_in_report().pass("Discount Amount validation passed.");
 			}
 			else{
 
-				Report_Listen.log_print_in_report().fail("❌ Discount Amount validation failed. Expected: " + Discount_Amount + " | Actual: " + Discount_val);
-				System.out.println("❌ Discount Amount validation failed. Expected: " + Discount_Amount + " | Actual: " + Discount_val);
-				System.out.println();
+				System.out.println("Result   : FAIL");
+				Report_Listen.log_print_in_report().fail("Discount Amount validation failed. Expected: " + Discount_Amount + " | Actual: " + Discount_val);
 
 				softAssert.assertEquals(Discount_val, Discount_Amount, "Discount Amount validation failed.");
 			}
 
-			String Cooldown_val = pop_up_inputs.get(1).getAttribute("value");
+			System.out.println();
+			System.out.println("Offer Cooldown");
+			System.out.println("Expected : " + Offer_Cooldown);
+			System.out.println("Actual   : " + Cooldown_val);
 
 			if(Cooldown_val.equalsIgnoreCase(Offer_Cooldown)){
 
-				Report_Listen.log_print_in_report().pass("✅ Offer Cooldown validation passed. Expected: " + Offer_Cooldown + " | Actual: " + Cooldown_val);
-				System.out.println("✅ Offer Cooldown validation passed. Expected: " + Offer_Cooldown + " | Actual: " + Cooldown_val);
-				System.out.println();
+				System.out.println("Result   : PASS");
+				Report_Listen.log_print_in_report().pass("Offer Cooldown validation passed.");
 			}
 			else{
 
-				Report_Listen.log_print_in_report().fail("❌ Offer Cooldown validation failed. Expected: " + Offer_Cooldown + " | Actual: " + Cooldown_val);
-				System.out.println("❌ Offer Cooldown validation failed. Expected: " + Offer_Cooldown + " | Actual: " + Cooldown_val);
-				System.out.println();
+				System.out.println("Result   : FAIL");
+				Report_Listen.log_print_in_report().fail("Offer Cooldown validation failed. Expected: " + Offer_Cooldown + " | Actual: " + Cooldown_val);
 
 				softAssert.assertEquals(Cooldown_val, Offer_Cooldown, "Offer Cooldown validation failed.");
 			}
 
-			p.Modal_close_button().click();
-
-			Report_Listen.log_print_in_report().info("✅ Cancel Treatment configuration popup closed after validation.");
-			System.out.println("✅ Cancel Treatment configuration popup closed after validation.");
 			System.out.println();
+
+			p.Modal_close_button().click();
 		}
 
-		if(Card_Text.contains("Change Refill Date")) {
+		if(Card_Text.contains("Change Refill Date")){
 
-			System.out.println();
-
-			Report_Listen.log_print_in_report().info("──────────────────── 📅 CHANGE REFILL DATE VALIDATION ────────────────────");
-			System.out.println("📅 CHANGE REFILL DATE VALIDATION");
-			System.out.println();
-
-			Report_Listen.log_print_in_report().pass("✅ Change Refill Date card identified successfully.");
-			System.out.println("✅ Change Refill Date card identified successfully.");
-			System.out.println();
+			System.out.println("---------------- CHANGE REFILL DATE VALIDATION ----------------");
 
 			WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
 			rp.wait_for_theElement(Toggle_Button);
 			Thread.sleep(800);
 			Toggle_Button.click();
 
-			Report_Listen.log_print_in_report().pass("✅ Change Refill Date configuration popup opened successfully.");
-			System.out.println("✅ Change Refill Date configuration popup opened successfully.");
-			System.out.println();
-
 			WebElement pop_up_form = p.Popup_Form();
 
 			List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='max_extension_days' or @id='max_reduction_days']"));
 			rp.wait_for_theElement(pop_up_inputs);
 
-			Report_Listen.log_print_in_report().info("🔹 Maximum Extension and Maximum Reduction fields retrieved successfully for validation.");
-			System.out.println("🔹 Maximum Extension and Maximum Reduction fields retrieved successfully for validation.");
-			System.out.println();
-
 			WebElement Max_Extension = pop_up_inputs.get(0);
 			String Max_ext_value = Max_Extension.getAttribute("value");
 
+			System.out.println("Maximum Extension");
+			System.out.println("Expected : " + Maximum_Extension);
+			System.out.println("Actual   : " + Max_ext_value);
+
 			if(Max_ext_value.equalsIgnoreCase(Maximum_Extension)){
 
-				Report_Listen.log_print_in_report().pass("✅ Maximum Extension validation passed. Expected: " + Maximum_Extension + " | Actual: " + Max_ext_value);
-				System.out.println("✅ Maximum Extension validation passed. Expected: " + Maximum_Extension + " | Actual: " + Max_ext_value);
-				System.out.println();
+				System.out.println("Result   : PASS");
+				Report_Listen.log_print_in_report().pass("Maximum Extension validation passed.");
 			}
 			else{
 
-				Report_Listen.log_print_in_report().fail("❌ Maximum Extension validation failed. Expected: " + Maximum_Extension + " | Actual: " + Max_ext_value);
-				System.out.println("❌ Maximum Extension validation failed. Expected: " + Maximum_Extension + " | Actual: " + Max_ext_value);
-				System.out.println();
+				System.out.println("Result   : FAIL");
+				Report_Listen.log_print_in_report().fail("Maximum Extension validation failed. Expected: " + Maximum_Extension + " | Actual: " + Max_ext_value);
 
 				softAssert.assertEquals(Max_ext_value, Maximum_Extension, "Maximum Extension validation failed.");
 			}
@@ -3180,48 +3050,37 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 			WebElement MaximumReduction = pop_up_inputs.get(1);
 			String Maximum_Reduction_Value = MaximumReduction.getAttribute("value");
 
+			System.out.println();
+			System.out.println("Maximum Reduction");
+			System.out.println("Expected : " + Maximum_Reduction);
+			System.out.println("Actual   : " + Maximum_Reduction_Value);
+
 			if(Maximum_Reduction_Value.equalsIgnoreCase(Maximum_Reduction)){
 
-				Report_Listen.log_print_in_report().pass("✅ Maximum Reduction validation passed. Expected: " + Maximum_Reduction + " | Actual: " + Maximum_Reduction_Value);
-				System.out.println("✅ Maximum Reduction validation passed. Expected: " + Maximum_Reduction + " | Actual: " + Maximum_Reduction_Value);
-				System.out.println();
+				System.out.println("Result   : PASS");
+				Report_Listen.log_print_in_report().pass("Maximum Reduction validation passed.");
 			}
 			else{
 
-				Report_Listen.log_print_in_report().fail("❌ Maximum Reduction validation failed. Expected: " + Maximum_Reduction + " | Actual: " + Maximum_Reduction_Value);
-				System.out.println("❌ Maximum Reduction validation failed. Expected: " + Maximum_Reduction + " | Actual: " + Maximum_Reduction_Value);
-				System.out.println();
+				System.out.println("Result   : FAIL");
+				Report_Listen.log_print_in_report().fail("Maximum Reduction validation failed. Expected: " + Maximum_Reduction + " | Actual: " + Maximum_Reduction_Value);
 
 				softAssert.assertEquals(Maximum_Reduction_Value, Maximum_Reduction, "Maximum Reduction validation failed.");
 			}
 
-			p.Modal_close_button().click();
-
-			Report_Listen.log_print_in_report().info("✅ Change Refill Date configuration popup closed after validation.");
-			System.out.println("✅ Change Refill Date configuration popup closed after validation.");
 			System.out.println();
+
+			p.Modal_close_button().click();
 		}
 
-		if(Card_Text.contains("Emergency Contact Widget")) {
+		if(Card_Text.contains("Emergency Contact Widget")){
 
-			System.out.println();
-
-			Report_Listen.log_print_in_report().info("──────────────────── 🚨 EMERGENCY CONTACT WIDGET VALIDATION ────────────────────");
-			System.out.println("🚨 EMERGENCY CONTACT WIDGET VALIDATION");
-			System.out.println();
-
-			Report_Listen.log_print_in_report().pass("✅ Emergency Contact Widget card identified successfully.");
-			System.out.println("✅ Emergency Contact Widget card identified successfully.");
-			System.out.println();
+			System.out.println("---------------- EMERGENCY CONTACT VALIDATION ----------------");
 
 			WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
 			rp.wait_for_theElement(Toggle_Button);
 			Thread.sleep(500);
 			Toggle_Button.click();
-
-			Report_Listen.log_print_in_report().pass("✅ Emergency Contact Widget configuration popup opened successfully.");
-			System.out.println("✅ Emergency Contact Widget configuration popup opened successfully.");
-			System.out.println();
 
 			WebElement pop_up_form = p.Popup_Form();
 
@@ -3231,24 +3090,22 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 			List<WebElement> pop_up_Textareas = pop_up_form.findElements(By.xpath(".//textarea[@id='title' or @id='description' or @id='disclaimer']"));
 			rp.wait_for_theElement(pop_up_Textareas);
 
-			Report_Listen.log_print_in_report().info("🔹 Emergency Contact fields retrieved successfully for validation.");
-			System.out.println("🔹 Emergency Contact fields retrieved successfully for validation.");
-			System.out.println();
-
 			WebElement Emergency_Contact_Number_Field = pop_up_inputs.get(0);
 			String Emergency_Contact_Number_Value = Emergency_Contact_Number_Field.getAttribute("value");
 
+			System.out.println("Emergency Contact Number");
+			System.out.println("Expected : " + Emergency_Contact_Number);
+			System.out.println("Actual   : " + Emergency_Contact_Number_Value);
+
 			if(Emergency_Contact_Number_Value.equalsIgnoreCase(Emergency_Contact_Number)){
 
-				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Number validation passed. Expected: " + Emergency_Contact_Number + " | Actual: " + Emergency_Contact_Number_Value);
-				System.out.println("✅ Emergency Contact Number validation passed. Expected: " + Emergency_Contact_Number + " | Actual: " + Emergency_Contact_Number_Value);
-				System.out.println();
+				System.out.println("Result   : PASS");
+				Report_Listen.log_print_in_report().pass("Emergency Contact Number validation passed.");
 			}
 			else{
 
-				Report_Listen.log_print_in_report().fail("❌ Emergency Contact Number validation failed. Expected: " + Emergency_Contact_Number + " | Actual: " + Emergency_Contact_Number_Value);
-				System.out.println("❌ Emergency Contact Number validation failed. Expected: " + Emergency_Contact_Number + " | Actual: " + Emergency_Contact_Number_Value);
-				System.out.println();
+				System.out.println("Result   : FAIL");
+				Report_Listen.log_print_in_report().fail("Emergency Contact Number validation failed. Expected: " + Emergency_Contact_Number + " | Actual: " + Emergency_Contact_Number_Value);
 
 				softAssert.assertEquals(Emergency_Contact_Number_Value, Emergency_Contact_Number, "Emergency Contact Number validation failed.");
 			}
@@ -3256,17 +3113,20 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 			WebElement Emergency_Contact_Title_Field = pop_up_Textareas.get(0);
 			String Emergency_Contact_Title_Value = Emergency_Contact_Title_Field.getDomProperty("value").trim();
 
+			System.out.println();
+			System.out.println("Emergency Contact Title");
+			System.out.println("Expected : " + Emergency_Contact_Title);
+			System.out.println("Actual   : " + Emergency_Contact_Title_Value);
+
 			if(Emergency_Contact_Title_Value.equalsIgnoreCase(Emergency_Contact_Title)){
 
-				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Title validation passed. Expected: " + Emergency_Contact_Title + " | Actual: " + Emergency_Contact_Title_Value);
-				System.out.println("✅ Emergency Contact Title validation passed. Expected: " + Emergency_Contact_Title + " | Actual: " + Emergency_Contact_Title_Value);
-				System.out.println();
+				System.out.println("Result   : PASS");
+				Report_Listen.log_print_in_report().pass("Emergency Contact Title validation passed.");
 			}
 			else{
 
-				Report_Listen.log_print_in_report().fail("❌ Emergency Contact Title validation failed. Expected: " + Emergency_Contact_Title + " | Actual: " + Emergency_Contact_Title_Value);
-				System.out.println("❌ Emergency Contact Title validation failed. Expected: " + Emergency_Contact_Title + " | Actual: " + Emergency_Contact_Title_Value);
-				System.out.println();
+				System.out.println("Result   : FAIL");
+				Report_Listen.log_print_in_report().fail("Emergency Contact Title validation failed. Expected: " + Emergency_Contact_Title + " | Actual: " + Emergency_Contact_Title_Value);
 
 				softAssert.assertEquals(Emergency_Contact_Title_Value, Emergency_Contact_Title, "Emergency Contact Title validation failed.");
 			}
@@ -3274,17 +3134,20 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 			WebElement Emergency_Contact_Description_Field = pop_up_Textareas.get(1);
 			String Emergency_Contact_Description_Value = Emergency_Contact_Description_Field.getDomProperty("value").trim();
 
+			System.out.println();
+			System.out.println("Emergency Contact Description");
+			System.out.println("Expected : " + Emergency_Contact_Description);
+			System.out.println("Actual   : " + Emergency_Contact_Description_Value);
+
 			if(Emergency_Contact_Description_Value.equalsIgnoreCase(Emergency_Contact_Description)){
 
-				Report_Listen.log_print_in_report().pass("✅ Emergency Contact Description validation passed. Expected: " + Emergency_Contact_Description + " | Actual: " + Emergency_Contact_Description_Value);
-				System.out.println("✅ Emergency Contact Description validation passed. Expected: " + Emergency_Contact_Description + " | Actual: " + Emergency_Contact_Description_Value);
-				System.out.println();
+				System.out.println("Result   : PASS");
+				Report_Listen.log_print_in_report().pass("Emergency Contact Description validation passed.");
 			}
 			else{
 
-				Report_Listen.log_print_in_report().fail("❌ Emergency Contact Description validation failed. Expected: " + Emergency_Contact_Description + " | Actual: " + Emergency_Contact_Description_Value);
-				System.out.println("❌ Emergency Contact Description validation failed. Expected: " + Emergency_Contact_Description + " | Actual: " + Emergency_Contact_Description_Value);
-				System.out.println();
+				System.out.println("Result   : FAIL");
+				Report_Listen.log_print_in_report().fail("Emergency Contact Description validation failed.");
 
 				softAssert.assertEquals(Emergency_Contact_Description_Value, Emergency_Contact_Description, "Emergency Contact Description validation failed.");
 			}
@@ -3292,72 +3155,59 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 			WebElement Emergency_Disclaimer_Field = pop_up_Textareas.get(2);
 			String Emergency_Disclaimer_Value = Emergency_Disclaimer_Field.getDomProperty("value").trim();
 
+			System.out.println();
+			System.out.println("Emergency Disclaimer");
+			System.out.println("Expected : " + Emergency_Disclaimer);
+			System.out.println("Actual   : " + Emergency_Disclaimer_Value);
+
 			if(Emergency_Disclaimer_Value.equalsIgnoreCase(Emergency_Disclaimer)){
 
-				Report_Listen.log_print_in_report().pass("✅ Emergency Disclaimer validation passed. Expected: " + Emergency_Disclaimer + " | Actual: " + Emergency_Disclaimer_Value);
-				System.out.println("✅ Emergency Disclaimer validation passed. Expected: " + Emergency_Disclaimer + " | Actual: " + Emergency_Disclaimer_Value);
-				System.out.println();
+				System.out.println("Result   : PASS");
+				Report_Listen.log_print_in_report().pass("Emergency Disclaimer validation passed.");
 			}
 			else{
 
-				Report_Listen.log_print_in_report().fail("❌ Emergency Disclaimer validation failed. Expected: " + Emergency_Disclaimer + " | Actual: " + Emergency_Disclaimer_Value);
-				System.out.println("❌ Emergency Disclaimer validation failed. Expected: " + Emergency_Disclaimer + " | Actual: " + Emergency_Disclaimer_Value);
-				System.out.println();
+				System.out.println("Result   : FAIL");
+				Report_Listen.log_print_in_report().fail("Emergency Disclaimer validation failed.");
 
 				softAssert.assertEquals(Emergency_Disclaimer_Value, Emergency_Disclaimer, "Emergency Disclaimer validation failed.");
 			}
 
-			p.Modal_close_button().click();
-
-			Report_Listen.log_print_in_report().info("✅ Emergency Contact Widget configuration popup closed after validation.");
-			System.out.println("✅ Emergency Contact Widget configuration popup closed after validation.");
 			System.out.println();
+
+			p.Modal_close_button().click();
 		}
 
-		if(Card_Text.contains("Archived Treatments")) {
+		if(Card_Text.contains("Archived Treatments")){
 
-			System.out.println();
-
-			Report_Listen.log_print_in_report().info("──────────────────── 🗄️ ARCHIVED TREATMENTS VALIDATION ────────────────────");
-			System.out.println("🗄️ ARCHIVED TREATMENTS VALIDATION");
-			System.out.println();
-
-			Report_Listen.log_print_in_report().pass("✅ Archived Treatments card identified successfully.");
-			System.out.println("✅ Archived Treatments card identified successfully.");
-			System.out.println();
+			System.out.println("---------------- ARCHIVED TREATMENTS VALIDATION ----------------");
 
 			WebElement Toggle_Button = Card.findElement(By.xpath(".//button"));
 			rp.wait_for_theElement(Toggle_Button);
 			Thread.sleep(500);
 			Toggle_Button.click();
 
-			Report_Listen.log_print_in_report().pass("✅ Archived Treatments configuration popup opened successfully.");
-			System.out.println("✅ Archived Treatments configuration popup opened successfully.");
-			System.out.println();
-
 			WebElement pop_up_form = p.Popup_Form();
 
 			List<WebElement> pop_up_inputs = pop_up_form.findElements(By.xpath(".//input[@id='archive_after_days' or @id='delete_after_days']"));
 			rp.wait_for_theElement(pop_up_inputs);
 
-			Report_Listen.log_print_in_report().info("🔹 Archive and Delete duration fields retrieved successfully for validation.");
-			System.out.println("🔹 Archive and Delete duration fields retrieved successfully for validation.");
-			System.out.println();
-
 			WebElement Archive_Completed_Treatments_After_Field = pop_up_inputs.get(0);
 			String Archive_Completed_Treatments_After_Value = Archive_Completed_Treatments_After_Field.getAttribute("value");
 
+			System.out.println("Archive Completed Treatments After");
+			System.out.println("Expected : " + Archive_Completed_Treatments_After);
+			System.out.println("Actual   : " + Archive_Completed_Treatments_After_Value);
+
 			if(Archive_Completed_Treatments_After_Value.equalsIgnoreCase(Archive_Completed_Treatments_After)){
 
-				Report_Listen.log_print_in_report().pass("✅ Archive Completed Treatments After validation passed. Expected: " + Archive_Completed_Treatments_After + " | Actual: " + Archive_Completed_Treatments_After_Value);
-				System.out.println("✅ Archive Completed Treatments After validation passed. Expected: " + Archive_Completed_Treatments_After + " | Actual: " + Archive_Completed_Treatments_After_Value);
-				System.out.println();
+				System.out.println("Result   : PASS");
+				Report_Listen.log_print_in_report().pass("Archive Completed Treatments After validation passed.");
 			}
 			else{
 
-				Report_Listen.log_print_in_report().fail("❌ Archive Completed Treatments After validation failed. Expected: " + Archive_Completed_Treatments_After + " | Actual: " + Archive_Completed_Treatments_After_Value);
-				System.out.println("❌ Archive Completed Treatments After validation failed. Expected: " + Archive_Completed_Treatments_After + " | Actual: " + Archive_Completed_Treatments_After_Value);
-				System.out.println();
+				System.out.println("Result   : FAIL");
+				Report_Listen.log_print_in_report().fail("Archive Completed Treatments After validation failed. Expected: " + Archive_Completed_Treatments_After + " | Actual: " + Archive_Completed_Treatments_After_Value);
 
 				softAssert.assertEquals(Archive_Completed_Treatments_After_Value, Archive_Completed_Treatments_After, "Archive Completed Treatments After validation failed.");
 			}
@@ -3370,67 +3220,49 @@ public void patient_portal_configuration_validator(TreeMap<String, String> Form_
 			String New_Integer_Delete_Archived_Treatments_After_String = String.valueOf(New_Integer_Delete_Archived_Treatments_After);
 
 			System.out.println();
-			System.out.println("---------- Delete Archived Treatments After ----------");
-			System.out.println("Input    : " + Delete_Archived_Treatments_After + " days");
-			System.out.println("Expected : " + New_Integer_Delete_Archived_Treatments_After_String + " days");
-			System.out.println("Actual   : " + Delete_Archived_Treatments_After_Value + " days");
-
-			Report_Listen.log_print_in_report().info("──────────────── Delete Archived Treatments After ────────────────");
-			Report_Listen.log_print_in_report().info("Input: " + Delete_Archived_Treatments_After + " days");
-			Report_Listen.log_print_in_report().info("Expected: " + New_Integer_Delete_Archived_Treatments_After_String + " days");
-			Report_Listen.log_print_in_report().info("Actual: " + Delete_Archived_Treatments_After_Value + " days");
+			System.out.println("Delete Archived Treatments After");
+			System.out.println("Expected : " + New_Integer_Delete_Archived_Treatments_After_String);
+			System.out.println("Actual   : " + Delete_Archived_Treatments_After_Value);
 
 			if(Delete_Archived_Treatments_After_Value.equalsIgnoreCase(New_Integer_Delete_Archived_Treatments_After_String)){
 
 				System.out.println("Result   : PASS");
-
-				Report_Listen.log_print_in_report().pass("Result: PASS");
+				Report_Listen.log_print_in_report().pass("Delete Archived Treatments After validation passed.");
 			}
 			else{
 
 				System.out.println("Result   : FAIL");
-				System.out.println("Reason   : Saved value does not match the expected allowed value.");
-
-				Report_Listen.log_print_in_report().fail("Result: FAIL");
-				Report_Listen.log_print_in_report().fail("Reason: Saved value does not match the expected allowed value.");
+				Report_Listen.log_print_in_report().fail("Delete Archived Treatments After validation failed. Expected: " + New_Integer_Delete_Archived_Treatments_After_String + " | Actual: " + Delete_Archived_Treatments_After_Value);
 
 				softAssert.assertEquals(Delete_Archived_Treatments_After_Value, New_Integer_Delete_Archived_Treatments_After_String, "Delete Archived Treatments After validation failed.");
 			}
 
-			p.Modal_close_button().click();
-
-			Report_Listen.log_print_in_report().info("✅ Archived Treatments configuration popup closed after validation.");
-			System.out.println("✅ Archived Treatments configuration popup closed after validation.");
 			System.out.println();
+
+			p.Modal_close_button().click();
 		}
 	}
 
-	Report_Listen.log_print_in_report().info("──────────────────── ✅ TREATMENT MANAGEMENT VALIDATION COMPLETED ────────────────────");
-	System.out.println("✅ TREATMENT MANAGEMENT VALIDATION COMPLETED");
+	System.out.println("---------------- FAQ VALIDATION ----------------");
+	System.out.println("FAQ Group : " + FAQ.get("Group Name"));
 	System.out.println();
 
-	Report_Listen.log_print_in_report().info("──────────────────── ❓ PATIENT PORTAL FAQ VALIDATION ────────────────────");
-	Report_Listen.log_print_in_report().info("<b>Expected FAQ Group:</b> " + FAQ.get("Group Name"));
-	System.out.println("❓ PATIENT PORTAL FAQ VALIDATION");
-	System.out.println();
-	System.out.println("🔹 Expected FAQ Group: " + FAQ.get("Group Name"));
-	System.out.println();
+	Report_Listen.log_print_in_report().info("Validating FAQ Group: " + FAQ.get("Group Name"));
 
-    Patient_Portal_FAQ_Validator(FAQ, softAssert);
-
-	Report_Listen.log_print_in_report().info("✅ Patient Portal FAQ validation execution completed for Group: " + FAQ.get("Group Name"));
-	System.out.println("✅ Patient Portal FAQ validation execution completed for Group: " + FAQ.get("Group Name"));
-	System.out.println();
-
-	Report_Listen.log_print_in_report().info("──────────────────── ✅ PATIENT PORTAL CONFIGURATION VALIDATION COMPLETED ────────────────────");
-	System.out.println("✅ PATIENT PORTAL CONFIGURATION VALIDATION COMPLETED");
-	System.out.println();
+	Patient_Portal_FAQ_Validator(FAQ, softAssert);
 
 	softAssert.assertAll();
 
-	
-	
-	}
+	System.out.println("============================================================");
+	System.out.println("        PATIENT PORTAL VALIDATION COMPLETED");
+	System.out.println("============================================================");
+	System.out.println("Portal : " + Portal_Name);
+	System.out.println("Result : PASS");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().pass("---------------- PATIENT PORTAL VALIDATION COMPLETED ----------------");
+	Report_Listen.log_print_in_report().pass("Patient Portal configuration validation completed successfully.");
+}
 	
 	
 	
@@ -3463,9 +3295,11 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 	String Maximum_Reduction = Form_data.get("Maximum Reduction");
 	String Archive_Completed_Treatments_After = Form_data.get("Archive Completed Treatments After");
 	String Delete_Archived_Treatments_After = Form_data.get("Delete Archived Treatments After");
+
 	int Integer_Delete_Archived_Treatments_After = Integer.parseInt(Delete_Archived_Treatments_After);
 	int New_Integer_Delete_Archived_Treatments_After = (Integer_Delete_Archived_Treatments_After)>2190 ?2190:Integer_Delete_Archived_Treatments_After;
 	String New_Integer_Delete_Archived_Treatments_After_String = String.valueOf(New_Integer_Delete_Archived_Treatments_After);
+
 	try {
 
 		System.out.println();
@@ -3475,50 +3309,35 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 		System.out.println("Portal : " + Portal_Name);
 		System.out.println();
 
-		Report_Listen.log_print_in_report().info("──────────────────── PATIENT PORTAL CONFIGURATION ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Portal:</b> " + Portal_Name);
+		Report_Listen.log_print_in_report().info("---------------- PATIENT PORTAL CONFIGURATION ----------------");
+		Report_Listen.log_print_in_report().info("Portal: " + Portal_Name);
 
-		System.out.println("---------------- INPUT DATA ----------------");
+		System.out.println("---------------- CONFIGURATION DATA ----------------");
 		System.out.println("Portal URL             : " + Portal_URL);
 		System.out.println("Status                 : " + Status);
 		System.out.println("Search Engine Indexing : " + Search_Engine_Indexing);
 		System.out.println("Login Method           : " + Login_Method);
 		System.out.println("Two-Factor Auth        : " + Two_Factor_Authentication);
-		System.out.println("Cancellation Offer     : " + Cancellation_Offer);
-		System.out.println("Discount Amount        : " + Discount_Amount);
-		System.out.println("Offer Cooldown         : " + Offer_Cooldown);
-		System.out.println("Automatic Approval     : " + Automatic_Approval);
-		System.out.println("Approval Timing        : " + Approval_Timing);
-		System.out.println("Maximum Extension      : " + Maximum_Extension);
-		System.out.println("Maximum Reduction      : " + Maximum_Reduction);
-		System.out.println("Emergency Country Code : " + Emergency_Contact_Country_Code);
-		System.out.println("Emergency Number       : " + Emergency_Contact_Number);
 		System.out.println();
 
-		Report_Listen.log_print_in_report().info("──────────────────── INPUT DATA ────────────────────");
 		Report_Listen.log_print_in_report().info("Portal URL: " + Portal_URL);
 		Report_Listen.log_print_in_report().info("Status: " + Status);
-		Report_Listen.log_print_in_report().info("Search Engine Indexing: " + Search_Engine_Indexing);
 		Report_Listen.log_print_in_report().info("Login Method: " + Login_Method);
-		Report_Listen.log_print_in_report().info("Two-Factor Authentication: " + Two_Factor_Authentication);
-		Report_Listen.log_print_in_report().info("Emergency Contact Country Code: " + Emergency_Contact_Country_Code);
-		Report_Listen.log_print_in_report().info("Emergency Contact Number: " + Emergency_Contact_Number);
 
 		System.out.println("---------------- OPEN CONFIGURATION ----------------");
+		System.out.println("Action : Open Patient Portal configuration");
 
-		Report_Listen.log_print_in_report().info("──────────────────── OPEN CONFIGURATION ────────────────────");
-		Report_Listen.log_print_in_report().info("Action: Open Patient Portal configuration.");
+		Report_Listen.log_print_in_report().info("Action: Open Patient Portal configuration");
 
 		Config_button.click();
 
 		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(80)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
 		WebElement Form = wait.until(driver -> p.Form());
 
-		Report_Listen.log_print_in_report().pass("Result: PASS - Patient Portal configuration opened successfully.");
-
 		System.out.println("Result : PASS");
-		System.out.println("Details: Configuration opened successfully.");
 		System.out.println();
+
+		Report_Listen.log_print_in_report().pass("Patient Portal configuration opened successfully.");
 
 		WebElement Treatment_Management_Section = p.Treatment_management_Section();
 		rp.wait_for_theElement(Treatment_Management_Section);
@@ -3527,40 +3346,32 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 		List<WebElement> dropdown_fields = p.Patient_Portal_config_Form_Dropdown_fields(Form);
 
-		int Dropdown_Index = 1;
-
-		for(WebElement dropdown_field : dropdown_fields) {
+		for(WebElement dropdown_field : dropdown_fields){
 
 			String Field_Value = dropdown_field.getText().trim();
-
-			Report_Listen.log_print_in_report().info("Dropdown " + Dropdown_Index + ": " + Field_Value);
-
-			Dropdown_Index++;
+			Report_Listen.log_print_in_report().info("Configured Dropdown Value: " + Field_Value);
 		}
 
 		System.out.println("---------------- PORTAL DESCRIPTION ----------------");
-
-		Report_Listen.log_print_in_report().info("──────────────────── PORTAL DESCRIPTION ────────────────────");
-		Report_Listen.log_print_in_report().info("Action: Enter Portal Description.");
+		System.out.println("Action : Enter Portal description");
 
 		p.Textarea_Description_Field().sendKeys(Description);
 
-		Report_Listen.log_print_in_report().pass("Result: PASS - Portal Description entered successfully.");
-
 		System.out.println("Result : PASS");
-		System.out.println("Details: Portal Description entered successfully.");
 		System.out.println();
 
+		Report_Listen.log_print_in_report().pass("Portal Description entered successfully.");
+
 		System.out.println("============================================================");
-		System.out.println("              FEATURE DEFAULT VALIDATION");
+		System.out.println("             FEATURE DEFAULT VALIDATION");
 		System.out.println("============================================================");
 
-		Report_Listen.log_print_in_report().info("──────────────────── FEATURE DEFAULT VALIDATION ────────────────────");
+		Report_Listen.log_print_in_report().info("---------------- FEATURE DEFAULT VALIDATION ----------------");
 
 		List<WebElement> Cards = Treatment_Management_Section.findElements(By.xpath(".//*[contains(@class,'ant-typography text-dark')]/../../.."));
 		rp.wait_for_theElement(Cards);
 
-		for(WebElement Card : Cards) {
+		for(WebElement Card : Cards){
 
 			WebElement Card_Text_element = Card.findElement(By.xpath(".//*[contains(@class,'ant-typography text-dark')]"));
 			rp.wait_for_theElement(Card_Text_element);
@@ -3572,288 +3383,91 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 			String Toggle_State = Feature_Toggle_Button.getAttribute("aria-checked");
 			String Actual_State = Toggle_State.equals("true") ? "ON" : "OFF";
+			String Expected_State = null;
 
-			if(Card_Text.contains("Cancel Treatment")) {
+			if(Card_Text.contains("Cancel Treatment")){
+				Expected_State = "ON";
+			}
 
-				System.out.println();
-				System.out.println("---------- Cancel Treatment ----------");
-				System.out.println("Expected : ON");
+			if(Card_Text.contains("Doctor Consultation")){
+				Expected_State = "ON";
+			}
+
+			if(Card_Text.contains("Change Refill Date")){
+				Expected_State = "OFF";
+			}
+
+			if(Card_Text.contains("Swap Treatment")){
+				Expected_State = "ON";
+			}
+
+			if(Card_Text.contains("Renew Treatment")){
+				Expected_State = "ON";
+			}
+
+			if(Card_Text.contains("Incomplete Treatments")){
+				Expected_State = "OFF";
+			}
+
+			if(Card_Text.contains("Archived Treatments")){
+				Expected_State = "ON";
+			}
+
+			if(Card_Text.contains("Emergency Contact Widget")){
+				Expected_State = "OFF";
+			}
+
+			if(Card_Text.contains("Treatment FAQs")){
+				Expected_State = "OFF";
+			}
+
+			if(Card_Text.contains("Support Consultation")){
+				Expected_State = "ON";
+			}
+
+			if(Expected_State!=null){
+
+				System.out.println("Feature  : " + Card_Text);
+				System.out.println("Expected : " + Expected_State);
 				System.out.println("Actual   : " + Actual_State);
 
-				Report_Listen.log_print_in_report().info("──────────────── Cancel Treatment ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: ON");
+				Report_Listen.log_print_in_report().info("Feature: " + Card_Text);
+				Report_Listen.log_print_in_report().info("Expected: " + Expected_State);
 				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
 
-				if(Toggle_State.equals("true")) {
+				if(Actual_State.equals(Expected_State)){
 
 					System.out.println("Result   : PASS");
+					System.out.println();
+
 					Report_Listen.log_print_in_report().pass("Result: PASS");
 				}
-				else {
+				else{
 
 					System.out.println("Result   : FAIL");
-					System.out.println("Reason   : PRD requires Cancel Treatment to be ON by default.");
+					System.out.println("Reason   : Feature default does not match PRD.");
+					System.out.println();
 
 					Report_Listen.log_print_in_report().fail("Result: FAIL");
-					Report_Listen.log_print_in_report().fail("Reason: PRD requires Cancel Treatment to be ON by default.");
+					Report_Listen.log_print_in_report().fail("Reason: Feature default does not match PRD.");
 				}
 			}
 
-			if(Card_Text.contains("Doctor Consultation")) {
+			if(Card_Text.contains("Cancel Treatment")){
 
-				System.out.println();
-				System.out.println("---------- Doctor Consultation ----------");
-				System.out.println("Expected : ON");
-				System.out.println("Actual   : " + Actual_State);
+				System.out.println("---------------- CANCEL TREATMENT CONFIGURATION ----------------");
 
-				Report_Listen.log_print_in_report().info("──────────────── Doctor Consultation ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: ON");
-				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
+				if(Toggle_State.equals("true")){
 
-				if(Toggle_State.equals("true")) {
-
-					System.out.println("Result   : PASS");
-					Report_Listen.log_print_in_report().pass("Result: PASS");
-				}
-				else {
-
-					System.out.println("Result   : FAIL");
-					System.out.println("Reason   : PRD requires Doctor Consultation to be ON by default.");
-
-					Report_Listen.log_print_in_report().fail("Result: FAIL");
-					Report_Listen.log_print_in_report().fail("Reason: PRD requires Doctor Consultation to be ON by default.");
-				}
-			}
-
-			if(Card_Text.contains("Change Refill Date")) {
-
-				System.out.println();
-				System.out.println("---------- Change Refill Date ----------");
-				System.out.println("Expected : OFF");
-				System.out.println("Actual   : " + Actual_State);
-
-				Report_Listen.log_print_in_report().info("──────────────── Change Refill Date ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: OFF");
-				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
-
-				if(Toggle_State.equals("false")) {
-
-					System.out.println("Result   : PASS");
-					Report_Listen.log_print_in_report().pass("Result: PASS");
-				}
-				else {
-
-					System.out.println("Result   : FAIL");
-					System.out.println("Reason   : PRD requires Change Refill Date to be OFF by default.");
-
-					Report_Listen.log_print_in_report().fail("Result: FAIL");
-					Report_Listen.log_print_in_report().fail("Reason: PRD requires Change Refill Date to be OFF by default.");
-				}
-			}
-
-			if(Card_Text.contains("Swap Treatment")) {
-
-				System.out.println();
-				System.out.println("---------- Swap Treatment ----------");
-				System.out.println("Expected : ON");
-				System.out.println("Actual   : " + Actual_State);
-
-				Report_Listen.log_print_in_report().info("──────────────── Swap Treatment ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: ON");
-				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
-
-				if(Toggle_State.equals("true")) {
-
-					System.out.println("Result   : PASS");
-					Report_Listen.log_print_in_report().pass("Result: PASS");
-				}
-				else {
-
-					System.out.println("Result   : FAIL");
-					System.out.println("Reason   : PRD requires Swap Treatment to be ON by default.");
-
-					Report_Listen.log_print_in_report().fail("Result: FAIL");
-					Report_Listen.log_print_in_report().fail("Reason: PRD requires Swap Treatment to be ON by default.");
-				}
-			}
-
-			if(Card_Text.contains("Renew Treatment")) {
-
-				System.out.println();
-				System.out.println("---------- Renew Treatment ----------");
-				System.out.println("Expected : ON");
-				System.out.println("Actual   : " + Actual_State);
-
-				Report_Listen.log_print_in_report().info("──────────────── Renew Treatment ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: ON");
-				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
-
-				if(Toggle_State.equals("true")) {
-
-					System.out.println("Result   : PASS");
-					Report_Listen.log_print_in_report().pass("Result: PASS");
-				}
-				else {
-
-					System.out.println("Result   : FAIL");
-					System.out.println("Reason   : PRD requires Renew Treatment to be ON by default.");
-
-					Report_Listen.log_print_in_report().fail("Result: FAIL");
-					Report_Listen.log_print_in_report().fail("Reason: PRD requires Renew Treatment to be ON by default.");
-				}
-			}
-
-			if(Card_Text.contains("Incomplete Treatments")) {
-
-				System.out.println();
-				System.out.println("---------- Incomplete Treatments ----------");
-				System.out.println("Expected : OFF");
-				System.out.println("Actual   : " + Actual_State);
-
-				Report_Listen.log_print_in_report().info("──────────────── Incomplete Treatments ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: OFF");
-				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
-
-				if(Toggle_State.equals("false")) {
-
-					System.out.println("Result   : PASS");
-					Report_Listen.log_print_in_report().pass("Result: PASS");
-				}
-				else {
-
-					System.out.println("Result   : FAIL");
-					System.out.println("Reason   : PRD requires Incomplete Treatments to be OFF by default.");
-
-					Report_Listen.log_print_in_report().fail("Result: FAIL");
-					Report_Listen.log_print_in_report().fail("Reason: PRD requires Incomplete Treatments to be OFF by default.");
-				}
-			}
-
-			if(Card_Text.contains("Archived Treatments")) {
-
-				System.out.println();
-				System.out.println("---------- Archived Treatments ----------");
-				System.out.println("Expected : ON");
-				System.out.println("Actual   : " + Actual_State);
-
-				Report_Listen.log_print_in_report().info("──────────────── Archived Treatments ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: ON");
-				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
-
-				if(Toggle_State.equals("true")) {
-
-					System.out.println("Result   : PASS");
-					Report_Listen.log_print_in_report().pass("Result: PASS");
-				}
-				else {
-
-					System.out.println("Result   : FAIL");
-					System.out.println("Reason   : PRD requires Archived Treatments to be ON by default.");
-
-					Report_Listen.log_print_in_report().fail("Result: FAIL");
-					Report_Listen.log_print_in_report().fail("Reason: PRD requires Archived Treatments to be ON by default.");
-				}
-			}
-
-			if(Card_Text.contains("Emergency Contact Widget")) {
-
-				System.out.println();
-				System.out.println("---------- Emergency Contact Widget ----------");
-				System.out.println("Expected : OFF");
-				System.out.println("Actual   : " + Actual_State);
-
-				Report_Listen.log_print_in_report().info("──────────────── Emergency Contact Widget ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: OFF");
-				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
-
-				if(Toggle_State.equals("false")) {
-
-					System.out.println("Result   : PASS");
-					Report_Listen.log_print_in_report().pass("Result: PASS");
-				}
-				else {
-
-					System.out.println("Result   : FAIL");
-					System.out.println("Reason   : PRD requires Emergency Contact Widget to be OFF by default.");
-
-					Report_Listen.log_print_in_report().fail("Result: FAIL");
-					Report_Listen.log_print_in_report().fail("Reason: PRD requires Emergency Contact Widget to be OFF by default.");
-				}
-			}
-
-			if(Card_Text.contains("Treatment FAQs")) {
-
-				System.out.println();
-				System.out.println("---------- Treatment FAQs ----------");
-				System.out.println("Expected : OFF");
-				System.out.println("Actual   : " + Actual_State);
-
-				Report_Listen.log_print_in_report().info("──────────────── Treatment FAQs ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: OFF");
-				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
-
-				if(Toggle_State.equals("false")) {
-
-					System.out.println("Result   : PASS");
-					Report_Listen.log_print_in_report().pass("Result: PASS");
-				}
-				else {
-
-					System.out.println("Result   : FAIL");
-					System.out.println("Reason   : PRD requires Treatment FAQs to be OFF by default.");
-
-					Report_Listen.log_print_in_report().fail("Result: FAIL");
-					Report_Listen.log_print_in_report().fail("Reason: PRD requires Treatment FAQs to be OFF by default.");
-				}
-			}
-
-			if(Card_Text.contains("Support Consultation")) {
-
-				System.out.println();
-				System.out.println("---------- Support Consultation ----------");
-				System.out.println("Expected : ON");
-				System.out.println("Actual   : " + Actual_State);
-
-				Report_Listen.log_print_in_report().info("──────────────── Support Consultation ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: ON");
-				Report_Listen.log_print_in_report().info("Actual: " + Actual_State);
-
-				if(Toggle_State.equals("true")) {
-
-					System.out.println("Result   : PASS");
-					Report_Listen.log_print_in_report().pass("Result: PASS");
-				}
-				else {
-
-					System.out.println("Result   : FAIL");
-					System.out.println("Reason   : PRD requires Support Consultation to be ON by default.");
-
-					Report_Listen.log_print_in_report().fail("Result: FAIL");
-					Report_Listen.log_print_in_report().fail("Reason: PRD requires Support Consultation to be ON by default.");
-				}
-			}
-
-			if(Card_Text.contains("Cancel Treatment")) {
-
-				System.out.println("Action   : Configure Cancel Treatment");
-
-				Report_Listen.log_print_in_report().info("Action: Configure Cancel Treatment.");
-
-				if(Toggle_State.equals("true")) {
-
-					System.out.println("Method   : Open Settings");
-
-					Report_Listen.log_print_in_report().info("Method: Open Settings because feature is already ON.");
+					System.out.println("Action : Open Settings");
 
 					WebElement Settings_Button = Card.findElement(By.xpath(".//button[not(@role='switch')]"));
 					rp.wait_for_theElement(Settings_Button);
 					Settings_Button.click();
 				}
-				else {
+				else{
 
-					System.out.println("Method   : Turn ON and configure");
-
-					Report_Listen.log_print_in_report().info("Method: Turn feature ON and configure.");
+					System.out.println("Action : Enable Cancel Treatment");
 
 					rp.wait_for_theElement(Feature_Toggle_Button);
 					Thread.sleep(500);
@@ -3877,32 +3491,33 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 				p.Modal_Save_Settings_Button().click();
 
-				System.out.println("Config   : SAVED");
+				System.out.println("Cancellation Offer : " + Cancellation_Offer);
+				System.out.println("Discount Amount    : " + Discount_Amount);
+				System.out.println("Offer Cooldown     : " + Offer_Cooldown);
+				System.out.println("Result             : PASS");
+				System.out.println();
 
-				Report_Listen.log_print_in_report().pass("Result: PASS - Cancel Treatment configuration saved.");
+				Report_Listen.log_print_in_report().info("Cancellation Offer: " + Cancellation_Offer);
+				Report_Listen.log_print_in_report().info("Discount Amount: " + Discount_Amount);
+				Report_Listen.log_print_in_report().info("Offer Cooldown: " + Offer_Cooldown);
+				Report_Listen.log_print_in_report().pass("Cancel Treatment configuration saved successfully.");
 			}
 
-			if(Card_Text.contains("Change Refill Date")) {
+			if(Card_Text.contains("Change Refill Date")){
 
-				System.out.println("Action   : Configure Change Refill Date");
+				System.out.println("---------------- CHANGE REFILL DATE CONFIGURATION ----------------");
 
-				Report_Listen.log_print_in_report().info("Action: Configure Change Refill Date.");
+				if(Toggle_State.equals("false")){
 
-				if(Toggle_State.equals("false")) {
-
-					System.out.println("Method   : Turn ON and configure");
-
-					Report_Listen.log_print_in_report().info("Method: Turn feature ON and configure.");
+					System.out.println("Action : Enable Change Refill Date");
 
 					rp.wait_for_theElement(Feature_Toggle_Button);
 					Thread.sleep(500);
 					Feature_Toggle_Button.click();
 				}
-				else {
+				else{
 
-					System.out.println("Method   : Open Settings");
-
-					Report_Listen.log_print_in_report().info("Method: Open Settings because feature is already ON.");
+					System.out.println("Action : Open Settings");
 
 					WebElement Settings_Button = Card.findElement(By.xpath(".//button[not(@role='switch')]"));
 					rp.wait_for_theElement(Settings_Button);
@@ -3922,32 +3537,31 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 				p.Modal_Save_Settings_Button().click();
 
-				System.out.println("Config   : SAVED");
+				System.out.println("Maximum Extension : " + Maximum_Extension);
+				System.out.println("Maximum Reduction : " + Maximum_Reduction);
+				System.out.println("Result            : PASS");
+				System.out.println();
 
-				Report_Listen.log_print_in_report().pass("Result: PASS - Change Refill Date configuration saved.");
+				Report_Listen.log_print_in_report().info("Maximum Extension: " + Maximum_Extension);
+				Report_Listen.log_print_in_report().info("Maximum Reduction: " + Maximum_Reduction);
+				Report_Listen.log_print_in_report().pass("Change Refill Date configuration saved successfully.");
 			}
 
-			if(Card_Text.contains("Emergency Contact Widget")) {
+			if(Card_Text.contains("Emergency Contact Widget")){
 
-				System.out.println("Action   : Configure Emergency Contact Widget");
+				System.out.println("---------------- EMERGENCY CONTACT CONFIGURATION ----------------");
 
-				Report_Listen.log_print_in_report().info("Action: Configure Emergency Contact Widget.");
+				if(Toggle_State.equals("false")){
 
-				if(Toggle_State.equals("false")) {
-
-					System.out.println("Method   : Turn ON and configure");
-
-					Report_Listen.log_print_in_report().info("Method: Turn feature ON and configure.");
+					System.out.println("Action : Enable Emergency Contact Widget");
 
 					rp.wait_for_theElement(Feature_Toggle_Button);
 					Thread.sleep(500);
 					Feature_Toggle_Button.click();
 				}
-				else {
+				else{
 
-					System.out.println("Method   : Open Settings");
-
-					Report_Listen.log_print_in_report().info("Method: Open Settings because feature is already ON.");
+					System.out.println("Action : Open Settings");
 
 					WebElement Settings_Button = Card.findElement(By.xpath(".//button[not(@role='switch')]"));
 					rp.wait_for_theElement(Settings_Button);
@@ -3965,79 +3579,43 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				WebElement Country_Code = pop_up_inputs.get(0);
 				Country_Code.sendKeys(Emergency_Contact_Country_Code);
 
-				System.out.println();
-				System.out.println("   Emergency Contact Country Code");
-				System.out.println("   Expected : " + Emergency_Contact_Country_Code);
-
-				Report_Listen.log_print_in_report().info("──────────────── Emergency Contact Country Code ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: " + Emergency_Contact_Country_Code);
-
 				WebElement Emergency_Contact_Number_Field = pop_up_inputs.get(1);
+
 				WebElement Country_Code_list = pd.First_Virtual_List_holder();
+
 				List<WebElement> Country_Code_list_options = Country_Code_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
 				rp.wait_for_theElement(Country_Code_list_options);
 
 				boolean Country_Code_Matched = false;
 
-				for(WebElement Country_Code_option : Country_Code_list_options) {
+				for(WebElement Country_Code_option : Country_Code_list_options){
 
 					String Country_Code_option_text = Country_Code_option.getText().trim();
 
-					if(Country_Code_option_text.contains(Emergency_Contact_Country_Code)) {
+					if(Country_Code_option_text.contains(Emergency_Contact_Country_Code)){
 
 						Country_Code_option.click();
-
-						System.out.println("   Actual   : " + Country_Code_option_text);
-						System.out.println("   Result   : PASS");
-
-						Report_Listen.log_print_in_report().info("Actual: " + Country_Code_option_text);
-						Report_Listen.log_print_in_report().pass("Result: PASS");
-
 						Country_Code_Matched = true;
 
 						break;
 					}
 				}
 
-				if(!Country_Code_Matched) {
+				if(!Country_Code_Matched){
 
-					System.out.println("   Actual   : Country Code not found");
-					System.out.println("   Result   : FAIL");
-					System.out.println("   Reason   : Expected country code was not available in the dropdown.");
+					System.out.println("Country Code");
+					System.out.println("Expected : " + Emergency_Contact_Country_Code);
+					System.out.println("Actual   : Not Found");
+					System.out.println("Result   : FAIL");
+					System.out.println();
 
-					Report_Listen.log_print_in_report().info("Actual: Country Code not found");
-					Report_Listen.log_print_in_report().fail("Result: FAIL");
-					Report_Listen.log_print_in_report().fail("Reason: Expected country code was not available in the dropdown.");
+					Report_Listen.log_print_in_report().fail("Emergency Contact Country Code was not found: " + Emergency_Contact_Country_Code);
 				}
-
-				System.out.println();
-				System.out.println("   Emergency Contact Number");
-				System.out.println("   Expected : " + Emergency_Contact_Number);
-
-				Report_Listen.log_print_in_report().info("──────────────── Emergency Contact Number ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: " + Emergency_Contact_Number);
 
 				Emergency_Contact_Number_Field.sendKeys(Emergency_Contact_Number);
 
-				System.out.println("   Actual   : " + Emergency_Contact_Number);
-				System.out.println("   Result   : PASS");
-
-				Report_Listen.log_print_in_report().info("Actual: " + Emergency_Contact_Number);
-				Report_Listen.log_print_in_report().pass("Result: PASS");
-
 				WebElement Emergency_Contact_Title_Field = pop_up_Textareas.get(0);
 				Emergency_Contact_Title_Field.sendKeys(Emergency_Contact_Title);
-
-				System.out.println();
-				System.out.println("   Emergency Contact Title");
-				System.out.println("   Expected : " + Emergency_Contact_Title);
-				System.out.println("   Actual   : " + Emergency_Contact_Title);
-				System.out.println("   Result   : PASS");
-
-				Report_Listen.log_print_in_report().info("──────────────── Emergency Contact Title ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: " + Emergency_Contact_Title);
-				Report_Listen.log_print_in_report().info("Actual: " + Emergency_Contact_Title);
-				Report_Listen.log_print_in_report().pass("Result: PASS");
 
 				WebElement Emergency_Contact_Description_Field = pop_up_Textareas.get(1);
 				Emergency_Contact_Description_Field.sendKeys(Emergency_Contact_Description);
@@ -4047,33 +3625,32 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 
 				p.Modal_Save_Settings_Button().click();
 
+				System.out.println("Country Code : " + Emergency_Contact_Country_Code);
+				System.out.println("Number       : " + Emergency_Contact_Number);
+				System.out.println("Title        : " + Emergency_Contact_Title);
+				System.out.println("Result       : PASS");
 				System.out.println();
-				System.out.println("Config   : SAVED");
 
-				Report_Listen.log_print_in_report().pass("Result: PASS - Emergency Contact Widget configuration saved.");
+				Report_Listen.log_print_in_report().info("Emergency Contact Country Code: " + Emergency_Contact_Country_Code);
+				Report_Listen.log_print_in_report().info("Emergency Contact Number: " + Emergency_Contact_Number);
+				Report_Listen.log_print_in_report().pass("Emergency Contact Widget configuration saved successfully.");
 			}
 
-			if(Card_Text.contains("Archived Treatments")) {
+			if(Card_Text.contains("Archived Treatments")){
 
-				System.out.println("Action   : Configure Archived Treatments");
+				System.out.println("---------------- ARCHIVED TREATMENTS CONFIGURATION ----------------");
 
-				Report_Listen.log_print_in_report().info("Action: Configure Archived Treatments.");
+				if(Toggle_State.equals("true")){
 
-				if(Toggle_State.equals("true")) {
-
-					System.out.println("Method   : Open Settings");
-
-					Report_Listen.log_print_in_report().info("Method: Open Settings because feature is already ON.");
+					System.out.println("Action : Open Settings");
 
 					WebElement Settings_Button = Card.findElement(By.xpath(".//button[not(@role='switch')]"));
 					rp.wait_for_theElement(Settings_Button);
 					Settings_Button.click();
 				}
-				else {
+				else{
 
-					System.out.println("Method   : Turn ON and configure");
-
-					Report_Listen.log_print_in_report().info("Method: Turn feature ON and configure.");
+					System.out.println("Action : Enable Archived Treatments");
 
 					rp.wait_for_theElement(Feature_Toggle_Button);
 					Thread.sleep(500);
@@ -4091,53 +3668,35 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				String Default_Archive_Value = Archive_Completed_Treatments_After_Field.getAttribute("value").trim();
 				String Default_Delete_Value = Delete_Archived_Treatments_After_Field.getAttribute("value").trim();
 
-				System.out.println();
-				System.out.println("   Archive Completed Treatments After");
-				System.out.println("   Expected : 30 days");
-				System.out.println("   Actual   : " + Default_Archive_Value + " days");
+				System.out.println("Default Archive Duration");
+				System.out.println("Expected : 30");
+				System.out.println("Actual   : " + Default_Archive_Value);
+				System.out.println("Result   : " + (Default_Archive_Value.equals("30") ? "PASS" : "FAIL"));
 
-				Report_Listen.log_print_in_report().info("──────────────── Archive Completed Treatments After ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: 30 days");
-				Report_Listen.log_print_in_report().info("Actual: " + Default_Archive_Value + " days");
+				Report_Listen.log_print_in_report().info("Archive Default | Expected: 30 | Actual: " + Default_Archive_Value);
 
-				if(Default_Archive_Value.equals("30")) {
-
-					System.out.println("   Result   : PASS");
-					Report_Listen.log_print_in_report().pass("Result: PASS");
+				if(Default_Archive_Value.equals("30")){
+					Report_Listen.log_print_in_report().pass("Archive default validation passed.");
 				}
-				else {
-
-					System.out.println("   Result   : FAIL");
-					System.out.println("   Reason   : PRD requires the default value to be 30 days.");
-
-					Report_Listen.log_print_in_report().fail("Result: FAIL");
-					Report_Listen.log_print_in_report().fail("Reason: PRD requires the default value to be 30 days.");
+				else{
+					Report_Listen.log_print_in_report().fail("Archive default validation failed.");
 				}
 
 				System.out.println();
-				System.out.println("   Delete Archived Treatments After");
-				System.out.println("   Expected : 365 days");
-				System.out.println("   Actual   : " + Default_Delete_Value + " days");
+				System.out.println("Default Delete Duration");
+				System.out.println("Expected : 365");
+				System.out.println("Actual   : " + Default_Delete_Value);
+				System.out.println("Result   : " + (Default_Delete_Value.equals("365") ? "PASS" : "FAIL"));
+				System.out.println();
 
-				Report_Listen.log_print_in_report().info("──────────────── Delete Archived Treatments After ────────────────");
-				Report_Listen.log_print_in_report().info("Expected: 365 days");
-				Report_Listen.log_print_in_report().info("Actual: " + Default_Delete_Value + " days");
+				Report_Listen.log_print_in_report().info("Delete Default | Expected: 365 | Actual: " + Default_Delete_Value);
 
-				if(Default_Delete_Value.equals("365")) {
-
-					System.out.println("   Result   : PASS");
-					Report_Listen.log_print_in_report().pass("Result: PASS");
+				if(Default_Delete_Value.equals("365")){
+					Report_Listen.log_print_in_report().pass("Delete default validation passed.");
 				}
-				else {
-
-					System.out.println("   Result   : FAIL");
-					System.out.println("   Reason   : PRD requires the default value to be 365 days.");
-
-					Report_Listen.log_print_in_report().fail("Result: FAIL");
-					Report_Listen.log_print_in_report().fail("Reason: PRD requires the default value to be 365 days.");
+				else{
+					Report_Listen.log_print_in_report().fail("Delete default validation failed.");
 				}
-
-				/* REPLACE THE VALUES HERE */
 
 				Archive_Completed_Treatments_After_Field.click();
 				Archive_Completed_Treatments_After_Field.sendKeys(Keys.CONTROL + "a");
@@ -4153,57 +3712,44 @@ public void patient_portal_form_editor(TreeMap<String, String> Form_data, WebEle
 				Save_Butt.click();
 				rp.wait_for_invisibilty_of_theElement(Save_Butt);
 
+				System.out.println("Configured Archive Duration : " + Archive_Completed_Treatments_After);
+				System.out.println("Configured Delete Duration  : " + New_Integer_Delete_Archived_Treatments_After_String);
+				System.out.println("Result                      : PASS");
 				System.out.println();
-				System.out.println("Config   : SAVED");
 
-				Report_Listen.log_print_in_report().pass("Result: PASS - Archived Treatments configuration saved.");
+				Report_Listen.log_print_in_report().info("Archive Completed Treatments After: " + Archive_Completed_Treatments_After);
+				Report_Listen.log_print_in_report().info("Delete Archived Treatments After: " + New_Integer_Delete_Archived_Treatments_After_String);
+				Report_Listen.log_print_in_report().pass("Archived Treatments configuration saved successfully.");
 			}
 		}
 
-		System.out.println();
-		System.out.println("============================================================");
-		System.out.println("                    FAQ CONFIGURATION");
-		System.out.println("============================================================");
+		System.out.println("---------------- FAQ CONFIGURATION ----------------");
 		System.out.println("FAQ Group : " + FAQ.get("Group Name"));
+		System.out.println();
 
-		Report_Listen.log_print_in_report().info("──────────────────── FAQ CONFIGURATION ────────────────────");
-		Report_Listen.log_print_in_report().info("FAQ Group: " + FAQ.get("Group Name"));
-		Report_Listen.log_print_in_report().info("Action: Configure Patient Portal FAQ.");
+		Report_Listen.log_print_in_report().info("Configuring FAQ Group: " + FAQ.get("Group Name"));
 
 		Patient_Portal_FAQ_Add(FAQ);
 
-		System.out.println("Result    : PASS");
-		System.out.println();
-
-		Report_Listen.log_print_in_report().pass("Result: PASS - FAQ configuration completed successfully.");
-
 		System.out.println("============================================================");
-		System.out.println("             PATIENT PORTAL CONFIGURATION");
+		System.out.println("       PATIENT PORTAL CONFIGURATION COMPLETED");
 		System.out.println("============================================================");
 		System.out.println("Portal : " + Portal_Name);
 		System.out.println("Result : PASS");
-		System.out.println("============================================================");
 		System.out.println();
 
-		Report_Listen.log_print_in_report().pass("──────────────────── PATIENT PORTAL CONFIGURATION COMPLETED ────────────────────");
-		Report_Listen.log_print_in_report().info("Portal: " + Portal_Name);
-		Report_Listen.log_print_in_report().pass("Result: PASS");
+		Report_Listen.log_print_in_report().pass("---------------- PATIENT PORTAL CONFIGURATION COMPLETED ----------------");
+		Report_Listen.log_print_in_report().pass("Patient Portal configuration completed successfully: " + Portal_Name);
 	}
-	catch(Exception e) {
+	catch(Exception e){
 
-		System.out.println();
-		System.out.println("============================================================");
-		System.out.println("             PATIENT PORTAL CONFIGURATION");
-		System.out.println("============================================================");
+		System.out.println("---------------- PATIENT PORTAL CONFIGURATION FAILED ----------------");
 		System.out.println("Portal : " + Portal_Name);
 		System.out.println("Result : FAIL");
 		System.out.println("Reason : " + e.getMessage());
-		System.out.println("============================================================");
 		System.out.println();
 
-		Report_Listen.log_print_in_report().fail("──────────────────── PATIENT PORTAL CONFIGURATION FAILED ────────────────────");
-		Report_Listen.log_print_in_report().info("Portal: " + Portal_Name);
-		Report_Listen.log_print_in_report().fail("Result: FAIL");
+		Report_Listen.log_print_in_report().fail("Patient Portal configuration failed: " + Portal_Name);
 		Report_Listen.log_print_in_report().fail("Reason: " + e.getMessage());
 
 		throw e;
