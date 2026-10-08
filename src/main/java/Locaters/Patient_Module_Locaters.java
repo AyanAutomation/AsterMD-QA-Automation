@@ -53,13 +53,13 @@ public class Patient_Module_Locaters extends Repeat{
     @FindBy(xpath="(//div[@class='ant-picker-panel-layout'])[2]")
 	private WebElement Second_Popup_Calendar;  
     @FindBy(xpath="//textarea")
-	private WebElement Textarea_Description_Field; /*
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Textarea_Description_Field; 
+    @FindBy(xpath="//table")
+	private WebElement Table; 
+    @FindBy(xpath="//*[text()='Patient Details' and contains(@class,'medium text-dark')]/..//button")
+	private WebElement Patient_Details_Edit_Button; 
+    @FindBy(xpath="(//div[contains(@class,'inner-card-wrapper')])[1]")
+	private WebElement Patient_Details_Card; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -350,18 +350,20 @@ public class Patient_Module_Locaters extends Repeat{
 	return Second_Popup_Calendar;} 
 	public WebElement Textarea_Description_Field(){
 	wait_for_theElement(Textarea_Description_Field);
-	return Textarea_Description_Field;} /*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return Textarea_Description_Field;} 
+	public WebElement Table(){
+	wait_for_theElement(Table);
+	return Table;} 
+	public List<WebElement> Table_Rows(){
+	List<WebElement> Table_Rows =Table().findElements(By.xpath(".//tr[contains(@class,'ant-table-row-level-')]"));
+	wait_for_theElement(Table_Rows);
+	return Table_Rows;} 
+	public WebElement Patient_Details_Edit_Button(){
+	wait_for_theElement(Patient_Details_Edit_Button);
+	return Patient_Details_Edit_Button;}
+	public WebElement Patient_Details_Card(){
+	wait_for_theElement(Patient_Details_Card);
+	return Patient_Details_Card;} /*
 	public WebElement (){
 	wait_for_theElement();
 	return ;}

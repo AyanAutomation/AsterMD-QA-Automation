@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -11,6 +12,7 @@ import org.testng.annotations.Test;
 import Listerners.Report_Listen;
 import Locaters.Patient_Module_Locaters;
 import Locaters.Product_Module_Locaters;
+import Repeatative_codes.Repeat;
 
 public class Patient_Module extends Product_Module {
 	
@@ -333,6 +335,180 @@ public Object[][] Patient_Create_Data(){
 	data20.put("ZIP / Postal Code", "64106");
 
 	return new Object[][] {
+		{ data1 },/*
+		{ data2 },
+		{ data3 },
+		{ data4 },
+		{ data5 },
+		{ data6 },
+		{ data7 },
+		{ data8 },
+		{ data9 },
+		{ data10 },
+		{ data11 },
+		{ data12 },
+		{ data13 },
+		{ data14 },
+		{ data15 },
+		{ data16 },
+		{ data17 },
+		{ data18 },
+		{ data19 },
+		{ data20 } */
+	};
+	
+	
+	
+	
+	
+	
+}
+	
+
+@DataProvider
+public Object[][] Patient_Edit_Data() {
+
+	TreeMap<String, String> data1 = new TreeMap<String, String>();
+	data1.put("Row Number", "1");
+	data1.put("First Name", "Ewald");
+	data1.put("Middle Name", "Severus");
+	data1.put("Last Name", "Pfaff");
+	data1.put("Email", "ewald.pfaff401@yopmail.com");
+
+	TreeMap<String, String> data2 = new TreeMap<String, String>();
+	data2.put("Row Number", "2");
+	data2.put("First Name", "Marit");
+	data2.put("Middle Name", "Linnea");
+	data2.put("Last Name", "Koenig");
+	data2.put("Email", "marit.koenig402@yopmail.com");
+
+	TreeMap<String, String> data3 = new TreeMap<String, String>();
+	data3.put("Row Number", "3");
+	data3.put("First Name", "Jorik");
+	data3.put("Middle Name", "Theodor");
+	data3.put("Last Name", "Albrecht");
+	data3.put("Email", "jorik.albrecht403@yopmail.com");
+
+	TreeMap<String, String> data4 = new TreeMap<String, String>();
+	data4.put("Row Number", "4");
+	data4.put("First Name", "Ottilie");
+	data4.put("Middle Name", "Ruth");
+	data4.put("Last Name", "Clausen");
+	data4.put("Email", "ottilie.clausen404@yopmail.com");
+
+	TreeMap<String, String> data5 = new TreeMap<String, String>();
+	data5.put("Row Number", "5");
+	data5.put("First Name", "Caspar");
+	data5.put("Middle Name", "Emilian");
+	data5.put("Last Name", "Naber");
+	data5.put("Email", "caspar.naber405@yopmail.com");
+
+	TreeMap<String, String> data6 = new TreeMap<String, String>();
+	data6.put("Row Number", "6");
+	data6.put("First Name", "Fenja");
+	data6.put("Middle Name", "Elise");
+	data6.put("Last Name", "Kronberg");
+	data6.put("Email", "fenja.kronberg406@yopmail.com");
+
+	TreeMap<String, String> data7 = new TreeMap<String, String>();
+	data7.put("Row Number", "7");
+	data7.put("First Name", "Arvid");
+	data7.put("Middle Name", "Laurent");
+	data7.put("Last Name", "Voss");
+	data7.put("Email", "arvid.voss407@yopmail.com");
+
+	TreeMap<String, String> data8 = new TreeMap<String, String>();
+	data8.put("Row Number", "8");
+	data8.put("First Name", "Tilda");
+	data8.put("Middle Name", "Romy");
+	data8.put("Last Name", "Eckert");
+	data8.put("Email", "tilda.eckert408@yopmail.com");
+
+	TreeMap<String, String> data9 = new TreeMap<String, String>();
+	data9.put("Row Number", "9");
+	data9.put("First Name", "Leander");
+	data9.put("Middle Name", "Hugo");
+	data9.put("Last Name", "Faulkner");
+	data9.put("Email", "leander.faulkner409@yopmail.com");
+
+	TreeMap<String, String> data10 = new TreeMap<String, String>();
+	data10.put("Row Number", "10");
+	data10.put("First Name", "Melina");
+	data10.put("Middle Name", "Noelle");
+	data10.put("Last Name", "Wiegand");
+	data10.put("Email", "melina.wiegand410@yopmail.com");
+
+	TreeMap<String, String> data11 = new TreeMap<String, String>();
+	data11.put("Row Number", "11");
+	data11.put("First Name", "Bjarne");
+	data11.put("Middle Name", "Ulrich");
+	data11.put("Last Name", "Sander");
+	data11.put("Email", "bjarne.sander411@yopmail.com");
+
+	TreeMap<String, String> data12 = new TreeMap<String, String>();
+	data12.put("Row Number", "12");
+	data12.put("First Name", "Ronja");
+	data12.put("Middle Name", "Ida");
+	data12.put("Last Name", "Matzen");
+	data12.put("Email", "ronja.matzen412@yopmail.com");
+
+	TreeMap<String, String> data13 = new TreeMap<String, String>();
+	data13.put("Row Number", "13");
+	data13.put("First Name", "Elian");
+	data13.put("Middle Name", "Raphael");
+	data13.put("Last Name", "Kirchner");
+	data13.put("Email", "elian.kirchner413@yopmail.com");
+
+	TreeMap<String, String> data14 = new TreeMap<String, String>();
+	data14.put("Row Number", "14");
+	data14.put("First Name", "Svea");
+	data14.put("Middle Name", "Mathilde");
+	data14.put("Last Name", "Bertram");
+	data14.put("Email", "svea.bertram414@yopmail.com");
+
+	TreeMap<String, String> data15 = new TreeMap<String, String>();
+	data15.put("Row Number", "15");
+	data15.put("First Name", "Malte");
+	data15.put("Middle Name", "Benjamin");
+	data15.put("Last Name", "Rohde");
+	data15.put("Email", "malte.rohde415@yopmail.com");
+
+	TreeMap<String, String> data16 = new TreeMap<String, String>();
+	data16.put("Row Number", "16");
+	data16.put("First Name", "Livka");
+	data16.put("Middle Name", "Helene");
+	data16.put("Last Name", "Falk");
+	data16.put("Email", "livka.falk416@yopmail.com");
+
+	TreeMap<String, String> data17 = new TreeMap<String, String>();
+	data17.put("Row Number", "17");
+	data17.put("First Name", "Ove");
+	data17.put("Middle Name", "Clemens");
+	data17.put("Last Name", "Hartmann");
+	data17.put("Email", "ove.hartmann417@yopmail.com");
+
+	TreeMap<String, String> data18 = new TreeMap<String, String>();
+	data18.put("Row Number", "18");
+	data18.put("First Name", "Elin");
+	data18.put("Middle Name", "Margrit");
+	data18.put("Last Name", "Auer");
+	data18.put("Email", "elin.auer418@yopmail.com");
+
+	TreeMap<String, String> data19 = new TreeMap<String, String>();
+	data19.put("Row Number", "19");
+	data19.put("First Name", "Jasper");
+	data19.put("Middle Name", "Mika");
+	data19.put("Last Name", "Waldner");
+	data19.put("Email", "jasper.waldner419@yopmail.com");
+
+	TreeMap<String, String> data20 = new TreeMap<String, String>();
+	data20.put("Row Number", "20");
+	data20.put("First Name", "Thora");
+	data20.put("Middle Name", "Juliane");
+	data20.put("Last Name", "Frey");
+	data20.put("Email", "thora.frey420@yopmail.com");
+
+	return new Object[][] {
 		{ data1 },
 		{ data2 },
 		{ data3 },
@@ -355,8 +531,10 @@ public Object[][] Patient_Create_Data(){
 		{ data20 }
 	};
 }
-	
-	
+
+
+
+
 	
 @Test(dataProvider="Patient_Create_Data")
 public void Add_Patient(TreeMap<String, String> Patient_data) throws Exception {
@@ -668,15 +846,115 @@ public void Add_Patient(TreeMap<String, String> Patient_data) throws Exception {
 		System.out.println();
 
 		throw e;
-	}
-}
-	
+	}}
 	
 
-	
-	
-	
-	
+
+@Test(dataProvider="Patient_Edit_Data")
+public void Patient_Edit(TreeMap<String, String> Patient_data) throws Exception {
+	Patient_Module_Locaters p = new Patient_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	int Row_Number = Integer.parseInt(Patient_data.get("Row Number"));
+
+	Patient_Module_Accessor();
+
+	Thread.sleep(800);
+
+	List<WebElement> Rows = p.Table_Rows();
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━ 👤 PATIENT EDIT EXECUTION ━━━━━━━━━━━━━━");
+	System.out.println();
+	System.out.println("📋 Patient Rows Found = " + Rows.size());
+	System.out.println("🎯 Selected Patient Row = " + Row_Number);
+	System.out.println();
+
+	WebElement Patient_Details_Eye_Button = Rows.get(Row_Number - 1).findElement(By.xpath(".//a"));
+
+	rp.wait_for_theElement_to_be_clickable(Patient_Details_Eye_Button);
+	Patient_Details_Eye_Button.click();
+
+	WebElement Edit_Button = p.Patient_Details_Edit_Button();
+
+	rp.wait_for_theElement_to_be_clickable(Edit_Button);
+	Edit_Button.click();
+
+	Patient_Details_Form_Filler(Patient_data);
+}
+
+public void Patient_Details_Form_Filler(TreeMap<String, String> Patient_data) throws InterruptedException {
+
+	Patient_Module_Locaters p = new Patient_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	int Row_Number = Integer.parseInt(Patient_data.get("Row Number"));
+	String First_Name = Patient_data.get("First Name");
+	String Middle_Name = Patient_data.get("Middle Name");
+	String Last_Name = Patient_data.get("Last Name");
+	String Email = Patient_data.get("Email");
+
+	WebElement Patient_Form = p.Patient_Details_Card();
+
+	List<WebElement> Form_Fields = Patient_Form.findElements(By.xpath(".//input[@id='first_name' or @id='middle_name' or @id='last_name']"));
+
+	WebElement First_Name_Field = Form_Fields.get(0);
+	WebElement Middle_Name_Field = Form_Fields.get(1);
+	WebElement Last_Name_Field = Form_Fields.get(2);
+	WebElement Email_Field = Patient_Form.findElement(By.xpath(".//input[@id='email' or @type='email']"));
+
+	rp.wait_for_theElement(First_Name_Field);
+	rp.wait_for_theElement(Middle_Name_Field);
+	rp.wait_for_theElement(Last_Name_Field);
+	rp.wait_for_theElement(Email_Field);
+
+	Thread.sleep(800);
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━ ✏️ PATIENT DETAILS UPDATE ━━━━━━━━━━━━━━");
+	System.out.println();
+	System.out.println("📋 Patient Row = " + Row_Number);
+	System.out.println();
+	System.out.println("📌 Existing First Name  = " + First_Name_Field.getAttribute("value"));
+	System.out.println("📌 Existing Middle Name = " + Middle_Name_Field.getAttribute("value"));
+	System.out.println("📌 Existing Last Name   = " + Last_Name_Field.getAttribute("value"));
+	System.out.println("📌 Existing Email       = " + Email_Field.getAttribute("value"));
+	System.out.println();
+
+	rp.React_Input_Value_Setter(First_Name_Field, First_Name);
+	rp.React_Input_Value_Setter(Middle_Name_Field, Middle_Name);
+	rp.React_Input_Value_Setter(Last_Name_Field, Last_Name);
+	rp.React_Input_Value_Setter(Email_Field, Email);
+
+	System.out.println("✅ New First Name  = " + First_Name);
+	System.out.println("✅ New Middle Name = " + Middle_Name);
+	System.out.println("✅ New Last Name   = " + Last_Name);
+	System.out.println("✅ New Email       = " + Email);
+	System.out.println();
+
+	if (!First_Name.equals(First_Name_Field.getDomProperty("value")) || !Middle_Name.equals(Middle_Name_Field.getDomProperty("value")) || !Last_Name.equals(Last_Name_Field.getDomProperty("value")) || !Email.equals(Email_Field.getDomProperty("value"))) {
+		throw new AssertionError("Patient Row " + Row_Number + ": Updated field values do not match the provided data.");
+	}
+
+	WebElement Update_Button = Patient_Form.findElement(By.xpath(".//button[@type='submit']"));
+
+	rp.wait_for_theElement_to_be_clickable(Update_Button);
+	Update_Button.click();
+
+	WebElement Confirmation_Message = p.Success_Toast();
+
+	rp.wait_for_theElement(Confirmation_Message);
+
+	String Confirmation_Message_Text = Confirmation_Message.getText().trim();
+
+	System.out.println("✅ Confirmation Message = " + Confirmation_Message_Text);
+	System.out.println("✅ Patient Row " + Row_Number + " updated successfully.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().pass("✅ Patient updated successfully | Row: " + Row_Number + " | Name: " + First_Name + " " + Middle_Name + " " + Last_Name + " | Email: " + Email + " | Confirmation: " + Confirmation_Message_Text);
+
+	Thread.sleep(800);
+}
 	
 
 }

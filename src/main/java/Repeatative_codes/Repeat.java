@@ -31,7 +31,20 @@ public class Repeat {
 		js.executeScript("window.scrollBy(0, -180);");
 }
 	
-	
+	public void React_Input_Value_Setter(WebElement element, String value) {
+
+		JavascriptExecutor js = (JavascriptExecutor)d;
+
+		js.executeScript(
+				"const element=arguments[0];" +
+				"const value=arguments[1];" +
+				"const prototype=element.tagName==='TEXTAREA' ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype;" +
+				"const setter=Object.getOwnPropertyDescriptor(prototype,'value').set;" +
+				"setter.call(element,value);" +
+				"element.dispatchEvent(new Event('input',{bubbles:true}));" +
+				"element.dispatchEvent(new Event('change',{bubbles:true}));",
+				element, value);
+	}
 	
 	public void wait_for_theElement(WebElement element) {
 		WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(10));
