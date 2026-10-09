@@ -1,6 +1,7 @@
 package Repeatative_codes;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 
 import org.openqa.selenium.Alert;
@@ -8,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -118,7 +120,15 @@ public class Repeat {
 		}
 	}
 	
-	
+
+public void Hard_Refresh(){
+
+	ChromeDriver chrome = (ChromeDriver) d;
+
+	chrome.executeCdpCommand("Network.clearBrowserCache", new HashMap<String, Object>());
+	chrome.navigate().refresh();
+}
+
 	
 	public void Scroll_to_element(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor)d;
