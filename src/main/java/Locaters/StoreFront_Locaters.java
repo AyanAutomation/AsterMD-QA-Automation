@@ -125,6 +125,9 @@ public class StoreFront_Locaters extends Repeat {
 	private List<WebElement> Checkout_Retryable_Errors; 
     @FindBy(xpath="//button[@type='submit' and @name='intent' and @value='checkout']")
 	private WebElement Proceed_To_Checkout_Button;
+    @FindBy(xpath="//h2[normalize-space()='Select Treatment Plan']/following-sibling::div[@data-select-group]//button[@data-select-option]")
+	private List<WebElement> Optional_Treatment_Plan_Options;
+
 
 
 
@@ -299,6 +302,9 @@ public class StoreFront_Locaters extends Repeat {
 	public WebElement Proceed_To_Checkout_Button(){
 	wait_for_theElement_to_be_clickable(Proceed_To_Checkout_Button);
 	return Proceed_To_Checkout_Button;}
+	public List<WebElement> Optional_Treatment_Plan_Options(){
+	return Optional_Treatment_Plan_Options;}
+
 
     
 }
