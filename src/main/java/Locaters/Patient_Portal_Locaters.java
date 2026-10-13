@@ -1,5 +1,7 @@
 package Locaters;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,6 +36,51 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Portal_Continue_Button; 
     @FindBy(xpath="//h1[normalize-space()='Patient portal']")
 	private WebElement Portal_Login_Title; 
+    @FindBy(xpath="//div[contains(@class,'tabGroup')]//a[contains(@href,'/')]")
+	private List<WebElement> Patient_Portal_Header_Menu_Options;
+    @FindBy(xpath="//div[contains(@class,'incompleteCard')]//div[@class='ant-card-body']")
+	private List<WebElement> Incomplete_Treatment_Cards;
+    @FindBy(xpath="//h2[normalize-space()='About You']")
+	private WebElement Intake_Page_Heading;
+    @FindBy(xpath="//input[@placeholder='Enter first name']")
+	private WebElement Intake_First_Name;
+    @FindBy(xpath="//input[@placeholder='Enter last name']")
+	private WebElement Intake_Last_Name;
+    @FindBy(xpath="//input[@placeholder='Enter email address']")
+	private WebElement Intake_Email_Address;
+    @FindBy(xpath="//input[@placeholder='Enter phone number']")
+	private WebElement Intake_Phone_Number;
+    @FindBy(xpath="//div[contains(@class,'fieldCard')][.//span[normalize-space()='What state do you live in?']]//div[contains(@class,'ant-select') and contains(@class,'ant-select-show-arrow')]")
+	private WebElement Intake_State_Dropdown;
+    @FindBy(xpath="//div[contains(@class,'fieldCard')][.//span[normalize-space()='Unit System']]//div[contains(@class,'ant-select') and contains(@class,'ant-select-show-arrow')]")
+	private WebElement Intake_Unit_System_Dropdown;
+    @FindBy(xpath="//div[contains(@class,'ant-select-dropdown') and not(contains(@class,'ant-select-dropdown-hidden'))]//div[contains(@class,'ant-select-item-option') and @title]")
+	private List<WebElement> Intake_Dropdown_Options;
+    @FindBy(xpath="//div[contains(@class,'ant-select-dropdown') and not(contains(@class,'ant-select-dropdown-hidden'))]//div[contains(@class,'ant-select-dropdown-list-holder')]")
+   	private WebElement Intake_Dropdown_Scroll_Holder;
+    @FindBy(xpath="//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]//span[normalize-space()='Height']]//input[@type='number']")
+	private WebElement Intake_Height;
+    @FindBy(xpath="//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]//span[normalize-space()='Weight']]//input[@type='number']")
+	private WebElement Intake_Weight;
+    @FindBy(xpath="//div[contains(@class,'fieldCard')][.//span[normalize-space()='What is your weight loss goal?']]//label[contains(@class,'ant-radio-wrapper')]")
+	private List<WebElement> Intake_Weight_Loss_Goal_Options;
+    @FindBy(xpath="//button[normalize-space()='Next']")
+	private WebElement Intake_Next_Button;
+    @FindBy(xpath="//button[contains(@class,'canvasTabActive')][.//span[normalize-space()='Page 2']]")
+	private WebElement Intake_Second_Page_Active;
+    @FindBy(xpath="//div[contains(@class,'tabGroup')]")
+	private WebElement Header_Tab;
+    @FindBy(xpath="//h1[text()='Treatments']")
+	public WebElement Landed_in_Treatment_Page;
+    @FindBy(xpath="//*[name()='svg' and @aria-labelledby='treatment-summary-skeleton-aria']")
+	private WebElement Treatment_Summary_Loader;
+
+
+  
+    
+    
+    
+    
 
 	public Patient_Portal_Locaters(WebDriver d){
 	super(d);
@@ -75,4 +122,57 @@ public class Patient_Portal_Locaters extends Repeat {
 	public WebElement Portal_Login_Title(){
 	wait_for_theElement(Portal_Login_Title);
 	return Portal_Login_Title;}
+	public List<WebElement> Patient_Portal_Header_Menu_Options(){
+	wait_for_theElement(Patient_Portal_Header_Menu_Options);
+	return Patient_Portal_Header_Menu_Options;}
+	public List<WebElement> Incomplete_Treatment_Cards(){
+	wait_for_invisibilty_of_theElement(Treatment_Summary_Loader);
+	wait_for_theElement(Incomplete_Treatment_Cards);
+	Boolean isPresent = check_element_visibility(Incomplete_Treatment_Cards,10); 
+	if(isPresent){return Incomplete_Treatment_Cards;}
+	else{return null;}}
+	public WebElement Intake_Page_Heading(){
+	wait_for_theElement(Intake_Page_Heading);
+	return Intake_Page_Heading;}
+	public WebElement Intake_First_Name(){
+	wait_for_theElement(Intake_First_Name);
+	return Intake_First_Name;}
+	public WebElement Intake_Last_Name(){
+	wait_for_theElement(Intake_Last_Name);
+	return Intake_Last_Name;}
+	public WebElement Intake_Email_Address(){
+	wait_for_theElement(Intake_Email_Address);
+	return Intake_Email_Address;}
+	public WebElement Intake_Phone_Number(){
+	wait_for_theElement(Intake_Phone_Number);
+	return Intake_Phone_Number;}
+	public WebElement Intake_State_Dropdown(){
+	wait_for_theElement_to_be_clickable(Intake_State_Dropdown);
+	return Intake_State_Dropdown;}
+	public WebElement Intake_Unit_System_Dropdown(){
+	wait_for_theElement_to_be_clickable(Intake_Unit_System_Dropdown);
+	return Intake_Unit_System_Dropdown;}
+	public List<WebElement> Intake_Dropdown_Options(){
+	return Intake_Dropdown_Options;}
+	public WebElement Intake_Dropdown_Scroll_Holder(){
+	wait_for_theElement(Intake_Dropdown_Scroll_Holder);
+	return Intake_Dropdown_Scroll_Holder;}
+    public WebElement Intake_Height(){
+	wait_for_theElement(Intake_Height);
+	return Intake_Height;}
+	public WebElement Intake_Weight(){
+	wait_for_theElement(Intake_Weight);
+	return Intake_Weight;}
+	public List<WebElement> Intake_Weight_Loss_Goal_Options(){
+	return Intake_Weight_Loss_Goal_Options;}
+	public WebElement Intake_Next_Button(){
+	wait_for_theElement_to_be_clickable(Intake_Next_Button);
+	return Intake_Next_Button;}
+	public WebElement Intake_Second_Page_Active(){
+	wait_for_theElement(Intake_Second_Page_Active);
+	return Intake_Second_Page_Active;}
+	public WebElement Header_Tab(){
+	wait_for_theElement(Header_Tab);
+	return Header_Tab;}
+	
 }
