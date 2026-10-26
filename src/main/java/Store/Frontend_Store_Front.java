@@ -356,10 +356,10 @@ public Object[][] Storefront_Product_Data(){
 	data13.put("Cardholder Name", "Adrian Kowalski");
 	data13.putAll(Shared_Checkout_Data);
 
-	return new Object[][] {
-		{ data1 }, /*
-		{ data2 },
-		{ data3 },
+	return new Object[][] {/*
+		{ data1 }, */
+		{ data2 }, /*
+		{ data3 }, 
 		{ data4 },
 		{ data5 },
 		{ data6 },
@@ -415,7 +415,7 @@ public void Product_Choose(TreeMap<String, String> Product_data) throws IOExcept
 
 		if(Medicine_Name.equalsIgnoreCase(Product_Name)){
 
-			WebElement Add_to_Cart_Button = Medicine_Card.findElement(By.xpath(".//a[contains(@class,'bg-primary')]"));
+			WebElement Add_to_Cart_Button = Medicine_Card.findElement(By.xpath(".//a[contains(@class,'inline-flex items-center justify-center gap-2 rounded-sm border border-border')]"));
 
 			rp.movetoelement(Add_to_Cart_Button);
 			Add_to_Cart_Button.click();

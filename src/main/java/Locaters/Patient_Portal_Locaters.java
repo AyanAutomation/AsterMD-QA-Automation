@@ -62,8 +62,8 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Intake_Height;
     @FindBy(xpath="//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]//span[normalize-space()='Weight']]//input[@type='number']")
 	private WebElement Intake_Weight;
-    @FindBy(xpath="//div[contains(@class,'fieldCard')][.//span[normalize-space()='What is your weight loss goal?']]//label[contains(@class,'ant-radio-wrapper')]")
-	private List<WebElement> Intake_Weight_Loss_Goal_Options;
+    @FindBy(xpath="//div[contains(@class,'fieldCard')][.//div[@role='radiogroup']]//label")
+	private List<WebElement> Intake_Radio_Question_Cards;
     @FindBy(xpath="//button[normalize-space()='Next']")
 	private WebElement Intake_Next_Button;
     @FindBy(xpath="//button[contains(@class,'canvasTabActive')][.//span[normalize-space()='Page 2']]")
@@ -74,6 +74,8 @@ public class Patient_Portal_Locaters extends Repeat {
 	public WebElement Landed_in_Treatment_Page;
     @FindBy(xpath="//*[name()='svg' and @aria-labelledby='treatment-summary-skeleton-aria']")
 	private WebElement Treatment_Summary_Loader;
+    @FindBy(xpath="//div[contains(@class,'fieldGridDynamic')]//label")
+	private List<WebElement> Second_Intake_Radio_Question_Labels;
 
 
   
@@ -163,9 +165,9 @@ public class Patient_Portal_Locaters extends Repeat {
 	public WebElement Intake_Weight(){
 	wait_for_theElement(Intake_Weight);
 	return Intake_Weight;}
-	public List<WebElement> Intake_Weight_Loss_Goal_Options(){
-	return Intake_Weight_Loss_Goal_Options;}
-	public WebElement Intake_Next_Button(){
+	public List<WebElement> Intake_Radio_Question_Cards(){
+	return Intake_Radio_Question_Cards;}
+    public WebElement Intake_Next_Button(){
 	wait_for_theElement_to_be_clickable(Intake_Next_Button);
 	return Intake_Next_Button;}
 	public WebElement Intake_Second_Page_Active(){
@@ -174,5 +176,7 @@ public class Patient_Portal_Locaters extends Repeat {
 	public WebElement Header_Tab(){
 	wait_for_theElement(Header_Tab);
 	return Header_Tab;}
+	public List<WebElement> Second_Intake_Radio_Question_Labels(){
+	return Second_Intake_Radio_Question_Labels;}
 	
 }

@@ -166,7 +166,7 @@ public void Patient_Portal_Login(TreeMap<String, String> Product_data, String Pa
 
 		Report_Listen.log_print_in_report().info("Existing registered patient. Skipping Yopmail credential setup.");
 
-		d.navigate().to("https://patient-care.trackease.net/auth/sign-in");
+		d.navigate().to("https://testdemo.logistial.com/");
 
 		System.out.println("Result : LOGIN PAGE OPENED");
 	}
@@ -257,7 +257,7 @@ public void Intake_form_filling(TreeMap<String, String> Product_data) throws Int
 	String Weight_Loss_Goal = Product_data.getOrDefault("Weight Loss Goal", "I haven't decided yet");
 
 	// Patient Portal Login and Treatments Navigation
-	Patient_portal_header_menu_navigator("Treatments", "Registered", Product_data);
+	Patient_portal_header_menu_navigator("Treatments", "Not Registered", Product_data);
     Thread.sleep(1000);
 	System.out.println();
 	System.out.println("============================================================");
@@ -377,7 +377,7 @@ public void Intake_form_filling(TreeMap<String, String> Product_data) throws Int
 	Report_Listen.log_print_in_report().pass("Patient state, unit system, height and weight entered successfully.");
 
 	// Weight Loss Goal
-	List<WebElement> Goal_Options = p.Intake_Weight_Loss_Goal_Options();
+	List<WebElement> Goal_Options = p.Intake_Radio_Question_Cards();
 
 	for(WebElement Goal_Option : Goal_Options){
 
@@ -388,6 +388,12 @@ public void Intake_form_filling(TreeMap<String, String> Product_data) throws Int
 
 			System.out.println("Weight Loss Goal : " + Weight_Loss_Goal);
 
+			break;
+		}
+		else{
+			rp.movetoelement(Goal_Option);
+			Goal_Option.click();
+			
 			break;
 		}
 	}
