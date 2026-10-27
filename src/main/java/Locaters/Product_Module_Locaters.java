@@ -78,7 +78,13 @@ public class Product_Module_Locaters extends Repeat{
     @FindBy(xpath="//div[@role='tooltip']")
 	private WebElement tooltip; 
     @FindBy(id="pricing")
-	private WebElement Pricing_Section; /*
+	private WebElement Pricing_Section;
+    @FindBy(xpath="//div[@id='pricing']//label[.//input[@type='radio' and @value='variant']]")
+	private WebElement Variant_Based_Pricing;
+    @FindBy(xpath="//div[@id='pricing']//label[.//input[@type='radio' and @value='single']]")
+	private WebElement Single_Item_Pricing;
+    @FindBy(xpath="//div[@id='pricing']//button[contains(normalize-space(.),'Add Variant')]")
+	private List<WebElement> Product_Add_Variant_Buttons; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -398,8 +404,20 @@ public class Product_Module_Locaters extends Repeat{
 	return tooltip;}
 	public WebElement Pricing_Section(){
 	wait_for_theElement(Pricing_Section);
-	return Pricing_Section;}/*
-	 public WebElement (){
+	return Pricing_Section;}
+	public WebElement Variant_Based_Pricing(){
+	wait_for_theElement_to_be_clickable(Variant_Based_Pricing);
+	return Variant_Based_Pricing;}
+	public WebElement Single_Item_Pricing(){
+	wait_for_theElement_to_be_clickable(Single_Item_Pricing);
+	return Single_Item_Pricing;}
+	public List<WebElement> Product_Add_Variant_Buttons(){
+	return Product_Add_Variant_Buttons;}
+	public WebElement Product_Variant_Field(int Variant_Index, String Field_Name){
+	WebElement Variant_Field = wait_for_presence_of_theElement(By.id("variants_" + Variant_Index + "_" + Field_Name));
+	wait_for_theElement(Variant_Field);
+	return Variant_Field;}/*
+    public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){

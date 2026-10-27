@@ -238,6 +238,8 @@ public void Patient_portal_header_menu_navigator(String Option, String Status, T
 	
 
 
+
+
 @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
 public void Intake_form_filling(TreeMap<String, String> Product_data) throws InterruptedException{
 
@@ -254,20 +256,22 @@ public void Intake_form_filling(TreeMap<String, String> Product_data) throws Int
 	String Unit_System = Product_data.get("Unit System");
 	String Height = Product_data.get("Height");
 	String Weight = Product_data.get("Weight");
-	String Weight_Loss_Goal = Product_data.getOrDefault("Weight Loss Goal", "I haven't decided yet");
 
 	// Patient Portal Login and Treatments Navigation
-	Patient_portal_header_menu_navigator("Treatments", "Not Registered", Product_data);
-    Thread.sleep(1000);
+	Patient_portal_header_menu_navigator("Treatments", "Registered", Product_data);
+
 	System.out.println();
 	System.out.println("============================================================");
 	System.out.println("                    PATIENT INTAKE FORM");
 	System.out.println("============================================================");
 	System.out.println("Product : " + Product_Name);
 	System.out.println("Variant : " + Treatment_Variant);
-    Thread.sleep(800);
+
 	Report_Listen.log_print_in_report().info("Starting intake form for: " + Product_Name);
-	
+
+	// Scroll to Active Treatments Section
+	WebElement Active_section=p.Active_Tab();
+	rp.Scroll_to_element(Active_section);
 
 	// Incomplete Treatment Selection
 	List<WebElement> Treatment_Cards = p.Incomplete_Treatment_Cards();
@@ -277,17 +281,18 @@ public void Intake_form_filling(TreeMap<String, String> Product_data) throws Int
 
 	for(WebElement Treatment_Card : Treatment_Cards){
 
-		System.out.println("Treatment Name       : " + Treatment_Card.getText().trim());
-
 		String Treatment_Details = Treatment_Card.getText().trim();
+
+		System.out.println("Treatment Details : " + Treatment_Details.replace("\n", " | "));
 
 		if(Treatment_Details.toLowerCase().contains(Product_Name.toLowerCase()) && Treatment_Details.toLowerCase().contains(Treatment_Variant.toLowerCase())){
 
-			List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(".//button[normalize-space()='Start Intake']"));
+			List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(".//div[contains(@class,'desktopIncomplete')]//button"));
+			rp.wait_for_theElement(Start_Intake_Buttons);
 
 			for(WebElement Start_Intake_Button : Start_Intake_Buttons){
 
-				if(Start_Intake_Button.isDisplayed()){
+				if(Start_Intake_Button.isDisplayed() && Start_Intake_Button.isEnabled()){
 
 					rp.movetoelement(Start_Intake_Button);
 					Start_Intake_Button.click();
@@ -303,14 +308,17 @@ public void Intake_form_filling(TreeMap<String, String> Product_data) throws Int
 				}
 			}
 
-			break;}}
-					
+			break;
+		}
+	}
 
-	// Intake Form First Page
-	p.Intake_Page_Heading();
+	// Verify First Page
+	WebElement Intake_Heading = p.Intake_Page_Heading();
 
 	System.out.println("---------------- INTAKE FORM PAGE 1 ----------------");
-	System.out.println("Section : About You");
+	System.out.println("Section : " + Intake_Heading.getText().trim());
+
+	Report_Listen.log_print_in_report().info("Intake Form Page 1 displayed.");
 
 	// Personal Information
 	WebElement First_Name_Field = p.Intake_First_Name();
@@ -328,38 +336,61 @@ public void Intake_form_filling(TreeMap<String, String> Product_data) throws Int
 	Email_Field.sendKeys(Email);
 
 	Phone_Field.clear();
-	Phone_Field.sendKeys("+1" + Phone);
+	Phone_Field.sendKeys(Phone);
 
-	System.out.println("Personal Information : Completed");
+	System.out.println("---------------- PERSONAL INFORMATION ----------------");
+	System.out.println("First Name : " + First_Name);
+	System.out.println("Last Name  : " + Last_Name);
+	System.out.println("Email      : " + Email);
+	System.out.println("Phone      : " + Phone_Field.getAttribute("value"));
+	System.out.println("Result     : COMPLETED");
 
-	Report_Listen.log_print_in_report().pass("Personal information entered successfully.");
+	Report_Listen.log_print_in_report().pass("Patient personal information entered successfully.");
 
 	// State Selection
 	WebElement State_Dropdown = p.Intake_State_Dropdown();
-
 	Intake_Dropdown_Option_Selector(State_Dropdown, State);
 
+	// Semaglutide Date of Birth
+	if(Product_Name.equalsIgnoreCase("Semaglutide")){
+
+		String Date_Of_Birth = Product_data.get("Date of Birth");
+		String[] Date_Parts = Date_Of_Birth.split("/");
+		String Formatted_Date = Date_Parts[2] + "-" + Date_Parts[0] + "-" + Date_Parts[1];
+
+		WebElement Date_Field = p.Intake_Date_Of_Birth();
+
+		rp.movetoelement(Date_Field);
+		Date_Field.click();
+		Date_Field.sendKeys(org.openqa.selenium.Keys.chord(org.openqa.selenium.Keys.CONTROL, "a"));
+		Date_Field.sendKeys(Formatted_Date);
+		Date_Field.sendKeys(org.openqa.selenium.Keys.ENTER);
+
+		String Actual_Date = Date_Field.getAttribute("value");
+
+		System.out.println("---------------- DATE OF BIRTH ----------------");
+		System.out.println("DataProvider Date : " + Date_Of_Birth);
+		System.out.println("Date Picker Input : " + Formatted_Date);
+		System.out.println("Actual Date       : " + Actual_Date);
+
+		if(Actual_Date == null || Actual_Date.isBlank() || "true".equalsIgnoreCase(Date_Field.getAttribute("aria-invalid"))){
+
+			System.out.println("Result : FAIL");
+			System.out.println("Reason : Date of Birth was not accepted by the date picker");
+
+			Report_Listen.log_print_in_report().fail("Date of Birth not accepted. Expected: " + Formatted_Date + " | Actual: " + Actual_Date);
+
+			throw new IllegalStateException("Invalid Date of Birth selection for Semaglutide.");
+		}
+
+		System.out.println("Result : PASS");
+
+		Report_Listen.log_print_in_report().pass("Date of Birth entered successfully: " + Actual_Date);
+	}
 
 	// Unit System Selection
 	WebElement Unit_Dropdown = p.Intake_Unit_System_Dropdown();
-
-	rp.movetoelement(Unit_Dropdown);
-	Unit_Dropdown.click();
-
-	List<WebElement> Unit_Options = p.Intake_Dropdown_Options();
-
-	for(WebElement Unit_Option : Unit_Options){
-
-		if(Unit_Option.getText().trim().replaceAll("\\s+", "").equalsIgnoreCase(Unit_System.replaceAll("\\s+", ""))){
-
-			rp.movetoelement(Unit_Option);
-			Unit_Option.click();
-
-			System.out.println("Selected Unit System : " + Unit_System);
-
-			break;
-		}
-	}
+	Intake_Dropdown_Option_Selector(Unit_Dropdown, Unit_System);
 
 	// Height and Weight
 	WebElement Height_Field = p.Intake_Height();
@@ -371,52 +402,106 @@ public void Intake_form_filling(TreeMap<String, String> Product_data) throws Int
 	Weight_Field.clear();
 	Weight_Field.sendKeys(Weight);
 
-	System.out.println("Height : " + Height);
-	System.out.println("Weight : " + Weight);
+	System.out.println("---------------- HEIGHT AND WEIGHT ----------------");
+	System.out.println("Unit System : " + Unit_System);
+	System.out.println("Height      : " + Height);
+	System.out.println("Weight      : " + Weight);
+	System.out.println("Result      : COMPLETED");
 
-	Report_Listen.log_print_in_report().pass("Patient state, unit system, height and weight entered successfully.");
+	Report_Listen.log_print_in_report().pass("Patient height and weight entered successfully.");
 
-	// Weight Loss Goal
-	List<WebElement> Goal_Options = p.Intake_Radio_Question_Cards();
+	// Dynamic Intake Radio Questions
+	List<WebElement> Question_Cards = p.Intake_Radio_Question_Cards();
 
-	for(WebElement Goal_Option : Goal_Options){
+	System.out.println("---------------- INTAKE RADIO QUESTIONS ----------------");
+	System.out.println("Questions Found : " + Question_Cards.size());
 
-		if(Goal_Option.getText().trim().equalsIgnoreCase(Weight_Loss_Goal)){
+	for(WebElement Question_Card : Question_Cards){
 
-			rp.movetoelement(Goal_Option);
-			Goal_Option.click();
+		String Question = Question_Card.findElement(By.xpath(".//div[contains(@class,'fieldLabel')]/span[1]")).getText().trim();
+		String Expected_Answer = Product_data.getOrDefault("Intake Q&A - " + Question, "");
 
-			System.out.println("Weight Loss Goal : " + Weight_Loss_Goal);
-
-			break;
+		if(Question.equalsIgnoreCase("What is your weight loss goal?") && Expected_Answer.isBlank()){
+			Expected_Answer = Product_data.getOrDefault("Weight Loss Goal", "");
 		}
-		else{
-			rp.movetoelement(Goal_Option);
-			Goal_Option.click();
-			
-			break;
+
+		System.out.println("---------------- RADIO QUESTION ----------------");
+		System.out.println("Question : " + Question);
+		System.out.println("Expected : " + Expected_Answer);
+
+		Report_Listen.log_print_in_report().info("Intake Question: " + Question + " | Expected Answer: " + Expected_Answer);
+
+		if(Expected_Answer.isBlank()){
+
+			System.out.println("Result : FAIL");
+			System.out.println("Reason : No answer configured in DataProvider");
+
+			Report_Listen.log_print_in_report().fail("Missing intake answer for: " + Question);
+
+			throw new IllegalStateException("Missing DataProvider answer for intake question: " + Question);
 		}
+
+		List<WebElement> Radio_Options = Question_Card.findElements(By.xpath(".//label[contains(@class,'ant-radio-wrapper')]"));
+
+		System.out.println("Available Options : " + Radio_Options.size());
+
+		int Selected_Options = 0;
+
+		for(WebElement Radio_Option : Radio_Options){
+
+			String Option_Text = Radio_Option.getText().trim();
+
+			System.out.println("Checking Option : " + Option_Text);
+
+			if(Option_Text.equalsIgnoreCase(Expected_Answer)){
+
+				rp.movetoelement(Radio_Option);
+				Radio_Option.click();
+
+				if(Radio_Option.findElement(By.xpath(".//input[@type='radio']")).isSelected()){
+					Selected_Options++;
+				}
+
+				System.out.println("Selected Answer : " + Option_Text);
+
+				break;
+			}
+		}
+
+		if(Selected_Options==0){
+
+			System.out.println("Result : FAIL");
+			System.out.println("Reason : Expected radio answer not selected");
+
+			Report_Listen.log_print_in_report().fail("Radio answer not selected. Question: " + Question + " | Expected: " + Expected_Answer);
+
+			throw new IllegalStateException("Intake radio option not selected: " + Question);
+		}
+
+		System.out.println("Result : PASS");
+
+		Report_Listen.log_print_in_report().pass("Intake answer selected: " + Question + " | " + Expected_Answer);
 	}
 
 	// Proceed to Second Page
+	System.out.println("---------------- NEXT PAGE NAVIGATION ----------------");
+	System.out.println("Action : Click Next");
+
 	WebElement Next_Button = p.Intake_Next_Button();
 
 	rp.movetoelement(Next_Button);
 	Next_Button.click();
 
-	p.Intake_Second_Page_Active();
+	WebElement Second_Page = p.Intake_Second_Page_Active();
 
-	System.out.println();
-	System.out.println("============================================================");
-	System.out.println("                 INTAKE PAGE 1 COMPLETED");
-	System.out.println("============================================================");
-	System.out.println("Product : " + Product_Name);
-	System.out.println("Result  : PASS");
+	System.out.println("Expected : Page 2 displayed");
+	System.out.println("Actual   : " + Second_Page.getText().trim());
+	System.out.println("Result   : PASS");
 
-	Report_Listen.log_print_in_report().pass("Intake Form Page 1 completed successfully for: " + Product_Name);
-
-
+	Report_Listen.log_print_in_report().pass("Intake Form Page 1 completed and Page 2 displayed for: " + Product_Name);
 }
+
+
 
 
 

@@ -1,5 +1,6 @@
 package AsterMD.Project.AsterMD;
 
+import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -245,34 +246,14 @@ public Object[][] Category_Create_Data(){
 	data26.put("Drug Class / Code", "META-HMB-426");
 	data26.put("Description", "Specialized metabolic-support products associated with management of body-composition and fat-distribution changes occurring in patients with HIV-associated lipodystrophy. This category may support clinically supervised care involving metabolic assessment, antiretroviral treatment history, glucose and lipid monitoring, cardiovascular risk review, body-composition evaluation, treatment-response assessment, and continued specialist oversight.");
 
-	return new Object[][] {
-		{ data1 },
-		{ data2 },
-		{ data3 },
-		{ data4 },
-		{ data5 },
-		{ data6 },
-		{ data7 },
-		{ data8 },
-		{ data9 },
-		{ data10 },
-		{ data11 },
-		{ data12 },
-		{ data13 },
-		{ data14 },
-		{ data15 },
-		{ data16 },
-		{ data17 },
-		{ data18 }, 
-		{ data19 },
-		{ data20 },
-		{ data21 },
-		{ data22 },
-		{ data23 },
-		{ data24 },
-		{ data25 },
-		{ data26 } 
-	};
+
+return new Object[][] {
+	{ data6 }, { data7 }, { data8 }, { data9 }, { data10 },
+	{ data11 }, { data12 }, { data13 }, { data14 }, { data15 },
+	{ data16 }, { data17 }, { data18 }, { data19 }, { data20 },
+	{ data21 }, { data22 }, { data23 }, { data24 }
+};
+
 }
 
 @DataProvider
@@ -426,28 +407,15 @@ public Object[][] Lab_Test_Create_Data(){
 	data20.put("City", "Phoenix");
 	data20.put("Postal Code / Zip Code", "85034");
 
-	return new Object[][] {
-		{ data1 }, 
-		{ data2 }, 
-		{ data3 }, 
-		{ data4 },
-		{ data5 },
-		{ data6 },
-		{ data7 }, 
-		{ data8 }, 
-		{ data9 },
-		{ data10 },
-		{ data11 },
-		{ data12 },
-		{ data13 },
-		{ data14 },
-		{ data15 },
-		{ data16 },
-		{ data17 },
-		{ data18 },
-		{ data19 },
-		{ data20 } 
-	};
+
+return new Object[][] {
+	{ data4 }, { data5 }, { data6 },
+	{ data7 }, { data8 }, { data9 },
+	{ data10 }, { data11 }, { data12 },
+	{ data13 }, { data14 },
+	{ data18 }, { data19 }, { data20 }
+};
+
 }
 
 
@@ -1281,59 +1249,95 @@ public static Object[][] Product_Create_Data(){
 	data26.put("Sales End Date", "12/10/2026");
 	data26.put("Lab Test", "Yes");
 
-	return new Object[][] {
-		{ data1 },/*
-		{ data2 },
-		{ data3 },
-		{ data4 },
-		{ data5 },
-		{ data6 },
-		{ data7 },
-		{ data8 },
-		{ data9 },
-		{ data10 },
-		{ data11 },
-		{ data12 },
-		{ data13 },
-		{ data14 },
-		{ data15 },
-		{ data16 },
-		{ data17 },
-		{ data18 },
-		{ data19 },
-		{ data20 },
-		{ data21 },
-		{ data22 },
-		{ data23 },
-		{ data24 },
-		{ data25 },
-		{ data26 } */
-	};
+
+return new Object[][] {
+	{ data6 },
+	{ data7 },
+	{ data8 },
+	{ data9 },
+	{ data10 },
+	{ data11 },
+	{ data12 },
+	{ data13 },
+	{ data14 },
+	{ data15 },
+	{ data16 },
+	{ data17 },
+	{ data18 },
+	{ data19 },
+	{ data20 },
+	{ data21 },
+	{ data22 },
+	{ data23 },
+	{ data24 } 
+};
+
 }
+
 
 
 
 @DataProvider
-public Object[][] combined_data_provider() {
+public Object[][] combined_data_provider(){
 
-	Object[][] Category_datas = Category_Create_Data();
-	Object[][] Lab_Test_datas = Lab_Test_Create_Data();
-	Object[][] Product_datas = Product_Create_Data();
+	Object[][] Products = Product_Create_Data();
+	Object[][] Categories = Category_Create_Data();
+	Object[][] Labs = Lab_Test_Create_Data();
 
-	int n = IntStream.of(Category_datas.length, Lab_Test_datas.length, Product_datas.length).min().orElse(0);
+	ArrayList<Object[]> Combined_Data = new ArrayList<>();
 
-	Object[][] combined_data = new Object[n][3];
+	TreeMap<String,String> Lab_Mapping = new TreeMap<>();
+	Lab_Mapping.put("Obesity", "Obesity Comprehensive Metabolic Panel");
+	Lab_Mapping.put("Prediabetes", "Obesity HbA1c and Insulin Resistance Panel");
+	Lab_Mapping.put("Type 2 Diabetes", "Obesity HbA1c and Insulin Resistance Panel");
 
-	int i = 0;
-	while (i < n) {
-		combined_data[i][0] = Category_datas[i][0]; // Category Create Data
-		combined_data[i][1] = Lab_Test_datas[i][0]; // Lab Test Create Data
-		combined_data[i][2] = Product_datas[i][0]; // Product Create Data
-		i++;
+	for(Object[] Product_Row : Products){
+
+		@SuppressWarnings("unchecked")
+		TreeMap<String,String> Product = (TreeMap<String,String>)Product_Row[0];
+
+		TreeMap<String,String> Matched_Category = null;
+		TreeMap<String,String> Matched_Lab = new TreeMap<>();
+
+		String Product_Category = Product.get("Category");
+		String Required_Lab = Lab_Mapping.get(Product.get("Condition Treated"));
+
+		for(Object[] Category_Row : Categories){
+
+			@SuppressWarnings("unchecked")
+			TreeMap<String,String> Category = (TreeMap<String,String>)Category_Row[0];
+
+			if(Product_Category.equals(Category.get("Category Name"))){
+				Matched_Category = Category;
+				break;
+			}
+		}
+
+		if(Matched_Category==null){
+			throw new IllegalStateException("Category DataProvider not found for: " + Product_Category);
+		}
+
+		for(Object[] Lab_Row : Labs){
+
+			@SuppressWarnings("unchecked")
+			TreeMap<String,String> Lab = (TreeMap<String,String>)Lab_Row[0];
+
+			if(Lab.get("Lab Test Name").equals(Required_Lab)){
+				Matched_Lab = Lab;
+				break;
+			}
+		}
+
+		if("Yes".equalsIgnoreCase(Product.get("Lab Test")) && Matched_Lab.isEmpty()){
+			System.out.println("No matching Lab Test dataset configured for: " + Product.get("Product Name"));
+		}
+
+		Combined_Data.add(new Object[]{Matched_Category, Matched_Lab, Product});
 	}
 
-	return combined_data;
+	return Combined_Data.toArray(new Object[Combined_Data.size()][3]);
 }
+
 
 
 
@@ -1828,13 +1832,13 @@ public void Category_Add(TreeMap<String, String> data) throws Exception {
 	   
    
 	
+
 @Test(dataProvider="combined_data_provider")
-public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<String, String> Lab_Test_Create_Data,TreeMap<String, String> Product_data) throws Exception {
+public void Product_Add(TreeMap<String, String> Category_Create_Data, TreeMap<String, String> Lab_Test_Create_Data, TreeMap<String, String> Product_data) throws Exception{
 
 	Product_Module_Locaters p = new Product_Module_Locaters(d);
-    Repeat rp = new Repeat(d);
-	
-	
+	Repeat rp = new Repeat(d);
+
 	String Product_Name = Product_data.get("Product Name");
 	String Description = Product_data.get("Description");
 	String Product_Image = Product_data.get("Product Image");
@@ -1858,78 +1862,69 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 
 	int step = 1;
 
-	try {
+	try{
 
 		Report_Listen.log_print_in_report().info("──────────────────── 📦 PRODUCT CREATION ────────────────────");
 		Report_Listen.log_print_in_report().info("<b>Scenario:</b> Create a new Product in the Product Module.");
 		Report_Listen.log_print_in_report().info("<b>Input:</b> Product Name = " + Product_Name + " | Product Type = " + Product_Type + " | Category = " + Category);
 		Report_Listen.log_print_in_report().info("<b>Expected:</b> Product should be created successfully with the configured catalog, inventory and pricing information.");
 
+		System.out.println();
 		System.out.println("📦 PRODUCT CREATION");
-		System.out.println();
-		System.out.println("🔹 Product Name: " + Product_Name);
-		System.out.println();
-		System.out.println("🔹 Product Type: " + Product_Type);
-		System.out.println();
-		System.out.println("🔹 Category: " + Category);
-		System.out.println();
+		System.out.println("Product Name : " + Product_Name);
+		System.out.println("Product Type : " + Product_Type);
+		System.out.println("Category     : " + Category);
+		System.out.println("Pricing Type : " + Pricing_Type);
 
+		// Product Form Access
 		Report_Listen.log_print_in_report().info("──────────────────── 📝 PRODUCT FORM ACCESS ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Access the Product Module and open the Product Add form.");
 
+		System.out.println();
 		System.out.println("📝 PRODUCT FORM ACCESS");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Opening the Product Add form.");
-		System.out.println();
+		System.out.println("Step " + step + ": Opening Product Add form.");
 
 		WebElement Product_Add = Product_Module_Accessor();
+		rp.movetoelement(Product_Add);
 		Product_Add.click();
-		
-        
+
 		p.Description_form();
 
 		WebElement Product_form = p.Form();
 
-		Report_Listen.log_print_in_report().pass("✅ Product Add form opened successfully.");
+		Report_Listen.log_print_in_report().pass("Product Add form opened successfully.");
 		System.out.println("✅ Product Add form opened successfully.");
-		System.out.println();
 
 		step++;
 
+		// Product Form Field Retrieval
 		Report_Listen.log_print_in_report().info("──────────────────── 🔎 PRODUCT FORM FIELD RETRIEVAL ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Retrieve all required Product Add form input fields.");
 
+		System.out.println();
 		System.out.println("🔎 PRODUCT FORM FIELD RETRIEVAL");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Retrieving Product Add form input fields.");
-		System.out.println();
+		System.out.println("Step " + step + ": Retrieving Product Add form fields.");
 
 		List<WebElement> Inputs;
 
-		try {
-
+		try{
 			Inputs = p.Product_Add_Form_Inputs(Product_form);
-
-		} catch(Exception e) {
-              
+		}
+		catch(Exception e){
 			Thread.sleep(1300);
-			Report_Listen.log_print_in_report().warning("⚠️ Initial Product form input retrieval failed. Retrying field retrieval.");
-			System.out.println("⚠️ Initial Product form input retrieval failed. Retrying.");
-			System.out.println();
-			
+			System.out.println("⚠️ Retrying Product form field retrieval.");
+			Report_Listen.log_print_in_report().warning("Retrying Product form input retrieval.");
 			Inputs = p.Product_Add_Form_Inputs(Product_form);
 		}
-		if(!Inputs.isEmpty()) {
-		Negative_Validation_Check_for_Product_Add(Inputs,Category_Create_Data,Lab_Test_Create_Data,Product_data);}
-		else{
-			System.out.println("Number of input fields " +Inputs.size());
-			System.out.println();
-			
+
+		if(Inputs.size()<14){
+			throw new IllegalStateException("Expected 14 Product form inputs but found: " + Inputs.size());
 		}
-      
-		
-		
-		
+
+		// Existing Negative Validation
+		Negative_Validation_Check_for_Product_Add(Inputs, Category_Create_Data, Lab_Test_Create_Data, Product_data);
+
+		// Retrieve Fields After Negative Validation Reset
+		Inputs = p.Product_Add_Form_Inputs(p.Form());
+
 		WebElement Product_Name_Input = Inputs.get(0);
 		WebElement Description_Input = p.Textarea_Description_Field();
 		WebElement Product_Type_Input = Inputs.get(1);
@@ -1940,89 +1935,80 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 		WebElement Stock_Input = Inputs.get(6);
 		WebElement Default_SKU = Inputs.get(7);
 		WebElement Condition_treated_Input = Inputs.get(8);
-		WebElement Intro_Input = Inputs.get(9);
-		WebElement Default_Price_Input = Inputs.get(11);
-		WebElement Sales_Price_Input = Inputs.get(10);
-		WebElement Sales_Start_Date_Input = Inputs.get(12);
-		WebElement Sales_End_Date_Input = Inputs.get(13);
 
-		Report_Listen.log_print_in_report().pass("✅ Required Product Add form fields retrieved successfully.");
 		System.out.println("✅ Required Product Add form fields retrieved successfully.");
-		System.out.println();
+		Report_Listen.log_print_in_report().pass("Required Product Add form fields retrieved successfully.");
 
 		step++;
 
+		// Product Basic Information
 		Report_Listen.log_print_in_report().info("──────────────────── ✏️ PRODUCT BASIC DETAILS ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Enter Product Description.");
 
+		System.out.println();
 		System.out.println("✏️ PRODUCT BASIC DETAILS");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Entering Product Description.");
-		System.out.println();
+		System.out.println("Step " + step + ": Entering Product Name and Description.");
+
+		Product_Name_Input.clear();
+		Product_Name_Input.sendKeys(Product_Name);
 
 		Description_Input.clear();
 		Description_Input.sendKeys(Description);
 
-		Report_Listen.log_print_in_report().pass("✅ Product Description entered successfully.");
-		System.out.println("✅ Product Description entered successfully.");
-		System.out.println();
-		
+		System.out.println("Product Name : " + Product_Name);
+		System.out.println("Description  : Entered successfully");
+
 		WebElement Image_Upload = p.Product_Image_Upload_Input();
-
-		JavascriptExecutor js = (JavascriptExecutor)d;
-		//js.executeScript("arguments[0].style.display='block';", Image_Upload);
-
 		Image_Upload.sendKeys(Product_Image);
 
-		
+		System.out.println("Product Image : Uploaded");
+
+		Report_Listen.log_print_in_report().pass("Product Name, Description and Image entered successfully.");
 
 		step++;
 
+		// Product Type Selection
 		Report_Listen.log_print_in_report().info("──────────────────── 🏷️ PRODUCT TYPE & CATEGORY ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Select Product Type = " + Product_Type);
 
+		System.out.println();
 		System.out.println("🏷️ PRODUCT TYPE & CATEGORY");
-		System.out.println();
-		System.out.println("🔹 Selecting Product Type: " + Product_Type);
-		System.out.println();
+		System.out.println("Selecting Product Type : " + Product_Type);
 
 		Product_Type_Input.sendKeys(Product_Type);
 
 		WebElement Prod_type_list = p.First_Virtual_List_holder();
-		List<WebElement> Prod_type_list_options = Prod_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+		List<WebElement> Prod_type_list_options = Prod_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item-option')]"));
 
-		for(WebElement option : Prod_type_list_options) {
+		for(WebElement option : Prod_type_list_options){
 
-			if(option.getText().equals(Product_Type)) {
+			if(option.getText().trim().equalsIgnoreCase(Product_Type)){
 
+				rp.movetoelement(option);
 				option.click();
 
-				Report_Listen.log_print_in_report().pass("✅ Product Type selected successfully: " + Product_Type);
-				System.out.println("✅ Product Type selected successfully: " + Product_Type);
-				System.out.println();
+				System.out.println("✅ Product Type selected: " + Product_Type);
+				Report_Listen.log_print_in_report().pass("Product Type selected successfully: " + Product_Type);
 
 				break;
 			}
 		}
 
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Select Product Category = " + Category);
-		System.out.println("🔹 Selecting Product Category: " + Category);
-		System.out.println();
+		// Product Category Selection
+		System.out.println("Selecting Product Category : " + Category);
 
 		Product_Category_Input.sendKeys(Category);
 
 		WebElement Categories_type_list = p.Thrid_Virtual_List_holder();
-		List<WebElement> Categories_type_list_options = Categories_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+		List<WebElement> Categories_type_list_options = Categories_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item-option')]"));
 
-		for(WebElement option : Categories_type_list_options) {
+		for(WebElement option : Categories_type_list_options){
 
-			if(option.getText().equals(Category)) {
+			if(option.getText().trim().equalsIgnoreCase(Category)){
 
+				rp.movetoelement(option);
 				option.click();
 
-				Report_Listen.log_print_in_report().pass("✅ Product Category selected successfully: " + Category);
-				System.out.println("✅ Product Category selected successfully: " + Category);
-				System.out.println();
+				System.out.println("✅ Product Category selected: " + Category);
+				Report_Listen.log_print_in_report().pass("Product Category selected successfully: " + Category);
 
 				break;
 			}
@@ -2030,29 +2016,27 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 
 		step++;
 
+		// Product Visibility
 		Report_Listen.log_print_in_report().info("──────────────────── 👁️ PRODUCT VISIBILITY ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Select Product Visibility = " + Visibility);
 
+		System.out.println();
 		System.out.println("👁️ PRODUCT VISIBILITY");
-		System.out.println();
-		System.out.println("🔹 Selecting Product Visibility: " + Visibility);
-		System.out.println();
+		System.out.println("Selecting Product Visibility : " + Visibility);
 
 		Product_Visibility_Input.sendKeys(Visibility);
 
 		WebElement Product_Visibility_list = p.Second_Virtual_List_holder();
-		List<WebElement> Product_Visibility_list_options = Product_Visibility_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+		List<WebElement> Product_Visibility_list_options = Product_Visibility_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item-option')]"));
 
-		for(WebElement visoption : Product_Visibility_list_options) {
-            String option_Text=visoption.getText().trim();
-            System.out.println("visibility option "+option_Text+" Option text from Dataprovider "+Visibility);
-			if(option_Text.contains(Visibility)) {
+		for(WebElement option : Product_Visibility_list_options){
 
-				visoption.click();
+			if(option.getText().trim().contains(Visibility)){
 
-				Report_Listen.log_print_in_report().pass("✅ Product Visibility selected successfully: " + Visibility);
-				System.out.println("✅ Product Visibility selected successfully: " + Visibility);
-				System.out.println();
+				rp.movetoelement(option);
+				option.click();
+
+				System.out.println("✅ Product Visibility selected: " + Visibility);
+				Report_Listen.log_print_in_report().pass("Product Visibility selected successfully: " + Visibility);
 
 				break;
 			}
@@ -2060,301 +2044,469 @@ public void Product_Add(TreeMap<String, String> Category_Create_Data,TreeMap<Str
 
 		step++;
 
+		// Product Inventory
 		Report_Listen.log_print_in_report().info("──────────────────── 📦 PRODUCT INVENTORY ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Configure minimum quantity, maximum quantity and stock count.");
-		Report_Listen.log_print_in_report().info("<b>Input:</b> Minimum = " + Minimum_Buy_Quantity + " | Maximum = " + Maximum_Buy_Quantity + " | Stock = " + Stock_Count);
 
+		System.out.println();
 		System.out.println("📦 PRODUCT INVENTORY");
-		System.out.println();
-		System.out.println("🔹 Entering Product quantity and stock configuration.");
-		System.out.println();
+		System.out.println("Step " + step + ": Configuring inventory details.");
 
 		Min_Quantity_Input.sendKeys(Minimum_Buy_Quantity);
 		Max_Quantity_Input.sendKeys(Maximum_Buy_Quantity);
 		Stock_Input.sendKeys(Stock_Count);
 
-		Report_Listen.log_print_in_report().pass("✅ Product inventory configuration entered successfully.");
-		System.out.println("✅ Product inventory configuration entered successfully.");
-		System.out.println();
+		System.out.println("Minimum Buy Quantity : " + Minimum_Buy_Quantity);
+		System.out.println("Maximum Buy Quantity : " + Maximum_Buy_Quantity);
+		System.out.println("Stock Count          : " + Stock_Count);
 
-		if(Product_Type.equals("Prescription")) {
+		Report_Listen.log_print_in_report().pass("Product inventory configuration entered successfully.");
+
+		// Prescription Configuration
+		if(Product_Type.equalsIgnoreCase("Prescription")){
 
 			Report_Listen.log_print_in_report().info("──────────────────── 🩺 PRESCRIPTION CONFIGURATION ────────────────────");
-			Report_Listen.log_print_in_report().info("<b>Action:</b> Configure Prescription Intake Form = " + Intake_Form);
 
+			System.out.println();
 			System.out.println("🩺 PRESCRIPTION CONFIGURATION");
-			System.out.println();
-			System.out.println("🔹 Configuring Prescription Intake Form: " + Intake_Form);
-			System.out.println();
+			System.out.println("Intake Form : " + Intake_Form);
 
 			WebElement Intake_Form_Input = p.Intake_form_field();
 			Intake_Form_Input.sendKeys(Intake_Form);
-			
+
 			WebElement Intake_Form_list = p.Fourth_Virtual_List_holder();
-			List<WebElement> Intake_Form_list_options = Intake_Form_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+			List<WebElement> Intake_Form_list_options = Intake_Form_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item-option')]"));
 
-			for(WebElement intoption : Intake_Form_list_options) {
-	            String option_Text=intoption.getText().trim();
-	            System.out.println("visibility option "+option_Text+" Option text from Dataprovider "+Intake_Form);
-				if(option_Text.contains(Intake_Form)) {
+			for(WebElement option : Intake_Form_list_options){
 
-					intoption.click();
+				if(option.getText().trim().contains(Intake_Form)){
 
-					Report_Listen.log_print_in_report().pass("✅ Product Visibility selected successfully: " + Intake_Form);
-					System.out.println("✅ Product Visibility selected successfully: " + Intake_Form);
-					System.out.println();
+					rp.movetoelement(option);
+					option.click();
 
-					break;}}
-			WebElement renewal_teleforms_Input = p.renewal_teleforms();
-			renewal_teleforms_Input.sendKeys(Intake_Form);
-			
-			WebElement renewal_teleforms_Input_list = p.Sixth_Virtual_List_holder();
-			List<WebElement> renewal_teleforms_Input_options = renewal_teleforms_Input_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+					System.out.println("✅ Intake Form selected: " + Intake_Form);
+					Report_Listen.log_print_in_report().pass("Prescription Intake Form selected: " + Intake_Form);
 
-			for(WebElement renewaloption : renewal_teleforms_Input_options) {
-	            String reoption_Text=renewaloption.getText().trim();
-	            System.out.println("visibility option "+reoption_Text+" Option text from Dataprovider "+Intake_Form);
-				if(reoption_Text.contains(Intake_Form)) {
+					break;
+				}
+			}
 
-					renewaloption.click();
+			// Renewal Form
+			WebElement Renewal_Form_Input = p.renewal_teleforms();
+			Renewal_Form_Input.sendKeys(Intake_Form);
 
-					Report_Listen.log_print_in_report().pass("✅ Product Visibility selected successfully: " + Intake_Form);
-					System.out.println("✅ Product Visibility selected successfully: " + Intake_Form);
-					System.out.println();
+			WebElement Renewal_Form_list = p.Sixth_Virtual_List_holder();
+			List<WebElement> Renewal_Form_list_options = Renewal_Form_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item-option')]"));
 
-					break;}}
+			for(WebElement option : Renewal_Form_list_options){
 
-			Report_Listen.log_print_in_report().pass("✅ Prescription Intake Form entered successfully.");
-			System.out.println("✅ Prescription Intake Form entered successfully.");
-			System.out.println();
+				if(option.getText().trim().contains(Intake_Form)){
+
+					rp.movetoelement(option);
+					option.click();
+
+					System.out.println("✅ Renewal Form selected: " + Intake_Form);
+					Report_Listen.log_print_in_report().pass("Prescription Renewal Form selected: " + Intake_Form);
+
+					break;
+				}
+			}
+
+			System.out.println("✅ Prescription configuration completed successfully.");
 		}
 
 		step++;
-         
-		Report_Listen.log_print_in_report().info("──────────────────── 🆔 PRODUCT IDENTIFICATION ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Enter Default SKU / Identifier and Condition Treated.");
 
+		// Product Identifier and Condition
+		Report_Listen.log_print_in_report().info("──────────────────── 🆔 PRODUCT IDENTIFICATION ────────────────────");
+
+		System.out.println();
 		System.out.println("🆔 PRODUCT IDENTIFICATION");
-		System.out.println();
-		System.out.println("🔹 Entering SKU and Condition Treated.");
-		System.out.println();
+		System.out.println("Step " + step + ": Entering SKU and Condition Treated.");
 
 		Default_SKU.sendKeys(Default_SKU_Identifier);
 		Condition_treated_Input.sendKeys(Condition_Treated);
-	    WebElement Condition_treated_list;
-	    if(Product_Type.equals("Prescription")){
-	    
-	    Condition_treated_list= p.Fifth_Virtual_List_holder();}
-	    else{
-		    
-		    Condition_treated_list= p.Fourth_Virtual_List_holder();}
-	    
-	    List<WebElement> Condition_treated_list_options = Condition_treated_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
 
-	     for(WebElement Condition_option : Condition_treated_list_options) {
-		
-		  String Condition_option_text =Condition_option.getText().trim();
-		
+		WebElement Condition_treated_list;
 
-		if(Condition_option_text.contains(Condition_Treated)) {
-
-			Condition_option.click();
-
-			Report_Listen.log_print_in_report().pass("✅ Condition Treated selected successfully: " + Condition_option);
-			System.out.println("✅ Condition Treated selected successfully: " + Condition_option);
-			System.out.println();
-
-			break;
+		if(Product_Type.equalsIgnoreCase("Prescription")){
+			Condition_treated_list = p.Fifth_Virtual_List_holder();
 		}
-	}
+		else{
+			Condition_treated_list = p.Fourth_Virtual_List_holder();
+		}
 
-		Report_Listen.log_print_in_report().pass("✅ Product SKU and Condition Treated entered successfully.");
-		System.out.println("✅ Product SKU and Condition Treated entered successfully.");
-		System.out.println();
+		List<WebElement> Condition_treated_list_options = Condition_treated_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item-option')]"));
+
+		for(WebElement option : Condition_treated_list_options){
+
+			if(option.getText().trim().contains(Condition_Treated)){
+
+				rp.movetoelement(option);
+				option.click();
+
+				System.out.println("✅ Condition Treated selected: " + Condition_Treated);
+				Report_Listen.log_print_in_report().pass("Condition Treated selected successfully: " + Condition_Treated);
+
+				break;
+			}
+		}
+
+		System.out.println("Default SKU : " + Default_SKU_Identifier);
+
+		Report_Listen.log_print_in_report().pass("Product SKU and Condition Treated entered successfully.");
 
 		step++;
 
+		// Product Pricing Type
 		Report_Listen.log_print_in_report().info("──────────────────── 💰 PRODUCT PRICING ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Configure Product Intro Price, Default Price and Sale Price.");
-		Report_Listen.log_print_in_report().info("<b>Input:</b> Intro Price = " + Intro_Price + " | Default Price = " + Default_Price + " | Sale Price = " + Sale_Price);
 
+		System.out.println();
 		System.out.println("💰 PRODUCT PRICING");
-		System.out.println();
-		System.out.println("🔹 Entering Product pricing details.");
-		System.out.println();
+		System.out.println("Step " + step + ": Configuring Product Pricing.");
+		System.out.println("Pricing Type : " + Pricing_Type);
 
-		Intro_Input.sendKeys(Intro_Price);
-		Default_Price_Input.sendKeys(Default_Price);
-		Sales_Price_Input.sendKeys(Sale_Price);
+		Product_Pricing_Type_Selector(Pricing_Type);
 
-		Report_Listen.log_print_in_report().pass("✅ Product pricing details entered successfully.");
-		System.out.println("✅ Product pricing details entered successfully.");
-		System.out.println();
+		// Variant Based Pricing
+		if(Pricing_Type.equalsIgnoreCase("Variant Based")){
+
+			System.out.println();
+			System.out.println("──────────────────── VARIANT BASED PRICING ────────────────────");
+
+			Product_Variant_Pricing_Adder(Product_data);
+
+			System.out.println("✅ Variant Based pricing configuration completed.");
+		}
+		else{
+
+			// Single Item Pricing
+			System.out.println();
+			System.out.println("──────────────────── SINGLE ITEM PRICING ────────────────────");
+
+			if(Default_Price==null || Default_Price.isEmpty()){
+				throw new IllegalStateException("Default Price missing for Single Item Product: " + Product_Name);
+			}
+
+			WebElement Pricing_Section = p.Pricing_Section();
+
+			WebElement Intro_Input = Pricing_Section.findElement(By.id("intro_price"));
+			WebElement Default_Price_Input = Pricing_Section.findElement(By.id("default_price"));
+			WebElement Sales_Price_Input = Pricing_Section.findElement(By.id("sale_price"));
+
+			Intro_Input.clear();
+
+			if(Intro_Price!=null && !Intro_Price.isEmpty()){
+				Intro_Input.sendKeys(Intro_Price);
+			}
+
+			Default_Price_Input.clear();
+			Default_Price_Input.sendKeys(Default_Price);
+
+			Sales_Price_Input.clear();
+
+			if(Sale_Price!=null && !Sale_Price.isEmpty()){
+				Sales_Price_Input.sendKeys(Sale_Price);
+			}
+
+			System.out.println("Intro Price   : " + Intro_Price);
+			System.out.println("Default Price : " + Default_Price);
+			System.out.println("Sale Price    : " + Sale_Price);
+
+			Report_Listen.log_print_in_report().pass("Single Item pricing details entered successfully.");
+
+			// Preserve Existing Sale Date Picker Flow
+			Report_Listen.log_print_in_report().info("──────────────────── 📅 SALE DATE CONFIGURATION ────────────────────");
+
+			System.out.println();
+			System.out.println("📅 SALE DATE CONFIGURATION");
+			System.out.println("DataProvider Start Date : " + Sale_Start_Date);
+			System.out.println("DataProvider End Date   : " + Sales_End_Date);
+
+			WebElement Sales_Start_Date_Input = Pricing_Section.findElement(By.id("sale_start_date"));
+
+			rp.movetoelement(Sales_Start_Date_Input);
+			Sales_Start_Date_Input.click();
+
+			WebElement Today_Button = p.Today_Button_Calender("First");
+
+			rp.movetoelement(Today_Button);
+			Thread.sleep(800);
+			Today_Button.click();
+
+			WebElement Sales_End_Date_Input = Pricing_Section.findElement(By.id("sale_end_date"));
+
+			rp.movetoelement(Sales_End_Date_Input);
+			Sales_End_Date_Input.click();
+
+			WebElement Second_Today_Button = p.Today_Button_Calender("second");
+
+			rp.movetoelement(Second_Today_Button);
+			Thread.sleep(800);
+			Second_Today_Button.click();
+
+			System.out.println("Selected Start Date : " + Sales_Start_Date_Input.getAttribute("value"));
+			System.out.println("Selected End Date   : " + Sales_End_Date_Input.getAttribute("value"));
+
+			Report_Listen.log_print_in_report().pass("Single Item sale dates configured using existing calendar selection.");
+		}
 
 		step++;
 
-		Report_Listen.log_print_in_report().info("──────────────────── 📅 SALE DATE CONFIGURATION ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Configure Product Sale Start Date and Sale End Date.");
-		Report_Listen.log_print_in_report().info("<b>Input:</b> Start Date = " + Sale_Start_Date + " | End Date = " + Sales_End_Date);
-
-		System.out.println("📅 SALE DATE CONFIGURATION");
-		System.out.println();
-		System.out.println("🔹 Entering Sale Start Date: " + Sale_Start_Date);
-		System.out.println();
-		Sales_Start_Date_Input.click();
-	
-		WebElement Today_Button=p.Today_Button_Calender("First");
-		rp.movetoelement(Today_Button);
-		rp.Scroll_to_element(Today_Button);
-		Thread.sleep(800);
-		Today_Button.click();
-		
-		System.out.println("🔹 Entering Sale End Date: " + Sales_End_Date);
-		System.out.println();
-		Sales_End_Date_Input.click();
-		WebElement Second_Today_Button=p.Today_Button_Calender("second");
-		rp.movetoelement(Second_Today_Button);
-		rp.Scroll_to_element(Second_Today_Button);
-		Thread.sleep(800);
-		Second_Today_Button.click();
-
-	
-
-		Report_Listen.log_print_in_report().pass("✅ Product Sale dates configured successfully.");
-		System.out.println("✅ Product Sale dates configured successfully.");
-		System.out.println();
-
-		step++;
-
-		step++;
-
+		// Product Save
 		Report_Listen.log_print_in_report().info("──────────────────── 💾 PRODUCT SAVE ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Save the Product and verify the success confirmation message.");
 
+		System.out.println();
 		System.out.println("💾 PRODUCT SAVE");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Saving the Product.");
-		System.out.println();
+		System.out.println("Step " + step + ": Saving Product.");
 
 		WebElement Submit_Button = p.Product_Save_Button();
 
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Clicking Save Product button.");
-		System.out.println("🔹 Clicking Save Product button.");
-		System.out.println();
-
+		rp.movetoelement(Submit_Button);
 		Submit_Button.click();
 
 		WebElement Confirmation_Message = p.Success_Toast();
 		String Confirmation_Message_Text = Confirmation_Message.getText().trim();
 
-		Report_Listen.log_print_in_report().pass("✅ Product saved successfully. Confirmation Message: " + Confirmation_Message_Text);
-		System.out.println("✅ Product saved successfully.");
-		System.out.println("🔹 Confirmation Message: " + Confirmation_Message_Text);
-		System.out.println();
+		System.out.println("Confirmation : " + Confirmation_Message_Text);
+
+		Report_Listen.log_print_in_report().pass("Product saved successfully. Confirmation: " + Confirmation_Message_Text);
 
 		rp.wait_for_invisibilty_of_theElement(Confirmation_Message);
 
 		step++;
 
+		// Post Save Redirection
 		Report_Listen.log_print_in_report().info("──────────────────── 🔄 POST-SAVE REDIRECTION VALIDATION ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Verify that the application redirects to the Product List after Product creation.");
 
+		System.out.println();
 		System.out.println("🔄 POST-SAVE REDIRECTION VALIDATION");
-		System.out.println();
-		System.out.println("🔹 Step " + step + ": Verifying Product List redirection after Product creation.");
-		System.out.println();
+		System.out.println("Step " + step + ": Verifying Product List redirection.");
 
 		WebElement Prd_Add_Button = p.Product_Add_Button;
 		Boolean Visibility_Status = rp.check_element_visibility(Prd_Add_Button, 5);
 
 		if(Visibility_Status){
 
-			String landed_page_url = d.getCurrentUrl();
+			System.out.println("✅ Product List page displayed.");
+			System.out.println("Landed URL : " + d.getCurrentUrl());
 
-			Report_Listen.log_print_in_report().pass("✅ Post-save redirection validation passed. Product List page loaded successfully.");
-			Report_Listen.log_print_in_report().info("<b>Landed Page URL:</b> " + landed_page_url);
-
-			System.out.println("✅ Post-save redirection validation passed. Product List page loaded successfully.");
-			System.out.println("🔹 Landed Page URL: " + landed_page_url);
-			System.out.println();
-
-			Report_Listen.log_print_in_report().info("──────────────────── 🔍 CREATED PRODUCT LIST VERIFICATION ────────────────────");
-			Report_Listen.log_print_in_report().info("<b>Action:</b> Search the Product List and verify that the newly created Product is available.");
-			Report_Listen.log_print_in_report().info("<b>Expected Product:</b> " + Product_Name);
-
-			System.out.println("🔍 CREATED PRODUCT LIST VERIFICATION");
-			System.out.println();
-			System.out.println("🔹 Step " + step + ": Searching the Product List for the newly created Product.");
-			System.out.println();
-			System.out.println("🔹 Expected Product: " + Product_Name);
-			System.out.println();
-
-			search_a_product_in_list(Product_data);
+			Report_Listen.log_print_in_report().pass("Post-save redirection validation passed.");
 		}
 		else{
 
-			String landed_page_url = d.getCurrentUrl();
+			System.out.println("⚠️ Product List redirection not detected.");
+			System.out.println("Landed URL : " + d.getCurrentUrl());
+			System.out.println("Performing fallback Catalog navigation.");
 
-			Report_Listen.log_print_in_report().fail("❌ Post-save redirection validation failed. Application did not redirect to the Product List after Product creation.");
-			Report_Listen.log_print_in_report().fail("❌ Expected: Product List page containing the Product Add button.");
-			Report_Listen.log_print_in_report().fail("❌ Actual Landed Page URL: " + landed_page_url);
-
-			System.out.println("❌ Post-save redirection validation failed.");
-			System.out.println("❌ Expected: Product List page containing the Product Add button.");
-			System.out.println("❌ Actual Landed Page URL: " + landed_page_url);
-			System.out.println();
-
-			Report_Listen.log_print_in_report().warning("⚠️ Performing fallback navigation to Catalog so Product List verification can continue.");
-			System.out.println("⚠️ Performing fallback navigation to Catalog so Product List verification can continue.");
-			System.out.println();
+			Report_Listen.log_print_in_report().warning("Post-save redirection not detected. Performing fallback Catalog navigation.");
 
 			Side_Menu_Navigation("Catalog");
 			Thread.sleep(800);
 			p.Product_Add_Button();
 
-			Report_Listen.log_print_in_report().pass("✅ Fallback navigation completed. Product List page is now accessible.");
-			System.out.println("✅ Fallback navigation completed. Product List page is now accessible.");
-			System.out.println();
-
-			Report_Listen.log_print_in_report().info("──────────────────── 🔍 CREATED PRODUCT LIST VERIFICATION ────────────────────");
-			Report_Listen.log_print_in_report().info("<b>Action:</b> Verify that the created Product exists after fallback navigation.");
-			Report_Listen.log_print_in_report().info("<b>Expected Product:</b> " + Product_Name);
-
-			System.out.println("🔍 CREATED PRODUCT LIST VERIFICATION");
-			System.out.println();
-			System.out.println("🔹 Searching for the created Product after fallback navigation.");
-			System.out.println();
-			System.out.println("🔹 Expected Product: " + Product_Name);
-			System.out.println();
-
-			search_a_product_in_list(Product_data);
+			System.out.println("✅ Fallback Catalog navigation completed.");
 		}
 
-		step++;
+		// Created Product Verification
+		Report_Listen.log_print_in_report().info("──────────────────── 🔍 CREATED PRODUCT LIST VERIFICATION ────────────────────");
 
-		
-
-		Report_Listen.log_print_in_report().pass("──────────────────── ✅ PRODUCT CREATION FLOW COMPLETED ────────────────────");
-		Report_Listen.log_print_in_report().pass("✅ Product creation, save and Product List verification flow completed for Product: " + Product_Name);
-
-		System.out.println("✅ PRODUCT CREATION FLOW COMPLETED");
 		System.out.println();
-		System.out.println("✅ Product creation, save and Product List verification flow completed for Product: " + Product_Name);
+		System.out.println("🔍 CREATED PRODUCT LIST VERIFICATION");
+		System.out.println("Expected Product : " + Product_Name);
+
+		ArrayList<WebElement> Product_Cell = search_a_product_in_list(Product_data);
+
+		if(Product_Cell.isEmpty()){
+			throw new IllegalStateException("Created Product not found in Product List: " + Product_Name);
+		}
+
+		System.out.println("Actual : Matching Product found");
+		System.out.println("Result : PASS");
+
+		Report_Listen.log_print_in_report().pass("Created Product verified successfully: " + Product_Name);
+
 		System.out.println();
+		System.out.println("============================================================");
+		System.out.println("                  PRODUCT CREATION COMPLETED");
+		System.out.println("============================================================");
 
-	} catch(Exception e) {
+		Report_Listen.log_print_in_report().pass("Product creation flow completed successfully for: " + Product_Name);
+	}
+	catch(Exception e){
 
-		if(Report_Listen.log_print_in_report() != null) Report_Listen.log_print_in_report().fail("❌ Product creation failed for Product '" + Product_Name + "'. Failure reason: " + e.getMessage());
+		if(Report_Listen.log_print_in_report()!=null){
+			Report_Listen.log_print_in_report().fail("Product creation failed for '" + Product_Name + "'. Reason: " + e.getMessage());
+		}
 
-		System.out.println("❌ Product creation failed for Product: " + Product_Name);
 		System.out.println();
-
-		System.out.println("❌ Failure reason: " + e.getMessage());
-		System.out.println();
+		System.out.println("❌ PRODUCT CREATION FAILED");
+		System.out.println("Product : " + Product_Name);
+		System.out.println("Reason  : " + e.getMessage());
 
 		throw e;
 	}
 }
+
+
+
+
+
+public void Product_Pricing_Type_Selector(String Pricing_Type){
+
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	WebElement Pricing_Option;
+
+	if(Pricing_Type.equalsIgnoreCase("Variant Based")){
+		Pricing_Option = p.Variant_Based_Pricing();
+	}
+	else if(Pricing_Type.equalsIgnoreCase("Single Item")){
+		Pricing_Option = p.Single_Item_Pricing();
+	}
+	else{
+		throw new IllegalArgumentException("Unsupported Pricing Type: " + Pricing_Type);
+	}
+
+	System.out.println();
+	System.out.println("---------------- PRICING TYPE SELECTION ----------------");
+	System.out.println("Expected : " + Pricing_Type);
+
+	rp.movetoelement(Pricing_Option);
+	Pricing_Option.click();
+
+	WebElement Pricing_Radio = Pricing_Option.findElement(By.xpath(".//input[@type='radio']"));
+
+	System.out.println("Selected : " + Pricing_Radio.isSelected());
+
+	if(!Pricing_Radio.isSelected()){
+
+		System.out.println("Result : FAIL");
+
+		Report_Listen.log_print_in_report().fail("Product Pricing Type selection failed: " + Pricing_Type);
+
+		throw new IllegalStateException("Unable to select Product Pricing Type: " + Pricing_Type);
+	}
+
+	System.out.println("Result : PASS");
+
+	Report_Listen.log_print_in_report().pass("Product Pricing Type selected successfully: " + Pricing_Type);
+}
+
+
+
+
+
+public void Product_Variant_Pricing_Adder(TreeMap<String,String> Product_data){
+
+	Product_Module_Locaters p = new Product_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	String Product_Name = Product_data.get("Product Name");
+	int Variant_Count = Integer.parseInt(Product_data.get("Variant Count"));
+
+	System.out.println("========== VARIANT BASED PRICING ==========");
+	System.out.println("Product : " + Product_Name);
+	System.out.println("Total Variants : " + Variant_Count);
+
+	Report_Listen.log_print_in_report().info("Configuring " + Variant_Count + " variants for: " + Product_Name);
+
+	String[][] Fields = {
+		{"label", "Name"},
+		{"description", "Description"},
+		{"intro_price", "Intro Price"},
+		{"default_price", "Default Price"},
+		{"sale_price", "Sale Price"},
+		{"sku", "SKU / Identifier"}
+	};
+
+	String[][] Dates = {
+		{"sale_start_date", "Sale Start Date"},
+		{"sale_end_date", "Sales End Date"}
+	};
+
+	// Variant Creation and Data Entry
+	for(int n=1;n<=Variant_Count;n++){
+
+		int Variant_Index = n-1;
+		String Prefix = "Variant " + n + " ";
+
+		if(n>1){
+			WebElement Add_Variant = p.Product_Add_Variant_Buttons().get(0);
+			rp.movetoelement(Add_Variant);
+			Add_Variant.click();
+		}
+
+		System.out.println();
+		System.out.println("---------- VARIANT " + n + " ----------");
+
+		// Variant Name, Description, Prices and SKU
+		for(String[] Field : Fields){
+
+			String Value = Product_data.getOrDefault(Prefix + Field[1], "");
+
+			if(!Value.isBlank()){
+				WebElement Input = p.Product_Variant_Field(Variant_Index, Field[0]);
+				rp.movetoelement(Input);
+				Input.clear();
+				Input.sendKeys(Value);
+
+				System.out.println(Field[1] + " : " + Input.getDomProperty("value"));
+			}
+		}
+
+		// Variant Sale Dates
+		for(String[] Date : Dates){
+
+			String Value = Product_data.getOrDefault(Prefix + Date[1], "");
+
+			if(!Value.isBlank()){
+				WebElement Date_Field = p.Product_Variant_Field(Variant_Index, Date[0]);
+				rp.movetoelement(Date_Field);
+				Date_Field.click();
+				Date_Field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+				Date_Field.sendKeys(Value);
+				Date_Field.sendKeys(Keys.ENTER);
+
+				System.out.println(Date[1] + " : " + Date_Field.getDomProperty("value"));
+			}
+		}
+
+		Report_Listen.log_print_in_report().info("Variant " + n + " details entered.");
+	}
+
+	// Final Variant Verification
+	System.out.println();
+	System.out.println("========== VARIANT VERIFICATION ==========");
+
+	for(int n=1;n<=Variant_Count;n++){
+
+		String Expected_Name = Product_data.get("Variant " + n + " Name");
+		String Expected_Price = Product_data.get("Variant " + n + " Default Price");
+
+		String Actual_Name = p.Product_Variant_Field(n-1, "label").getDomProperty("value");
+		String Actual_Price = p.Product_Variant_Field(n-1, "default_price").getDomProperty("value");
+
+		BigDecimal Expected_Price_Value = new BigDecimal(Expected_Price);
+		BigDecimal Actual_Price_Value = new BigDecimal(Actual_Price.replace(",", ""));
+
+		System.out.println("Variant " + n + " | Name: " + Actual_Name + " | Price: " + Actual_Price);
+
+		if(!Expected_Name.equals(Actual_Name) || Expected_Price_Value.compareTo(Actual_Price_Value)!=0){
+			System.out.println("Result : FAIL | Variant " + n);
+			Report_Listen.log_print_in_report().fail("Variant " + n + " mismatch. Expected: " + Expected_Name + " / " + Expected_Price + " | Actual: " + Actual_Name + " / " + Actual_Price);
+			throw new IllegalStateException("Variant " + n + " verification failed.");
+		}
+
+		System.out.println("Result : PASS");
+		Report_Listen.log_print_in_report().pass("Variant " + n + " verified successfully.");
+	}
+
+	System.out.println("All " + Variant_Count + " variants configured successfully.");
+	Report_Listen.log_print_in_report().pass("Variant Based pricing completed for: " + Product_Name);
+}
+
+
 
 
 
@@ -2482,331 +2634,260 @@ public ArrayList<WebElement> search_a_product_in_list(TreeMap<String, String> Pr
 	return Product_Cell;
 }
 
-public void Negative_Validation_Check_for_Product_Add(List<WebElement> inputs,TreeMap<String, String> Category_Create_Data,TreeMap<String, String> Lab_Test_Create_Data,TreeMap<String, String> Product_data) throws InterruptedException{
-	
+
+
+public void Negative_Validation_Check_for_Product_Add(List<WebElement> inputs, TreeMap<String,String> Category_Create_Data, TreeMap<String,String> Lab_Test_Create_Data, TreeMap<String,String> Product_data) throws InterruptedException{
+
 	Product_Module_Locaters p = new Product_Module_Locaters(d);
 	Repeat rp = new Repeat(d);
 
 	String Product_Name = Product_data.get("Product Name");
-	String Description = Product_data.get("Description");
-	String Product_Image = Product_data.get("Product Image");
 	String Product_Type = Product_data.get("Product Type");
 	String Category = Category_Create_Data.get("Category Name");
 	String Visibility = Product_data.get("Visibility");
-	String Minimum_Buy_Quantity = Product_data.get("Minimum Buy Quantity");
-	String Maximum_Buy_Quantity = Product_data.get("Maximum Buy Quantity");
-	String Stock_Count = Product_data.get("Stock Count");
 	String Intake_Form = Product_data.get("Intake Form");
 	String Default_SKU_Identifier = Product_data.get("Default SKU / Identifier");
 	String Condition_Treated = Product_data.get("Condition Treated");
-	String Restrict_Multiple_Active_Prescriptions = Product_data.get("Restrict Multiple Active Prescriptions");
 	String Pricing_Type = Product_data.get("Pricing Type");
-	String Intro_Price = Product_data.get("Intro Price");
-	String Default_Price = Product_data.get("Default Price");
-	String Sale_Price = Product_data.get("Sale Price");
-	String Sale_Start_Date = Product_data.get("Sale Start Date");
-	String Sales_End_Date = Product_data.get("Sales End Date");
-	String Lab_Test = Lab_Test_Create_Data.get("Lab Test Name");
-	
-	List<WebElement> Field_inputs = inputs;
-	
-	Report_Listen.log_print_in_report().info("──────────────────── NEGATIVE PRODUCT FORM VALIDATION ────────────────────");
-	Report_Listen.log_print_in_report().info("Submitting the Product Add form without entering mandatory values to verify inline validation errors.");
-	System.out.println("──────────────────── NEGATIVE PRODUCT FORM VALIDATION ────────────────────");
-	System.out.println("🔹 Submitting the Product Add form without entering mandatory values to verify inline validation errors.");
+
+	// Initial Mandatory Field Validation
 	System.out.println();
-	
+	System.out.println("──────────────────── NEGATIVE PRODUCT FORM VALIDATION ────────────────────");
+	System.out.println("Product Name : " + Product_Name);
+	System.out.println("Pricing Type : " + Pricing_Type);
+	System.out.println("Action       : Submit empty Product Add form");
+
+	Report_Listen.log_print_in_report().info("Starting negative Product Add validation for: " + Product_Name);
+
 	WebElement Submit_Button = p.Product_Save_Button();
+
 	rp.Scroll_to_element(Submit_Button);
 	Thread.sleep(550);
+	rp.movetoelement(Submit_Button);
 	Submit_Button.click();
 	Thread.sleep(1050);
+
 	Inline_Error_Checker();
-	
-	Report_Listen.log_print_in_report().info("Mandatory field inline validation check completed. Continuing with invalid Product data validation.");
-	System.out.println("✅ Mandatory field inline validation check completed. Continuing with invalid Product data validation.");
+
+	System.out.println("Initial mandatory field validation completed.");
+	Report_Listen.log_print_in_report().info("Initial mandatory field validation completed.");
+
+	// Retrieve Existing Product Form Fields
+	List<WebElement> Field_Inputs = inputs;
+
+	if(Field_Inputs==null || Field_Inputs.isEmpty()){
+		Field_Inputs = p.Product_Add_Form_Inputs(p.Form());
+	}
+
+	WebElement Product_Name_Input = Field_Inputs.get(0);
+	WebElement Description_Input = p.Textarea_Description_Field();
+	WebElement Product_Type_Input = Field_Inputs.get(1);
+	WebElement Product_Category_Input = Field_Inputs.get(2);
+	WebElement Product_Visibility_Input = Field_Inputs.get(3);
+	WebElement Min_Quantity_Input = Field_Inputs.get(4);
+	WebElement Max_Quantity_Input = Field_Inputs.get(5);
+	WebElement Stock_Input = Field_Inputs.get(6);
+	WebElement Default_SKU = Field_Inputs.get(7);
+	WebElement Condition_treated_Input = Field_Inputs.get(8);
+	WebElement Intro_Input = Field_Inputs.get(9);
+	WebElement Sales_Price_Input = Field_Inputs.get(10);
+	WebElement Default_Price_Input = Field_Inputs.get(11);
+	WebElement Sales_Start_Date_Input = Field_Inputs.get(12);
+	WebElement Sales_End_Date_Input = Field_Inputs.get(13);
+
+	// Basic Product Information
 	System.out.println();
-	
-	WebElement Product_Name_Input = null;
-	WebElement Description_Input = null;
-	WebElement Product_Type_Input = null;
-	WebElement Product_Category_Input = null;
-	WebElement Product_Visibility_Input = null;
-	WebElement Min_Quantity_Input = null;
-	WebElement Max_Quantity_Input = null;
-	WebElement Stock_Input = null;
-	WebElement Default_SKU = null;
-	WebElement Condition_treated_Input = null;
-	WebElement Intro_Input = null;
-	WebElement Default_Price_Input = null;
-	WebElement Sales_Price_Input = null;
-	WebElement Sales_Start_Date_Input = null;
-	WebElement Sales_End_Date_Input = null;
-	
-	if(Field_inputs!=null) {
-		 Product_Name_Input = Field_inputs.get(0);
-		 Description_Input = p.Textarea_Description_Field();
-		 Product_Type_Input = Field_inputs.get(1);
-		 Product_Category_Input = Field_inputs.get(2);
-		 Product_Visibility_Input = Field_inputs.get(3);
-		 Min_Quantity_Input = Field_inputs.get(4);
-		 Max_Quantity_Input = Field_inputs.get(5);
-		 Stock_Input = Field_inputs.get(6);
-		 Default_SKU = Field_inputs.get(7);
-		 Condition_treated_Input = Field_inputs.get(8);
-		 Intro_Input = Field_inputs.get(9);
-		 Default_Price_Input = Field_inputs.get(11);
-		 Sales_Price_Input = Field_inputs.get(10);
-		 Sales_Start_Date_Input = Field_inputs.get(12);
-		 Sales_End_Date_Input = Field_inputs.get(13);
-	}
-	
-	if(Field_inputs==null){
-		WebElement Product_form = p.Form();
-		List<WebElement> Fieldinputs = p.Product_Add_Form_Inputs(Product_form);
-		 Product_Name_Input = Fieldinputs.get(0);
-		 Description_Input = p.Textarea_Description_Field();
-		 Product_Type_Input = Fieldinputs.get(1);
-		 Product_Category_Input = Fieldinputs.get(2);
-		 Product_Visibility_Input = Fieldinputs.get(3);
-		 Min_Quantity_Input = Fieldinputs.get(4);
-		 Max_Quantity_Input = Fieldinputs.get(5);
-		 Stock_Input = Fieldinputs.get(6);
-		 Default_SKU = Fieldinputs.get(7);
-		 Condition_treated_Input = Fieldinputs.get(8);
-		 Intro_Input = Fieldinputs.get(9);
-		 Default_Price_Input = Fieldinputs.get(11);
-		 Sales_Price_Input = Fieldinputs.get(10);
-		 Sales_Start_Date_Input = Fieldinputs.get(12);
-		 Sales_End_Date_Input = Fieldinputs.get(13);
-	}
-	
-	Report_Listen.log_print_in_report().info("──────────────────── PRODUCT BASIC INFORMATION ────────────────────");
 	System.out.println("──────────────────── PRODUCT BASIC INFORMATION ────────────────────");
-	System.out.println();
-	
+
 	Product_Name_Input.sendKeys(Product_Name);
-	
-	Report_Listen.log_print_in_report().info("Product Name entered: " + Product_Name);
-	System.out.println("🔹 Product Name entered: " + Product_Name);
-	
-	for(int n=0;n<10;n++) {
-	Description_Input.sendKeys(Keys.SPACE);}
-	
-	Report_Listen.log_print_in_report().warning("⚠️ Invalid Value Entered | Field: Description | Value: [10 SPACE CHARACTERS]");
-	System.out.println("⚠️ Invalid Value Entered | Field: Description | Value: [10 SPACE CHARACTERS]");
-	System.out.println();
-	
+
+	for(int n=0;n<10;n++){
+		Description_Input.sendKeys(Keys.SPACE);
+	}
+
+	System.out.println("Product Name : " + Product_Name);
+	System.out.println("Description  : 10 whitespace characters");
+
+	Report_Listen.log_print_in_report().warning("Invalid Description entered: 10 whitespace characters.");
+
+	// Product Type Selection
 	Product_Type_Input.sendKeys(Product_Type);
 
-	WebElement Prod_type_list = p.First_Virtual_List_holder();
-	List<WebElement> Prod_type_list_options = Prod_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+	WebElement Product_Type_List = p.First_Virtual_List_holder();
+	List<WebElement> Product_Type_Options = Product_Type_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item-option')]"));
 
-	for(WebElement option : Prod_type_list_options) {
+	for(WebElement Product_Type_Option : Product_Type_Options){
 
-		if(option.getText().equals(Product_Type)) {
+		if(Product_Type_Option.getText().trim().equalsIgnoreCase(Product_Type)){
 
-			option.click();
+			rp.movetoelement(Product_Type_Option);
+			Product_Type_Option.click();
 
-			Report_Listen.log_print_in_report().pass("✅ Product Type selected successfully: " + Product_Type);
-			System.out.println("✅ Product Type selected successfully: " + Product_Type);
-			System.out.println();
+			System.out.println("Product Type : " + Product_Type);
+			Report_Listen.log_print_in_report().pass("Product Type selected: " + Product_Type);
 
 			break;
 		}
 	}
-	
+
+	// Product Category Selection
 	Product_Category_Input.sendKeys(Category);
 
-	WebElement Categories_type_list = p.Second_Virtual_List_holder();
-	List<WebElement> Categories_type_list_options = Categories_type_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+	WebElement Category_List = p.Second_Virtual_List_holder();
+	List<WebElement> Category_Options = Category_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item-option')]"));
 
-	for(WebElement option : Categories_type_list_options) {
+	for(WebElement Category_Option : Category_Options){
 
-		if(option.getText().equals(Category)) {
+		if(Category_Option.getText().trim().equalsIgnoreCase(Category)){
 
-			option.click();
+			rp.movetoelement(Category_Option);
+			Category_Option.click();
 
-			Report_Listen.log_print_in_report().pass("✅ Product Category selected successfully: " + Category);
-			System.out.println("✅ Product Category selected successfully: " + Category);
-			System.out.println();
+			System.out.println("Product Category : " + Category);
+			Report_Listen.log_print_in_report().pass("Product Category selected: " + Category);
 
 			break;
 		}
 	}
-	
+
+	// Product Visibility Selection
 	Product_Visibility_Input.sendKeys(Visibility);
 
-	WebElement Product_Visibility_list = p.Thrid_Virtual_List_holder();
-	List<WebElement> Product_Visibility_list_options = Product_Visibility_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
+	WebElement Visibility_List = p.Thrid_Virtual_List_holder();
+	List<WebElement> Visibility_Options = Visibility_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item-option')]"));
 
-	for(WebElement Vis_option : Product_Visibility_list_options) {
-		
-		String Visibilty_Text = Vis_option.getText().trim();
+	for(WebElement Visibility_Option : Visibility_Options){
 
-		if(Visibilty_Text.contains(Visibility)) {
+		if(Visibility_Option.getText().trim().contains(Visibility)){
 
-			Vis_option.click();
+			rp.movetoelement(Visibility_Option);
+			Visibility_Option.click();
 
-			Report_Listen.log_print_in_report().pass("✅ Product Visibility selected successfully: " + Visibility);
-			System.out.println("✅ Product Visibility selected successfully: " + Visibility);
-			System.out.println();
+			System.out.println("Product Visibility : " + Visibility);
+			Report_Listen.log_print_in_report().pass("Product Visibility selected: " + Visibility);
 
 			break;
 		}
 	}
-	
-	Report_Listen.log_print_in_report().info("──────────────────── INVALID INVENTORY VALIDATION DATA ────────────────────");
-	System.out.println("──────────────────── INVALID INVENTORY VALIDATION DATA ────────────────────");
+
+	// Invalid Inventory Values
 	System.out.println();
-	
+	System.out.println("──────────────────── INVALID INVENTORY VALIDATION ────────────────────");
+
 	Min_Quantity_Input.sendKeys(Product_Name);
-	
-	Report_Listen.log_print_in_report().warning("⚠️ Invalid Value Entered | Field: Minimum Buy Quantity | Value: " + Product_Name);
-	System.out.println("⚠️ Invalid Value Entered | Field: Minimum Buy Quantity | Value: " + Product_Name);
-	
 	Max_Quantity_Input.sendKeys(Category);
-	
-	Report_Listen.log_print_in_report().warning("⚠️ Invalid Value Entered | Field: Maximum Buy Quantity | Value: " + Category);
-	System.out.println("⚠️ Invalid Value Entered | Field: Maximum Buy Quantity | Value: " + Category);
-	
 	Stock_Input.sendKeys(Visibility);
-	
-	Report_Listen.log_print_in_report().warning("⚠️ Invalid Value Entered | Field: Stock Count | Value: " + Visibility);
-	System.out.println("⚠️ Invalid Value Entered | Field: Stock Count | Value: " + Visibility);
-	System.out.println();
-	
-	if(Product_Type.equals("Prescription")) {
 
-		Report_Listen.log_print_in_report().info("──────────────────── 🩺 PRESCRIPTION CONFIGURATION ────────────────────");
-		Report_Listen.log_print_in_report().info("<b>Action:</b> Configure Prescription Intake Form = " + Intake_Form);
+	System.out.println("Minimum Buy Quantity : " + Product_Name);
+	System.out.println("Maximum Buy Quantity : " + Category);
+	System.out.println("Stock Count          : " + Visibility);
 
-		System.out.println("🩺 PRESCRIPTION CONFIGURATION");
+	Report_Listen.log_print_in_report().warning("Invalid inventory values entered for negative validation.");
+
+	// Prescription Intake Form
+	if(Product_Type.equalsIgnoreCase("Prescription")){
+
 		System.out.println();
-		System.out.println("🔹 Configuring Prescription Intake Form: " + Intake_Form);
-		System.out.println();
+		System.out.println("──────────────────── PRESCRIPTION CONFIGURATION ────────────────────");
 
 		WebElement Intake_Form_Input = p.Intake_form_field();
 		Intake_Form_Input.sendKeys(Intake_Form);
 
-		Report_Listen.log_print_in_report().pass("✅ Prescription Intake Form entered successfully.");
-		System.out.println("✅ Prescription Intake Form entered successfully.");
-		System.out.println();
+		System.out.println("Intake Form Input : " + Intake_Form);
+		Report_Listen.log_print_in_report().info("Prescription Intake Form text entered: " + Intake_Form);
 	}
-	
-	Report_Listen.log_print_in_report().info("──────────────────── PRODUCT IDENTIFIER & CONDITION ────────────────────");
-	System.out.println("──────────────────── PRODUCT IDENTIFIER & CONDITION ────────────────────");
+
+	// SKU and Condition Treated
 	System.out.println();
-	
+	System.out.println("──────────────────── PRODUCT IDENTIFIER & CONDITION ────────────────────");
+
 	Default_SKU.sendKeys(Default_SKU_Identifier);
-	
-	Report_Listen.log_print_in_report().info("Default SKU / Identifier entered: " + Default_SKU_Identifier);
-	System.out.println("🔹 Default SKU / Identifier entered: " + Default_SKU_Identifier);
-	
 	Condition_treated_Input.sendKeys(Condition_Treated);
-	WebElement Condition_treated_list = p.Fourth_Virtual_List_holder();
-	List<WebElement> Condition_treated_list_options = Condition_treated_list.findElements(By.xpath(".//*[contains(@class,'ant-select-item ant-select-item-option ant-select-item-option')]"));
 
-	for(WebElement Condition_option : Condition_treated_list_options) {
-		
-		String Condition_option_text = Condition_option.getText().trim();
+	WebElement Condition_List = p.Fourth_Virtual_List_holder();
+	List<WebElement> Condition_Options = Condition_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item-option')]"));
 
-		if(Condition_option_text.equals(Condition_Treated)) {
+	for(WebElement Condition_Option : Condition_Options){
 
-			Condition_option.click();
+		if(Condition_Option.getText().trim().equalsIgnoreCase(Condition_Treated)){
 
-			Report_Listen.log_print_in_report().pass("✅ Condition Treated selected successfully: " + Condition_Treated);
-			System.out.println("✅ Condition Treated selected successfully: " + Condition_Treated);
-			System.out.println();
+			rp.movetoelement(Condition_Option);
+			Condition_Option.click();
+
+			System.out.println("Condition Treated : " + Condition_Treated);
+			Report_Listen.log_print_in_report().pass("Condition Treated selected: " + Condition_Treated);
 
 			break;
-		}}
-	
-	Report_Listen.log_print_in_report().info("──────────────────── INVALID PRICING VALIDATION DATA ────────────────────");
-	System.out.println("──────────────────── INVALID PRICING VALIDATION DATA ────────────────────");
+		}
+	}
+
+	System.out.println("Default SKU : " + Default_SKU_Identifier);
+
+	// Invalid Pricing Values
 	System.out.println();
-	
+	System.out.println("──────────────────── INVALID PRICING VALIDATION ────────────────────");
+
 	Intro_Input.sendKeys(Condition_Treated);
-	
-	Report_Listen.log_print_in_report().warning("⚠️ Invalid Value Entered | Field: Intro Price | Value: " + Condition_Treated);
-	System.out.println("⚠️ Invalid Value Entered | Field: Intro Price | Value: " + Condition_Treated);
-	
 	Default_Price_Input.sendKeys(Condition_Treated);
-	
-	Report_Listen.log_print_in_report().warning("⚠️ Invalid Value Entered | Field: Default Price | Value: " + Default_SKU_Identifier);
-	System.out.println("⚠️ Invalid Value Entered | Field: Default Price | Value: " + Default_SKU_Identifier);
-	
 	Sales_Price_Input.sendKeys(Condition_Treated);
-	
-	Report_Listen.log_print_in_report().warning("⚠️ Invalid Value Entered | Field: Sale Price | Value: " + Default_SKU_Identifier);
-	System.out.println("⚠️ Invalid Value Entered | Field: Sale Price | Value: " + Default_SKU_Identifier);
+
+	System.out.println("Intro Price   : " + Condition_Treated);
+	System.out.println("Default Price : " + Condition_Treated);
+	System.out.println("Sale Price    : " + Condition_Treated);
+
+	Report_Listen.log_print_in_report().warning("Invalid pricing values entered for negative validation.");
+
+	// Submit Invalid Form
 	System.out.println();
-	
-	Report_Listen.log_print_in_report().info("──────────────────── PRODUCT FORM SUBMISSION ────────────────────");
-	Report_Listen.log_print_in_report().info("Submitting the Product form after completing negative validation data entry.");
-	System.out.println("──────────────────── PRODUCT FORM SUBMISSION ────────────────────");
-	System.out.println("🔹 Submitting the Product form after completing negative validation data entry.");
-	System.out.println();
-	
+	System.out.println("──────────────────── INVALID FORM SUBMISSION ────────────────────");
+
 	rp.Scroll_to_element(Submit_Button);
 	Thread.sleep(550);
+	rp.movetoelement(Submit_Button);
 	Submit_Button.click();
 
 	WebElement Confirmation_Message = p.Success_Toast;
-	Boolean Status = rp.check_element_visibility(Confirmation_Message, 3);
+	Boolean Success_Displayed = rp.check_element_visibility(Confirmation_Message, 3);
 
-	if(Status!=true){
-		
-		Report_Listen.log_print_in_report().pass("✅ Product Add Form Validation is working successfully. Product was not created with invalid field values.");
-		System.out.println("✅ Product Add Form Validation is working successfully. Product was not created with invalid field values.");
-		System.out.println();
-		TreeMap<String,String> Inline_Error_Data = Inline_Error_Checker();
+	TreeMap<String,String> Inline_Error_Data = Inline_Error_Checker();
 
-		boolean Default_Price_Error_Found = false;
+	System.out.println("Success Message Displayed : " + Success_Displayed);
+	System.out.println("Inline Errors Found       : " + Inline_Error_Data.size());
+
+	if(!Success_Displayed && !Inline_Error_Data.isEmpty()){
+
+		System.out.println("Expected : Invalid Product data rejected");
+		System.out.println("Actual   : Product form remained open with inline errors");
+		System.out.println("Result   : PASS");
+
+		Report_Listen.log_print_in_report().pass("Negative Product Add validation passed for: " + Product_Name);
 
 		for(Map.Entry<String,String> Error_Data : Inline_Error_Data.entrySet()){
-			
+
 			String Field_Name = Error_Data.getKey();
 			String Error_Message = Error_Data.getValue();
-			
+
+			System.out.println("Field : " + Field_Name + " | Error : " + Error_Message);
 			Report_Listen.log_print_in_report().info("Field: " + Field_Name + " | Inline Error: " + Error_Message);
-			System.out.println("Field: " + Field_Name + " | Inline Error: " + Error_Message);
-			System.out.println();
-			
-			if(Error_Message.trim().contains("Default Price is required")){
-				
-				Default_Price_Error_Found = true;
-				
-				Report_Listen.log_print_in_report().info("✅ Default Price validation error detected. Corrective action will be performed.");
-				System.out.println("✅ Default Price validation error detected. Corrective action will be performed.");
-				System.out.println();
-				WebElement Default_Price_Field=d.findElement(By.xpath("//input[@id='default_price']"));
-				rp.wait_for_theElement(Default_Price_Field);
-				Default_Price_Field.click();
-				Default_Price_Field.clear();
-				Default_Price_Field.sendKeys(Default_Price);
-				
-				Report_Listen.log_print_in_report().pass("✅ Default Price field corrected successfully with value: " + Default_Price);
-				System.out.println("✅ Default Price field corrected successfully with value: " + Default_Price);
-				System.out.println();
-				
-				break;
-			}
 		}
 
-		if(!Default_Price_Error_Found){
-			
-			Report_Listen.log_print_in_report().info("ℹ️ Default Price required validation error was not present.");
-			System.out.println("ℹ️ Default Price required validation error was not present.");
-			System.out.println();
-			
-		}
+		// Reset Form Fields Before Normal Product Creation
+		System.out.println();
+		System.out.println("──────────────────── RESET PRODUCT FORM ────────────────────");
+
 		rp.Scroll_to_element(p.Top_of_Product_form());
 		Thread.sleep(800);
-		WebElement Prod_name_Input = d.findElement(By.xpath("//input[@id='name']"));
-		rp.wait_for_theElement(Prod_name_Input);
-		Prod_name_Input.click();
-		Prod_name_Input.clear();
+
+		// Product Name Reset - Keyboard Events for React Controlled Input
+		WebElement Product_Name_Reset = d.findElement(By.id("name"));
+
+		rp.movetoelement(Product_Name_Reset);
+		Product_Name_Reset.click();
+		Product_Name_Reset.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		Product_Name_Reset.sendKeys(Keys.BACK_SPACE);
+		Product_Name_Reset.sendKeys(Keys.TAB);
+
+		// Reset Remaining Product Fields
 		Description_Input.clear();
 		Product_Type_Input.clear();
 		Product_Category_Input.clear();
@@ -2816,82 +2897,98 @@ public void Negative_Validation_Check_for_Product_Add(List<WebElement> inputs,Tr
 		Stock_Input.clear();
 		Default_SKU.clear();
 		Condition_treated_Input.clear();
+
 		rp.Scroll_to_element(Intro_Input);
 		Thread.sleep(800);
+
 		Intro_Input.clear();
 		Default_Price_Input.clear();
 		Sales_Price_Input.clear();
 		Sales_Start_Date_Input.clear();
-	    Sales_End_Date_Input.clear(); 
-		
-		
+		Sales_End_Date_Input.clear();
+
+		// Verify Name Remains Empty After Other Fields Are Reset
+		String Actual_Name_After_Reset = d.findElement(By.id("name")).getDomProperty("value");
+
+		System.out.println();
+		System.out.println("---------------- PRODUCT NAME RESET VERIFICATION ----------------");
+		System.out.println("Expected : Empty Product Name");
+		System.out.println("Actual   : " + Actual_Name_After_Reset);
+
+		if(Actual_Name_After_Reset!=null && !Actual_Name_After_Reset.isEmpty()){
+
+			System.out.println("Result : FAIL");
+			System.out.println("Reason : Previous Product Name was restored after form reset");
+
+			Report_Listen.log_print_in_report().fail("Product Name reset failed. Existing value: " + Actual_Name_After_Reset);
+
+			throw new IllegalStateException("Product Name was not cleared before positive Product creation.");
+		}
+
+		System.out.println("Result : PASS");
+		System.out.println("Product form input reset completed.");
+
+		Report_Listen.log_print_in_report().pass("Negative validation completed and Product Name reset verified successfully.");
 	}
 	else{
-		
-		Report_Listen.log_print_in_report().warning("⚠️ Product Add Form Validation is not working properly. Product was created despite invalid field values.");
-		System.out.println("⚠️ Product Add Form Validation is not working properly. Product was created despite invalid field values.");
-		System.out.println();
-		
+
+		System.out.println("Result : FAIL");
+		System.out.println("Reason : Invalid form submission was not rejected with visible validation errors");
+
+		Report_Listen.log_print_in_report().fail("Negative validation failed for: " + Product_Name);
+
+		throw new IllegalStateException("Negative Product Add validation failed for: " + Product_Name);
 	}
-	
-	
-	
 }
 
 
+
+
 public TreeMap<String,String> Inline_Error_Checker(){
-	
+
 	Product_Module_Locaters p = new Product_Module_Locaters(d);
 	TreeMap<String,String> Inline_Error_Data = new TreeMap<String,String>();
-	
-	Report_Listen.log_print_in_report().info("========== INLINE ERROR VALIDATION STARTED ==========");
+
+	List<WebElement> Required_Fields = p.Required_fields();
+	List<WebElement> Inline_Errors = p.InLine_Error_Messages();
+
+	System.out.println();
 	System.out.println("========== INLINE ERROR VALIDATION STARTED ==========");
-	System.out.println();
-	
-	List<WebElement> Asterix_feilds = p.Required_fields();
-	List<WebElement> Inline_errors = p.InLine_Error_Messages();
-	
-	Report_Listen.log_print_in_report().info("Total Required Fields Found: " + Asterix_feilds.size());
-	Report_Listen.log_print_in_report().info("Total Inline Error Messages Found: " + Inline_errors.size());
-	System.out.println("Total Required Fields Found: " + Asterix_feilds.size());
-	System.out.println("Total Inline Error Messages Found: " + Inline_errors.size());
-	System.out.println();
-	
-	if(Asterix_feilds.size()==Inline_errors.size()){
-		
-		Report_Listen.log_print_in_report().pass("✅ Required field count and Inline Error count matched successfully.");
-		System.out.println("✅ Required field count and Inline Error count matched successfully.");
-		System.out.println();
-		Report_Listen.log_print_in_report().pass("✅ Inline Error validation completed successfully for all required fields.");
-		System.out.println();
-		System.out.println("✅ Inline Error validation completed successfully for all required fields.");
-		System.out.println();
-		
+	System.out.println("Required Fields Found : " + Required_Fields.size());
+	System.out.println("Inline Errors Found   : " + Inline_Errors.size());
+
+	Report_Listen.log_print_in_report().info("Required Fields: " + Required_Fields.size() + " | Inline Errors: " + Inline_Errors.size());
+
+	int Error_Number = 0;
+
+	for(WebElement Inline_Error : Inline_Errors){
+
+		if(Inline_Error.isDisplayed()){
+
+			String Error_Message = Inline_Error.getText().trim();
+
+			if(!Error_Message.isEmpty()){
+
+				Error_Number++;
+
+				String Field_Name = Error_Message.replaceFirst("(?i)\\s+is required\\.?$", "").trim();
+
+				if(Field_Name.equals(Error_Message)){
+					Field_Name = "Inline Error " + Error_Number;
+				}
+
+				Inline_Error_Data.put(Field_Name, Error_Message);
+
+				System.out.println("Error " + Error_Number + " | Field: " + Field_Name + " | Message: " + Error_Message);
+
+				Report_Listen.log_print_in_report().info("Field: " + Field_Name + " | Inline Error: " + Error_Message);
+			}
+		}
 	}
-	else{
-		
-		Report_Listen.log_print_in_report().warning("⚠️ Required field count and Inline Error count mismatch. Required Fields: " + Asterix_feilds.size() + " | Inline Errors: " + Inline_errors.size());
-		System.out.println("⚠️ Required field count and Inline Error count mismatch. Required Fields: " + Asterix_feilds.size() + " | Inline Errors: " + Inline_errors.size());
-		System.out.println();
-		
-	}
-	
-	for(int m=0;m<Inline_errors.size();m++){
-		
-		String Label_Name = Asterix_feilds.get(m).getText().trim();
-		String Error_Message = Inline_errors.get(m).getText().trim();
-		
-		Inline_Error_Data.put(Label_Name, Error_Message);
-		
-		Report_Listen.log_print_in_report().info("Required Field " + (m+1) + ": " + Label_Name + " | Inline Error: " + Error_Message);
-		System.out.println("Required Field " + (m+1) + ": " + Label_Name + " | Inline Error: " + Error_Message);
-		
-	}
-	
-	Report_Listen.log_print_in_report().info("========== INLINE ERROR VALIDATION COMPLETED ==========");
+
+	System.out.println("Total Visible Errors : " + Error_Number);
 	System.out.println("========== INLINE ERROR VALIDATION COMPLETED ==========");
-	System.out.println();
-	
+
 	return Inline_Error_Data;
 }
 

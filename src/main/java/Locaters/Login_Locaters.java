@@ -22,7 +22,7 @@ public class Login_Locaters extends Repeat {
 	private WebElement Login_button;
 
 	@FindBy(xpath = "//*[@class='header-profile-pill ']")
-	private WebElement login_confirmation;
+	public WebElement login_confirmation;
 	
 	@FindBy(xpath = "//*[contains(@class,'auth-error-alert')]")
 	private WebElement Login_error_alert;

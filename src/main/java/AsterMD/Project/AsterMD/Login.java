@@ -171,8 +171,8 @@ public void login() throws IOException, InterruptedException {
 		System.out.println();/*
         WebElement Progress_Bar =lg.Progress_bar();
         rp.wait_for_invisibilty_of_theElement(Progress_Bar); */
-		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(280)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
-		WebElement Login_confirmation= wait.until(driver -> lg.login_confirmation());
+		rp.check_element_visibility(lg.login_confirmation, 2);
+		
 		Report_Listen.log_print_in_report().pass("✅ Login completed and login confirmation was verified successfully.");
 		System.out.println("✅ Login completed and login confirmation was verified successfully.");
 		System.out.println();

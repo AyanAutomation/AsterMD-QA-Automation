@@ -38,7 +38,7 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Portal_Login_Title; 
     @FindBy(xpath="//div[contains(@class,'tabGroup')]//a[contains(@href,'/')]")
 	private List<WebElement> Patient_Portal_Header_Menu_Options;
-    @FindBy(xpath="//div[contains(@class,'incompleteCard')]//div[@class='ant-card-body']")
+    @FindBy(xpath="//*[text()='Incomplete Treatments']/../../..//div[@class='ant-collapse-panel ant-collapse-panel-active']//div[contains(@class,'ant-card ant-card-bordered')]")
 	private List<WebElement> Incomplete_Treatment_Cards;
     @FindBy(xpath="//h2[normalize-space()='About You']")
 	private WebElement Intake_Page_Heading;
@@ -76,9 +76,13 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Treatment_Summary_Loader;
     @FindBy(xpath="//div[contains(@class,'fieldGridDynamic')]//label")
 	private List<WebElement> Second_Intake_Radio_Question_Labels;
+    @FindBy(xpath="//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Date of Birth']]//input[@placeholder='Select date']")
+	private WebElement Intake_Date_Of_Birth;
+    @FindBy(xpath="//div[@class='ant-collapse-item ant-collapse-item-active']//div[contains(@class,'ant-collapse-panel-active')]")
+	public WebElement Active_Tab;
 
 
-  
+   
     
     
     
@@ -129,10 +133,8 @@ public class Patient_Portal_Locaters extends Repeat {
 	return Patient_Portal_Header_Menu_Options;}
 	public List<WebElement> Incomplete_Treatment_Cards(){
 	wait_for_invisibilty_of_theElement(Treatment_Summary_Loader);
-	wait_for_theElement(Incomplete_Treatment_Cards);
-	Boolean isPresent = check_element_visibility(Incomplete_Treatment_Cards,10); 
-	if(isPresent){return Incomplete_Treatment_Cards;}
-	else{return null;}}
+    wait_for_theElement(Incomplete_Treatment_Cards);
+	return Incomplete_Treatment_Cards;}
 	public WebElement Intake_Page_Heading(){
 	wait_for_theElement(Intake_Page_Heading);
 	return Intake_Page_Heading;}
@@ -178,5 +180,11 @@ public class Patient_Portal_Locaters extends Repeat {
 	return Header_Tab;}
 	public List<WebElement> Second_Intake_Radio_Question_Labels(){
 	return Second_Intake_Radio_Question_Labels;}
+	public WebElement Intake_Date_Of_Birth(){
+	wait_for_theElement(Intake_Date_Of_Birth);
+	return Intake_Date_Of_Birth;}
+	public WebElement Active_Tab(){
+	wait_for_theElement(Active_Tab);
+	return Active_Tab;}
 	
 }

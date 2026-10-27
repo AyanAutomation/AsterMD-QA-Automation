@@ -37,6 +37,7 @@ public class Frontend_Store_Front extends Patient_Module {
 
 
 
+
 @DataProvider
 public Object[][] Storefront_Product_Data(){
 
@@ -64,6 +65,8 @@ public Object[][] Storefront_Product_Data(){
 	data1.put("Unit System", "Imperial (lbs/inches)");
 	data1.put("Height", "70");
 	data1.put("Weight", "218");
+	data1.put("Intake Q&A - Multi Choice", "Male");
+	data1.put("Intake Q&A - What is your primary goal for this therapy?", "General wellness");
 	data1.put("Notes", "I would like to discuss Semaglutide eligibility, medical history, treatment precautions, side effects and follow-up requirements.");
 	data1.put("Address", "660 QA Lakeshore Street");
 	data1.put("City", "Chicago");
@@ -88,6 +91,8 @@ public Object[][] Storefront_Product_Data(){
 	data2.put("Unit System", "Imperial (lbs/inches)");
 	data2.put("Height", "66");
 	data2.put("Weight", "185");
+	data2.put("Intake Q&A - Multi Choice", "Female");
+	data2.put("Intake Q&A - What is your primary goal for this therapy?", "Gut health");
 	data2.put("Notes", "I would like to discuss Semaglutide suitability, recurring treatment requirements, lifestyle considerations and regular medical monitoring.");
 	data2.put("Address", "770 QA Peachtree Road");
 	data2.put("City", "Atlanta");
@@ -359,7 +364,7 @@ public Object[][] Storefront_Product_Data(){
 	return new Object[][] {/*
 		{ data1 }, */
 		{ data2 }, /*
-		{ data3 }, 
+		{ data3 },
 		{ data4 },
 		{ data5 },
 		{ data6 },
@@ -372,6 +377,7 @@ public Object[][] Storefront_Product_Data(){
 		{ data13 } */
 	};
 }
+
 
 
 
