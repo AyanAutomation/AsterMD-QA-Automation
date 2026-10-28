@@ -1,12 +1,18 @@
 package Patient_Portal;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import Listerners.Report_Listen;
@@ -239,268 +245,349 @@ public void Patient_portal_header_menu_navigator(String Option, String Status, T
 
 
 
-
 @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
-public void Intake_form_filling(TreeMap<String, String> Product_data) throws InterruptedException{
+public void Intake_form_filling(TreeMap<String,String> Product_data) throws InterruptedException{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
 
 	String Product_Name = Product_data.get("Product Name");
 	String Treatment_Variant = Product_data.getOrDefault("Treatment Variant", "");
-	String First_Name = Product_data.get("First Name");
-	String Last_Name = Product_data.get("Last Name");
-	String Email = Product_data.get("Email");
-	String Phone = Product_data.get("Phone");
-	String State = Product_data.get("State");
-	String Unit_System = Product_data.get("Unit System");
-	String Height = Product_data.get("Height");
-	String Weight = Product_data.get("Weight");
 
-	// Patient Portal Login and Treatments Navigation
 	Patient_portal_header_menu_navigator("Treatments", "Registered", Product_data);
 
-	System.out.println();
-	System.out.println("============================================================");
-	System.out.println("                    PATIENT INTAKE FORM");
-	System.out.println("============================================================");
+	System.out.println("========== PATIENT INTAKE FORM ==========");
 	System.out.println("Product : " + Product_Name);
 	System.out.println("Variant : " + Treatment_Variant);
 
-	Report_Listen.log_print_in_report().info("Starting intake form for: " + Product_Name);
+	WebElement Active_Section = p.Active_Tab();
+	rp.Scroll_to_element(Active_Section);
 
-	// Scroll to Active Treatments Section
-	WebElement Active_section=p.Active_Tab();
-	rp.Scroll_to_element(Active_section);
-
-	// Incomplete Treatment Selection
 	List<WebElement> Treatment_Cards = p.Incomplete_Treatment_Cards();
-
-	System.out.println("---------------- INCOMPLETE TREATMENTS ----------------");
-	System.out.println("Available Treatments : " + Treatment_Cards.size());
 
 	for(WebElement Treatment_Card : Treatment_Cards){
 
 		String Treatment_Details = Treatment_Card.getText().trim();
+		boolean Product_Matched = Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant);
 
-		System.out.println("Treatment Details : " + Treatment_Details.replace("\n", " | "));
-
-		if(Treatment_Details.toLowerCase().contains(Product_Name.toLowerCase()) && Treatment_Details.toLowerCase().contains(Treatment_Variant.toLowerCase())){
+		if(Product_Matched){
 
 			List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(".//div[contains(@class,'desktopIncomplete')]//button"));
 			rp.wait_for_theElement(Start_Intake_Buttons);
 
-			for(WebElement Start_Intake_Button : Start_Intake_Buttons){
+			WebElement Start_Intake_Button = Start_Intake_Buttons.get(0);
 
-				if(Start_Intake_Button.isDisplayed() && Start_Intake_Button.isEnabled()){
+			rp.movetoelement(Start_Intake_Button);
+			Start_Intake_Button.click();
 
-					rp.movetoelement(Start_Intake_Button);
-					Start_Intake_Button.click();
+			System.out.println("Start Intake : " + Product_Name);
+			Report_Listen.log_print_in_report().pass("Started intake for: " + Product_Name);
 
-					System.out.println("Selected Product : " + Product_Name);
-					System.out.println("Selected Variant : " + Treatment_Variant);
-					System.out.println("Action           : Start Intake");
-					System.out.println("Result           : PASS");
-
-					Report_Listen.log_print_in_report().pass("Started intake for: " + Product_Name + " | " + Treatment_Variant);
-
-					break;
-				}
+			// Product Specific Intake Form Routing
+			if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules")){
+				AsterRefluxa_Intake_Form(Product_data);
+			}
+			else{
+				throw new UnsupportedOperationException("Intake method not configured for: " + Product_Name);
 			}
 
-			break;
+			return;
 		}
 	}
 
-	// Verify First Page
-	WebElement Intake_Heading = p.Intake_Page_Heading();
+	throw new IllegalStateException("Incomplete treatment not found: " + Product_Name);
+}
 
-	System.out.println("---------------- INTAKE FORM PAGE 1 ----------------");
-	System.out.println("Section : " + Intake_Heading.getText().trim());
 
-	Report_Listen.log_print_in_report().info("Intake Form Page 1 displayed.");
 
-	// Personal Information
-	WebElement First_Name_Field = p.Intake_First_Name();
-	WebElement Last_Name_Field = p.Intake_Last_Name();
-	WebElement Email_Field = p.Intake_Email_Address();
-	WebElement Phone_Field = p.Intake_Phone_Number();
 
-	First_Name_Field.clear();
-	First_Name_Field.sendKeys(First_Name);
 
-	Last_Name_Field.clear();
-	Last_Name_Field.sendKeys(Last_Name);
+public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 
-	Email_Field.clear();
-	Email_Field.sendKeys(Email);
+	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
+	Repeat rp = new Repeat(d);
 
-	Phone_Field.clear();
-	Phone_Field.sendKeys(Phone);
+	String Product_Name = Product_data.get("Product Name");
+	String Patient_Email = Product_data.get("Email");
 
-	System.out.println("---------------- PERSONAL INFORMATION ----------------");
-	System.out.println("First Name : " + First_Name);
-	System.out.println("Last Name  : " + Last_Name);
-	System.out.println("Email      : " + Email);
-	System.out.println("Phone      : " + Phone_Field.getAttribute("value"));
-	System.out.println("Result     : COMPLETED");
+	System.out.println("========== ASTERREFLUXA INTAKE FORM ==========");
+	Report_Listen.log_print_in_report().info("Starting intake for: " + Product_Name);
 
-	Report_Listen.log_print_in_report().pass("Patient personal information entered successfully.");
+	// Page 1 - Treatment Reason
+	System.out.println("---------- PAGE 1 : TREATMENT REASON ----------");
 
-	// State Selection
-	WebElement State_Dropdown = p.Intake_State_Dropdown();
-	Intake_Dropdown_Option_Selector(State_Dropdown, State);
+	WebElement Page_Indicator = p.Teleform_Page_Indicator();
+	String Actual_Page = Page_Indicator.getText().trim();
+	Assert.assertEquals(Actual_Page, "Page 1 of 5");
 
-	// Semaglutide Date of Birth
-	if(Product_Name.equalsIgnoreCase("Semaglutide")){
+	String Intake_Reason = Product_data.get("Intake Reason");
+	Assert.assertTrue(Intake_Reason != null && !Intake_Reason.isBlank(), "Intake Reason is missing in the DataProvider.");
+	WebElement Reason_Option = p.Teleform_Button(Intake_Reason);
 
-		String Date_Of_Birth = Product_data.get("Date of Birth");
-		String[] Date_Parts = Date_Of_Birth.split("/");
-		String Formatted_Date = Date_Parts[2] + "-" + Date_Parts[0] + "-" + Date_Parts[1];
+	rp.movetoelement(Reason_Option);
+	Reason_Option.click();
 
-		WebElement Date_Field = p.Intake_Date_Of_Birth();
+	System.out.println("Selected Reason : " + Intake_Reason);
 
-		rp.movetoelement(Date_Field);
-		Date_Field.click();
-		Date_Field.sendKeys(org.openqa.selenium.Keys.chord(org.openqa.selenium.Keys.CONTROL, "a"));
-		Date_Field.sendKeys(Formatted_Date);
-		Date_Field.sendKeys(org.openqa.selenium.Keys.ENTER);
-
-		String Actual_Date = Date_Field.getAttribute("value");
-
-		System.out.println("---------------- DATE OF BIRTH ----------------");
-		System.out.println("DataProvider Date : " + Date_Of_Birth);
-		System.out.println("Date Picker Input : " + Formatted_Date);
-		System.out.println("Actual Date       : " + Actual_Date);
-
-		if(Actual_Date == null || Actual_Date.isBlank() || "true".equalsIgnoreCase(Date_Field.getAttribute("aria-invalid"))){
-
-			System.out.println("Result : FAIL");
-			System.out.println("Reason : Date of Birth was not accepted by the date picker");
-
-			Report_Listen.log_print_in_report().fail("Date of Birth not accepted. Expected: " + Formatted_Date + " | Actual: " + Actual_Date);
-
-			throw new IllegalStateException("Invalid Date of Birth selection for Semaglutide.");
-		}
-
-		System.out.println("Result : PASS");
-
-		Report_Listen.log_print_in_report().pass("Date of Birth entered successfully: " + Actual_Date);
-	}
-
-	// Unit System Selection
-	WebElement Unit_Dropdown = p.Intake_Unit_System_Dropdown();
-	Intake_Dropdown_Option_Selector(Unit_Dropdown, Unit_System);
-
-	// Height and Weight
-	WebElement Height_Field = p.Intake_Height();
-	WebElement Weight_Field = p.Intake_Weight();
-
-	Height_Field.clear();
-	Height_Field.sendKeys(Height);
-
-	Weight_Field.clear();
-	Weight_Field.sendKeys(Weight);
-
-	System.out.println("---------------- HEIGHT AND WEIGHT ----------------");
-	System.out.println("Unit System : " + Unit_System);
-	System.out.println("Height      : " + Height);
-	System.out.println("Weight      : " + Weight);
-	System.out.println("Result      : COMPLETED");
-
-	Report_Listen.log_print_in_report().pass("Patient height and weight entered successfully.");
-
-	// Dynamic Intake Radio Questions
-	List<WebElement> Question_Cards = p.Intake_Radio_Question_Cards();
-
-	System.out.println("---------------- INTAKE RADIO QUESTIONS ----------------");
-	System.out.println("Questions Found : " + Question_Cards.size());
-
-	for(WebElement Question_Card : Question_Cards){
-
-		String Question = Question_Card.findElement(By.xpath(".//div[contains(@class,'fieldLabel')]/span[1]")).getText().trim();
-		String Expected_Answer = Product_data.getOrDefault("Intake Q&A - " + Question, "");
-
-		if(Question.equalsIgnoreCase("What is your weight loss goal?") && Expected_Answer.isBlank()){
-			Expected_Answer = Product_data.getOrDefault("Weight Loss Goal", "");
-		}
-
-		System.out.println("---------------- RADIO QUESTION ----------------");
-		System.out.println("Question : " + Question);
-		System.out.println("Expected : " + Expected_Answer);
-
-		Report_Listen.log_print_in_report().info("Intake Question: " + Question + " | Expected Answer: " + Expected_Answer);
-
-		if(Expected_Answer.isBlank()){
-
-			System.out.println("Result : FAIL");
-			System.out.println("Reason : No answer configured in DataProvider");
-
-			Report_Listen.log_print_in_report().fail("Missing intake answer for: " + Question);
-
-			throw new IllegalStateException("Missing DataProvider answer for intake question: " + Question);
-		}
-
-		List<WebElement> Radio_Options = Question_Card.findElements(By.xpath(".//label[contains(@class,'ant-radio-wrapper')]"));
-
-		System.out.println("Available Options : " + Radio_Options.size());
-
-		int Selected_Options = 0;
-
-		for(WebElement Radio_Option : Radio_Options){
-
-			String Option_Text = Radio_Option.getText().trim();
-
-			System.out.println("Checking Option : " + Option_Text);
-
-			if(Option_Text.equalsIgnoreCase(Expected_Answer)){
-
-				rp.movetoelement(Radio_Option);
-				Radio_Option.click();
-
-				if(Radio_Option.findElement(By.xpath(".//input[@type='radio']")).isSelected()){
-					Selected_Options++;
-				}
-
-				System.out.println("Selected Answer : " + Option_Text);
-
-				break;
-			}
-		}
-
-		if(Selected_Options==0){
-
-			System.out.println("Result : FAIL");
-			System.out.println("Reason : Expected radio answer not selected");
-
-			Report_Listen.log_print_in_report().fail("Radio answer not selected. Question: " + Question + " | Expected: " + Expected_Answer);
-
-			throw new IllegalStateException("Intake radio option not selected: " + Question);
-		}
-
-		System.out.println("Result : PASS");
-
-		Report_Listen.log_print_in_report().pass("Intake answer selected: " + Question + " | " + Expected_Answer);
-	}
-
-	// Proceed to Second Page
-	System.out.println("---------------- NEXT PAGE NAVIGATION ----------------");
-	System.out.println("Action : Click Next");
-
-	WebElement Next_Button = p.Intake_Next_Button();
-
+	WebElement Next_Button = p.Teleform_Button("NEXT STEP →");
 	rp.movetoelement(Next_Button);
 	Next_Button.click();
 
-	WebElement Second_Page = p.Intake_Second_Page_Active();
+	Report_Listen.log_print_in_report().pass("AsterRefluxa Page 1 completed.");
 
-	System.out.println("Expected : Page 2 displayed");
-	System.out.println("Actual   : " + Second_Page.getText().trim());
-	System.out.println("Result   : PASS");
+	// Page 2 - Account Email
+	System.out.println("---------- PAGE 2 : ACCOUNT EMAIL ----------");
 
-	Report_Listen.log_print_in_report().pass("Intake Form Page 1 completed and Page 2 displayed for: " + Product_Name);
+	Page_Indicator = p.Teleform_Page_Indicator();
+	Actual_Page = Page_Indicator.getText().trim();
+	Assert.assertEquals(Actual_Page, "Page 2 of 5");
+
+	WebElement Account_Email = p.Teleform_Account_Email();
+	Account_Email.clear();
+	Account_Email.sendKeys(Patient_Email);
+
+	System.out.println("Patient Email : " + Patient_Email);
+
+	WebElement Continue_Button = p.Teleform_Button("CONTINUE →");
+	rp.movetoelement(Continue_Button);
+	Continue_Button.click();
+
+	Report_Listen.log_print_in_report().pass("AsterRefluxa Page 2 completed.");
+
+	// Page 3 - Personal Details
+	System.out.println("---------- PAGE 3 : PERSONAL DETAILS ----------");
+
+	Page_Indicator = p.Teleform_Page_Indicator();
+	Actual_Page = Page_Indicator.getText().trim();
+	Assert.assertEquals(Actual_Page, "Page 3 of 5");
+
+	String[][] Personal_Fields = {
+		{"FIRST NAME", "First Name"},
+		{"LAST NAME", "Last Name"},
+		{"EMAIL", "Email"}
+	};
+
+	for(String[] Field : Personal_Fields){
+
+		String Value = Product_data.get(Field[1]);
+		WebElement Input = p.Teleform_Field(Field[0]);
+
+		rp.movetoelement(Input);
+		Input.clear();
+		Input.sendKeys(Value);
+
+		String Actual_Value = Input.getDomProperty("value");
+		System.out.println(Field[1] + " : " + Actual_Value);
+	}
+
+	String Date_Of_Birth = Product_data.get("Date of Birth");
+	Teleform_Date_Of_Birth_Selector(Date_Of_Birth);
+
+	String Biological_Sex = Product_data.get("Biological Sex at Birth");
+	WebElement Sex_Dropdown = p.Teleform_Sex_Dropdown();
+
+	rp.movetoelement(Sex_Dropdown);
+	Sex_Dropdown.click();
+
+	WebElement Sex_Option = p.Teleform_Dropdown_Option(Biological_Sex);
+	rp.movetoelement(Sex_Option);
+	Sex_Option.click();
+
+	System.out.println("Biological Sex : " + Biological_Sex);
+
+	String Patient_Phone = Product_data.get("Phone");
+	WebElement Phone_Field = p.Teleform_Phone();
+
+	rp.movetoelement(Phone_Field);
+	Phone_Field.click();
+	Phone_Field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+	Phone_Field.sendKeys("+1" + Patient_Phone);
+	Phone_Field.sendKeys(Keys.TAB);
+
+	String Actual_Phone = Phone_Field.getDomProperty("value");
+	System.out.println("Phone : " + Actual_Phone);
+
+	// Required Telehealth Consent
+	WebElement Terms_Consent = p.Teleform_Terms_Consent();
+	WebElement Terms_Checkbox = Terms_Consent.findElement(By.xpath(".//input[@type='checkbox']"));
+
+	boolean Terms_Selected = Terms_Checkbox.isSelected();
+
+	if(!Terms_Selected){
+		rp.movetoelement(Terms_Consent);
+		Terms_Consent.click();
+	}
+
+	System.out.println("Terms and Telehealth Consent : Selected");
+
+	Next_Button = p.Teleform_Button("NEXT STEP →");
+	rp.movetoelement(Next_Button);
+	Next_Button.click();
+
+	Report_Listen.log_print_in_report().pass("AsterRefluxa Page 3 completed.");
+
+	// Page 4 - Medical Questions
+	System.out.println("---------- PAGE 4 : MEDICAL QUESTIONS ----------");
+
+	Page_Indicator = p.Teleform_Page_Indicator();
+	Actual_Page = Page_Indicator.getText().trim();
+	Assert.assertEquals(Actual_Page, "Page 4 of 5");
+
+	Teleform_Question_Selector(Product_data);
+
+	String Blood_Pressure_Reading = Product_data.getOrDefault("Blood Pressure Reading", "");
+
+	if(!Blood_Pressure_Reading.isBlank()){
+
+		WebElement Blood_Pressure_Field = p.Teleform_Textarea("Please provide your most recent blood pressure reading below:");
+
+		rp.movetoelement(Blood_Pressure_Field);
+		Blood_Pressure_Field.clear();
+		Blood_Pressure_Field.sendKeys(Blood_Pressure_Reading);
+
+		String Actual_Reading = Blood_Pressure_Field.getDomProperty("value");
+		System.out.println("Blood Pressure : " + Actual_Reading);
+	}
+
+	Next_Button = p.Teleform_Button("Next");
+	rp.movetoelement(Next_Button);
+	Next_Button.click();
+
+	Report_Listen.log_print_in_report().pass("AsterRefluxa Page 4 completed.");
+
+	// Page 5 - Assessment
+	System.out.println("---------- PAGE 5 : ASSESSMENT ----------");
+
+	Page_Indicator = p.Teleform_Page_Indicator();
+	Actual_Page = Page_Indicator.getText().trim();
+	Assert.assertEquals(Actual_Page, "Page 5 of 5");
+
+	Teleform_Question_Selector(Product_data);
+
+	String Patient_Notes = Product_data.get("Notes");
+	WebElement Notes_Field = p.Teleform_Textarea("Please introduce yourself and feel free to ask any questions you have about your medical concerns or anything you would like the doctor to know:");
+
+	rp.movetoelement(Notes_Field);
+	Notes_Field.clear();
+	Notes_Field.sendKeys(Patient_Notes);
+
+	String Actual_Notes = Notes_Field.getDomProperty("value");
+	System.out.println("Additional Notes : " + Actual_Notes);
+
+	WebElement Submit_Button = p.Teleform_Button("Submit →");
+	rp.movetoelement(Submit_Button);
+	Submit_Button.click();
+
+	// Post Submission Verification
+	WebElement Completed_Product = p.Teleform_Completed_Product(Product_Name);
+	String Completed_Product_Name = Completed_Product.getText().trim();
+
+	Assert.assertEquals(Completed_Product_Name, Product_Name);
+
+	System.out.println("========== INTAKE COMPLETION ==========");
+	System.out.println("Product : " + Completed_Product_Name);
+	System.out.println("Result  : PASS");
+
+	Report_Listen.log_print_in_report().pass("AsterRefluxa five-page intake completed: " + Completed_Product_Name);
 }
 
+
+public void Teleform_Question_Selector(TreeMap<String,String> Product_data){
+
+	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	System.out.println("---------- INTAKE QUESTION SELECTION ----------");
+
+	List<WebElement> Question_Cards = p.Teleform_Choice_Cards();
+
+	for(WebElement Question_Card : Question_Cards){
+
+		WebElement Question_Label = p.Teleform_Question_Label(Question_Card);
+		String Question = Question_Label.getText().trim();
+		String Expected_Answer = Product_data.get("Intake Q&A - " + Question);
+
+		if(Expected_Answer==null || Expected_Answer.isBlank()){
+			throw new IllegalStateException("Missing DataProvider answer for: " + Question);
+		}
+
+		WebElement Answer_Option = p.Teleform_Choice_Option(Question_Card, Expected_Answer);
+
+		rp.movetoelement(Answer_Option);
+		Answer_Option.click();
+
+		String Actual_Answer = Answer_Option.getText().trim();
+
+		System.out.println("Question : " + Question);
+		System.out.println("Answer   : " + Actual_Answer);
+
+		Report_Listen.log_print_in_report().pass("Intake answer selected: " + Question + " | " + Actual_Answer);
+	}
+}
+
+
+
+
+
+public void Teleform_Date_Of_Birth_Selector(String Date_Of_Birth){
+
+	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	DateTimeFormatter Date_Format = DateTimeFormatter.ofPattern("MM/dd/uuuu");
+	LocalDate DOB = LocalDate.parse(Date_Of_Birth, Date_Format);
+
+	String Year = String.valueOf(DOB.getYear());
+	String Month = DOB.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+	String Date = DOB.toString();
+	String Expected_DOB = DOB.format(DateTimeFormatter.ofPattern("uuuu/MM/dd"));
+
+	System.out.println("---------- DATE OF BIRTH ----------");
+	System.out.println("Expected : " + Expected_DOB);
+
+	WebElement Date_Field = p.Teleform_DOB_Input();
+	rp.movetoelement(Date_Field);
+	Date_Field.click();
+
+	// Year Selection
+	WebElement Year_Button = p.Teleform_DOB_Year_Button();
+	Year_Button.click();
+
+	List<WebElement> Year_Options = p.Teleform_DOB_Year_Options(Year);
+
+	for(int n=0;n<15 && Year_Options.isEmpty();n++){
+		WebElement Previous_Decade = p.Teleform_DOB_Previous_Decade();
+		Previous_Decade.click();
+		Year_Options = p.Teleform_DOB_Year_Options(Year);
+	}
+
+	if(Year_Options.isEmpty()) throw new IllegalStateException("DOB year not available: " + Year);
+
+	WebElement Year_Option = Year_Options.get(0);
+	Year_Option.click();
+
+	// Month Selection - Month Panel Opens Automatically
+	WebElement Month_Option = p.Teleform_DOB_Month_Option(Month);
+	rp.movetoelement(Month_Option);
+	Month_Option.click();
+
+	// Day Selection
+	WebElement Day_Option = p.Teleform_DOB_Day_Option(Date);
+	rp.movetoelement(Day_Option);
+	Day_Option.click();
+
+	// Final DOB Verification
+	String Actual_DOB = Date_Field.getDomProperty("value");
+	Actual_DOB = Actual_DOB==null ? "" : Actual_DOB.trim();
+
+	System.out.println("Expected DOB : " + Expected_DOB);
+	System.out.println("Actual DOB   : " + Actual_DOB);
+
+	Assert.assertEquals(Actual_DOB, Expected_DOB, "Date of Birth mismatch.");
+
+	System.out.println("Result : PASS");
+	Report_Listen.log_print_in_report().pass("Date of Birth selected successfully: " + Actual_DOB);
+}
 
 
 

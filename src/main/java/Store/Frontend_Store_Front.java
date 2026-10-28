@@ -39,6 +39,7 @@ public class Frontend_Store_Front extends Patient_Module {
 
 
 
+
 @DataProvider
 public Object[][] Storefront_Product_Data(){
 
@@ -49,7 +50,7 @@ public Object[][] Storefront_Product_Data(){
 	Shared_Checkout_Data.put("Security Code", "123");
 	Shared_Checkout_Data.put("Patient Password", "Password@123");
 
-	// Dataset 1 - Semaglutide - One-Time Sale - 1 mg
+	// Dataset 1 - Semaglutide - One-Time Sale
 	TreeMap<String,String> data1 = new TreeMap<String,String>();
 	data1.put("Product Name", "Semaglutide");
 	data1.put("Treatment Variant", "1 mg");
@@ -76,7 +77,7 @@ public Object[][] Storefront_Product_Data(){
 	data1.put("Cardholder Name", "Dmitri Sokolov");
 	data1.putAll(Shared_Checkout_Data);
 
-	// Dataset 2 - Semaglutide - Monthly Recurring - 0.25 mg
+	// Dataset 2 - Semaglutide - Monthly Recurring
 	TreeMap<String,String> data2 = new TreeMap<String,String>();
 	data2.put("Product Name", "Semaglutide");
 	data2.put("Treatment Variant", "0.25 mg");
@@ -103,7 +104,7 @@ public Object[][] Storefront_Product_Data(){
 	data2.put("Cardholder Name", "Elena Morozova");
 	data2.putAll(Shared_Checkout_Data);
 
-	// Dataset 3 - Tirzepatide - One-Time Sale - 7.5 mg/mL
+	// Dataset 3 - Tirzepatide - One-Time Sale
 	TreeMap<String,String> data3 = new TreeMap<String,String>();
 	data3.put("Product Name", "Tirzepatide");
 	data3.put("Treatment Variant", "7.5 mg/mL");
@@ -128,7 +129,7 @@ public Object[][] Storefront_Product_Data(){
 	data3.put("Cardholder Name", "Viktor Andreev");
 	data3.putAll(Shared_Checkout_Data);
 
-	// Dataset 4 - Tirzepatide - Monthly Recurring - 2.5 mg/mL
+	// Dataset 4 - Tirzepatide - Monthly Recurring
 	TreeMap<String,String> data4 = new TreeMap<String,String>();
 	data4.put("Product Name", "Tirzepatide");
 	data4.put("Treatment Variant", "2.5 mg/mL");
@@ -153,7 +154,7 @@ public Object[][] Storefront_Product_Data(){
 	data4.put("Cardholder Name", "Katarina Novak");
 	data4.putAll(Shared_Checkout_Data);
 
-	// Dataset 5 - NAD+ Injectable - Monthly Recurring - 100 mg
+	// Dataset 5 - NAD+ Injectable - Monthly Recurring
 	TreeMap<String,String> data5 = new TreeMap<String,String>();
 	data5.put("Product Name", "NAD+ Injectable");
 	data5.put("Treatment Variant", "100 mg");
@@ -341,7 +342,58 @@ public Object[][] Storefront_Product_Data(){
 	data14.put("Cardholder Name", "Helena Fischer");
 	data14.putAll(Shared_Checkout_Data);
 
+	// Dataset 15 - AsterRefluxa Digestive Relief Capsules - Monthly Recurring
 
+TreeMap<String,String> data15 = new TreeMap<String,String>();
+data15.put("Product Name", "AsterRefluxa Digestive Relief Capsules");
+data15.put("Treatment Variant", "");
+data15.put("Subscription Type", "Monthly / 30-Day Recurring");
+data15.put("VRIO Offer ID", "");
+data15.put("VRIO Product ID", "");
+data15.put("First Name", "Clara");
+data15.put("Last Name", "Neumann");
+data15.put("Email", "clara.neumann.astermd26102815@yopmail.com");
+data15.put("Phone", "2025550174");
+data15.put("Date of Birth", "08/21/1992");
+data15.put("State", "Pennsylvania");
+data15.put("Unit System", "Imperial (lbs/inches)");
+data15.put("Height", "66");
+data15.put("Weight", "154");
+data15.put("Notes", "I would like to discuss digestive discomfort, acid reflux symptoms, GERD treatment suitability, medication precautions, dietary considerations and recommended follow-up.");
+data15.put("Address", "1510 QA Market Street");
+data15.put("City", "Philadelphia");
+data15.put("Delivery State", "Pennsylvania");
+data15.put("Zipcode", "19103");
+data15.put("Cardholder Name", "Clara Neumann");
+
+// Page 1 - Treatment Reason
+data15.put("Intake Reason", "Better Sleep Quality");
+
+// Page 3 - Personal Details
+data15.put("Biological Sex at Birth", "Female");
+
+// Page 4 - Medical Questions
+data15.put("Blood Pressure Reading", "118/76 mmHg");
+data15.put("Intake Q&A - Please provide your most recent blood pressure reading:", "Normal (less than 120 and less than 80)");
+data15.put("Intake Q&A - ED medications can be fatal if used with nitrates or similar medications. Please be accurate. I use or have used:", "None Apply");
+data15.put("Intake Q&A - ED meds can be fatal if used with recreational drugs. Have you, or are you currently using any of the following?", "None Apply");
+data15.put("Intake Q&A - Do you get chest pain or shortness of breath with any of the following: sexual activity, climbing two flights of stairs, or walking two blocks?", "No");
+data15.put("Intake Q&A - Do you take any prescription medication?", "No — I affirm I take no medications");
+data15.put("Intake Q&A - Do you have any medication allergies?", "No — I affirm I have no medication allergies");
+data15.put("Intake Q&A - Do you have any medical conditions? (Anything you see a doctor or take medication for.)", "No - I do not have any medical conditions.");
+data15.put("Intake Q&A - Have you had any diagnosed anatomic abnormalities or prior surgeries of the penis?", "No");
+
+// Page 5 - Assessment Questions
+data15.put("Intake Q&A - Over the past 6 months, when you had erections with sexual stimulation, how often were your erections hard enough for penetration?", "None of these");
+data15.put("Intake Q&A - Over the past 6 months, how do you rate your confidence that you could keep an erection?", "None of these");
+data15.put("Intake Q&A - Over the past 6 months, during sexual intercourse, how often were you able to maintain your erection after penetration?", "None of these");
+data15.put("Intake Q&A - Over the past 6 months, during sexual intercourse, how difficult was it to maintain your erection to completion?", "None of these");
+data15.put("Intake Q&A - Over the past 6 months, when you attempted sexual intercourse, how often was it satisfactory for you?", "None of these");
+
+data15.putAll(Shared_Checkout_Data);
+
+
+	// Currently Executing AsterUroCare and AsterRefluxa
 	return new Object[][] {/*
 		{ data1 },
 		{ data2 },
@@ -353,11 +405,12 @@ public Object[][] Storefront_Product_Data(){
 		{ data10 },
 		{ data11 },
 		{ data12 },
-		{ data13 },*/
-		{ data14 }
+		{ data13 },
+		{ data14 }, */
+		{ data15 }
 	};
-
 }
+
 
 
 
