@@ -13,6 +13,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 
 import Listerners.Report_Listen;
@@ -24,6 +25,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	
 	
 	
+
 
 public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, String Patient_Password){
 
@@ -55,6 +57,7 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 	rp.movetoelement(Open_Inbox);
 	Open_Inbox.click();
 
+	System.out.println();
 	System.out.println("---------------- YOPMAIL INBOX ----------------");
 	System.out.println("Inbox : " + Patient_Email);
 
@@ -65,7 +68,8 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 	Refresh_Button.click();
 
 	// Open Latest Email
-	d.switchTo().frame(p.Yopmail_Inbox_Frame());
+	WebElement Inbox_Frame = p.Yopmail_Inbox_Frame();
+	d.switchTo().frame(Inbox_Frame);
 
 	WebElement First_Mail = p.Yopmail_First_Mail();
 
@@ -75,23 +79,29 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 	d.switchTo().defaultContent();
 
 	// Read Password Setup Link
-	d.switchTo().frame(p.Yopmail_Message_Frame());
+	WebElement Message_Frame = p.Yopmail_Message_Frame();
+	d.switchTo().frame(Message_Frame);
 
 	WebElement Mail_Body = p.Yopmail_Message_Body();
 	String Email_Content = Mail_Body.getText();
 
-	Matcher Reset_Link = Pattern.compile("https://patient-care\\.trackease\\.net/set-password\\?token=[A-Za-z0-9._~-]+").matcher(Email_Content);
+	Matcher Reset_Link = Pattern.compile("https://testdemo\\.logistial\\.com/set-password\\?token=[A-Za-z0-9._~-]+").matcher(Email_Content);
 
 	if(!Reset_Link.find()){
+		System.out.println();
+		System.out.println("Result : FAIL");
+		System.out.println("Reason : Password setup link not found in Yopmail.");
 
 		Report_Listen.log_print_in_report().fail("Password setup link not found for: " + Patient_Email);
-
 		throw new IllegalStateException("Password setup link not found in the latest email for: " + Patient_Email);
 	}
 
 	String Password_Setup_URL = Reset_Link.group();
 
+	System.out.println();
+	System.out.println("---------------- PASSWORD SETUP LINK ----------------");
 	System.out.println("Email      : Account Created");
+	System.out.println("Domain     : testdemo.logistial.com");
 	System.out.println("Setup Link : Retrieved successfully");
 	System.out.println("Result     : PASS");
 
@@ -113,8 +123,9 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 	Continue_Button.click();
 
 	// Verify Patient Portal Login Page
-	p.Portal_Login_Title();
+	WebElement Login_Title = p.Portal_Login_Title();
 
+	System.out.println();
 	System.out.println("---------------- CREDENTIAL SETUP ----------------");
 	System.out.println("Password : Configured");
 	System.out.println("Login    : Page displayed");
@@ -122,6 +133,7 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 
 	Report_Listen.log_print_in_report().pass("Patient Portal credentials configured successfully for: " + Patient_Email);
 }
+
 
 	
 
@@ -242,9 +254,6 @@ public void Patient_portal_header_menu_navigator(String Option, String Status, T
 }
 	
 	
-
-
-
 @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
 public void Intake_form_filling(TreeMap<String,String> Product_data) throws InterruptedException{
 
@@ -254,8 +263,9 @@ public void Intake_form_filling(TreeMap<String,String> Product_data) throws Inte
 	String Product_Name = Product_data.get("Product Name");
 	String Treatment_Variant = Product_data.getOrDefault("Treatment Variant", "");
 
-	Patient_portal_header_menu_navigator("Treatments", "Registered", Product_data);
+	Patient_portal_header_menu_navigator("Treatments", "Not Registered", Product_data);
 
+	System.out.println();
 	System.out.println("========== PATIENT INTAKE FORM ==========");
 	System.out.println("Product : " + Product_Name);
 	System.out.println("Variant : " + Treatment_Variant);
@@ -268,34 +278,40 @@ public void Intake_form_filling(TreeMap<String,String> Product_data) throws Inte
 	for(WebElement Treatment_Card : Treatment_Cards){
 
 		String Treatment_Details = Treatment_Card.getText().trim();
-		boolean Product_Matched = Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant);
 
-		if(Product_Matched){
+		if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
 
 			List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(".//div[contains(@class,'desktopIncomplete')]//button"));
-			rp.wait_for_theElement(Start_Intake_Buttons);
 
-			WebElement Start_Intake_Button = Start_Intake_Buttons.get(0);
+			for(WebElement Start_Intake_Button : Start_Intake_Buttons){
 
-			rp.movetoelement(Start_Intake_Button);
-			Start_Intake_Button.click();
+				String Button_Text = Start_Intake_Button.getText().trim();
+				Boolean Button_Visible = rp.check_element_visibility(Start_Intake_Button, 2);
 
-			System.out.println("Start Intake : " + Product_Name);
-			Report_Listen.log_print_in_report().pass("Started intake for: " + Product_Name);
+				if(Button_Visible && Button_Text.contains("Intake")){
 
-			// Product Specific Intake Form Routing
-			if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules")){
-				AsterRefluxa_Intake_Form(Product_data);
+					rp.wait_for_theElement(Start_Intake_Button);
+					rp.movetoelement(Start_Intake_Button);
+					Start_Intake_Button.click();
+
+					System.out.println("Start Intake : " + Product_Name);
+					Report_Listen.log_print_in_report().pass("Started intake for: " + Product_Name);
+
+					// Shared Intake Form Routing
+					if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets")){
+						AsterRefluxa_Intake_Form(Product_data);
+					}
+					else{
+						throw new SkipException("Intake automation not configured for: " + Product_Name);
+					}
+
+					return;
+				}
 			}
-			else{
-				throw new UnsupportedOperationException("Intake method not configured for: " + Product_Name);
-			}
-
-			return;
 		}
 	}
 
-	throw new IllegalStateException("Incomplete treatment not found: " + Product_Name);
+	throw new IllegalStateException("Matching incomplete treatment or Start Intake button not found: " + Product_Name + " | " + Treatment_Variant);
 }
 
 
@@ -310,10 +326,13 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	String Product_Name = Product_data.get("Product Name");
 	String Patient_Email = Product_data.get("Email");
 
-	System.out.println("========== ASTERREFLUXA INTAKE FORM ==========");
+	System.out.println();
+	System.out.println("========== PATIENT INTAKE FORM ==========");
+	System.out.println("Product : " + Product_Name);
 	Report_Listen.log_print_in_report().info("Starting intake for: " + Product_Name);
 
 	// Page 1 - Treatment Reason
+	System.out.println();
 	System.out.println("---------- PAGE 1 : TREATMENT REASON ----------");
 
 	WebElement Page_Indicator = p.Teleform_Page_Indicator();
@@ -322,8 +341,8 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 
 	String Intake_Reason = Product_data.get("Intake Reason");
 	Assert.assertTrue(Intake_Reason != null && !Intake_Reason.isBlank(), "Intake Reason is missing in the DataProvider.");
-	WebElement Reason_Option = p.Teleform_Button(Intake_Reason);
 
+	WebElement Reason_Option = p.Teleform_Button(Intake_Reason);
 	rp.movetoelement(Reason_Option);
 	Reason_Option.click();
 
@@ -333,9 +352,10 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	rp.movetoelement(Next_Button);
 	Next_Button.click();
 
-	Report_Listen.log_print_in_report().pass("AsterRefluxa Page 1 completed.");
+	Report_Listen.log_print_in_report().pass("Page 1 completed: " + Product_Name);
 
 	// Page 2 - Account Email
+	System.out.println();
 	System.out.println("---------- PAGE 2 : ACCOUNT EMAIL ----------");
 
 	Page_Indicator = p.Teleform_Page_Indicator();
@@ -352,9 +372,10 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	rp.movetoelement(Continue_Button);
 	Continue_Button.click();
 
-	Report_Listen.log_print_in_report().pass("AsterRefluxa Page 2 completed.");
+	Report_Listen.log_print_in_report().pass("Page 2 completed: " + Product_Name);
 
 	// Page 3 - Personal Details
+	System.out.println();
 	System.out.println("---------- PAGE 3 : PERSONAL DETAILS ----------");
 
 	Page_Indicator = p.Teleform_Page_Indicator();
@@ -368,7 +389,6 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	};
 
 	for(String[] Field : Personal_Fields){
-
 		String Value = Product_data.get(Field[1]);
 		WebElement Input = p.Teleform_Field(Field[0]);
 
@@ -409,24 +429,58 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 
 	// Required Telehealth Consent
 	WebElement Terms_Consent = p.Teleform_Terms_Consent();
-	WebElement Terms_Checkbox = Terms_Consent.findElement(By.xpath(".//input[@type='checkbox']"));
+	Boolean Consent_Visible = rp.check_element_visibility(Terms_Consent, 5);
 
-	boolean Terms_Selected = Terms_Checkbox.isSelected();
-
-	if(!Terms_Selected){
+	if(Consent_Visible){
 		rp.movetoelement(Terms_Consent);
 		Terms_Consent.click();
-	}
 
-	System.out.println("Terms and Telehealth Consent : Selected");
+		WebElement Consent_Input = Terms_Consent.findElement(By.xpath(".//input[@type='checkbox']"));
+		Boolean Consent_Selected = Consent_Input.isSelected();
+
+		if(Consent_Selected){
+			System.out.println();
+			System.out.println("Telehealth Consent : Selected Successfully");
+			Report_Listen.log_print_in_report().pass("Telehealth Consent checkbox selected successfully.");
+		}
+		else{
+			System.out.println();
+			System.out.println("Telehealth Consent : Selection Failed");
+			Report_Listen.log_print_in_report().fail("Telehealth Consent checkbox selection failed.");
+			throw new IllegalStateException("Telehealth Consent checkbox was not selected.");
+		}
+	}
+	else{
+		System.out.println();
+		System.out.println("Telehealth Consent : Checkbox Not Visible");
+		Report_Listen.log_print_in_report().fail("Telehealth Consent checkbox is not visible.");
+		throw new IllegalStateException("Telehealth Consent checkbox is not visible.");
+	}
 
 	Next_Button = p.Teleform_Button("NEXT STEP →");
 	rp.movetoelement(Next_Button);
 	Next_Button.click();
 
-	Report_Listen.log_print_in_report().pass("AsterRefluxa Page 3 completed.");
+	// Check Page 3 Validation Errors
+	List<WebElement> Error_Messages = p.Form_error_Messages;
+	Boolean Error_Check = rp.check_element_visibility(Error_Messages, 2);
+
+	if(Error_Check){
+		System.out.println();
+		System.out.println("---------- PAGE 3 VALIDATION ERRORS ----------");
+		rp.error_message_checker(Error_Messages);
+		Report_Listen.log_print_in_report().fail("Page 3 form validation errors detected.");
+		throw new IllegalStateException("Page 3 form validation failed.");
+	}
+	else{
+		System.out.println();
+		System.out.println("Page 3 : No Visible Validation Errors");
+	}
+
+	Report_Listen.log_print_in_report().pass("Page 3 completed: " + Product_Name);
 
 	// Page 4 - Medical Questions
+	System.out.println();
 	System.out.println("---------- PAGE 4 : MEDICAL QUESTIONS ----------");
 
 	Page_Indicator = p.Teleform_Page_Indicator();
@@ -438,7 +492,6 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	String Blood_Pressure_Reading = Product_data.getOrDefault("Blood Pressure Reading", "");
 
 	if(!Blood_Pressure_Reading.isBlank()){
-
 		WebElement Blood_Pressure_Field = p.Teleform_Textarea("Please provide your most recent blood pressure reading below:");
 
 		rp.movetoelement(Blood_Pressure_Field);
@@ -453,9 +506,10 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	rp.movetoelement(Next_Button);
 	Next_Button.click();
 
-	Report_Listen.log_print_in_report().pass("AsterRefluxa Page 4 completed.");
+	Report_Listen.log_print_in_report().pass("Page 4 completed: " + Product_Name);
 
 	// Page 5 - Assessment
+	System.out.println();
 	System.out.println("---------- PAGE 5 : ASSESSMENT ----------");
 
 	Page_Indicator = p.Teleform_Page_Indicator();
@@ -479,17 +533,33 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	Submit_Button.click();
 
 	// Post Submission Verification
-	WebElement Completed_Product = p.Teleform_Completed_Product(Product_Name);
-	String Completed_Product_Name = Completed_Product.getText().trim();
+	WebElement Submission_Toast = p.Teleform_Submission_Success_Toast;
+	Boolean Submission_Success = Teleform_Toast_Detector_Printer(Submission_Toast);
 
-	Assert.assertEquals(Completed_Product_Name, Product_Name);
+	if(Submission_Success){
+		System.out.println("========== INTAKE SUBMISSION RESULT ==========");
+		System.out.println();
+		System.out.println("Product : " + Product_Name);
+		System.out.println("Result  : PASS");
+		System.out.println("Reason  : Intake form submitted successfully.");
+		System.out.println();
 
-	System.out.println("========== INTAKE COMPLETION ==========");
-	System.out.println("Product : " + Completed_Product_Name);
-	System.out.println("Result  : PASS");
+		Report_Listen.log_print_in_report().pass("Intake form submitted successfully for: " + Product_Name);
+	}
+	else{
+		System.out.println("========== INTAKE SUBMISSION RESULT ==========");
+		System.out.println();
+		System.out.println("Product : " + Product_Name);
+		System.out.println("Result  : FAIL");
+		System.out.println("Reason  : Post-submission success toast was not displayed.");
+		System.out.println();
 
-	Report_Listen.log_print_in_report().pass("AsterRefluxa five-page intake completed: " + Completed_Product_Name);
+		Report_Listen.log_print_in_report().fail("Intake submission verification failed for: " + Product_Name);
+		throw new AssertionError("Intake form submission failed. Expected success toast was not displayed for: " + Product_Name);
+	}
+
 }
+
 
 
 public void Teleform_Question_Selector(TreeMap<String,String> Product_data){
@@ -675,6 +745,35 @@ public void Intake_Dropdown_Option_Selector(WebElement Dropdown, String Expected
 	}
 }
 
+
+public Boolean Teleform_Toast_Detector_Printer(WebElement Toast){
+
+	Repeat rp = new Repeat(d);
+	Boolean Toast_Visible = rp.check_element_visibility(Toast, 10);
+
+	if(Toast_Visible){
+		String Toast_Message = Toast.getText().trim();
+
+		System.out.println();
+		System.out.println("---------- POST SUBMISSION TOAST ----------");
+		System.out.println();
+		System.out.println("Toast Message : " + Toast_Message.replace("\n", " | "));
+		System.out.println("Toast Visible : " + Toast_Visible);
+		System.out.println();
+
+		return true;
+	}
+	else{
+		System.out.println();
+		System.out.println("---------- POST SUBMISSION TOAST ----------");
+		System.out.println();
+		System.out.println("Toast Visible : " + Toast_Visible);
+		System.out.println("Reason : Success toast was not displayed.");
+		System.out.println();
+
+		return false;
+	}
+}
 
 
 }

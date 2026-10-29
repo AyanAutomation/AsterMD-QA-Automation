@@ -1,0 +1,25 @@
+
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="AsterMD Storefront Checkout and Patient Intake Flow" parallel="false" preserve-order="true">
+
+    <test name="Step 1 - Storefront Product Selection and Checkout">
+        <classes>
+            <class name="Store.Frontend_Store_Front">
+                <methods>
+                    <include name="Product_Choose"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Step 2 - Patient Portal Intake Form">
+        <classes>
+            <class name="Patient_Portal.Pateint_Portal">
+                <methods>
+                    <include name="Intake_form_filling"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

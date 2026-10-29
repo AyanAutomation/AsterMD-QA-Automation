@@ -139,6 +139,30 @@ public void Hard_Refresh(){
 		JavascriptExecutor js = (JavascriptExecutor)d;
 		js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
 	}
+	
+	
+	public void error_message_checker(List<WebElement> elements){
+		
+		List<WebElement> Message_Elements=elements;
+		for(WebElement Message_Element:Message_Elements){
+			
+			WebElement Message=Message_Element;
+			String Message_Text=Message.getText().trim();
+			System.out.println();
+			System.out.println("Error Thrown Message :- "+Message_Text);
+		}
+		
+	}
+	
+	
+
+   public void Javascript_Click(WebElement element){
+	JavascriptExecutor js = (JavascriptExecutor)d;
+	js.executeScript("arguments[0].click();", element);
+}
+
+	
+	
 }
 
 

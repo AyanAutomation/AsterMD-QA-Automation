@@ -27,7 +27,7 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Yopmail_First_Mail; 
     @FindBy(id="ifmail")
 	private WebElement Yopmail_Message_Frame; 
-    @FindBy(xpath="//body[contains(.,'patient-care.trackease.net/set-password?token=')]")
+    @FindBy(xpath="//div[@id='mailctn']//div[@id='mail'][contains(.,'https://testdemo.logistial.com/set-password?token=')]")
 	private WebElement Yopmail_Message_Body; 
     @FindBy(id="email")
 	private WebElement Portal_Email; 
@@ -87,7 +87,7 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Teleform_Main;
     @FindBy(xpath="//main//div[contains(@class,'formProgressMeta')]")
 	private WebElement Teleform_Page_Indicator;
-    @FindBy(xpath="//main//button")
+    @FindBy(xpath="//main//button[contains(@class,'ant-btn-color-default')]")
 	private List<WebElement> Teleform_Buttons;
     @FindBy(xpath="//main//input[@placeholder]")
 	private List<WebElement> Teleform_Inputs;
@@ -105,7 +105,7 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Teleform_Sex_Dropdown;
     @FindBy(xpath="//main//input[@type='tel' and @placeholder='Enter phone number']")
 	private WebElement Teleform_Phone;
-    @FindBy(xpath="//main//label[contains(@class,'ant-checkbox-wrapper') and contains(.,'I agree to')]")
+    @FindBy(xpath="//main//label[contains(@class,'ant-checkbox-wrapper') and contains(.,'I agree to')]/span[contains(concat(' ',normalize-space(@class),' '),' ant-checkbox ')]")
 	private WebElement Teleform_Terms_Consent;
     @FindBy(xpath="//div[contains(@class,'ant-select-dropdown') and not(contains(@class,'ant-select-dropdown-hidden'))]//div[contains(@class,'ant-select-item-option') and @title]")
 	private List<WebElement> Teleform_Dropdown_Options;
@@ -123,7 +123,12 @@ public class Patient_Portal_Locaters extends Repeat {
 	private List<WebElement> Teleform_DOB_Days;
     @FindBy(xpath="//main//div[contains(@class,'summaryText')]//h3")
 	private List<WebElement> Teleform_Completed_Products;
+    @FindBy(xpath="//div[contains(@class,'__fieldError')]")
+	public List<WebElement> Form_error_Messages;
+    @FindBy(xpath="//div[@role='alert' and contains(@class,'app-toast--success')][.//div[contains(@class,'ant-notification-notice-title') and normalize-space()='Action Successful'] and .//div[contains(@class,'ant-notification-notice-description') and normalize-space()='Submitted successfully.']]")
+	public WebElement Teleform_Submission_Success_Toast;
 
+    
 
     
 
@@ -249,10 +254,17 @@ public class Patient_Portal_Locaters extends Repeat {
 	Boolean Visible = check_element_visibility(Teleform_Phone, 5);
 	if(Visible) return Teleform_Phone;
 	else throw Teleform_Locator_Failure("Teleform phone number field is not visible.");}
+	
 	public WebElement Teleform_Terms_Consent(){
 	Boolean Visible = check_element_visibility(Teleform_Terms_Consent, 5);
-	if(Visible) return Teleform_Terms_Consent;
-	else throw Teleform_Locator_Failure("Terms and Telehealth Consent checkbox is not visible.");}
+	if(Visible) 
+	{ 
+		wait_for_theElement_to_be_clickable(Teleform_Terms_Consent);
+		movetoelement(Teleform_Terms_Consent);
+		return Teleform_Terms_Consent;}
+	else {
+	throw Teleform_Locator_Failure("Terms and Telehealth Consent checkbox is not visible.");}}
+	
     public WebElement Teleform_Button(String Text){
     System.out.println("Searching for Teleform button with text: " + Text);
 	Boolean Buttons_Visible = check_element_visibility(Teleform_Buttons, 10);
