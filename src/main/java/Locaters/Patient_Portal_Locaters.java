@@ -127,6 +127,20 @@ public class Patient_Portal_Locaters extends Repeat {
 	public List<WebElement> Form_error_Messages;
     @FindBy(xpath="//div[@role='alert' and contains(@class,'app-toast--success')][.//div[contains(@class,'ant-notification-notice-title') and normalize-space()='Action Successful'] and .//div[contains(@class,'ant-notification-notice-description') and normalize-space()='Submitted successfully.']]")
 	public WebElement Teleform_Submission_Success_Toast;
+    @FindBy(xpath="//section[.//h2[normalize-space()='ID VERIFICATION']]//div[contains(@class,'fieldCard')][.//span[normalize-space()='SSN']]//input[@type='text']")
+    private WebElement ID_Verification_SSN;
+    @FindBy(xpath="//section[.//h2[normalize-space()='ID VERIFICATION']]//div[contains(@class,'fieldCard')][.//span[normalize-space()='ID Verification']]//input[@type='file']")
+    private WebElement ID_Verification_File_Input;
+    @FindBy(xpath="//section[.//h2[normalize-space()='ID VERIFICATION']]//div[contains(@class,'uploadCardName')]")
+    private WebElement ID_Verification_Uploaded_File_Name;
+    @FindBy(xpath="//section[.//h2[normalize-space()='ID VERIFICATION']]//button[.//span[normalize-space()='Submit']]")
+    private WebElement ID_Verification_Submit;
+    @FindBy(xpath="//section[.//h2[normalize-space()='ID VERIFICATION']]//h2[normalize-space()='ID VERIFICATION']")
+    private WebElement ID_Verification_Title;
+    @FindBy(xpath="//div[@role='alert' and contains(@class,'app-toast--success')]")
+    public WebElement ID_Verification_Success_Toast;
+    @FindBy(xpath="(//div[contains(@class,'__uploadGrid')]//div[contains(@class,'teleforms-module-') and contains(@class,'__uploadCard')])[1]")
+    public WebElement Upload_image_card;
 
     
 
@@ -335,9 +349,49 @@ public WebElement Teleform_Dropdown_Option(String Option){
 	}
 	throw Teleform_Locator_Failure("Teleform dropdown option not found: " + Option);}
 
-	
-	
-	public WebElement Teleform_DOB_Year_Button(){
+public WebElement ID_Verification_SSN(){
+	Boolean Visible = check_element_visibility(ID_Verification_SSN, 5);
+	if(Visible){
+		wait_for_theElement_to_be_clickable(ID_Verification_SSN);
+		movetoelement(ID_Verification_SSN);
+		return ID_Verification_SSN;
+	}
+	else{
+		throw Teleform_Locator_Failure("ID Verification SSN field is not visible.");
+	}
+}
+public WebElement ID_Verification_File_Input(){
+	return ID_Verification_File_Input;
+}
+public WebElement ID_Verification_Uploaded_File_Name(){
+	Boolean Visible = check_element_visibility(ID_Verification_Uploaded_File_Name, 5);
+	if(Visible){
+		movetoelement(ID_Verification_Uploaded_File_Name);
+		return ID_Verification_Uploaded_File_Name;
+	}
+	else{
+		throw Teleform_Locator_Failure("ID Verification uploaded file was not displayed.");
+	}
+}
+public WebElement ID_Verification_Submit(){
+	Boolean Visible = check_element_visibility(ID_Verification_Submit, 5);
+	if(Visible){
+		wait_for_theElement_to_be_clickable(ID_Verification_Submit);
+		movetoelement(ID_Verification_Submit);
+		return ID_Verification_Submit;
+	}
+	else{
+		throw Teleform_Locator_Failure("ID Verification Submit button is not visible.");
+	   } }
+    public WebElement ID_Verification_Title(){
+	Boolean Visible = check_element_visibility(ID_Verification_Title, 5);
+	if(Visible){
+		return ID_Verification_Title;
+	}
+	else{
+		throw Teleform_Locator_Failure("ID Verification form title is not visible.");
+	}}   
+    public WebElement Teleform_DOB_Year_Button(){
 	Boolean Visible = check_element_visibility(Teleform_DOB_Year_Button, 5);
 	if(Visible) return Teleform_DOB_Year_Button;
 	else throw Teleform_Locator_Failure("DOB calendar year-selection button is not visible.");}

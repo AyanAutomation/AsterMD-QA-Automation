@@ -1,5 +1,6 @@
 package Patient_Portal;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -312,6 +313,139 @@ public void Intake_form_filling(TreeMap<String,String> Product_data) throws Inte
 	}
 
 	throw new IllegalStateException("Matching incomplete treatment or Start Intake button not found: " + Product_Name + " | " + Treatment_Variant);
+}
+
+
+
+
+@Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
+public void Verify_Post_Intake_Form_Fillup(TreeMap<String,String> Product_data) throws InterruptedException{
+
+	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	String Product_Name = Product_data.get("Product Name");
+	String Treatment_Variant = Product_data.getOrDefault("Treatment Variant", "");
+	String Patient_SSN = Product_data.get("SSN");
+	String ID_Verification_Image_Name = Product_data.get("ID Verification Image");
+
+	Assert.assertTrue(Patient_SSN != null && !Patient_SSN.isBlank(), "SSN is missing in the DataProvider.");
+	Assert.assertTrue(ID_Verification_Image_Name != null && !ID_Verification_Image_Name.isBlank(), "ID Verification Image is missing in the DataProvider.");
+
+	// Prepare ID Verification Image Path
+	String ID_Verification_Folder = System.getProperty("user.dir") + File.separator + "Images" + File.separator + "AsterMD_ID_Verification_QA_Fixtures_20_Images" + File.separator + "Images" + File.separator + "ID_Verification";
+	File ID_Verification_Image = new File(ID_Verification_Folder, ID_Verification_Image_Name);
+
+	Assert.assertTrue(ID_Verification_Image.isFile(), "ID Verification image not found: " + ID_Verification_Image.getAbsolutePath());
+
+	// Patient Portal Login and Treatments Navigation
+	Patient_portal_header_menu_navigator("Treatments", "Registered", Product_data);
+
+	System.out.println();
+	System.out.println("========== POST INTAKE ID VERIFICATION ==========");
+	System.out.println("Product : " + Product_Name);
+	System.out.println("Variant : " + Treatment_Variant);
+
+	WebElement Active_Section = p.Active_Tab();
+	rp.Scroll_to_element(Active_Section);
+   
+	List<WebElement> Treatment_Cards = p.Incomplete_Treatment_Cards();
+	rp.wait_for_theElement(Treatment_Cards);
+
+	for(WebElement Treatment_Card : Treatment_Cards){
+
+		String Treatment_Details = Treatment_Card.getText().trim();
+
+		if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
+
+			List<WebElement> Verify_Buttons = Treatment_Card.findElements(By.xpath(".//div[contains(@class,'desktopIncomplete')]//button"));
+
+			for(WebElement Verify_Button : Verify_Buttons){
+
+				String Button_Text = Verify_Button.getText().trim();
+				Boolean Button_Visible = rp.check_element_visibility(Verify_Button, 4);
+
+				if(Button_Visible && Button_Text.contains("Verify Identity")){
+
+					rp.wait_for_theElement(Verify_Button);
+					rp.movetoelement(Verify_Button);
+					Verify_Button.click();
+
+					System.out.println("Verify Identity : " + Product_Name);
+					Report_Listen.log_print_in_report().info("Opened ID Verification for: " + Product_Name);
+
+					// Shared ID Verification Form Routing
+					if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets")){
+
+						// Verify ID Verification Form
+						WebElement Form_Title = p.ID_Verification_Title();
+						String Actual_Title = Form_Title.getText().trim();
+						Assert.assertEquals(Actual_Title, "ID VERIFICATION", "Incorrect ID Verification form opened.");
+
+						System.out.println();
+						System.out.println("---------- ID VERIFICATION FORM ----------");
+
+						// Enter SSN
+						WebElement SSN_Field = p.ID_Verification_SSN();
+						SSN_Field.clear();
+						SSN_Field.sendKeys(Patient_SSN);
+
+						String Actual_SSN = SSN_Field.getDomProperty("value");
+						Assert.assertEquals(Actual_SSN, Patient_SSN, "SSN field value does not match the DataProvider.");
+						System.out.println("SSN : Entered and verified");
+
+						// Upload ID Verification Image
+						WebElement File_Input = p.ID_Verification_File_Input();
+						File_Input.sendKeys(ID_Verification_Image.getAbsolutePath());
+
+						WebElement Uploaded_File_Name = p.ID_Verification_Uploaded_File_Name();
+						String Actual_File_Name = Uploaded_File_Name.getText().trim();
+
+						Assert.assertEquals(Actual_File_Name, ID_Verification_Image_Name, "Uploaded ID Verification filename mismatch.");
+
+						System.out.println("Image Path    : " + ID_Verification_Image.getAbsolutePath());
+						System.out.println("Uploaded File : " + Actual_File_Name);
+						System.out.println("Upload Result : PASS");
+
+						Report_Listen.log_print_in_report().pass("ID Verification fields completed for: " + Product_Name);
+                        
+						Boolean Card_Populated=rp.check_element_visibility(p.Upload_image_card,4);
+						if(Card_Populated) {
+						// Submit ID Verification Form
+						WebElement Submit_Button = p.ID_Verification_Submit();
+						rp.movetoelement(Submit_Button);
+						Thread.sleep(800);
+						Submit_Button.click();}
+
+						System.out.println();
+						System.out.println("---------- ID VERIFICATION SUBMISSION ----------");
+						System.out.println("Action : Submit");
+
+						// Post Submission Verification
+						WebElement Submission_Toast = p.ID_Verification_Success_Toast;
+						Boolean Submission_Success = Teleform_Toast_Detector_Printer(Submission_Toast);
+
+						if(Submission_Success){
+							System.out.println();
+							System.out.println("========== ID VERIFICATION RESULT ==========");
+							System.out.println("Product : " + Product_Name);
+							System.out.println("Result  : PASS");
+							System.out.println("Reason  : Success notification displayed.");
+
+							Report_Listen.log_print_in_report().pass("ID Verification form submitted successfully for: " + Product_Name);
+						}
+					}
+					else{
+						throw new SkipException("ID Verification automation not configured for: " + Product_Name);
+					}
+
+					return;
+				}
+			}
+		}
+	}
+
+	throw new IllegalStateException("Matching treatment or Verify Identity button not found: " + Product_Name + " | " + Treatment_Variant);
 }
 
 
