@@ -586,12 +586,12 @@ public Object[][] Storefront_Product_Data(){
 
 	return new Object[][] {/*
 		{ data1 }, 
-		{ data2 },*/
+		{ data2 },
 		{ data3 },
-		{ data4 },/*
+		{ data4 },*/
 		{ data5 },
 		{ data6 },
-		{ data7 },
+		{ data7 },/*
 		{ data8 },
 		{ data9 },
 		{ data10 },
