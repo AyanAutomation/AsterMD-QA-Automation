@@ -1,13 +1,16 @@
 package Locaters;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Listerners.Report_Listen;
 import Repeatative_codes.Repeat;
@@ -41,7 +44,8 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Portal_Login_Title; 
     @FindBy(xpath="//div[contains(@class,'tabGroup')]//a[contains(@href,'/')]")
 	private List<WebElement> Patient_Portal_Header_Menu_Options;
-    @FindBy(xpath="//*[text()='Incomplete Treatments']/../../..//div[@class='ant-collapse-panel ant-collapse-panel-active']//div[contains(@class,'ant-card ant-card-bordered')]")
+    private static final String INCOMPLETE_TREATMENT_CARDS_XPATH = "//*[text()='Incomplete Treatments']/../../..//div[@class='ant-collapse-panel ant-collapse-panel-active']//div[contains(@class,'ant-card ant-card-bordered')]";
+    @FindBy(xpath=INCOMPLETE_TREATMENT_CARDS_XPATH)
 	private List<WebElement> Incomplete_Treatment_Cards;
     @FindBy(xpath="//h2[normalize-space()='About You']")
 	private WebElement Intake_Page_Heading;
@@ -141,7 +145,7 @@ public class Patient_Portal_Locaters extends Repeat {
     public WebElement ID_Verification_Success_Toast;
     @FindBy(xpath="(//div[contains(@class,'__uploadGrid')]//div[contains(@class,'teleforms-module-') and contains(@class,'__uploadCard')])[1]")
     public WebElement Upload_image_card;
-
+    
     
 
     
@@ -189,10 +193,24 @@ public class Patient_Portal_Locaters extends Repeat {
 	public List<WebElement> Patient_Portal_Header_Menu_Options(){
 	wait_for_theElement(Patient_Portal_Header_Menu_Options);
 	return Patient_Portal_Header_Menu_Options;}
-	public List<WebElement> Incomplete_Treatment_Cards(){
-	wait_for_invisibilty_of_theElement(Treatment_Summary_Loader);
-    wait_for_theElement(Incomplete_Treatment_Cards);
-	return Incomplete_Treatment_Cards;}
+    public List<WebElement> Incomplete_Treatment_Cards(){
+
+    Boolean Loader_Detected = check_element_visibility(Treatment_Summary_Loader, 2);
+    System.out.println("Treatment Loader Detected : " + Loader_Detected);
+
+    wait_for_invisibilty_of_theElement(Treatment_Summary_Loader);
+    System.out.println("Treatment Loader Wait     : COMPLETED (Invisible/Absent)");
+
+    WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(20));
+    wait.ignoring(StaleElementReferenceException.class);
+    wait.until(driver -> !Incomplete_Treatment_Cards.isEmpty() && Incomplete_Treatment_Cards.get(0).getText().contains("Progress:"));
+
+    System.out.println("Treatment Cards Loaded    : " + Incomplete_Treatment_Cards.size());
+
+    return Incomplete_Treatment_Cards;
+}
+
+
 	public WebElement Intake_Page_Heading(){
 	wait_for_theElement(Intake_Page_Heading);
 	return Intake_Page_Heading;}

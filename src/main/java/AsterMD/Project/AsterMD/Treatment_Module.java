@@ -198,9 +198,13 @@ public void Treatment_Patient_Details_Check(TreeMap<String,String> data) throws 
 
   
 
+
 public void Admin_Patient_Details_Verification(TreeMap<String,String> data){
 
 	Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
+
+	String Product_Name = data.getOrDefault("Product Name", "");
+	Boolean Shared_Teleform = Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets");
 
 	// Expected Patient Details from DataProvider
 	TreeMap<String,String> Expected_Data = new TreeMap<String,String>();
@@ -221,6 +225,7 @@ public void Admin_Patient_Details_Verification(TreeMap<String,String> data){
 	System.out.println("                 ADMIN PATIENT DETAILS VERIFICATION");
 	System.out.println("============================================================");
 	System.out.println("Patient : " + Patient_Name);
+	System.out.println("Product : " + Product_Name);
 
 	Report_Listen.log_print_in_report().info("Verifying Admin Patient Details against Storefront and Intake DataProvider for: " + Patient_Name);
 
@@ -235,8 +240,6 @@ public void Admin_Patient_Details_Verification(TreeMap<String,String> data){
 	WebElement Phone_Field = p.Admin_Patient_Phone();
 	WebElement DOB_Field = p.Admin_Patient_DOB();
 	WebElement Gender_Field = p.Admin_Patient_Gender();
-	WebElement Height_Field = p.Admin_Patient_Height();
-	WebElement Weight_Field = p.Admin_Patient_Weight();
 	WebElement Medications_Field = p.Admin_Patient_Medications();
 
 	// Normalize Admin Phone and DOB
@@ -255,13 +258,22 @@ public void Admin_Patient_Details_Verification(TreeMap<String,String> data){
 	Actual_Data.put("Phone", Actual_Phone);
 	Actual_Data.put("Date of Birth", Actual_DOB);
 	Actual_Data.put("Gender", Gender_Field.getText().trim());
-	Actual_Data.put("Height", Height_Field.getText().trim());
-	Actual_Data.put("Weight", Weight_Field.getText().trim());
 	Actual_Data.put("Medications", Medications_Field.getText().trim());
+
+	// Retrieve Height and Weight Only for Applicable Intake Flows
+	if(!Shared_Teleform){
+
+		WebElement Height_Field = p.Admin_Patient_Height();
+		WebElement Weight_Field = p.Admin_Patient_Weight();
+
+		Actual_Data.put("Height", Height_Field.getText().trim());
+		Actual_Data.put("Weight", Weight_Field.getText().trim());
+	}
 
 	// Compare DataProvider and Admin Details
 	int Passed = 0;
 	int Failed = 0;
+	int Excluded = 0;
 
 	System.out.println();
 	System.out.println("---------------- PATIENT DETAILS COMPARISON ----------------");
@@ -270,6 +282,23 @@ public void Admin_Patient_Details_Verification(TreeMap<String,String> data){
 
 		String Field_Name = Entry.getKey();
 		String Expected_Value = Entry.getValue();
+
+		// Exclude Fields Not Submitted Through Shared Teleform
+		if(Shared_Teleform && (Field_Name.equalsIgnoreCase("Height") || Field_Name.equalsIgnoreCase("Weight"))){
+
+			Excluded++;
+
+			System.out.println();
+			System.out.println("Field              : " + Field_Name);
+			System.out.println("DataProvider Value : " + Expected_Value);
+			System.out.println("Result             : NOT VALIDATED");
+			System.out.println("Reason             : Field was not submitted through the current Intake Form.");
+
+			Report_Listen.log_print_in_report().info("⚠️ " + Field_Name + " NOT VALIDATED | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Reason: Value was not submitted through the current Intake Form.");
+
+			continue;
+		}
+
 		String Actual_Value = Actual_Data.get(Field_Name);
 
 		System.out.println();
@@ -277,15 +306,15 @@ public void Admin_Patient_Details_Verification(TreeMap<String,String> data){
 		System.out.println("Expected : " + Expected_Value);
 		System.out.println("Actual   : " + Actual_Value);
 
-		if(Expected_Value.equals(Actual_Value)){
+		if(Expected_Value != null && Expected_Value.equals(Actual_Value)){
 			Passed++;
 			System.out.println("Result   : PASS");
-			Report_Listen.log_print_in_report().pass(Field_Name + " matched | Expected: " + Expected_Value + " | Actual: " + Actual_Value);
+			Report_Listen.log_print_in_report().pass("✅ " + Field_Name + " matched | Expected: " + Expected_Value + " | Actual: " + Actual_Value);
 		}
 		else{
 			Failed++;
 			System.out.println("Result   : FAIL");
-			Report_Listen.log_print_in_report().fail(Field_Name + " mismatch | Expected: " + Expected_Value + " | Actual: " + Actual_Value);
+			Report_Listen.log_print_in_report().fail("❌ " + Field_Name + " mismatch | Expected: " + Expected_Value + " | Actual: " + Actual_Value);
 		}
 	}
 
@@ -294,21 +323,28 @@ public void Admin_Patient_Details_Verification(TreeMap<String,String> data){
 	System.out.println("============================================================");
 	System.out.println("                  PATIENT VERIFICATION RESULT");
 	System.out.println("============================================================");
-	System.out.println("Patient        : " + Patient_Name);
-	System.out.println("Fields Checked : " + Expected_Data.size());
-	System.out.println("Passed         : " + Passed);
-	System.out.println("Failed         : " + Failed);
-	System.out.println("Overall Result : " + (Failed == 0 ? "PASS" : "FAIL"));
+	System.out.println("Patient         : " + Patient_Name);
+	System.out.println("Product         : " + Product_Name);
+	System.out.println("Total Fields    : " + Expected_Data.size());
+	System.out.println("Fields Checked  : " + (Passed + Failed));
+	System.out.println("Passed          : " + Passed);
+	System.out.println("Failed          : " + Failed);
+	System.out.println("Excluded        : " + Excluded);
+	System.out.println("Overall Result  : " + (Failed == 0 ? "PASS" : "FAIL"));
+	System.out.println("============================================================");
+
+	Report_Listen.log_print_in_report().info("Patient Verification Summary | Total: " + Expected_Data.size() + " | Checked: " + (Passed + Failed) + " | Passed: " + Passed + " | Failed: " + Failed + " | Excluded: " + Excluded);
 
 	if(Failed == 0){
-		Report_Listen.log_print_in_report().pass("All " + Passed + " patient details matched successfully for: " + Patient_Name);
+		Report_Listen.log_print_in_report().pass("✅ Admin Patient Details verified successfully for: " + Patient_Name + " | Passed: " + Passed + " | Excluded: " + Excluded);
 	}
 	else{
-		Report_Listen.log_print_in_report().fail("Patient details mismatch for: " + Patient_Name + " | Passed: " + Passed + " | Failed: " + Failed);
+		Report_Listen.log_print_in_report().fail("❌ Admin Patient Details verification failed for: " + Patient_Name + " | Passed: " + Passed + " | Failed: " + Failed + " | Excluded: " + Excluded);
 	}
 
 	Assert.assertEquals(Failed, 0, "Admin Patient Details verification failed for: " + Patient_Name);
 }
+
  
   
   

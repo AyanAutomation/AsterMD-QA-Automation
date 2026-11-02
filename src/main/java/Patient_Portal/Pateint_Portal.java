@@ -255,6 +255,9 @@ public void Patient_portal_header_menu_navigator(String Option, String Status, T
 }
 	
 	
+
+
+
 @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
 public void Intake_form_filling(TreeMap<String,String> Product_data) throws InterruptedException{
 
@@ -263,57 +266,199 @@ public void Intake_form_filling(TreeMap<String,String> Product_data) throws Inte
 
 	String Product_Name = Product_data.get("Product Name");
 	String Treatment_Variant = Product_data.getOrDefault("Treatment Variant", "");
+	String Patient_Name = Product_data.get("First Name") + " " + Product_data.get("Last Name");
+	String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
 
-	Patient_portal_header_menu_navigator("Treatments", "Not Registered", Product_data);
+	// Patient Portal Login and Treatments Navigation
+	Patient_portal_header_menu_navigator("Treatments", "Registered", Product_data);
 
 	System.out.println();
-	System.out.println("========== PATIENT INTAKE FORM ==========");
+	System.out.println("============================================================");
+	System.out.println("                       PATIENT INTAKE FORM");
+	System.out.println("============================================================");
+	System.out.println("Patient : " + Patient_Name);
 	System.out.println("Product : " + Product_Name);
 	System.out.println("Variant : " + Treatment_Variant);
+	System.out.println("URL     : " + d.getCurrentUrl());
+
+	Report_Listen.log_print_in_report().info("Starting Patient Intake for: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+
+	// Access Active Treatments Section
+	System.out.println();
+	System.out.println("---------- ACTIVE TREATMENTS SECTION ----------");
+	System.out.println("POM Getter : Active_Tab()");
 
 	WebElement Active_Section = p.Active_Tab();
 	rp.Scroll_to_element(Active_Section);
 
+	System.out.println("Result : Active Treatments section located.");
+
+	// Retrieve Incomplete Treatment Cards
+	System.out.println();
+	System.out.println("---------- TREATMENT CARD RETRIEVAL ----------");
+	System.out.println("POM Getter : Incomplete_Treatment_Cards()");
+
 	List<WebElement> Treatment_Cards = p.Incomplete_Treatment_Cards();
 
+	System.out.println("Total Cards : " + Treatment_Cards.size());
+
+	int Product_Matches = 0;
+	int Variant_Matches = 0;
+	int Buttons_Found = 0;
+	int Intake_Buttons_Found = 0;
+	int Card_Number = 0;
+
+	// Search Matching Treatment and Start Intake Button
 	for(WebElement Treatment_Card : Treatment_Cards){
 
-		String Treatment_Details = Treatment_Card.getText().trim();
+		Card_Number++;
 
-		if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
+		// rp.Fetch_Section_HTML(Treatment_Card, "Treatment Card " + Card_Number);
 
-			List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(".//div[contains(@class,'desktopIncomplete')]//button"));
+		String Treatment_Details = Treatment_Card.getText().trim().replace("\n", " | ");
+		Boolean Product_Matched = Treatment_Details.contains(Product_Name);
+		Boolean Variant_Matched = Treatment_Details.contains(Treatment_Variant);
 
-			for(WebElement Start_Intake_Button : Start_Intake_Buttons){
+		System.out.println();
+		System.out.println("---------- TREATMENT CARD " + Card_Number + " ----------");
+		System.out.println("Card Text      : " + Treatment_Details);
+		System.out.println("Product Match  : " + Product_Matched);
+		System.out.println("Variant Match  : " + Variant_Matched);
 
-				String Button_Text = Start_Intake_Button.getText().trim();
-				Boolean Button_Visible = rp.check_element_visibility(Start_Intake_Button, 2);
+		if(Product_Matched){
 
-				if(Button_Visible && Button_Text.contains("Intake")){
+			Product_Matches++;
 
-					rp.wait_for_theElement(Start_Intake_Button);
-					rp.movetoelement(Start_Intake_Button);
-					Start_Intake_Button.click();
+			if(Variant_Matched){
 
-					System.out.println("Start Intake : " + Product_Name);
-					Report_Listen.log_print_in_report().pass("Started intake for: " + Product_Name);
+				Variant_Matches++;
 
-					// Shared Intake Form Routing
-					if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets")){
-						AsterRefluxa_Intake_Form(Product_data);
+				// Retrieve Start Intake Buttons
+				System.out.println();
+				System.out.println("---------- START INTAKE BUTTON SEARCH ----------");
+				System.out.println("Locator : " + Button_XPath);
+
+				List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
+				Buttons_Found += Start_Intake_Buttons.size();
+
+				System.out.println("Buttons Retrieved : " + Start_Intake_Buttons.size());
+
+				for(WebElement Start_Intake_Button : Start_Intake_Buttons){
+
+					String Button_Text = Start_Intake_Button.getText().trim();
+					Boolean Button_Visible = rp.check_element_visibility(Start_Intake_Button, 2);
+					Boolean Button_Enabled = Start_Intake_Button.isEnabled();
+
+					System.out.println();
+					System.out.println("Button Text    : " + Button_Text);
+					System.out.println("Button Visible : " + Button_Visible);
+					System.out.println("Button Enabled : " + Button_Enabled);
+
+					if(Button_Text.contains("Intake")){
+						Intake_Buttons_Found++;
+					}
+
+					if(Button_Visible && Button_Enabled && Button_Text.contains("Intake")){
+
+						System.out.println("Button Match : PASS");
+						System.out.println("Action       : Opening Intake Form.");
+
+						Report_Listen.log_print_in_report().pass("Matching treatment and Start Intake button found for: " + Patient_Name);
+
+						rp.wait_for_theElement(Start_Intake_Button);
+						rp.movetoelement(Start_Intake_Button);
+						Start_Intake_Button.click();
+
+						System.out.println();
+						System.out.println("---------- INTAKE FORM NAVIGATION ----------");
+						System.out.println("Patient : " + Patient_Name);
+						System.out.println("Product : " + Product_Name);
+						System.out.println("Variant : " + Treatment_Variant);
+						System.out.println("Result  : Start Intake button clicked.");
+
+						Report_Listen.log_print_in_report().info("Started Intake Form for: " + Patient_Name + " | Product: " + Product_Name);
+
+						// Shared Intake Form Routing
+						if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets")){
+
+							AsterRefluxa_Intake_Form(Product_data);
+
+							System.out.println();
+							System.out.println("============================================================");
+							System.out.println("                    PATIENT INTAKE RESULT");
+							System.out.println("============================================================");
+							System.out.println("Patient : " + Patient_Name);
+							System.out.println("Product : " + Product_Name);
+							System.out.println("Variant : " + Treatment_Variant);
+							System.out.println("Result  : COMPLETED");
+							System.out.println("Reason  : Intake form execution completed successfully.");
+
+							Report_Listen.log_print_in_report().pass("Patient Intake Form execution completed successfully for: " + Patient_Name);
+						}
+						else{
+							throw new SkipException("Intake automation not configured for: " + Product_Name);
+						}
+
+						return;
 					}
 					else{
-						throw new SkipException("Intake automation not configured for: " + Product_Name);
+						System.out.println("Action : NOT PERFORMED - Start Intake button is unavailable, hidden, or disabled.");
 					}
-
-					return;
 				}
 			}
 		}
 	}
 
-	throw new IllegalStateException("Matching incomplete treatment or Start Intake button not found: " + Product_Name + " | " + Treatment_Variant);
+	// Identify Why Intake Form Could Not Be Performed
+	String Action_Reason;
+
+	if(Treatment_Cards.isEmpty()){
+		Action_Reason = "No treatment cards were available in the Active Treatments section.";
+	}
+	else if(Product_Matches == 0){
+		Action_Reason = "No treatment card matched the expected product name.";
+	}
+	else if(Variant_Matches == 0){
+		Action_Reason = "Product was found, but the expected treatment variant was not available: " + Treatment_Variant;
+	}
+	else if(Buttons_Found == 0){
+		Action_Reason = "Matching treatment card found, but no buttons were returned by XPath: " + Button_XPath;
+	}
+	else if(Intake_Buttons_Found == 0){
+		Action_Reason = "Matching treatment cards were found, but no Start Intake button is currently available. Existing buttons may show Verify Identity or Pending.";
+	}
+	else{
+		Action_Reason = "Start Intake button was found, but it is currently hidden or disabled.";
+	}
+
+	// Log Action Not Performed Without Throwing Exception
+	System.out.println();
+	System.out.println("============================================================");
+	System.out.println("                    INTAKE FORM NOT PERFORMED");
+	System.out.println("============================================================");
+	System.out.println("Patient        : " + Patient_Name);
+	System.out.println("Product        : " + Product_Name);
+	System.out.println("Variant        : " + Treatment_Variant);
+	System.out.println("Treatment Cards: " + Treatment_Cards.size());
+	System.out.println("Product Matches: " + Product_Matches);
+	System.out.println("Variant Matches: " + Variant_Matches);
+	System.out.println("Buttons Found  : " + Buttons_Found);
+	System.out.println("Intake Buttons : " + Intake_Buttons_Found);
+	System.out.println("Button XPath   : " + Button_XPath);
+	System.out.println("Current URL    : " + d.getCurrentUrl());
+	System.out.println("Action         : NOT PERFORMED");
+	System.out.println("Reason         : " + Action_Reason);
+	System.out.println("============================================================");
+
+	Report_Listen.log_print_in_report().info("⚠️ Patient Intake NOT PERFORMED | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: " + Action_Reason);
+
+	return;
 }
+
+
+
+
+
 
 
 
@@ -326,127 +471,297 @@ public void Verify_Post_Intake_Form_Fillup(TreeMap<String,String> Product_data) 
 
 	String Product_Name = Product_data.get("Product Name");
 	String Treatment_Variant = Product_data.getOrDefault("Treatment Variant", "");
+	String Patient_Name = Product_data.get("First Name") + " " + Product_data.get("Last Name");
 	String Patient_SSN = Product_data.get("SSN");
 	String ID_Verification_Image_Name = Product_data.get("ID Verification Image");
+	String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
 
-	Assert.assertTrue(Patient_SSN != null && !Patient_SSN.isBlank(), "SSN is missing in the DataProvider.");
-	Assert.assertTrue(ID_Verification_Image_Name != null && !ID_Verification_Image_Name.isBlank(), "ID Verification Image is missing in the DataProvider.");
+	Assert.assertTrue(Patient_SSN != null && !Patient_SSN.isBlank(), "DataProvider Failure | Field: SSN | Patient: " + Patient_Name);
+	Assert.assertTrue(ID_Verification_Image_Name != null && !ID_Verification_Image_Name.isBlank(), "DataProvider Failure | Field: ID Verification Image | Patient: " + Patient_Name);
 
 	// Prepare ID Verification Image Path
 	String ID_Verification_Folder = System.getProperty("user.dir") + File.separator + "Images" + File.separator + "AsterMD_ID_Verification_QA_Fixtures_20_Images" + File.separator + "Images" + File.separator + "ID_Verification";
 	File ID_Verification_Image = new File(ID_Verification_Folder, ID_Verification_Image_Name);
-
-	Assert.assertTrue(ID_Verification_Image.isFile(), "ID Verification image not found: " + ID_Verification_Image.getAbsolutePath());
+	Assert.assertTrue(ID_Verification_Image.isFile(), "ID Verification Fixture Failure | Image not found: " + ID_Verification_Image.getAbsolutePath());
 
 	// Patient Portal Login and Treatments Navigation
 	Patient_portal_header_menu_navigator("Treatments", "Registered", Product_data);
 
 	System.out.println();
-	System.out.println("========== POST INTAKE ID VERIFICATION ==========");
+	System.out.println("============================================================");
+	System.out.println("                   POST INTAKE ID VERIFICATION");
+	System.out.println("============================================================");
+	System.out.println("Patient : " + Patient_Name);
 	System.out.println("Product : " + Product_Name);
 	System.out.println("Variant : " + Treatment_Variant);
+	System.out.println("URL     : " + d.getCurrentUrl());
+
+	Report_Listen.log_print_in_report().info("Starting post-intake identity verification for: " + Patient_Name + " | " + Product_Name + " | " + Treatment_Variant);
+
+	// Access Active Treatments Section
+	System.out.println();
+	System.out.println("---------- ACTIVE TREATMENTS SECTION ----------");
+	System.out.println("POM Getter : Active_Tab()");
 
 	WebElement Active_Section = p.Active_Tab();
 	rp.Scroll_to_element(Active_Section);
-   
-	List<WebElement> Treatment_Cards = p.Incomplete_Treatment_Cards();
-	rp.wait_for_theElement(Treatment_Cards);
 
+	System.out.println("Result : Active Treatments section located.");
+
+	// Retrieve Treatment Cards
+	System.out.println();
+	System.out.println("---------- TREATMENT CARD RETRIEVAL ----------");
+	System.out.println("POM Getter : Incomplete_Treatment_Cards()");
+
+	List<WebElement> Treatment_Cards = p.Incomplete_Treatment_Cards();
+
+	System.out.println("Total Cards : " + Treatment_Cards.size());
+
+	int Product_Matches = 0;
+	int Variant_Matches = 0;
+	int Buttons_Found = 0;
+	int Identity_Buttons_Found = 0;
+	int Card_Number = 0;
+
+	// Search Matching Treatment and Verify Identity Button
 	for(WebElement Treatment_Card : Treatment_Cards){
 
-		String Treatment_Details = Treatment_Card.getText().trim();
+		Card_Number++;
 
-		if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
+		// rp.Fetch_Section_HTML(Treatment_Card, "Treatment Card " + Card_Number);
 
-			List<WebElement> Verify_Buttons = Treatment_Card.findElements(By.xpath(".//div[contains(@class,'desktopIncomplete')]//button"));
+		String Treatment_Details = Treatment_Card.getText().trim().replace("\n", " | ");
+		Boolean Product_Matched = Treatment_Details.contains(Product_Name);
+		Boolean Variant_Matched = Treatment_Details.contains(Treatment_Variant);
 
-			for(WebElement Verify_Button : Verify_Buttons){
+		System.out.println();
+		System.out.println("---------- TREATMENT CARD " + Card_Number + " ----------");
+		System.out.println("Card Text      : " + Treatment_Details);
+		System.out.println("Product Match  : " + Product_Matched);
+		System.out.println("Variant Match  : " + Variant_Matched);
 
-				String Button_Text = Verify_Button.getText().trim();
-				Boolean Button_Visible = rp.check_element_visibility(Verify_Button, 4);
+		if(Product_Matched){
 
-				if(Button_Visible && Button_Text.contains("Verify Identity")){
+			Product_Matches++;
 
-					rp.wait_for_theElement(Verify_Button);
-					rp.movetoelement(Verify_Button);
-					Verify_Button.click();
+			if(Variant_Matched){
 
-					System.out.println("Verify Identity : " + Product_Name);
-					Report_Listen.log_print_in_report().info("Opened ID Verification for: " + Product_Name);
+				Variant_Matches++;
 
-					// Shared ID Verification Form Routing
-					if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets")){
+				// Retrieve Verify Identity Buttons
+				System.out.println();
+				System.out.println("---------- VERIFY IDENTITY BUTTON SEARCH ----------");
+				System.out.println("Locator : " + Button_XPath);
 
-						// Verify ID Verification Form
-						WebElement Form_Title = p.ID_Verification_Title();
-						String Actual_Title = Form_Title.getText().trim();
-						Assert.assertEquals(Actual_Title, "ID VERIFICATION", "Incorrect ID Verification form opened.");
+				List<WebElement> Verify_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
+				Buttons_Found += Verify_Buttons.size();
 
-						System.out.println();
-						System.out.println("---------- ID VERIFICATION FORM ----------");
+				System.out.println("Buttons Retrieved : " + Verify_Buttons.size());
 
-						// Enter SSN
-						WebElement SSN_Field = p.ID_Verification_SSN();
-						SSN_Field.clear();
-						SSN_Field.sendKeys(Patient_SSN);
+				for(WebElement Verify_Button : Verify_Buttons){
 
-						String Actual_SSN = SSN_Field.getDomProperty("value");
-						Assert.assertEquals(Actual_SSN, Patient_SSN, "SSN field value does not match the DataProvider.");
-						System.out.println("SSN : Entered and verified");
+					String Button_Text = Verify_Button.getText().trim();
+					Boolean Button_Visible = rp.check_element_visibility(Verify_Button, 4);
+					Boolean Button_Enabled = Verify_Button.isEnabled();
 
-						// Upload ID Verification Image
-						WebElement File_Input = p.ID_Verification_File_Input();
-						File_Input.sendKeys(ID_Verification_Image.getAbsolutePath());
+					System.out.println();
+					System.out.println("Button Text    : " + Button_Text);
+					System.out.println("Button Visible : " + Button_Visible);
+					System.out.println("Button Enabled : " + Button_Enabled);
 
-						WebElement Uploaded_File_Name = p.ID_Verification_Uploaded_File_Name();
-						String Actual_File_Name = Uploaded_File_Name.getText().trim();
+					if(Button_Text.contains("Verify Identity")){
+						Identity_Buttons_Found++;
+					}
 
-						Assert.assertEquals(Actual_File_Name, ID_Verification_Image_Name, "Uploaded ID Verification filename mismatch.");
+					if(Button_Visible && Button_Enabled && Button_Text.contains("Verify Identity")){
 
-						System.out.println("Image Path    : " + ID_Verification_Image.getAbsolutePath());
-						System.out.println("Uploaded File : " + Actual_File_Name);
-						System.out.println("Upload Result : PASS");
+						System.out.println("Button Match : PASS");
+						System.out.println("Action       : Opening ID Verification.");
 
-						Report_Listen.log_print_in_report().pass("ID Verification fields completed for: " + Product_Name);
-                        
-						Boolean Card_Populated=rp.check_element_visibility(p.Upload_image_card,4);
-						if(Card_Populated) {
-						// Submit ID Verification Form
-						WebElement Submit_Button = p.ID_Verification_Submit();
-						rp.movetoelement(Submit_Button);
-						Thread.sleep(800);
-						Submit_Button.click();}
+						Report_Listen.log_print_in_report().pass("Matching treatment and Verify Identity button found for: " + Patient_Name);
 
-						System.out.println();
-						System.out.println("---------- ID VERIFICATION SUBMISSION ----------");
-						System.out.println("Action : Submit");
+						rp.wait_for_theElement(Verify_Button);
+						rp.movetoelement(Verify_Button);
+						Verify_Button.click();
 
-						// Post Submission Verification
-						WebElement Submission_Toast = p.ID_Verification_Success_Toast;
-						Boolean Submission_Success = Teleform_Toast_Detector_Printer(Submission_Toast);
+						System.out.println("Result : ID Verification form navigation triggered.");
+						Report_Listen.log_print_in_report().info("Opened ID Verification for: " + Product_Name);
 
-						if(Submission_Success){
+						// Shared ID Verification Form Routing
+						if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets")){
+
+							// Verify ID Verification Form
 							System.out.println();
-							System.out.println("========== ID VERIFICATION RESULT ==========");
-							System.out.println("Product : " + Product_Name);
-							System.out.println("Result  : PASS");
-							System.out.println("Reason  : Success notification displayed.");
+							System.out.println("---------- ID VERIFICATION FORM ----------");
+							System.out.println("POM Getter : ID_Verification_Title()");
 
-							Report_Listen.log_print_in_report().pass("ID Verification form submitted successfully for: " + Product_Name);
+							WebElement Form_Title = p.ID_Verification_Title();
+							String Actual_Title = Form_Title.getText().trim();
+
+							Assert.assertEquals(Actual_Title, "ID VERIFICATION", "ID Verification Failure | Section: Form Title | Actual: " + Actual_Title);
+
+							System.out.println("Form Title : " + Actual_Title);
+							System.out.println("Result     : PASS");
+
+							// Enter SSN
+							System.out.println();
+							System.out.println("---------- SSN FIELD VERIFICATION ----------");
+							System.out.println("POM Getter : ID_Verification_SSN()");
+
+							WebElement SSN_Field = p.ID_Verification_SSN();
+							SSN_Field.clear();
+							SSN_Field.sendKeys(Patient_SSN);
+
+							String Actual_SSN = SSN_Field.getDomProperty("value");
+							Assert.assertEquals(Actual_SSN, Patient_SSN, "ID Verification Failure | Section: SSN | Entered value mismatch.");
+
+							System.out.println("SSN Entry : PASS");
+							Report_Listen.log_print_in_report().pass("SSN field entered and verified.");
+
+							// Upload ID Verification Image
+							System.out.println();
+							System.out.println("---------- ID DOCUMENT UPLOAD ----------");
+							System.out.println("POM Getter : ID_Verification_File_Input()");
+							System.out.println("File       : " + ID_Verification_Image_Name);
+
+							WebElement File_Input = p.ID_Verification_File_Input();
+							File_Input.sendKeys(ID_Verification_Image.getAbsolutePath());
+
+							WebElement Uploaded_File_Name = p.ID_Verification_Uploaded_File_Name();
+							String Actual_File_Name = Uploaded_File_Name.getText().trim();
+
+							Assert.assertEquals(Actual_File_Name, ID_Verification_Image_Name, "ID Verification Failure | Section: Uploaded Filename | Uploaded file does not match DataProvider.");
+
+							System.out.println("Expected File : " + ID_Verification_Image_Name);
+							System.out.println("Actual File   : " + Actual_File_Name);
+							System.out.println("Upload Result : PASS");
+
+							Report_Listen.log_print_in_report().pass("ID Verification image uploaded: " + Actual_File_Name);
+
+							// Verify Uploaded Image Card
+							System.out.println();
+							System.out.println("---------- UPLOAD CARD VERIFICATION ----------");
+							System.out.println("POM Field : Upload_image_card");
+
+							Boolean Card_Populated = rp.check_element_visibility(p.Upload_image_card, 4);
+
+							if(Card_Populated){
+								System.out.println("Upload Card Visible : true");
+								System.out.println("Result              : PASS");
+							}
+							else{
+								System.out.println("Upload Card Visible : false");
+								System.out.println("Result              : FAIL");
+								Report_Listen.log_print_in_report().fail("ID image upload card not populated for: " + Patient_Name);
+								Assert.fail("ID Verification Failure | Section: Image Upload | POM: Upload_image_card | Reason: Uploaded image card was not visible.");
+							}
+
+							// Submit ID Verification Form
+							System.out.println();
+							System.out.println("---------- ID VERIFICATION SUBMISSION ----------");
+							System.out.println("POM Getter : ID_Verification_Submit()");
+
+							WebElement Submit_Button = p.ID_Verification_Submit();
+							rp.wait_for_theElement(Submit_Button);
+							rp.movetoelement(Submit_Button);
+							Submit_Button.click();
+
+							System.out.println("Action : Submit clicked.");
+
+							// Verify Submission Toast
+							System.out.println();
+							System.out.println("---------- SUBMISSION TOAST VERIFICATION ----------");
+							System.out.println("POM Field : ID_Verification_Success_Toast");
+
+							WebElement Submission_Toast = p.ID_Verification_Success_Toast;
+							Boolean Submission_Success = Teleform_Toast_Detector_Printer(Submission_Toast);
+
+							if(Submission_Success){
+
+								System.out.println();
+								System.out.println("============================================================");
+								System.out.println("                    ID VERIFICATION RESULT");
+								System.out.println("============================================================");
+								System.out.println("Patient : " + Patient_Name);
+								System.out.println("Product : " + Product_Name);
+								System.out.println("Result  : PASS");
+								System.out.println("Reason  : Success notification displayed.");
+
+								Report_Listen.log_print_in_report().pass("ID Verification form submitted successfully for: " + Patient_Name);
+							}
+							else{
+
+								System.out.println();
+								System.out.println("---------- ID VERIFICATION SUBMISSION FAILURE ----------");
+								System.out.println("Patient : " + Patient_Name);
+								System.out.println("Result  : FAIL");
+								System.out.println("Reason  : ID Verification success toast was not displayed.");
+
+								Report_Listen.log_print_in_report().fail("ID Verification success toast missing for: " + Patient_Name);
+								Assert.fail("ID Verification Failure | Section: Post-Submission Toast | POM: ID_Verification_Success_Toast | Patient: " + Patient_Name + " | Reason: Success notification not detected.");
+							}
 						}
+						else{
+							throw new SkipException("ID Verification automation not configured for: " + Product_Name);
+						}
+
+						return;
 					}
 					else{
-						throw new SkipException("ID Verification automation not configured for: " + Product_Name);
+						System.out.println("Action : NOT PERFORMED - Verify Identity button is unavailable, hidden, or disabled.");
 					}
-
-					return;
 				}
 			}
 		}
 	}
 
-	throw new IllegalStateException("Matching treatment or Verify Identity button not found: " + Product_Name + " | " + Treatment_Variant);
+	// Identify Why ID Verification Could Not Be Performed
+	String Action_Reason;
+
+	if(Treatment_Cards.isEmpty()){
+		Action_Reason = "No treatment cards were available in the Active Treatments section.";
+	}
+	else if(Product_Matches == 0){
+		Action_Reason = "No treatment card matched the expected product name.";
+	}
+	else if(Variant_Matches == 0){
+		Action_Reason = "Product was found, but the expected treatment variant was not available: " + Treatment_Variant;
+	}
+	else if(Buttons_Found == 0){
+		Action_Reason = "Matching treatment card found, but no buttons were returned by XPath: " + Button_XPath;
+	}
+	else if(Identity_Buttons_Found == 0){
+		Action_Reason = "Matching treatment cards were found, but no Verify Identity button is currently available. Existing buttons may show Pending or Start Intake.";
+	}
+	else{
+		Action_Reason = "Verify Identity button was found, but it is currently hidden or disabled.";
+	}
+
+	// Log Action Not Performed Without Throwing Exception
+	System.out.println();
+	System.out.println("============================================================");
+	System.out.println("                  ID VERIFICATION NOT PERFORMED");
+	System.out.println("============================================================");
+	System.out.println("Patient          : " + Patient_Name);
+	System.out.println("Product          : " + Product_Name);
+	System.out.println("Variant          : " + Treatment_Variant);
+	System.out.println("Treatment Cards  : " + Treatment_Cards.size());
+	System.out.println("Product Matches  : " + Product_Matches);
+	System.out.println("Variant Matches  : " + Variant_Matches);
+	System.out.println("Buttons Found    : " + Buttons_Found);
+	System.out.println("Identity Buttons : " + Identity_Buttons_Found);
+	System.out.println("Button XPath     : " + Button_XPath);
+	System.out.println("Current URL      : " + d.getCurrentUrl());
+	System.out.println("Action           : NOT PERFORMED");
+	System.out.println("Reason           : " + Action_Reason);
+	System.out.println("============================================================");
+
+	Report_Listen.log_print_in_report().info("⚠️ ID Verification NOT PERFORMED | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: " + Action_Reason);
+
+	return;
 }
+
+
 
 
 

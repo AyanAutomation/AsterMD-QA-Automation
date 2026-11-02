@@ -162,7 +162,23 @@ public void Hard_Refresh(){
 }
 
 	
-	
+
+public String Fetch_Section_HTML(WebElement Section, String Section_Name){
+
+    String Section_HTML = Section.getDomProperty("outerHTML");
+
+    System.out.println();
+    System.out.println("============================================================");
+    System.out.println("              UI SECTION HTML : " + Section_Name);
+    System.out.println("============================================================");
+    System.out.println(Section_HTML);
+    System.out.println("============================================================");
+    System.out.println("              END HTML : " + Section_Name);
+    System.out.println("============================================================");
+
+    return Section_HTML;
+}
+
 }
 
 
