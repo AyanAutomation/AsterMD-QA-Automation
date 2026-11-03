@@ -48,24 +48,43 @@ public Object[][] Storefront_Product_Data(){
 	Shared_Checkout_Data.put("Patient Password", "Password@123");
 	Shared_Checkout_Data.put("Weight Loss Goal", "21-50 lbs");
 
-	// Shared Five-Page Intake Form Data
+	// Shared Five-Page Intake Form Data - Synthetic QA Answers
 	TreeMap<String,String> Shared_Intake_Data = new TreeMap<String,String>();
-	Shared_Intake_Data.put("Intake Reason", "Better Sleep Quality");
 	Shared_Intake_Data.put("Biological Sex at Birth", "Female");
-	Shared_Intake_Data.put("Blood Pressure Reading", "118/76 mmHg");
-	Shared_Intake_Data.put("Intake Q&A - Please provide your most recent blood pressure reading:", "Normal (less than 120 and less than 80)");
-	Shared_Intake_Data.put("Intake Q&A - ED medications can be fatal if used with nitrates or similar medications. Please be accurate. I use or have used:", "None Apply");
-	Shared_Intake_Data.put("Intake Q&A - ED meds can be fatal if used with recreational drugs. Have you, or are you currently using any of the following?", "None Apply");
-	Shared_Intake_Data.put("Intake Q&A - Do you get chest pain or shortness of breath with any of the following: sexual activity, climbing two flights of stairs, or walking two blocks?", "No");
-	Shared_Intake_Data.put("Intake Q&A - Do you take any prescription medication?", "No — I affirm I take no medications");
-	Shared_Intake_Data.put("Intake Q&A - Do you have any medication allergies?", "No — I affirm I have no medication allergies");
-	Shared_Intake_Data.put("Intake Q&A - Do you have any medical conditions? (Anything you see a doctor or take medication for.)", "No - I do not have any medical conditions.");
-	Shared_Intake_Data.put("Intake Q&A - Have you had any diagnosed anatomic abnormalities or prior surgeries of the penis?", "No");
-	Shared_Intake_Data.put("Intake Q&A - Over the past 6 months, when you had erections with sexual stimulation, how often were your erections hard enough for penetration?", "None of these");
-	Shared_Intake_Data.put("Intake Q&A - Over the past 6 months, how do you rate your confidence that you could keep an erection?", "None of these");
-	Shared_Intake_Data.put("Intake Q&A - Over the past 6 months, during sexual intercourse, how often were you able to maintain your erection after penetration?", "None of these");
-	Shared_Intake_Data.put("Intake Q&A - Over the past 6 months, during sexual intercourse, how difficult was it to maintain your erection to completion?", "None of these");
-	Shared_Intake_Data.put("Intake Q&A - Over the past 6 months, when you attempted sexual intercourse, how often was it satisfactory for you?", "None of these");
+	Shared_Intake_Data.put("Intake Q&A - List all medicines and supplements you currently take, including doses and frequency. Enter None if you take none.", "None");
+	Shared_Intake_Data.put("Intake Q&A - List your allergies and what reaction each causes. Enter None if you have no known allergies.", "None");
+	Shared_Intake_Data.put("Intake Q&A - List your medical conditions, relevant mental health history, and significant past illnesses or operations. Enter None if you have none to report.", "None");
+	Shared_Intake_Data.put("Intake Q&A - Are you pregnant, breastfeeding, or planning a pregnancy?", "No");
+	Shared_Intake_Data.put("Intake Q&A - Describe your caffeine, nicotine, alcohol, cannabis or other substance use, including amount and frequency. Enter None if you use none.", "None");
+
+	// AsterSomnera - Sleep Intake Questions
+	TreeMap<String,String> Sleep_Intake_Data = new TreeMap<String,String>();
+	Sleep_Intake_Data.put("Intake Reason", "Sleep or insomnia");
+	Sleep_Intake_Data.put("Intake Q&A - What is your main sleep difficulty?", "Falling asleep");
+	Sleep_Intake_Data.put("Intake Q&A - How long have you had this sleep difficulty?", "3 months or longer");
+	Sleep_Intake_Data.put("Intake Q&A - How many nights a week do you have difficulty sleeping?", "3-4 nights");
+	Sleep_Intake_Data.put("Intake Q&A - How much does poor sleep affect your daytime activities?", "Mildly");
+	Sleep_Intake_Data.put("Intake Q&A - Do you snore loudly, wake up gasping, or have a diagnosis of sleep apnea?", "No");
+	Sleep_Intake_Data.put("Intake Q&A - Describe the treatments or changes you have tried for sleep and how they worked. Enter None if you have tried none.", "Tried a regular bedtime and reduced evening screen time; sleep difficulty continues.");
+
+	// AsterMigraEase - Migraine Intake Questions
+	TreeMap<String,String> Migraine_Intake_Data = new TreeMap<String,String>();
+	Migraine_Intake_Data.put("Intake Reason", "Migraine or recurring headaches");
+	Migraine_Intake_Data.put("Intake Q&A - Has a clinician previously diagnosed you with migraine?", "No");
+	Migraine_Intake_Data.put("Intake Q&A - On how many days a month do you have a headache?", "1-3 days");
+	Migraine_Intake_Data.put("Intake Q&A - How long does a typical headache last?", "4-24 hours");
+	Migraine_Intake_Data.put("Intake Q&A - Describe your usual headache: where it hurts, severity, and any nausea, light or sound sensitivity, visual changes, or other symptoms.", "Recurring moderate one-sided headache with light sensitivity and occasional nausea; no new visual symptoms.");
+	Migraine_Intake_Data.put("Intake Q&A - Do you currently have a sudden extremely severe headache, new weakness, difficulty speaking, confusion, or loss of vision?", "No");
+	Migraine_Intake_Data.put("Intake Q&A - List headache treatments you have tried, how often you use them, and how they worked. Enter None if you have tried none.", "Tried rest in a dark room and hydration during headache episodes with partial relief.");
+
+	// AsterRefluxa - Reflux Intake Questions
+	TreeMap<String,String> Reflux_Intake_Data = new TreeMap<String,String>();
+	Reflux_Intake_Data.put("Intake Reason", "Heartburn or acid reflux");
+	Reflux_Intake_Data.put("Intake Q&A - Which symptom is most troublesome?", "Both");
+	Reflux_Intake_Data.put("Intake Q&A - How long have you had these symptoms?", "3 months or longer");
+	Reflux_Intake_Data.put("Intake Q&A - How often do you experience these symptoms?", "1-2 days a week");
+	Reflux_Intake_Data.put("Intake Q&A - Have you had difficulty or pain when swallowing, persistent vomiting, blood in vomit, black stools, or unexplained weight loss?", "No");
+	Reflux_Intake_Data.put("Intake Q&A - Describe reflux treatments or lifestyle changes you have tried and how they worked. Enter None if you have tried none.", "Tried smaller meals and avoiding late-night food with partial relief.");
 
 	// Dataset 1 - AsterSomnera - 30 Tablet Supply
 	TreeMap<String,String> data1 = new TreeMap<String,String>();
@@ -81,6 +100,8 @@ public Object[][] Storefront_Product_Data(){
 	data1.put("Phone", "2025550120");
 	data1.put("Date of Birth", "06/12/1992");
 	data1.put("State", "Washington");
+	data1.put("Residential State", "WA");
+	data1.put("Current Location State", "WA");
 	data1.put("Unit System", "Imperial (lbs/inches)");
 	data1.put("Height", "65");
 	data1.put("Weight", "143");
@@ -89,9 +110,11 @@ public Object[][] Storefront_Product_Data(){
 	data1.put("City", "Seattle");
 	data1.put("Delivery State", "Washington");
 	data1.put("Zipcode", "98101");
+	data1.put("ZIP Code", "98101");
 	data1.put("Cardholder Name", "Nadine Keller");
 	data1.putAll(Shared_Checkout_Data);
 	data1.putAll(Shared_Intake_Data);
+	data1.putAll(Sleep_Intake_Data);
 	data1.put("SSN", "1234");
 	data1.put("ID Verification Image", "ID_Verification_data01.png");
 
@@ -109,6 +132,8 @@ public Object[][] Storefront_Product_Data(){
 	data2.put("Phone", "2025550121");
 	data2.put("Date of Birth", "04/19/1995");
 	data2.put("State", "Illinois");
+	data2.put("Residential State", "IL");
+	data2.put("Current Location State", "IL");
 	data2.put("Unit System", "Imperial (lbs/inches)");
 	data2.put("Height", "66");
 	data2.put("Weight", "151");
@@ -117,9 +142,11 @@ public Object[][] Storefront_Product_Data(){
 	data2.put("City", "Chicago");
 	data2.put("Delivery State", "Illinois");
 	data2.put("Zipcode", "60601");
+	data2.put("ZIP Code", "60601");
 	data2.put("Cardholder Name", "Inga Petrovic");
 	data2.putAll(Shared_Checkout_Data);
 	data2.putAll(Shared_Intake_Data);
+	data2.putAll(Sleep_Intake_Data);
 	data2.put("SSN", "1234");
 	data2.put("ID Verification Image", "ID_Verification_data02.png");
 
@@ -137,6 +164,8 @@ public Object[][] Storefront_Product_Data(){
 	data3.put("Phone", "2025550122");
 	data3.put("Date of Birth", "10/22/1988");
 	data3.put("State", "Colorado");
+	data3.put("Residential State", "CO");
+	data3.put("Current Location State", "CO");
 	data3.put("Unit System", "Imperial (lbs/inches)");
 	data3.put("Height", "67");
 	data3.put("Weight", "149");
@@ -145,9 +174,11 @@ public Object[][] Storefront_Product_Data(){
 	data3.put("City", "Denver");
 	data3.put("Delivery State", "Colorado");
 	data3.put("Zipcode", "80202");
+	data3.put("ZIP Code", "80202");
 	data3.put("Cardholder Name", "Saskia Neumann");
 	data3.putAll(Shared_Checkout_Data);
 	data3.putAll(Shared_Intake_Data);
+	data3.putAll(Sleep_Intake_Data);
 	data3.put("SSN", "1234");
 	data3.put("ID Verification Image", "ID_Verification_data03.png");
 
@@ -165,6 +196,8 @@ public Object[][] Storefront_Product_Data(){
 	data4.put("Phone", "2025550123");
 	data4.put("Date of Birth", "03/17/1991");
 	data4.put("State", "Arizona");
+	data4.put("Residential State", "AZ");
+	data4.put("Current Location State", "AZ");
 	data4.put("Unit System", "Imperial (lbs/inches)");
 	data4.put("Height", "64");
 	data4.put("Weight", "139");
@@ -173,9 +206,11 @@ public Object[][] Storefront_Product_Data(){
 	data4.put("City", "Phoenix");
 	data4.put("Delivery State", "Arizona");
 	data4.put("Zipcode", "85004");
+	data4.put("ZIP Code", "85004");
 	data4.put("Cardholder Name", "Ilona Kovacs");
 	data4.putAll(Shared_Checkout_Data);
 	data4.putAll(Shared_Intake_Data);
+	data4.putAll(Sleep_Intake_Data);
 	data4.put("SSN", "1234");
 	data4.put("ID Verification Image", "ID_Verification_data04.png");
 
@@ -193,6 +228,8 @@ public Object[][] Storefront_Product_Data(){
 	data5.put("Phone", "2025550124");
 	data5.put("Date of Birth", "12/08/1993");
 	data5.put("State", "Oregon");
+	data5.put("Residential State", "OR");
+	data5.put("Current Location State", "OR");
 	data5.put("Unit System", "Imperial (lbs/inches)");
 	data5.put("Height", "65");
 	data5.put("Weight", "146");
@@ -201,9 +238,11 @@ public Object[][] Storefront_Product_Data(){
 	data5.put("City", "Portland");
 	data5.put("Delivery State", "Oregon");
 	data5.put("Zipcode", "97204");
+	data5.put("ZIP Code", "97204");
 	data5.put("Cardholder Name", "Anika Stahl");
 	data5.putAll(Shared_Checkout_Data);
 	data5.putAll(Shared_Intake_Data);
+	data5.putAll(Sleep_Intake_Data);
 	data5.put("SSN", "1234");
 	data5.put("ID Verification Image", "ID_Verification_data05.png");
 
@@ -221,6 +260,8 @@ public Object[][] Storefront_Product_Data(){
 	data6.put("Phone", "2025550125");
 	data6.put("Date of Birth", "07/24/1990");
 	data6.put("State", "California");
+	data6.put("Residential State", "CA");
+	data6.put("Current Location State", "CA");
 	data6.put("Unit System", "Imperial (lbs/inches)");
 	data6.put("Height", "66");
 	data6.put("Weight", "155");
@@ -229,9 +270,11 @@ public Object[][] Storefront_Product_Data(){
 	data6.put("City", "San Diego");
 	data6.put("Delivery State", "California");
 	data6.put("Zipcode", "92101");
+	data6.put("ZIP Code", "92101");
 	data6.put("Cardholder Name", "Mirela Ionescu");
 	data6.putAll(Shared_Checkout_Data);
 	data6.putAll(Shared_Intake_Data);
+	data6.putAll(Sleep_Intake_Data);
 	data6.put("SSN", "1234");
 	data6.put("ID Verification Image", "ID_Verification_data06.png");
 
@@ -249,6 +292,8 @@ public Object[][] Storefront_Product_Data(){
 	data7.put("Phone", "2025550126");
 	data7.put("Date of Birth", "02/11/1996");
 	data7.put("State", "Florida");
+	data7.put("Residential State", "FL");
+	data7.put("Current Location State", "FL");
 	data7.put("Unit System", "Imperial (lbs/inches)");
 	data7.put("Height", "68");
 	data7.put("Weight", "158");
@@ -257,9 +302,11 @@ public Object[][] Storefront_Product_Data(){
 	data7.put("City", "Tampa");
 	data7.put("Delivery State", "Florida");
 	data7.put("Zipcode", "33602");
+	data7.put("ZIP Code", "33602");
 	data7.put("Cardholder Name", "Zofia Nowak");
 	data7.putAll(Shared_Checkout_Data);
 	data7.putAll(Shared_Intake_Data);
+	data7.putAll(Sleep_Intake_Data);
 	data7.put("SSN", "1234");
 	data7.put("ID Verification Image", "ID_Verification_data07.png");
 
@@ -277,6 +324,8 @@ public Object[][] Storefront_Product_Data(){
 	data8.put("Phone", "2025550127");
 	data8.put("Date of Birth", "01/19/1990");
 	data8.put("State", "New York");
+	data8.put("Residential State", "NY");
+	data8.put("Current Location State", "NY");
 	data8.put("Unit System", "Imperial (lbs/inches)");
 	data8.put("Height", "65");
 	data8.put("Weight", "144");
@@ -285,9 +334,11 @@ public Object[][] Storefront_Product_Data(){
 	data8.put("City", "New York");
 	data8.put("Delivery State", "New York");
 	data8.put("Zipcode", "10001");
+	data8.put("ZIP Code", "10001");
 	data8.put("Cardholder Name", "Petra Novak");
 	data8.putAll(Shared_Checkout_Data);
 	data8.putAll(Shared_Intake_Data);
+	data8.putAll(Migraine_Intake_Data);
 	data8.put("SSN", "1234");
 	data8.put("ID Verification Image", "ID_Verification_data08.png");
 
@@ -305,6 +356,8 @@ public Object[][] Storefront_Product_Data(){
 	data9.put("Phone", "2025550128");
 	data9.put("Date of Birth", "11/14/1994");
 	data9.put("State", "Texas");
+	data9.put("Residential State", "TX");
+	data9.put("Current Location State", "TX");
 	data9.put("Unit System", "Imperial (lbs/inches)");
 	data9.put("Height", "67");
 	data9.put("Weight", "152");
@@ -313,9 +366,11 @@ public Object[][] Storefront_Product_Data(){
 	data9.put("City", "Austin");
 	data9.put("Delivery State", "Texas");
 	data9.put("Zipcode", "78701");
+	data9.put("ZIP Code", "78701");
 	data9.put("Cardholder Name", "Marina Volkova");
 	data9.putAll(Shared_Checkout_Data);
 	data9.putAll(Shared_Intake_Data);
+	data9.putAll(Migraine_Intake_Data);
 	data9.put("SSN", "1234");
 	data9.put("ID Verification Image", "ID_Verification_data09.png");
 
@@ -333,6 +388,8 @@ public Object[][] Storefront_Product_Data(){
 	data10.put("Phone", "2025550129");
 	data10.put("Date of Birth", "05/05/1989");
 	data10.put("State", "Massachusetts");
+	data10.put("Residential State", "MA");
+	data10.put("Current Location State", "MA");
 	data10.put("Unit System", "Imperial (lbs/inches)");
 	data10.put("Height", "66");
 	data10.put("Weight", "148");
@@ -341,9 +398,11 @@ public Object[][] Storefront_Product_Data(){
 	data10.put("City", "Boston");
 	data10.put("Delivery State", "Massachusetts");
 	data10.put("Zipcode", "02108");
+	data10.put("ZIP Code", "02108");
 	data10.put("Cardholder Name", "Livia Fischer");
 	data10.putAll(Shared_Checkout_Data);
 	data10.putAll(Shared_Intake_Data);
+	data10.putAll(Migraine_Intake_Data);
 	data10.put("SSN", "1234");
 	data10.put("ID Verification Image", "ID_Verification_data10.png");
 
@@ -361,6 +420,8 @@ public Object[][] Storefront_Product_Data(){
 	data11.put("Phone", "2025550130");
 	data11.put("Date of Birth", "09/02/1995");
 	data11.put("State", "Minnesota");
+	data11.put("Residential State", "MN");
+	data11.put("Current Location State", "MN");
 	data11.put("Unit System", "Imperial (lbs/inches)");
 	data11.put("Height", "64");
 	data11.put("Weight", "137");
@@ -369,9 +430,11 @@ public Object[][] Storefront_Product_Data(){
 	data11.put("City", "Minneapolis");
 	data11.put("Delivery State", "Minnesota");
 	data11.put("Zipcode", "55401");
+	data11.put("ZIP Code", "55401");
 	data11.put("Cardholder Name", "Jasmina Markovic");
 	data11.putAll(Shared_Checkout_Data);
 	data11.putAll(Shared_Intake_Data);
+	data11.putAll(Migraine_Intake_Data);
 	data11.put("SSN", "1234");
 	data11.put("ID Verification Image", "ID_Verification_data11.png");
 
@@ -389,6 +452,8 @@ public Object[][] Storefront_Product_Data(){
 	data12.put("Phone", "2025550131");
 	data12.put("Date of Birth", "08/18/1992");
 	data12.put("State", "Georgia");
+	data12.put("Residential State", "GA");
+	data12.put("Current Location State", "GA");
 	data12.put("Unit System", "Imperial (lbs/inches)");
 	data12.put("Height", "68");
 	data12.put("Weight", "161");
@@ -397,9 +462,11 @@ public Object[][] Storefront_Product_Data(){
 	data12.put("City", "Atlanta");
 	data12.put("Delivery State", "Georgia");
 	data12.put("Zipcode", "30303");
+	data12.put("ZIP Code", "30303");
 	data12.put("Cardholder Name", "Eva Lindholm");
 	data12.putAll(Shared_Checkout_Data);
 	data12.putAll(Shared_Intake_Data);
+	data12.putAll(Migraine_Intake_Data);
 	data12.put("SSN", "1234");
 	data12.put("ID Verification Image", "ID_Verification_data12.png");
 
@@ -417,6 +484,8 @@ public Object[][] Storefront_Product_Data(){
 	data13.put("Phone", "2025550132");
 	data13.put("Date of Birth", "04/29/1987");
 	data13.put("State", "North Carolina");
+	data13.put("Residential State", "NC");
+	data13.put("Current Location State", "NC");
 	data13.put("Unit System", "Imperial (lbs/inches)");
 	data13.put("Height", "65");
 	data13.put("Weight", "150");
@@ -425,9 +494,11 @@ public Object[][] Storefront_Product_Data(){
 	data13.put("City", "Charlotte");
 	data13.put("Delivery State", "North Carolina");
 	data13.put("Zipcode", "28202");
+	data13.put("ZIP Code", "28202");
 	data13.put("Cardholder Name", "Tatiana Smirnova");
 	data13.putAll(Shared_Checkout_Data);
 	data13.putAll(Shared_Intake_Data);
+	data13.putAll(Migraine_Intake_Data);
 	data13.put("SSN", "1234");
 	data13.put("ID Verification Image", "ID_Verification_data13.png");
 
@@ -445,6 +516,8 @@ public Object[][] Storefront_Product_Data(){
 	data14.put("Phone", "2025550133");
 	data14.put("Date of Birth", "12/03/1996");
 	data14.put("State", "Ohio");
+	data14.put("Residential State", "OH");
+	data14.put("Current Location State", "OH");
 	data14.put("Unit System", "Imperial (lbs/inches)");
 	data14.put("Height", "66");
 	data14.put("Weight", "142");
@@ -453,9 +526,11 @@ public Object[][] Storefront_Product_Data(){
 	data14.put("City", "Columbus");
 	data14.put("Delivery State", "Ohio");
 	data14.put("Zipcode", "43215");
+	data14.put("ZIP Code", "43215");
 	data14.put("Cardholder Name", "Katerina Dvorak");
 	data14.putAll(Shared_Checkout_Data);
 	data14.putAll(Shared_Intake_Data);
+	data14.putAll(Migraine_Intake_Data);
 	data14.put("SSN", "1234");
 	data14.put("ID Verification Image", "ID_Verification_data14.png");
 
@@ -473,6 +548,8 @@ public Object[][] Storefront_Product_Data(){
 	data15.put("Phone", "2025550134");
 	data15.put("Date of Birth", "07/09/1991");
 	data15.put("State", "Pennsylvania");
+	data15.put("Residential State", "PA");
+	data15.put("Current Location State", "PA");
 	data15.put("Unit System", "Imperial (lbs/inches)");
 	data15.put("Height", "65");
 	data15.put("Weight", "147");
@@ -481,9 +558,11 @@ public Object[][] Storefront_Product_Data(){
 	data15.put("City", "Philadelphia");
 	data15.put("Delivery State", "Pennsylvania");
 	data15.put("Zipcode", "19103");
+	data15.put("ZIP Code", "19103");
 	data15.put("Cardholder Name", "Sabina Horvat");
 	data15.putAll(Shared_Checkout_Data);
 	data15.putAll(Shared_Intake_Data);
+	data15.putAll(Reflux_Intake_Data);
 	data15.put("SSN", "1234");
 	data15.put("ID Verification Image", "ID_Verification_data15.png");
 
@@ -501,6 +580,8 @@ public Object[][] Storefront_Product_Data(){
 	data16.put("Phone", "2025550135");
 	data16.put("Date of Birth", "12/10/1988");
 	data16.put("State", "Nevada");
+	data16.put("Residential State", "NV");
+	data16.put("Current Location State", "NV");
 	data16.put("Unit System", "Imperial (lbs/inches)");
 	data16.put("Height", "71");
 	data16.put("Weight", "213");
@@ -509,6 +590,7 @@ public Object[][] Storefront_Product_Data(){
 	data16.put("City", "Las Vegas");
 	data16.put("Delivery State", "Nevada");
 	data16.put("Zipcode", "89101");
+	data16.put("ZIP Code", "89101");
 	data16.put("Cardholder Name", "Natalia Orlova");
 	data16.putAll(Shared_Checkout_Data);
 	data16.put("SSN", "1234");
@@ -528,6 +610,8 @@ public Object[][] Storefront_Product_Data(){
 	data17.put("Phone", "2025550136");
 	data17.put("Date of Birth", "03/11/1993");
 	data17.put("State", "Michigan");
+	data17.put("Residential State", "MI");
+	data17.put("Current Location State", "MI");
 	data17.put("Unit System", "Imperial (lbs/inches)");
 	data17.put("Height", "67");
 	data17.put("Weight", "155");
@@ -536,6 +620,7 @@ public Object[][] Storefront_Product_Data(){
 	data17.put("City", "Detroit");
 	data17.put("Delivery State", "Michigan");
 	data17.put("Zipcode", "48226");
+	data17.put("ZIP Code", "48226");
 	data17.put("Cardholder Name", "Daria Munteanu");
 	data17.putAll(Shared_Checkout_Data);
 	data17.put("SSN", "1234");
@@ -555,6 +640,8 @@ public Object[][] Storefront_Product_Data(){
 	data18.put("Phone", "2025550137");
 	data18.put("Date of Birth", "07/30/1985");
 	data18.put("State", "Indiana");
+	data18.put("Residential State", "IN");
+	data18.put("Current Location State", "IN");
 	data18.put("Unit System", "Imperial (lbs/inches)");
 	data18.put("Height", "72");
 	data18.put("Weight", "188");
@@ -563,6 +650,7 @@ public Object[][] Storefront_Product_Data(){
 	data18.put("City", "Indianapolis");
 	data18.put("Delivery State", "Indiana");
 	data18.put("Zipcode", "46204");
+	data18.put("ZIP Code", "46204");
 	data18.put("Cardholder Name", "Klara Havel");
 	data18.putAll(Shared_Checkout_Data);
 	data18.put("SSN", "1234");
@@ -582,6 +670,8 @@ public Object[][] Storefront_Product_Data(){
 	data19.put("Phone", "2025550138");
 	data19.put("Date of Birth", "01/21/1986");
 	data19.put("State", "North Carolina");
+	data19.put("Residential State", "NC");
+	data19.put("Current Location State", "NC");
 	data19.put("Unit System", "Imperial (lbs/inches)");
 	data19.put("Height", "70");
 	data19.put("Weight", "207");
@@ -590,6 +680,7 @@ public Object[][] Storefront_Product_Data(){
 	data19.put("City", "Raleigh");
 	data19.put("Delivery State", "North Carolina");
 	data19.put("Zipcode", "27601");
+	data19.put("ZIP Code", "27601");
 	data19.put("Cardholder Name", "Ingrid Bergstrom");
 	data19.putAll(Shared_Checkout_Data);
 	data19.put("SSN", "1234");
@@ -609,6 +700,8 @@ public Object[][] Storefront_Product_Data(){
 	data20.put("Phone", "2025550139");
 	data20.put("Date of Birth", "05/17/1997");
 	data20.put("State", "Utah");
+	data20.put("Residential State", "UT");
+	data20.put("Current Location State", "UT");
 	data20.put("Unit System", "Imperial (lbs/inches)");
 	data20.put("Height", "64");
 	data20.put("Weight", "140");
@@ -617,6 +710,7 @@ public Object[][] Storefront_Product_Data(){
 	data20.put("City", "Salt Lake City");
 	data20.put("Delivery State", "Utah");
 	data20.put("Zipcode", "84101");
+	data20.put("ZIP Code", "84101");
 	data20.put("Cardholder Name", "Milena Pavlovic");
 	data20.putAll(Shared_Checkout_Data);
 	data20.put("SSN", "1234");
@@ -624,7 +718,7 @@ public Object[][] Storefront_Product_Data(){
 
 	// Active Datasets: AsterSomnera, AsterMigraEase and AsterRefluxa
 	return new Object[][] {/*
-		{ data1 }, 
+		{ data1 },
 		{ data2 }, */
 		{ data3 }, /*
 		{ data4 },
@@ -639,7 +733,7 @@ public Object[][] Storefront_Product_Data(){
 		{ data13 },
 		{ data14 },
 		{ data15 },
-        { data16 },
+		{ data16 },
 		{ data17 },
 		{ data18 },
 		{ data19 },
@@ -647,7 +741,6 @@ public Object[][] Storefront_Product_Data(){
 		*/
 	};
 }
-
 
 
 

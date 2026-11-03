@@ -465,109 +465,75 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	Repeat rp = new Repeat(d);
 
 	String Product_Name = Product_data.get("Product Name");
+	String First_Name = Product_data.get("First Name");
+	String Last_Name = Product_data.get("Last Name");
 	String Patient_Email = Product_data.get("Email");
+	String Date_Of_Birth = Product_data.get("Date of Birth");
+	String Biological_Sex = Product_data.get("Biological Sex at Birth");
+	String Patient_Phone = Product_data.get("Phone");
+	String Intake_Reason = Product_data.get("Intake Reason");
+	String Patient_Address = Product_data.get("Address");
+	String Patient_City = Product_data.get("City");
+	String Residential_State = Product_data.get("Residential State");
+	String Current_Location_State = Product_data.get("Current Location State");
+	String Patient_ZIP = Product_data.get("ZIP Code");
+
+	Residential_State = Residential_State.trim().toUpperCase(Locale.ENGLISH);
+	Current_Location_State = Current_Location_State.trim().toUpperCase(Locale.ENGLISH);
+	Patient_Phone = Patient_Phone.replaceAll("\\D", "");
+
+	if(Patient_Phone.length() == 11 && Patient_Phone.startsWith("1")){
+		Patient_Phone = Patient_Phone.substring(1);
+	}
 
 	System.out.println();
 	System.out.println("========== PATIENT INTAKE FORM ==========");
 	System.out.println("Product : " + Product_Name);
 	Report_Listen.log_print_in_report().info("Starting intake for: " + Product_Name);
 
-	// Page 1 - Treatment Reason
+	// Page 1 - Patient Information
 	System.out.println();
-	System.out.println("---------- PAGE 1 : TREATMENT REASON ----------");
+	System.out.println("---------- PAGE 1 : PATIENT INFORMATION ----------");
 
 	WebElement Page_Indicator = p.Teleform_Page_Indicator();
 	String Actual_Page = Page_Indicator.getText().trim();
 	Assert.assertEquals(Actual_Page, "Page 1 of 5");
 
-	String Intake_Reason = Product_data.get("Intake Reason");
-	Assert.assertTrue(Intake_Reason != null && !Intake_Reason.isBlank(), "Intake Reason is missing in the DataProvider.");
-
-	WebElement Reason_Option = p.Teleform_Button(Intake_Reason);
-	rp.movetoelement(Reason_Option);
-	Reason_Option.click();
-
-	System.out.println("Selected Reason : " + Intake_Reason);
-
-	WebElement Next_Button = p.Teleform_Button("NEXT STEP →");
-	rp.movetoelement(Next_Button);
-	Next_Button.click();
-
-	Report_Listen.log_print_in_report().pass("Page 1 completed: " + Product_Name);
-
-	// Page 2 - Account Email
-	System.out.println();
-	System.out.println("---------- PAGE 2 : ACCOUNT EMAIL ----------");
-
-	Page_Indicator = p.Teleform_Page_Indicator();
-	Actual_Page = Page_Indicator.getText().trim();
-	Assert.assertEquals(Actual_Page, "Page 2 of 5");
-
-	WebElement Account_Email = p.Teleform_Account_Email();
-	Account_Email.clear();
-	Account_Email.sendKeys(Patient_Email);
-
-	System.out.println("Patient Email : " + Patient_Email);
-
-	WebElement Continue_Button = p.Teleform_Button("CONTINUE →");
-	rp.movetoelement(Continue_Button);
-	Continue_Button.click();
-
-	Report_Listen.log_print_in_report().pass("Page 2 completed: " + Product_Name);
-
-	// Page 3 - Personal Details
-	System.out.println();
-	System.out.println("---------- PAGE 3 : PERSONAL DETAILS ----------");
-
-	Page_Indicator = p.Teleform_Page_Indicator();
-	Actual_Page = Page_Indicator.getText().trim();
-	Assert.assertEquals(Actual_Page, "Page 3 of 5");
-
-	// Fetch Personal Details Individually from DataProvider
-	String First_Name = Product_data.get("First Name");
-	String Last_Name = Product_data.get("Last Name");
-	String Email = Product_data.get("Email");
-	String Date_Of_Birth = Product_data.get("Date of Birth");
-	String Biological_Sex = Product_data.get("Biological Sex at Birth");
-	String Patient_Phone = Product_data.get("Phone");
-
-	// First Name
-	WebElement First_Name_Field = p.Teleform_Field("FIRST NAME");
+	WebElement First_Name_Field = p.Teleform_Field("Legal first name");
 	rp.movetoelement(First_Name_Field);
 	First_Name_Field.clear();
 	First_Name_Field.sendKeys(First_Name);
-
 	String Actual_First_Name = First_Name_Field.getDomProperty("value");
-
-	System.out.println("First Name : " + Actual_First_Name);
+	System.out.println("First Name | Expected: " + First_Name + " | Actual: " + Actual_First_Name);
 	Assert.assertEquals(Actual_First_Name, First_Name, "First Name mismatch.");
 
-	// Last Name
-	WebElement Last_Name_Field = p.Teleform_Field("LAST NAME");
+	WebElement Last_Name_Field = p.Teleform_Field("Legal last name");
 	rp.movetoelement(Last_Name_Field);
 	Last_Name_Field.clear();
 	Last_Name_Field.sendKeys(Last_Name);
-
 	String Actual_Last_Name = Last_Name_Field.getDomProperty("value");
-
-	System.out.println("Last Name : " + Actual_Last_Name);
+	System.out.println("Last Name | Expected: " + Last_Name + " | Actual: " + Actual_Last_Name);
 	Assert.assertEquals(Actual_Last_Name, Last_Name, "Last Name mismatch.");
 
-	// Email
-	WebElement Email_Field = p.Teleform_Field("EMAIL");
+	WebElement Email_Field = p.Teleform_Field("Email address");
 	rp.movetoelement(Email_Field);
 	Email_Field.clear();
-	Email_Field.sendKeys(Email);
-
+	Email_Field.sendKeys(Patient_Email);
 	String Actual_Email = Email_Field.getDomProperty("value");
+	System.out.println("Email | Expected: " + Patient_Email + " | Actual: " + Actual_Email);
+	Assert.assertEquals(Actual_Email, Patient_Email, "Email mismatch.");
 
-	System.out.println("Email : " + Actual_Email);
-	Assert.assertEquals(Actual_Email, Email, "Email mismatch.");
+	WebElement Phone_Field = p.Teleform_Phone();
+	rp.movetoelement(Phone_Field);
+	Phone_Field.click();
+	Phone_Field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+	Phone_Field.sendKeys("+1" + Patient_Phone);
+	Phone_Field.sendKeys(Keys.TAB);
+	String Actual_Phone = Phone_Field.getDomProperty("value").replaceAll("\\D", "");
+	Assert.assertEquals(Actual_Phone, "1" + Patient_Phone, "US mobile phone number mismatch.");
 
-	// Date of Birth
 	Teleform_Date_Of_Birth_Selector(Date_Of_Birth);
 
-	// Biological Sex at Birth
 	WebElement Sex_Dropdown = p.Teleform_Sex_Dropdown();
 	rp.movetoelement(Sex_Dropdown);
 	Sex_Dropdown.click();
@@ -576,227 +542,163 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	rp.movetoelement(Sex_Option);
 	Sex_Option.click();
 
-	System.out.println("Biological Sex : " + Biological_Sex);
+	String Actual_Biological_Sex = Sex_Dropdown.getText().trim();
+	Assert.assertEquals(Actual_Biological_Sex, Biological_Sex, "Sex for your medical record mismatch.");
 
-	// Phone Number
-	WebElement Phone_Field = p.Teleform_Phone();
-	rp.movetoelement(Phone_Field);
-	Phone_Field.click();
-	Phone_Field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-	Phone_Field.sendKeys("+1" + Patient_Phone);
-	Phone_Field.sendKeys(Keys.TAB);
+	WebElement Reason_Dropdown = p.Teleform_Care_Reason_Dropdown();
+	rp.movetoelement(Reason_Dropdown);
+	Reason_Dropdown.click();
 
-	String Actual_Phone = Phone_Field.getDomProperty("value");
-	System.out.println("Phone : " + Actual_Phone);
+	WebElement Reason_Option = p.Teleform_Dropdown_Option(Intake_Reason);
+	rp.movetoelement(Reason_Option);
+	Reason_Option.click();
 
-	// Required Telehealth Consent
-	WebElement Terms_Consent = p.Teleform_Terms_Consent();
-	Boolean Consent_Visible = rp.check_element_visibility(Terms_Consent, 5);
+	String Actual_Intake_Reason = Reason_Dropdown.getText().trim();
+	Assert.assertEquals(Actual_Intake_Reason, Intake_Reason, "Care reason mismatch.");
 
-	if(Consent_Visible){
-		rp.movetoelement(Terms_Consent);
-		Terms_Consent.click();
+	WebElement Next_Button = p.Teleform_Button("Continue");
+	rp.movetoelement(Next_Button);
+	Next_Button.click();
 
-		WebElement Consent_Input = Terms_Consent.findElement(By.xpath(".//input[@type='checkbox']"));
-		Boolean Consent_Selected = Consent_Input.isSelected();
+	Page_Indicator = p.Teleform_Page_Indicator("Page 2 of 5");
+	System.out.println("Expected : Page 2 of 5");
+	System.out.println("Actual   : " + Page_Indicator.getText().trim());
+	System.out.println("Result   : PASS");
+	Report_Listen.log_print_in_report().pass("Page 1 | Expected: Page 2 of 5 | Actual: " + Page_Indicator.getText().trim() + " | Result: PASS");
 
-		if(Consent_Selected){
-			System.out.println();
-			System.out.println("Telehealth Consent : Selected Successfully");
-			Report_Listen.log_print_in_report().pass("Telehealth Consent checkbox selected successfully.");
+	// Page 2 - Address and Current Location
+	System.out.println();
+	System.out.println("---------- PAGE 2 : ADDRESS AND CURRENT LOCATION ----------");
+
+	WebElement Address_Field = p.Teleform_Field("Residential street address, including apartment or unit");
+	rp.movetoelement(Address_Field);
+	Address_Field.clear();
+	Address_Field.sendKeys(Patient_Address);
+	String Actual_Address = Address_Field.getDomProperty("value");
+	System.out.println("Address | Expected: " + Patient_Address + " | Actual: " + Actual_Address);
+	Assert.assertEquals(Actual_Address, Patient_Address, "Address mismatch.");
+
+	WebElement City_Field = p.Teleform_Field("City");
+	rp.movetoelement(City_Field);
+	City_Field.clear();
+	City_Field.sendKeys(Patient_City);
+	String Actual_City = City_Field.getDomProperty("value");
+	System.out.println("City | Expected: " + Patient_City + " | Actual: " + Actual_City);
+	Assert.assertEquals(Actual_City, Patient_City, "City mismatch.");
+
+	WebElement ZIP_Field = p.Teleform_Field("ZIP code (5 digits)");
+	rp.movetoelement(ZIP_Field);
+	ZIP_Field.clear();
+	ZIP_Field.sendKeys(Patient_ZIP);
+	String Actual_ZIP = ZIP_Field.getDomProperty("value");
+	System.out.println("ZIP Code | Expected: " + Patient_ZIP + " | Actual: " + Actual_ZIP);
+	Assert.assertEquals(Actual_ZIP, Patient_ZIP, "ZIP Code mismatch.");
+
+	WebElement Residential_State_Dropdown = p.Teleform_Residential_State_Dropdown();
+	Intake_Dropdown_Option_Selector(Residential_State_Dropdown, Residential_State);
+
+	WebElement Current_Location_State_Dropdown = p.Teleform_Current_Location_State_Dropdown();
+	Intake_Dropdown_Option_Selector(Current_Location_State_Dropdown, Current_Location_State);
+
+	Next_Button = p.Teleform_Button("Continue");
+	rp.movetoelement(Next_Button);
+	Next_Button.click();
+
+	Page_Indicator = p.Teleform_Page_Indicator("Page 3 of 5");
+	System.out.println("Expected : Page 3 of 5");
+	System.out.println("Actual   : " + Page_Indicator.getText().trim());
+	System.out.println("Result   : PASS");
+	Report_Listen.log_print_in_report().pass("Page 2 | Expected: Page 3 of 5 | Actual: " + Page_Indicator.getText().trim() + " | Result: PASS");
+
+	// Page 3 - Medical History
+	System.out.println();
+	System.out.println("---------- PAGE 3 : MEDICAL HISTORY ----------");
+
+	Teleform_Question_Selector(Product_data);
+
+	Next_Button = p.Teleform_Button("Continue");
+	rp.movetoelement(Next_Button);
+	Next_Button.click();
+
+	Page_Indicator = p.Teleform_Page_Indicator("Page 4 of 5");
+	System.out.println("Expected : Page 4 of 5");
+	System.out.println("Actual   : " + Page_Indicator.getText().trim());
+	System.out.println("Result   : PASS");
+	Report_Listen.log_print_in_report().pass("Page 3 | Expected: Page 4 of 5 | Actual: " + Page_Indicator.getText().trim() + " | Result: PASS");
+
+	// Page 4 - Visible Symptom Questions
+	System.out.println();
+	System.out.println("---------- PAGE 4 : YOUR SYMPTOMS ----------");
+
+	Teleform_Question_Selector(Product_data);
+
+	Next_Button = p.Teleform_Button("Continue");
+	rp.movetoelement(Next_Button);
+	Next_Button.click();
+
+	Page_Indicator = p.Teleform_Page_Indicator("Page 5 of 5");
+	System.out.println("Expected : Page 5 of 5");
+	System.out.println("Actual   : " + Page_Indicator.getText().trim());
+	System.out.println("Result   : PASS");
+	Report_Listen.log_print_in_report().pass("Page 4 | Expected: Page 5 of 5 | Actual: " + Page_Indicator.getText().trim() + " | Result: PASS");
+
+	// Page 5 - Review and Consent
+	System.out.println();
+	System.out.println("---------- PAGE 5 : REVIEW AND CONSENT ----------");
+
+	List<WebElement> Consent_Checkboxes = p.Teleform_Consent_Checkboxes();
+	Assert.assertEquals(Consent_Checkboxes.size(), 2, "Expected the adult/accuracy and telehealth consent checkboxes.");
+
+	for(int n=0;n<Consent_Checkboxes.size();n++){
+		WebElement Consent_Checkbox = Consent_Checkboxes.get(n);
+		WebElement Consent_Input = p.Teleform_Choice_Input(Consent_Checkbox);
+
+		if(!Consent_Input.isSelected()){
+			rp.movetoelement(Consent_Checkbox);
+			Consent_Checkbox.click();
 		}
 		else{
-			System.out.println();
-			System.out.println("Telehealth Consent : Selection Failed");
-			Report_Listen.log_print_in_report().fail("Telehealth Consent checkbox selection failed.");
-			throw new IllegalStateException("Telehealth Consent checkbox was not selected.");
+			System.out.println("Action : Consent " + (n + 1) + " is already selected.");
 		}
+
+		Boolean Consent_Selected = Consent_Input.isSelected();
+
+		System.out.println("Consent " + (n + 1) + " | Expected: true | Actual: " + Consent_Selected);
+		Assert.assertTrue(Consent_Selected, "Consent " + (n + 1) + " was not selected.");
+		System.out.println("Result : PASS");
+
+		Report_Listen.log_print_in_report().pass("Consent " + (n + 1) + " | Expected: true | Actual: " + Consent_Selected + " | Result: PASS");
 	}
-	else{
-		System.out.println();
-		System.out.println("Telehealth Consent : Checkbox Not Visible");
-		Report_Listen.log_print_in_report().fail("Telehealth Consent checkbox is not visible.");
-		throw new IllegalStateException("Telehealth Consent checkbox is not visible.");
-	}
-
-	Next_Button = p.Teleform_Button("NEXT STEP →");
-	rp.movetoelement(Next_Button);
-	Next_Button.click();
-
-	// Check Page 3 Validation Errors
-	List<WebElement> Error_Messages = p.Form_error_Messages;
-	Boolean Error_Check = rp.check_element_visibility(Error_Messages, 2);
-
-	if(Error_Check){
-		System.out.println();
-		System.out.println("---------- PAGE 3 VALIDATION ERRORS ----------");
-		rp.error_message_checker(Error_Messages);
-		Report_Listen.log_print_in_report().fail("Page 3 form validation errors detected.");
-		throw new IllegalStateException("Page 3 form validation failed.");
-	}
-	else{
-		System.out.println();
-		System.out.println("Page 3 : No Visible Validation Errors");
-	}
-
-	Report_Listen.log_print_in_report().pass("Page 3 completed: " + Product_Name);
-
-	// Page 4 - Medical Questions
-	System.out.println();
-	System.out.println("---------- PAGE 4 : MEDICAL QUESTIONS ----------");
-
-	Page_Indicator = p.Teleform_Page_Indicator();
-	Actual_Page = Page_Indicator.getText().trim();
-	Assert.assertEquals(Actual_Page, "Page 4 of 5");
-
-	Teleform_Question_Selector(Product_data);
-
-	String Blood_Pressure_Reading = Product_data.getOrDefault("Blood Pressure Reading", "");
-
-	if(!Blood_Pressure_Reading.isBlank()){
-		WebElement Blood_Pressure_Field = p.Teleform_Textarea("Please provide your most recent blood pressure reading below:");
-
-		rp.movetoelement(Blood_Pressure_Field);
-		Blood_Pressure_Field.clear();
-		Blood_Pressure_Field.sendKeys(Blood_Pressure_Reading);
-
-		String Actual_Reading = Blood_Pressure_Field.getDomProperty("value");
-		System.out.println("Blood Pressure : " + Actual_Reading);
-	}
-
-	Next_Button = p.Teleform_Button("Next");
-	rp.movetoelement(Next_Button);
-	Next_Button.click();
-
-	Report_Listen.log_print_in_report().pass("Page 4 completed: " + Product_Name);
-
-	// Page 5 - Assessment
-	System.out.println();
-	System.out.println("---------- PAGE 5 : ASSESSMENT ----------");
-
-	Page_Indicator = p.Teleform_Page_Indicator();
-	Actual_Page = Page_Indicator.getText().trim();
-	Assert.assertEquals(Actual_Page, "Page 5 of 5");
-
-	Teleform_Question_Selector(Product_data);
-	System.out.println("Assessment Questions : COMPLETED");
-	Report_Listen.log_print_in_report().pass("Page 5 assessment questions completed: " + Product_Name);
-
-	// SSN Verification
-	System.out.println();
-	System.out.println("---------- SSN VERIFICATION ----------");
-
-	String Patient_SSN = Product_data.get("SSN");
-	Assert.assertTrue(Patient_SSN != null && !Patient_SSN.isBlank(), "DataProvider field SSN is missing or blank on Page 5.");
-
-	WebElement SSN_Field = p.Teleform_SSN();
-	rp.movetoelement(SSN_Field);
-	SSN_Field.clear();
-	SSN_Field.sendKeys(Patient_SSN);
-	SSN_Field.sendKeys(Keys.TAB);
-
-	String Actual_SSN = SSN_Field.getDomProperty("value");
-
-	Assert.assertTrue(Patient_SSN.equals(Actual_SSN), "Page 5 SSN value does not match the DataProvider (values masked).");
-	Assert.assertFalse("true".equals(SSN_Field.getDomAttribute("aria-invalid")), "Application marked the Page 5 SSN invalid (value masked).");
-
-	System.out.println("SSN Entered : true");
-	System.out.println("Result : PASS");
-	Report_Listen.log_print_in_report().pass("Page 5 SSN entered and verified; value masked.");
-
-	// ID Document Upload
-	System.out.println();
-	System.out.println("---------- ID DOCUMENT UPLOAD ----------");
-	System.out.println("POM Getter : Teleform_ID_File_Input()");
-
-	String ID_Verification_Image_Name = Product_data.get("ID Verification Image");
-	Assert.assertTrue(ID_Verification_Image_Name != null && !ID_Verification_Image_Name.isBlank(), "DataProvider field ID Verification Image is missing or blank on Page 5.");
-
-	String ID_Verification_Folder = System.getProperty("user.dir") + File.separator + "Images" + File.separator + "AsterMD_ID_Verification_QA_Fixtures_20_Images" + File.separator + "Images" + File.separator + "ID_Verification";
-	File ID_Verification_Image = new File(ID_Verification_Folder, ID_Verification_Image_Name);
-
-	System.out.println("Expected File : " + ID_Verification_Image_Name);
-	System.out.println("Fixture Exists : " + ID_Verification_Image.isFile());
-
-	Assert.assertTrue(ID_Verification_Image.isFile(), "Page 5 ID fixture not found: " + ID_Verification_Image.getAbsolutePath());
-
-	WebElement File_Input = p.Teleform_ID_File_Input();
-	File_Input.sendKeys(ID_Verification_Image.getAbsolutePath());
-
-	System.out.println("File Selection Action : COMPLETED");
-	System.out.println("Upload Status : Waiting for the preview to become ready and the pending message to clear.");
-
-		// Verify Uploaded ID Document
-	// Verify ID Document Upload Completion
-	System.out.println();
-	System.out.println("---------- ID DOCUMENT UPLOAD VERIFICATION ----------");
-
-	WebElement Upload_Pending_Message = p.Teleform_ID_Upload_Pending_Message();
-
-	System.out.println("Expected File : " + ID_Verification_Image.getName());
-	System.out.println("Upload Status : Waiting for pending message to disappear.");
-
-	rp.wait_for_invisibilty_of_theElement(Upload_Pending_Message);
-
-	System.out.println("Upload Status : Pending message disappeared.");
-	System.out.println("Result        : PASS");
-
-	Report_Listen.log_print_in_report().pass("ID document upload pending message cleared: " + ID_Verification_Image.getName());
-	
-	// Additional Notes
-	System.out.println();
-	System.out.println("---------- ADDITIONAL NOTES ----------");
-
-	String Patient_Notes = Product_data.get("Notes");
-
-	Assert.assertNotNull(Patient_Notes, "DataProvider field Notes is missing on Page 5.");
-
-	WebElement Notes_Field = p.Teleform_Textarea("Please introduce yourself and feel free to ask any questions you have about your medical concerns or anything you would like the doctor to know:");
-
-	rp.movetoelement(Notes_Field);
-	Notes_Field.clear();
-	Notes_Field.sendKeys(Patient_Notes);
-
-	String Actual_Notes = Notes_Field.getDomProperty("value");
-
-	Assert.assertTrue(Patient_Notes.equals(Actual_Notes), "Page 5 Additional Notes does not match the DataProvider.");
-
-	System.out.println("Result : PASS");
-	Report_Listen.log_print_in_report().pass("Page 5 Additional Notes completed.");
 
 	// Intake Form Submission
 	System.out.println();
 	System.out.println("---------- INTAKE FORM SUBMISSION ----------");
 
-	WebElement Submit_Button = p.Teleform_Button("Submit →");
-
-	rp.wait_for_theElement_to_be_clickable(Submit_Button);
-	rp.movetoelement(Submit_Button); 
+	WebElement Submit_Button = p.Teleform_Button("Submit intake");
+	rp.movetoelement(Submit_Button);
 	Submit_Button.click();
 
 	WebElement Submission_Toast = p.Teleform_Submission_Success_Toast;
 	Boolean Submission_Success = Teleform_Toast_Detector_Printer(Submission_Toast);
 
 	if(Submission_Success){
-		System.out.println();
-		System.out.println("========== INTAKE SUBMISSION RESULT ==========");
 		System.out.println("Product : " + Product_Name);
-		System.out.println("Intake Form : COMPLETED");
-		System.out.println("SSN : VERIFIED");
-		System.out.println("ID Document Upload : VERIFIED");
-		System.out.println("Submission : PASS");
+		System.out.println("Expected : Action Successful | Submitted successfully.");
+		System.out.println("Actual   : Action Successful | Submitted successfully.");
+		System.out.println("Result   : PASS");
 
-		Report_Listen.log_print_in_report().pass("Intake with SSN and ID document submitted successfully for: " + Product_Name);
+		Report_Listen.log_print_in_report().pass("Intake submission | Expected: Action Successful / Submitted successfully. | Actual: Matching success toast | Result: PASS | Product: " + Product_Name);
 	}
 	else{
-		System.out.println("Submission : FAIL");
+		System.out.println("Result : FAIL");
 		System.out.println("Reason : Expected successful-submission notification was not verified.");
 
-		Report_Listen.log_print_in_report().fail("Page 5 intake submission success was not verified.");
-
+		Report_Listen.log_print_in_report().fail("Intake submission | Expected: Action Successful / Submitted successfully. | Actual: Success notification not verified | Result: FAIL");
 		Assert.fail("Page 5 intake submission failed: expected Action Successful | Submitted successfully.");
-	} 
+	}
 }
+
+
 
 
 public void Teleform_Question_Selector(TreeMap<String,String> Product_data){
@@ -804,31 +706,81 @@ public void Teleform_Question_Selector(TreeMap<String,String> Product_data){
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
 
+	System.out.println();
 	System.out.println("---------- INTAKE QUESTION SELECTION ----------");
 
 	List<WebElement> Question_Cards = p.Teleform_Choice_Cards();
+	List<WebElement> Textarea_Cards = p.Teleform_Textarea_Cards();
+
+	System.out.println("Choice Question Cards : " + Question_Cards.size());
+	System.out.println("Textarea Cards        : " + Textarea_Cards.size());
 
 	for(WebElement Question_Card : Question_Cards){
+		if(Question_Card.isDisplayed()){
 
-		WebElement Question_Label = p.Teleform_Question_Label(Question_Card);
-		String Question = Question_Label.getText().trim();
-		String Expected_Answer = Product_data.get("Intake Q&A - " + Question);
+			WebElement Question_Label = p.Teleform_Question_Label(Question_Card);
+			String Question = Question_Label.getText().trim();
+			String Data_Key = "Intake Q&A - " + Question;
+			String Expected_Answer = Product_data.get(Data_Key);
+			Assert.assertTrue(Expected_Answer != null && !Expected_Answer.isBlank(), "Missing DataProvider answer: " + Data_Key);
 
-		if(Expected_Answer==null || Expected_Answer.isBlank()){
-			throw new IllegalStateException("Missing DataProvider answer for: " + Question);
+			WebElement Answer_Option = p.Teleform_Choice_Option(Question_Card, Expected_Answer);
+			WebElement Answer_Input = p.Teleform_Choice_Input(Answer_Option);
+
+			if(!Answer_Input.isSelected()){
+				rp.movetoelement(Answer_Option);
+				Answer_Option.click();
+			}
+			else{
+				System.out.println("Action : Requested answer is already selected.");
+			}
+
+			String Actual_Answer = Answer_Option.getText().trim();
+			Boolean Answer_Selected = Answer_Input.isSelected();
+
+			System.out.println("Question : " + Question);
+			System.out.println("Expected : " + Expected_Answer);
+			System.out.println("Actual   : " + Actual_Answer + " | Selected: " + Answer_Selected);
+
+			Assert.assertEquals(Actual_Answer, Expected_Answer, "Intake answer text mismatch: " + Question);
+			Assert.assertTrue(Answer_Selected, "Intake answer was not selected: " + Question);
+
+			System.out.println("Result   : PASS");
+			Report_Listen.log_print_in_report().pass(Question + " | Expected: " + Expected_Answer + " | Actual: " + Actual_Answer + " | Selected: " + Answer_Selected + " | Result: PASS");
 		}
+	}
 
-		WebElement Answer_Option = p.Teleform_Choice_Option(Question_Card, Expected_Answer);
+	for(WebElement Question_Card : Textarea_Cards){
+		if(Question_Card.isDisplayed()){
 
-		rp.movetoelement(Answer_Option);
-		Answer_Option.click();
+			WebElement Question_Label = p.Teleform_Question_Label(Question_Card);
+			String Question = Question_Label.getText().trim();
+			String Data_Key = "Intake Q&A - " + Question;
 
-		String Actual_Answer = Answer_Option.getText().trim();
+			if(Question.equals("Tell the clinician anything else about your symptoms, triggers, previous tests, or questions.")){
+				Data_Key = "Notes";
+			}
 
-		System.out.println("Question : " + Question);
-		System.out.println("Answer   : " + Actual_Answer);
+			String Expected_Answer = Product_data.get(Data_Key);
+			Assert.assertTrue(Expected_Answer != null && !Expected_Answer.isBlank(), "Missing DataProvider answer: " + Data_Key);
 
-		Report_Listen.log_print_in_report().pass("Intake answer selected: " + Question + " | " + Actual_Answer);
+			WebElement Answer_Field = p.Teleform_Textarea(Question);
+			rp.movetoelement(Answer_Field);
+			Answer_Field.clear();
+			Answer_Field.sendKeys(Expected_Answer);
+			Answer_Field.sendKeys(Keys.TAB);
+
+			String Actual_Answer = Answer_Field.getDomProperty("value");
+
+			System.out.println("Question : " + Question);
+			System.out.println("Expected : " + Expected_Answer);
+			System.out.println("Actual   : " + Actual_Answer);
+
+			Assert.assertEquals(Actual_Answer, Expected_Answer, "Intake textarea mismatch: " + Question);
+
+			System.out.println("Result   : PASS");
+			Report_Listen.log_print_in_report().pass(Question + " | Expected: " + Expected_Answer + " | Actual: " + Actual_Answer + " | Result: PASS");
+		}
 	}
 }
 
@@ -901,86 +853,78 @@ public void Teleform_Date_Of_Birth_Selector(String Date_Of_Birth){
 
 
 
-public void Intake_Dropdown_Option_Selector(WebElement Dropdown, String Expected_Option){
+	public void Intake_Dropdown_Option_Selector(WebElement Dropdown, String Expected_Option){
 
-	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
-	Repeat rp = new Repeat(d);
+		Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
+		Repeat rp = new Repeat(d);
+		String Expected_Value = Expected_Option.replaceAll("\\s+", "");
 
-	String Expected_Value = Expected_Option.replaceAll("\\s+", "");
+		System.out.println();
+		System.out.println("---------------- INTAKE DROPDOWN SELECTION ----------------");
+		System.out.println("Expected Option : " + Expected_Option);
+		Report_Listen.log_print_in_report().info("Selecting intake dropdown option: " + Expected_Option);
 
-	System.out.println();
-	System.out.println("---------------- INTAKE DROPDOWN SELECTION ----------------");
-	System.out.println("Expected Option : " + Expected_Option);
+		if(!Dropdown.getText().replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
 
-	Report_Listen.log_print_in_report().info("Selecting intake dropdown option: " + Expected_Option);
+			rp.movetoelement(Dropdown);
+			Dropdown.click();
 
-	if(!Dropdown.getText().replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
+			for(int Scroll_Attempt=1; Scroll_Attempt<=15; Scroll_Attempt++){
 
-		rp.movetoelement(Dropdown);
-		Dropdown.click();
+				List<WebElement> Dropdown_Options = p.Intake_Dropdown_Options();
 
-		WebElement Scroll_Holder = p.Intake_Dropdown_Scroll_Holder();
+				System.out.println("---------------- SCROLL ATTEMPT " + Scroll_Attempt + " ----------------");
+				System.out.println("Rendered Options : " + Dropdown_Options.size());
 
-		for(int Scroll_Attempt=1; Scroll_Attempt<=15; Scroll_Attempt++){
+				for(WebElement Dropdown_Option : Dropdown_Options){
+					if(Dropdown_Option.isDisplayed() && Dropdown_Option.isEnabled()){
 
-			List<WebElement> Dropdown_Options = p.Intake_Dropdown_Options();
+						String Option_Text = Dropdown_Option.getText().trim();
+						System.out.println("Checking Option : " + Option_Text);
 
-			System.out.println("---------------- SCROLL ATTEMPT " + Scroll_Attempt + " ----------------");
-			System.out.println("Rendered Options : " + Dropdown_Options.size());
+						if(Option_Text.replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
+							rp.movetoelement(Dropdown_Option);
+							Dropdown_Option.click();
+							p.Intake_Dropdown_Selected_Value(Dropdown, Expected_Option);
 
-			for(WebElement Dropdown_Option : Dropdown_Options){
-
-				if(Dropdown_Option.isDisplayed()){
-
-					String Option_Text = Dropdown_Option.getText().trim();
-
-					System.out.println("Checking Option : " + Option_Text);
-
-					if(Option_Text.replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
-
-						rp.movetoelement(Dropdown_Option);
-						Dropdown_Option.click();
-
-						System.out.println("Matching Option : " + Option_Text);
-						System.out.println("Action          : Clicked");
-
-						break;
+							System.out.println("Matching Option : " + Option_Text);
+							System.out.println("Action          : Clicked");
+							break;
+						}
 					}
 				}
+
+				if(Dropdown.getText().replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
+					break;
+				}
+				else if(Scroll_Attempt < 15){
+					WebElement Scroll_Holder = p.Intake_Dropdown_Scroll_Holder();
+					System.out.println("Action : Scroll to load additional dropdown options");
+					new org.openqa.selenium.interactions.Actions(d).scrollFromOrigin(org.openqa.selenium.interactions.WheelInput.ScrollOrigin.fromElement(Scroll_Holder), 0, 160).perform();
+				}
 			}
+		}
+		else{
+			System.out.println("Action : Requested option is already selected.");
+		}
 
-			if(Dropdown.getText().replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
-				break;
-			}
+		String Actual_Option = Dropdown.getText().trim();
 
-			System.out.println("Action : Scroll to load additional dropdown options");
+		System.out.println("---------------- DROPDOWN RESULT ----------------");
+		System.out.println("Expected : " + Expected_Option);
+		System.out.println("Actual   : " + Actual_Option);
 
-			new org.openqa.selenium.interactions.Actions(d).scrollFromOrigin(org.openqa.selenium.interactions.WheelInput.ScrollOrigin.fromElement(Scroll_Holder), 0, 160).perform();
+		if(Actual_Option.replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
+			System.out.println("Result : PASS");
+			Report_Listen.log_print_in_report().pass("Intake dropdown | Expected: " + Expected_Option + " | Actual: " + Actual_Option + " | Result: PASS");
+		}
+		else{
+			System.out.println("Result : FAIL");
+			System.out.println("Reason : Requested dropdown option was not selected.");
+			Report_Listen.log_print_in_report().fail("Intake dropdown | Expected: " + Expected_Option + " | Actual: " + Actual_Option + " | Result: FAIL");
+			throw new IllegalStateException("Unable to select intake dropdown option: " + Expected_Option + " | Actual: " + Actual_Option);
 		}
 	}
-
-	String Actual_Option = Dropdown.getText().trim();
-
-	System.out.println("---------------- DROPDOWN RESULT ----------------");
-	System.out.println("Expected : " + Expected_Option);
-	System.out.println("Actual   : " + Actual_Option);
-
-	if(Actual_Option.replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
-
-		System.out.println("Result : PASS");
-
-		Report_Listen.log_print_in_report().pass("Intake dropdown option selected successfully: " + Actual_Option);
-	}
-	else{
-
-		System.out.println("Result : FAIL");
-		System.out.println("Reason : Requested dropdown option not selected");
-
-		Report_Listen.log_print_in_report().fail("Intake dropdown selection failed. Expected: " + Expected_Option + " | Actual: " + Actual_Option);
-
-		throw new IllegalStateException("Unable to select intake dropdown option: " + Expected_Option);
-	}
-}
 
 
 public Boolean Teleform_Toast_Detector_Printer(WebElement Toast){

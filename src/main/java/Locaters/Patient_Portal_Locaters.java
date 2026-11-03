@@ -61,10 +61,10 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Intake_State_Dropdown;
     @FindBy(xpath="//div[contains(@class,'fieldCard')][.//span[normalize-space()='Unit System']]//div[contains(@class,'ant-select') and contains(@class,'ant-select-show-arrow')]")
 	private WebElement Intake_Unit_System_Dropdown;
-    @FindBy(xpath="//div[contains(@class,'ant-select-dropdown') and not(contains(@class,'ant-select-dropdown-hidden'))]//div[contains(@class,'ant-select-item-option') and @title]")
+    @FindBy(xpath="//div[contains(concat(' ',normalize-space(@class),' '),' ant-select-dropdown ') and not(contains(concat(' ',normalize-space(@class),' '),' ant-select-dropdown-hidden '))]//*[contains(concat(' ',normalize-space(@class),' '),' ant-select-item-option ') and not(contains(concat(' ',normalize-space(@class),' '),' ant-select-item-option-disabled '))]")
 	private List<WebElement> Intake_Dropdown_Options;
-    @FindBy(xpath="//div[contains(@class,'ant-select-dropdown') and not(contains(@class,'ant-select-dropdown-hidden'))]//div[contains(@class,'ant-select-dropdown-list-holder')]")
-   	private WebElement Intake_Dropdown_Scroll_Holder;
+    @FindBy(xpath="//div[contains(concat(' ',normalize-space(@class),' '),' ant-select-dropdown ') and not(contains(concat(' ',normalize-space(@class),' '),' ant-select-dropdown-hidden '))]//div[contains(concat(' ',normalize-space(@class),' '),' ant-select-dropdown-list-holder ')]")
+	private List<WebElement> Intake_Dropdown_Scroll_Holder;
     @FindBy(xpath="//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]//span[normalize-space()='Height']]//input[@type='number']")
 	private WebElement Intake_Height;
     @FindBy(xpath="//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]//span[normalize-space()='Weight']]//input[@type='number']")
@@ -87,31 +87,41 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Intake_Date_Of_Birth;
     @FindBy(xpath="//div[@class='ant-collapse-item ant-collapse-item-active']//div[contains(@class,'ant-collapse-panel-active')]")
 	public WebElement Active_Tab;
-    @FindBy(xpath="//main")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]")
 	private WebElement Teleform_Main;
-    @FindBy(xpath="//main//div[contains(@class,'formProgressMeta')]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'formProgressMeta')]")
 	private WebElement Teleform_Page_Indicator;
-    @FindBy(xpath="//main//button[contains(@class,'ant-btn-color-default')]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//button[contains(@class,'ant-btn-color-default')]")
 	private List<WebElement> Teleform_Buttons;
-    @FindBy(xpath="//main//input[@placeholder]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//input[@placeholder]")
 	private List<WebElement> Teleform_Inputs;
-    @FindBy(xpath="//main//input[@type='email' and @placeholder='Enter Email Address']")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//input[@placeholder]]//div[contains(@class,'fieldLabel')]/span[1]")
+	private List<WebElement> Teleform_Input_Labels;
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//input[@type='email' and @placeholder='Enter the email used for your order']")
 	private WebElement Teleform_Account_Email;
-    @FindBy(xpath="//main//div[contains(@class,'fieldCard')][.//textarea]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//textarea]")
 	private List<WebElement> Teleform_Textarea_Cards;
-    @FindBy(xpath="//main//div[contains(@class,'fieldCard')][.//textarea]//textarea")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//textarea]//textarea")
 	private List<WebElement> Teleform_Textareas;
-    @FindBy(xpath="//main//div[contains(@class,'fieldCard')][.//input[@type='radio' or @type='checkbox']]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//input[@type='radio' or @type='checkbox']]")
 	private List<WebElement> Teleform_Choice_Cards;
-    @FindBy(xpath="//main//input[@placeholder='Select date']")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//input[@placeholder='Select date']")
 	private WebElement Teleform_DOB_Input;
-    @FindBy(xpath="//main//div[contains(@class,'fieldCard')][.//span[normalize-space()='BIOLOGICAL SEX AT BIRTH']]//div[contains(@class,'ant-select-show-arrow')]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Sex for your medical record']]//div[contains(@class,'ant-select-show-arrow')]")
 	private WebElement Teleform_Sex_Dropdown;
-    @FindBy(xpath="//main//input[@type='tel' and @placeholder='Enter phone number']")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//input[@type='tel' and @placeholder='10-digit US mobile number']")
 	private WebElement Teleform_Phone;
-    @FindBy(xpath="//main//label[contains(@class,'ant-checkbox-wrapper') and contains(.,'I agree to')]/span[contains(concat(' ',normalize-space(@class),' '),' ant-checkbox ')]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//label[contains(@class,'ant-checkbox-wrapper') and contains(.,'I have read and agree to')]/span[contains(concat(' ',normalize-space(@class),' '),' ant-checkbox ')]")
 	private WebElement Teleform_Terms_Consent;
-    @FindBy(xpath="//div[contains(@class,'ant-select-dropdown') and not(contains(@class,'ant-select-dropdown-hidden'))]//div[contains(@class,'ant-select-item-option') and @title]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Which concern are you requesting care for?']]//div[contains(@class,'ant-select-show-arrow')]")
+	private WebElement Teleform_Care_Reason_Dropdown;
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Residential state']]//div[contains(@class,'ant-select-show-arrow')]")
+	private WebElement Teleform_Residential_State_Dropdown;
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='State where you are physically located for this visit']]//div[contains(@class,'ant-select-show-arrow')]")
+	private WebElement Teleform_Current_Location_State_Dropdown;
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//label[contains(@class,'ant-checkbox-wrapper') and (contains(.,'I confirm that I am the patient') or contains(.,'I have read and agree to'))]/span[contains(concat(' ',normalize-space(@class),' '),' ant-checkbox ')]")
+	private List<WebElement> Teleform_Consent_Checkboxes;
+    @FindBy(xpath="//div[contains(concat(' ',normalize-space(@class),' '),' ant-select-dropdown ') and not(contains(concat(' ',normalize-space(@class),' '),' ant-select-dropdown-hidden '))]//*[contains(concat(' ',normalize-space(@class),' '),' ant-select-item-option ') and not(contains(concat(' ',normalize-space(@class),' '),' ant-select-item-option-disabled '))]")
 	private List<WebElement> Teleform_Dropdown_Options;
     @FindBy(xpath="//div[contains(@class,'ant-picker-dropdown') and not(contains(@class,'ant-picker-dropdown-hidden'))]//button[contains(@class,'ant-picker-year-btn')]")
 	private WebElement Teleform_DOB_Year_Button;
@@ -232,10 +242,49 @@ public class Patient_Portal_Locaters extends Repeat {
 	wait_for_theElement_to_be_clickable(Intake_Unit_System_Dropdown);
 	return Intake_Unit_System_Dropdown;}
 	public List<WebElement> Intake_Dropdown_Options(){
-	return Intake_Dropdown_Options;}
+		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
+		wait.ignoring(StaleElementReferenceException.class);
+		wait.withMessage("No displayed and enabled intake dropdown options were found.");
+
+		return wait.until(driver -> {
+			List<WebElement> Visible_Options = new ArrayList<>();
+			for(WebElement Item : Intake_Dropdown_Options){
+				if(Item.isDisplayed() && Item.isEnabled()){
+					Visible_Options.add(Item);
+				}
+			}
+			return Visible_Options.isEmpty() ? null : Visible_Options;
+		});
+	}
+	public WebElement Intake_Dropdown_Selected_Value(WebElement Dropdown, String Expected_Option){
+		String Expected_Value = Expected_Option.replaceAll("\\s+", "");
+		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
+		wait.ignoring(StaleElementReferenceException.class);
+		wait.withMessage("Intake dropdown did not display the selected value: " + Expected_Option);
+
+		return wait.until(driver -> {
+			if(Dropdown.isDisplayed() && Dropdown.getText().replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
+				return Dropdown;
+			}
+			else{
+				return null;
+			}
+		});
+	}
 	public WebElement Intake_Dropdown_Scroll_Holder(){
-	wait_for_theElement(Intake_Dropdown_Scroll_Holder);
-	return Intake_Dropdown_Scroll_Holder;}
+		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
+		wait.ignoring(StaleElementReferenceException.class);
+		wait.withMessage("No displayed outer scroll holder was found for the open intake dropdown.");
+
+		return wait.until(driver -> {
+			for(WebElement Holder : Intake_Dropdown_Scroll_Holder){
+				if(Holder.isDisplayed()){
+					return Holder;
+				}
+			}
+			return null;
+		});
+	}
     public WebElement Intake_Height(){
 	wait_for_theElement(Intake_Height);
 	return Intake_Height;}
@@ -269,6 +318,12 @@ public class Patient_Portal_Locaters extends Repeat {
 	Boolean Visible = check_element_visibility(Teleform_Page_Indicator, 10);
 	if(Visible) return Teleform_Page_Indicator;
 	else throw Teleform_Locator_Failure("Teleform page indicator is not visible.");}
+	public WebElement Teleform_Page_Indicator(String Expected_Page){
+	WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
+	wait.ignoring(StaleElementReferenceException.class);
+	wait.withMessage("Expected intake page was not reached: " + Expected_Page);
+	wait.until(driver -> Teleform_Page_Indicator.isDisplayed() && Expected_Page.equals(Teleform_Page_Indicator.getText().trim()));
+	return Teleform_Page_Indicator;}
 	public WebElement Teleform_Account_Email(){
 	Boolean Visible = check_element_visibility(Teleform_Account_Email, 5);
 	if(Visible) return Teleform_Account_Email;
@@ -277,14 +332,58 @@ public class Patient_Portal_Locaters extends Repeat {
 	Boolean Visible = check_element_visibility(Teleform_DOB_Input, 5);
 	if(Visible) return Teleform_DOB_Input;
 	else throw Teleform_Locator_Failure("Teleform Date of Birth field is not visible.");}
+	public WebElement Teleform_Care_Reason_Dropdown(){
+	Boolean Visible = check_element_visibility(Teleform_Care_Reason_Dropdown, 5);
+	if(Visible){
+		wait_for_theElement_to_be_clickable(Teleform_Care_Reason_Dropdown);
+		movetoelement(Teleform_Care_Reason_Dropdown);
+		return Teleform_Care_Reason_Dropdown;
+	}
+	else{
+		throw Teleform_Locator_Failure("Care reason dropdown is not visible.");
+	}}
+	public WebElement Teleform_Residential_State_Dropdown(){
+	Boolean Visible = check_element_visibility(Teleform_Residential_State_Dropdown, 5);
+	if(Visible){
+		wait_for_theElement_to_be_clickable(Teleform_Residential_State_Dropdown);
+		movetoelement(Teleform_Residential_State_Dropdown);
+		return Teleform_Residential_State_Dropdown;
+	}
+	else{
+		throw Teleform_Locator_Failure("Residential state dropdown is not visible.");
+	}}
+	public WebElement Teleform_Current_Location_State_Dropdown(){
+	Boolean Visible = check_element_visibility(Teleform_Current_Location_State_Dropdown, 5);
+	if(Visible){
+		wait_for_theElement_to_be_clickable(Teleform_Current_Location_State_Dropdown);
+		movetoelement(Teleform_Current_Location_State_Dropdown);
+		return Teleform_Current_Location_State_Dropdown;
+	}
+	else{
+		throw Teleform_Locator_Failure("Current location state dropdown is not visible.");
+	}}
 	public WebElement Teleform_Sex_Dropdown(){
 	Boolean Visible = check_element_visibility(Teleform_Sex_Dropdown, 5);
-	if(Visible) return Teleform_Sex_Dropdown;
-	else throw Teleform_Locator_Failure("Biological Sex dropdown is not visible.");}
+
+	if(Visible){
+		wait_for_theElement_to_be_clickable(Teleform_Sex_Dropdown);
+		movetoelement(Teleform_Sex_Dropdown);
+		return Teleform_Sex_Dropdown;
+	}
+	else{
+		throw Teleform_Locator_Failure("Sex dropdown is not visible.");
+	}}
 	public WebElement Teleform_Phone(){
 	Boolean Visible = check_element_visibility(Teleform_Phone, 5);
-	if(Visible) return Teleform_Phone;
-	else throw Teleform_Locator_Failure("Teleform phone number field is not visible.");}
+
+	if(Visible){
+		wait_for_theElement_to_be_clickable(Teleform_Phone);
+		movetoelement(Teleform_Phone);
+		return Teleform_Phone;
+	}
+	else{
+		throw Teleform_Locator_Failure("US mobile phone field is not visible.");
+	}}
 	
 	public WebElement Teleform_Terms_Consent(){
 	Boolean Visible = check_element_visibility(Teleform_Terms_Consent, 5);
@@ -296,43 +395,63 @@ public class Patient_Portal_Locaters extends Repeat {
 	else {
 	throw Teleform_Locator_Failure("Terms and Telehealth Consent checkbox is not visible.");}}
 	
-    public WebElement Teleform_Button(String Text){
-    System.out.println("Searching for Teleform button with text: " + Text);
+	public WebElement Teleform_Button(String Text){
 	Boolean Buttons_Visible = check_element_visibility(Teleform_Buttons, 10);
+
 	if(Buttons_Visible){
 		for(WebElement Button : Teleform_Buttons){
-			if(Button.getText().trim().equalsIgnoreCase(Text)){
-				Boolean Button_Visible = check_element_visibility(Button, 5);
-				if(Button_Visible){
-					return Button;
-				}
-				else{
-					throw Teleform_Locator_Failure("Teleform button not visible: " + Text);
-				}}}
-		throw Teleform_Locator_Failure("Teleform button not found: " + Text);}
+			if(Button.isDisplayed() && Button.getText().trim().equalsIgnoreCase(Text)){
+				wait_for_theElement_to_be_clickable(Button);
+				movetoelement(Button);
+				return Button;
+			}
+		}
+		throw Teleform_Locator_Failure("Teleform button not found: " + Text);
+	}
 	else{
 		throw Teleform_Locator_Failure("Teleform buttons are not visible.");
-	    }}
+	}}
 
 	public WebElement Teleform_Field(String Label){
-	for(WebElement Input : Teleform_Inputs){
-		if(Label.equalsIgnoreCase(Input.getDomAttribute("placeholder"))){
+	for(int n=0;n<Teleform_Input_Labels.size();n++){
+		if(Teleform_Input_Labels.get(n).getText().trim().equalsIgnoreCase(Label)){
+			WebElement Input = Teleform_Inputs.get(n);
 			Boolean Visible = check_element_visibility(Input, 5);
-			if(Visible) return Input;
-			else throw Teleform_Locator_Failure("Teleform input is not visible: " + Label);
+
+			if(Visible){
+				wait_for_theElement_to_be_clickable(Input);
+				movetoelement(Input);
+				return Input;
+			}
+			else{
+				throw Teleform_Locator_Failure("Teleform input is not visible: " + Label);
+			}
 		}
 	}
-	throw Teleform_Locator_Failure("Teleform input not found: " + Label);}
+	throw Teleform_Locator_Failure("Teleform input label not found: " + Label);}
 	public WebElement Teleform_Textarea(String Question){
 	for(int n=0;n<Teleform_Textarea_Cards.size();n++){
-		if(Teleform_Textarea_Cards.get(n).getText().contains(Question)){
+		WebElement Question_Card = Teleform_Textarea_Cards.get(n);
+
+		if(Question_Card.isDisplayed() && Teleform_Question_Label(Question_Card).getText().trim().equals(Question)){
 			WebElement Textarea = Teleform_Textareas.get(n);
 			Boolean Visible = check_element_visibility(Textarea, 5);
-			if(Visible) return Textarea;
-			else throw Teleform_Locator_Failure("Teleform textarea is not visible: " + Question);
+
+			if(Visible){
+				wait_for_theElement_to_be_clickable(Textarea);
+				movetoelement(Textarea);
+				return Textarea;
+			}
+			else{
+				throw Teleform_Locator_Failure("Teleform textarea is not visible: " + Question);
+			}
 		}
 	}
 	throw Teleform_Locator_Failure("Teleform textarea not found: " + Question);}
+	public List<WebElement> Teleform_Textarea_Cards(){
+	Boolean Visible = check_element_visibility(Teleform_Textarea_Cards, 5);
+	if(Visible) return Teleform_Textarea_Cards;
+	else throw Teleform_Locator_Failure("Teleform textarea cards are not visible.");}
 	public List<WebElement> Teleform_Choice_Cards(){
 	Boolean Visible = check_element_visibility(Teleform_Choice_Cards, 5);
 	if(Visible) return Teleform_Choice_Cards;
@@ -352,19 +471,28 @@ public class Patient_Portal_Locaters extends Repeat {
 		}
 	}
 	throw Teleform_Locator_Failure("Teleform answer option not found: " + Answer);}
+	public WebElement Teleform_Choice_Input(WebElement Option){
+	return Option.findElement(By.xpath(".//input[@type='radio' or @type='checkbox']"));}
+	public List<WebElement> Teleform_Consent_Checkboxes(){
+	Boolean Visible = check_element_visibility(Teleform_Consent_Checkboxes, 5);
+	if(Visible) return Teleform_Consent_Checkboxes;
+	else throw Teleform_Locator_Failure("Teleform consent checkboxes are not visible.");}
 	
-public WebElement Teleform_Dropdown_Option(String Option){
-	Boolean Visible = check_element_visibility(Teleform_Dropdown_Options, 5);
-	if(!Visible) throw Teleform_Locator_Failure("Teleform dropdown options are not visible.");
-	for(WebElement Item : Teleform_Dropdown_Options){
-		String Item_Text = Item.getDomAttribute("title");
-		if(Item_Text.equalsIgnoreCase(Option)){
-			Visible = check_element_visibility(Item, 5);
-			if(Visible) return Item;
-			else throw Teleform_Locator_Failure("Teleform dropdown option not visible: " + Option);
-		}
+	public WebElement Teleform_Dropdown_Option(String Option){
+		String Expected_Option = Option.trim().replaceAll("\\s+", " ");
+		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
+		wait.ignoring(StaleElementReferenceException.class);
+		wait.withMessage("No displayed and enabled Teleform dropdown option matched: " + Expected_Option);
+
+		return wait.until(driver -> {
+			for(WebElement Item : Teleform_Dropdown_Options){
+				if(Item.isDisplayed() && Item.isEnabled() && Item.getText().trim().replaceAll("\\s+", " ").equalsIgnoreCase(Expected_Option)){
+					return Item;
+				}
+			}
+			return null;
+		});
 	}
-	throw Teleform_Locator_Failure("Teleform dropdown option not found: " + Option);}
 
 public WebElement Teleform_SSN(){
 	wait_for_theElement_to_be_clickable(Teleform_SSN);
