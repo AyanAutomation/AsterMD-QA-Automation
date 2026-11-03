@@ -13,7 +13,7 @@
         </classes>
     </test>
 
-    <!-- STEP 2: Patient Portal Login and Five-Page Intake Form Submission -->
+    <!-- STEP 2: Five-Page Intake with SSN and ID Document Upload on Page 5 -->
     <test name="Step 2 - Patient Portal Intake Form Submission" preserve-order="true">
         <classes>
             <class name="Patient_Portal.Pateint_Portal">
@@ -24,19 +24,8 @@
         </classes>
     </test>
 
-    <!-- STEP 3: Post-Intake SSN and ID Document Verification -->
-    <test name="Step 3 - Patient Portal Post Intake ID Verification" preserve-order="true">
-        <classes>
-            <class name="Patient_Portal.Pateint_Portal">
-                <methods>
-                    <include name="Verify_Post_Intake_Form_Fillup"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-
-    <!-- STEP 4: Admin Treatment Module Patient Details Verification -->
-    <test name="Step 4 - Admin Treatment Patient Details Verification" preserve-order="true">
+    <!-- STEP 3: Admin Treatment Module Patient Details Verification -->
+    <test name="Step 3 - Admin Treatment Patient Details Verification" preserve-order="true">
         <classes>
             <class name="AsterMD.Project.AsterMD.Treatment_Module">
                 <methods>

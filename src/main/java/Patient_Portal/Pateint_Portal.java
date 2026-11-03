@@ -17,6 +17,8 @@ import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+
 import Listerners.Report_Listen;
 import Locaters.Patient_Portal_Locaters;
 import Repeatative_codes.Repeat;
@@ -457,316 +459,6 @@ public void Intake_form_filling(TreeMap<String,String> Product_data) throws Inte
 
 
 
-
-
-
-
-
-
-@Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
-public void Verify_Post_Intake_Form_Fillup(TreeMap<String,String> Product_data) throws InterruptedException{
-
-	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
-	Repeat rp = new Repeat(d);
-
-	String Product_Name = Product_data.get("Product Name");
-	String Treatment_Variant = Product_data.getOrDefault("Treatment Variant", "");
-	String Patient_Name = Product_data.get("First Name") + " " + Product_data.get("Last Name");
-	String Patient_SSN = Product_data.get("SSN");
-	String ID_Verification_Image_Name = Product_data.get("ID Verification Image");
-	String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
-
-	Assert.assertTrue(Patient_SSN != null && !Patient_SSN.isBlank(), "DataProvider Failure | Field: SSN | Patient: " + Patient_Name);
-	Assert.assertTrue(ID_Verification_Image_Name != null && !ID_Verification_Image_Name.isBlank(), "DataProvider Failure | Field: ID Verification Image | Patient: " + Patient_Name);
-
-	// Prepare ID Verification Image Path
-	String ID_Verification_Folder = System.getProperty("user.dir") + File.separator + "Images" + File.separator + "AsterMD_ID_Verification_QA_Fixtures_20_Images" + File.separator + "Images" + File.separator + "ID_Verification";
-	File ID_Verification_Image = new File(ID_Verification_Folder, ID_Verification_Image_Name);
-	Assert.assertTrue(ID_Verification_Image.isFile(), "ID Verification Fixture Failure | Image not found: " + ID_Verification_Image.getAbsolutePath());
-
-	// Patient Portal Login and Treatments Navigation
-	Patient_portal_header_menu_navigator("Treatments", "Registered", Product_data);
-
-	System.out.println();
-	System.out.println("============================================================");
-	System.out.println("                   POST INTAKE ID VERIFICATION");
-	System.out.println("============================================================");
-	System.out.println("Patient : " + Patient_Name);
-	System.out.println("Product : " + Product_Name);
-	System.out.println("Variant : " + Treatment_Variant);
-	System.out.println("URL     : " + d.getCurrentUrl());
-
-	Report_Listen.log_print_in_report().info("Starting post-intake identity verification for: " + Patient_Name + " | " + Product_Name + " | " + Treatment_Variant);
-
-	// Access Active Treatments Section
-	System.out.println();
-	System.out.println("---------- ACTIVE TREATMENTS SECTION ----------");
-	System.out.println("POM Getter : Active_Tab()");
-
-	WebElement Active_Section = p.Active_Tab();
-	rp.Scroll_to_element(Active_Section);
-
-	System.out.println("Result : Active Treatments section located.");
-
-	// Retrieve Treatment Cards
-	System.out.println();
-	System.out.println("---------- TREATMENT CARD RETRIEVAL ----------");
-	System.out.println("POM Getter : Incomplete_Treatment_Cards()");
-
-	List<WebElement> Treatment_Cards = p.Incomplete_Treatment_Cards();
-
-	System.out.println("Total Cards : " + Treatment_Cards.size());
-
-	int Product_Matches = 0;
-	int Variant_Matches = 0;
-	int Buttons_Found = 0;
-	int Identity_Buttons_Found = 0;
-	int Card_Number = 0;
-
-	// Search Matching Treatment and Verify Identity Button
-	for(WebElement Treatment_Card : Treatment_Cards){
-
-		Card_Number++;
-
-		// rp.Fetch_Section_HTML(Treatment_Card, "Treatment Card " + Card_Number);
-
-		String Treatment_Details = Treatment_Card.getText().trim().replace("\n", " | ");
-		Boolean Product_Matched = Treatment_Details.contains(Product_Name);
-		Boolean Variant_Matched = Treatment_Details.contains(Treatment_Variant);
-
-		System.out.println();
-		System.out.println("---------- TREATMENT CARD " + Card_Number + " ----------");
-		System.out.println("Card Text      : " + Treatment_Details);
-		System.out.println("Product Match  : " + Product_Matched);
-		System.out.println("Variant Match  : " + Variant_Matched);
-
-		if(Product_Matched){
-
-			Product_Matches++;
-
-			if(Variant_Matched){
-
-				Variant_Matches++;
-
-				// Retrieve Verify Identity Buttons
-				System.out.println();
-				System.out.println("---------- VERIFY IDENTITY BUTTON SEARCH ----------");
-				System.out.println("Locator : " + Button_XPath);
-
-				List<WebElement> Verify_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
-				Buttons_Found += Verify_Buttons.size();
-
-				System.out.println("Buttons Retrieved : " + Verify_Buttons.size());
-
-				for(WebElement Verify_Button : Verify_Buttons){
-
-					String Button_Text = Verify_Button.getText().trim();
-					Boolean Button_Visible = rp.check_element_visibility(Verify_Button, 4);
-					Boolean Button_Enabled = Verify_Button.isEnabled();
-
-					System.out.println();
-					System.out.println("Button Text    : " + Button_Text);
-					System.out.println("Button Visible : " + Button_Visible);
-					System.out.println("Button Enabled : " + Button_Enabled);
-
-					if(Button_Text.contains("Verify Identity")){
-						Identity_Buttons_Found++;
-					}
-
-					if(Button_Visible && Button_Enabled && Button_Text.contains("Verify Identity")){
-
-						System.out.println("Button Match : PASS");
-						System.out.println("Action       : Opening ID Verification.");
-
-						Report_Listen.log_print_in_report().pass("Matching treatment and Verify Identity button found for: " + Patient_Name);
-
-						rp.wait_for_theElement(Verify_Button);
-						rp.movetoelement(Verify_Button);
-						Verify_Button.click();
-
-						System.out.println("Result : ID Verification form navigation triggered.");
-						Report_Listen.log_print_in_report().info("Opened ID Verification for: " + Product_Name);
-
-						// Shared ID Verification Form Routing
-						if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets")){
-
-							// Verify ID Verification Form
-							System.out.println();
-							System.out.println("---------- ID VERIFICATION FORM ----------");
-							System.out.println("POM Getter : ID_Verification_Title()");
-
-							WebElement Form_Title = p.ID_Verification_Title();
-							String Actual_Title = Form_Title.getText().trim();
-
-							Assert.assertEquals(Actual_Title, "ID VERIFICATION", "ID Verification Failure | Section: Form Title | Actual: " + Actual_Title);
-
-							System.out.println("Form Title : " + Actual_Title);
-							System.out.println("Result     : PASS");
-
-							// Enter SSN
-							System.out.println();
-							System.out.println("---------- SSN FIELD VERIFICATION ----------");
-							System.out.println("POM Getter : ID_Verification_SSN()");
-
-							WebElement SSN_Field = p.ID_Verification_SSN();
-							SSN_Field.clear();
-							SSN_Field.sendKeys(Patient_SSN);
-
-							String Actual_SSN = SSN_Field.getDomProperty("value");
-							Assert.assertEquals(Actual_SSN, Patient_SSN, "ID Verification Failure | Section: SSN | Entered value mismatch.");
-
-							System.out.println("SSN Entry : PASS");
-							Report_Listen.log_print_in_report().pass("SSN field entered and verified.");
-
-							// Upload ID Verification Image
-							System.out.println();
-							System.out.println("---------- ID DOCUMENT UPLOAD ----------");
-							System.out.println("POM Getter : ID_Verification_File_Input()");
-							System.out.println("File       : " + ID_Verification_Image_Name);
-
-							WebElement File_Input = p.ID_Verification_File_Input();
-							File_Input.sendKeys(ID_Verification_Image.getAbsolutePath());
-
-							WebElement Uploaded_File_Name = p.ID_Verification_Uploaded_File_Name();
-							String Actual_File_Name = Uploaded_File_Name.getText().trim();
-
-							Assert.assertEquals(Actual_File_Name, ID_Verification_Image_Name, "ID Verification Failure | Section: Uploaded Filename | Uploaded file does not match DataProvider.");
-
-							System.out.println("Expected File : " + ID_Verification_Image_Name);
-							System.out.println("Actual File   : " + Actual_File_Name);
-							System.out.println("Upload Result : PASS");
-
-							Report_Listen.log_print_in_report().pass("ID Verification image uploaded: " + Actual_File_Name);
-
-							// Verify Uploaded Image Card
-							System.out.println();
-							System.out.println("---------- UPLOAD CARD VERIFICATION ----------");
-							System.out.println("POM Field : Upload_image_card");
-
-							Boolean Card_Populated = rp.check_element_visibility(p.Upload_image_card, 4);
-
-							if(Card_Populated){
-								System.out.println("Upload Card Visible : true");
-								System.out.println("Result              : PASS");
-							}
-							else{
-								System.out.println("Upload Card Visible : false");
-								System.out.println("Result              : FAIL");
-								Report_Listen.log_print_in_report().fail("ID image upload card not populated for: " + Patient_Name);
-								Assert.fail("ID Verification Failure | Section: Image Upload | POM: Upload_image_card | Reason: Uploaded image card was not visible.");
-							}
-
-							// Submit ID Verification Form
-							System.out.println();
-							System.out.println("---------- ID VERIFICATION SUBMISSION ----------");
-							System.out.println("POM Getter : ID_Verification_Submit()");
-
-							WebElement Submit_Button = p.ID_Verification_Submit();
-							rp.wait_for_theElement(Submit_Button);
-							rp.movetoelement(Submit_Button);
-							Submit_Button.click();
-
-							System.out.println("Action : Submit clicked.");
-
-							// Verify Submission Toast
-							System.out.println();
-							System.out.println("---------- SUBMISSION TOAST VERIFICATION ----------");
-							System.out.println("POM Field : ID_Verification_Success_Toast");
-
-							WebElement Submission_Toast = p.ID_Verification_Success_Toast;
-							Boolean Submission_Success = Teleform_Toast_Detector_Printer(Submission_Toast);
-
-							if(Submission_Success){
-
-								System.out.println();
-								System.out.println("============================================================");
-								System.out.println("                    ID VERIFICATION RESULT");
-								System.out.println("============================================================");
-								System.out.println("Patient : " + Patient_Name);
-								System.out.println("Product : " + Product_Name);
-								System.out.println("Result  : PASS");
-								System.out.println("Reason  : Success notification displayed.");
-
-								Report_Listen.log_print_in_report().pass("ID Verification form submitted successfully for: " + Patient_Name);
-							}
-							else{
-
-								System.out.println();
-								System.out.println("---------- ID VERIFICATION SUBMISSION FAILURE ----------");
-								System.out.println("Patient : " + Patient_Name);
-								System.out.println("Result  : FAIL");
-								System.out.println("Reason  : ID Verification success toast was not displayed.");
-
-								Report_Listen.log_print_in_report().fail("ID Verification success toast missing for: " + Patient_Name);
-								Assert.fail("ID Verification Failure | Section: Post-Submission Toast | POM: ID_Verification_Success_Toast | Patient: " + Patient_Name + " | Reason: Success notification not detected.");
-							}
-						}
-						else{
-							throw new SkipException("ID Verification automation not configured for: " + Product_Name);
-						}
-
-						return;
-					}
-					else{
-						System.out.println("Action : NOT PERFORMED - Verify Identity button is unavailable, hidden, or disabled.");
-					}
-				}
-			}
-		}
-	}
-
-	// Identify Why ID Verification Could Not Be Performed
-	String Action_Reason;
-
-	if(Treatment_Cards.isEmpty()){
-		Action_Reason = "No treatment cards were available in the Active Treatments section.";
-	}
-	else if(Product_Matches == 0){
-		Action_Reason = "No treatment card matched the expected product name.";
-	}
-	else if(Variant_Matches == 0){
-		Action_Reason = "Product was found, but the expected treatment variant was not available: " + Treatment_Variant;
-	}
-	else if(Buttons_Found == 0){
-		Action_Reason = "Matching treatment card found, but no buttons were returned by XPath: " + Button_XPath;
-	}
-	else if(Identity_Buttons_Found == 0){
-		Action_Reason = "Matching treatment cards were found, but no Verify Identity button is currently available. Existing buttons may show Pending or Start Intake.";
-	}
-	else{
-		Action_Reason = "Verify Identity button was found, but it is currently hidden or disabled.";
-	}
-
-	// Log Action Not Performed Without Throwing Exception
-	System.out.println();
-	System.out.println("============================================================");
-	System.out.println("                  ID VERIFICATION NOT PERFORMED");
-	System.out.println("============================================================");
-	System.out.println("Patient          : " + Patient_Name);
-	System.out.println("Product          : " + Product_Name);
-	System.out.println("Variant          : " + Treatment_Variant);
-	System.out.println("Treatment Cards  : " + Treatment_Cards.size());
-	System.out.println("Product Matches  : " + Product_Matches);
-	System.out.println("Variant Matches  : " + Variant_Matches);
-	System.out.println("Buttons Found    : " + Buttons_Found);
-	System.out.println("Identity Buttons : " + Identity_Buttons_Found);
-	System.out.println("Button XPath     : " + Button_XPath);
-	System.out.println("Current URL      : " + d.getCurrentUrl());
-	System.out.println("Action           : NOT PERFORMED");
-	System.out.println("Reason           : " + Action_Reason);
-	System.out.println("============================================================");
-
-	Report_Listen.log_print_in_report().info("⚠️ ID Verification NOT PERFORMED | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: " + Action_Reason);
-
-	return;
-}
-
-
-
-
-
-
-
 public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
@@ -831,30 +523,52 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	Actual_Page = Page_Indicator.getText().trim();
 	Assert.assertEquals(Actual_Page, "Page 3 of 5");
 
-	String[][] Personal_Fields = {
-		{"FIRST NAME", "First Name"},
-		{"LAST NAME", "Last Name"},
-		{"EMAIL", "Email"}
-	};
-
-	for(String[] Field : Personal_Fields){
-		String Value = Product_data.get(Field[1]);
-		WebElement Input = p.Teleform_Field(Field[0]);
-
-		rp.movetoelement(Input);
-		Input.clear();
-		Input.sendKeys(Value);
-
-		String Actual_Value = Input.getDomProperty("value");
-		System.out.println(Field[1] + " : " + Actual_Value);
-	}
-
+	// Fetch Personal Details Individually from DataProvider
+	String First_Name = Product_data.get("First Name");
+	String Last_Name = Product_data.get("Last Name");
+	String Email = Product_data.get("Email");
 	String Date_Of_Birth = Product_data.get("Date of Birth");
+	String Biological_Sex = Product_data.get("Biological Sex at Birth");
+	String Patient_Phone = Product_data.get("Phone");
+
+	// First Name
+	WebElement First_Name_Field = p.Teleform_Field("FIRST NAME");
+	rp.movetoelement(First_Name_Field);
+	First_Name_Field.clear();
+	First_Name_Field.sendKeys(First_Name);
+
+	String Actual_First_Name = First_Name_Field.getDomProperty("value");
+
+	System.out.println("First Name : " + Actual_First_Name);
+	Assert.assertEquals(Actual_First_Name, First_Name, "First Name mismatch.");
+
+	// Last Name
+	WebElement Last_Name_Field = p.Teleform_Field("LAST NAME");
+	rp.movetoelement(Last_Name_Field);
+	Last_Name_Field.clear();
+	Last_Name_Field.sendKeys(Last_Name);
+
+	String Actual_Last_Name = Last_Name_Field.getDomProperty("value");
+
+	System.out.println("Last Name : " + Actual_Last_Name);
+	Assert.assertEquals(Actual_Last_Name, Last_Name, "Last Name mismatch.");
+
+	// Email
+	WebElement Email_Field = p.Teleform_Field("EMAIL");
+	rp.movetoelement(Email_Field);
+	Email_Field.clear();
+	Email_Field.sendKeys(Email);
+
+	String Actual_Email = Email_Field.getDomProperty("value");
+
+	System.out.println("Email : " + Actual_Email);
+	Assert.assertEquals(Actual_Email, Email, "Email mismatch.");
+
+	// Date of Birth
 	Teleform_Date_Of_Birth_Selector(Date_Of_Birth);
 
-	String Biological_Sex = Product_data.get("Biological Sex at Birth");
+	// Biological Sex at Birth
 	WebElement Sex_Dropdown = p.Teleform_Sex_Dropdown();
-
 	rp.movetoelement(Sex_Dropdown);
 	Sex_Dropdown.click();
 
@@ -864,9 +578,8 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 
 	System.out.println("Biological Sex : " + Biological_Sex);
 
-	String Patient_Phone = Product_data.get("Phone");
+	// Phone Number
 	WebElement Phone_Field = p.Teleform_Phone();
-
 	rp.movetoelement(Phone_Field);
 	Phone_Field.click();
 	Phone_Field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
@@ -966,8 +679,78 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	Assert.assertEquals(Actual_Page, "Page 5 of 5");
 
 	Teleform_Question_Selector(Product_data);
+	System.out.println("Assessment Questions : COMPLETED");
+	Report_Listen.log_print_in_report().pass("Page 5 assessment questions completed: " + Product_Name);
+
+	// SSN Verification
+	System.out.println();
+	System.out.println("---------- SSN VERIFICATION ----------");
+
+	String Patient_SSN = Product_data.get("SSN");
+	Assert.assertTrue(Patient_SSN != null && !Patient_SSN.isBlank(), "DataProvider field SSN is missing or blank on Page 5.");
+
+	WebElement SSN_Field = p.Teleform_SSN();
+	rp.movetoelement(SSN_Field);
+	SSN_Field.clear();
+	SSN_Field.sendKeys(Patient_SSN);
+	SSN_Field.sendKeys(Keys.TAB);
+
+	String Actual_SSN = SSN_Field.getDomProperty("value");
+
+	Assert.assertTrue(Patient_SSN.equals(Actual_SSN), "Page 5 SSN value does not match the DataProvider (values masked).");
+	Assert.assertFalse("true".equals(SSN_Field.getDomAttribute("aria-invalid")), "Application marked the Page 5 SSN invalid (value masked).");
+
+	System.out.println("SSN Entered : true");
+	System.out.println("Result : PASS");
+	Report_Listen.log_print_in_report().pass("Page 5 SSN entered and verified; value masked.");
+
+	// ID Document Upload
+	System.out.println();
+	System.out.println("---------- ID DOCUMENT UPLOAD ----------");
+	System.out.println("POM Getter : Teleform_ID_File_Input()");
+
+	String ID_Verification_Image_Name = Product_data.get("ID Verification Image");
+	Assert.assertTrue(ID_Verification_Image_Name != null && !ID_Verification_Image_Name.isBlank(), "DataProvider field ID Verification Image is missing or blank on Page 5.");
+
+	String ID_Verification_Folder = System.getProperty("user.dir") + File.separator + "Images" + File.separator + "AsterMD_ID_Verification_QA_Fixtures_20_Images" + File.separator + "Images" + File.separator + "ID_Verification";
+	File ID_Verification_Image = new File(ID_Verification_Folder, ID_Verification_Image_Name);
+
+	System.out.println("Expected File : " + ID_Verification_Image_Name);
+	System.out.println("Fixture Exists : " + ID_Verification_Image.isFile());
+
+	Assert.assertTrue(ID_Verification_Image.isFile(), "Page 5 ID fixture not found: " + ID_Verification_Image.getAbsolutePath());
+
+	WebElement File_Input = p.Teleform_ID_File_Input();
+	File_Input.sendKeys(ID_Verification_Image.getAbsolutePath());
+
+	System.out.println("File Selection Action : COMPLETED");
+	System.out.println("Upload Status : Waiting for the preview to become ready and the pending message to clear.");
+
+		// Verify Uploaded ID Document
+	// Verify ID Document Upload Completion
+	System.out.println();
+	System.out.println("---------- ID DOCUMENT UPLOAD VERIFICATION ----------");
+
+	WebElement Upload_Pending_Message = p.Teleform_ID_Upload_Pending_Message();
+
+	System.out.println("Expected File : " + ID_Verification_Image.getName());
+	System.out.println("Upload Status : Waiting for pending message to disappear.");
+
+	rp.wait_for_invisibilty_of_theElement(Upload_Pending_Message);
+
+	System.out.println("Upload Status : Pending message disappeared.");
+	System.out.println("Result        : PASS");
+
+	Report_Listen.log_print_in_report().pass("ID document upload pending message cleared: " + ID_Verification_Image.getName());
+	
+	// Additional Notes
+	System.out.println();
+	System.out.println("---------- ADDITIONAL NOTES ----------");
 
 	String Patient_Notes = Product_data.get("Notes");
+
+	Assert.assertNotNull(Patient_Notes, "DataProvider field Notes is missing on Page 5.");
+
 	WebElement Notes_Field = p.Teleform_Textarea("Please introduce yourself and feel free to ask any questions you have about your medical concerns or anything you would like the doctor to know:");
 
 	rp.movetoelement(Notes_Field);
@@ -975,40 +758,45 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	Notes_Field.sendKeys(Patient_Notes);
 
 	String Actual_Notes = Notes_Field.getDomProperty("value");
-	System.out.println("Additional Notes : " + Actual_Notes);
+
+	Assert.assertTrue(Patient_Notes.equals(Actual_Notes), "Page 5 Additional Notes does not match the DataProvider.");
+
+	System.out.println("Result : PASS");
+	Report_Listen.log_print_in_report().pass("Page 5 Additional Notes completed.");
+
+	// Intake Form Submission
+	System.out.println();
+	System.out.println("---------- INTAKE FORM SUBMISSION ----------");
 
 	WebElement Submit_Button = p.Teleform_Button("Submit →");
-	rp.movetoelement(Submit_Button);
+
+	rp.wait_for_theElement_to_be_clickable(Submit_Button);
+	rp.movetoelement(Submit_Button); 
 	Submit_Button.click();
 
-	// Post Submission Verification
 	WebElement Submission_Toast = p.Teleform_Submission_Success_Toast;
 	Boolean Submission_Success = Teleform_Toast_Detector_Printer(Submission_Toast);
 
 	if(Submission_Success){
+		System.out.println();
 		System.out.println("========== INTAKE SUBMISSION RESULT ==========");
-		System.out.println();
 		System.out.println("Product : " + Product_Name);
-		System.out.println("Result  : PASS");
-		System.out.println("Reason  : Intake form submitted successfully.");
-		System.out.println();
+		System.out.println("Intake Form : COMPLETED");
+		System.out.println("SSN : VERIFIED");
+		System.out.println("ID Document Upload : VERIFIED");
+		System.out.println("Submission : PASS");
 
-		Report_Listen.log_print_in_report().pass("Intake form submitted successfully for: " + Product_Name);
+		Report_Listen.log_print_in_report().pass("Intake with SSN and ID document submitted successfully for: " + Product_Name);
 	}
 	else{
-		System.out.println("========== INTAKE SUBMISSION RESULT ==========");
-		System.out.println();
-		System.out.println("Product : " + Product_Name);
-		System.out.println("Result  : FAIL");
-		System.out.println("Reason  : Post-submission success toast was not displayed.");
-		System.out.println();
+		System.out.println("Submission : FAIL");
+		System.out.println("Reason : Expected successful-submission notification was not verified.");
 
-		Report_Listen.log_print_in_report().fail("Intake submission verification failed for: " + Product_Name);
-		throw new AssertionError("Intake form submission failed. Expected success toast was not displayed for: " + Product_Name);
-	}
+		Report_Listen.log_print_in_report().fail("Page 5 intake submission success was not verified.");
 
+		Assert.fail("Page 5 intake submission failed: expected Action Successful | Submitted successfully.");
+	} 
 }
-
 
 
 public void Teleform_Question_Selector(TreeMap<String,String> Product_data){
@@ -1198,28 +986,31 @@ public void Intake_Dropdown_Option_Selector(WebElement Dropdown, String Expected
 public Boolean Teleform_Toast_Detector_Printer(WebElement Toast){
 
 	Repeat rp = new Repeat(d);
+	String Expected_Toast = "Action Successful | Submitted successfully.";
 	Boolean Toast_Visible = rp.check_element_visibility(Toast, 10);
 
+	System.out.println();
+	System.out.println("---------- POST SUBMISSION TOAST ----------");
+	System.out.println("Expected : " + Expected_Toast);
+
 	if(Toast_Visible){
-		String Toast_Message = Toast.getText().trim();
+		String Toast_Message = Toast.getText().trim().replaceAll("\\s*\\r?\\n\\s*", " | ");
+		System.out.println("Actual : " + Toast_Message);
 
-		System.out.println();
-		System.out.println("---------- POST SUBMISSION TOAST ----------");
-		System.out.println();
-		System.out.println("Toast Message : " + Toast_Message.replace("\n", " | "));
-		System.out.println("Toast Visible : " + Toast_Visible);
-		System.out.println();
-
-		return true;
+		if(Expected_Toast.equals(Toast_Message)){
+			System.out.println("Result : PASS");
+			return true;
+		}
+		else{
+			System.out.println("Result : FAIL");
+			System.out.println("Reason : Submission notification did not match the expected message.");
+			return false;
+		}
 	}
 	else{
-		System.out.println();
-		System.out.println("---------- POST SUBMISSION TOAST ----------");
-		System.out.println();
-		System.out.println("Toast Visible : " + Toast_Visible);
-		System.out.println("Reason : Success toast was not displayed.");
-		System.out.println();
-
+		System.out.println("Actual : Notification not displayed.");
+		System.out.println("Result : FAIL");
+		System.out.println("Reason : Expected success notification was not visible within 10 seconds.");
 		return false;
 	}
 }

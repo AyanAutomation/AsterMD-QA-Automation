@@ -7,6 +7,7 @@ import java.util.List;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -96,6 +97,7 @@ public class Repeat {
 		try {
 
 			WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(Wait_Time));
+			w.ignoring(StaleElementReferenceException.class);
 			w.until(ExpectedConditions.visibilityOf(element));
 
 			return true;
