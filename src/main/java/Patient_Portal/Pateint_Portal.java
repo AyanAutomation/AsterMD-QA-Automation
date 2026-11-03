@@ -585,7 +585,8 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	String Actual_City = City_Field.getDomProperty("value");
 	System.out.println("City | Expected: " + Patient_City + " | Actual: " + Actual_City);
 	Assert.assertEquals(Actual_City, Patient_City, "City mismatch.");
-
+    
+	
 	WebElement ZIP_Field = p.Teleform_Field("ZIP code (5 digits)");
 	rp.movetoelement(ZIP_Field);
 	ZIP_Field.clear();
