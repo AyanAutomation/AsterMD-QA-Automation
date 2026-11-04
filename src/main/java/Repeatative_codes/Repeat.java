@@ -65,6 +65,61 @@ public class Repeat {
 		w.until(ExpectedConditions.elementToBeClickable(element));
 	}
 
+	public void wait_for_displayed_elements(List<WebElement> elements) {
+		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
+		wait.ignoring(StaleElementReferenceException.class);
+		wait.until(driver -> {
+			for(WebElement element : elements){
+				if(element.isDisplayed()) return true;
+			}
+			return false;
+		});
+	}
+
+	public void wait_for_enabled_element(WebElement element) {
+		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
+		wait.ignoring(StaleElementReferenceException.class);
+		wait.until(driver -> element.isEnabled());
+	}
+
+	public void wait_for_expected_text(WebElement element, String expected) {
+		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
+		wait.ignoring(StaleElementReferenceException.class);
+		wait.withMessage("Expected element text was not reached: " + expected);
+		wait.until(driver -> element.isDisplayed() && expected.equals(element.getText().trim()));
+	}
+
+	public void wait_for_selected_value(WebElement element, String expected) {
+		String expectedValue = expected.replaceAll("\\s+", "");
+		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
+		wait.ignoring(StaleElementReferenceException.class);
+		wait.withMessage("Dropdown did not display the selected value: " + expected);
+		wait.until(driver -> element.isDisplayed() && element.getText().replaceAll("\\s+", "").equalsIgnoreCase(expectedValue));
+	}
+
+	public void wait_for_text_in_elements(List<WebElement> elements, String expected) {
+		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(20));
+		wait.ignoring(StaleElementReferenceException.class);
+		wait.until(driver -> {
+			for(WebElement element : elements){
+				if(element.isDisplayed() && element.getText().contains(expected)) return true;
+			}
+			return false;
+		});
+	}
+
+	public void wait_for_collection_text_change(List<WebElement> elements, String previousText) {
+		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
+		wait.ignoring(StaleElementReferenceException.class);
+		wait.until(driver -> {
+			String currentText = "";
+			for(WebElement element : elements){
+				if(element.isDisplayed()) currentText += "|" + element.getText().trim();
+			}
+			return !currentText.isEmpty() && !currentText.equals(previousText);
+		});
+	}
+
 	public String wait_for_alert_and_accept() {
 		WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(10));
 		Alert alert = w.until(ExpectedConditions.alertIsPresent());

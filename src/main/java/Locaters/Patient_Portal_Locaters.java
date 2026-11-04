@@ -1,51 +1,40 @@
 package Locaters;
 
-import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import Listerners.Report_Listen;
 import Repeatative_codes.Repeat;
 
 public class Patient_Portal_Locaters extends Repeat {
-
     @FindBy(id="login")
-	private WebElement Yopmail_Inbox_Search; 
+	private WebElement Yopmail_Inbox_Search;
     @FindBy(xpath="//button[@title='Check Inbox @yopmail.com']")
-	private WebElement Yopmail_Open_Inbox; 
+	private WebElement Yopmail_Open_Inbox;
     @FindBy(id="refresh")
-	private WebElement Yopmail_Refresh; 
+	private WebElement Yopmail_Refresh;
     @FindBy(id="ifinbox")
-	private WebElement Yopmail_Inbox_Frame; 
-    // Yopmail's inner message-list HTML was not supplied: verify this selector on the actual mailbox if its UI changes.
+	private WebElement Yopmail_Inbox_Frame;
     @FindBy(xpath="(//button[contains(concat(' ',normalize-space(@class),' '),' lm ')] | //*[@id='e0'])[1]")
-	private WebElement Yopmail_First_Mail; 
+	private WebElement Yopmail_First_Mail;
     @FindBy(id="ifmail")
-	private WebElement Yopmail_Message_Frame; 
+	private WebElement Yopmail_Message_Frame;
     @FindBy(xpath="//div[@id='mailctn']//div[@id='mail'][contains(.,'https://testdemo.logistial.com/set-password?token=')]")
-	private WebElement Yopmail_Message_Body; 
+	private WebElement Yopmail_Message_Body;
     @FindBy(id="email")
-	private WebElement Portal_Email; 
+	private WebElement Portal_Email;
     @FindBy(id="password")
-	private WebElement Portal_Password; 
+	private WebElement Portal_Password;
     @FindBy(id="confirmPassword")
-	private WebElement Portal_Confirm_Password; 
+	private WebElement Portal_Confirm_Password;
     @FindBy(xpath="//button[@type='submit' and .//span[normalize-space()='Continue']]")
-	private WebElement Portal_Continue_Button; 
+	private WebElement Portal_Continue_Button;
     @FindBy(xpath="//h1[normalize-space()='Patient portal']")
-	private WebElement Portal_Login_Title; 
+	private WebElement Portal_Login_Title;
     @FindBy(xpath="//div[contains(@class,'tabGroup')]//a[contains(@href,'/')]")
 	private List<WebElement> Patient_Portal_Header_Menu_Options;
-    private static final String INCOMPLETE_TREATMENT_CARDS_XPATH = "//*[text()='Incomplete Treatments']/../../..//div[@class='ant-collapse-panel ant-collapse-panel-active']//div[contains(@class,'ant-card ant-card-bordered')]";
-    @FindBy(xpath=INCOMPLETE_TREATMENT_CARDS_XPATH)
+    @FindBy(xpath="//*[text()='Incomplete Treatments']/../../..//div[@class='ant-collapse-panel ant-collapse-panel-active']//div[contains(@class,'ant-card ant-card-bordered')]")
 	private List<WebElement> Incomplete_Treatment_Cards;
     @FindBy(xpath="//h2[normalize-space()='About You']")
 	private WebElement Intake_Page_Heading;
@@ -91,12 +80,6 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Teleform_Main;
     @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'formProgressMeta')]")
 	private WebElement Teleform_Page_Indicator;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//button[contains(@class,'ant-btn-color-default')]")
-	private List<WebElement> Teleform_Buttons;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//input[@placeholder]")
-	private List<WebElement> Teleform_Inputs;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//input[@placeholder]]//div[contains(@class,'fieldLabel')]/span[1]")
-	private List<WebElement> Teleform_Input_Labels;
     @FindBy(xpath="//section[contains(@class,'canvasPreview')]//input[@type='email' and @placeholder='Enter the email used for your order']")
 	private WebElement Teleform_Account_Email;
     @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//textarea]")
@@ -142,27 +125,35 @@ public class Patient_Portal_Locaters extends Repeat {
     @FindBy(xpath="//div[@role='alert' and contains(@class,'app-toast--success')][.//div[contains(@class,'ant-notification-notice-title') and normalize-space()='Action Successful'] and .//div[contains(@class,'ant-notification-notice-description') and normalize-space()='Submitted successfully.']]")
 	public WebElement Teleform_Submission_Success_Toast;
     @FindBy(xpath="//main//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='SSN']]//input[@type='text']")
-    private WebElement Teleform_SSN;
+	private WebElement Teleform_SSN;
     @FindBy(xpath="//main//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='File Upload']]//input[@type='file']")
-    private WebElement Teleform_ID_File_Input;
+	private WebElement Teleform_ID_File_Input;
     @FindBy(xpath="//main//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='File Upload']]")
 	private WebElement Teleform_ID_Upload_Section;
-    // The captured pending UI already shows the filename, but View is not yet available.
     @FindBy(xpath="//main//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='File Upload']]//div[contains(@class,'fieldError') and normalize-space()='Please wait for the file upload to finish.']")
 	private WebElement Teleform_ID_Upload_Pending_Message;
     @FindBy(xpath="//main//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='File Upload Field']]//input[@type='file']")
-    private List<WebElement> Teleform_Additional_File_Inputs;
+	private List<WebElement> Teleform_Additional_File_Inputs;
     @FindBy(css="div[role='alert'], main div[class*='__fieldError'], main .ant-form-item-explain-error, main input:invalid, main textarea:invalid, main select:invalid")
-    public List<WebElement> Teleform_Submission_Messages;
-    
-    
-
-    
+	public List<WebElement> Teleform_Submission_Messages;
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Legal first name']]//input[@placeholder]")
+	private WebElement Teleform_First_Name;
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Legal last name']]//input[@placeholder]")
+	private WebElement Teleform_Last_Name;
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Residential street address, including apartment or unit']]//input[@placeholder]")
+	private WebElement Teleform_Address;
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='City']]//input[@placeholder]")
+	private WebElement Teleform_City;
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='ZIP code (5 digits)']]//input[@placeholder]")
+	private WebElement Teleform_ZIP;
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//button[contains(@class,'ant-btn-color-default') and normalize-space()='Continue']")
+	private WebElement Teleform_Continue_Button;
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//button[contains(@class,'ant-btn-color-default') and normalize-space()='Submit intake']")
+	private WebElement Teleform_Submit_Button;
 
 	public Patient_Portal_Locaters(WebDriver d){
 	super(d);
 	PageFactory.initElements(d, this);}
-
 	public WebElement Yopmail_Inbox_Search(){
 	wait_for_theElement(Yopmail_Inbox_Search);
 	return Yopmail_Inbox_Search;}
@@ -200,26 +191,11 @@ public class Patient_Portal_Locaters extends Repeat {
 	wait_for_theElement(Portal_Login_Title);
 	return Portal_Login_Title;}
 	public List<WebElement> Patient_Portal_Header_Menu_Options(){
-	wait_for_theElement(Patient_Portal_Header_Menu_Options);
+	wait_for_displayed_elements(Patient_Portal_Header_Menu_Options);
 	return Patient_Portal_Header_Menu_Options;}
-    public List<WebElement> Incomplete_Treatment_Cards(){
-
-    Boolean Loader_Detected = check_element_visibility(Treatment_Summary_Loader, 2);
-    System.out.println("Treatment Loader Detected : " + Loader_Detected);
-
-    wait_for_invisibilty_of_theElement(Treatment_Summary_Loader);
-    System.out.println("Treatment Loader Wait     : COMPLETED (Invisible/Absent)");
-
-    WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(20));
-    wait.ignoring(StaleElementReferenceException.class);
-    wait.until(driver -> !Incomplete_Treatment_Cards.isEmpty() && Incomplete_Treatment_Cards.get(0).getText().contains("Progress:"));
-
-    System.out.println("Treatment Cards Loaded    : " + Incomplete_Treatment_Cards.size());
-
-    return Incomplete_Treatment_Cards;
-}
-
-
+	public List<WebElement> Incomplete_Treatment_Cards(){
+	wait_for_displayed_elements(Incomplete_Treatment_Cards);
+	return Incomplete_Treatment_Cards;}
 	public WebElement Intake_Page_Heading(){
 	wait_for_theElement(Intake_Page_Heading);
 	return Intake_Page_Heading;}
@@ -242,58 +218,21 @@ public class Patient_Portal_Locaters extends Repeat {
 	wait_for_theElement_to_be_clickable(Intake_Unit_System_Dropdown);
 	return Intake_Unit_System_Dropdown;}
 	public List<WebElement> Intake_Dropdown_Options(){
-		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
-		wait.ignoring(StaleElementReferenceException.class);
-		wait.withMessage("No displayed and enabled intake dropdown options were found.");
-
-		return wait.until(driver -> {
-			List<WebElement> Visible_Options = new ArrayList<>();
-			for(WebElement Item : Intake_Dropdown_Options){
-				if(Item.isDisplayed() && Item.isEnabled()){
-					Visible_Options.add(Item);
-				}
-			}
-			return Visible_Options.isEmpty() ? null : Visible_Options;
-		});
-	}
-	public WebElement Intake_Dropdown_Selected_Value(WebElement Dropdown, String Expected_Option){
-		String Expected_Value = Expected_Option.replaceAll("\\s+", "");
-		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
-		wait.ignoring(StaleElementReferenceException.class);
-		wait.withMessage("Intake dropdown did not display the selected value: " + Expected_Option);
-
-		return wait.until(driver -> {
-			if(Dropdown.isDisplayed() && Dropdown.getText().replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
-				return Dropdown;
-			}
-			else{
-				return null;
-			}
-		});
-	}
-	public WebElement Intake_Dropdown_Scroll_Holder(){
-		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
-		wait.ignoring(StaleElementReferenceException.class);
-		wait.withMessage("No displayed outer scroll holder was found for the open intake dropdown.");
-
-		return wait.until(driver -> {
-			for(WebElement Holder : Intake_Dropdown_Scroll_Holder){
-				if(Holder.isDisplayed()){
-					return Holder;
-				}
-			}
-			return null;
-		});
-	}
-    public WebElement Intake_Height(){
+	wait_for_displayed_elements(Intake_Dropdown_Options);
+	return Intake_Dropdown_Options;}
+	public List<WebElement> Intake_Dropdown_Scroll_Holder(){
+	wait_for_displayed_elements(Intake_Dropdown_Scroll_Holder);
+	return Intake_Dropdown_Scroll_Holder;}
+	public WebElement Intake_Height(){
 	wait_for_theElement(Intake_Height);
 	return Intake_Height;}
 	public WebElement Intake_Weight(){
 	wait_for_theElement(Intake_Weight);
 	return Intake_Weight;}
 	public List<WebElement> Intake_Radio_Question_Cards(){
+	wait_for_displayed_elements(Intake_Radio_Question_Cards);
 	return Intake_Radio_Question_Cards;}
-    public WebElement Intake_Next_Button(){
+	public WebElement Intake_Next_Button(){
 	wait_for_theElement_to_be_clickable(Intake_Next_Button);
 	return Intake_Next_Button;}
 	public WebElement Intake_Second_Page_Active(){
@@ -302,7 +241,14 @@ public class Patient_Portal_Locaters extends Repeat {
 	public WebElement Header_Tab(){
 	wait_for_theElement(Header_Tab);
 	return Header_Tab;}
+	public WebElement Landed_in_Treatment_Page(){
+	wait_for_theElement(Landed_in_Treatment_Page);
+	return Landed_in_Treatment_Page;}
+	public WebElement Treatment_Summary_Loader(){
+	wait_for_invisibilty_of_theElement(Treatment_Summary_Loader);
+	return Treatment_Summary_Loader;}
 	public List<WebElement> Second_Intake_Radio_Question_Labels(){
+	wait_for_displayed_elements(Second_Intake_Radio_Question_Labels);
 	return Second_Intake_Radio_Question_Labels;}
 	public WebElement Intake_Date_Of_Birth(){
 	wait_for_theElement(Intake_Date_Of_Birth);
@@ -311,259 +257,115 @@ public class Patient_Portal_Locaters extends Repeat {
 	wait_for_theElement(Active_Tab);
 	return Active_Tab;}
 	public WebElement Teleform_Main(){
-	Boolean Visible = check_element_visibility(Teleform_Main, 5);
-	if(Visible) return Teleform_Main;
-	else throw Teleform_Locator_Failure("Teleform main container is not visible.");}
+	wait_for_theElement(Teleform_Main);
+	return Teleform_Main;}
 	public WebElement Teleform_Page_Indicator(){
-	Boolean Visible = check_element_visibility(Teleform_Page_Indicator, 10);
-	if(Visible) return Teleform_Page_Indicator;
-	else throw Teleform_Locator_Failure("Teleform page indicator is not visible.");}
-	public WebElement Teleform_Page_Indicator(String Expected_Page){
-	WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
-	wait.ignoring(StaleElementReferenceException.class);
-	wait.withMessage("Expected intake page was not reached: " + Expected_Page);
-	wait.until(driver -> Teleform_Page_Indicator.isDisplayed() && Expected_Page.equals(Teleform_Page_Indicator.getText().trim()));
+	wait_for_theElement(Teleform_Page_Indicator);
 	return Teleform_Page_Indicator;}
 	public WebElement Teleform_Account_Email(){
-	Boolean Visible = check_element_visibility(Teleform_Account_Email, 5);
-	if(Visible) return Teleform_Account_Email;
-	else throw Teleform_Locator_Failure("Teleform account email field is not visible.");}
-	public WebElement Teleform_DOB_Input(){
-	Boolean Visible = check_element_visibility(Teleform_DOB_Input, 5);
-	if(Visible) return Teleform_DOB_Input;
-	else throw Teleform_Locator_Failure("Teleform Date of Birth field is not visible.");}
-	public WebElement Teleform_Care_Reason_Dropdown(){
-	Boolean Visible = check_element_visibility(Teleform_Care_Reason_Dropdown, 5);
-	if(Visible){
-		wait_for_theElement_to_be_clickable(Teleform_Care_Reason_Dropdown);
-		movetoelement(Teleform_Care_Reason_Dropdown);
-		return Teleform_Care_Reason_Dropdown;
-	}
-	else{
-		throw Teleform_Locator_Failure("Care reason dropdown is not visible.");
-	}}
-	public WebElement Teleform_Residential_State_Dropdown(){
-	Boolean Visible = check_element_visibility(Teleform_Residential_State_Dropdown, 5);
-	if(Visible){
-		wait_for_theElement_to_be_clickable(Teleform_Residential_State_Dropdown);
-		movetoelement(Teleform_Residential_State_Dropdown);
-		return Teleform_Residential_State_Dropdown;
-	}
-	else{
-		throw Teleform_Locator_Failure("Residential state dropdown is not visible.");
-	}}
-	public WebElement Teleform_Current_Location_State_Dropdown(){
-	Boolean Visible = check_element_visibility(Teleform_Current_Location_State_Dropdown, 5);
-	if(Visible){
-		wait_for_theElement_to_be_clickable(Teleform_Current_Location_State_Dropdown);
-		movetoelement(Teleform_Current_Location_State_Dropdown);
-		return Teleform_Current_Location_State_Dropdown;
-	}
-	else{
-		throw Teleform_Locator_Failure("Current location state dropdown is not visible.");
-	}}
-	public WebElement Teleform_Sex_Dropdown(){
-	Boolean Visible = check_element_visibility(Teleform_Sex_Dropdown, 5);
-
-	if(Visible){
-		wait_for_theElement_to_be_clickable(Teleform_Sex_Dropdown);
-		movetoelement(Teleform_Sex_Dropdown);
-		return Teleform_Sex_Dropdown;
-	}
-	else{
-		throw Teleform_Locator_Failure("Sex dropdown is not visible.");
-	}}
-	public WebElement Teleform_Phone(){
-	Boolean Visible = check_element_visibility(Teleform_Phone, 5);
-
-	if(Visible){
-		wait_for_theElement_to_be_clickable(Teleform_Phone);
-		movetoelement(Teleform_Phone);
-		return Teleform_Phone;
-	}
-	else{
-		throw Teleform_Locator_Failure("US mobile phone field is not visible.");
-	}}
-	
-	public WebElement Teleform_Terms_Consent(){
-	Boolean Visible = check_element_visibility(Teleform_Terms_Consent, 5);
-	if(Visible) 
-	{ 
-		wait_for_theElement_to_be_clickable(Teleform_Terms_Consent);
-		movetoelement(Teleform_Terms_Consent);
-		return Teleform_Terms_Consent;}
-	else {
-	throw Teleform_Locator_Failure("Terms and Telehealth Consent checkbox is not visible.");}}
-	
-	public WebElement Teleform_Button(String Text){
-	Boolean Buttons_Visible = check_element_visibility(Teleform_Buttons, 10);
-
-	if(Buttons_Visible){
-		for(WebElement Button : Teleform_Buttons){
-			if(Button.isDisplayed() && Button.getText().trim().equalsIgnoreCase(Text)){
-				wait_for_theElement_to_be_clickable(Button);
-				movetoelement(Button);
-				return Button;
-			}
-		}
-		throw Teleform_Locator_Failure("Teleform button not found: " + Text);
-	}
-	else{
-		throw Teleform_Locator_Failure("Teleform buttons are not visible.");
-	}}
-
-	public WebElement Teleform_Field(String Label){
-	for(int n=0;n<Teleform_Input_Labels.size();n++){
-		if(Teleform_Input_Labels.get(n).getText().trim().equalsIgnoreCase(Label)){
-			WebElement Input = Teleform_Inputs.get(n);
-			Boolean Visible = check_element_visibility(Input, 5);
-
-			if(Visible){
-				wait_for_theElement_to_be_clickable(Input);
-				movetoelement(Input);
-				return Input;
-			}
-			else{
-				throw Teleform_Locator_Failure("Teleform input is not visible: " + Label);
-			}
-		}
-	}
-	throw Teleform_Locator_Failure("Teleform input label not found: " + Label);}
-	public WebElement Teleform_Textarea(String Question){
-	for(int n=0;n<Teleform_Textarea_Cards.size();n++){
-		WebElement Question_Card = Teleform_Textarea_Cards.get(n);
-
-		if(Question_Card.isDisplayed() && Teleform_Question_Label(Question_Card).getText().trim().equals(Question)){
-			WebElement Textarea = Teleform_Textareas.get(n);
-			Boolean Visible = check_element_visibility(Textarea, 5);
-
-			if(Visible){
-				wait_for_theElement_to_be_clickable(Textarea);
-				movetoelement(Textarea);
-				return Textarea;
-			}
-			else{
-				throw Teleform_Locator_Failure("Teleform textarea is not visible: " + Question);
-			}
-		}
-	}
-	throw Teleform_Locator_Failure("Teleform textarea not found: " + Question);}
+	wait_for_theElement(Teleform_Account_Email);
+	return Teleform_Account_Email;}
 	public List<WebElement> Teleform_Textarea_Cards(){
-	Boolean Visible = check_element_visibility(Teleform_Textarea_Cards, 5);
-	if(Visible) return Teleform_Textarea_Cards;
-	else throw Teleform_Locator_Failure("Teleform textarea cards are not visible.");}
+	wait_for_displayed_elements(Teleform_Textarea_Cards);
+	return Teleform_Textarea_Cards;}
+	public List<WebElement> Teleform_Textareas(){
+	wait_for_displayed_elements(Teleform_Textareas);
+	return Teleform_Textareas;}
 	public List<WebElement> Teleform_Choice_Cards(){
-	Boolean Visible = check_element_visibility(Teleform_Choice_Cards, 5);
-	if(Visible) return Teleform_Choice_Cards;
-	else throw Teleform_Locator_Failure("Teleform choice question cards are not visible.");}
-	public WebElement Teleform_Question_Label(WebElement Question_Card){
-	WebElement Label = Question_Card.findElement(By.xpath(".//div[contains(@class,'fieldLabel')]/span[1]"));
-	Boolean Visible = check_element_visibility(Label, 5);
-	if(Visible) return Label;
-	else throw Teleform_Locator_Failure("Teleform question label is not visible.");}
-	public WebElement Teleform_Choice_Option(WebElement Question_Card, String Answer){
-	List<WebElement> Options = Question_Card.findElements(By.xpath(".//label[contains(@class,'ant-radio-wrapper') or contains(@class,'ant-checkbox-wrapper')]"));
-	for(WebElement Option : Options){
-		if(Option.getText().trim().equalsIgnoreCase(Answer)){
-			Boolean Visible = check_element_visibility(Option, 5);
-			if(Visible) return Option;
-			else throw Teleform_Locator_Failure("Teleform answer option is not visible: " + Answer);
-		}
-	}
-	throw Teleform_Locator_Failure("Teleform answer option not found: " + Answer);}
-	public WebElement Teleform_Choice_Input(WebElement Option){
-	return Option.findElement(By.xpath(".//input[@type='radio' or @type='checkbox']"));}
+	wait_for_displayed_elements(Teleform_Choice_Cards);
+	return Teleform_Choice_Cards;}
+	public WebElement Teleform_DOB_Input(){
+	wait_for_theElement(Teleform_DOB_Input);
+	return Teleform_DOB_Input;}
+	public WebElement Teleform_Sex_Dropdown(){
+	wait_for_theElement_to_be_clickable(Teleform_Sex_Dropdown);
+	return Teleform_Sex_Dropdown;}
+	public WebElement Teleform_Phone(){
+	wait_for_theElement_to_be_clickable(Teleform_Phone);
+	return Teleform_Phone;}
+	public WebElement Teleform_Terms_Consent(){
+	wait_for_theElement_to_be_clickable(Teleform_Terms_Consent);
+	return Teleform_Terms_Consent;}
+	public WebElement Teleform_Care_Reason_Dropdown(){
+	wait_for_theElement_to_be_clickable(Teleform_Care_Reason_Dropdown);
+	return Teleform_Care_Reason_Dropdown;}
+	public WebElement Teleform_Residential_State_Dropdown(){
+	wait_for_theElement_to_be_clickable(Teleform_Residential_State_Dropdown);
+	return Teleform_Residential_State_Dropdown;}
+	public WebElement Teleform_Current_Location_State_Dropdown(){
+	wait_for_theElement_to_be_clickable(Teleform_Current_Location_State_Dropdown);
+	return Teleform_Current_Location_State_Dropdown;}
 	public List<WebElement> Teleform_Consent_Checkboxes(){
-	Boolean Visible = check_element_visibility(Teleform_Consent_Checkboxes, 5);
-	if(Visible) return Teleform_Consent_Checkboxes;
-	else throw Teleform_Locator_Failure("Teleform consent checkboxes are not visible.");}
-	
-	public WebElement Teleform_Dropdown_Option(String Option){
-		String Expected_Option = Option.trim().replaceAll("\\s+", " ");
-		WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
-		wait.ignoring(StaleElementReferenceException.class);
-		wait.withMessage("No displayed and enabled Teleform dropdown option matched: " + Expected_Option);
-
-		return wait.until(driver -> {
-			for(WebElement Item : Teleform_Dropdown_Options){
-				if(Item.isDisplayed() && Item.isEnabled() && Item.getText().trim().replaceAll("\\s+", " ").equalsIgnoreCase(Expected_Option)){
-					return Item;
-				}
-			}
-			return null;
-		});
-	}
-
-public WebElement Teleform_SSN(){
-	wait_for_theElement_to_be_clickable(Teleform_SSN);
-	return Teleform_SSN;
-}
-public WebElement Teleform_ID_File_Input(){
-	// File inputs may be hidden behind a dropzone: wait for presence/enabled state, not visibility.
-	WebDriverWait wait = new WebDriverWait(d, Duration.ofSeconds(10));
-	wait.ignoring(StaleElementReferenceException.class);
-	wait.until(driver -> Teleform_ID_File_Input.isEnabled());
-	return Teleform_ID_File_Input;
-}
-	public WebElement Teleform_ID_Upload_Section(){
-		wait_for_theElement(Teleform_ID_Upload_Section);
-		return Teleform_ID_Upload_Section;}
-
-	public WebElement Teleform_ID_Upload_Pending_Message(){
-		return Teleform_ID_Upload_Pending_Message;}
-
-    public WebElement Teleform_Additional_File_Input(){
-	// This separately labelled field is optional to locate; its requirements are checked before Submit.
-	if(Teleform_Additional_File_Inputs.isEmpty()) return null;
-	return Teleform_Additional_File_Inputs.get(0);
-}
-    public WebElement Teleform_DOB_Year_Button(){
-	Boolean Visible = check_element_visibility(Teleform_DOB_Year_Button, 5);
-	if(Visible) return Teleform_DOB_Year_Button;
-	else throw Teleform_Locator_Failure("DOB calendar year-selection button is not visible.");}
+	wait_for_displayed_elements(Teleform_Consent_Checkboxes);
+	return Teleform_Consent_Checkboxes;}
+	public List<WebElement> Teleform_Dropdown_Options(){
+	wait_for_displayed_elements(Teleform_Dropdown_Options);
+	return Teleform_Dropdown_Options;}
+	public WebElement Teleform_DOB_Year_Button(){
+	wait_for_theElement_to_be_clickable(Teleform_DOB_Year_Button);
+	return Teleform_DOB_Year_Button;}
 	public WebElement Teleform_DOB_Previous_Decade(){
-	Boolean Visible = check_element_visibility(Teleform_DOB_Previous_Decade, 5);
-	if(Visible) return Teleform_DOB_Previous_Decade;
-	else throw Teleform_Locator_Failure("DOB calendar previous-decade button is not visible.");}
-	public List<WebElement> Teleform_DOB_Year_Options(String Year){
-	Boolean Visible = check_element_visibility(Teleform_DOB_Years, 5);
-	if(!Visible) throw Teleform_Locator_Failure("DOB calendar year options are not visible.");
-	List<WebElement> Options = new ArrayList<>();
-	for(WebElement Option : Teleform_DOB_Years){
-		if(Option.getText().trim().equals(Year)) Options.add(Option);
-	}
-	return Options;}
+	wait_for_theElement_to_be_clickable(Teleform_DOB_Previous_Decade);
+	return Teleform_DOB_Previous_Decade;}
+	public List<WebElement> Teleform_DOB_Years(){
+	wait_for_displayed_elements(Teleform_DOB_Years);
+	return Teleform_DOB_Years;}
 	public WebElement Teleform_DOB_Month_Button(){
-	Boolean Visible = check_element_visibility(Teleform_DOB_Month_Button, 5);
-	if(Visible) return Teleform_DOB_Month_Button;
-	else throw Teleform_Locator_Failure("DOB calendar month-selection button is not visible.");}
+	wait_for_theElement_to_be_clickable(Teleform_DOB_Month_Button);
+	return Teleform_DOB_Month_Button;}
+	public List<WebElement> Teleform_DOB_Months(){
+	wait_for_displayed_elements(Teleform_DOB_Months);
+	return Teleform_DOB_Months;}
+	public List<WebElement> Teleform_DOB_Days(){
+	wait_for_displayed_elements(Teleform_DOB_Days);
+	return Teleform_DOB_Days;}
+	public List<WebElement> Teleform_Completed_Products(){
+	wait_for_displayed_elements(Teleform_Completed_Products);
+	return Teleform_Completed_Products;}
+	public List<WebElement> Form_error_Messages(){
+	// Optional control: absence or hidden state is valid.
+	return Form_error_Messages;}
+	public WebElement Teleform_Submission_Success_Toast(){
+	wait_for_theElement(Teleform_Submission_Success_Toast);
+	return Teleform_Submission_Success_Toast;}
+	public WebElement Teleform_SSN(){
+	wait_for_theElement_to_be_clickable(Teleform_SSN);
+	return Teleform_SSN;}
+	public WebElement Teleform_ID_File_Input(){
+	wait_for_enabled_element(Teleform_ID_File_Input);
+	return Teleform_ID_File_Input;}
+	public WebElement Teleform_ID_Upload_Section(){
+	wait_for_theElement(Teleform_ID_Upload_Section);
+	return Teleform_ID_Upload_Section;}
+	public WebElement Teleform_ID_Upload_Pending_Message(){
+	// Optional control: absence or hidden state is valid.
+	return Teleform_ID_Upload_Pending_Message;}
+	public List<WebElement> Teleform_Additional_File_Inputs(){
+	// Optional control: absence or hidden state is valid.
+	return Teleform_Additional_File_Inputs;}
+	public List<WebElement> Teleform_Submission_Messages(){
+	// Optional control: absence or hidden state is valid.
+	return Teleform_Submission_Messages;}
+	public WebElement Teleform_First_Name(){
+	wait_for_theElement_to_be_clickable(Teleform_First_Name);
+	return Teleform_First_Name;}
+	public WebElement Teleform_Last_Name(){
+	wait_for_theElement_to_be_clickable(Teleform_Last_Name);
+	return Teleform_Last_Name;}
+	public WebElement Teleform_Address(){
+	wait_for_theElement_to_be_clickable(Teleform_Address);
+	return Teleform_Address;}
+	public WebElement Teleform_City(){
+	wait_for_theElement_to_be_clickable(Teleform_City);
+	return Teleform_City;}
+	public WebElement Teleform_ZIP(){
+	wait_for_theElement_to_be_clickable(Teleform_ZIP);
+	return Teleform_ZIP;}
+	public WebElement Teleform_Continue_Button(){
+	wait_for_theElement_to_be_clickable(Teleform_Continue_Button);
+	return Teleform_Continue_Button;}
+	public WebElement Teleform_Submit_Button(){
+	wait_for_theElement_to_be_clickable(Teleform_Submit_Button);
+	return Teleform_Submit_Button;}
 
-public WebElement Teleform_DOB_Month_Option(String Month){
-	Boolean Visible = check_element_visibility(Teleform_DOB_Months, 5);
-	if(!Visible) throw Teleform_Locator_Failure("DOB month options are not visible.");
-	for(WebElement Option : Teleform_DOB_Months){
-		String Month_Text = Option.getText().trim();
-		if(Month_Text.equalsIgnoreCase(Month)) return Option;
-	}
-	throw Teleform_Locator_Failure("DOB month not found: " + Month);}
-
-	public WebElement Teleform_DOB_Day_Option(String Date){
-	for(WebElement Option : Teleform_DOB_Days){
-		if(Date.equals(Option.getDomAttribute("title"))){
-			Boolean Visible = check_element_visibility(Option, 5);
-			if(Visible) return Option;
-			else throw Teleform_Locator_Failure("DOB calendar day is not visible: " + Date);}}
-	throw Teleform_Locator_Failure("DOB calendar day not found: " + Date);}
-	public WebElement Teleform_Completed_Product(String Product_Name){
-	for(WebElement Product : Teleform_Completed_Products){
-		if(Product.getText().trim().equalsIgnoreCase(Product_Name)){
-			Boolean Visible = check_element_visibility(Product, 5);
-			if(Visible) return Product;
-			else throw Teleform_Locator_Failure("Completed treatment is not visible: " + Product_Name);}}
-	throw Teleform_Locator_Failure("Completed treatment not found: " + Product_Name);}
-    private IllegalStateException Teleform_Locator_Failure(String Reason){
-	System.out.println("❌ " + Reason);
-	Report_Listen.log_print_in_report().fail(Reason);
-	return new IllegalStateException(Reason);}
-
-    }
+}

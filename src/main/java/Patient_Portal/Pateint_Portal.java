@@ -1,6 +1,5 @@
 package Patient_Portal;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -17,7 +16,6 @@ import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 
-import com.aventstack.extentreports.markuputils.MarkupHelper;
 
 import Listerners.Report_Listen;
 import Locaters.Patient_Portal_Locaters;
@@ -300,7 +298,11 @@ public void Intake_form_filling(TreeMap<String,String> Product_data) throws Inte
 	System.out.println("---------- TREATMENT CARD RETRIEVAL ----------");
 	System.out.println("POM Getter : Incomplete_Treatment_Cards()");
 
+	p.Treatment_Summary_Loader();
+	System.out.println("Treatment Loader Wait : COMPLETED (Invisible/Absent)");
 	List<WebElement> Treatment_Cards = p.Incomplete_Treatment_Cards();
+	rp.wait_for_text_in_elements(Treatment_Cards, "Progress:");
+	Treatment_Cards = p.Incomplete_Treatment_Cards();
 
 	System.out.println("Total Cards : " + Treatment_Cards.size());
 
@@ -496,10 +498,11 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	System.out.println("---------- PAGE 1 : PATIENT INFORMATION ----------");
 
 	WebElement Page_Indicator = p.Teleform_Page_Indicator();
+	rp.wait_for_expected_text(Page_Indicator, "Page 1 of 5");
 	String Actual_Page = Page_Indicator.getText().trim();
 	Assert.assertEquals(Actual_Page, "Page 1 of 5");
 
-	WebElement First_Name_Field = p.Teleform_Field("Legal first name");
+	WebElement First_Name_Field = p.Teleform_First_Name();
 	rp.movetoelement(First_Name_Field);
 	First_Name_Field.clear();
 	First_Name_Field.sendKeys(First_Name);
@@ -507,7 +510,7 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	System.out.println("First Name | Expected: " + First_Name + " | Actual: " + Actual_First_Name);
 	Assert.assertEquals(Actual_First_Name, First_Name, "First Name mismatch.");
 
-	WebElement Last_Name_Field = p.Teleform_Field("Legal last name");
+	WebElement Last_Name_Field = p.Teleform_Last_Name();
 	rp.movetoelement(Last_Name_Field);
 	Last_Name_Field.clear();
 	Last_Name_Field.sendKeys(Last_Name);
@@ -515,7 +518,7 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	System.out.println("Last Name | Expected: " + Last_Name + " | Actual: " + Actual_Last_Name);
 	Assert.assertEquals(Actual_Last_Name, Last_Name, "Last Name mismatch.");
 
-	WebElement Email_Field = p.Teleform_Field("Email address");
+	WebElement Email_Field = p.Teleform_Account_Email();
 	rp.movetoelement(Email_Field);
 	Email_Field.clear();
 	Email_Field.sendKeys(Patient_Email);
@@ -535,32 +538,24 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	Teleform_Date_Of_Birth_Selector(Date_Of_Birth);
 
 	WebElement Sex_Dropdown = p.Teleform_Sex_Dropdown();
-	rp.movetoelement(Sex_Dropdown);
-	Sex_Dropdown.click();
-
-	WebElement Sex_Option = p.Teleform_Dropdown_Option(Biological_Sex);
-	rp.movetoelement(Sex_Option);
-	Sex_Option.click();
+	Intake_Dropdown_Option_Selector(Sex_Dropdown, Biological_Sex);
 
 	String Actual_Biological_Sex = Sex_Dropdown.getText().trim();
 	Assert.assertEquals(Actual_Biological_Sex, Biological_Sex, "Sex for your medical record mismatch.");
 
 	WebElement Reason_Dropdown = p.Teleform_Care_Reason_Dropdown();
-	rp.movetoelement(Reason_Dropdown);
-	Reason_Dropdown.click();
-
-	WebElement Reason_Option = p.Teleform_Dropdown_Option(Intake_Reason);
-	rp.movetoelement(Reason_Option);
-	Reason_Option.click();
+	Intake_Dropdown_Option_Selector(Reason_Dropdown, Intake_Reason);
 
 	String Actual_Intake_Reason = Reason_Dropdown.getText().trim();
 	Assert.assertEquals(Actual_Intake_Reason, Intake_Reason, "Care reason mismatch.");
 
-	WebElement Next_Button = p.Teleform_Button("Continue");
+	WebElement Next_Button = p.Teleform_Continue_Button();
 	rp.movetoelement(Next_Button);
 	Next_Button.click();
 
-	Page_Indicator = p.Teleform_Page_Indicator("Page 2 of 5");
+	Page_Indicator = p.Teleform_Page_Indicator();
+	rp.wait_for_expected_text(Page_Indicator, "Page 2 of 5");
+	Assert.assertEquals(Page_Indicator.getText().trim(), "Page 2 of 5");
 	System.out.println("Expected : Page 2 of 5");
 	System.out.println("Actual   : " + Page_Indicator.getText().trim());
 	System.out.println("Result   : PASS");
@@ -570,7 +565,7 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	System.out.println();
 	System.out.println("---------- PAGE 2 : ADDRESS AND CURRENT LOCATION ----------");
 
-	WebElement Address_Field = p.Teleform_Field("Residential street address, including apartment or unit");
+	WebElement Address_Field = p.Teleform_Address();
 	rp.movetoelement(Address_Field);
 	Address_Field.clear();
 	Address_Field.sendKeys(Patient_Address);
@@ -578,7 +573,7 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	System.out.println("Address | Expected: " + Patient_Address + " | Actual: " + Actual_Address);
 	Assert.assertEquals(Actual_Address, Patient_Address, "Address mismatch.");
 
-	WebElement City_Field = p.Teleform_Field("City");
+	WebElement City_Field = p.Teleform_City();
 	rp.movetoelement(City_Field);
 	City_Field.clear();
 	City_Field.sendKeys(Patient_City);
@@ -587,7 +582,7 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	Assert.assertEquals(Actual_City, Patient_City, "City mismatch.");
     
 	
-	WebElement ZIP_Field = p.Teleform_Field("ZIP code (5 digits)");
+	WebElement ZIP_Field = p.Teleform_ZIP();
 	rp.movetoelement(ZIP_Field);
 	ZIP_Field.clear();
 	ZIP_Field.sendKeys(Patient_ZIP);
@@ -601,11 +596,13 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	WebElement Current_Location_State_Dropdown = p.Teleform_Current_Location_State_Dropdown();
 	Intake_Dropdown_Option_Selector(Current_Location_State_Dropdown, Current_Location_State);
 
-	Next_Button = p.Teleform_Button("Continue");
+	Next_Button = p.Teleform_Continue_Button();
 	rp.movetoelement(Next_Button);
 	Next_Button.click();
 
-	Page_Indicator = p.Teleform_Page_Indicator("Page 3 of 5");
+	Page_Indicator = p.Teleform_Page_Indicator();
+	rp.wait_for_expected_text(Page_Indicator, "Page 3 of 5");
+	Assert.assertEquals(Page_Indicator.getText().trim(), "Page 3 of 5");
 	System.out.println("Expected : Page 3 of 5");
 	System.out.println("Actual   : " + Page_Indicator.getText().trim());
 	System.out.println("Result   : PASS");
@@ -617,11 +614,13 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 
 	Teleform_Question_Selector(Product_data);
 
-	Next_Button = p.Teleform_Button("Continue");
+	Next_Button = p.Teleform_Continue_Button();
 	rp.movetoelement(Next_Button);
 	Next_Button.click();
 
-	Page_Indicator = p.Teleform_Page_Indicator("Page 4 of 5");
+	Page_Indicator = p.Teleform_Page_Indicator();
+	rp.wait_for_expected_text(Page_Indicator, "Page 4 of 5");
+	Assert.assertEquals(Page_Indicator.getText().trim(), "Page 4 of 5");
 	System.out.println("Expected : Page 4 of 5");
 	System.out.println("Actual   : " + Page_Indicator.getText().trim());
 	System.out.println("Result   : PASS");
@@ -633,11 +632,13 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 
 	Teleform_Question_Selector(Product_data);
 
-	Next_Button = p.Teleform_Button("Continue");
+	Next_Button = p.Teleform_Continue_Button();
 	rp.movetoelement(Next_Button);
 	Next_Button.click();
 
-	Page_Indicator = p.Teleform_Page_Indicator("Page 5 of 5");
+	Page_Indicator = p.Teleform_Page_Indicator();
+	rp.wait_for_expected_text(Page_Indicator, "Page 5 of 5");
+	Assert.assertEquals(Page_Indicator.getText().trim(), "Page 5 of 5");
 	System.out.println("Expected : Page 5 of 5");
 	System.out.println("Actual   : " + Page_Indicator.getText().trim());
 	System.out.println("Result   : PASS");
@@ -652,7 +653,7 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 
 	for(int n=0;n<Consent_Checkboxes.size();n++){
 		WebElement Consent_Checkbox = Consent_Checkboxes.get(n);
-		WebElement Consent_Input = p.Teleform_Choice_Input(Consent_Checkbox);
+		WebElement Consent_Input = Consent_Checkbox.findElement(By.xpath(".//input[@type='radio' or @type='checkbox']"));
 
 		if(!Consent_Input.isSelected()){
 			rp.movetoelement(Consent_Checkbox);
@@ -675,7 +676,7 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	System.out.println();
 	System.out.println("---------- INTAKE FORM SUBMISSION ----------");
 
-	WebElement Submit_Button = p.Teleform_Button("Submit intake");
+	WebElement Submit_Button = p.Teleform_Submit_Button();
 	rp.movetoelement(Submit_Button);
 	Submit_Button.click();
 
@@ -719,14 +720,25 @@ public void Teleform_Question_Selector(TreeMap<String,String> Product_data){
 	for(WebElement Question_Card : Question_Cards){
 		if(Question_Card.isDisplayed()){
 
-			WebElement Question_Label = p.Teleform_Question_Label(Question_Card);
+			WebElement Question_Label = Question_Card.findElement(By.xpath(".//div[contains(@class,'fieldLabel')]/span[1]"));
 			String Question = Question_Label.getText().trim();
 			String Data_Key = "Intake Q&A - " + Question;
 			String Expected_Answer = Product_data.get(Data_Key);
 			Assert.assertTrue(Expected_Answer != null && !Expected_Answer.isBlank(), "Missing DataProvider answer: " + Data_Key);
 
-			WebElement Answer_Option = p.Teleform_Choice_Option(Question_Card, Expected_Answer);
-			WebElement Answer_Input = p.Teleform_Choice_Input(Answer_Option);
+			WebElement Answer_Option = null;
+			List<WebElement> Answer_Options = Question_Card.findElements(By.xpath(".//label[contains(@class,'ant-radio-wrapper') or contains(@class,'ant-checkbox-wrapper')]"));
+			for(WebElement Option : Answer_Options){
+				if(Option.isDisplayed() && Option.isEnabled() && Option.getText().trim().equalsIgnoreCase(Expected_Answer)){
+					WebElement Option_Input = Option.findElement(By.xpath(".//input[@type='radio' or @type='checkbox']"));
+					if(Option_Input.isEnabled()){
+						Answer_Option = Option;
+						break;
+					}
+				}
+			}
+			Assert.assertNotNull(Answer_Option, "Intake answer option not found: " + Question + " | " + Expected_Answer);
+			WebElement Answer_Input = Answer_Option.findElement(By.xpath(".//input[@type='radio' or @type='checkbox']"));
 
 			if(!Answer_Input.isSelected()){
 				rp.movetoelement(Answer_Option);
@@ -751,10 +763,11 @@ public void Teleform_Question_Selector(TreeMap<String,String> Product_data){
 		}
 	}
 
+	Textarea_Cards = p.Teleform_Textarea_Cards();
 	for(WebElement Question_Card : Textarea_Cards){
 		if(Question_Card.isDisplayed()){
 
-			WebElement Question_Label = p.Teleform_Question_Label(Question_Card);
+			WebElement Question_Label = Question_Card.findElement(By.xpath(".//div[contains(@class,'fieldLabel')]/span[1]"));
 			String Question = Question_Label.getText().trim();
 			String Data_Key = "Intake Q&A - " + Question;
 
@@ -765,8 +778,9 @@ public void Teleform_Question_Selector(TreeMap<String,String> Product_data){
 			String Expected_Answer = Product_data.get(Data_Key);
 			Assert.assertTrue(Expected_Answer != null && !Expected_Answer.isBlank(), "Missing DataProvider answer: " + Data_Key);
 
-			WebElement Answer_Field = p.Teleform_Textarea(Question);
+			WebElement Answer_Field = Question_Card.findElement(By.xpath(".//textarea"));
 			rp.movetoelement(Answer_Field);
+			rp.wait_for_theElement_to_be_clickable(Answer_Field);
 			Answer_Field.clear();
 			Answer_Field.sendKeys(Expected_Answer);
 			Answer_Field.sendKeys(Keys.TAB);
@@ -793,10 +807,8 @@ public void Teleform_Date_Of_Birth_Selector(String Date_Of_Birth){
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
-
 	DateTimeFormatter Date_Format = DateTimeFormatter.ofPattern("MM/dd/uuuu");
 	LocalDate DOB = LocalDate.parse(Date_Of_Birth, Date_Format);
-
 	String Year = String.valueOf(DOB.getYear());
 	String Month = DOB.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
 	String Date = DOB.toString();
@@ -808,53 +820,73 @@ public void Teleform_Date_Of_Birth_Selector(String Date_Of_Birth){
 	WebElement Date_Field = p.Teleform_DOB_Input();
 	rp.movetoelement(Date_Field);
 	Date_Field.click();
-
-	// Year Selection
 	WebElement Year_Button = p.Teleform_DOB_Year_Button();
+	rp.movetoelement(Year_Button);
 	Year_Button.click();
 
-	List<WebElement> Year_Options = p.Teleform_DOB_Year_Options(Year);
-
-	for(int n=0;n<15 && Year_Options.isEmpty();n++){
-		WebElement Previous_Decade = p.Teleform_DOB_Previous_Decade();
-		Previous_Decade.click();
-		Year_Options = p.Teleform_DOB_Year_Options(Year);
+	WebElement Year_Option = null;
+	for(int Attempt=1; Attempt<=16; Attempt++){
+		List<WebElement> Year_Options = p.Teleform_DOB_Years();
+		String Previous_Years = "";
+		for(WebElement Option : Year_Options){
+			if(Option.isDisplayed()){
+				Previous_Years += "|" + Option.getText().trim();
+				if(Option.isEnabled() && Option.getText().trim().equals(Year)){
+					Year_Option = Option;
+					break;
+				}
+			}
+		}
+		if(Year_Option != null){
+			rp.movetoelement(Year_Option);
+			Year_Option.click();
+			break;
+		}
+		else if(Attempt < 16){
+			WebElement Previous_Decade = p.Teleform_DOB_Previous_Decade();
+			rp.movetoelement(Previous_Decade);
+			Previous_Decade.click();
+			rp.wait_for_collection_text_change(Year_Options, Previous_Years);
+		}
 	}
+	Assert.assertNotNull(Year_Option, "DOB year not available: " + Year);
+	System.out.println("Year selected : " + Year);
 
-	if(Year_Options.isEmpty()) throw new IllegalStateException("DOB year not available: " + Year);
-
-	WebElement Year_Option = Year_Options.get(0);
-	Year_Option.click();
-
-	// Month Selection - Month Panel Opens Automatically
-	WebElement Month_Option = p.Teleform_DOB_Month_Option(Month);
+	WebElement Month_Option = null;
+	List<WebElement> Month_Options = p.Teleform_DOB_Months();
+	for(WebElement Option : Month_Options){
+		if(Option.isDisplayed() && Option.isEnabled() && Option.getText().trim().equalsIgnoreCase(Month)){
+			Month_Option = Option;
+			break;
+		}
+	}
+	Assert.assertNotNull(Month_Option, "DOB month not available: " + Month);
 	rp.movetoelement(Month_Option);
 	Month_Option.click();
+	System.out.println("Month selected : " + Month);
 
-	// Day Selection
-	WebElement Day_Option = p.Teleform_DOB_Day_Option(Date);
+	WebElement Day_Option = null;
+	List<WebElement> Day_Options = p.Teleform_DOB_Days();
+	for(WebElement Option : Day_Options){
+		if(Option.isDisplayed() && Option.isEnabled() && Date.equals(Option.getDomAttribute("title"))){
+			Day_Option = Option;
+			break;
+		}
+	}
+	Assert.assertNotNull(Day_Option, "DOB date not available: " + Date);
 	rp.movetoelement(Day_Option);
 	Day_Option.click();
 
-	// Final DOB Verification
-	String Actual_DOB = Date_Field.getDomProperty("value");
-	Actual_DOB = Actual_DOB==null ? "" : Actual_DOB.trim();
-
+	Date_Field = p.Teleform_DOB_Input();
+	String Actual_DOB = Date_Field.getDomProperty("value").trim();
 	System.out.println("Expected DOB : " + Expected_DOB);
 	System.out.println("Actual DOB   : " + Actual_DOB);
-
 	Assert.assertEquals(Actual_DOB, Expected_DOB, "Date of Birth mismatch.");
-
 	System.out.println("Result : PASS");
 	Report_Listen.log_print_in_report().pass("Date of Birth selected successfully: " + Actual_DOB);
 }
 
-
-
-
-
-
-	public void Intake_Dropdown_Option_Selector(WebElement Dropdown, String Expected_Option){
+public void Intake_Dropdown_Option_Selector(WebElement Dropdown, String Expected_Option){
 
 		Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 		Repeat rp = new Repeat(d);
@@ -886,7 +918,7 @@ public void Teleform_Date_Of_Birth_Selector(String Date_Of_Birth){
 						if(Option_Text.replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
 							rp.movetoelement(Dropdown_Option);
 							Dropdown_Option.click();
-							p.Intake_Dropdown_Selected_Value(Dropdown, Expected_Option);
+							rp.wait_for_selected_value(Dropdown, Expected_Option);
 
 							System.out.println("Matching Option : " + Option_Text);
 							System.out.println("Action          : Clicked");
@@ -899,7 +931,15 @@ public void Teleform_Date_Of_Birth_Selector(String Date_Of_Birth){
 					break;
 				}
 				else if(Scroll_Attempt < 15){
-					WebElement Scroll_Holder = p.Intake_Dropdown_Scroll_Holder();
+					List<WebElement> Scroll_Holders = p.Intake_Dropdown_Scroll_Holder();
+					WebElement Scroll_Holder = null;
+					for(WebElement Holder : Scroll_Holders){
+						if(Holder.isDisplayed()){
+							Scroll_Holder = Holder;
+							break;
+						}
+					}
+					Assert.assertNotNull(Scroll_Holder, "No displayed outer intake dropdown scroll holder.");
 					System.out.println("Action : Scroll to load additional dropdown options");
 					new org.openqa.selenium.interactions.Actions(d).scrollFromOrigin(org.openqa.selenium.interactions.WheelInput.ScrollOrigin.fromElement(Scroll_Holder), 0, 160).perform();
 				}
