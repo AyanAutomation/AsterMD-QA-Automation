@@ -3792,9 +3792,8 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 
 
 
-   
-    @Test
-    public void Beluga_Dr_Network_Channel_Connector() throws Exception{
+     @Test
+     public void Beluga_Dr_Network_Channel_Connector() throws Exception{
 
 	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -3810,7 +3809,7 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 	System.out.println("Expected Channel    : " + ChannelName);
 	System.out.println("Expected Dr Network : My Beluga only");
 
-	Report_Listen.log_print_in_report().info("Configuring doctor network selection | Channel: " + ChannelName + " | Required Selection: My Beluga only");
+	Report_Listen.log_print_in_report().info("Verifying doctor network configuration | Channel: " + ChannelName + " | Expected: My Beluga only");
 
 	Channel_Module_Accessor();
 	Thread.sleep(580);
@@ -3846,7 +3845,7 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 	WebElement Provider_Section = Form.findElement(By.xpath(".//div[@id='providers']"));
 	rp.wait_for_theElement(Provider_Section);
 	rp.Scroll_to_element(Provider_Section);
-	Thread.sleep(1200);
+	Thread.sleep(1500);
 
 	List<WebElement> Dr_Networks = Provider_Section.findElements(By.xpath(".//span[contains(@class,'ant-select-selection-item-content')]"));
 	rp.wait_for_theElement(Dr_Networks);
@@ -3857,129 +3856,169 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 	System.out.println("Required Selection     : My Beluga only");
 	System.out.println("Current Selected Count : " + Dr_Networks.size());
 
-	WebElement DrNet_Field = Provider_Section.findElement(By.xpath(".//div[contains(@class,'ant-select-multiple')]"));
-	rp.wait_for_theElement(DrNet_Field);
-	rp.movetoelement(DrNet_Field);
-	DrNet_Field.click();
+	for(WebElement Dr_Network : Dr_Networks){
 
-	Boolean List_Presence = rp.check_element_visibility(p.First_Virtual_List_holder, 3);
+		String Dr_Network_Selected = Dr_Network.getText().trim();
 
-	if(List_Presence){
+		System.out.println("Selected Network       : " + Dr_Network_Selected);
 
-		WebElement Dr_Network_List = p.First_Virtual_List_holder;
+		Report_Listen.log_print_in_report().info("Current doctor network selection | Channel: " + ChannelName + " | Network: " + Dr_Network_Selected + " | Selected Count: " + Dr_Networks.size());
 
-		JS.executeScript("arguments[0].scrollTop = 0;", Dr_Network_List);
-		rp.wait_for_theElement(Dr_Network_List);
+		if(Dr_Network_Selected.equalsIgnoreCase("My Beluga") && Dr_Networks.size() == 1){
 
-		WebElement Beluga_Option = Dr_Network_List.findElement(By.xpath(".//div[@title='My Beluga' and contains(@class,'ant-select-item-option')]"));
-		rp.wait_for_theElement(Beluga_Option);
+			System.out.println();
+			System.out.println("---------------- DOCTOR NETWORK RESULT ----------------");
+			System.out.println("Expected       : My Beluga only");
+			System.out.println("Actual         : " + Dr_Network_Selected);
+			System.out.println("Selected Count : " + Dr_Networks.size());
+			System.out.println("Action         : Configuration already correct. Save skipped.");
+			System.out.println("Result         : PASS");
 
-		WebElement Beluga_Checkbox = Beluga_Option.findElement(By.xpath(".//input[@type='checkbox']"));
-		Boolean Beluga_Checked = Beluga_Checkbox.isSelected();
+			Report_Listen.log_print_in_report().pass("Doctor network configuration already correct | Channel: " + ChannelName + " | Expected: My Beluga only | Actual: " + Dr_Network_Selected + " | Selected Count: " + Dr_Networks.size() + " | Save: Skipped | Reason: No changes required.");
 
-		System.out.println();
-		System.out.println("---------------- BELUGA SELECTION ----------------");
-		System.out.println("Doctor Network : My Beluga");
-		System.out.println("Checked        : " + Beluga_Checked);
-
-		if(Beluga_Checked){
-
-			System.out.println("Action         : Keeping My Beluga selected.");
-
-			Report_Listen.log_print_in_report().info("Doctor network: My Beluga | Already checked | Action: Keep selected.");
+			break;
 		}
 		else{
 
-			rp.movetoelement(Beluga_Option);
-			Beluga_Option.click();
-
-			System.out.println("Action         : My Beluga selected.");
-
-			Report_Listen.log_print_in_report().info("Doctor network: My Beluga | Action: Selected.");
-		}
-
-		Dr_Networks = Provider_Section.findElements(By.xpath(".//span[contains(@class,'ant-select-selection-item-content')]"));
-		rp.wait_for_theElement(Dr_Networks);
-
-		System.out.println();
-		System.out.println("---------------- REMOVE OTHER NETWORK SELECTIONS ----------------");
-
-		for(WebElement Dr_Network : Dr_Networks){
-
-			String Dr_Network_Selected = Dr_Network.getText().trim();
-
 			System.out.println();
-			System.out.println("Selected Network : " + Dr_Network_Selected);
+			System.out.println("Action : Updating the doctor network selection to My Beluga only.");
 
-			if(Dr_Network_Selected.equalsIgnoreCase("My Beluga")){
+			Report_Listen.log_print_in_report().info("Updating doctor network selection | Channel: " + ChannelName + " | Required Selection: My Beluga only");
 
-				System.out.println("Action           : Keep My Beluga selected.");
+			WebElement DrNet_Field = Provider_Section.findElement(By.xpath(".//div[contains(@class,'ant-select-multiple')]"));
+			rp.wait_for_theElement(DrNet_Field);
+			rp.movetoelement(DrNet_Field);
+			DrNet_Field.click();
 
-				Report_Listen.log_print_in_report().info("Selected doctor network: " + Dr_Network_Selected + " | Action: Keep selected.");
+			Boolean List_Presence = rp.check_element_visibility(p.First_Virtual_List_holder, 3);
+
+			if(List_Presence){
+
+				WebElement Dr_Network_List = p.First_Virtual_List_holder;
+
+				JS.executeScript("arguments[0].scrollTop = 0;", Dr_Network_List);
+				rp.wait_for_theElement(Dr_Network_List);
+
+				WebElement Beluga_Option = Dr_Network_List.findElement(By.xpath(".//div[@title='My Beluga' and contains(@class,'ant-select-item-option')]"));
+				rp.wait_for_theElement(Beluga_Option);
+
+				WebElement Beluga_Checkbox = Beluga_Option.findElement(By.xpath(".//input[@type='checkbox']"));
+				Boolean Beluga_Checked = Beluga_Checkbox.isSelected();
+
+				System.out.println();
+				System.out.println("---------------- BELUGA SELECTION ----------------");
+				System.out.println("Doctor Network : My Beluga");
+				System.out.println("Checked        : " + Beluga_Checked);
+
+				if(Beluga_Checked){
+
+					System.out.println("Action         : Keeping My Beluga selected.");
+
+					Report_Listen.log_print_in_report().info("Doctor network: My Beluga | Already checked | Action: Keep selected.");
+				}
+				else{
+
+					rp.movetoelement(Beluga_Option);
+					Beluga_Option.click();
+
+					System.out.println("Action         : My Beluga selected.");
+
+					Report_Listen.log_print_in_report().info("Doctor network: My Beluga | Action: Selected.");
+				}
+
+				List<WebElement> Current_Dr_Networks = Provider_Section.findElements(By.xpath(".//span[contains(@class,'ant-select-selection-item-content')]"));
+				rp.wait_for_theElement(Current_Dr_Networks);
+
+				System.out.println();
+				System.out.println("---------------- REMOVE OTHER NETWORK SELECTIONS ----------------");
+
+				for(WebElement Current_Dr_Network : Current_Dr_Networks){
+
+					String Current_Dr_Network_Selected = Current_Dr_Network.getText().trim();
+
+					System.out.println();
+					System.out.println("Selected Network : " + Current_Dr_Network_Selected);
+
+					if(Current_Dr_Network_Selected.equalsIgnoreCase("My Beluga")){
+
+						System.out.println("Action           : Keep My Beluga selected.");
+
+						Report_Listen.log_print_in_report().info("Doctor network: " + Current_Dr_Network_Selected + " | Action: Keep selected.");
+					}
+					else{
+
+						WebElement Remove_Button = Current_Dr_Network.findElement(By.xpath("./..//span[contains(@class,'ant-select-selection-item-remove')]"));
+						rp.wait_for_theElement(Remove_Button);
+						rp.movetoelement(Remove_Button);
+						Remove_Button.click();
+
+						System.out.println("Action           : " + Current_Dr_Network_Selected + " deselected.");
+
+						Report_Listen.log_print_in_report().info("Doctor network: " + Current_Dr_Network_Selected + " | Action: Deselected.");
+					}
+				}
+
+				WebElement DrNet_Input = DrNet_Field.findElement(By.xpath(".//input[@role='combobox']"));
+				DrNet_Input.sendKeys(Keys.ESCAPE);
+
+				System.out.println();
+				System.out.println("Action : Doctor network dropdown closed.");
+
+				Report_Listen.log_print_in_report().info("Doctor network dropdown closed after updating the selection.");
+
+				List<WebElement> Selected_Dr_Networks = Provider_Section.findElements(By.xpath(".//span[contains(@class,'ant-select-selection-item-content')]"));
+
+				Assert_Check.assertEquals(Selected_Dr_Networks.size(), 1, "After updating the selection, only My Beluga should remain selected.");
+
+				String Actual_Dr_Network = Selected_Dr_Networks.get(0).getText().trim();
+
+				Assert_Check.assertEquals(Actual_Dr_Network, "My Beluga", "The remaining selected doctor network should be My Beluga.");
+
+				System.out.println();
+				System.out.println("---------------- VERIFY UPDATED SELECTION ----------------");
+				System.out.println("Expected       : My Beluga only");
+				System.out.println("Actual         : " + Actual_Dr_Network);
+				System.out.println("Selected Count : " + Selected_Dr_Networks.size());
+				System.out.println("Selection Check: PASS");
+
+				Report_Listen.log_print_in_report().info("Updated selection verified before saving | Channel: " + ChannelName + " | Expected: My Beluga only | Actual: " + Actual_Dr_Network + " | Selected Count: " + Selected_Dr_Networks.size());
+
+				WebElement Save_Button = p.Save_Button();
+				rp.movetoelement(Save_Button);
+				Save_Button.click();
+
+				System.out.println();
+				System.out.println("---------------- SAVE CHANNEL CONFIGURATION ----------------");
+				System.out.println("Action : Save button clicked.");
+
+				Report_Listen.log_print_in_report().info("Save button clicked | Channel: " + ChannelName + " | Doctor Network: " + Actual_Dr_Network);
+
+				WebElement Confirmation_Message = p.Success_Toast();
+				String Confirmation_Message_Text = Confirmation_Message.getText().trim();
+
+				System.out.println("Message : " + Confirmation_Message_Text);
+				System.out.println("Result  : PASS");
+				System.out.println();
+
+				Report_Listen.log_print_in_report().info("Channel configuration confirmation | Message: " + Confirmation_Message_Text);
+				Report_Listen.log_print_in_report().pass("Doctor network configuration saved successfully | Channel: " + ChannelName + " | Doctor Network: " + Actual_Dr_Network + " | Selected Count: " + Selected_Dr_Networks.size() + " | Result: PASS");
+
+				break;
 			}
 			else{
 
-				WebElement Remove_Button = Dr_Network.findElement(By.xpath("./..//span[contains(@class,'ant-select-selection-item-remove')]"));
-				rp.wait_for_theElement(Remove_Button);
-				rp.movetoelement(Remove_Button);
-				Remove_Button.click();
+				System.out.println();
+				System.out.println("Expected : Doctor network dropdown options displayed.");
+				System.out.println("Actual   : Doctor network dropdown options are not visible.");
+				System.out.println("Result   : FAIL");
 
-				System.out.println("Action           : " + Dr_Network_Selected + " deselected.");
+				Report_Listen.log_print_in_report().fail("Doctor network configuration | Channel: " + ChannelName + " | Reason: Doctor network dropdown options are not visible.");
 
-				Report_Listen.log_print_in_report().info("Doctor network: " + Dr_Network_Selected + " | Action: Deselected using the selected chip's remove button.");
+				Assert_Check.fail("Doctor network dropdown options are not visible.");
 			}
 		}
-
-		WebElement DrNet_Input = DrNet_Field.findElement(By.xpath(".//input[@role='combobox']"));
-		DrNet_Input.sendKeys(Keys.ESCAPE);
-
-		System.out.println();
-		System.out.println("Action           : Doctor network dropdown closed.");
-
-		Report_Listen.log_print_in_report().info("Doctor network dropdown closed after updating the selection.");
-
-		List<WebElement> Selected_Dr_Networks = Provider_Section.findElements(By.xpath(".//span[contains(@class,'ant-select-selection-item-content')]"));
-
-		Assert_Check.assertEquals(Selected_Dr_Networks.size(), 1, "After updating the selection, only My Beluga should remain selected.");
-
-		String Actual_Dr_Network = Selected_Dr_Networks.get(0).getText().trim();
-
-		Assert_Check.assertEquals(Actual_Dr_Network, "My Beluga", "The remaining selected doctor network should be My Beluga.");
-
-		System.out.println();
-		System.out.println("---------------- DOCTOR NETWORK RESULT ----------------");
-		System.out.println("Expected       : My Beluga only");
-		System.out.println("Actual         : " + Actual_Dr_Network);
-		System.out.println("Selected Count : " + Selected_Dr_Networks.size());
-		System.out.println("Result         : PASS");
-
-		Report_Listen.log_print_in_report().pass("Doctor network selection | Channel: " + ChannelName + " | Expected: My Beluga only | Actual: " + Actual_Dr_Network + " | Selected Count: " + Selected_Dr_Networks.size() + " | Result: PASS");
 	}
-	else{
-
-		System.out.println();
-		System.out.println("Expected : Doctor network dropdown options displayed.");
-		System.out.println("Actual   : Doctor network dropdown options are not visible.");
-		System.out.println("Result   : FAIL");
-
-		Report_Listen.log_print_in_report().fail("Doctor network selection | Channel: " + ChannelName + " | Reason: Doctor network dropdown options are not visible.");
-
-		Assert_Check.fail("Doctor network dropdown options are not visible.");
-	}
-	
-	
-	p.Save_Button().click();
-	WebElement Confirmation_Message = p.Success_Toast();
-	String Confirmation_Message_Text = Confirmation_Message.getText().trim();
-
-	System.out.println("Message : " + Confirmation_Message_Text);
-	System.out.println("Result  : PASS");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().info("Confirmation Message: " + Confirmation_Message_Text);
-	Report_Listen.log_print_in_report().pass("Product assigned successfully.");
-}
-     
+} 
      
      
      

@@ -1,0 +1,26 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="AsterMD Beluga Channel and Identity Verification Configuration" parallel="false" preserve-order="true">
+
+    <!-- STEP 1: Configure My Beluga as the Only Selected Doctor Network -->
+    <test name="Step 1 - Beluga Doctor Network Channel Configuration" preserve-order="true">
+        <classes>
+            <class name="AsterMD.Project.AsterMD.Channels_Module">
+                <methods>
+                    <include name="Beluga_Dr_Network_Channel_Connector"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <!-- STEP 2: Configure Patient Portal Identity Verification Settings -->
+    <test name="Step 2 - Identity Verification Extension Configuration" preserve-order="true">
+        <classes>
+            <class name="AsterMD.Project.AsterMD.Settings_Module">
+                <methods>
+                    <include name="Extension_Id_Configure"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

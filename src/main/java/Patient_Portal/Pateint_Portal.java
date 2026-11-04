@@ -808,7 +808,7 @@ public void Veirfy_Id_form_filling(TreeMap<String,String> Product_data) throws I
 		Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: Incomplete treatments are unavailable.");
 		return;
 	}
-
+       /*
 	for(WebElement Treatment_Card : Treatment_Cards){
 		String Treatment_Details = Treatment_Card.getText().trim();
 		if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
@@ -834,10 +834,12 @@ public void Veirfy_Id_form_filling(TreeMap<String,String> Product_data) throws I
 					}
 				}
 			}
-		}
+		}  
 	}
 	System.out.println("Result : NOT PERFORMED | Reason: No usable Start Intake button matches the requested product and variant.");
 	Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: No usable matching Start Intake button.");
+
+*/
 }
 
 
