@@ -39,6 +39,8 @@ public class Channel_Module_Locaters extends Repeat{
 	private WebElement Create_Button;
     @FindBy(xpath="//*[text()='Generate API Token']/..")
 	private WebElement Generate_API_Token_Button; 
+    @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[1]")
+   	public WebElement First_Virtual_List_holder;
     @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[2]")
 	private WebElement Second_Virtual_List_holder; 
     @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[3]")
@@ -55,7 +57,6 @@ public class Channel_Module_Locaters extends Repeat{
 	private WebElement Success_Toast; 
     @FindBy(xpath="(//*[contains(@class,'channels-section')])[1]//*[contains(@class,'ant-flex-align-flex-start ant-flex-vertical')]//*[contains(@class,'ant-flex-wrap-wrap ant-flex-align-center')][1]")
 	private List<WebElement> First_channel_card_text_in_list; 
-    
     @FindBy(xpath="//*[text()='Configuration']/..")
 	public WebElement Configuration_Button; 
     @FindBy(xpath="//button[@type='button' and contains(@class,'ant-btn-primary ant-btn-color-primary ant-btn-variant-solid')]")
@@ -74,7 +75,6 @@ public class Channel_Module_Locaters extends Repeat{
     
     @FindBy(xpath="//input[contains(@id,'sections_1_questions')]")
 	private List<WebElement> Second_Sections_All_Question_fields;
-   
     @FindBy(xpath="//textarea[contains(@id,'answer')]")
 	private List<WebElement> All_Answers_fields; 
     @FindBy(xpath="//span[text()='patient portal']/..")

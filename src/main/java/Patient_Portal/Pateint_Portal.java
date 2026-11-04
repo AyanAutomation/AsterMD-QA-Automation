@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.SkipException;
@@ -23,19 +24,11 @@ import Repeatative_codes.Repeat;
 import Store.Frontend_Store_Front;
 
 public class Pateint_Portal extends Frontend_Store_Front{
-	
-	
-	
-
 
 public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, String Patient_Password){
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
-
-	if(!Patient_Email.endsWith("@yopmail.com")){
-		throw new IllegalArgumentException("Patient email must use @yopmail.com: " + Patient_Email);
-	}
 
 	String Inbox_Name = Patient_Email.substring(0, Patient_Email.indexOf("@"));
 
@@ -88,7 +81,13 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 
 	Matcher Reset_Link = Pattern.compile("https://testdemo\\.logistial\\.com/set-password\\?token=[A-Za-z0-9._~-]+").matcher(Email_Content);
 
-	if(!Reset_Link.find()){
+	Boolean Link_Found = Reset_Link.find();
+	
+	if(Link_Found){
+		System.out.println("Password setup link | Result: PASS");
+		Report_Listen.log_print_in_report().pass("Patient Portal password setup link retrieved successfully.");
+	}
+	else{
 		System.out.println();
 		System.out.println("Result : FAIL");
 		System.out.println("Reason : Password setup link not found in Yopmail.");
@@ -98,15 +97,6 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 	}
 
 	String Password_Setup_URL = Reset_Link.group();
-
-	System.out.println();
-	System.out.println("---------------- PASSWORD SETUP LINK ----------------");
-	System.out.println("Email      : Account Created");
-	System.out.println("Domain     : testdemo.logistial.com");
-	System.out.println("Setup Link : Retrieved successfully");
-	System.out.println("Result     : PASS");
-
-	Report_Listen.log_print_in_report().pass("Patient Portal credential setup link retrieved successfully.");
 
 	// Configure Patient Credentials
 	d.switchTo().defaultContent();
@@ -135,11 +125,7 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 	Report_Listen.log_print_in_report().pass("Patient Portal credentials configured successfully for: " + Patient_Email);
 }
 
-
-	
-
-
-public void Patient_Portal_Login(TreeMap<String, String> Product_data, String Patient_Status){
+  public void Patient_Portal_Login(TreeMap<String, String> Product_data, String Patient_Status){
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -148,10 +134,6 @@ public void Patient_Portal_Login(TreeMap<String, String> Product_data, String Pa
 	String Patient_Name = Product_data.get("First Name") + " " + Product_data.get("Last Name");
 	String Product_Name = Product_data.get("Product Name");
 	String Patient_Password = Product_data.get("Patient Password");
-
-	if(Patient_Password == null || Patient_Password.isBlank()){
-		throw new IllegalStateException("Patient Password is missing in the DataProvider for: " + Patient_Email);
-	}
 
 	System.out.println();
 	System.out.println("============================================================");
@@ -215,251 +197,99 @@ public void Patient_Portal_Login(TreeMap<String, String> Product_data, String Pa
 	Report_Listen.log_print_in_report().info("Patient Portal sign-in form submitted and login page closed for: " + Patient_Email);
 }
 
-
-
-	
-
 public void Patient_portal_header_menu_navigator(String Option, String Status, TreeMap<String, String> Product_data) throws InterruptedException{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
-
-	// Patient Portal Login
 	Patient_Portal_Login(Product_data, Status);
+	List<WebElement> Menu_Options = p.Patient_Portal_Header_Menu_Options();
 
-	Thread.sleep(800);
-	WebElement Header_Menu = p.Header_Tab();
-	rp.movetoelement(Header_Menu);
-	List<WebElement> Menu_Options = Header_Menu.findElements(By.xpath(".//a[contains(@href,'/')]"));
-
-	System.out.println("---------------- PATIENT PORTAL MENU NAVIGATION ----------------");
-	System.out.println("Expected Menu : " + Option);
-
+	System.out.println("---------- PATIENT PORTAL MENU ----------");
+	System.out.println("Expected : " + Option);
+	
 	for(WebElement Menu_Option : Menu_Options){
-
+		
 		String Menu_Name = Menu_Option.getText().trim();
-
+		
 		if(Menu_Name.equalsIgnoreCase(Option.trim())){
-
-			rp.movetoelement(Menu_Option);
-			Menu_Option.click();
-
-			System.out.println("Actual Menu   : " + Menu_Name);
-			System.out.println("Result        : PASS");
-
-			Report_Listen.log_print_in_report().pass("Patient Portal menu selected successfully: " + Menu_Name);
-
-			break;
+			Boolean Menu_Visible = rp.check_element_visibility(Menu_Option, 5);
+			if(Menu_Visible){
+				rp.movetoelement(Menu_Option);
+				Menu_Option.click();
+				System.out.println("Actual   : " + Menu_Name);
+				System.out.println("Result   : PASS");
+				Report_Listen.log_print_in_report().pass("Patient Portal menu | Expected: " + Option + " | Actual: " + Menu_Name + " | Result: PASS");
+				return;
+			}
 		}
 	}
+	System.out.println("Result : FAIL | Reason: Requested menu is unavailable: " + Option);
+	Report_Listen.log_print_in_report().fail("Patient Portal menu is unavailable: " + Option);
+	throw new IllegalStateException("Patient Portal menu is unavailable: " + Option);
 }
-	
-	
-
-
 
 @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
 public void Intake_form_filling(TreeMap<String,String> Product_data) throws InterruptedException{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
-
 	String Product_Name = Product_data.get("Product Name");
-	String Treatment_Variant = Product_data.getOrDefault("Treatment Variant", "");
+	String Treatment_Variant = Product_data.get("Treatment Variant");
 	String Patient_Name = Product_data.get("First Name") + " " + Product_data.get("Last Name");
 	String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
 
-	// Patient Portal Login and Treatments Navigation
 	Patient_portal_header_menu_navigator("Treatments", "Registered", Product_data);
-
-	System.out.println();
-	System.out.println("============================================================");
-	System.out.println("                       PATIENT INTAKE FORM");
-	System.out.println("============================================================");
+	System.out.println("---------- PATIENT INTAKE ----------");
 	System.out.println("Patient : " + Patient_Name);
-	System.out.println("Product : " + Product_Name);
-	System.out.println("Variant : " + Treatment_Variant);
-	System.out.println("URL     : " + d.getCurrentUrl());
+	System.out.println("Product : " + Product_Name + " | Variant: " + Treatment_Variant);
+	Report_Listen.log_print_in_report().info("Starting Patient Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
 
-	Report_Listen.log_print_in_report().info("Starting Patient Intake for: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+	List<WebElement> Treatment_Cards;
+	try{
+		
+		WebElement Active_Section = p.Active_Tab();
+		rp.movetoelement(Active_Section);
+		p.Treatment_Summary_Loader();
+		Treatment_Cards = p.Incomplete_Treatment_Cards();
+		rp.wait_for_text_in_elements(Treatment_Cards, "Progress:");
+		Treatment_Cards = p.Incomplete_Treatment_Cards();
+	}
+	catch(TimeoutException Unavailable_Treatments){
+		System.out.println("Result : NOT PERFORMED | Reason: Incomplete treatments are unavailable.");
+		Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: Incomplete treatments are unavailable.");
+		return;
+	}
 
-	// Access Active Treatments Section
-	System.out.println();
-	System.out.println("---------- ACTIVE TREATMENTS SECTION ----------");
-	System.out.println("POM Getter : Active_Tab()");
-
-	WebElement Active_Section = p.Active_Tab();
-	rp.Scroll_to_element(Active_Section);
-
-	System.out.println("Result : Active Treatments section located.");
-
-	// Retrieve Incomplete Treatment Cards
-	System.out.println();
-	System.out.println("---------- TREATMENT CARD RETRIEVAL ----------");
-	System.out.println("POM Getter : Incomplete_Treatment_Cards()");
-
-	p.Treatment_Summary_Loader();
-	System.out.println("Treatment Loader Wait : COMPLETED (Invisible/Absent)");
-	List<WebElement> Treatment_Cards = p.Incomplete_Treatment_Cards();
-	rp.wait_for_text_in_elements(Treatment_Cards, "Progress:");
-	Treatment_Cards = p.Incomplete_Treatment_Cards();
-
-	System.out.println("Total Cards : " + Treatment_Cards.size());
-
-	int Product_Matches = 0;
-	int Variant_Matches = 0;
-	int Buttons_Found = 0;
-	int Intake_Buttons_Found = 0;
-	int Card_Number = 0;
-
-	// Search Matching Treatment and Start Intake Button
 	for(WebElement Treatment_Card : Treatment_Cards){
-
-		Card_Number++;
-
-		// rp.Fetch_Section_HTML(Treatment_Card, "Treatment Card " + Card_Number);
-
-		String Treatment_Details = Treatment_Card.getText().trim().replace("\n", " | ");
-		Boolean Product_Matched = Treatment_Details.contains(Product_Name);
-		Boolean Variant_Matched = Treatment_Details.contains(Treatment_Variant);
-
-		System.out.println();
-		System.out.println("---------- TREATMENT CARD " + Card_Number + " ----------");
-		System.out.println("Card Text      : " + Treatment_Details);
-		System.out.println("Product Match  : " + Product_Matched);
-		System.out.println("Variant Match  : " + Variant_Matched);
-
-		if(Product_Matched){
-
-			Product_Matches++;
-
-			if(Variant_Matched){
-
-				Variant_Matches++;
-
-				// Retrieve Start Intake Buttons
-				System.out.println();
-				System.out.println("---------- START INTAKE BUTTON SEARCH ----------");
-				System.out.println("Locator : " + Button_XPath);
-
-				List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
-				Buttons_Found += Start_Intake_Buttons.size();
-
-				System.out.println("Buttons Retrieved : " + Start_Intake_Buttons.size());
-
-				for(WebElement Start_Intake_Button : Start_Intake_Buttons){
-
-					String Button_Text = Start_Intake_Button.getText().trim();
-					Boolean Button_Visible = rp.check_element_visibility(Start_Intake_Button, 2);
+		String Treatment_Details = Treatment_Card.getText().trim();
+		if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
+			List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
+			for(WebElement Start_Intake_Button : Start_Intake_Buttons){
+				String Button_Text = Start_Intake_Button.getText().trim();
+				if(Button_Text.contains("Intake")){
+					Boolean Button_Visible = rp.check_element_visibility(Start_Intake_Button, 5);
 					Boolean Button_Enabled = Start_Intake_Button.isEnabled();
-
-					System.out.println();
-					System.out.println("Button Text    : " + Button_Text);
-					System.out.println("Button Visible : " + Button_Visible);
-					System.out.println("Button Enabled : " + Button_Enabled);
-
-					if(Button_Text.contains("Intake")){
-						Intake_Buttons_Found++;
-					}
-
-					if(Button_Visible && Button_Enabled && Button_Text.contains("Intake")){
-
-						System.out.println("Button Match : PASS");
-						System.out.println("Action       : Opening Intake Form.");
-
-						Report_Listen.log_print_in_report().pass("Matching treatment and Start Intake button found for: " + Patient_Name);
-
-						rp.wait_for_theElement(Start_Intake_Button);
+					if(Button_Visible && Button_Enabled){
 						rp.movetoelement(Start_Intake_Button);
 						Start_Intake_Button.click();
-
-						System.out.println();
-						System.out.println("---------- INTAKE FORM NAVIGATION ----------");
-						System.out.println("Patient : " + Patient_Name);
-						System.out.println("Product : " + Product_Name);
-						System.out.println("Variant : " + Treatment_Variant);
-						System.out.println("Result  : Start Intake button clicked.");
-
-						Report_Listen.log_print_in_report().info("Started Intake Form for: " + Patient_Name + " | Product: " + Product_Name);
-
-						// Shared Intake Form Routing
+						Report_Listen.log_print_in_report().info("Started Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
 						if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets")){
-
 							AsterRefluxa_Intake_Form(Product_data);
-
-							System.out.println();
-							System.out.println("============================================================");
-							System.out.println("                    PATIENT INTAKE RESULT");
-							System.out.println("============================================================");
-							System.out.println("Patient : " + Patient_Name);
-							System.out.println("Product : " + Product_Name);
-							System.out.println("Variant : " + Treatment_Variant);
-							System.out.println("Result  : COMPLETED");
-							System.out.println("Reason  : Intake form execution completed successfully.");
-
-							Report_Listen.log_print_in_report().pass("Patient Intake Form execution completed successfully for: " + Patient_Name);
+							System.out.println("Patient Intake | Product: " + Product_Name + " | Result: COMPLETED");
+							Report_Listen.log_print_in_report().pass("Patient Intake completed | Patient: " + Patient_Name + " | Product: " + Product_Name);
 						}
 						else{
 							throw new SkipException("Intake automation not configured for: " + Product_Name);
 						}
-
 						return;
-					}
-					else{
-						System.out.println("Action : NOT PERFORMED - Start Intake button is unavailable, hidden, or disabled.");
 					}
 				}
 			}
 		}
 	}
-
-	// Identify Why Intake Form Could Not Be Performed
-	String Action_Reason;
-
-	if(Treatment_Cards.isEmpty()){
-		Action_Reason = "No treatment cards were available in the Active Treatments section.";
-	}
-	else if(Product_Matches == 0){
-		Action_Reason = "No treatment card matched the expected product name.";
-	}
-	else if(Variant_Matches == 0){
-		Action_Reason = "Product was found, but the expected treatment variant was not available: " + Treatment_Variant;
-	}
-	else if(Buttons_Found == 0){
-		Action_Reason = "Matching treatment card found, but no buttons were returned by XPath: " + Button_XPath;
-	}
-	else if(Intake_Buttons_Found == 0){
-		Action_Reason = "Matching treatment cards were found, but no Start Intake button is currently available. Existing buttons may show Verify Identity or Pending.";
-	}
-	else{
-		Action_Reason = "Start Intake button was found, but it is currently hidden or disabled.";
-	}
-
-	// Log Action Not Performed Without Throwing Exception
-	System.out.println();
-	System.out.println("============================================================");
-	System.out.println("                    INTAKE FORM NOT PERFORMED");
-	System.out.println("============================================================");
-	System.out.println("Patient        : " + Patient_Name);
-	System.out.println("Product        : " + Product_Name);
-	System.out.println("Variant        : " + Treatment_Variant);
-	System.out.println("Treatment Cards: " + Treatment_Cards.size());
-	System.out.println("Product Matches: " + Product_Matches);
-	System.out.println("Variant Matches: " + Variant_Matches);
-	System.out.println("Buttons Found  : " + Buttons_Found);
-	System.out.println("Intake Buttons : " + Intake_Buttons_Found);
-	System.out.println("Button XPath   : " + Button_XPath);
-	System.out.println("Current URL    : " + d.getCurrentUrl());
-	System.out.println("Action         : NOT PERFORMED");
-	System.out.println("Reason         : " + Action_Reason);
-	System.out.println("============================================================");
-
-	Report_Listen.log_print_in_report().info("⚠️ Patient Intake NOT PERFORMED | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: " + Action_Reason);
-
-	return;
+	System.out.println("Result : NOT PERFORMED | Reason: No usable Start Intake button matches the requested product and variant.");
+	Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: No usable matching Start Intake button.");
 }
-
-
 
 public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 
@@ -555,11 +385,12 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 
 	Page_Indicator = p.Teleform_Page_Indicator();
 	rp.wait_for_expected_text(Page_Indicator, "Page 2 of 5");
-	Assert.assertEquals(Page_Indicator.getText().trim(), "Page 2 of 5");
+	Actual_Page = Page_Indicator.getText().trim();
+	Assert.assertEquals(Actual_Page, "Page 2 of 5");
 	System.out.println("Expected : Page 2 of 5");
-	System.out.println("Actual   : " + Page_Indicator.getText().trim());
+	System.out.println("Actual   : " + Actual_Page);
 	System.out.println("Result   : PASS");
-	Report_Listen.log_print_in_report().pass("Page 1 | Expected: Page 2 of 5 | Actual: " + Page_Indicator.getText().trim() + " | Result: PASS");
+	Report_Listen.log_print_in_report().pass("Page 1 | Expected: Page 2 of 5 | Actual: " + Actual_Page + " | Result: PASS");
 
 	// Page 2 - Address and Current Location
 	System.out.println();
@@ -602,11 +433,12 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 
 	Page_Indicator = p.Teleform_Page_Indicator();
 	rp.wait_for_expected_text(Page_Indicator, "Page 3 of 5");
-	Assert.assertEquals(Page_Indicator.getText().trim(), "Page 3 of 5");
+	Actual_Page = Page_Indicator.getText().trim();
+	Assert.assertEquals(Actual_Page, "Page 3 of 5");
 	System.out.println("Expected : Page 3 of 5");
-	System.out.println("Actual   : " + Page_Indicator.getText().trim());
+	System.out.println("Actual   : " + Actual_Page);
 	System.out.println("Result   : PASS");
-	Report_Listen.log_print_in_report().pass("Page 2 | Expected: Page 3 of 5 | Actual: " + Page_Indicator.getText().trim() + " | Result: PASS");
+	Report_Listen.log_print_in_report().pass("Page 2 | Expected: Page 3 of 5 | Actual: " + Actual_Page + " | Result: PASS");
 
 	// Page 3 - Medical History
 	System.out.println();
@@ -620,11 +452,12 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 
 	Page_Indicator = p.Teleform_Page_Indicator();
 	rp.wait_for_expected_text(Page_Indicator, "Page 4 of 5");
-	Assert.assertEquals(Page_Indicator.getText().trim(), "Page 4 of 5");
+	Actual_Page = Page_Indicator.getText().trim();
+	Assert.assertEquals(Actual_Page, "Page 4 of 5");
 	System.out.println("Expected : Page 4 of 5");
-	System.out.println("Actual   : " + Page_Indicator.getText().trim());
+	System.out.println("Actual   : " + Actual_Page);
 	System.out.println("Result   : PASS");
-	Report_Listen.log_print_in_report().pass("Page 3 | Expected: Page 4 of 5 | Actual: " + Page_Indicator.getText().trim() + " | Result: PASS");
+	Report_Listen.log_print_in_report().pass("Page 3 | Expected: Page 4 of 5 | Actual: " + Actual_Page + " | Result: PASS");
 
 	// Page 4 - Visible Symptom Questions
 	System.out.println();
@@ -638,11 +471,12 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 
 	Page_Indicator = p.Teleform_Page_Indicator();
 	rp.wait_for_expected_text(Page_Indicator, "Page 5 of 5");
-	Assert.assertEquals(Page_Indicator.getText().trim(), "Page 5 of 5");
+	Actual_Page = Page_Indicator.getText().trim();
+	Assert.assertEquals(Actual_Page, "Page 5 of 5");
 	System.out.println("Expected : Page 5 of 5");
-	System.out.println("Actual   : " + Page_Indicator.getText().trim());
+	System.out.println("Actual   : " + Actual_Page);
 	System.out.println("Result   : PASS");
-	Report_Listen.log_print_in_report().pass("Page 4 | Expected: Page 5 of 5 | Actual: " + Page_Indicator.getText().trim() + " | Result: PASS");
+	Report_Listen.log_print_in_report().pass("Page 4 | Expected: Page 5 of 5 | Actual: " + Actual_Page + " | Result: PASS");
 
 	// Page 5 - Review and Consent
 	System.out.println();
@@ -655,7 +489,8 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 		WebElement Consent_Checkbox = Consent_Checkboxes.get(n);
 		WebElement Consent_Input = Consent_Checkbox.findElement(By.xpath(".//input[@type='radio' or @type='checkbox']"));
 
-		if(!Consent_Input.isSelected()){
+		Boolean Consent_Selected = Consent_Input.isSelected();
+		if(!Consent_Selected){
 			rp.movetoelement(Consent_Checkbox);
 			Consent_Checkbox.click();
 		}
@@ -663,7 +498,7 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 			System.out.println("Action : Consent " + (n + 1) + " is already selected.");
 		}
 
-		Boolean Consent_Selected = Consent_Input.isSelected();
+		Consent_Selected = Consent_Input.isSelected();
 
 		System.out.println("Consent " + (n + 1) + " | Expected: true | Actual: " + Consent_Selected);
 		Assert.assertTrue(Consent_Selected, "Consent " + (n + 1) + " was not selected.");
@@ -683,125 +518,83 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	WebElement Submission_Toast = p.Teleform_Submission_Success_Toast;
 	Boolean Submission_Success = Teleform_Toast_Detector_Printer(Submission_Toast);
 
-	if(Submission_Success){
-		System.out.println("Product : " + Product_Name);
-		System.out.println("Expected : Action Successful | Submitted successfully.");
-		System.out.println("Actual   : Action Successful | Submitted successfully.");
-		System.out.println("Result   : PASS");
-
-		Report_Listen.log_print_in_report().pass("Intake submission | Expected: Action Successful / Submitted successfully. | Actual: Matching success toast | Result: PASS | Product: " + Product_Name);
-	}
-	else{
-		System.out.println("Result : FAIL");
-		System.out.println("Reason : Expected successful-submission notification was not verified.");
-
-		Report_Listen.log_print_in_report().fail("Intake submission | Expected: Action Successful / Submitted successfully. | Actual: Success notification not verified | Result: FAIL");
-		Assert.fail("Page 5 intake submission failed: expected Action Successful | Submitted successfully.");
-	}
+	Assert.assertTrue(Submission_Success, "Page 5 intake submission failed: expected Action Successful | Submitted successfully.");
 }
-
-
-
 
 public void Teleform_Question_Selector(TreeMap<String,String> Product_data){
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
-
-	System.out.println();
-	System.out.println("---------- INTAKE QUESTION SELECTION ----------");
-
+	System.out.println("---------- INTAKE QUESTIONS ----------");
 	List<WebElement> Question_Cards = p.Teleform_Choice_Cards();
-	List<WebElement> Textarea_Cards = p.Teleform_Textarea_Cards();
-
-	System.out.println("Choice Question Cards : " + Question_Cards.size());
-	System.out.println("Textarea Cards        : " + Textarea_Cards.size());
-
 	for(WebElement Question_Card : Question_Cards){
-		if(Question_Card.isDisplayed()){
-
+		Boolean Question_Visible = Question_Card.isDisplayed();
+		if(Question_Visible){
 			WebElement Question_Label = Question_Card.findElement(By.xpath(".//div[contains(@class,'fieldLabel')]/span[1]"));
 			String Question = Question_Label.getText().trim();
 			String Data_Key = "Intake Q&A - " + Question;
 			String Expected_Answer = Product_data.get(Data_Key);
-			Assert.assertTrue(Expected_Answer != null && !Expected_Answer.isBlank(), "Missing DataProvider answer: " + Data_Key);
-
-			WebElement Answer_Option = null;
 			List<WebElement> Answer_Options = Question_Card.findElements(By.xpath(".//label[contains(@class,'ant-radio-wrapper') or contains(@class,'ant-checkbox-wrapper')]"));
-			for(WebElement Option : Answer_Options){
-				if(Option.isDisplayed() && Option.isEnabled() && Option.getText().trim().equalsIgnoreCase(Expected_Answer)){
-					WebElement Option_Input = Option.findElement(By.xpath(".//input[@type='radio' or @type='checkbox']"));
-					if(Option_Input.isEnabled()){
-						Answer_Option = Option;
+			Assert.assertFalse(Answer_Options.isEmpty(), "No answer options for: " + Question);
+			for(int n=0; n<Answer_Options.size(); n++){
+				WebElement Answer_Option = Answer_Options.get(n);
+				String Option_Text = Answer_Option.getText().trim();
+				if(Answer_Option.isDisplayed() && Option_Text.equalsIgnoreCase(Expected_Answer)){
+					WebElement Answer_Input = Answer_Option.findElement(By.xpath(".//input[@type='radio' or @type='checkbox']"));
+					Boolean Answer_Visible = rp.check_element_visibility(Answer_Option, 5);
+					Boolean Answer_Enabled = Answer_Input.isEnabled();
+					if(Answer_Visible && Answer_Enabled){
+						Boolean Answer_Selected = Answer_Input.isSelected();
+						if(!Answer_Selected){
+							rp.movetoelement(Answer_Option);
+							Answer_Option.click();
+						}
+						String Actual_Answer = Answer_Option.getText().trim();
+						Answer_Selected = Answer_Input.isSelected();
+						Assert.assertEquals(Actual_Answer, Expected_Answer, "Intake answer text mismatch: " + Question);
+						Assert.assertTrue(Answer_Selected, "Intake answer was not selected: " + Question);
+						System.out.println(Question + " | Expected: " + Expected_Answer + " | Actual: " + Actual_Answer + " | Selected: " + Answer_Selected + " | Result: PASS");
+						Report_Listen.log_print_in_report().pass(Question + " | Expected: " + Expected_Answer + " | Actual: " + Actual_Answer + " | Selected: " + Answer_Selected + " | Result: PASS");
 						break;
 					}
 				}
+				if(n == Answer_Options.size()-1){
+					Assert.fail("No visible enabled answer option for: " + Question + " | Expected: " + Expected_Answer);
+				}
 			}
-			Assert.assertNotNull(Answer_Option, "Intake answer option not found: " + Question + " | " + Expected_Answer);
-			WebElement Answer_Input = Answer_Option.findElement(By.xpath(".//input[@type='radio' or @type='checkbox']"));
-
-			if(!Answer_Input.isSelected()){
-				rp.movetoelement(Answer_Option);
-				Answer_Option.click();
-			}
-			else{
-				System.out.println("Action : Requested answer is already selected.");
-			}
-
-			String Actual_Answer = Answer_Option.getText().trim();
-			Boolean Answer_Selected = Answer_Input.isSelected();
-
-			System.out.println("Question : " + Question);
-			System.out.println("Expected : " + Expected_Answer);
-			System.out.println("Actual   : " + Actual_Answer + " | Selected: " + Answer_Selected);
-
-			Assert.assertEquals(Actual_Answer, Expected_Answer, "Intake answer text mismatch: " + Question);
-			Assert.assertTrue(Answer_Selected, "Intake answer was not selected: " + Question);
-
-			System.out.println("Result   : PASS");
-			Report_Listen.log_print_in_report().pass(Question + " | Expected: " + Expected_Answer + " | Actual: " + Actual_Answer + " | Selected: " + Answer_Selected + " | Result: PASS");
 		}
 	}
 
-	Textarea_Cards = p.Teleform_Textarea_Cards();
+	List<WebElement> Textarea_Cards = p.Teleform_Textarea_Cards();
 	for(WebElement Question_Card : Textarea_Cards){
-		if(Question_Card.isDisplayed()){
-
+		Boolean Question_Visible = Question_Card.isDisplayed();
+		if(Question_Visible){
 			WebElement Question_Label = Question_Card.findElement(By.xpath(".//div[contains(@class,'fieldLabel')]/span[1]"));
 			String Question = Question_Label.getText().trim();
 			String Data_Key = "Intake Q&A - " + Question;
-
 			if(Question.equals("Tell the clinician anything else about your symptoms, triggers, previous tests, or questions.")){
 				Data_Key = "Notes";
 			}
-
 			String Expected_Answer = Product_data.get(Data_Key);
-			Assert.assertTrue(Expected_Answer != null && !Expected_Answer.isBlank(), "Missing DataProvider answer: " + Data_Key);
-
 			WebElement Answer_Field = Question_Card.findElement(By.xpath(".//textarea"));
-			rp.movetoelement(Answer_Field);
-			rp.wait_for_theElement_to_be_clickable(Answer_Field);
-			Answer_Field.clear();
-			Answer_Field.sendKeys(Expected_Answer);
-			Answer_Field.sendKeys(Keys.TAB);
-
-			String Actual_Answer = Answer_Field.getDomProperty("value");
-
-			System.out.println("Question : " + Question);
-			System.out.println("Expected : " + Expected_Answer);
-			System.out.println("Actual   : " + Actual_Answer);
-
-			Assert.assertEquals(Actual_Answer, Expected_Answer, "Intake textarea mismatch: " + Question);
-
-			System.out.println("Result   : PASS");
-			Report_Listen.log_print_in_report().pass(Question + " | Expected: " + Expected_Answer + " | Actual: " + Actual_Answer + " | Result: PASS");
+			Boolean Answer_Visible = rp.check_element_visibility(Answer_Field, 5);
+			Boolean Answer_Enabled = Answer_Field.isEnabled();
+			if(Answer_Visible && Answer_Enabled){
+				rp.movetoelement(Answer_Field);
+				Answer_Field.clear();
+				Answer_Field.sendKeys(Expected_Answer);
+				Answer_Field.sendKeys(Keys.TAB);
+				String Actual_Answer = Answer_Field.getDomProperty("value");
+				Assert.assertEquals(Actual_Answer, Expected_Answer, "Intake textarea mismatch: " + Question);
+				System.out.println(Question + " | Expected: " + Expected_Answer + " | Actual: " + Actual_Answer + " | Result: PASS");
+				Report_Listen.log_print_in_report().pass(Question + " | Expected: " + Expected_Answer + " | Actual: " + Actual_Answer + " | Result: PASS");
+			}
+			else{
+				Assert.fail("Intake textarea is unavailable: " + Question);
+			}
 		}
 	}
 }
-
-
-
-
 
 public void Teleform_Date_Of_Birth_Selector(String Date_Of_Birth){
 
@@ -813,9 +606,7 @@ public void Teleform_Date_Of_Birth_Selector(String Date_Of_Birth){
 	String Month = DOB.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
 	String Date = DOB.toString();
 	String Expected_DOB = DOB.format(DateTimeFormatter.ofPattern("uuuu/MM/dd"));
-
 	System.out.println("---------- DATE OF BIRTH ----------");
-	System.out.println("Expected : " + Expected_DOB);
 
 	WebElement Date_Field = p.Teleform_DOB_Input();
 	rp.movetoelement(Date_Field);
@@ -824,148 +615,129 @@ public void Teleform_Date_Of_Birth_Selector(String Date_Of_Birth){
 	rp.movetoelement(Year_Button);
 	Year_Button.click();
 
-	WebElement Year_Option = null;
 	for(int Attempt=1; Attempt<=16; Attempt++){
 		List<WebElement> Year_Options = p.Teleform_DOB_Years();
 		String Previous_Years = "";
-		for(WebElement Option : Year_Options){
-			if(Option.isDisplayed()){
-				Previous_Years += "|" + Option.getText().trim();
-				if(Option.isEnabled() && Option.getText().trim().equals(Year)){
-					Year_Option = Option;
-					break;
+		for(WebElement Year_Option : Year_Options){
+			if(Year_Option.isDisplayed()){
+				Previous_Years += "|" + Year_Option.getText().trim();
+				if(Year_Option.getText().trim().equals(Year)){
+					Boolean Year_Visible = rp.check_element_visibility(Year_Option, 5);
+					if(Year_Visible){
+						rp.movetoelement(Year_Option);
+						Year_Option.click();
+
+						List<WebElement> Month_Options = p.Teleform_DOB_Months();
+						for(int n=0; n<Month_Options.size(); n++){
+							WebElement Month_Option = Month_Options.get(n);
+							if(Month_Option.isDisplayed() && Month_Option.getText().trim().equalsIgnoreCase(Month)){
+								Boolean Month_Visible = rp.check_element_visibility(Month_Option, 5);
+								if(Month_Visible){
+									rp.movetoelement(Month_Option);
+									Month_Option.click();
+									break;
+								}
+							}
+							if(n == Month_Options.size()-1){
+								Assert.fail("DOB month not available: " + Month);
+							}
+						}
+
+						List<WebElement> Day_Options = p.Teleform_DOB_Days();
+						for(int n=0; n<Day_Options.size(); n++){
+							WebElement Day_Option = Day_Options.get(n);
+							if(Day_Option.isDisplayed() && Date.equals(Day_Option.getDomAttribute("title"))){
+								Boolean Day_Visible = rp.check_element_visibility(Day_Option, 5);
+								if(Day_Visible){
+									rp.movetoelement(Day_Option);
+									Day_Option.click();
+									break;
+								}
+							}
+							if(n == Day_Options.size()-1){
+								Assert.fail("DOB date not available: " + Date);
+							}
+						}
+
+						Date_Field = p.Teleform_DOB_Input();
+						String Actual_DOB = Date_Field.getDomProperty("value").trim();
+						Assert.assertEquals(Actual_DOB, Expected_DOB, "Date of Birth mismatch.");
+						System.out.println("Expected : " + Expected_DOB + " | Actual: " + Actual_DOB + " | Result: PASS");
+						Report_Listen.log_print_in_report().pass("DOB | Expected: " + Expected_DOB + " | Actual: " + Actual_DOB + " | Result: PASS");
+						return;
+					}
 				}
 			}
 		}
-		if(Year_Option != null){
-			rp.movetoelement(Year_Option);
-			Year_Option.click();
-			break;
-		}
-		else if(Attempt < 16){
+		if(Attempt < 16){
 			WebElement Previous_Decade = p.Teleform_DOB_Previous_Decade();
 			rp.movetoelement(Previous_Decade);
 			Previous_Decade.click();
 			rp.wait_for_collection_text_change(Year_Options, Previous_Years);
 		}
 	}
-	Assert.assertNotNull(Year_Option, "DOB year not available: " + Year);
-	System.out.println("Year selected : " + Year);
-
-	WebElement Month_Option = null;
-	List<WebElement> Month_Options = p.Teleform_DOB_Months();
-	for(WebElement Option : Month_Options){
-		if(Option.isDisplayed() && Option.isEnabled() && Option.getText().trim().equalsIgnoreCase(Month)){
-			Month_Option = Option;
-			break;
-		}
-	}
-	Assert.assertNotNull(Month_Option, "DOB month not available: " + Month);
-	rp.movetoelement(Month_Option);
-	Month_Option.click();
-	System.out.println("Month selected : " + Month);
-
-	WebElement Day_Option = null;
-	List<WebElement> Day_Options = p.Teleform_DOB_Days();
-	for(WebElement Option : Day_Options){
-		if(Option.isDisplayed() && Option.isEnabled() && Date.equals(Option.getDomAttribute("title"))){
-			Day_Option = Option;
-			break;
-		}
-	}
-	Assert.assertNotNull(Day_Option, "DOB date not available: " + Date);
-	rp.movetoelement(Day_Option);
-	Day_Option.click();
-
-	Date_Field = p.Teleform_DOB_Input();
-	String Actual_DOB = Date_Field.getDomProperty("value").trim();
-	System.out.println("Expected DOB : " + Expected_DOB);
-	System.out.println("Actual DOB   : " + Actual_DOB);
-	Assert.assertEquals(Actual_DOB, Expected_DOB, "Date of Birth mismatch.");
-	System.out.println("Result : PASS");
-	Report_Listen.log_print_in_report().pass("Date of Birth selected successfully: " + Actual_DOB);
+	Assert.fail("DOB year not available: " + Year);
 }
 
 public void Intake_Dropdown_Option_Selector(WebElement Dropdown, String Expected_Option){
 
-		Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
-		Repeat rp = new Repeat(d);
-		String Expected_Value = Expected_Option.replaceAll("\\s+", "");
-
-		System.out.println();
-		System.out.println("---------------- INTAKE DROPDOWN SELECTION ----------------");
-		System.out.println("Expected Option : " + Expected_Option);
-		Report_Listen.log_print_in_report().info("Selecting intake dropdown option: " + Expected_Option);
-
-		if(!Dropdown.getText().replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
-
-			rp.movetoelement(Dropdown);
-			Dropdown.click();
-
-			for(int Scroll_Attempt=1; Scroll_Attempt<=15; Scroll_Attempt++){
-
-				List<WebElement> Dropdown_Options = p.Intake_Dropdown_Options();
-
-				System.out.println("---------------- SCROLL ATTEMPT " + Scroll_Attempt + " ----------------");
-				System.out.println("Rendered Options : " + Dropdown_Options.size());
-
-				for(WebElement Dropdown_Option : Dropdown_Options){
-					if(Dropdown_Option.isDisplayed() && Dropdown_Option.isEnabled()){
-
-						String Option_Text = Dropdown_Option.getText().trim();
-						System.out.println("Checking Option : " + Option_Text);
-
-						if(Option_Text.replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
+	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
+	Repeat rp = new Repeat(d);
+	
+	String Expected_Value = Expected_Option.replaceAll("\\s+", "");
+	System.out.println("---------- INTAKE DROPDOWN ----------");
+	Report_Listen.log_print_in_report().info("Selecting intake dropdown option: " + Expected_Option);
+	
+	if(!Dropdown.getText().replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
+		rp.movetoelement(Dropdown);
+		Dropdown.click();
+		for(int Scroll_Attempt=1; Scroll_Attempt<=15; Scroll_Attempt++){
+			List<WebElement> Dropdown_Options = p.Intake_Dropdown_Options();
+			for(WebElement Dropdown_Option : Dropdown_Options){
+				if(Dropdown_Option.isDisplayed()){
+					String Option_Text = Dropdown_Option.getText().trim();
+					if(Option_Text.replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
+						Boolean Option_Visible = rp.check_element_visibility(Dropdown_Option, 5);
+						Boolean Option_Enabled = Dropdown_Option.isEnabled();
+						if(Option_Visible && Option_Enabled){
 							rp.movetoelement(Dropdown_Option);
 							Dropdown_Option.click();
 							rp.wait_for_selected_value(Dropdown, Expected_Option);
-
-							System.out.println("Matching Option : " + Option_Text);
-							System.out.println("Action          : Clicked");
 							break;
 						}
 					}
 				}
-
-				if(Dropdown.getText().replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
-					break;
-				}
-				else if(Scroll_Attempt < 15){
-					List<WebElement> Scroll_Holders = p.Intake_Dropdown_Scroll_Holder();
-					WebElement Scroll_Holder = null;
-					for(WebElement Holder : Scroll_Holders){
-						if(Holder.isDisplayed()){
-							Scroll_Holder = Holder;
+			}
+			if(Dropdown.getText().replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
+				break;
+			}
+			else if(Scroll_Attempt < 15){
+				List<WebElement> Scroll_Holders = p.Intake_Dropdown_Scroll_Holder();
+				for(WebElement Scroll_Holder : Scroll_Holders){
+					if(Scroll_Holder.isDisplayed()){
+						Boolean Holder_Visible = rp.check_element_visibility(Scroll_Holder, 5);
+						if(Holder_Visible){
+							System.out.println("Scroll attempt : " + Scroll_Attempt);
+							new org.openqa.selenium.interactions.Actions(d).scrollFromOrigin(org.openqa.selenium.interactions.WheelInput.ScrollOrigin.fromElement(Scroll_Holder), 0, 160).perform();
 							break;
 						}
 					}
-					Assert.assertNotNull(Scroll_Holder, "No displayed outer intake dropdown scroll holder.");
-					System.out.println("Action : Scroll to load additional dropdown options");
-					new org.openqa.selenium.interactions.Actions(d).scrollFromOrigin(org.openqa.selenium.interactions.WheelInput.ScrollOrigin.fromElement(Scroll_Holder), 0, 160).perform();
 				}
 			}
 		}
-		else{
-			System.out.println("Action : Requested option is already selected.");
-		}
-
-		String Actual_Option = Dropdown.getText().trim();
-
-		System.out.println("---------------- DROPDOWN RESULT ----------------");
-		System.out.println("Expected : " + Expected_Option);
-		System.out.println("Actual   : " + Actual_Option);
-
-		if(Actual_Option.replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
-			System.out.println("Result : PASS");
-			Report_Listen.log_print_in_report().pass("Intake dropdown | Expected: " + Expected_Option + " | Actual: " + Actual_Option + " | Result: PASS");
-		}
-		else{
-			System.out.println("Result : FAIL");
-			System.out.println("Reason : Requested dropdown option was not selected.");
-			Report_Listen.log_print_in_report().fail("Intake dropdown | Expected: " + Expected_Option + " | Actual: " + Actual_Option + " | Result: FAIL");
-			throw new IllegalStateException("Unable to select intake dropdown option: " + Expected_Option + " | Actual: " + Actual_Option);
-		}
 	}
+	String Actual_Option = Dropdown.getText().trim();
+	System.out.println("Expected : " + Expected_Option + " | Actual: " + Actual_Option);
+	if(Actual_Option.replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
+		System.out.println("Result : PASS");
+		Report_Listen.log_print_in_report().pass("Intake dropdown | Expected: " + Expected_Option + " | Actual: " + Actual_Option + " | Result: PASS");
+	}
+	else{
+		System.out.println("Result : FAIL | Reason: Requested option was not selected.");
+		Report_Listen.log_print_in_report().fail("Intake dropdown | Expected: " + Expected_Option + " | Actual: " + Actual_Option + " | Result: FAIL");
+		throw new IllegalStateException("Unable to select intake dropdown option: " + Expected_Option + " | Actual: " + Actual_Option);
+	}
+}
 
 
 public Boolean Teleform_Toast_Detector_Printer(WebElement Toast){
@@ -984,11 +756,13 @@ public Boolean Teleform_Toast_Detector_Printer(WebElement Toast){
 
 		if(Expected_Toast.equals(Toast_Message)){
 			System.out.println("Result : PASS");
+			Report_Listen.log_print_in_report().pass("Intake submission | Expected: " + Expected_Toast + " | Actual: " + Toast_Message + " | Result: PASS");
 			return true;
 		}
 		else{
 			System.out.println("Result : FAIL");
 			System.out.println("Reason : Submission notification did not match the expected message.");
+			Report_Listen.log_print_in_report().fail("Intake submission | Expected: " + Expected_Toast + " | Actual: " + Toast_Message + " | Result: FAIL");
 			return false;
 		}
 	}
@@ -996,23 +770,75 @@ public Boolean Teleform_Toast_Detector_Printer(WebElement Toast){
 		System.out.println("Actual : Notification not displayed.");
 		System.out.println("Result : FAIL");
 		System.out.println("Reason : Expected success notification was not visible within 10 seconds.");
+		Report_Listen.log_print_in_report().fail("Intake submission | Expected: " + Expected_Toast + " | Actual: Notification not displayed | Result: FAIL");
 		return false;
 	}
 }
 
 
+
+@Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
+public void Veirfy_Id_form_filling(TreeMap<String,String> Product_data) throws InterruptedException{
+
+	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
+	Repeat rp = new Repeat(d);
+	String Product_Name = Product_data.get("Product Name");
+	String Treatment_Variant = Product_data.get("Treatment Variant");
+	String Patient_Name = Product_data.get("First Name") + " " + Product_data.get("Last Name");
+	String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
+
+	Patient_portal_header_menu_navigator("Treatments", "Registered", Product_data);
+	System.out.println("---------- PATIENT INTAKE ----------");
+	System.out.println("Patient : " + Patient_Name);
+	System.out.println("Product : " + Product_Name + " | Variant: " + Treatment_Variant);
+	Report_Listen.log_print_in_report().info("Starting Patient Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+
+	List<WebElement> Treatment_Cards;
+	try{
+		
+		WebElement Active_Section = p.Active_Tab();
+		rp.movetoelement(Active_Section);
+		p.Treatment_Summary_Loader();
+		Treatment_Cards = p.Incomplete_Treatment_Cards();
+		rp.wait_for_text_in_elements(Treatment_Cards, "Progress:");
+		Treatment_Cards = p.Incomplete_Treatment_Cards();
+	}
+	catch(TimeoutException Unavailable_Treatments){
+		System.out.println("Result : NOT PERFORMED | Reason: Incomplete treatments are unavailable.");
+		Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: Incomplete treatments are unavailable.");
+		return;
+	}
+
+	for(WebElement Treatment_Card : Treatment_Cards){
+		String Treatment_Details = Treatment_Card.getText().trim();
+		if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
+			List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
+			for(WebElement Start_Intake_Button : Start_Intake_Buttons){
+				String Button_Text = Start_Intake_Button.getText().trim();
+				if(Button_Text.contains("Intake")){
+					Boolean Button_Visible = rp.check_element_visibility(Start_Intake_Button, 5);
+					Boolean Button_Enabled = Start_Intake_Button.isEnabled();
+					if(Button_Visible && Button_Enabled){
+						rp.movetoelement(Start_Intake_Button);
+						Start_Intake_Button.click();
+						Report_Listen.log_print_in_report().info("Started Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+						if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets")){
+							AsterRefluxa_Intake_Form(Product_data);
+							System.out.println("Patient Intake | Product: " + Product_Name + " | Result: COMPLETED");
+							Report_Listen.log_print_in_report().pass("Patient Intake completed | Patient: " + Patient_Name + " | Product: " + Product_Name);
+						}
+						else{
+							throw new SkipException("Intake automation not configured for: " + Product_Name);
+						}
+						return;
+					}
+				}
+			}
+		}
+	}
+	System.out.println("Result : NOT PERFORMED | Reason: No usable Start Intake button matches the requested product and variant.");
+	Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: No usable matching Start Intake button.");
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+}

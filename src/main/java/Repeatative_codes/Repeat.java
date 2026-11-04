@@ -236,6 +236,19 @@ public String Fetch_Section_HTML(WebElement Section, String Section_Name){
     return Section_HTML;
 }
 
+
+
+  public void wait_for_virtual_list_position(WebElement List_Holder, double Expected_Position) throws InterruptedException{
+
+	org.openqa.selenium.JavascriptExecutor JS = (org.openqa.selenium.JavascriptExecutor)d;
+
+	org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(d, java.time.Duration.ofSeconds(5));
+	wait.withMessage("The virtual dropdown did not reach the expected scroll position.");
+	wait.until(driver -> Math.abs(((Number)JS.executeScript("return arguments[0].scrollTop;", List_Holder)).doubleValue() - Expected_Position) < 1);
+
+	Thread.sleep(350);
+}
+
 }
 
 

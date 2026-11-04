@@ -3,6 +3,8 @@ package AsterMD.Project.AsterMD;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import org.openqa.selenium.NoSuchElementException;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -18,6 +20,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.Assertion;
 import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.Status;
@@ -3789,7 +3792,200 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 
 
 
+   
+    @Test
+    public void Beluga_Dr_Network_Channel_Connector() throws Exception{
 
+	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+	JavascriptExecutor JS = (JavascriptExecutor)d;
+	Assertion Assert_Check = new Assertion();
+
+	String ChannelName = "RheinCare Secure Client API";
+
+	System.out.println();
+	System.out.println("============================================================");
+	System.out.println("          BELUGA DOCTOR NETWORK CHANNEL CONFIGURATION");
+	System.out.println("============================================================");
+	System.out.println("Expected Channel    : " + ChannelName);
+	System.out.println("Expected Dr Network : My Beluga only");
+
+	Report_Listen.log_print_in_report().info("Configuring doctor network selection | Channel: " + ChannelName + " | Required Selection: My Beluga only");
+
+	Channel_Module_Accessor();
+	Thread.sleep(580);
+
+	List<WebElement> Cards = p.All_Channel_Cards();
+
+	for(WebElement Card : Cards){
+
+		String Channel_Name = Card.findElement(By.xpath(".//*[contains(@class,'text-dark')]")).getText().trim();
+
+		if(Channel_Name.equalsIgnoreCase(ChannelName)){
+
+			System.out.println();
+			System.out.println("---------------- CHANNEL CONFIGURATION ----------------");
+			System.out.println("Expected Channel : " + ChannelName);
+			System.out.println("Actual Channel   : " + Channel_Name);
+
+			WebElement Config_Button = p.Particular_Cards_Config_Button(Card);
+			rp.movetoelement(Config_Button);
+			Config_Button.click();
+
+			System.out.println("Action           : Configuration button clicked.");
+
+			Report_Listen.log_print_in_report().info("Configuration button clicked | Channel: " + Channel_Name);
+
+			break;
+		}
+	}
+
+	WebElement Form = p.Form();
+	Thread.sleep(880);
+
+	WebElement Provider_Section = Form.findElement(By.xpath(".//div[@id='providers']"));
+	rp.wait_for_theElement(Provider_Section);
+	rp.Scroll_to_element(Provider_Section);
+	Thread.sleep(1200);
+
+	List<WebElement> Dr_Networks = Provider_Section.findElements(By.xpath(".//span[contains(@class,'ant-select-selection-item-content')]"));
+	rp.wait_for_theElement(Dr_Networks);
+
+	System.out.println();
+	System.out.println("---------------- CURRENT DOCTOR NETWORK SELECTION ----------------");
+	System.out.println("Channel                : " + ChannelName);
+	System.out.println("Required Selection     : My Beluga only");
+	System.out.println("Current Selected Count : " + Dr_Networks.size());
+
+	WebElement DrNet_Field = Provider_Section.findElement(By.xpath(".//div[contains(@class,'ant-select-multiple')]"));
+	rp.wait_for_theElement(DrNet_Field);
+	rp.movetoelement(DrNet_Field);
+	DrNet_Field.click();
+
+	Boolean List_Presence = rp.check_element_visibility(p.First_Virtual_List_holder, 3);
+
+	if(List_Presence){
+
+		WebElement Dr_Network_List = p.First_Virtual_List_holder;
+
+		JS.executeScript("arguments[0].scrollTop = 0;", Dr_Network_List);
+		rp.wait_for_theElement(Dr_Network_List);
+
+		WebElement Beluga_Option = Dr_Network_List.findElement(By.xpath(".//div[@title='My Beluga' and contains(@class,'ant-select-item-option')]"));
+		rp.wait_for_theElement(Beluga_Option);
+
+		WebElement Beluga_Checkbox = Beluga_Option.findElement(By.xpath(".//input[@type='checkbox']"));
+		Boolean Beluga_Checked = Beluga_Checkbox.isSelected();
+
+		System.out.println();
+		System.out.println("---------------- BELUGA SELECTION ----------------");
+		System.out.println("Doctor Network : My Beluga");
+		System.out.println("Checked        : " + Beluga_Checked);
+
+		if(Beluga_Checked){
+
+			System.out.println("Action         : Keeping My Beluga selected.");
+
+			Report_Listen.log_print_in_report().info("Doctor network: My Beluga | Already checked | Action: Keep selected.");
+		}
+		else{
+
+			rp.movetoelement(Beluga_Option);
+			Beluga_Option.click();
+
+			System.out.println("Action         : My Beluga selected.");
+
+			Report_Listen.log_print_in_report().info("Doctor network: My Beluga | Action: Selected.");
+		}
+
+		Dr_Networks = Provider_Section.findElements(By.xpath(".//span[contains(@class,'ant-select-selection-item-content')]"));
+		rp.wait_for_theElement(Dr_Networks);
+
+		System.out.println();
+		System.out.println("---------------- REMOVE OTHER NETWORK SELECTIONS ----------------");
+
+		for(WebElement Dr_Network : Dr_Networks){
+
+			String Dr_Network_Selected = Dr_Network.getText().trim();
+
+			System.out.println();
+			System.out.println("Selected Network : " + Dr_Network_Selected);
+
+			if(Dr_Network_Selected.equalsIgnoreCase("My Beluga")){
+
+				System.out.println("Action           : Keep My Beluga selected.");
+
+				Report_Listen.log_print_in_report().info("Selected doctor network: " + Dr_Network_Selected + " | Action: Keep selected.");
+			}
+			else{
+
+				WebElement Remove_Button = Dr_Network.findElement(By.xpath("./..//span[contains(@class,'ant-select-selection-item-remove')]"));
+				rp.wait_for_theElement(Remove_Button);
+				rp.movetoelement(Remove_Button);
+				Remove_Button.click();
+
+				System.out.println("Action           : " + Dr_Network_Selected + " deselected.");
+
+				Report_Listen.log_print_in_report().info("Doctor network: " + Dr_Network_Selected + " | Action: Deselected using the selected chip's remove button.");
+			}
+		}
+
+		WebElement DrNet_Input = DrNet_Field.findElement(By.xpath(".//input[@role='combobox']"));
+		DrNet_Input.sendKeys(Keys.ESCAPE);
+
+		System.out.println();
+		System.out.println("Action           : Doctor network dropdown closed.");
+
+		Report_Listen.log_print_in_report().info("Doctor network dropdown closed after updating the selection.");
+
+		List<WebElement> Selected_Dr_Networks = Provider_Section.findElements(By.xpath(".//span[contains(@class,'ant-select-selection-item-content')]"));
+
+		Assert_Check.assertEquals(Selected_Dr_Networks.size(), 1, "After updating the selection, only My Beluga should remain selected.");
+
+		String Actual_Dr_Network = Selected_Dr_Networks.get(0).getText().trim();
+
+		Assert_Check.assertEquals(Actual_Dr_Network, "My Beluga", "The remaining selected doctor network should be My Beluga.");
+
+		System.out.println();
+		System.out.println("---------------- DOCTOR NETWORK RESULT ----------------");
+		System.out.println("Expected       : My Beluga only");
+		System.out.println("Actual         : " + Actual_Dr_Network);
+		System.out.println("Selected Count : " + Selected_Dr_Networks.size());
+		System.out.println("Result         : PASS");
+
+		Report_Listen.log_print_in_report().pass("Doctor network selection | Channel: " + ChannelName + " | Expected: My Beluga only | Actual: " + Actual_Dr_Network + " | Selected Count: " + Selected_Dr_Networks.size() + " | Result: PASS");
+	}
+	else{
+
+		System.out.println();
+		System.out.println("Expected : Doctor network dropdown options displayed.");
+		System.out.println("Actual   : Doctor network dropdown options are not visible.");
+		System.out.println("Result   : FAIL");
+
+		Report_Listen.log_print_in_report().fail("Doctor network selection | Channel: " + ChannelName + " | Reason: Doctor network dropdown options are not visible.");
+
+		Assert_Check.fail("Doctor network dropdown options are not visible.");
+	}
+	
+	
+	p.Save_Button().click();
+	WebElement Confirmation_Message = p.Success_Toast();
+	String Confirmation_Message_Text = Confirmation_Message.getText().trim();
+
+	System.out.println("Message : " + Confirmation_Message_Text);
+	System.out.println("Result  : PASS");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().info("Confirmation Message: " + Confirmation_Message_Text);
+	Report_Listen.log_print_in_report().pass("Product assigned successfully.");
+}
+     
+     
+     
+     
+     
+     
+     
 @Test(dataProvider="Product_Create_Data", dataProviderClass=Product_Module.class)
 public void Product_Assign_in_Channel_Add(TreeMap<String, String> Product_data) throws Exception {
 
