@@ -39,9 +39,9 @@ public class Treatment_Module_Locaters extends Repeat{
     @FindBy(xpath="//div[@id='patient-details']//span[normalize-space()='Weight']/following-sibling::span[1]")
     private WebElement Admin_Patient_Weight;
     @FindBy(xpath="//div[@id='patient-details']//span[normalize-space()='Medications']/following-sibling::span[1]")
-    private WebElement Admin_Patient_Medications;/*
-    @FindBy(xpath="")
-	private WebElement ; 
+    private WebElement Admin_Patient_Medications;
+    @FindBy(xpath="//div[@class='ant-card-body']")
+	private List<WebElement> Treatment_Details_cards ; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -318,10 +318,10 @@ public class Treatment_Module_Locaters extends Repeat{
 		throw new IllegalStateException("Admin Patient Medications is not visible.");
 	}
 }
-     /*
+    public List<WebElement> Treatment_Details_cards(){
+	wait_for_theElement(Treatment_Details_cards);
+	return Treatment_Details_cards;} /*
 	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
