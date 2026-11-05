@@ -150,6 +150,16 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Teleform_Continue_Button;
     @FindBy(xpath="//section[contains(@class,'canvasPreview')]//button[contains(@class,'ant-btn-color-default') and normalize-space()='Submit intake']")
 	private WebElement Teleform_Submit_Button;
+    @FindBy(xpath="//div[contains(@class,'canvasPaper')][.//h2[normalize-space()='ID VERIFICATION']]")
+	private WebElement ID_Verification_Form;
+    @FindBy(xpath="//div[contains(@class,'canvasPaper')][.//h2[normalize-space()='ID VERIFICATION']]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='SSN']]//input[@type='text']")
+	private WebElement ID_Verification_SSN;
+    @FindBy(xpath="//div[contains(@class,'canvasPaper')][.//h2[normalize-space()='ID VERIFICATION']]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='ID Verification']]")
+	private WebElement ID_Verification_Upload_Section;
+    @FindBy(xpath="//div[contains(@class,'canvasPaper')][.//h2[normalize-space()='ID VERIFICATION']]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='ID Verification']]//input[@type='file']")
+	private WebElement ID_Verification_File_Input;
+    @FindBy(xpath="//div[contains(@class,'canvasPaper')][.//h2[normalize-space()='ID VERIFICATION']]//button[normalize-space()='Submit']")
+	private WebElement ID_Verification_Submit_Button;
 
 	public Patient_Portal_Locaters(WebDriver d){
 	super(d);
@@ -367,5 +377,25 @@ public class Patient_Portal_Locaters extends Repeat {
 	public WebElement Teleform_Submit_Button(){
 	wait_for_theElement_to_be_clickable(Teleform_Submit_Button);
 	return Teleform_Submit_Button;}
+	public WebElement ID_Verification_Form(){
+		wait_for_theElement(ID_Verification_Form);
+		return ID_Verification_Form;
+	}
+	public WebElement ID_Verification_SSN(){
+		wait_for_theElement_to_be_clickable(ID_Verification_SSN);
+		return ID_Verification_SSN;
+	}
+	public WebElement ID_Verification_Upload_Section(){
+		wait_for_theElement(ID_Verification_Upload_Section);
+		return ID_Verification_Upload_Section;
+	}
+	public WebElement ID_Verification_File_Input(){
+		wait_for_enabled_element(ID_Verification_File_Input);
+		return ID_Verification_File_Input;
+	}
+	public WebElement ID_Verification_Submit_Button(){
+		wait_for_theElement_to_be_clickable(ID_Verification_Submit_Button);
+		return ID_Verification_Submit_Button;
+	}
 
 }

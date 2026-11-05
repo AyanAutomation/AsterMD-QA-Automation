@@ -13,12 +13,13 @@
         </classes>
     </test>
 
-    <!-- STEP 2: Five-Page Intake with SSN and ID Document Upload on Page 5 -->
+    <!-- STEP 2: Five-Page Intake Submission Followed by ID Verification -->
     <test name="Step 2 - Patient Portal Intake Form Submission" preserve-order="true">
         <classes>
             <class name="Patient_Portal.Pateint_Portal">
                 <methods>
                     <include name="Intake_form_filling"/>
+                    <include name="Veirfy_Id_form_filling"/>
                 </methods>
             </class>
         </classes>

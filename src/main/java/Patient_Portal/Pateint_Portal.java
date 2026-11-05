@@ -1,5 +1,6 @@
 package Patient_Portal;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -16,7 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
-
+import org.testng.asserts.Assertion;
 
 import Listerners.Report_Listen;
 import Locaters.Patient_Portal_Locaters;
@@ -238,7 +239,7 @@ public void Intake_form_filling(TreeMap<String,String> Product_data) throws Inte
 	String Patient_Name = Product_data.get("First Name") + " " + Product_data.get("Last Name");
 	String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
 
-	Patient_portal_header_menu_navigator("Treatments", "Registered", Product_data);
+	Patient_portal_header_menu_navigator("Treatments", "Not Registered", Product_data);
 	System.out.println("---------- PATIENT INTAKE ----------");
 	System.out.println("Patient : " + Patient_Name);
 	System.out.println("Product : " + Product_Name + " | Variant: " + Treatment_Variant);
@@ -679,6 +680,7 @@ public void Teleform_Date_Of_Birth_Selector(String Date_Of_Birth){
 	Assert.fail("DOB year not available: " + Year);
 }
 
+
 public void Intake_Dropdown_Option_Selector(WebElement Dropdown, String Expected_Option){
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
@@ -776,16 +778,23 @@ public Boolean Teleform_Toast_Detector_Printer(WebElement Toast){
 }
 
 
-
-@Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
-public void Veirfy_Id_form_filling(TreeMap<String,String> Product_data) throws InterruptedException{
+    @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
+    public void Veirfy_Id_form_filling(TreeMap<String,String> Product_data) throws InterruptedException{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
+	Assertion Assert_Check = new Assertion();
+
 	String Product_Name = Product_data.get("Product Name");
 	String Treatment_Variant = Product_data.get("Treatment Variant");
 	String Patient_Name = Product_data.get("First Name") + " " + Product_data.get("Last Name");
 	String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
+
+	String SSN = Product_data.get("SSN");
+	String ID_Verification_Image = Product_data.get("ID Verification Image");
+	File ID_Verification_Folder = new File(System.getProperty("user.dir"), "Images/AsterMD_ID_Verification_QA_Fixtures_20_Images/Images/ID_Verification");
+	File ID_Verification_File = new File(ID_Verification_Folder, ID_Verification_Image);
+	String ID_Verification_Image_Path = ID_Verification_File.getAbsolutePath();
 
 	Patient_portal_header_menu_navigator("Treatments", "Registered", Product_data);
 	System.out.println("---------- PATIENT INTAKE ----------");
@@ -794,8 +803,9 @@ public void Veirfy_Id_form_filling(TreeMap<String,String> Product_data) throws I
 	Report_Listen.log_print_in_report().info("Starting Patient Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
 
 	List<WebElement> Treatment_Cards;
+
 	try{
-		
+
 		WebElement Active_Section = p.Active_Tab();
 		rp.movetoelement(Active_Section);
 		p.Treatment_Summary_Loader();
@@ -804,43 +814,128 @@ public void Veirfy_Id_form_filling(TreeMap<String,String> Product_data) throws I
 		Treatment_Cards = p.Incomplete_Treatment_Cards();
 	}
 	catch(TimeoutException Unavailable_Treatments){
+
 		System.out.println("Result : NOT PERFORMED | Reason: Incomplete treatments are unavailable.");
 		Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: Incomplete treatments are unavailable.");
+
 		return;
 	}
-       /*
-	for(WebElement Treatment_Card : Treatment_Cards){
-		String Treatment_Details = Treatment_Card.getText().trim();
-		if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
-			List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
-			for(WebElement Start_Intake_Button : Start_Intake_Buttons){
-				String Button_Text = Start_Intake_Button.getText().trim();
-				if(Button_Text.contains("Intake")){
-					Boolean Button_Visible = rp.check_element_visibility(Start_Intake_Button, 5);
-					Boolean Button_Enabled = Start_Intake_Button.isEnabled();
-					if(Button_Visible && Button_Enabled){
-						rp.movetoelement(Start_Intake_Button);
-						Start_Intake_Button.click();
-						Report_Listen.log_print_in_report().info("Started Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
-						if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets")){
-							AsterRefluxa_Intake_Form(Product_data);
-							System.out.println("Patient Intake | Product: " + Product_Name + " | Result: COMPLETED");
-							Report_Listen.log_print_in_report().pass("Patient Intake completed | Patient: " + Patient_Name + " | Product: " + Product_Name);
+
+	Master_Loop:{
+
+		for(WebElement Treatment_Card : Treatment_Cards){
+
+			String Treatment_Details = Treatment_Card.getText().trim();
+
+			if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
+
+				List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
+
+				for(WebElement Start_Intake_Button : Start_Intake_Buttons){
+
+					String Button_Text = Start_Intake_Button.getText().trim();
+
+					if(Button_Text.contains("Verify Identity")){
+
+						Boolean Button_Visible = rp.check_element_visibility(Start_Intake_Button, 5);
+						Boolean Button_Enabled = Start_Intake_Button.isEnabled();
+
+						if(Button_Visible && Button_Enabled){
+
+							rp.movetoelement(Start_Intake_Button);
+							Start_Intake_Button.click();
+
+							Report_Listen.log_print_in_report().info("Started Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+
+							p.ID_Verification_Form();
+
+							System.out.println();
+							System.out.println("============================================================");
+							System.out.println("                 PATIENT ID VERIFICATION");
+							System.out.println("============================================================");
+							System.out.println("Patient : " + Patient_Name);
+							System.out.println("Product : " + Product_Name);
+							System.out.println("Variant : " + Treatment_Variant);
+							System.out.println("Action  : ID Verification form opened.");
+
+							Report_Listen.log_print_in_report().info("ID Verification form opened | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+
+							// SSN
+							WebElement SSN_Field = p.ID_Verification_SSN();
+							rp.Scroll_to_element(SSN_Field);
+							rp.movetoelement(SSN_Field);
+							SSN_Field.clear();
+							SSN_Field.sendKeys(SSN);
+
+							String Actual_SSN = SSN_Field.getDomProperty("value");
+
+							Assert_Check.assertEquals(Actual_SSN, SSN, "ID Verification SSN field does not match the DataProvider value.");
+
+							System.out.println();
+							System.out.println("---------------- SSN ENTRY ----------------");
+							System.out.println("Action : SSN entered and field value verified.");
+							System.out.println("Result : PASS");
+
+							Report_Listen.log_print_in_report().pass("ID Verification SSN entry | Patient: " + Patient_Name + " | Field value matches the DataProvider | Result: PASS");
+
+							// ID Verification Image
+							WebElement Upload_Section = p.ID_Verification_Upload_Section();
+							rp.Scroll_to_element(Upload_Section);
+
+							WebElement File_Input = p.ID_Verification_File_Input();
+							File_Input.sendKeys(ID_Verification_Image_Path);
+                            WebElement Pending_Message=p.Teleform_ID_Upload_Pending_Message();
+                            rp.wait_for_invisibilty_of_theElement(Pending_Message);
+							System.out.println();
+							System.out.println("---------------- ID DOCUMENT SELECTION ----------------");
+							System.out.println("Image  : " + ID_Verification_File.getName());
+							System.out.println("Action : Image supplied to the ID Verification file input.");
+
+							Report_Listen.log_print_in_report().info("ID Verification image selected | Patient: " + Patient_Name + " | Image: " + ID_Verification_File.getName());
+                            Thread.sleep(800);
+							// Submit
+							WebElement Submit_Button = p.ID_Verification_Submit_Button();
+							rp.Scroll_to_element(Submit_Button);
+							rp.movetoelement(Submit_Button);
+							Submit_Button.click();
+
+							System.out.println();
+							System.out.println("---------------- ID VERIFICATION SUBMISSION ----------------");
+							System.out.println("Action : Submit button clicked.");
+
+							Report_Listen.log_print_in_report().info("ID Verification Submit clicked | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+
+							WebElement Submission_Toast = p.Teleform_Submission_Success_Toast;
+							Boolean Submission_Success = Teleform_Toast_Detector_Printer(Submission_Toast);
+
+							if(Submission_Success){
+
+								System.out.println("Patient : " + Patient_Name);
+								System.out.println("Product : " + Product_Name);
+								System.out.println("Expected: Action Successful | Submitted successfully.");
+								System.out.println("Result  : PASS");
+
+								Report_Listen.log_print_in_report().pass("ID Verification form submitted successfully | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Success notification verified | Result: PASS");
+
+								break Master_Loop;
+							}
+							else{
+
+								System.out.println("Result : FAIL");
+								System.out.println("Reason : ID Verification submission success notification was not verified.");
+
+								Report_Listen.log_print_in_report().fail("ID Verification submission | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Reason: Expected submission success notification was not verified.");
+
+								Assert_Check.fail("ID Verification submission failed: expected Action Successful | Submitted successfully.");
+							}
 						}
-						else{
-							throw new SkipException("Intake automation not configured for: " + Product_Name);
-						}
-						return;
 					}
 				}
 			}
-		}  
+		}
+
+		System.out.println("Result : NOT PERFORMED | Reason: No usable Verify Identity button matches the requested product and variant.");
+		Report_Listen.log_print_in_report().info("ID Verification NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: No usable matching Verify Identity button.");
 	}
-	System.out.println("Result : NOT PERFORMED | Reason: No usable Start Intake button matches the requested product and variant.");
-	Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: No usable matching Start Intake button.");
-
-*/
 }
-
-
 }
