@@ -718,11 +718,11 @@ public Object[][] Storefront_Product_Data(){
 
 	// Active Datasets: AsterSomnera, AsterMigraEase and AsterRefluxa
 	return new Object[][] {/*
-		{ data1 },
+		{ data1 }, 
 		{ data2 },
-		{ data3 },
-		{ data4 },
-		{ data5 },
+		{ data3 }, 
+		{ data4 }, */
+		{ data5 },/*
 		{ data6 },
 		{ data7 },
 		{ data8 },
@@ -731,8 +731,8 @@ public Object[][] Storefront_Product_Data(){
 		{ data11 },
 		{ data12 },
 		{ data13 },
-		{ data14 }, */
-		{ data15 }, /*
+		{ data14 }, 
+		{ data15 }, 
 		{ data16 },
 		{ data17 },
 		{ data18 },
@@ -771,15 +771,27 @@ public void Product_Choose(TreeMap<String, String> Product_data) throws IOExcept
 
 	WebElement Prod_Section = p.Treatments_Product_Section();
 	rp.movetoelement(Prod_Section);
-
-	List<WebElement> Medicine_Cards = p.Product_Cards();
+	WebElement View_All = p.View_All_Treatment_Button();
+	rp.movetoelement(View_All);
+	View_All.click();
+	rp.wait_for_invisibilty_of_theElement(View_All);
+	Boolean Second_Page_Visibilty= rp.check_element_visibility(p.Landed_in_second_page, 3);  
+	Boolean Treatment_Grid= rp.check_element_visibility(p.Optional_Second_Treatment_List(), 3);   
+	
+   if(Second_Page_Visibilty && Treatment_Grid) {
+	   
+	WebElement second_prod_list=p.Optional_Second_Treatment_List();   
+	rp.movetoelement(second_prod_list);   
+	
+	List<WebElement> Medicine_Cards = second_prod_list.findElements(By.xpath(".//article"));
 
 	for(WebElement Medicine_Card : Medicine_Cards){
 
-		String Medicine_Name = Medicine_Card.findElement(By.xpath(".//h3")).getText().trim();
+		String Medicine_Name = Medicine_Card.findElement(By.xpath(".//h2")).getText().trim();
 
 		if(Medicine_Name.equalsIgnoreCase(Product_Name)){
-
+           
+			rp.movetoelement(Medicine_Card);   
 			WebElement Add_to_Cart_Button = Medicine_Card.findElement(By.xpath(".//a[contains(@class,'inline-flex items-center justify-center gap-2 rounded-sm border border-border')]"));
 
 			rp.movetoelement(Add_to_Cart_Button);
@@ -791,14 +803,7 @@ public void Product_Choose(TreeMap<String, String> Product_data) throws IOExcept
 			System.out.println("Result   : PASS");
 
 			Report_Listen.log_print_in_report().pass("Product selected: " + Medicine_Name);
-
-			// Secondary Product Selection
-			if(rp.check_element_visibility(p.Optional_Second_Treatment_List(), 2)){
-
-				Second_Product_List_Product_Choose(Product_Name);
-
-				Report_Listen.log_print_in_report().pass("Secondary Product selected successfully.");
-			}
+      
 
 			// Select Checkout Flow
 			if(Proceed_To_Checkout_Directly){
@@ -815,17 +820,7 @@ public void Product_Choose(TreeMap<String, String> Product_data) throws IOExcept
 
 				Report_Listen.log_print_in_report().pass("Proceed to Checkout clicked successfully.");
 			}
-			else{
-
-				if(rp.check_element_visibility(p.Optional_Start_Assessment_Buttons(), 2)){
-
-					WebElement Assesment_Button = p.Star_Assesment_Button();
-
-					Assesment_executor(Assesment_Button, Product_data);
-
-					Report_Listen.log_print_in_report().pass("Product assessment completed successfully.");
-				}
-			}
+			
 
 			// Common Checkout Execution
 			System.out.println("---------------- CHECKOUT ----------------");
@@ -867,155 +862,14 @@ public void Product_Choose(TreeMap<String, String> Product_data) throws IOExcept
 			Report_Listen.log_print_in_report().fail("Product not found: " + Product_Name);
 
 			throw new NoSuchElementException("Product not found: " + Product_Name);
-		}
+		} }
 	}
 }
 
 
 
-public void Second_Product_List_Product_Choose(String Product_name) throws IOException{
 
-	StoreFront_Locaters p = new StoreFront_Locaters(d);
-	Repeat rp = new Repeat(d);
 
-	System.out.println();
-	System.out.println("---------------- SECONDARY PRODUCT SELECTION ----------------");
-	System.out.println("Expected : " + Product_name);
-	Report_Listen.log_print_in_report().info("Selecting Product from secondary list: " + Product_name);
-
-	WebElement Treatment_List = p.Second_Treatment_List();
-	List<WebElement> Medicine_Cards = Treatment_List.findElements(By.xpath(".//article"));
-
-	for(WebElement Medicine_Card : Medicine_Cards){
-
-		String Medicine_Name = Medicine_Card.findElement(By.xpath(".//h2")).getText().trim();
-
-		if(Medicine_Name.equalsIgnoreCase(Product_name)){
-			WebElement Add_to_Cart_Button = Medicine_Card.findElement(By.xpath(".//a[contains(@class,'bg-primary')]"));
-			rp.movetoelement(Add_to_Cart_Button);
-			Add_to_Cart_Button.click();
-			System.out.println("Actual : " + Medicine_Name);
-			System.out.println("Result : PASS");
-			Report_Listen.log_print_in_report().pass("Secondary Product selected: " + Medicine_Name);
-			break;
-		}
-
-		if(Medicine_Card.equals(Medicine_Cards.get(Medicine_Cards.size()-1))){
-			Report_Listen.log_print_in_report().fail("Product not found in secondary list: " + Product_name);
-			throw new NoSuchElementException("Product not found in secondary list: " + Product_name);
-		}
-	}
-}
-public void Assesment_executor(WebElement Assesment_Button, TreeMap<String, String> Form_Data) throws IOException, InterruptedException{
-
-	StoreFront_Locaters p = new StoreFront_Locaters(d);
-	Repeat rp = new Repeat(d);
-
-	String Product_Name = Form_Data.get("Product Name");
-
-	System.out.println();
-	System.out.println("================ PATIENT ASSESSMENT ================");
-	System.out.println("Product : " + Product_Name);
-	Report_Listen.log_print_in_report().info("Starting Patient Assessment for Product: " + Product_Name);
-
-	rp.movetoelement(Assesment_Button);
-	Assesment_Button.click();
-	Thread.sleep(800);
-
-	List<WebElement> Intake_Forms = p.Optional_Medical_Intake_Forms();
-
-	if(Intake_Forms.isEmpty()){
-		p.Address_Field();
-		Report_Listen.log_print_in_report().info("Direct checkout; no medical intake for: " + Product_Name);
-		return;
-	}
-
-	WebElement Assesment_form = Intake_Forms.get(0);
-	p.Medical_Intake_Active_Page();
-
-	if("1".equals(Assesment_form.getAttribute("data-intake-blocked"))){
-		Report_Listen.log_print_in_report().fail("Unsupported required medical questions: " + Product_Name);
-		throw new IllegalStateException("Medical Intake is blocked by unsupported questions: " + Product_Name);
-	}
-
-	WebElement First_Name_Field = p.Intake_First_Name();
-	WebElement Last_Name_Field = p.Intake_Last_Name();
-	WebElement Email_Field = p.Intake_Email();
-	WebElement Phone_Field = p.Intake_Phone();
-
-	rp.movetoelement(First_Name_Field);
-	First_Name_Field.sendKeys(Form_Data.get("First Name"));
-	rp.movetoelement(Last_Name_Field);
-	Last_Name_Field.sendKeys(Form_Data.get("Last Name"));
-	rp.movetoelement(Email_Field);
-	Email_Field.sendKeys(Form_Data.get("Email"));
-	rp.movetoelement(Phone_Field);
-	Phone_Field.sendKeys(Form_Data.get("Phone"));
-
-	System.out.println("---------------- PERSONAL INFORMATION ----------------");
-	System.out.println("Patient : " + Form_Data.get("First Name") + " " + Form_Data.get("Last Name"));
-	System.out.println("Email   : " + Form_Data.get("Email"));
-	Report_Listen.log_print_in_report().pass("Patient information entered for: " + Product_Name);
-
-	List<WebElement> Birth_Date_Fields = p.Intake_Birth_Date();
-	List<WebElement> State_Dropdowns = p.Intake_State();
-	List<WebElement> Unit_System_Dropdowns = p.Intake_Unit_System();
-	List<WebElement> Height_Fields = p.Intake_Height();
-	List<WebElement> Weight_Fields = p.Intake_Weight();
-
-	if(!Birth_Date_Fields.isEmpty()){
-		WebElement Birth_Date = Birth_Date_Fields.get(0);
-		rp.movetoelement(Birth_Date);
-		Birth_Date.sendKeys(Form_Data.get("Date of Birth"));
-	}
-	if(!State_Dropdowns.isEmpty()){
-		WebElement State = State_Dropdowns.get(0);
-		rp.movetoelement(State);
-		new Select(State).selectByVisibleText(Form_Data.get("State"));
-	}
-	if(!Unit_System_Dropdowns.isEmpty()){
-		WebElement Unit_System = Unit_System_Dropdowns.get(0);
-		rp.movetoelement(Unit_System);
-		new Select(Unit_System).selectByVisibleText(Form_Data.get("Unit System"));
-	}
-	if(!Height_Fields.isEmpty()){
-		WebElement Height = Height_Fields.get(0);
-		rp.movetoelement(Height);
-		Height.sendKeys(Form_Data.get("Height"));
-	}
-	if(!Weight_Fields.isEmpty()){
-		WebElement Weight = Weight_Fields.get(0);
-		rp.movetoelement(Weight);
-		Weight.sendKeys(Form_Data.get("Weight"));
-	}
-
-	List<WebElement> Goal_Fields = p.Medical_Intake_Goal_Fields();
-
-	for(WebElement Goal_Field : Goal_Fields){
-		String Goal_Name = Goal_Field.getAttribute("data-intake-field");
-		String Goal_Value = Form_Data.getOrDefault("Q&A " + Goal_Name, Goal_Name.equals("weight_loss_goal") ? "havent-decided" : "general-wellness");
-		WebElement Goal_Label = Goal_Field.findElement(By.xpath(".//label[.//input[@value='" + Goal_Value + "']]"));
-		rp.movetoelement(Goal_Label);
-		Goal_Label.click();
-		System.out.println("Goal : " + Goal_Value);
-	}
-
-	WebElement Continue_Button = Product_Name.equalsIgnoreCase("NAD+ Injectable") ? p.Continue_Button() : p.Medical_Intake_Next_Button();
-	rp.movetoelement(Continue_Button);
-	Continue_Button.click();
-
-	if(Product_Name.equalsIgnoreCase("NAD+ Injectable")){
-		Q_and_A_Resolver(Form_Data);
-	}
-	else{
-		Medical_Q_and_A_Resolver(Assesment_form, Form_Data);
-	}
-
-	System.out.println("================ ASSESSMENT STEP COMPLETED ================");
-	System.out.println("Product : " + Product_Name);
-	System.out.println("Result  : PASS");
-	Report_Listen.log_print_in_report().pass("Patient Assessment completed: " + Product_Name);
-}
 public void Q_and_A_Resolver(TreeMap<String, String> Form_Data) throws IOException, InterruptedException{
 
 	StoreFront_Locaters p = new StoreFront_Locaters(d);

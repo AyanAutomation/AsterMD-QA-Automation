@@ -18,7 +18,7 @@ public class StoreFront_Locaters extends Repeat {
     @FindBy(xpath="//article[contains(@class,'flex flex-col justify-between rounded-[20px]')]")
 	private List<WebElement> Product_Cards; 
     @FindBy(id="treatments-grid")
-	private List<WebElement> Optional_Second_Treatment_List; 
+	private WebElement Optional_Second_Treatment_List; 
     @FindBy(xpath="//button[@value='assessment']")
 	private List<WebElement> Optional_Start_Assessment_Buttons; 
     @FindBy(css="form[data-intake-form]")
@@ -127,9 +127,12 @@ public class StoreFront_Locaters extends Repeat {
 	private WebElement Proceed_To_Checkout_Button;
     @FindBy(xpath="//h2[normalize-space()='Select Treatment Plan']/following-sibling::div[@data-select-group]//button[@data-select-option]")
 	private List<WebElement> Optional_Treatment_Plan_Options;
+    @FindBy(xpath="//section//a[@href='/treatments/']")
+	private WebElement View_All_Treatment_Button;
+    @FindBy(xpath="//legend[text()='Filters']")
+	public WebElement Landed_in_second_page;
 
-
-
+  
 
 
 	public StoreFront_Locaters(WebDriver d){
@@ -145,7 +148,7 @@ public class StoreFront_Locaters extends Repeat {
 	public List<WebElement> Product_Cards(){
 	wait_for_theElement(Product_Cards);
 	return Product_Cards;}
-	public List<WebElement> Optional_Second_Treatment_List(){
+	public WebElement Optional_Second_Treatment_List(){
 	return Optional_Second_Treatment_List;}
 	public List<WebElement> Optional_Start_Assessment_Buttons(){
 	return Optional_Start_Assessment_Buttons;}
@@ -276,11 +279,11 @@ public class StoreFront_Locaters extends Repeat {
 	return Order_Total;}
 	public WebElement Payment_Notice(){
 	wait_for_theElement(Payment_Notice);
-	return Payment_Notice;}
+	return Payment_Notice;} /*
 	public WebElement Second_Treatment_List(){
 	WebElement Treatment_List = Optional_Second_Treatment_List.get(0);
 	wait_for_theElement(Treatment_List);
-	return Treatment_List;}
+	return Treatment_List;} */
 	public WebElement Star_Assesment_Button(){
 	WebElement Assesment_Button = Optional_Start_Assessment_Buttons.get(0);
 	wait_for_theElement(Assesment_Button);
@@ -304,7 +307,10 @@ public class StoreFront_Locaters extends Repeat {
 	return Proceed_To_Checkout_Button;}
 	public List<WebElement> Optional_Treatment_Plan_Options(){
 	return Optional_Treatment_Plan_Options;}
+	public WebElement View_All_Treatment_Button(){
+	wait_for_theElement_to_be_clickable(View_All_Treatment_Button);
+	return View_All_Treatment_Button;}
 
-
+	
     
 }
