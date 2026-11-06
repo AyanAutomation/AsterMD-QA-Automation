@@ -6,6 +6,8 @@ import java.util.TreeMap;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import AsterMD.Project.AsterMD.Data_Reader;
@@ -57,7 +59,7 @@ public class Doctor_network extends Frontend_Store_Front{
 			
 			String option_text=Nav_option.getText().trim();
 			
-			if(option_text.equalsIgnoreCase(Network)){
+			if(option_text.contains(Network)){
 				
 				Nav_option.click();
 				
@@ -80,6 +82,7 @@ public class Doctor_network extends Frontend_Store_Front{
 	
 	@Test(dataProvider="Storefront_Product_Data")
 	public void beluga_visit_check_and_Authorize(TreeMap<String,String> Data) throws IOException, InterruptedException{
+		
 		Dr_Network_locaters p = new Dr_Network_locaters(d);
 		Repeat rp = new Repeat(d);
 		String Patient_Name = Data.get("First Name") + " " + Data.get("Last Name");
@@ -166,6 +169,67 @@ public class Doctor_network extends Frontend_Store_Front{
 		System.out.println();
 		System.out.println("Result : Visit navigation and doctor-name retrieval completed.");
 		Report_Listen.log_print_in_report().info("Visit navigation and doctor-name retrieval completed | Patient: " + Patient_Name + " | Doctor Name: " + Assigned_Dr_Name);
+	
+	    
+		Dr_network_Accessor("Shared tools","Webhook Sender");
+	    
+		Select Network_Select = new Select(p.network());
+		Select Event_Select = new Select(p.Event());
+		Select Target_Endpoint_Select = new Select(p.Target_Endpoint());
+	    
+		Network_Select.selectByVisibleText("Beluga Health");
+		Event_Select.selectByVisibleText("Consult concluded");
+		Target_Endpoint_Select.selectByVisibleText("My Beluga ( Ayan )");
+		
+		WebElement Generate=p.Generate_Button();
+		rp.movetoelement(Generate);
+		Generate.click();
+		
+		WebElement Payload_TextArea = p.Payload_JSON();
+		int Payload_Wait_Time = 30;
+
+		System.out.println();
+		System.out.println("---------------- WEBHOOK PAYLOAD ----------------");
+		System.out.println("Action         : Waiting for the payload to populate.");
+		System.out.println("Timeout Seconds: " + Payload_Wait_Time);
+		Report_Listen.log_print_in_report().info("Waiting for webhook payload | Timeout Seconds: " + Payload_Wait_Time);
+
+		String Payload_Value = rp.wait_for_non_empty_textarea_value(Payload_TextArea, Payload_Wait_Time);
+
+		System.out.println("Result         : Payload populated.");
+		System.out.println("Payload        : " + Payload_Value);
+		Report_Listen.log_print_in_report().info("Webhook payload populated | Payload: " + Payload_Value);
+
+		WebElement SendButton = p.Send_Button();
+		rp.movetoelement(SendButton);
+		SendButton.click();
+
+		System.out.println("Action         : Send button clicked.");
+		Report_Listen.log_print_in_report().info("Webhook Send button clicked.");
+
+		System.out.println();
+		System.out.println("---------------- WEBHOOK RESPONSE VALIDATION ----------------");
+		System.out.println("Patient  : " + Patient_Name);
+		System.out.println("Expected : Visible HTTP 200 success result.");
+		Report_Listen.log_print_in_report().info("Validating webhook response | Patient: " + Patient_Name + " | Expected: Visible HTTP 200 success result.");
+
+		Boolean Webhook_Success_Visible = p.Webhook_HTTP_200_Success_Visible();
+
+		if(Webhook_Success_Visible){
+			System.out.println("Actual   : HTTP 200 success result is visible.");
+			System.out.println("Result   : PASS");
+			Report_Listen.log_print_in_report().pass("Webhook submission | Patient: " + Patient_Name + " | HTTP 200 success result visible | Result: PASS");
+		}
+		else{
+			System.out.println("Actual   : HTTP 200 success result was not visible within the timeout.");
+			System.out.println("Result   : FAIL");
+			Report_Listen.log_print_in_report().fail("Webhook submission | Patient: " + Patient_Name + " | HTTP 200 success result was not visible within the timeout | Result: FAIL");
+			Assert.fail("Webhook submission failed: HTTP 200 success result was not visible for patient: " + Patient_Name);
+		}
+	
+	
+	
+	
 	}
 	
 

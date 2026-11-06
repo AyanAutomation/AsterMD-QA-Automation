@@ -24,19 +24,21 @@ public class Dr_Network_locaters extends Repeat {
     @FindBy(id="visitTabs")
 	private WebElement Visit_details_tabs; 
     @FindBy(id="approveDoc")
-	private WebElement Doctor_Name_Field; /*
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Doctor_Name_Field; 
+    @FindBy(id="endpoint")
+	private WebElement Target_Endpoint; 
+    @FindBy(id="event")
+	private WebElement Event; 
+    @FindBy(id="network")
+	private WebElement network; 
+    @FindBy(id="generateBtn")
+	private WebElement Generate_Button;
+    @FindBy(id="payload")
+	private WebElement Payload_JSON;  
+    @FindBy(xpath="//h6[contains(@class,'card-title')]/span[contains(@class,'status-badge') and contains(@class,'bg-success') and normalize-space()='200']")
+	private WebElement Webhook_HTTP_200_Success;
+    @FindBy(id="sendBtn")
+	private WebElement Send_Button; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -201,23 +203,28 @@ public class Dr_Network_locaters extends Repeat {
 		return Visit_details_tabs;} 
 		public WebElement Doctor_Name_Field(){
 		wait_for_theElement(Doctor_Name_Field);
-		return Doctor_Name_Field;} /*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;} public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;} public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Doctor_Name_Field;} 
+		public WebElement Target_Endpoint(){
+		wait_for_theElement(Target_Endpoint);
+		return Target_Endpoint;}
+		public WebElement Event(){
+		wait_for_theElement(Event);
+		return Event;} 
+		public WebElement network(){
+		wait_for_theElement(network);
+		return network;} 
+		public WebElement Generate_Button(){
+		wait_for_theElement(Generate_Button);
+		return Generate_Button;}
+		public WebElement Payload_JSON(){
+		wait_for_theElement(Payload_JSON);
+		return Payload_JSON;} 
+		public Boolean Webhook_HTTP_200_Success_Visible(){
+			return check_element_visibility(Webhook_HTTP_200_Success, 10);
+		}
+		public WebElement Send_Button(){
+		wait_for_theElement(Send_Button);
+		return Send_Button;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}

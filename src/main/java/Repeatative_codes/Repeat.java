@@ -120,6 +120,18 @@ public class Repeat {
 		});
 	}
 
+	public String wait_for_non_empty_textarea_value(WebElement Textarea, int Wait_Time){
+		
+		WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(Wait_Time));
+		
+		w.ignoring(StaleElementReferenceException.class);
+		w.withMessage("Textarea value remained empty after waiting " + Wait_Time + " seconds.");
+		return w.until(driver -> {
+			String Textarea_Value = Textarea.getDomProperty("value");
+			return Textarea_Value != null && !Textarea_Value.trim().isEmpty() ? Textarea_Value : null;
+		});
+	}
+
 	public String wait_for_alert_and_accept() {
 		WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(10));
 		Alert alert = w.until(ExpectedConditions.alertIsPresent());

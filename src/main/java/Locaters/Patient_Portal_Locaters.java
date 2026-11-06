@@ -152,15 +152,15 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Teleform_Continue_Button;
     @FindBy(xpath="//section[contains(@class,'canvasPreview')]//button[contains(@class,'ant-btn-color-default') and normalize-space()='Submit intake']")
 	private WebElement Teleform_Submit_Button;
-    @FindBy(xpath="//div[contains(@class,'canvasPaper')][.//h2[normalize-space()='ID VERIFICATION']]")
+    @FindBy(xpath="//div[contains(@class,'__sectionBlock')]")
 	private WebElement ID_Verification_Form;
-    @FindBy(xpath="//div[contains(@class,'canvasPaper')][.//h2[normalize-space()='ID VERIFICATION']]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='SSN']]//input[@type='text']")
+    @FindBy(xpath="//div[contains(@class,'__sectionBlock')]//input[@type='text']")
 	private WebElement ID_Verification_SSN;
-    @FindBy(xpath="//div[contains(@class,'canvasPaper')][.//h2[normalize-space()='ID VERIFICATION']]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='ID Verification']]")
+    @FindBy(xpath="//div[contains(@class,'canvasPaper')][.//h2[normalize-space()='ID VERIFICATIONS']]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='ID Verification']]")
 	private WebElement ID_Verification_Upload_Section;
-    @FindBy(xpath="//div[contains(@class,'canvasPaper')][.//h2[normalize-space()='ID VERIFICATION']]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='ID Verification']]//input[@type='file']")
+    @FindBy(xpath="//div[contains(@class,'canvasPaper')][.//h2[normalize-space()='ID VERIFICATIONS']]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='ID Verification']]//input[@type='file']")
 	private WebElement ID_Verification_File_Input;
-    @FindBy(xpath="//div[contains(@class,'canvasPaper')][.//h2[normalize-space()='ID VERIFICATION']]//button[normalize-space()='Submit']")
+    @FindBy(xpath="//div[contains(@class,'canvasPaper')][.//h2[normalize-space()='ID VERIFICATIONS']]//button[normalize-space()='Submit']")
 	private WebElement ID_Verification_Submit_Button;
 
 	public Patient_Portal_Locaters(WebDriver d){
