@@ -18,13 +18,13 @@ public class Dr_Network_locaters extends Repeat {
     @FindBy(xpath="//ul[@data-bs-popper='static']")
 	private WebElement Dropdown; 
     @FindBy(id="visitsTable")
-	private WebElement Visit_Table; /*
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Visit_Table; 
+    @FindBy(xpath="//input[@type='search' and @class='form-control form-control-sm']")
+	private WebElement Search; 
+    @FindBy(id="visitTabs")
+	private WebElement Visit_details_tabs; 
+    @FindBy(id="approveDoc")
+	private WebElement Doctor_Name_Field; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -192,15 +192,16 @@ public class Dr_Network_locaters extends Repeat {
 		return Dropdown;} 
 		public WebElement Visit_Table(){
 		wait_for_theElement(Visit_Table);
-		return Visit_Table;} /*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;} public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Visit_Table;} 
+		public WebElement Search(){
+		wait_for_theElement(Search);
+		return Search;}
+		public WebElement Visit_details_tabs(){
+		wait_for_theElement(Visit_details_tabs);
+		return Visit_details_tabs;} 
+		public WebElement Doctor_Name_Field(){
+		wait_for_theElement(Doctor_Name_Field);
+		return Doctor_Name_Field;} /*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}

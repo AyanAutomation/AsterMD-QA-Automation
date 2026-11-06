@@ -725,14 +725,14 @@ public Object[][] Storefront_Product_Data(){
 		{ data5 },
 		{ data6 }, 
 		{ data7 },
-		{ data8 },*/
-		{ data9 },/*
+		{ data8 },
+		{ data9 },
 		{ data10 },
 		{ data11 },
 		{ data12 },
 		{ data13 },
-		{ data14 }, 
-		{ data15 }, 
+		{ data14 }, */
+		{ data15 }, /*
 		{ data16 },
 		{ data17 },
 		{ data18 },

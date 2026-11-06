@@ -80,36 +80,92 @@ public class Doctor_network extends Frontend_Store_Front{
 	
 	@Test(dataProvider="Storefront_Product_Data")
 	public void beluga_visit_check_and_Authorize(TreeMap<String,String> Data) throws IOException, InterruptedException{
-		
 		Dr_Network_locaters p = new Dr_Network_locaters(d);
 		Repeat rp = new Repeat(d);
+		String Patient_Name = Data.get("First Name") + " " + Data.get("Last Name");
 
 		System.out.println();
 		System.out.println("============================================================");
-		System.out.println("                 BELUGA VISIT PATIENT NAMES");
+		System.out.println("                 BELUGA VISIT AND DOCTOR DETAILS");
 		System.out.println("============================================================");
-		System.out.println("Network : Beluga Health");
-		System.out.println("Module  : Visits");
-		Report_Listen.log_print_in_report().info("Starting patient-name retrieval | Network: Beluga Health | Module: Visits");
+		System.out.println("Network          : Beluga Health");
+		System.out.println("Module           : Visits");
+		System.out.println("Expected Patient : " + Patient_Name);
+		Report_Listen.log_print_in_report().info("Starting Beluga visit search and doctor-name retrieval | Network: Beluga Health | Module: Visits | Patient: " + Patient_Name);
 
 		Dr_network_Accessor("Beluga Health","Visits");
 		WebElement visit_Table = p.Visit_Table();
-		List<WebElement> rows = visit_Table.findElements(By.xpath(".//tr[@class='bl-row-link']"));
 
-		System.out.println("Total Visit Rows : " + rows.size());
-		Report_Listen.log_print_in_report().info("Beluga Visits table accessed | Total Visit Rows: " + rows.size());
+		System.out.println();
+		System.out.println("---------------- PATIENT SEARCH INPUT ----------------");
+		WebElement Search_Input = p.Search();
+		rp.movetoelement(Search_Input);
+		Search_Input.sendKeys(Patient_Name);
+		System.out.println("Search Input : " + Patient_Name);
+		System.out.println("Action       : Patient name entered in Visits search.");
+		Report_Listen.log_print_in_report().info("Visits search input entered | Patient: " + Patient_Name);
+		Thread.sleep(500);
+
+		List<WebElement> rows = visit_Table.findElements(By.xpath(".//tr[@class='bl-row-link']"));
+		System.out.println();
+		System.out.println("---------------- SEARCH RESULTS ----------------");
+		System.out.println("Searched Patient        : " + Patient_Name);
+		System.out.println("Visit Rows After Search : " + rows.size());
+		Report_Listen.log_print_in_report().info("Visits search results retrieved | Patient: " + Patient_Name + " | Visit Rows After Search: " + rows.size());
 
 		for(WebElement row : rows){
 			WebElement patient_name_cell = row.findElement(By.xpath(".//td[3]"));
 			String patient_name_cell_text = patient_name_cell.getText().trim().split("\\R", 2)[0].trim();
 			System.out.println();
-			System.out.println("Patient Name : " + patient_name_cell_text);
-			Report_Listen.log_print_in_report().info("Patient Name: " + patient_name_cell_text);
+			System.out.println("---------------- PATIENT MATCH CHECK ----------------");
+			System.out.println("Expected Patient : " + Patient_Name);
+			System.out.println("Actual Patient   : " + patient_name_cell_text);
+
+			if(patient_name_cell_text.equalsIgnoreCase(Patient_Name)){
+				System.out.println("Result           : MATCH FOUND");
+				Report_Listen.log_print_in_report().pass("Matching patient found in Beluga Visits | Expected: " + Patient_Name + " | Actual: " + patient_name_cell_text);
+				row.click();
+				System.out.println("Action           : Matching visit row clicked.");
+				Report_Listen.log_print_in_report().info("Clicked matching visit row | Patient: " + Patient_Name);
+				break;
+			}
+
+			System.out.println("Result           : NO MATCH");
+			Report_Listen.log_print_in_report().info("Visit row does not match the searched patient | Expected: " + Patient_Name + " | Actual: " + patient_name_cell_text);
 		}
 
 		System.out.println();
-		System.out.println("Result : Patient-name retrieval completed.");
-		Report_Listen.log_print_in_report().info("Patient-name retrieval completed | Total Visit Rows: " + rows.size());
+		System.out.println("---------------- DOCTOR TAB NAVIGATION ----------------");
+		System.out.println("Expected Tab : Doctor");
+		Report_Listen.log_print_in_report().info("Accessing Visit Details tabs | Patient: " + Patient_Name + " | Expected Tab: Doctor");
+		WebElement Visit_Details_tab = p.Visit_details_tabs();
+		List<WebElement> Tabs = Visit_Details_tab.findElements(By.xpath(".//a[@class='nav-link' or @role='tab']"));
+		rp.wait_for_theElement(Tabs);
+		System.out.println("Tabs Found   : " + Tabs.size());
+		Report_Listen.log_print_in_report().info("Visit Details tabs retrieved | Total Tabs: " + Tabs.size());
+
+		for(WebElement Tab : Tabs){
+			String Tabname = Tab.getText().trim();
+			if(Tabname.equalsIgnoreCase("Doctor")){
+				Tab.click();
+				System.out.println("Actual Tab   : " + Tabname);
+				System.out.println("Action       : Doctor tab clicked.");
+				Report_Listen.log_print_in_report().info("Doctor tab clicked | Patient: " + Patient_Name + " | Tab: " + Tabname);
+				break;
+			}
+		}
+
+		System.out.println();
+		System.out.println("---------------- DOCTOR NAME RETRIEVAL ----------------");
+		WebElement Dr_Name_field = p.Doctor_Name_Field();
+		String Assigned_Dr_Name = Dr_Name_field.getAttribute("value");
+		System.out.println("Patient     : " + Patient_Name);
+		System.out.println("Doctor Name : " + Assigned_Dr_Name);
+		Report_Listen.log_print_in_report().info("Doctor name field read | Patient: " + Patient_Name + " | Doctor Name: " + Assigned_Dr_Name);
+
+		System.out.println();
+		System.out.println("Result : Visit navigation and doctor-name retrieval completed.");
+		Report_Listen.log_print_in_report().info("Visit navigation and doctor-name retrieval completed | Patient: " + Patient_Name + " | Doctor Name: " + Assigned_Dr_Name);
 	}
 	
 
