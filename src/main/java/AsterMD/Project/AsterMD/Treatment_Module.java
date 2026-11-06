@@ -266,7 +266,7 @@ public void Treatment_Patient_Details_Check(TreeMap<String,String> data) throws 
 	}
 
 	String Treatment_Details_URL = d.getCurrentUrl();
-	String Expected_ID = Actual_Data.get("Case ID");
+	String Case_ID = Actual_Data.get("Case ID");
 	String Before_Doctor = Actual_Data.get("Doctor");
 	String Before_Status = Actual_Data.get("Status");
 	String Before_Medications = Actual_Data.get("Medications");
@@ -274,15 +274,15 @@ public void Treatment_Patient_Details_Check(TreeMap<String,String> data) throws 
 	System.out.println("Before Doctor : " + Before_Doctor);
 	System.out.println("Before Status : " + Before_Status);
 	System.out.println("Before Medications : " + Before_Medications);
-	Report_Listen.log_print_in_report().info("Before webhook | Case ID: " + Expected_ID + " | Doctor: " + Before_Doctor + " | Status: " + Before_Status + " | Medications: " + Before_Medications);
-/*
-	String Assigned_Dr_Name = Dr_Network.beluga_visit_check_and_Authorize(data, Expected_ID,d);
+	Report_Listen.log_print_in_report().info("Before webhook | Case ID: " + Case_ID + " | Doctor: " + Before_Doctor + " | Status: " + Before_Status + " | Medications: " + Before_Medications);
+
+	String Assigned_Dr_Name = Dr_Network.beluga_visit_check_and_Authorize(data, Case_ID,d);
 	
 	Expected_Data.put("Doctor", Assigned_Dr_Name);
 	Expected_Data.put("Status", "Approved For Treatment");
 	Expected_Data.put("Medications", "Populated medication value other than None");
 	
-	d.navigate().to(Treatment_Details_URL);
+	d.navigate().to(Treatment_Details_URL); /*
 
 	Sections = p.Treatment_Details_cards();
 	Patient_details_section = Sections.get(0);

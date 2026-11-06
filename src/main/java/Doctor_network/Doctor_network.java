@@ -85,16 +85,18 @@ public class Doctor_network extends Frontend_Store_Front{
 	
 	
 	
-	public String beluga_visit_check_and_Authorize(TreeMap<String,String> Data, String Expected_ID, WebDriver d) throws IOException, InterruptedException{
+	public String beluga_visit_check_and_Authorize(TreeMap<String,String> Data, String Case_ID, WebDriver d) throws IOException, InterruptedException{
 		
 		Dr_Network_locaters p = new Dr_Network_locaters(d);
 		Repeat rp = new Repeat(d);
 		
 		String Patient_Name = Data.get("First Name") + " " + Data.get("Last Name");
 		
-		Assert.assertTrue(Expected_ID != null && !Expected_ID.isBlank(), "The expected ID from the current admin record is required before selecting a Beluga visit.");
+		String CaseID =Case_ID.trim();
 		
-		Expected_ID = Expected_ID.trim();
+		Assert.assertTrue(CaseID != null && !CaseID.isBlank(), "The Case ID from the current admin record is required before selecting a Beluga visit.");
+		
+		
 
 		System.out.println();
 		System.out.println("============================================================");
@@ -137,14 +139,14 @@ public class Doctor_network extends Frontend_Store_Front{
 			System.out.println("---------------- VISIT MATCH CHECK ----------------");
 			System.out.println("Expected Patient : " + Patient_Name);
 			System.out.println("Actual Patient   : " + patient_name_cell_text);
-			System.out.println("Expected ID      : " + Expected_ID);
+			System.out.println("Expected ID      : " + CaseID);
 			System.out.println("Actual ID        : " + Actual_ID);
-			Report_Listen.log_print_in_report().info("Beluga visit match check | Expected Patient: " + Patient_Name + " | Actual Patient: " + patient_name_cell_text + " | Expected ID: " + Expected_ID + " | Actual ID: " + Actual_ID);
+			Report_Listen.log_print_in_report().info("Beluga visit match check | Expected Patient: " + Patient_Name + " | Actual Patient: " + patient_name_cell_text + " | Expected ID: " + CaseID + " | Actual ID: " + Actual_ID);
 
-			if(patient_name_cell_text.equalsIgnoreCase(Patient_Name) && Expected_ID.equals(Actual_ID)){
+			if(patient_name_cell_text.equalsIgnoreCase(Patient_Name) && CaseID.equals(Actual_ID)){
 				
 				System.out.println("Result           : MATCH FOUND");
-				Report_Listen.log_print_in_report().pass("Matching Beluga visit found | Patient: " + Patient_Name + " | Expected ID: " + Expected_ID + " | Actual ID: " + Actual_ID);
+				Report_Listen.log_print_in_report().pass("Matching Beluga visit found | Patient: " + Patient_Name + " | Expected ID: " + CaseID + " | Actual ID: " + Actual_ID);
 				rp.movetoelement(row);
 				row.click();
 				System.out.println("Action           : Matching visit row clicked.");
@@ -152,7 +154,7 @@ public class Doctor_network extends Frontend_Store_Front{
 
 				String Actual_Master_ID = p.Visit_Master_ID().getText().trim();
 				String Actual_Patient_Email = p.Visit_Patient_Email().getText().trim();
-				Assert.assertEquals(Actual_Master_ID, Expected_ID, "The opened Beluga visit belongs to a different treatment case.");
+				Assert.assertEquals(Actual_Master_ID, CaseID, "The opened Beluga visit belongs to a different treatment case.");
 				Assert.assertEquals(Actual_Patient_Email, Data.get("Email"), "The opened Beluga visit belongs to a different patient.");
 				System.out.println("Verified Master ID : " + Actual_Master_ID);
 				Report_Listen.log_print_in_report().info("Beluga visit identity verified | Patient: " + Patient_Name + " | Email: " + Actual_Patient_Email + " | Master ID: " + Actual_Master_ID);
@@ -230,10 +232,10 @@ public class Doctor_network extends Frontend_Store_Front{
 				
 				Object Payload_Master_ID = Payload_Data.get("masterId");
 				
-				System.out.println("Expected Master ID : " + Expected_ID);
+				System.out.println("Expected Master ID : " + CaseID);
 				System.out.println("Payload Master ID  : " + Payload_Master_ID);
-				Report_Listen.log_print_in_report().info("Webhook case verification | Expected Master ID: " + Expected_ID + " | Payload Master ID: " + Payload_Master_ID);
-				Assert.assertEquals(Payload_Master_ID, Expected_ID, "Generated webhook targets a different or unidentified treatment case. Send was not clicked.");
+				Report_Listen.log_print_in_report().info("Webhook case verification | Expected Master ID: " + CaseID + " | Payload Master ID: " + Payload_Master_ID);
+				Assert.assertEquals(Payload_Master_ID, CaseID, "Generated webhook targets a different or unidentified treatment case. Send was not clicked.");
 
 				WebElement SendButton = p.Send_Button();
 				rp.movetoelement(SendButton);
@@ -266,9 +268,9 @@ public class Doctor_network extends Frontend_Store_Front{
 			System.out.println("Result           : NO MATCH");
 		}
 
-		System.out.println("Result : FAIL | Intended Beluga visit was not found | Patient: " + Patient_Name + " | Expected ID: " + Expected_ID);
-		Report_Listen.log_print_in_report().fail("Intended Beluga visit was not found | Patient: " + Patient_Name + " | Expected ID: " + Expected_ID + " | No webhook was sent.");
-		throw new IllegalStateException("Intended Beluga visit was not found for patient: " + Patient_Name + " | Expected ID: " + Expected_ID + ". No webhook was sent.");
+		System.out.println("Result : FAIL | Intended Beluga visit was not found | Patient: " + Patient_Name + " | Expected ID: " + CaseID);
+		Report_Listen.log_print_in_report().fail("Intended Beluga visit was not found | Patient: " + Patient_Name + " | Expected ID: " + CaseID + " | No webhook was sent.");
+		throw new IllegalStateException("Intended Beluga visit was not found for patient: " + Patient_Name + " | Expected ID: " + CaseID + ". No webhook was sent.");
 
 	}
 	
