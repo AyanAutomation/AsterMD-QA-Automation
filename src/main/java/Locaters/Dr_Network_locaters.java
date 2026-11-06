@@ -1,5 +1,7 @@
 package Locaters;
 
+import java.util.List;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,6 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 import Repeatative_codes.Repeat;
 
 public class Dr_Network_locaters extends Repeat {
+
+	public static final By Visit_Patient = By.xpath(".//td[3]");
 
 	
 	
@@ -19,6 +23,12 @@ public class Dr_Network_locaters extends Repeat {
 	private WebElement Dropdown; 
     @FindBy(id="visitsTable")
 	private WebElement Visit_Table; 
+    @FindBy(xpath="//table[@id='visitsTable']//tr[@class='bl-row-link']")
+	private List<WebElement> Visit_Rows;
+    @FindBy(xpath="//dt[normalize-space()='masterId']/following-sibling::dd[1]")
+	private WebElement Visit_Master_ID;
+    @FindBy(xpath="//dt[normalize-space()='Email']/following-sibling::dd[1]")
+	private WebElement Visit_Patient_Email;
     @FindBy(xpath="//input[@type='search' and @class='form-control form-control-sm']")
 	private WebElement Search; 
     @FindBy(id="visitTabs")
@@ -198,6 +208,22 @@ public class Dr_Network_locaters extends Repeat {
 		public WebElement Search(){
 		wait_for_theElement(Search);
 		return Search;}
+		public List<WebElement> Visit_Rows(){
+		return Visit_Rows;}
+		public WebElement Visit_ID_Cell(WebElement Row){
+		String Visit_ID_Cell_XPath = ""; // USER TO PROVIDE: XPath relative to the current visit row.
+		if(Visit_ID_Cell_XPath.isBlank()){
+			throw new IllegalStateException("Visit ID cell XPath requires configuration in Dr_Network_locaters.Visit_ID_Cell(WebElement Row). Supply the row-relative XPath before authorizing a Beluga visit. No webhook was sent.");
+		}
+		WebElement Visit_ID_Cell = Row.findElement(By.xpath(Visit_ID_Cell_XPath));
+		wait_for_theElement(Visit_ID_Cell);
+		return Visit_ID_Cell;}
+		public WebElement Visit_Master_ID(){
+		wait_for_theElement(Visit_Master_ID);
+		return Visit_Master_ID;}
+		public WebElement Visit_Patient_Email(){
+		wait_for_theElement(Visit_Patient_Email);
+		return Visit_Patient_Email;}
 		public WebElement Visit_details_tabs(){
 		wait_for_theElement(Visit_details_tabs);
 		return Visit_details_tabs;} 

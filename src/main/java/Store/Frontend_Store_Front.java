@@ -288,7 +288,7 @@ public Object[][] Storefront_Product_Data(){
 	data7.put("VRIO Product ID", "");
 	data7.put("First Name", "Frieda");
 	data7.put("Last Name", "Lorenz");
-	data7.put("Email", "frieda.lorenz.astermd261106batch807@yopmail.com");
+	data7.put("Email", "frieda.lorenz020@gmail.com");
 	data7.put("Phone", "3035550166");
 	data7.put("Date of Birth", "02/11/1996");
 	data7.put("State", "Florida");
@@ -720,11 +720,11 @@ public Object[][] Storefront_Product_Data(){
 	return new Object[][] { /*
 		{ data1 },
 		{ data2 },
-		{ data3 }, */
+		{ data3 }, 
 		{ data4 },
 		{ data5 },
-		{ data6 }, /*
-		{ data7 },
+		{ data6 }, */
+		{ data7 },/*
 		{ data8 },
 		{ data9 },
 		{ data10 },

@@ -11,6 +11,10 @@ import Repeatative_codes.Repeat;
 public class Treatment_Module_Locaters extends Repeat{
 	
 	
+	public static final By Patient_Details_Label = By.xpath(".//span[contains(@class,'text-muted font-')]");
+	public static final By Patient_Details_Value = By.xpath(".//span[contains(@class,'text-dark')]");
+	
+	
 	
 	
 
@@ -40,6 +44,8 @@ public class Treatment_Module_Locaters extends Repeat{
     private WebElement Admin_Patient_Weight;
     @FindBy(xpath="//div[@id='patient-details']//span[normalize-space()='Medications']/following-sibling::span[1]")
     private WebElement Admin_Patient_Medications;
+    @FindBy(xpath="//div[@id='patient-details']//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css')]")
+	private List<WebElement> Admin_Patient_Details_Rows;
     @FindBy(xpath="//div[@class='ant-card-body']")
 	private List<WebElement> Treatment_Details_cards ; /*
     @FindBy(xpath="")
@@ -237,6 +243,9 @@ public class Treatment_Module_Locaters extends Repeat{
 		throw new IllegalStateException("Admin Patient Details section is not visible.");
 	}
 }
+	public List<WebElement> Admin_Patient_Details_Rows(){
+	wait_for_displayed_elements(Admin_Patient_Details_Rows);
+	return Admin_Patient_Details_Rows;}
 	public WebElement Admin_Patient_First_Name(){
 	Boolean Visible = check_element_visibility(Admin_Patient_First_Name, 5);
 	if(Visible){

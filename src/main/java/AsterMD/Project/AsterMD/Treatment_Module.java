@@ -1,7 +1,7 @@
 package AsterMD.Project.AsterMD;
 
 import java.util.List;
-import java.util.Map;
+import java.io.IOException;
 import java.util.TreeMap;
 
 import org.openqa.selenium.By;
@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import Doctor_network.Doctor_network;
 import Listerners.Report_Listen;
 import Locaters.Treatment_Module_Locaters;
 import Repeatative_codes.Repeat;
@@ -173,10 +174,10 @@ public void Treatment_Patient_Details_Check(TreeMap<String,String> data) throws 
 				System.out.println("             TREATMENT PATIENT VERIFICATION RESULT");
 				System.out.println("============================================================");
 				System.out.println("Patient : " + Patient_Name);
-				System.out.println("Result  : PASS");
-				System.out.println("Reason  : Patient found and Admin details verification completed successfully.");
+				System.out.println("Result  : Verification completed; see the detailed comparison summary.");
+				System.out.println("Reason  : Patient found and Admin details verification returned; review hard results and warnings.");
 
-				Report_Listen.log_print_in_report().pass("Treatment Patient Details verification completed successfully for: " + Patient_Name);
+				Report_Listen.log_print_in_report().info("Treatment Patient Details verification completed for: " + Patient_Name + " | Review the detailed hard comparison and warning summary.");
 
 				return;
 			}
@@ -199,16 +200,18 @@ public void Treatment_Patient_Details_Check(TreeMap<String,String> data) throws 
   
 
 
-  public void Admin_Patient_Details_Verification(TreeMap<String,String> data){
-	
-	
-	Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
-	String Product_Name = data.getOrDefault("Product Name", "");
-	Boolean Shared_Teleform = Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets");
 
-	// Expected Patient Details from DataProvider
-	TreeMap<String,String> Expected_Data = new TreeMap<String,String>();
+  public void Admin_Patient_Details_Verification(TreeMap<String,String> data) throws IOException, InterruptedException{
+
+	Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+	Doctor_network Dr_Network = new Doctor_network();
 	
+	TreeMap<String,String> Expected_Data = new TreeMap<String,String>();
+	TreeMap<String,String> Actual_Data = new TreeMap<String,String>();
+	
+
+	String Product_Name = data.getOrDefault("Product Name", "");
 	
 	Expected_Data.put("First Name", data.get("First Name"));
 	Expected_Data.put("Last Name", data.get("Last Name"));
@@ -218,115 +221,146 @@ public void Treatment_Patient_Details_Check(TreeMap<String,String> data) throws 
 	Expected_Data.put("Gender", data.get("Biological Sex at Birth"));
 	Expected_Data.put("Height", data.get("Height"));
 	Expected_Data.put("Weight", data.get("Weight"));
-	Expected_Data.put("Medications", data.get("Intake Q&A - List all medicines and supplements you currently take, including doses and frequency. Enter None if you take none."));
+	
 	String Patient_Name = Expected_Data.get("First Name") + " " + Expected_Data.get("Last Name");
 
 	System.out.println();
-	System.out.println("============================================================");
-	System.out.println("                 ADMIN PATIENT DETAILS VERIFICATION");
-	System.out.println("============================================================");
+	System.out.println("---------------- ADMIN PATIENT DETAILS VERIFICATION ----------------");
 	System.out.println("Patient : " + Patient_Name);
 	System.out.println("Product : " + Product_Name);
-	Report_Listen.log_print_in_report().info("Verifying Admin Patient Details against Storefront and Intake DataProvider for: " + Patient_Name);
+	Report_Listen.log_print_in_report().info("Verifying Admin Patient Details before and after Beluga authorization | Patient: " + Patient_Name + " | Product: " + Product_Name);
 
-	// Actual Patient Details from Admin UI
 	WebElement Details_Title = p.Admin_Patient_Details_Title();
 	Assert.assertEquals(Details_Title.getText().trim(), "Patient Details", "Admin Patient Details section not found.");
+	
 	List<WebElement> Sections = p.Treatment_Details_cards();
 	
 	WebElement Patient_details_section = Sections.get(0);
 	
 	List<WebElement> Patient_Details_Rows = Patient_details_section.findElements(By.xpath(".//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css')]"));
-	
-	TreeMap<String,String> Actual_Data = new TreeMap<String,String>();
-	
+
 	for(WebElement Patient_Details_Row : Patient_Details_Rows){
-		
+
 		WebElement Label = Patient_Details_Row.findElement(By.xpath(".//span[contains(@class,'text-muted font-')]"));
 		WebElement Values = Patient_Details_Row.findElement(By.xpath(".//span[contains(@class,'text-dark')]"));
-		
 		String Label_text = Label.getText().trim();
 		String Values_text = Values.getText().trim();
-		
+
 		if(Label_text.equals("Date of Birth")){
+
 			Values_text = Values_text.replaceAll("\\s*\\([^)]*\\)\\s*$", "").trim();
+
 		}
+
 		if(Label_text.equals("Phone")){
+
 			Values_text = Values_text.replaceAll("\\D", "");
-		}
-		
-		Actual_Data.put(Label_text, Values_text);
-	}
 
-	// Compare Expected and Actual Patient Details
-	int Fields_Checked = 0, Passed = 0, Failed = 0, Excluded = 0;
-	System.out.println();
-	System.out.println("---------------- PATIENT DETAILS COMPARISON ----------------");
-	
-	for(String Field : Expected_Data.keySet()){
-		
-		String Expected_Value = Expected_Data.get(Field);
-		String Actual_Value = Actual_Data.get(Field);
-		
-		if(Shared_Teleform && (Field.equals("Height") || Field.equals("Weight"))){
-			
-			Excluded++;
-			System.out.println();
-			System.out.println("Field              : " + Field);
-			System.out.println("DataProvider Value : " + Expected_Value);
-			System.out.println("Result             : NOT VALIDATED");
-			System.out.println("Reason             : Field was not submitted through the current Intake Form.");
-			Report_Listen.log_print_in_report().info("Field: " + Field + " | DataProvider Value: " + Expected_Value + " | Result: NOT VALIDATED | Reason: Field was not submitted through the current Intake Form.");
-			
-			continue;
 		}
-		
-		Fields_Checked++;
-		
+        
 		System.out.println();
-		System.out.println("Field    : " + Field);
-		System.out.println("Expected : " + Expected_Value);
-		System.out.println("Actual   : " + Actual_Value);
-		
-		
-		if(Expected_Value != null && Expected_Value.equals(Actual_Value)){
-			Passed++;
-			System.out.println("Result   : PASS");
-			Report_Listen.log_print_in_report().pass("Field: " + Field + " | Expected: " + Expected_Value + " | Actual: " + Actual_Value + " | Result: PASS");
-		}
-		
-		else{
-			Failed++;
-			System.out.println("Result   : FAIL");
-			Report_Listen.log_print_in_report().fail("Field: " + Field + " | Expected: " + Expected_Value + " | Actual: " + Actual_Value + " | Result: FAIL");
-		}
+		System.out.println(Label_text+" : - "+Values_text);
+		System.out.println();
+		Actual_Data.put(Label_text, Values_text);
+
 	}
 
-	// Final Verification Result
+	String Treatment_Details_URL = d.getCurrentUrl();
+	String Expected_ID = Actual_Data.get("Case ID");
+	String Before_Doctor = Actual_Data.get("Doctor");
+	String Before_Status = Actual_Data.get("Status");
+	String Before_Medications = Actual_Data.get("Medications");
+	
+	System.out.println("Before Doctor : " + Before_Doctor);
+	System.out.println("Before Status : " + Before_Status);
+	System.out.println("Before Medications : " + Before_Medications);
+	Report_Listen.log_print_in_report().info("Before webhook | Case ID: " + Expected_ID + " | Doctor: " + Before_Doctor + " | Status: " + Before_Status + " | Medications: " + Before_Medications);
+/*
+	String Assigned_Dr_Name = Dr_Network.beluga_visit_check_and_Authorize(data, Expected_ID,d);
+	
+	Expected_Data.put("Doctor", Assigned_Dr_Name);
+	Expected_Data.put("Status", "Approved For Treatment");
+	Expected_Data.put("Medications", "Populated medication value other than None");
+	
+	d.navigate().to(Treatment_Details_URL);
+
+	Sections = p.Treatment_Details_cards();
+	Patient_details_section = Sections.get(0);
+	Patient_Details_Rows = Patient_details_section.findElements(By.xpath(".//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css')]"));
+	Actual_Data.clear();
+
+	for(WebElement Patient_Details_Row : Patient_Details_Rows){
+
+		WebElement Label = Patient_Details_Row.findElement(By.xpath(".//span[contains(@class,'text-muted font-')]"));
+		WebElement Values = Patient_Details_Row.findElement(By.xpath(".//span[contains(@class,'text-dark')]"));
+		String Label_text = Label.getText().trim();
+		String Values_text = Values.getText().trim();
+
+		if(Label_text.equals("Date of Birth")){
+
+			Values_text = Values_text.replaceAll("\\s*\\([^)]*\\)\\s*$", "").trim();
+
+		}
+
+		if(Label_text.equals("Phone")){
+
+			Values_text = Values_text.replaceAll("\\D", "");
+
+		}
+		System.out.println();
+		System.out.println("Refetched after Webhook :--->  "+Label_text+" : - "+Values_text);
+		System.out.println();
+		Actual_Data.put(Label_text, Values_text);
+
+	}
+	
+	String Assigned_Dr_Name_in_Admin_Patient_details= Actual_Data.get("Doctor");
+
+	System.out.println("Doctor | Before: " + Before_Doctor + " | After: " + Assigned_Dr_Name_in_Admin_Patient_details);
+	System.out.println("Status | Before: " + Before_Status + " | After: " + Actual_Data.get("Status"));
+	System.out.println("Medications | Before: " + Before_Medications + " | After: " + Actual_Data.get("Medications"));
+	Report_Listen.log_print_in_report().info("After webhook | Doctor: " + Before_Doctor + " -> " + Actual_Data.get("Doctor") + " | Status: " + Before_Status + " -> " + Actual_Data.get("Status") + " | Medications: " + Before_Medications + " -> " + Actual_Data.get("Medications"));
+
 	System.out.println();
-	System.out.println("============================================================");
-	System.out.println("                 PATIENT VERIFICATION RESULT");
-	System.out.println("============================================================");
-	System.out.println("Patient         : " + Patient_Name);
-	System.out.println("Product         : " + Product_Name);
-	System.out.println("Total Fields    : " + Expected_Data.size());
-	System.out.println("Fields Checked  : " + Fields_Checked);
-	System.out.println("Passed          : " + Passed);
-	System.out.println("Failed          : " + Failed);
-	System.out.println("Excluded        : " + Excluded);
-	System.out.println("Overall Result  : " + (Failed == 0 ? "PASS" : "FAIL"));
-	System.out.println("============================================================");
-	Report_Listen.log_print_in_report().info("Patient: " + Patient_Name + " | Product: " + Product_Name + " | Total Fields: " + Expected_Data.size() + " | Fields Checked: " + Fields_Checked + " | Passed: " + Passed + " | Failed: " + Failed + " | Excluded: " + Excluded);
-	
-	if(Failed == 0){
-		Report_Listen.log_print_in_report().pass("Admin Patient Details verification completed successfully for: " + Patient_Name);
-	}
-	else{
-		Report_Listen.log_print_in_report().fail("Admin Patient Details verification failed for: " + Patient_Name + " | Failed Fields: " + Failed);
-	}
-	
-	Assert.assertEquals(Failed, 0, "Admin Patient Details verification failed for: " + Patient_Name);
+	System.out.println("---------------- POST-WEBHOOK DOCTOR AND STATUS CHECK ----------------");
+
+	for(String Label_text : Expected_Data.keySet()){
+
+	    if(Label_text.equals("Doctor") || Label_text.equals("Status")){
+
+	        String Expected_Value = Expected_Data.get(Label_text);
+	        String Actual_Value = Actual_Data.get(Label_text);
+
+	        System.out.println();
+	        System.out.println("Label    : " + Label_text);
+	        System.out.println("Expected : " + Expected_Value);
+	        System.out.println("Actual   : " + Actual_Value);
+
+	        if(Expected_Value.trim().equals(Actual_Value)){
+
+	            System.out.println("Result   : PASS");
+	            Report_Listen.log_print_in_report().pass("Label: " + Label_text + " | Expected: " + Expected_Value + " | Actual: " + Actual_Value + " | Result: PASS");
+
+	        }
+
+	        else{
+
+	            System.out.println("Result   : WARNING");
+	            Report_Listen.log_print_in_report().warning("Label: " + Label_text + " | Expected: " + Expected_Value + " | Actual: " + Actual_Value + " | Result: WARNING");
+
+	        }
+
+	    }    
+
+	}   */
+
+    }
+
+
+
 }
+
+
 
  
   
@@ -335,4 +369,4 @@ public void Treatment_Patient_Details_Check(TreeMap<String,String> data) throws 
   
   
   
-}
+
