@@ -126,13 +126,15 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 	Report_Listen.log_print_in_report().pass("Patient Portal credentials configured successfully for: " + Patient_Email);
 }
 
-  public void Patient_Portal_Login(TreeMap<String, String> Product_data, String Patient_Status){
+public void Patient_Portal_Login(TreeMap<String,String> Product_data){
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
 
 	String Patient_Email = Product_data.get("Email");
-	String Patient_Name = Product_data.get("First Name") + " " + Product_data.get("Last Name");
+	String First_Name = Product_data.get("First Name");
+	String Last_Name = Product_data.get("Last Name");
+	String Patient_Name = First_Name + " " + Last_Name;
 	String Product_Name = Product_data.get("Product Name");
 	String Patient_Password = Product_data.get("Patient Password");
 
@@ -143,66 +145,64 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 	System.out.println("Patient Name   : " + Patient_Name);
 	System.out.println("Patient Email  : " + Patient_Email);
 	System.out.println("Product        : " + Product_Name);
-	System.out.println("Patient Status : " + Patient_Status);
+	Report_Listen.log_print_in_report().info("Starting Patient Portal Login | Patient: " + Patient_Name + " | Email: " + Patient_Email + " | Product: " + Product_Name);
+	d.navigate().to("https://testdemo.logistial.com/");
 
-	Report_Listen.log_print_in_report().info("Starting Patient Portal Login for: " + Patient_Email);
-
-	// Patient Registration Status
-	if(Patient_Status.equalsIgnoreCase("Not Registered")){
-
-		System.out.println("---------------- NEW PATIENT REGISTRATION ----------------");
-		System.out.println("Action : Configure Patient Portal Credentials via Yopmail");
-
-		Report_Listen.log_print_in_report().info("Patient credentials are not configured. Starting Yopmail setup.");
-
-		Patient_Portal_Credentials_Setup_Via_Yopmail(Patient_Email, Patient_Password);
-
-		System.out.println("Result : CREDENTIAL SETUP COMPLETED");
-
-		Report_Listen.log_print_in_report().pass("Patient Portal credentials configured successfully.");
-	}
-	else{
-
-		System.out.println("---------------- EXISTING PATIENT LOGIN ----------------");
-		System.out.println("Action : Skip Yopmail and Open Patient Portal Login");
-
-		Report_Listen.log_print_in_report().info("Existing registered patient. Skipping Yopmail credential setup.");
-
-		d.navigate().to("https://testdemo.logistial.com/");
-
-		System.out.println("Result : LOGIN PAGE OPENED");
-	}
-
-	// Patient Portal Login Elements
 	WebElement Login_Title = p.Portal_Login_Title();
 	WebElement Email_Field = p.Portal_Email();
 	WebElement Password_Field = p.Portal_Password();
 	WebElement Login_Button = p.Portal_Continue_Button();
-
-	// Login to Patient Portal
+	
+	Email_Field.clear();
 	Email_Field.sendKeys(Patient_Email);
+	Password_Field.clear();
 	Password_Field.sendKeys(Patient_Password);
-
 	rp.movetoelement(Login_Button);
 	Login_Button.click();
+	System.out.println("Action : Login form submitted.");
+	Report_Listen.log_print_in_report().info("Patient Portal login submitted | Patient: " + Patient_Email);
+
+	Boolean Alert_Visible = p.Portal_Auth_Error_Alert_Visible();
+	System.out.println("Registration Alert Visible : " + Alert_Visible);
+	Report_Listen.log_print_in_report().info("Registration alert visibility | Patient: " + Patient_Email + " | Visible: " + Alert_Visible);
+	
+	if(Alert_Visible){
+		System.out.println("Action : Registration alert detected. Starting Yopmail credential setup.");
+		Report_Listen.log_print_in_report().info("Registration alert detected | Patient: " + Patient_Email + " | Action: Configure credentials through Yopmail.");
+		Patient_Portal_Credentials_Setup_Via_Yopmail(Patient_Email, Patient_Password);
+		System.out.println("Action : Credential setup completed. Signing in with configured credentials.");
+		Report_Listen.log_print_in_report().info("Credential setup completed | Patient: " + Patient_Email + " | Action: Sign in with configured credentials.");
+
+		Login_Title = p.Portal_Login_Title();
+		Email_Field = p.Portal_Email();
+		Password_Field = p.Portal_Password();
+		Login_Button = p.Portal_Continue_Button();
+		Email_Field.clear();
+		Email_Field.sendKeys(Patient_Email);
+		Password_Field.clear();
+		Password_Field.sendKeys(Patient_Password);
+		rp.movetoelement(Login_Button);
+		Login_Button.click();
+		System.out.println("Action : Configured credentials submitted.");
+		Report_Listen.log_print_in_report().info("Patient Portal sign-in submitted after credential setup | Patient: " + Patient_Email);
+	}
+	else{
+		System.out.println("Action : Verify the registered-patient login already submitted.");
+		Report_Listen.log_print_in_report().info("Registration alert absent | Patient: " + Patient_Email + " | Action: Verify the submitted login.");
+	}
 
 	rp.wait_for_invisibilty_of_theElement(Login_Title);
-
-	System.out.println("---------------- LOGIN RESULT ----------------");
-	System.out.println("Patient Name  : " + Patient_Name);
-	System.out.println("Patient Email : " + Patient_Email);
-	System.out.println("Login Form    : Submitted");
-	System.out.println("Sign-in Page  : Closed");
-	System.out.println("Result        : LOGIN NAVIGATION COMPLETED");
-
-	Report_Listen.log_print_in_report().info("Patient Portal sign-in form submitted and login page closed for: " + Patient_Email);
+	List<WebElement> Menu_Options = p.Patient_Portal_Header_Menu_Options();
+	Assert.assertFalse(Menu_Options.isEmpty(), "Patient Portal header menu is unavailable after login for: " + Patient_Email);
+	System.out.println("Patient Portal Login | Patient: " + Patient_Name + " | Email: " + Patient_Email + " | Product: " + Product_Name + " | Result: PASS");
+	Report_Listen.log_print_in_report().pass("Patient Portal login confirmed | Patient: " + Patient_Name + " | Email: " + Patient_Email + " | Product: " + Product_Name + " | Login page closed and header menu available | Result: PASS");
 }
 
-public void Patient_portal_header_menu_navigator(String Option, String Status, TreeMap<String, String> Product_data) throws InterruptedException{
+public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,String> Product_data) throws InterruptedException{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
-	Patient_Portal_Login(Product_data, Status);
+	Patient_Portal_Login(Product_data);
 	List<WebElement> Menu_Options = p.Patient_Portal_Header_Menu_Options();
 
 	System.out.println("---------- PATIENT PORTAL MENU ----------");
@@ -239,7 +239,7 @@ public void Intake_form_filling(TreeMap<String,String> Product_data) throws Inte
 	String Patient_Name = Product_data.get("First Name") + " " + Product_data.get("Last Name");
 	String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
 
-	Patient_portal_header_menu_navigator("Treatments", "Not Registered", Product_data);
+	Patient_portal_header_menu_navigator("Treatments", Product_data);
 	System.out.println("---------- PATIENT INTAKE ----------");
 	System.out.println("Patient : " + Patient_Name);
 	System.out.println("Product : " + Product_Name + " | Variant: " + Treatment_Variant);
@@ -796,7 +796,7 @@ public Boolean Teleform_Toast_Detector_Printer(WebElement Toast){
 	File ID_Verification_File = new File(ID_Verification_Folder, ID_Verification_Image);
 	String ID_Verification_Image_Path = ID_Verification_File.getAbsolutePath();
 
-	Patient_portal_header_menu_navigator("Treatments", "Registered", Product_data);
+	Patient_portal_header_menu_navigator("Treatments", Product_data);
 	System.out.println("---------- PATIENT INTAKE ----------");
 	System.out.println("Patient : " + Patient_Name);
 	System.out.println("Product : " + Product_Name + " | Variant: " + Treatment_Variant);

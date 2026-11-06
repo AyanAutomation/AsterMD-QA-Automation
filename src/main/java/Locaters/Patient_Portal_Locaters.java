@@ -32,6 +32,8 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Portal_Continue_Button;
     @FindBy(xpath="//h1[normalize-space()='Patient portal']")
 	private WebElement Portal_Login_Title;
+    @FindBy(xpath="//div[contains(@class,'auth-error-alert')]")
+	private WebElement Portal_Auth_Error_Alert;
     @FindBy(xpath="//div[contains(@class,'tabGroup')]//a[contains(@href,'/')]")
 	private List<WebElement> Patient_Portal_Header_Menu_Options;
     @FindBy(xpath="//*[text()='Incomplete Treatments']/../../..//div[@class='ant-collapse-panel ant-collapse-panel-active']//div[contains(@class,'ant-card ant-card-bordered')]")
@@ -200,6 +202,9 @@ public class Patient_Portal_Locaters extends Repeat {
 	public WebElement Portal_Login_Title(){
 	wait_for_theElement(Portal_Login_Title);
 	return Portal_Login_Title;}
+	public Boolean Portal_Auth_Error_Alert_Visible(){
+		return check_element_visibility(Portal_Auth_Error_Alert, 10);
+	}
 	public List<WebElement> Patient_Portal_Header_Menu_Options(){
 	wait_for_displayed_elements(Patient_Portal_Header_Menu_Options);
 	return Patient_Portal_Header_Menu_Options;}
