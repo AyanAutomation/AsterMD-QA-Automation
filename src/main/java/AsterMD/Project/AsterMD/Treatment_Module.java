@@ -103,8 +103,8 @@ public class Treatment_Module extends Product_Module{
 
 
 
-@Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
-public void Treatment_Patient_Details_Check(TreeMap<String,String> data) throws Exception{
+    @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
+    public void Treatment_Patient_Details_Check(TreeMap<String,String> data) throws Exception{
 
 	String Patient_Name = data.get("First Name") + " " + data.get("Last Name");
 	Repeat rp = new Repeat(d);
@@ -193,15 +193,166 @@ public void Treatment_Patient_Details_Check(TreeMap<String,String> data) throws 
 
 	Report_Listen.log_print_in_report().fail("Patient not found in Treatment Module: " + Patient_Name);
 	Assert.fail("Treatment Module patient verification failed. Patient not found: " + Patient_Name);
+ 
+    
+    
+     }
+
+    
+    
+
+         @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
+         public void Intake_form_Admin_Check(TreeMap<String,String> data) throws Exception{
+
+	Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	String Patient_Name = data.get("First Name") + " " + data.get("Last Name");
+	String Product_Name = data.get("Product Name");
+
+	System.out.println();
+	System.out.println("============================================================");
+	System.out.println("                  ADMIN INTAKE FORM CHECK");
+	System.out.println("============================================================");
+	System.out.println("Patient : " + Patient_Name);
+	System.out.println("Product : " + Product_Name);
+	Report_Listen.log_print_in_report().info("Starting admin intake form check | Patient: " + Patient_Name + " | Product: " + Product_Name);
+
+	List<WebElement> Rows = Treatment_Module_Accessor();
+
+	System.out.println();
+	System.out.println("---------- TREATMENT PATIENT SEARCH ----------");
+	System.out.println("Expected Patient : " + Patient_Name);
+	System.out.println("Treatment Rows   : " + Rows.size());
+	Report_Listen.log_print_in_report().info("Searching treatment rows | Expected Patient: " + Patient_Name + " | Treatment Rows: " + Rows.size());
+
+	Main_loop:
+	for(WebElement Row : Rows){
+
+		List<WebElement> Text_Cells = Row.findElements(By.xpath(".//td//span[contains(@class,'text-dark')]"));
+		WebElement View_Button = Row.findElement(By.xpath(".//span[@class='ant-btn-icon']/.."));
+
+		for(WebElement Text_Cell : Text_Cells){
+
+			String Cell_Text = Text_Cell.getText().trim();
+
+			if(Cell_Text.contains(Patient_Name)){
+
+				System.out.println();
+				System.out.println("---------- PATIENT MATCH RESULT ----------");
+				System.out.println("Expected Patient : " + Patient_Name);
+				System.out.println("Actual Patient   : " + Cell_Text);
+				System.out.println("Result           : PASS");
+				Report_Listen.log_print_in_report().pass("Treatment patient matched | Expected: " + Patient_Name + " | Actual: " + Cell_Text);
+
+				rp.movetoelement(View_Button);
+				View_Button.click();
+
+				System.out.println("Action           : Clicked View for the matching treatment row.");
+				Report_Listen.log_print_in_report().info("Clicked View for the matching treatment row | Patient: " + Patient_Name);
+
+				break Main_loop;
+
+			}
+
+		}
+
+	}
+
+	WebElement Details_Title = p.Admin_Patient_Details_Title();
+	String Actual_Title = Details_Title.getText().trim();
+
+	System.out.println();
+	System.out.println("---------- TREATMENT DETAILS SECTION ----------");
+	System.out.println("Expected Title : Patient Details");
+	System.out.println("Actual Title   : " + Actual_Title);
+	Report_Listen.log_print_in_report().info("Checking treatment details section | Expected Title: Patient Details | Actual Title: " + Actual_Title);
+	Assert.assertEquals(Actual_Title, "Patient Details", "Admin Patient Details section not found.");
+
+	System.out.println("Result         : PASS");
+	Report_Listen.log_print_in_report().pass("Patient Details section verified | Patient: " + Patient_Name);
+
+	List<WebElement> Sections = p.Treatment_Details_cards();
+	WebElement Intake_Section = Sections.get(4);
+	rp.movetoelement(Intake_Section);
+
+	List<WebElement> Intake_From_Rows = Intake_Section.findElements(By.xpath(".//tr[contains(@class,'ant-table-row ant-table-row-level-0')]"));
+
+	System.out.println();
+	System.out.println("---------- ADMIN INTAKE FORM ROWS ----------");
+	System.out.println("Intake Form Rows : " + Intake_From_Rows.size());
+	Report_Listen.log_print_in_report().info("Intake form rows collected | Patient: " + Patient_Name + " | Intake Form Rows: " + Intake_From_Rows.size());
+
+	Boolean Intake_rows_visible = rp.check_element_visibility(Intake_From_Rows, 3);
+
+	if(Intake_rows_visible){
+
+		for(WebElement Intake_From_Row : Intake_From_Rows){
+
+			String Form_Row_Text = Intake_From_Row.getText().trim().replaceAll("\\R", " | ");
+			WebElement View_Button = Intake_From_Row.findElement(By.xpath(".//span[@class='ant-btn-icon']/.."));
+
+			System.out.println();
+			System.out.println("---------- INTAKE FORM POPUP ----------");
+			System.out.println("Form Row : " + Form_Row_Text);
+			System.out.println("Action   : Opening the form popup.");
+			Report_Listen.log_print_in_report().info("Opening intake form popup | Patient: " + Patient_Name + " | Form Row: " + Form_Row_Text);
+
+			rp.movetoelement(View_Button);
+			View_Button.click();
+
+			WebElement Intake_popUp = p.Intake_popup_form();
+			List<WebElement> Intake_pop_rows = Intake_popUp.findElements(By.xpath(".//div[contains(@class,'ant-flex-align-flex-start')]"));
+
+			System.out.println("Popup Rows : " + Intake_pop_rows.size());
+			Report_Listen.log_print_in_report().info("Intake form popup opened | Form Row: " + Form_Row_Text + " | Popup Rows: " + Intake_pop_rows.size());
+
+			for(WebElement Intake_pop_row : Intake_pop_rows){
+
+				List<WebElement> Values = Intake_pop_row.findElements(By.xpath(".//span"));
+
+				for(WebElement Value : Values){
+
+					String Value_Text = Value.getText().trim();
+					System.out.println("Popup Text : " + Value_Text);
+					Report_Listen.log_print_in_report().info("Intake form popup | Form Row: " + Form_Row_Text + " | Text: " + Value_Text);
+
+				}
+
+			}
+
+			WebElement Close_Button = Intake_popUp.findElement(By.xpath(".//span[@aria-label='Close']"));
+			rp.movetoelement(Close_Button);
+			Close_Button.click();
+			rp.wait_for_invisibilty_of_theElement(Intake_popUp);
+
+			System.out.println("Result : Form popup read and closed.");
+			Report_Listen.log_print_in_report().info("Form popup read and closed | Patient: " + Patient_Name + " | Form Row: " + Form_Row_Text);
+
+		}
+
+		System.out.println();
+		System.out.println("---------- ADMIN INTAKE FORM CHECK RESULT ----------");
+		System.out.println("Patient       : " + Patient_Name);
+		System.out.println("Rows Inspected : " + Intake_From_Rows.size());
+		Report_Listen.log_print_in_report().info("Intake form inspection completed | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Rows Inspected: " + Intake_From_Rows.size());
+
+	}
+
+	else{
+
+		System.out.println("Result : WARNING | Intake form rows did not become visible.");
+		Report_Listen.log_print_in_report().warning("Intake form rows did not become visible | Patient: " + Patient_Name + " | Product: " + Product_Name);
+
+	}
+
 }
+      
+      
+      
+      
 
-
-
-  
-
-
-
-  public void Admin_Patient_Details_Verification(TreeMap<String,String> data) throws IOException, InterruptedException{
+    public void Admin_Patient_Details_Verification(TreeMap<String,String> data) throws IOException, InterruptedException{
 
 	Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -282,7 +433,7 @@ public void Treatment_Patient_Details_Check(TreeMap<String,String> data) throws 
 	Expected_Data.put("Status", "Approved For Treatment");
 	Expected_Data.put("Medications", "Populated medication value other than None");
 	
-	d.navigate().to(Treatment_Details_URL); /*
+	d.navigate().to(Treatment_Details_URL); 
 
 	Sections = p.Treatment_Details_cards();
 	Patient_details_section = Sections.get(0);
@@ -352,7 +503,7 @@ public void Treatment_Patient_Details_Check(TreeMap<String,String> data) throws 
 
 	    }    
 
-	}   */
+	}   
 
     }
 

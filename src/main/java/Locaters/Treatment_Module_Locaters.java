@@ -47,9 +47,9 @@ public class Treatment_Module_Locaters extends Repeat{
     @FindBy(xpath="//div[@id='patient-details']//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css')]")
 	private List<WebElement> Admin_Patient_Details_Rows;
     @FindBy(xpath="//div[@class='ant-card-body']")
-	private List<WebElement> Treatment_Details_cards ; /*
-    @FindBy(xpath="")
-	private WebElement ; 
+	private List<WebElement> Treatment_Details_cards ; 
+    @FindBy(xpath="//span[text()='Intake Form']/../../../..")
+	private WebElement Intake_popup_form; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -329,10 +329,10 @@ public class Treatment_Module_Locaters extends Repeat{
 }
     public List<WebElement> Treatment_Details_cards(){
 	wait_for_theElement(Treatment_Details_cards);
-	return Treatment_Details_cards;} /*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return Treatment_Details_cards;} 
+	public WebElement Intake_popup_form(){
+	wait_for_theElement(Intake_popup_form);
+	return Intake_popup_form;} /*
 	public WebElement (){
 	wait_for_theElement();
 	return ;}
