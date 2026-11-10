@@ -117,7 +117,7 @@ public class Doctor_network extends Frontend_Store_Front{
 	System.out.println("Action       : Patient name entered in Visits search.");
 	Report_Listen.log_print_in_report().info("Visits search input entered | Patient: " + Patient_Name);
 
-	Thread.sleep(500);
+	Thread.sleep(800);
 
 	List<WebElement> rows = p.Visit_Rows();
 	System.out.println();
@@ -131,8 +131,14 @@ public class Doctor_network extends Frontend_Store_Front{
 	if(Rows_Visible){
 
 		for(WebElement row : rows){
+            
+			WebElement Visit_ID_Link = p.Visit_ID_Cell(row);
+			String Actual_ID = Visit_ID_Link.getText().trim();
+			if(Actual_ID.contains("..") || Actual_ID.contains("\u2026")){
 
-			String Actual_ID = p.Visit_ID_Cell(row).getText().trim();
+				Actual_ID = Visit_ID_Link.getDomAttribute("title");
+
+			}
 			WebElement patient_name_cell = row.findElement(Dr_Network_locaters.Visit_Patient);
 			String patient_name_cell_text = patient_name_cell.getText().trim().split("\\R", 2)[0].trim();
 

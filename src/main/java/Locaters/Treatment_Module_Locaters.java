@@ -332,10 +332,19 @@ public class Treatment_Module_Locaters extends Repeat{
 	return Treatment_Details_cards;} 
 	public WebElement Intake_popup_form(){
 	wait_for_theElement(Intake_popup_form);
-	return Intake_popup_form;} /*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return Intake_popup_form;} 
+	public String Admin_Case_ID_Tooltip(String Displayed_Case_ID){
+
+	String Case_ID_Prefix = Displayed_Case_ID.replaceFirst("(?:\\.{3}|\u2026)$", "").trim();
+
+	if(Case_ID_Prefix.isBlank()){
+
+	throw new IllegalStateException("Admin Case ID has no visible prefix for the tooltip lookup.");}
+
+	By Case_ID_Tooltip_Locator = By.xpath("//div[@role='tooltip' and contains(@class,'ant-tooltip-container') and starts-with(normalize-space(.),'" + Case_ID_Prefix + "') and string-length(normalize-space(.)) > " + Case_ID_Prefix.length() + " and not(contains(.,'...') or contains(.,'\u2026'))]");
+	WebElement Case_ID_Tooltip = wait_for_presence_of_theElement(Case_ID_Tooltip_Locator);
+	wait_for_theElement(Case_ID_Tooltip);
+	return Case_ID_Tooltip.getDomProperty("textContent").trim();} /*
 	public WebElement (){
 	wait_for_theElement();
 	return ;} public WebElement (){

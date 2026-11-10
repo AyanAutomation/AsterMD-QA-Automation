@@ -23,7 +23,7 @@ public class Dr_Network_locaters extends Repeat {
 	private WebElement Dropdown; 
     @FindBy(id="visitsTable")
 	private WebElement Visit_Table; 
-    @FindBy(xpath="//table[@id='visitsTable']//tr[@class='bl-row-link']")
+    @FindBy(xpath="//tr[@class='bl-row-link' and not(contains(@style, 'display: none;'))]")
 	private List<WebElement> Visit_Rows;
     @FindBy(xpath="//dt[normalize-space()='masterId']/following-sibling::dd[1]")
 	private WebElement Visit_Master_ID;
@@ -211,10 +211,7 @@ public class Dr_Network_locaters extends Repeat {
 		public List<WebElement> Visit_Rows(){
 		return Visit_Rows;}
 		public WebElement Visit_ID_Cell(WebElement Row){
-		String Visit_ID_Cell_XPath = ""; // USER TO PROVIDE: XPath relative to the current visit row.
-		if(Visit_ID_Cell_XPath.isBlank()){
-			throw new IllegalStateException("Visit ID cell XPath requires configuration in Dr_Network_locaters.Visit_ID_Cell(WebElement Row). Supply the row-relative XPath before authorizing a Beluga visit. No webhook was sent.");
-		}
+		String Visit_ID_Cell_XPath = ".//td[2]"; 
 		WebElement Visit_ID_Cell = Row.findElement(By.xpath(Visit_ID_Cell_XPath));
 		wait_for_theElement(Visit_ID_Cell);
 		return Visit_ID_Cell;}

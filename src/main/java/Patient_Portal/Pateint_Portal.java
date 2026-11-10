@@ -466,8 +466,9 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 
 	Teleform_Question_Selector(Product_data);
 
+	
 	Next_Button = p.Teleform_Continue_Button();
-	rp.movetoelement(Next_Button);
+	rp.movetoelement(Next_Button); 
 	Next_Button.click();
 
 	Page_Indicator = p.Teleform_Page_Indicator();
@@ -513,89 +514,148 @@ public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
 	System.out.println("---------- INTAKE FORM SUBMISSION ----------");
 
 	WebElement Submit_Button = p.Teleform_Submit_Button();
-	rp.movetoelement(Submit_Button);
+	rp.movetoelement(Submit_Button); 
 	Submit_Button.click();
 
 	WebElement Submission_Toast = p.Teleform_Submission_Success_Toast;
 	Boolean Submission_Success = Teleform_Toast_Detector_Printer(Submission_Toast);
 
-	Assert.assertTrue(Submission_Success, "Page 5 intake submission failed: expected Action Successful | Submitted successfully.");
+	Assert.assertTrue(Submission_Success, "Page 5 intake submission failed: expected Action Successful | Submitted successfully."); 
+	
+	
 }
 
-public void Teleform_Question_Selector(TreeMap<String,String> Product_data){
+   public void Teleform_Question_Selector(TreeMap<String,String> Product_data){
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
 	System.out.println("---------- INTAKE QUESTIONS ----------");
+
 	List<WebElement> Question_Cards = p.Teleform_Choice_Cards();
+
 	for(WebElement Question_Card : Question_Cards){
+
 		Boolean Question_Visible = Question_Card.isDisplayed();
+
 		if(Question_Visible){
+
 			WebElement Question_Label = Question_Card.findElement(By.xpath(".//div[contains(@class,'fieldLabel')]/span[1]"));
+
 			String Question = Question_Label.getText().trim();
+
 			String Data_Key = "Intake Q&A - " + Question;
+
 			String Expected_Answer = Product_data.get(Data_Key);
+
 			List<WebElement> Answer_Options = Question_Card.findElements(By.xpath(".//label[contains(@class,'ant-radio-wrapper') or contains(@class,'ant-checkbox-wrapper')]"));
+
 			Assert.assertFalse(Answer_Options.isEmpty(), "No answer options for: " + Question);
+
 			for(int n=0; n<Answer_Options.size(); n++){
+
 				WebElement Answer_Option = Answer_Options.get(n);
 				String Option_Text = Answer_Option.getText().trim();
+
 				if(Answer_Option.isDisplayed() && Option_Text.equalsIgnoreCase(Expected_Answer)){
+
 					WebElement Answer_Input = Answer_Option.findElement(By.xpath(".//input[@type='radio' or @type='checkbox']"));
 					Boolean Answer_Visible = rp.check_element_visibility(Answer_Option, 5);
 					Boolean Answer_Enabled = Answer_Input.isEnabled();
+
 					if(Answer_Visible && Answer_Enabled){
+
 						Boolean Answer_Selected = Answer_Input.isSelected();
+
 						if(!Answer_Selected){
+
 							rp.movetoelement(Answer_Option);
 							Answer_Option.click();
+
 						}
+
 						String Actual_Answer = Answer_Option.getText().trim();
 						Answer_Selected = Answer_Input.isSelected();
 						Assert.assertEquals(Actual_Answer, Expected_Answer, "Intake answer text mismatch: " + Question);
 						Assert.assertTrue(Answer_Selected, "Intake answer was not selected: " + Question);
-						System.out.println(Question + " | Expected: " + Expected_Answer + " | Actual: " + Actual_Answer + " | Selected: " + Answer_Selected + " | Result: PASS");
+						System.out.println();
+						System.out.println("Question        : " + Question);
+						System.out.println("Selected Answer : " + Actual_Answer);
+						System.out.println("Expected Answer : " + Expected_Answer);
+						System.out.println("Selected        : " + Answer_Selected);
+						System.out.println("Result          : PASS");
 						Report_Listen.log_print_in_report().pass(Question + " | Expected: " + Expected_Answer + " | Actual: " + Actual_Answer + " | Selected: " + Answer_Selected + " | Result: PASS");
 						break;
+
 					}
+
 				}
+
 				if(n == Answer_Options.size()-1){
+
 					Assert.fail("No visible enabled answer option for: " + Question + " | Expected: " + Expected_Answer);
+
 				}
+
 			}
+
 		}
+
 	}
 
 	List<WebElement> Textarea_Cards = p.Teleform_Textarea_Cards();
+
 	for(WebElement Question_Card : Textarea_Cards){
+
 		Boolean Question_Visible = Question_Card.isDisplayed();
+
 		if(Question_Visible){
+
 			WebElement Question_Label = Question_Card.findElement(By.xpath(".//div[contains(@class,'fieldLabel')]/span[1]"));
 			String Question = Question_Label.getText().trim();
 			String Data_Key = "Intake Q&A - " + Question;
+
 			if(Question.equals("Tell the clinician anything else about your symptoms, triggers, previous tests, or questions.")){
+
 				Data_Key = "Notes";
+
 			}
+
 			String Expected_Answer = Product_data.get(Data_Key);
 			WebElement Answer_Field = Question_Card.findElement(By.xpath(".//textarea"));
 			Boolean Answer_Visible = rp.check_element_visibility(Answer_Field, 5);
 			Boolean Answer_Enabled = Answer_Field.isEnabled();
+
 			if(Answer_Visible && Answer_Enabled){
+
 				rp.movetoelement(Answer_Field);
 				Answer_Field.clear();
 				Answer_Field.sendKeys(Expected_Answer);
 				Answer_Field.sendKeys(Keys.TAB);
 				String Actual_Answer = Answer_Field.getDomProperty("value");
 				Assert.assertEquals(Actual_Answer, Expected_Answer, "Intake textarea mismatch: " + Question);
-				System.out.println(Question + " | Expected: " + Expected_Answer + " | Actual: " + Actual_Answer + " | Result: PASS");
+				System.out.println();
+				System.out.println("Question        : " + Question);
+				System.out.println("Entered Answer  : " + Actual_Answer);
+				System.out.println("Expected Answer : " + Expected_Answer);
+				System.out.println("Result          : PASS");
 				Report_Listen.log_print_in_report().pass(Question + " | Expected: " + Expected_Answer + " | Actual: " + Actual_Answer + " | Result: PASS");
+
 			}
+
 			else{
+
 				Assert.fail("Intake textarea is unavailable: " + Question);
+
 			}
+
 		}
+
 	}
+
 }
+
+
+
 
 public void Teleform_Date_Of_Birth_Selector(String Date_Of_Birth){
 

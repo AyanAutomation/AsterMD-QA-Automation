@@ -357,13 +357,12 @@ public class Treatment_Module extends Product_Module{
 	Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
 	Repeat rp = new Repeat(d);
 	Doctor_network Dr_Network = new Doctor_network();
-	
+
 	TreeMap<String,String> Expected_Data = new TreeMap<String,String>();
 	TreeMap<String,String> Actual_Data = new TreeMap<String,String>();
-	
 
 	String Product_Name = data.getOrDefault("Product Name", "");
-	
+
 	Expected_Data.put("First Name", data.get("First Name"));
 	Expected_Data.put("Last Name", data.get("Last Name"));
 	Expected_Data.put("Email", data.get("Email"));
@@ -372,7 +371,7 @@ public class Treatment_Module extends Product_Module{
 	Expected_Data.put("Gender", data.get("Biological Sex at Birth"));
 	Expected_Data.put("Height", data.get("Height"));
 	Expected_Data.put("Weight", data.get("Weight"));
-	
+
 	String Patient_Name = Expected_Data.get("First Name") + " " + Expected_Data.get("Last Name");
 
 	System.out.println();
@@ -383,11 +382,11 @@ public class Treatment_Module extends Product_Module{
 
 	WebElement Details_Title = p.Admin_Patient_Details_Title();
 	Assert.assertEquals(Details_Title.getText().trim(), "Patient Details", "Admin Patient Details section not found.");
-	
+
 	List<WebElement> Sections = p.Treatment_Details_cards();
-	
+
 	WebElement Patient_details_section = Sections.get(0);
-	
+
 	List<WebElement> Patient_Details_Rows = Patient_details_section.findElements(By.xpath(".//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css')]"));
 
 	for(WebElement Patient_Details_Row : Patient_Details_Rows){
@@ -396,6 +395,13 @@ public class Treatment_Module extends Product_Module{
 		WebElement Values = Patient_Details_Row.findElement(By.xpath(".//span[contains(@class,'text-dark')]"));
 		String Label_text = Label.getText().trim();
 		String Values_text = Values.getText().trim();
+
+		if(Label_text.equals("Case ID") && (Values_text.endsWith("...") || Values_text.endsWith("\u2026"))){
+
+			rp.movetoelement(Values);
+			Values_text = p.Admin_Case_ID_Tooltip(Values_text);
+
+		}
 
 		if(Label_text.equals("Date of Birth")){
 
@@ -408,7 +414,7 @@ public class Treatment_Module extends Product_Module{
 			Values_text = Values_text.replaceAll("\\D", "");
 
 		}
-        
+
 		System.out.println();
 		System.out.println(Label_text+" : - "+Values_text);
 		System.out.println();
@@ -421,19 +427,19 @@ public class Treatment_Module extends Product_Module{
 	String Before_Doctor = Actual_Data.get("Doctor");
 	String Before_Status = Actual_Data.get("Status");
 	String Before_Medications = Actual_Data.get("Medications");
-	
+
 	System.out.println("Before Doctor : " + Before_Doctor);
 	System.out.println("Before Status : " + Before_Status);
 	System.out.println("Before Medications : " + Before_Medications);
 	Report_Listen.log_print_in_report().info("Before webhook | Case ID: " + Case_ID + " | Doctor: " + Before_Doctor + " | Status: " + Before_Status + " | Medications: " + Before_Medications);
 
 	String Assigned_Dr_Name = Dr_Network.beluga_visit_check_and_Authorize(data, Case_ID,d);
-	
+
 	Expected_Data.put("Doctor", Assigned_Dr_Name);
 	Expected_Data.put("Status", "Approved For Treatment");
 	Expected_Data.put("Medications", "Populated medication value other than None");
-	
-	d.navigate().to(Treatment_Details_URL); 
+
+	d.navigate().to(Treatment_Details_URL);
 
 	Sections = p.Treatment_Details_cards();
 	Patient_details_section = Sections.get(0);
@@ -447,6 +453,13 @@ public class Treatment_Module extends Product_Module{
 		String Label_text = Label.getText().trim();
 		String Values_text = Values.getText().trim();
 
+		if(Label_text.equals("Case ID") && (Values_text.endsWith("...") || Values_text.endsWith("\u2026"))){
+
+			rp.movetoelement(Values);
+			Values_text = p.Admin_Case_ID_Tooltip(Values_text);
+
+		}
+
 		if(Label_text.equals("Date of Birth")){
 
 			Values_text = Values_text.replaceAll("\\s*\\([^)]*\\)\\s*$", "").trim();
@@ -458,14 +471,15 @@ public class Treatment_Module extends Product_Module{
 			Values_text = Values_text.replaceAll("\\D", "");
 
 		}
+
 		System.out.println();
 		System.out.println("Refetched after Webhook :--->  "+Label_text+" : - "+Values_text);
 		System.out.println();
 		Actual_Data.put(Label_text, Values_text);
 
 	}
-	
-	String Assigned_Dr_Name_in_Admin_Patient_details= Actual_Data.get("Doctor");
+
+	String Assigned_Dr_Name_in_Admin_Patient_details = Actual_Data.get("Doctor");
 
 	System.out.println("Doctor | Before: " + Before_Doctor + " | After: " + Assigned_Dr_Name_in_Admin_Patient_details);
 	System.out.println("Status | Before: " + Before_Status + " | After: " + Actual_Data.get("Status"));
@@ -477,37 +491,35 @@ public class Treatment_Module extends Product_Module{
 
 	for(String Label_text : Expected_Data.keySet()){
 
-	    if(Label_text.equals("Doctor") || Label_text.equals("Status")){
+		if(Label_text.equals("Doctor") || Label_text.equals("Status")){
 
-	        String Expected_Value = Expected_Data.get(Label_text);
-	        String Actual_Value = Actual_Data.get(Label_text);
+			String Expected_Value = Expected_Data.get(Label_text);
+			String Actual_Value = Actual_Data.get(Label_text);
 
-	        System.out.println();
-	        System.out.println("Label    : " + Label_text);
-	        System.out.println("Expected : " + Expected_Value);
-	        System.out.println("Actual   : " + Actual_Value);
+			System.out.println();
+			System.out.println("Label    : " + Label_text);
+			System.out.println("Expected : " + Expected_Value);
+			System.out.println("Actual   : " + Actual_Value);
 
-	        if(Expected_Value.trim().equals(Actual_Value)){
+			if(Expected_Value.trim().equals(Actual_Value)){
 
-	            System.out.println("Result   : PASS");
-	            Report_Listen.log_print_in_report().pass("Label: " + Label_text + " | Expected: " + Expected_Value + " | Actual: " + Actual_Value + " | Result: PASS");
+				System.out.println("Result   : PASS");
+				Report_Listen.log_print_in_report().pass("Label: " + Label_text + " | Expected: " + Expected_Value + " | Actual: " + Actual_Value + " | Result: PASS");
 
-	        }
+			}
 
-	        else{
+			else{
 
-	            System.out.println("Result   : WARNING");
-	            Report_Listen.log_print_in_report().warning("Label: " + Label_text + " | Expected: " + Expected_Value + " | Actual: " + Actual_Value + " | Result: WARNING");
+				System.out.println("Result   : WARNING");
+				Report_Listen.log_print_in_report().warning("Label: " + Label_text + " | Expected: " + Expected_Value + " | Actual: " + Actual_Value + " | Result: WARNING");
 
-	        }
+			}
 
-	    }    
+		}
 
-	}   
+	}
 
-    }
-
-
+}
 
 }
 
