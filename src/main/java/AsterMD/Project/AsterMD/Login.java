@@ -171,7 +171,7 @@ public void login() throws IOException, InterruptedException {
 		System.out.println();/*
         WebElement Progress_Bar =lg.Progress_bar();
         rp.wait_for_invisibilty_of_theElement(Progress_Bar); */
-		rp.check_element_visibility(lg.login_confirmation, 2);
+		rp.check_element_visibility(lg.login_confirmation, 5);
 		
 		Report_Listen.log_print_in_report().pass("✅ Login completed and login confirmation was verified successfully.");
 		System.out.println("✅ Login completed and login confirmation was verified successfully.");

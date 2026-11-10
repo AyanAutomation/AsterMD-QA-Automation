@@ -39,6 +39,9 @@ public class Frontend_Store_Front extends Patient_Module {
 @DataProvider
 public Object[][] Storefront_Product_Data(){
 
+	String Medication_Question_Key = "Intake Q&A - Are you currently taking any of the following medicines or supplements, either regularly or as needed? Select all that apply. Select None only if you take no medicines or supplements.";
+	String Medication_Details_Key = "Intake Q&A - List all medicines and supplements you currently take, including doses and frequency. Enter None if you take none.";
+
 	// Shared Checkout Data
 	TreeMap<String,String> Shared_Checkout_Data = new TreeMap<String,String>();
 	Shared_Checkout_Data.put("Delivery Country", "United States");
@@ -51,7 +54,6 @@ public Object[][] Storefront_Product_Data(){
 	// Shared Five-Page Intake Form Data - Synthetic QA Answers
 	TreeMap<String,String> Shared_Intake_Data = new TreeMap<String,String>();
 	Shared_Intake_Data.put("Biological Sex at Birth", "Female");
-	Shared_Intake_Data.put("Intake Q&A - List all medicines and supplements you currently take, including doses and frequency. Enter None if you take none.", "None");
 	Shared_Intake_Data.put("Intake Q&A - List your allergies and what reaction each causes. Enter None if you have no known allergies.", "None");
 	Shared_Intake_Data.put("Intake Q&A - List your medical conditions, relevant mental health history, and significant past illnesses or operations. Enter None if you have none to report.", "None");
 	Shared_Intake_Data.put("Intake Q&A - Are you pregnant, breastfeeding, or planning a pregnancy?", "No");
@@ -94,10 +96,10 @@ public Object[][] Storefront_Product_Data(){
 	data1.put("Expected Price", "40.00");
 	data1.put("VRIO Offer ID", "");
 	data1.put("VRIO Product ID", "");
-	data1.put("First Name", "Nina");
-	data1.put("Last Name", "Keller");
-	data1.put("Email", "nina.keller.astermd261109batch901@yopmail.com");
-	data1.put("Phone", "3035550100");
+	data1.put("First Name", "Alina");
+	data1.put("Last Name", "Becker");
+	data1.put("Email", "alina.becker.astermd261110batch801@yopmail.com");
+	data1.put("Phone", "2025550170");
 	data1.put("Date of Birth", "06/12/1992");
 	data1.put("State", "Washington");
 	data1.put("Residential State", "WA");
@@ -111,9 +113,11 @@ public Object[][] Storefront_Product_Data(){
 	data1.put("Delivery State", "Washington");
 	data1.put("Zipcode", "98101");
 	data1.put("ZIP Code", "98101");
-	data1.put("Cardholder Name", "Nina Keller");
+	data1.put("Cardholder Name", "Alina Becker");
 	data1.putAll(Shared_Checkout_Data);
 	data1.putAll(Shared_Intake_Data);
+	data1.put(Medication_Question_Key, "Melatonin");
+	data1.put(Medication_Details_Key, "Melatonin, dose unknown, taken on some nights.");
 	data1.putAll(Sleep_Intake_Data);
 	data1.put("SSN", "1234");
 	data1.put("ID Verification Image", "ID_Verification_data01.png");
@@ -126,10 +130,10 @@ public Object[][] Storefront_Product_Data(){
 	data2.put("Expected Price", "74.00");
 	data2.put("VRIO Offer ID", "");
 	data2.put("VRIO Product ID", "");
-	data2.put("First Name", "Elisa");
-	data2.put("Last Name", "Hartmann");
-	data2.put("Email", "elisa.hartmann.astermd261109batch902@yopmail.com");
-	data2.put("Phone", "3035550101");
+	data2.put("First Name", "Freya");
+	data2.put("Last Name", "Olsen");
+	data2.put("Email", "freya.olsen.astermd261110batch802@yopmail.com");
+	data2.put("Phone", "2025550171");
 	data2.put("Date of Birth", "04/19/1995");
 	data2.put("State", "Illinois");
 	data2.put("Residential State", "IL");
@@ -143,9 +147,11 @@ public Object[][] Storefront_Product_Data(){
 	data2.put("Delivery State", "Illinois");
 	data2.put("Zipcode", "60601");
 	data2.put("ZIP Code", "60601");
-	data2.put("Cardholder Name", "Elisa Hartmann");
+	data2.put("Cardholder Name", "Freya Olsen");
 	data2.putAll(Shared_Checkout_Data);
 	data2.putAll(Shared_Intake_Data);
+	data2.put(Medication_Question_Key, "Diphenhydramine");
+	data2.put(Medication_Details_Key, "Diphenhydramine, dose unknown, taken occasionally.");
 	data2.putAll(Sleep_Intake_Data);
 	data2.put("SSN", "1234");
 	data2.put("ID Verification Image", "ID_Verification_data02.png");
@@ -158,10 +164,10 @@ public Object[][] Storefront_Product_Data(){
 	data3.put("Expected Price", "106.00");
 	data3.put("VRIO Offer ID", "");
 	data3.put("VRIO Product ID", "");
-	data3.put("First Name", "Amelie");
-	data3.put("Last Name", "Stein");
-	data3.put("Email", "amelie.stein.astermd261109batch903@yopmail.com");
-	data3.put("Phone", "3035550102");
+	data3.put("First Name", "Elise");
+	data3.put("Last Name", "Berger");
+	data3.put("Email", "elise.berger.astermd261110batch803@yopmail.com");
+	data3.put("Phone", "2025550172");
 	data3.put("Date of Birth", "10/22/1988");
 	data3.put("State", "Colorado");
 	data3.put("Residential State", "CO");
@@ -175,9 +181,11 @@ public Object[][] Storefront_Product_Data(){
 	data3.put("Delivery State", "Colorado");
 	data3.put("Zipcode", "80202");
 	data3.put("ZIP Code", "80202");
-	data3.put("Cardholder Name", "Amelie Stein");
+	data3.put("Cardholder Name", "Elise Berger");
 	data3.putAll(Shared_Checkout_Data);
 	data3.putAll(Shared_Intake_Data);
+	data3.put(Medication_Question_Key, "Doxylamine");
+	data3.put(Medication_Details_Key, "Doxylamine, dose unknown, taken as needed at night.");
 	data3.putAll(Sleep_Intake_Data);
 	data3.put("SSN", "1234");
 	data3.put("ID Verification Image", "ID_Verification_data03.png");
@@ -190,10 +198,10 @@ public Object[][] Storefront_Product_Data(){
 	data4.put("Expected Price", "40.00");
 	data4.put("VRIO Offer ID", "");
 	data4.put("VRIO Product ID", "");
-	data4.put("First Name", "Theresa");
-	data4.put("Last Name", "Winter");
-	data4.put("Email", "theresa.winter.astermd261109batch904@yopmail.com");
-	data4.put("Phone", "3035550103");
+	data4.put("First Name", "Maja");
+	data4.put("Last Name", "Eriksen");
+	data4.put("Email", "maja.eriksen.astermd261110batch804@yopmail.com");
+	data4.put("Phone", "2025550173");
 	data4.put("Date of Birth", "03/17/1991");
 	data4.put("State", "Arizona");
 	data4.put("Residential State", "AZ");
@@ -207,9 +215,11 @@ public Object[][] Storefront_Product_Data(){
 	data4.put("Delivery State", "Arizona");
 	data4.put("Zipcode", "85004");
 	data4.put("ZIP Code", "85004");
-	data4.put("Cardholder Name", "Theresa Winter");
+	data4.put("Cardholder Name", "Maja Eriksen");
 	data4.putAll(Shared_Checkout_Data);
 	data4.putAll(Shared_Intake_Data);
+	data4.put(Medication_Question_Key, "Zolpidem");
+	data4.put(Medication_Details_Key, "Zolpidem, dose unknown, taken at bedtime as needed.");
 	data4.putAll(Sleep_Intake_Data);
 	data4.put("SSN", "1234");
 	data4.put("ID Verification Image", "ID_Verification_data04.png");
@@ -222,10 +232,10 @@ public Object[][] Storefront_Product_Data(){
 	data5.put("Expected Price", "74.00");
 	data5.put("VRIO Offer ID", "");
 	data5.put("VRIO Product ID", "");
-	data5.put("First Name", "Helena");
-	data5.put("Last Name", "Schulz");
-	data5.put("Email", "helena.schulz.astermd261109batch905@yopmail.com");
-	data5.put("Phone", "3035550104");
+	data5.put("First Name", "Bianca");
+	data5.put("Last Name", "Moretti");
+	data5.put("Email", "bianca.moretti.astermd261110batch805@yopmail.com");
+	data5.put("Phone", "2025550174");
 	data5.put("Date of Birth", "12/08/1993");
 	data5.put("State", "Oregon");
 	data5.put("Residential State", "OR");
@@ -239,9 +249,11 @@ public Object[][] Storefront_Product_Data(){
 	data5.put("Delivery State", "Oregon");
 	data5.put("Zipcode", "97204");
 	data5.put("ZIP Code", "97204");
-	data5.put("Cardholder Name", "Helena Schulz");
+	data5.put("Cardholder Name", "Bianca Moretti");
 	data5.putAll(Shared_Checkout_Data);
 	data5.putAll(Shared_Intake_Data);
+	data5.put(Medication_Question_Key, "Other medicine or supplement (list it in the next question)");
+	data5.put(Medication_Details_Key, "Eszopiclone, dose unknown, taken at bedtime on some nights.");
 	data5.putAll(Sleep_Intake_Data);
 	data5.put("SSN", "1234");
 	data5.put("ID Verification Image", "ID_Verification_data05.png");
@@ -254,10 +266,10 @@ public Object[][] Storefront_Product_Data(){
 	data6.put("Expected Price", "106.00");
 	data6.put("VRIO Offer ID", "");
 	data6.put("VRIO Product ID", "");
-	data6.put("First Name", "Leonie");
-	data6.put("Last Name", "Becker");
-	data6.put("Email", "leonie.becker.astermd261109batch906@yopmail.com");
-	data6.put("Phone", "3035550105");
+	data6.put("First Name", "Sorina");
+	data6.put("Last Name", "Dumitrescu");
+	data6.put("Email", "sorina.dumitrescu.astermd261110batch806@yopmail.com");
+	data6.put("Phone", "2025550175");
 	data6.put("Date of Birth", "07/24/1990");
 	data6.put("State", "California");
 	data6.put("Residential State", "CA");
@@ -271,9 +283,11 @@ public Object[][] Storefront_Product_Data(){
 	data6.put("Delivery State", "California");
 	data6.put("Zipcode", "92101");
 	data6.put("ZIP Code", "92101");
-	data6.put("Cardholder Name", "Leonie Becker");
+	data6.put("Cardholder Name", "Sorina Dumitrescu");
 	data6.putAll(Shared_Checkout_Data);
 	data6.putAll(Shared_Intake_Data);
+	data6.put(Medication_Question_Key, "Famotidine");
+	data6.put(Medication_Details_Key, "Famotidine, dose unknown, taken as needed.");
 	data6.putAll(Sleep_Intake_Data);
 	data6.put("SSN", "1234");
 	data6.put("ID Verification Image", "ID_Verification_data06.png");
@@ -286,10 +300,10 @@ public Object[][] Storefront_Product_Data(){
 	data7.put("Expected Price", "40.00");
 	data7.put("VRIO Offer ID", "");
 	data7.put("VRIO Product ID", "");
-	data7.put("First Name", "Annika");
-	data7.put("Last Name", "Roth");
-	data7.put("Email", "annika.roth.astermd261109batch907@yopmail.com");
-	data7.put("Phone", "3035550106");
+	data7.put("First Name", "Ada");
+	data7.put("Last Name", "Zielinska");
+	data7.put("Email", "ada.zielinska.astermd261110batch807@yopmail.com");
+	data7.put("Phone", "2025550176");
 	data7.put("Date of Birth", "02/11/1996");
 	data7.put("State", "Florida");
 	data7.put("Residential State", "FL");
@@ -303,9 +317,11 @@ public Object[][] Storefront_Product_Data(){
 	data7.put("Delivery State", "Florida");
 	data7.put("Zipcode", "33602");
 	data7.put("ZIP Code", "33602");
-	data7.put("Cardholder Name", "Annika Roth");
+	data7.put("Cardholder Name", "Ada Zielinska");
 	data7.putAll(Shared_Checkout_Data);
 	data7.putAll(Shared_Intake_Data);
+	data7.put(Medication_Question_Key, "Pantoprazole");
+	data7.put(Medication_Details_Key, "Pantoprazole, dose unknown, taken daily.");
 	data7.putAll(Sleep_Intake_Data);
 	data7.put("SSN", "1234");
 	data7.put("ID Verification Image", "ID_Verification_data07.png");
@@ -318,10 +334,10 @@ public Object[][] Storefront_Product_Data(){
 	data8.put("Expected Price", "47.90");
 	data8.put("VRIO Offer ID", "");
 	data8.put("VRIO Product ID", "");
-	data8.put("First Name", "Franziska");
-	data8.put("Last Name", "Wolf");
-	data8.put("Email", "franziska.wolf.astermd261109batch908@yopmail.com");
-	data8.put("Phone", "3035550107");
+	data8.put("First Name", "Ivana");
+	data8.put("Last Name", "Kral");
+	data8.put("Email", "ivana.kral.astermd261110batch808@yopmail.com");
+	data8.put("Phone", "2025550177");
 	data8.put("Date of Birth", "01/19/1990");
 	data8.put("State", "New York");
 	data8.put("Residential State", "NY");
@@ -335,9 +351,11 @@ public Object[][] Storefront_Product_Data(){
 	data8.put("Delivery State", "New York");
 	data8.put("Zipcode", "10001");
 	data8.put("ZIP Code", "10001");
-	data8.put("Cardholder Name", "Franziska Wolf");
+	data8.put("Cardholder Name", "Ivana Kral");
 	data8.putAll(Shared_Checkout_Data);
 	data8.putAll(Shared_Intake_Data);
+	data8.put(Medication_Question_Key, "Acetaminophen");
+	data8.put(Medication_Details_Key, "Acetaminophen, dose unknown, taken as needed for headaches.");
 	data8.putAll(Migraine_Intake_Data);
 	data8.put("SSN", "1234");
 	data8.put("ID Verification Image", "ID_Verification_data08.png");
@@ -350,10 +368,10 @@ public Object[][] Storefront_Product_Data(){
 	data9.put("Expected Price", "47.90");
 	data9.put("VRIO Offer ID", "");
 	data9.put("VRIO Product ID", "");
-	data9.put("First Name", "Miriam");
-	data9.put("Last Name", "Braun");
-	data9.put("Email", "miriam.braun.astermd261109batch909@yopmail.com");
-	data9.put("Phone", "3035550108");
+	data9.put("First Name", "Veronika");
+	data9.put("Last Name", "Sokolova");
+	data9.put("Email", "veronika.sokolova.astermd261110batch809@yopmail.com");
+	data9.put("Phone", "2025550178");
 	data9.put("Date of Birth", "11/14/1994");
 	data9.put("State", "Texas");
 	data9.put("Residential State", "TX");
@@ -367,9 +385,11 @@ public Object[][] Storefront_Product_Data(){
 	data9.put("Delivery State", "Texas");
 	data9.put("Zipcode", "78701");
 	data9.put("ZIP Code", "78701");
-	data9.put("Cardholder Name", "Miriam Braun");
+	data9.put("Cardholder Name", "Veronika Sokolova");
 	data9.putAll(Shared_Checkout_Data);
 	data9.putAll(Shared_Intake_Data);
+	data9.put(Medication_Question_Key, "Ibuprofen");
+	data9.put(Medication_Details_Key, "Ibuprofen, dose unknown, taken as needed for headaches.");
 	data9.putAll(Migraine_Intake_Data);
 	data9.put("SSN", "1234");
 	data9.put("ID Verification Image", "ID_Verification_data09.png");
@@ -382,10 +402,10 @@ public Object[][] Storefront_Product_Data(){
 	data10.put("Expected Price", "47.90");
 	data10.put("VRIO Offer ID", "");
 	data10.put("VRIO Product ID", "");
-	data10.put("First Name", "Viktoria");
-	data10.put("Last Name", "Lange");
-	data10.put("Email", "viktoria.lange.astermd261109batch910@yopmail.com");
-	data10.put("Phone", "3035550109");
+	data10.put("First Name", "Clara");
+	data10.put("Last Name", "Richter");
+	data10.put("Email", "clara.richter.astermd261110batch810@yopmail.com");
+	data10.put("Phone", "2025550179");
 	data10.put("Date of Birth", "05/05/1989");
 	data10.put("State", "Massachusetts");
 	data10.put("Residential State", "MA");
@@ -399,9 +419,11 @@ public Object[][] Storefront_Product_Data(){
 	data10.put("Delivery State", "Massachusetts");
 	data10.put("Zipcode", "02108");
 	data10.put("ZIP Code", "02108");
-	data10.put("Cardholder Name", "Viktoria Lange");
+	data10.put("Cardholder Name", "Clara Richter");
 	data10.putAll(Shared_Checkout_Data);
 	data10.putAll(Shared_Intake_Data);
+	data10.put(Medication_Question_Key, "Naproxen");
+	data10.put(Medication_Details_Key, "Naproxen, dose unknown, taken as needed for headaches.");
 	data10.putAll(Migraine_Intake_Data);
 	data10.put("SSN", "1234");
 	data10.put("ID Verification Image", "ID_Verification_data10.png");
@@ -414,10 +436,10 @@ public Object[][] Storefront_Product_Data(){
 	data11.put("Expected Price", "47.90");
 	data11.put("VRIO Offer ID", "");
 	data11.put("VRIO Product ID", "");
-	data11.put("First Name", "Jasmin");
-	data11.put("Last Name", "Hoffmann");
-	data11.put("Email", "jasmin.hoffmann.astermd261109batch911@yopmail.com");
-	data11.put("Phone", "3035550110");
+	data11.put("First Name", "Selma");
+	data11.put("Last Name", "Jovanovic");
+	data11.put("Email", "selma.jovanovic.astermd261110batch811@yopmail.com");
+	data11.put("Phone", "2025550180");
 	data11.put("Date of Birth", "09/02/1995");
 	data11.put("State", "Minnesota");
 	data11.put("Residential State", "MN");
@@ -431,9 +453,11 @@ public Object[][] Storefront_Product_Data(){
 	data11.put("Delivery State", "Minnesota");
 	data11.put("Zipcode", "55401");
 	data11.put("ZIP Code", "55401");
-	data11.put("Cardholder Name", "Jasmin Hoffmann");
+	data11.put("Cardholder Name", "Selma Jovanovic");
 	data11.putAll(Shared_Checkout_Data);
 	data11.putAll(Shared_Intake_Data);
+	data11.put(Medication_Question_Key, "Sumatriptan");
+	data11.put(Medication_Details_Key, "Sumatriptan, dose unknown, taken during migraine episodes as needed.");
 	data11.putAll(Migraine_Intake_Data);
 	data11.put("SSN", "1234");
 	data11.put("ID Verification Image", "ID_Verification_data11.png");
@@ -446,10 +470,10 @@ public Object[][] Storefront_Product_Data(){
 	data12.put("Expected Price", "47.90");
 	data12.put("VRIO Offer ID", "");
 	data12.put("VRIO Product ID", "");
-	data12.put("First Name", "Daniela");
-	data12.put("Last Name", "Kruger");
-	data12.put("Email", "daniela.kruger.astermd261109batch912@yopmail.com");
-	data12.put("Phone", "3035550111");
+	data12.put("First Name", "Astrid");
+	data12.put("Last Name", "Dahl");
+	data12.put("Email", "astrid.dahl.astermd261110batch812@yopmail.com");
+	data12.put("Phone", "2025550181");
 	data12.put("Date of Birth", "08/18/1992");
 	data12.put("State", "Georgia");
 	data12.put("Residential State", "GA");
@@ -463,9 +487,11 @@ public Object[][] Storefront_Product_Data(){
 	data12.put("Delivery State", "Georgia");
 	data12.put("Zipcode", "30303");
 	data12.put("ZIP Code", "30303");
-	data12.put("Cardholder Name", "Daniela Kruger");
+	data12.put("Cardholder Name", "Astrid Dahl");
 	data12.putAll(Shared_Checkout_Data);
 	data12.putAll(Shared_Intake_Data);
+	data12.put(Medication_Question_Key, "Topiramate");
+	data12.put(Medication_Details_Key, "Topiramate, dose unknown, taken daily.");
 	data12.putAll(Migraine_Intake_Data);
 	data12.put("SSN", "1234");
 	data12.put("ID Verification Image", "ID_Verification_data12.png");
@@ -478,10 +504,10 @@ public Object[][] Storefront_Product_Data(){
 	data13.put("Expected Price", "47.90");
 	data13.put("VRIO Offer ID", "");
 	data13.put("VRIO Product ID", "");
-	data13.put("First Name", "Alina");
-	data13.put("Last Name", "Schulze");
-	data13.put("Email", "alina.schulze.astermd261109batch913@yopmail.com");
-	data13.put("Phone", "3035550112");
+	data13.put("First Name", "Galina");
+	data13.put("Last Name", "Morozova");
+	data13.put("Email", "galina.morozova.astermd261110batch813@yopmail.com");
+	data13.put("Phone", "2025550182");
 	data13.put("Date of Birth", "04/29/1987");
 	data13.put("State", "North Carolina");
 	data13.put("Residential State", "NC");
@@ -495,9 +521,11 @@ public Object[][] Storefront_Product_Data(){
 	data13.put("Delivery State", "North Carolina");
 	data13.put("Zipcode", "28202");
 	data13.put("ZIP Code", "28202");
-	data13.put("Cardholder Name", "Alina Schulze");
+	data13.put("Cardholder Name", "Galina Morozova");
 	data13.putAll(Shared_Checkout_Data);
 	data13.putAll(Shared_Intake_Data);
+	data13.put(Medication_Question_Key, "Other medicine or supplement (list it in the next question)");
+	data13.put(Medication_Details_Key, "Rizatriptan, dose unknown, taken during migraine episodes as needed.");
 	data13.putAll(Migraine_Intake_Data);
 	data13.put("SSN", "1234");
 	data13.put("ID Verification Image", "ID_Verification_data13.png");
@@ -510,10 +538,10 @@ public Object[][] Storefront_Product_Data(){
 	data14.put("Expected Price", "47.90");
 	data14.put("VRIO Offer ID", "");
 	data14.put("VRIO Product ID", "");
-	data14.put("First Name", "Nadine");
-	data14.put("Last Name", "Meier");
-	data14.put("Email", "nadine.meier.astermd261109batch914@yopmail.com");
-	data14.put("Phone", "3035550113");
+	data14.put("First Name", "Radka");
+	data14.put("Last Name", "Cerna");
+	data14.put("Email", "radka.cerna.astermd261110batch814@yopmail.com");
+	data14.put("Phone", "2025550183");
 	data14.put("Date of Birth", "12/03/1996");
 	data14.put("State", "Ohio");
 	data14.put("Residential State", "OH");
@@ -527,9 +555,11 @@ public Object[][] Storefront_Product_Data(){
 	data14.put("Delivery State", "Ohio");
 	data14.put("Zipcode", "43215");
 	data14.put("ZIP Code", "43215");
-	data14.put("Cardholder Name", "Nadine Meier");
+	data14.put("Cardholder Name", "Radka Cerna");
 	data14.putAll(Shared_Checkout_Data);
 	data14.putAll(Shared_Intake_Data);
+	data14.put(Medication_Question_Key, "Calcium carbonate");
+	data14.put(Medication_Details_Key, "Calcium carbonate, dose unknown, taken as needed.");
 	data14.putAll(Migraine_Intake_Data);
 	data14.put("SSN", "1234");
 	data14.put("ID Verification Image", "ID_Verification_data14.png");
@@ -542,10 +572,10 @@ public Object[][] Storefront_Product_Data(){
 	data15.put("Expected Price", "");
 	data15.put("VRIO Offer ID", "");
 	data15.put("VRIO Product ID", "");
-	data15.put("First Name", "Verena");
-	data15.put("Last Name", "Schilling");
-	data15.put("Email", "verena.schilling.astermd261109batch915@yopmail.com");
-	data15.put("Phone", "3035550114");
+	data15.put("First Name", "Linnea");
+	data15.put("Last Name", "Brandt");
+	data15.put("Email", "linnea.brandt.astermd261110batch815@yopmail.com");
+	data15.put("Phone", "2025550184");
 	data15.put("Date of Birth", "07/09/1991");
 	data15.put("State", "Pennsylvania");
 	data15.put("Residential State", "PA");
@@ -559,9 +589,11 @@ public Object[][] Storefront_Product_Data(){
 	data15.put("Delivery State", "Pennsylvania");
 	data15.put("Zipcode", "19103");
 	data15.put("ZIP Code", "19103");
-	data15.put("Cardholder Name", "Verena Schilling");
+	data15.put("Cardholder Name", "Linnea Brandt");
 	data15.putAll(Shared_Checkout_Data);
 	data15.putAll(Shared_Intake_Data);
+	data15.put(Medication_Question_Key, "Omeprazole");
+	data15.put(Medication_Details_Key, "Omeprazole, dose unknown, taken daily.");
 	data15.putAll(Reflux_Intake_Data);
 	data15.put("SSN", "1234");
 	data15.put("ID Verification Image", "ID_Verification_data15.png");
@@ -574,10 +606,10 @@ public Object[][] Storefront_Product_Data(){
 	data16.put("Expected Price", "");
 	data16.put("VRIO Offer ID", "");
 	data16.put("VRIO Product ID", "");
-	data16.put("First Name", "Saskia");
-	data16.put("Last Name", "Dietrich");
-	data16.put("Email", "saskia.dietrich.astermd261109batch916@yopmail.com");
-	data16.put("Phone", "3035550115");
+	data16.put("First Name", "Yelena");
+	data16.put("Last Name", "Antonova");
+	data16.put("Email", "yelena.antonova.astermd261110batch816@yopmail.com");
+	data16.put("Phone", "2025550185");
 	data16.put("Date of Birth", "12/10/1988");
 	data16.put("State", "Nevada");
 	data16.put("Residential State", "NV");
@@ -591,7 +623,7 @@ public Object[][] Storefront_Product_Data(){
 	data16.put("Delivery State", "Nevada");
 	data16.put("Zipcode", "89101");
 	data16.put("ZIP Code", "89101");
-	data16.put("Cardholder Name", "Saskia Dietrich");
+	data16.put("Cardholder Name", "Yelena Antonova");
 	data16.putAll(Shared_Checkout_Data);
 	data16.put("SSN", "1234");
 	data16.put("ID Verification Image", "ID_Verification_data16.png");
@@ -604,10 +636,10 @@ public Object[][] Storefront_Product_Data(){
 	data17.put("Expected Price", "");
 	data17.put("VRIO Offer ID", "");
 	data17.put("VRIO Product ID", "");
-	data17.put("First Name", "Tanja");
-	data17.put("Last Name", "Brandt");
-	data17.put("Email", "tanja.brandt.astermd261109batch917@yopmail.com");
-	data17.put("Phone", "3035550116");
+	data17.put("First Name", "Camelia");
+	data17.put("Last Name", "Stan");
+	data17.put("Email", "camelia.stan.astermd261110batch817@yopmail.com");
+	data17.put("Phone", "2025550186");
 	data17.put("Date of Birth", "03/11/1993");
 	data17.put("State", "Michigan");
 	data17.put("Residential State", "MI");
@@ -621,7 +653,7 @@ public Object[][] Storefront_Product_Data(){
 	data17.put("Delivery State", "Michigan");
 	data17.put("Zipcode", "48226");
 	data17.put("ZIP Code", "48226");
-	data17.put("Cardholder Name", "Tanja Brandt");
+	data17.put("Cardholder Name", "Camelia Stan");
 	data17.putAll(Shared_Checkout_Data);
 	data17.put("SSN", "1234");
 	data17.put("ID Verification Image", "ID_Verification_data17.png");
@@ -634,10 +666,10 @@ public Object[][] Storefront_Product_Data(){
 	data18.put("Expected Price", "");
 	data18.put("VRIO Offer ID", "");
 	data18.put("VRIO Product ID", "");
-	data18.put("First Name", "Corinna");
-	data18.put("Last Name", "Hofmann");
-	data18.put("Email", "corinna.hofmann.astermd261109batch918@yopmail.com");
-	data18.put("Phone", "3035550117");
+	data18.put("First Name", "Karolina");
+	data18.put("Last Name", "Vesela");
+	data18.put("Email", "karolina.vesela.astermd261110batch818@yopmail.com");
+	data18.put("Phone", "2025550187");
 	data18.put("Date of Birth", "07/30/1985");
 	data18.put("State", "Indiana");
 	data18.put("Residential State", "IN");
@@ -651,7 +683,7 @@ public Object[][] Storefront_Product_Data(){
 	data18.put("Delivery State", "Indiana");
 	data18.put("Zipcode", "46204");
 	data18.put("ZIP Code", "46204");
-	data18.put("Cardholder Name", "Corinna Hofmann");
+	data18.put("Cardholder Name", "Karolina Vesela");
 	data18.putAll(Shared_Checkout_Data);
 	data18.put("SSN", "1234");
 	data18.put("ID Verification Image", "ID_Verification_data18.png");
@@ -664,10 +696,10 @@ public Object[][] Storefront_Product_Data(){
 	data19.put("Expected Price", "");
 	data19.put("VRIO Offer ID", "");
 	data19.put("VRIO Product ID", "");
-	data19.put("First Name", "Bettina");
-	data19.put("Last Name", "Schwarz");
-	data19.put("Email", "bettina.schwarz.astermd261109batch919@yopmail.com");
-	data19.put("Phone", "3035550118");
+	data19.put("First Name", "Signe");
+	data19.put("Last Name", "Lund");
+	data19.put("Email", "signe.lund.astermd261110batch819@yopmail.com");
+	data19.put("Phone", "2025550188");
 	data19.put("Date of Birth", "01/21/1986");
 	data19.put("State", "North Carolina");
 	data19.put("Residential State", "NC");
@@ -681,7 +713,7 @@ public Object[][] Storefront_Product_Data(){
 	data19.put("Delivery State", "North Carolina");
 	data19.put("Zipcode", "27601");
 	data19.put("ZIP Code", "27601");
-	data19.put("Cardholder Name", "Bettina Schwarz");
+	data19.put("Cardholder Name", "Signe Lund");
 	data19.putAll(Shared_Checkout_Data);
 	data19.put("SSN", "1234");
 	data19.put("ID Verification Image", "ID_Verification_data19.png");
@@ -694,10 +726,10 @@ public Object[][] Storefront_Product_Data(){
 	data20.put("Expected Price", "");
 	data20.put("VRIO Offer ID", "");
 	data20.put("VRIO Product ID", "");
-	data20.put("First Name", "Anja");
-	data20.put("Last Name", "Schneider");
-	data20.put("Email", "anja.schneider.astermd261109batch920@yopmail.com");
-	data20.put("Phone", "3035550119");
+	data20.put("First Name", "Emilia");
+	data20.put("Last Name", "Stojanovic");
+	data20.put("Email", "emilia.stojanovic.astermd261110batch820@yopmail.com");
+	data20.put("Phone", "2025550189");
 	data20.put("Date of Birth", "05/17/1997");
 	data20.put("State", "Utah");
 	data20.put("Residential State", "UT");
@@ -711,19 +743,19 @@ public Object[][] Storefront_Product_Data(){
 	data20.put("Delivery State", "Utah");
 	data20.put("Zipcode", "84101");
 	data20.put("ZIP Code", "84101");
-	data20.put("Cardholder Name", "Anja Schneider");
+	data20.put("Cardholder Name", "Emilia Stojanovic");
 	data20.putAll(Shared_Checkout_Data);
 	data20.put("SSN", "1234");
 	data20.put("ID Verification Image", "ID_Verification_data20.png");
 
-	// All 20 datasets are currently returned.
-	return new Object[][] { /*
-		{ data1 }, 
-		{ data2 },
-		{ data3 }, */
-		{ data4 }, 
+	// Active Datasets: AsterSomnera, AsterMigraEase and AsterRefluxa
+	return new Object[][] {/*
+		{ data1 }, */
+		{ data2 },/*
+		{ data3 },
+		{ data4 },
 		{ data5 },
-		{ data6 }, /*
+		{ data6 },
 		{ data7 },
 		{ data8 },
 		{ data9 },
@@ -732,16 +764,15 @@ public Object[][] Storefront_Product_Data(){
 		{ data12 },
 		{ data13 },
 		{ data14 },
-		{ data15 },
+		{ data15 }, /*
 		{ data16 },
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } */
+		{ data20 }
+		*/
 	};
 }
-
-
 
 
 
@@ -1098,12 +1129,13 @@ public void Checkout_Manager(TreeMap<String, String> Form_Data){
 		WebElement Pay_Button = p.Checkout_Pay_Button();
 
 		rp.movetoelement(Pay_Button);
+		
 		Pay_Button.click();
 
 		System.out.println("---------------- ORDER CONFIRMATION ----------------");
 
-		Checkout_Error = rp.check_element_visibility(p.Checkout_Retryable_Errors(), 3);
-
+		Checkout_Error = rp.check_element_visibility(p.Checkout_Retryable_Errors(), 3); 
+       
 		if(Checkout_Error){
 
 			String Error_Message = p.Checkout_Retryable_Errors().get(0).getText().trim();
@@ -1122,7 +1154,7 @@ public void Checkout_Manager(TreeMap<String, String> Form_Data){
 
 			System.out.println("Action : Hard Refresh and retry checkout");
 
-			rp.Hard_Refresh();
+			rp.Hard_Refresh(); 
 		}
 		else{
 
@@ -1176,8 +1208,8 @@ public void Checkout_Manager(TreeMap<String, String> Form_Data){
 
 				rp.Hard_Refresh();
 			}
-		}
-	}
+		} 
+	} 
 }
 
 

@@ -75,7 +75,7 @@ public class StoreFront_Locaters extends Repeat {
 	private WebElement expiry_date; 
     @FindBy(id="checkout-card-cvc")
 	private WebElement Security_Code; 
-    @FindBy(xpath="//label[contains(@class,'cursor-pointer') and .//input[@type='checkbox']]")
+    @FindBy(xpath="//label[contains(@class,'rounded-md border border-border') and .//input[@type='checkbox']]")
 	private List<WebElement> Agree_Checkboxes; 
     @FindBy(id="checkout-pay")
 	private WebElement Checkout_Pay_Button; 
