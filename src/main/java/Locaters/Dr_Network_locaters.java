@@ -209,10 +209,11 @@ public class Dr_Network_locaters extends Repeat {
 		wait_for_theElement(Search);
 		return Search;}
 		public List<WebElement> Visit_Rows(){
+		wait_for_theElement(Visit_Rows);
 		return Visit_Rows;}
 		public WebElement Visit_ID_Cell(WebElement Row){
-		String Visit_ID_Cell_XPath = ".//td[2]"; 
-		WebElement Visit_ID_Cell = Row.findElement(By.xpath(Visit_ID_Cell_XPath));
+		
+		WebElement Visit_ID_Cell = Row.findElement(By.xpath(".//td[2]//a"));
 		wait_for_theElement(Visit_ID_Cell);
 		return Visit_ID_Cell;}
 		public WebElement Visit_Master_ID(){

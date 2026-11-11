@@ -31,8 +31,19 @@ public class Repeat {
 		JavascriptExecutor js = (JavascriptExecutor) d;
 
 	
-		js.executeScript("window.scrollBy(0, -180);");
-}
+		js.executeScript("window.scrollBy(0, -180);");  }
+	
+    
+	 public void Scroll_Down(){
+		
+		
+		JavascriptExecutor js = (JavascriptExecutor) d;
+
+	
+		js.executeScript("window.scrollBy(0, 200);");   }
+	
+	
+	
 	
 	public void React_Input_Value_Setter(WebElement element, String value) {
 

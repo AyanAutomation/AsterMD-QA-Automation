@@ -262,20 +262,33 @@ public void Intake_form_filling(TreeMap<String,String> Product_data) throws Inte
 	}
 
 	for(WebElement Treatment_Card : Treatment_Cards){
+		
 		String Treatment_Details = Treatment_Card.getText().trim();
+		
 		if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
+			
 			List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
+			
 			for(WebElement Start_Intake_Button : Start_Intake_Buttons){
+				
 				String Button_Text = Start_Intake_Button.getText().trim();
+				
 				if(Button_Text.contains("Intake")){
+					
 					Boolean Button_Visible = rp.check_element_visibility(Start_Intake_Button, 5);
 					Boolean Button_Enabled = Start_Intake_Button.isEnabled();
+					
 					if(Button_Visible && Button_Enabled){
+						
 						rp.movetoelement(Start_Intake_Button);
 						Start_Intake_Button.click();
+						
 						Report_Listen.log_print_in_report().info("Started Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
-						if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets")){
-							AsterRefluxa_Intake_Form(Product_data);
+						
+						if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraNova Migraine Wellness Tablets")){
+							
+							Fill_Five_Page_Intake_Form(Product_data);
+							
 							System.out.println("Patient Intake | Product: " + Product_Name + " | Result: COMPLETED");
 							Report_Listen.log_print_in_report().pass("Patient Intake completed | Patient: " + Patient_Name + " | Product: " + Product_Name);
 						}
@@ -292,7 +305,7 @@ public void Intake_form_filling(TreeMap<String,String> Product_data) throws Inte
 	Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: No usable matching Start Intake button.");
 }
 
-public void AsterRefluxa_Intake_Form(TreeMap<String,String> Product_data){
+public void Fill_Five_Page_Intake_Form(TreeMap<String,String> Product_data){
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);

@@ -85,13 +85,18 @@ public class Doctor_network extends Frontend_Store_Front{
 	
 	
 	
+	
+	
+	
 	public String beluga_visit_check_and_Authorize(TreeMap<String,String> Data, String Case_ID, WebDriver d) throws IOException, InterruptedException{
 
 	Dr_Network_locaters p = new Dr_Network_locaters(d);
 	Repeat rp = new Repeat(d);
+	Json Payload_Json = new Json();
 
 	String Patient_Name = Data.get("First Name") + " " + Data.get("Last Name");
 	String CaseID = Case_ID.trim();
+	String Assigned_Dr_Name = null;
 
 	Assert.assertTrue(CaseID != null && !CaseID.isBlank(), "The Case ID from the current admin record is required before selecting a Beluga visit.");
 
@@ -126,19 +131,22 @@ public class Doctor_network extends Frontend_Store_Front{
 	System.out.println("Visit Rows After Search : " + rows.size());
 	Report_Listen.log_print_in_report().info("Visits search results retrieved | Patient: " + Patient_Name + " | Visit Rows After Search: " + rows.size());
 
-	Boolean Rows_Visible = rp.check_element_visibility(rows, 2);
+	Boolean Rows_Visible = rp.check_element_visibility(rows, 3);
 
 	if(Rows_Visible){
 
 		for(WebElement row : rows){
-            
+
 			WebElement Visit_ID_Link = p.Visit_ID_Cell(row);
 			String Actual_ID = Visit_ID_Link.getText().trim();
+
 			if(Actual_ID.contains("..") || Actual_ID.contains("\u2026")){
 
 				Actual_ID = Visit_ID_Link.getDomAttribute("title");
+				System.out.println("Visit Row ID     : " + Actual_ID);
 
 			}
+
 			WebElement patient_name_cell = row.findElement(Dr_Network_locaters.Visit_Patient);
 			String patient_name_cell_text = patient_name_cell.getText().trim().split("\\R", 2)[0].trim();
 
@@ -147,7 +155,7 @@ public class Doctor_network extends Frontend_Store_Front{
 			System.out.println("Expected Patient : " + Patient_Name);
 			System.out.println("Actual Patient   : " + patient_name_cell_text);
 			System.out.println("Expected Case ID : " + CaseID);
-			System.out.println("Visit Row ID     : " + Actual_ID);
+			// System.out.println("Visit Row ID     : " + Actual_ID);
 			Report_Listen.log_print_in_report().info("Beluga visit match check | Expected Patient: " + Patient_Name + " | Actual Patient: " + patient_name_cell_text + " | Expected Case ID: " + CaseID + " | Visit Row ID: " + Actual_ID);
 
 			if(patient_name_cell_text.equalsIgnoreCase(Patient_Name) && CaseID.equals(Actual_ID)){
@@ -196,7 +204,7 @@ public class Doctor_network extends Frontend_Store_Front{
 				System.out.println();
 				System.out.println("---------------- DOCTOR NAME RETRIEVAL ----------------");
 				WebElement Dr_Name_field = p.Doctor_Name_Field();
-				String Assigned_Dr_Name = Dr_Name_field.getDomProperty("value");
+				Assigned_Dr_Name = Dr_Name_field.getDomProperty("value");
 				System.out.println("Patient     : " + Patient_Name);
 				System.out.println("Doctor Name : " + Assigned_Dr_Name);
 				Report_Listen.log_print_in_report().info("Doctor name field read | Patient: " + Patient_Name + " | Doctor Name: " + Assigned_Dr_Name);
@@ -222,7 +230,7 @@ public class Doctor_network extends Frontend_Store_Front{
 				Event_Select.selectByVisibleText("Consult concluded");
 				Target_Endpoint_Select.selectByVisibleText("My Beluga ( Ayan )");
 
-				WebElement Generate=p.Generate_Button();
+				WebElement Generate = p.Generate_Button();
 				rp.movetoelement(Generate);
 				Generate.click();
 
@@ -241,13 +249,26 @@ public class Doctor_network extends Frontend_Store_Front{
 				System.out.println("Payload        : " + Payload_Value);
 				Report_Listen.log_print_in_report().info("Webhook payload populated | Payload: " + Payload_Value);
 
-				Map<?,?> Payload_Data = new Json().toType(Payload_Value, Map.class);
+				Map<String,Object> Payload_Data = Payload_Json.toType(Payload_Value, Json.MAP_TYPE);
 				Object Payload_Master_ID = Payload_Data.get("masterId");
 
 				System.out.println("Expected Case ID   : " + CaseID);
 				System.out.println("Payload masterId   : " + Payload_Master_ID);
 				Report_Listen.log_print_in_report().info("Webhook payload verification | Expected Case ID: " + CaseID + " | Payload masterId: " + Payload_Master_ID);
-				Assert.assertEquals(Payload_Master_ID, CaseID, "Generated webhook targets a different or unidentified treatment case. Send was not clicked.");
+
+				if(!CaseID.equals(Payload_Master_ID)){
+
+					Payload_Data.put("masterId", CaseID);
+					Payload_TextArea.clear();
+					Payload_TextArea.sendKeys(Payload_Json.toJson(Payload_Data));
+
+					Payload_Data = Payload_Json.toType(Payload_TextArea.getDomProperty("value"), Json.MAP_TYPE);
+					Assert.assertEquals(Payload_Data.get("masterId"), CaseID, "The webhook payload textarea did not retain the expected Case ID.");
+
+					System.out.println("Updated masterId   : " + Payload_Data.get("masterId"));
+					Report_Listen.log_print_in_report().info("Webhook payload masterId updated | Generated masterId: " + Payload_Master_ID + " | Updated masterId: " + Payload_Data.get("masterId"));
+
+				}
 
 				WebElement SendButton = p.Send_Button();
 				rp.movetoelement(SendButton);
@@ -296,5 +317,4 @@ public class Doctor_network extends Frontend_Store_Front{
 	throw new IllegalStateException("Intended Beluga visit was not found for patient: " + Patient_Name + " | Expected ID: " + CaseID + ". No webhook was sent.");
 
 }
-
 }

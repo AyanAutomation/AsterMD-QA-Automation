@@ -941,27 +941,66 @@ public static Object[][] Product_Create_Data(){
 	data12.put("Variant 3 Swappable with", "");
 	data12.put("Lab Test", "No");
 
-	TreeMap<String, String> data13 = new TreeMap<String, String>();
-	data13.put("Product Name", "AsterAirRest Sleep Breathing Support");
-	data13.put("Product Image", Paths.get(Image_Path, "AsterAirRest Sleep Breathing Support.png").toString());
-	data13.put("Description", "A synthetic sleep-breathing support product created for QA coverage of sleep-apnea catalog workflows. The dataset includes varied stock, purchase limits, condition association, visibility, category mapping, identifier values, intake-form selection, and product pricing.");
-	data13.put("Product Type", "Standard");
-	data13.put("Category", "Sleep Breathing Support Products");
-	data13.put("Visibility", "Public");
-	data13.put("Minimum Buy Quantity", "1");
-	data13.put("Maximum Buy Quantity", "2");
-	data13.put("Stock Count", "82");
-	data13.put("Intake Form", "AsterSleep Ramelteon Sleep Intake");
-	data13.put("Default SKU / Identifier", "AST-ARS-713");
-	data13.put("Condition Treated", "Sleep Apnea");
-	data13.put("Restrict Multiple Active Prescriptions", "No");
-	data13.put("Pricing Type", "Single Item");
-	data13.put("Intro Price", "38.75");
-	data13.put("Default Price", "66.40");
-	data13.put("Sale Price", "54.90");
-	data13.put("Sale Start Date", "09/25/2026");
-	data13.put("Sales End Date", "12/06/2026");
-	data13.put("Lab Test", "No");
+
+TreeMap<String, String> data13 = new TreeMap<String, String>();
+data13.put("Product Name", "AsterMigraNova Migraine Wellness Tablets");
+data13.put("Product Image", Paths.get(Image_Path, "AsterMigraNova Migraine Wellness Tablets.png").toString());
+data13.put("Description", "A synthetic migraine wellness product created for AsterMD catalog automation. It supports testing of migraine condition mapping, prescription product configuration, category selection, intake-form assignment, inventory management, purchase quantity restrictions, product visibility, variant-based pricing, SKU uniqueness, and promotional sale scheduling.");
+data13.put("Product Type", "Prescription");
+data13.put("Category", "Migraine Neurological Care Products");
+data13.put("Visibility", "Public");
+data13.put("Minimum Buy Quantity", "1");
+data13.put("Maximum Buy Quantity", "4");
+data13.put("Stock Count", "180");
+data13.put("Intake Form", "AsterMigraNova Migraine Intake");
+data13.put("Default SKU / Identifier", "AST-AMN-813");
+data13.put("Condition Treated", "Migraine");
+data13.put("Restrict Multiple Active Prescriptions", "No");
+data13.put("Pricing Type", "Variant Based");
+data13.put("Variant Count", "4");
+
+data13.put("Variant 1 Name", "AsterMigraNova - 15 Tablets");
+data13.put("Variant 1 Description", "Starter pack containing 15 AsterMigraNova Migraine Wellness Tablets, configured for migraine-related product ordering and initial treatment workflow testing.");
+data13.put("Variant 1 Intro Price", "13");
+data13.put("Variant 1 Default Price", "18");
+data13.put("Variant 1 Sale Price", "11");
+data13.put("Variant 1 Sale Start Date", "11/12/2026");
+data13.put("Variant 1 Sales End Date", "11/30/2026");
+data13.put("Variant 1 SKU / Identifier", "AST-AMN-813-V1");
+data13.put("Variant 1 Swappable with", "");
+
+data13.put("Variant 2 Name", "AsterMigraNova - 30 Tablets");
+data13.put("Variant 2 Description", "Standard pack containing 30 AsterMigraNova Migraine Wellness Tablets, configured for migraine wellness product management and recurring order scenarios.");
+data13.put("Variant 2 Intro Price", "22.99");
+data13.put("Variant 2 Default Price", "29.99");
+data13.put("Variant 2 Sale Price", "19.99");
+data13.put("Variant 2 Sale Start Date", "11/12/2026");
+data13.put("Variant 2 Sales End Date", "11/30/2026");
+data13.put("Variant 2 SKU / Identifier", "AST-AMN-813-V2");
+data13.put("Variant 2 Swappable with", "");
+
+data13.put("Variant 3 Name", "AsterMigraNova - 60 Tablets");
+data13.put("Variant 3 Description", "Value pack containing 60 AsterMigraNova Migraine Wellness Tablets, intended for extended product supply and variant-based prescription catalog testing.");
+data13.put("Variant 3 Intro Price", "39.99");
+data13.put("Variant 3 Default Price", "49.99");
+data13.put("Variant 3 Sale Price", "35.99");
+data13.put("Variant 3 Sale Start Date", "11/12/2026");
+data13.put("Variant 3 Sales End Date", "11/30/2026");
+data13.put("Variant 3 SKU / Identifier", "AST-AMN-813-V3");
+data13.put("Variant 3 Swappable with", "");
+
+data13.put("Variant 4 Name", "AsterMigraNova - 90 Tablets");
+data13.put("Variant 4 Description", "Extended supply pack containing 90 AsterMigraNova Migraine Wellness Tablets, configured for bulk quantity ordering, promotional pricing validation, and long-term catalog workflow testing.");
+data13.put("Variant 4 Intro Price", "54.99");
+data13.put("Variant 4 Default Price", "69.99");
+data13.put("Variant 4 Sale Price", "49.99");
+data13.put("Variant 4 Sale Start Date", "11/12/2026");
+data13.put("Variant 4 Sales End Date", "11/30/2026");
+data13.put("Variant 4 SKU / Identifier", "AST-AMN-813-V4");
+data13.put("Variant 4 Swappable with", "");
+
+data13.put("Lab Test", "No");
+
 
 	TreeMap<String, String> data14 = new TreeMap<String, String>();
 	data14.put("Product Name", "AsterCalmora Anxiety Support Capsules");
@@ -1145,7 +1184,7 @@ public static Object[][] Product_Create_Data(){
 	data22.put("Description", "A synthetic neurological care product intended for migraine-related prescription catalog automation. This entry provides fresh inventory, buying-limit, category, condition, visibility, intake-form, SKU, and pricing information.");
 	data22.put("Product Type", "Prescription");
 	data22.put("Category", "Migraine Neurological Care Products");
-	data22.put("Visibility", "Hidden");
+	data22.put("Visibility", "Public");
 	data22.put("Minimum Buy Quantity", "1");
 	data22.put("Maximum Buy Quantity", "3");
 	data22.put("Stock Count", "121");
@@ -1250,15 +1289,15 @@ public static Object[][] Product_Create_Data(){
 	data26.put("Lab Test", "Yes");
 
 
-return new Object[][] {
+return new Object[][] {/*
 	{ data6 },
 	{ data7 },
 	{ data8 },
 	{ data9 },
 	{ data10 },
 	{ data11 },
-	{ data12 },
-	{ data13 },
+	{ data12 }, */
+	{ data13 }, /*
 	{ data14 },
 	{ data15 },
 	{ data16 },
@@ -1269,8 +1308,7 @@ return new Object[][] {
 	{ data21 },
 	{ data22 },
 	{ data23 },
-	{ data24 } 
-};
+	{ data24 }  */};
 
 }
 

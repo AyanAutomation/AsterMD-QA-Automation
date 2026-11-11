@@ -389,6 +389,10 @@ public class Treatment_Module extends Product_Module{
 
 	List<WebElement> Patient_Details_Rows = Patient_details_section.findElements(By.xpath(".//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css')]"));
 
+    Boolean If_Rows_visible = rp.check_element_visibility(Patient_Details_Rows, 5);	
+    
+    if(If_Rows_visible) {
+	
 	for(WebElement Patient_Details_Row : Patient_Details_Rows){
 
 		WebElement Label = Patient_Details_Row.findElement(By.xpath(".//span[contains(@class,'text-muted font-')]"));
@@ -420,7 +424,7 @@ public class Treatment_Module extends Product_Module{
 		System.out.println();
 		Actual_Data.put(Label_text, Values_text);
 
-	}
+	} }
 
 	String Treatment_Details_URL = d.getCurrentUrl();
 	String Case_ID = Actual_Data.get("Case ID");
@@ -440,7 +444,7 @@ public class Treatment_Module extends Product_Module{
 	Expected_Data.put("Medications", "Populated medication value other than None");
 
 	d.navigate().to(Treatment_Details_URL);
-
+    Thread.sleep(1800);
 	Sections = p.Treatment_Details_cards();
 	Patient_details_section = Sections.get(0);
 	Patient_Details_Rows = Patient_details_section.findElements(By.xpath(".//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css')]"));

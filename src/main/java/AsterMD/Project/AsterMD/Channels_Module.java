@@ -3812,8 +3812,8 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 	Report_Listen.log_print_in_report().info("Verifying doctor network configuration | Channel: " + ChannelName + " | Expected: My Beluga only");
 
 	Channel_Module_Accessor();
-	Thread.sleep(580);
-
+	Thread.sleep(880);
+	rp.Scroll_Down();
 	List<WebElement> Cards = p.All_Channel_Cards();
 
 	for(WebElement Card : Cards){
@@ -3841,7 +3841,7 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 
 	WebElement Form = p.Form();
 	Thread.sleep(880);
-
+    rp.Scroll_Down();
 	WebElement Provider_Section = Form.findElement(By.xpath(".//div[@id='providers']"));
 	rp.wait_for_theElement(Provider_Section);
 	rp.Scroll_to_element(Provider_Section);
