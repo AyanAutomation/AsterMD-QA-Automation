@@ -820,26 +820,26 @@ public Object[][] Storefront_Product_Data(){
 	data24.put(MigraNova_Impact_Key, "I have to pause or reduce activities");
 	data24.put(MigraNova_Previous_Treatment_Key, "Daily topiramate as prescribed reduced how often the headaches occur. A brief rest in a dark room helps during episodes.");
 
-	return new Object[][] {
-		{ data1 }, /*
+	return new Object[][] { /*
+		{ data1 }, 
 		{ data2 }, 
 		{ data3 },
 		{ data4 },
 		{ data5 },
-		{ data6 },
+		{ data6 }, 
 		{ data7 },
-		{ data8 },
-		{ data9 },
-		{ data10 },
+		{ data8 }, 
+		{ data9 }, 
+		{ data10 }, 
 		{ data11 },
 		{ data12 },
 		{ data13 },
-		{ data14 },
-		{ data15 },
+		{ data14 }, */
+		{ data15 }, /*
 		{ data21 },
 		{ data22 },
 		{ data23 },
-		{ data24 } */
+		{ data24 }  */
 	};
 }
 
