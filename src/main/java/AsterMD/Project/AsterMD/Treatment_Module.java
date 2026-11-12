@@ -155,7 +155,7 @@ public class Treatment_Module extends Product_Module{
 
 				rp.movetoelement(View_Button);
 				View_Button.click();
-
+                Thread.sleep(800);
 				Report_Listen.log_print_in_report().info("Clicked View button for matching patient: " + Patient_Name);
 
 				// Verify Admin Patient Details Against DataProvider
