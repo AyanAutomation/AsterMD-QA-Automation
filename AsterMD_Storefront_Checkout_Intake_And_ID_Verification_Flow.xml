@@ -1,8 +1,6 @@
-
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="AsterMD Complete Order and Patient Verification Flow" parallel="false" preserve-order="true">
 
-    <!-- STEP 1: Storefront Product Selection, Checkout and Order Placement -->
     <test name="Step 1 - Storefront Product Selection and Checkout" preserve-order="true">
         <classes>
             <class name="Store.Frontend_Store_Front">
@@ -13,20 +11,37 @@
         </classes>
     </test>
 
-    <!-- STEP 2: Five-Page Intake Submission Followed by ID Verification -->
     <test name="Step 2 - Patient Portal Intake Form Submission" preserve-order="true">
         <classes>
             <class name="Patient_Portal.Pateint_Portal">
                 <methods>
                     <include name="Intake_form_filling"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Step 3 - Admin Intake Form Check" preserve-order="true">
+        <classes>
+            <class name="AsterMD.Project.AsterMD.Treatment_Module">
+                <methods>
+                    <include name="Intake_form_Admin_Check"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Step 4 - Patient Portal ID Verification" preserve-order="true">
+        <classes>
+            <class name="Patient_Portal.Pateint_Portal">
+                <methods>
                     <include name="Veirfy_Id_form_filling"/>
                 </methods>
             </class>
         </classes>
     </test>
 
-    <!-- STEP 3: Admin Treatment Module Patient Details Verification -->
-    <test name="Step 3 - Admin Treatment Patient Details Verification" preserve-order="true">
+    <test name="Step 5 - Admin Treatment Patient Details Verification" preserve-order="true">
         <classes>
             <class name="AsterMD.Project.AsterMD.Treatment_Module">
                 <methods>
@@ -35,5 +50,5 @@
             </class>
         </classes>
     </test>
-         
+
 </suite>
