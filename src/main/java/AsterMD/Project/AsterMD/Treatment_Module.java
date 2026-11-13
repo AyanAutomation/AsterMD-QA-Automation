@@ -102,12 +102,11 @@ public class Treatment_Module extends Product_Module{
 }
 
 
+  @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
+  public void Treatment_Patient_Details_Check(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
-    @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
-    public void Treatment_Patient_Details_Check(TreeMap<String,String> data) throws Exception{
-
-	String Patient_Name = data.get("First Name") + " " + data.get("Last Name");
-	Repeat rp = new Repeat(d);
+  	String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
+  	Repeat rp = new Repeat(d);
 
 	System.out.println();
 	System.out.println("============================================================");
@@ -166,7 +165,7 @@ public class Treatment_Module extends Product_Module{
 
 				Report_Listen.log_print_in_report().info("Starting Admin Patient Details field-by-field comparison for: " + Patient_Name);
 
-				Admin_Patient_Details_Verification(data);
+				Admin_Patient_Details_Verification(Patient_Data, Product_Data);
 
 				// Final Verification Result
 				System.out.println();
@@ -201,14 +200,14 @@ public class Treatment_Module extends Product_Module{
     
     
 
-         @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
-         public void Intake_form_Admin_Check(TreeMap<String,String> data) throws Exception{
+   @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
+   public void Intake_form_Admin_Check(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
-	Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
-	Repeat rp = new Repeat(d);
+  	Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
+  	Repeat rp = new Repeat(d);
 
-	String Patient_Name = data.get("First Name") + " " + data.get("Last Name");
-	String Product_Name = data.get("Product Name");
+  	String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
+  	String Product_Name = Product_Data.get("Product Name");
 
 	System.out.println();
 	System.out.println("============================================================");
@@ -352,27 +351,30 @@ public class Treatment_Module extends Product_Module{
       
       
 
-    public void Admin_Patient_Details_Verification(TreeMap<String,String> data) throws IOException, InterruptedException{
+   public void Admin_Patient_Details_Verification(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws IOException, InterruptedException{
 
-	Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
-	Repeat rp = new Repeat(d);
-	Doctor_network Dr_Network = new Doctor_network();
+    Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
+    Repeat rp = new Repeat(d);
+    Doctor_network Dr_Network = new Doctor_network();
 
-	TreeMap<String,String> Expected_Data = new TreeMap<String,String>();
-	TreeMap<String,String> Actual_Data = new TreeMap<String,String>();
+    TreeMap<String,String> Expected_Data = new TreeMap<String,String>();
+    TreeMap<String,String> Actual_Data = new TreeMap<String,String>();
+    TreeMap<String,String> Beluga_Data = new TreeMap<String,String>(Patient_Data);
 
-	String Product_Name = data.getOrDefault("Product Name", "");
+    String Product_Name = Product_Data.getOrDefault("Product Name", "");
 
-	Expected_Data.put("First Name", data.get("First Name"));
-	Expected_Data.put("Last Name", data.get("Last Name"));
-	Expected_Data.put("Email", data.get("Email"));
-	Expected_Data.put("Phone", data.get("Phone").replaceAll("\\D", ""));
-	Expected_Data.put("Date of Birth", data.get("Date of Birth"));
-	Expected_Data.put("Gender", data.get("Biological Sex at Birth"));
-	Expected_Data.put("Height", data.get("Height"));
-	Expected_Data.put("Weight", data.get("Weight"));
+    Expected_Data.put("First Name", Patient_Data.get("First Name"));
+    Expected_Data.put("Last Name", Patient_Data.get("Last Name"));
+    Expected_Data.put("Email", Patient_Data.get("Email"));
+    Expected_Data.put("Phone", Patient_Data.get("Phone").replaceAll("\\D", ""));
+    Expected_Data.put("Date of Birth", Patient_Data.get("Date of Birth"));
+    Expected_Data.put("Gender", Patient_Data.get("Biological Sex at Birth"));
+    Expected_Data.put("Height", Patient_Data.get("Height"));
+    Expected_Data.put("Weight", Patient_Data.get("Weight"));
 
-	String Patient_Name = Expected_Data.get("First Name") + " " + Expected_Data.get("Last Name");
+     String Patient_Name = Expected_Data.get("First Name") + " " + Expected_Data.get("Last Name");
+     
+     
 
 	System.out.println();
 	System.out.println("---------------- ADMIN PATIENT DETAILS VERIFICATION ----------------");
@@ -437,7 +439,7 @@ public class Treatment_Module extends Product_Module{
 	System.out.println("Before Medications : " + Before_Medications);
 	Report_Listen.log_print_in_report().info("Before webhook | Case ID: " + Case_ID + " | Doctor: " + Before_Doctor + " | Status: " + Before_Status + " | Medications: " + Before_Medications);
 
-	String Assigned_Dr_Name = Dr_Network.beluga_visit_check_and_Authorize(data, Case_ID,d);
+	String Assigned_Dr_Name = Dr_Network.beluga_visit_check_and_Authorize(Patient_Data, Case_ID,d);
 
 	Expected_Data.put("Doctor", Assigned_Dr_Name);
 	Expected_Data.put("Status", "Approved For Treatment");

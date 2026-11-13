@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.TreeMap;
+import java.util.stream.IntStream;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -35,812 +36,887 @@ public class Frontend_Store_Front extends Patient_Module {
 	
 
 
+	@DataProvider
+	public Object[][] Storefront_Patient_Details_Data(){
 
+		TreeMap<String,String> Shared_Patient_Data = new TreeMap<String,String>();
+		Shared_Patient_Data.put("Delivery Country", "United States");
+		Shared_Patient_Data.put("Card Number", "1444444444444440");
+		Shared_Patient_Data.put("Expiry Date", "12/29");
+		Shared_Patient_Data.put("Security Code", "123");
+		Shared_Patient_Data.put("Patient Password", "Password@123");
+		Shared_Patient_Data.put("Weight Loss Goal", "21-50 lbs");
+		Shared_Patient_Data.put("Biological Sex at Birth", "Female");
+
+		TreeMap<String,String> Boston_Patient_Data = new TreeMap<String,String>(Shared_Patient_Data);
+		Boston_Patient_Data.put("State", "Massachusetts");
+		Boston_Patient_Data.put("Residential State", "MA");
+		Boston_Patient_Data.put("Current Location State", "MA");
+		Boston_Patient_Data.put("Unit System", "Imperial (lbs/inches)");
+		Boston_Patient_Data.put("City", "Boston");
+		Boston_Patient_Data.put("Delivery State", "Massachusetts");
+		Boston_Patient_Data.put("Zipcode", "02108");
+		Boston_Patient_Data.put("ZIP Code", "02108");
+		Boston_Patient_Data.put("SSN", "1234");
+
+		// Patient 1
+		TreeMap<String,String> Patient_1 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_1.put("First Name", "Maeve");
+		Patient_1.put("Last Name", "Whitaker");
+		Patient_1.put("Email", "maeve.whitaker.astermd261112batch1020@yopmail.com");
+		Patient_1.put("Phone", "3125550120");
+		Patient_1.put("Date of Birth", "06/12/1992");
+		Patient_1.put("State", "Washington");
+		Patient_1.put("Residential State", "WA");
+		Patient_1.put("Current Location State", "WA");
+		Patient_1.put("Unit System", "Imperial (lbs/inches)");
+		Patient_1.put("Height", "65");
+		Patient_1.put("Weight", "143");
+		Patient_1.put("Address", "1301 QA Pine Avenue");
+		Patient_1.put("City", "Seattle");
+		Patient_1.put("Delivery State", "Washington");
+		Patient_1.put("Zipcode", "98101");
+		Patient_1.put("ZIP Code", "98101");
+		Patient_1.put("Cardholder Name", "Maeve Whitaker");
+		Patient_1.put("SSN", "1234");
+		Patient_1.put("ID Verification Image", "ID_Verification_data01.png");
+
+		// Patient 2
+		TreeMap<String,String> Patient_2 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_2.put("First Name", "Alina");
+		Patient_2.put("Last Name", "Brookfield");
+		Patient_2.put("Email", "alina.brookfield.astermd261112batch1021@yopmail.com");
+		Patient_2.put("Phone", "3125550121");
+		Patient_2.put("Date of Birth", "04/19/1995");
+		Patient_2.put("State", "Illinois");
+		Patient_2.put("Residential State", "IL");
+		Patient_2.put("Current Location State", "IL");
+		Patient_2.put("Unit System", "Imperial (lbs/inches)");
+		Patient_2.put("Height", "66");
+		Patient_2.put("Weight", "151");
+		Patient_2.put("Address", "1302 QA Lake Avenue");
+		Patient_2.put("City", "Chicago");
+		Patient_2.put("Delivery State", "Illinois");
+		Patient_2.put("Zipcode", "60601");
+		Patient_2.put("ZIP Code", "60601");
+		Patient_2.put("Cardholder Name", "Alina Brookfield");
+		Patient_2.put("SSN", "1234");
+		Patient_2.put("ID Verification Image", "ID_Verification_data02.png");
+
+		// Patient 3
+		TreeMap<String,String> Patient_3 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_3.put("First Name", "Blythe");
+		Patient_3.put("Last Name", "Penrose");
+		Patient_3.put("Email", "blythe.penrose.astermd261112batch1022@yopmail.com");
+		Patient_3.put("Phone", "3125550122");
+		Patient_3.put("Date of Birth", "10/22/1988");
+		Patient_3.put("State", "Colorado");
+		Patient_3.put("Residential State", "CO");
+		Patient_3.put("Current Location State", "CO");
+		Patient_3.put("Unit System", "Imperial (lbs/inches)");
+		Patient_3.put("Height", "67");
+		Patient_3.put("Weight", "149");
+		Patient_3.put("Address", "1303 QA Oak Street");
+		Patient_3.put("City", "Denver");
+		Patient_3.put("Delivery State", "Colorado");
+		Patient_3.put("Zipcode", "80202");
+		Patient_3.put("ZIP Code", "80202");
+		Patient_3.put("Cardholder Name", "Blythe Penrose");
+		Patient_3.put("SSN", "1234");
+		Patient_3.put("ID Verification Image", "ID_Verification_data03.png");
+
+		// Patient 4
+		TreeMap<String,String> Patient_4 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_4.put("First Name", "Bridget");
+		Patient_4.put("Last Name", "Sloane");
+		Patient_4.put("Email", "bridget.sloane.astermd261112batch1023@yopmail.com");
+		Patient_4.put("Phone", "3125550123");
+		Patient_4.put("Date of Birth", "03/17/1991");
+		Patient_4.put("State", "Arizona");
+		Patient_4.put("Residential State", "AZ");
+		Patient_4.put("Current Location State", "AZ");
+		Patient_4.put("Unit System", "Imperial (lbs/inches)");
+		Patient_4.put("Height", "64");
+		Patient_4.put("Weight", "139");
+		Patient_4.put("Address", "1304 QA Desert Lane");
+		Patient_4.put("City", "Phoenix");
+		Patient_4.put("Delivery State", "Arizona");
+		Patient_4.put("Zipcode", "85004");
+		Patient_4.put("ZIP Code", "85004");
+		Patient_4.put("Cardholder Name", "Bridget Sloane");
+		Patient_4.put("SSN", "1234");
+		Patient_4.put("ID Verification Image", "ID_Verification_data04.png");
+
+		// Patient 5
+		TreeMap<String,String> Patient_5 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_5.put("First Name", "Naomi");
+		Patient_5.put("Last Name", "Hensley");
+		Patient_5.put("Email", "naomi.hensley.astermd261112batch1024@yopmail.com");
+		Patient_5.put("Phone", "3125550124");
+		Patient_5.put("Date of Birth", "12/08/1993");
+		Patient_5.put("State", "Oregon");
+		Patient_5.put("Residential State", "OR");
+		Patient_5.put("Current Location State", "OR");
+		Patient_5.put("Unit System", "Imperial (lbs/inches)");
+		Patient_5.put("Height", "65");
+		Patient_5.put("Weight", "146");
+		Patient_5.put("Address", "1305 QA River Road");
+		Patient_5.put("City", "Portland");
+		Patient_5.put("Delivery State", "Oregon");
+		Patient_5.put("Zipcode", "97204");
+		Patient_5.put("ZIP Code", "97204");
+		Patient_5.put("Cardholder Name", "Naomi Hensley");
+		Patient_5.put("SSN", "1234");
+		Patient_5.put("ID Verification Image", "ID_Verification_data05.png");
+
+		// Patient 6
+		TreeMap<String,String> Patient_6 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_6.put("First Name", "Serena");
+		Patient_6.put("Last Name", "Northcott");
+		Patient_6.put("Email", "serena.northcott.astermd261112batch1025@yopmail.com");
+		Patient_6.put("Phone", "3125550125");
+		Patient_6.put("Date of Birth", "07/24/1990");
+		Patient_6.put("State", "California");
+		Patient_6.put("Residential State", "CA");
+		Patient_6.put("Current Location State", "CA");
+		Patient_6.put("Unit System", "Imperial (lbs/inches)");
+		Patient_6.put("Height", "66");
+		Patient_6.put("Weight", "155");
+		Patient_6.put("Address", "1306 QA Harbor Drive");
+		Patient_6.put("City", "San Diego");
+		Patient_6.put("Delivery State", "California");
+		Patient_6.put("Zipcode", "92101");
+		Patient_6.put("ZIP Code", "92101");
+		Patient_6.put("Cardholder Name", "Serena Northcott");
+		Patient_6.put("SSN", "1234");
+		Patient_6.put("ID Verification Image", "ID_Verification_data06.png");
+
+		// Patient 7
+		TreeMap<String,String> Patient_7 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_7.put("First Name", "Keira");
+		Patient_7.put("Last Name", "Ellington");
+		Patient_7.put("Email", "keira.ellington.astermd261112batch1026@yopmail.com");
+		Patient_7.put("Phone", "3125550126");
+		Patient_7.put("Date of Birth", "02/11/1996");
+		Patient_7.put("State", "Florida");
+		Patient_7.put("Residential State", "FL");
+		Patient_7.put("Current Location State", "FL");
+		Patient_7.put("Unit System", "Imperial (lbs/inches)");
+		Patient_7.put("Height", "68");
+		Patient_7.put("Weight", "158");
+		Patient_7.put("Address", "1307 QA Franklin Street");
+		Patient_7.put("City", "Tampa");
+		Patient_7.put("Delivery State", "Florida");
+		Patient_7.put("Zipcode", "33602");
+		Patient_7.put("ZIP Code", "33602");
+		Patient_7.put("Cardholder Name", "Keira Ellington");
+		Patient_7.put("SSN", "1234");
+		Patient_7.put("ID Verification Image", "ID_Verification_data07.png");
+
+		// Patient 8
+		TreeMap<String,String> Patient_8 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_8.put("First Name", "Matilda");
+		Patient_8.put("Last Name", "Hawthorne");
+		Patient_8.put("Email", "matilda.hawthorne.astermd261112batch1027@yopmail.com");
+		Patient_8.put("Phone", "3125550127");
+		Patient_8.put("Date of Birth", "01/19/1990");
+		Patient_8.put("State", "New York");
+		Patient_8.put("Residential State", "NY");
+		Patient_8.put("Current Location State", "NY");
+		Patient_8.put("Unit System", "Imperial (lbs/inches)");
+		Patient_8.put("Height", "65");
+		Patient_8.put("Weight", "144");
+		Patient_8.put("Address", "1308 QA Madison Avenue");
+		Patient_8.put("City", "New York");
+		Patient_8.put("Delivery State", "New York");
+		Patient_8.put("Zipcode", "10001");
+		Patient_8.put("ZIP Code", "10001");
+		Patient_8.put("Cardholder Name", "Matilda Hawthorne");
+		Patient_8.put("SSN", "1234");
+		Patient_8.put("ID Verification Image", "ID_Verification_data08.png");
+
+		// Patient 9
+		TreeMap<String,String> Patient_9 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_9.put("First Name", "Elise");
+		Patient_9.put("Last Name", "Fairchild");
+		Patient_9.put("Email", "elise.fairchild.astermd261112batch1028@yopmail.com");
+		Patient_9.put("Phone", "3125550128");
+		Patient_9.put("Date of Birth", "11/14/1994");
+		Patient_9.put("State", "Texas");
+		Patient_9.put("Residential State", "TX");
+		Patient_9.put("Current Location State", "TX");
+		Patient_9.put("Unit System", "Imperial (lbs/inches)");
+		Patient_9.put("Height", "67");
+		Patient_9.put("Weight", "152");
+		Patient_9.put("Address", "1309 QA Congress Avenue");
+		Patient_9.put("City", "Austin");
+		Patient_9.put("Delivery State", "Texas");
+		Patient_9.put("Zipcode", "78701");
+		Patient_9.put("ZIP Code", "78701");
+		Patient_9.put("Cardholder Name", "Elise Fairchild");
+		Patient_9.put("SSN", "1234");
+		Patient_9.put("ID Verification Image", "ID_Verification_data09.png");
+
+		// Patient 10
+		TreeMap<String,String> Patient_10 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_10.put("First Name", "Astrid");
+		Patient_10.put("Last Name", "Redmond");
+		Patient_10.put("Email", "astrid.redmond.astermd261112batch1029@yopmail.com");
+		Patient_10.put("Phone", "3125550129");
+		Patient_10.put("Date of Birth", "05/05/1989");
+		Patient_10.put("State", "Massachusetts");
+		Patient_10.put("Residential State", "MA");
+		Patient_10.put("Current Location State", "MA");
+		Patient_10.put("Unit System", "Imperial (lbs/inches)");
+		Patient_10.put("Height", "66");
+		Patient_10.put("Weight", "148");
+		Patient_10.put("Address", "1310 QA Beacon Street");
+		Patient_10.put("City", "Boston");
+		Patient_10.put("Delivery State", "Massachusetts");
+		Patient_10.put("Zipcode", "02108");
+		Patient_10.put("ZIP Code", "02108");
+		Patient_10.put("Cardholder Name", "Astrid Redmond");
+		Patient_10.put("SSN", "1234");
+		Patient_10.put("ID Verification Image", "ID_Verification_data10.png");
+
+		// Patient 11
+		TreeMap<String,String> Patient_11 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_11.put("First Name", "Sylvie");
+		Patient_11.put("Last Name", "Delaney");
+		Patient_11.put("Email", "sylvie.delaney.astermd261112batch1030@yopmail.com");
+		Patient_11.put("Phone", "3125550130");
+		Patient_11.put("Date of Birth", "09/02/1995");
+		Patient_11.put("State", "Minnesota");
+		Patient_11.put("Residential State", "MN");
+		Patient_11.put("Current Location State", "MN");
+		Patient_11.put("Unit System", "Imperial (lbs/inches)");
+		Patient_11.put("Height", "64");
+		Patient_11.put("Weight", "137");
+		Patient_11.put("Address", "1311 QA Hennepin Avenue");
+		Patient_11.put("City", "Minneapolis");
+		Patient_11.put("Delivery State", "Minnesota");
+		Patient_11.put("Zipcode", "55401");
+		Patient_11.put("ZIP Code", "55401");
+		Patient_11.put("Cardholder Name", "Sylvie Delaney");
+		Patient_11.put("SSN", "1234");
+		Patient_11.put("ID Verification Image", "ID_Verification_data11.png");
+
+		// Patient 12
+		TreeMap<String,String> Patient_12 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_12.put("First Name", "Vivian");
+		Patient_12.put("Last Name", "Langley");
+		Patient_12.put("Email", "vivian.langley.astermd261112batch1031@yopmail.com");
+		Patient_12.put("Phone", "3125550131");
+		Patient_12.put("Date of Birth", "08/18/1992");
+		Patient_12.put("State", "Georgia");
+		Patient_12.put("Residential State", "GA");
+		Patient_12.put("Current Location State", "GA");
+		Patient_12.put("Unit System", "Imperial (lbs/inches)");
+		Patient_12.put("Height", "68");
+		Patient_12.put("Weight", "161");
+		Patient_12.put("Address", "1312 QA Peachtree Street");
+		Patient_12.put("City", "Atlanta");
+		Patient_12.put("Delivery State", "Georgia");
+		Patient_12.put("Zipcode", "30303");
+		Patient_12.put("ZIP Code", "30303");
+		Patient_12.put("Cardholder Name", "Vivian Langley");
+		Patient_12.put("SSN", "1234");
+		Patient_12.put("ID Verification Image", "ID_Verification_data12.png");
+
+		// Patient 13
+		TreeMap<String,String> Patient_13 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_13.put("First Name", "Elodie");
+		Patient_13.put("Last Name", "Prescott");
+		Patient_13.put("Email", "elodie.prescott.astermd261112batch1032@yopmail.com");
+		Patient_13.put("Phone", "3125550132");
+		Patient_13.put("Date of Birth", "04/29/1987");
+		Patient_13.put("State", "North Carolina");
+		Patient_13.put("Residential State", "NC");
+		Patient_13.put("Current Location State", "NC");
+		Patient_13.put("Unit System", "Imperial (lbs/inches)");
+		Patient_13.put("Height", "65");
+		Patient_13.put("Weight", "150");
+		Patient_13.put("Address", "1313 QA Tryon Street");
+		Patient_13.put("City", "Charlotte");
+		Patient_13.put("Delivery State", "North Carolina");
+		Patient_13.put("Zipcode", "28202");
+		Patient_13.put("ZIP Code", "28202");
+		Patient_13.put("Cardholder Name", "Elodie Prescott");
+		Patient_13.put("SSN", "1234");
+		Patient_13.put("ID Verification Image", "ID_Verification_data13.png");
+
+		// Patient 14
+		TreeMap<String,String> Patient_14 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_14.put("First Name", "Juliette");
+		Patient_14.put("Last Name", "Sinclair");
+		Patient_14.put("Email", "juliette.sinclair.astermd261112batch1033@yopmail.com");
+		Patient_14.put("Phone", "3125550133");
+		Patient_14.put("Date of Birth", "12/03/1996");
+		Patient_14.put("State", "Ohio");
+		Patient_14.put("Residential State", "OH");
+		Patient_14.put("Current Location State", "OH");
+		Patient_14.put("Unit System", "Imperial (lbs/inches)");
+		Patient_14.put("Height", "66");
+		Patient_14.put("Weight", "142");
+		Patient_14.put("Address", "1314 QA High Street");
+		Patient_14.put("City", "Columbus");
+		Patient_14.put("Delivery State", "Ohio");
+		Patient_14.put("Zipcode", "43215");
+		Patient_14.put("ZIP Code", "43215");
+		Patient_14.put("Cardholder Name", "Juliette Sinclair");
+		Patient_14.put("SSN", "1234");
+		Patient_14.put("ID Verification Image", "ID_Verification_data14.png");
+
+		// Patient 15
+		TreeMap<String,String> Patient_15 = new TreeMap<String,String>(Shared_Patient_Data);
+		Patient_15.put("First Name", "Margot");
+		Patient_15.put("Last Name", "Merriweather");
+		Patient_15.put("Email", "margot.merriweather.astermd261112batch1034@yopmail.com");
+		Patient_15.put("Phone", "3125550134");
+		Patient_15.put("Date of Birth", "07/09/1991");
+		Patient_15.put("State", "Pennsylvania");
+		Patient_15.put("Residential State", "PA");
+		Patient_15.put("Current Location State", "PA");
+		Patient_15.put("Unit System", "Imperial (lbs/inches)");
+		Patient_15.put("Height", "65");
+		Patient_15.put("Weight", "147");
+		Patient_15.put("Address", "1315 QA Market Street");
+		Patient_15.put("City", "Philadelphia");
+		Patient_15.put("Delivery State", "Pennsylvania");
+		Patient_15.put("Zipcode", "19103");
+		Patient_15.put("ZIP Code", "19103");
+		Patient_15.put("Cardholder Name", "Margot Merriweather");
+		Patient_15.put("SSN", "1234");
+		Patient_15.put("ID Verification Image", "ID_Verification_data15.png");
+
+		// Patient 21
+		TreeMap<String,String> Patient_21 = new TreeMap<String,String>(Boston_Patient_Data);
+		Patient_21.put("First Name", "Phoebe");
+		Patient_21.put("Last Name", "Halstead");
+		Patient_21.put("Email", "phoebe.halstead.astermd261112batch1035@yopmail.com");
+		Patient_21.put("Phone", "3125550135");
+		Patient_21.put("Date of Birth", "02/24/1993");
+		Patient_21.put("Height", "65");
+		Patient_21.put("Weight", "143");
+		Patient_21.put("Address", "1322 QA Beacon Street");
+		Patient_21.put("Cardholder Name", "Phoebe Halstead");
+		Patient_21.put("ID Verification Image", "ID_Verification_data10.png");
+
+		// Patient 22
+		TreeMap<String,String> Patient_22 = new TreeMap<String,String>(Boston_Patient_Data);
+		Patient_22.put("First Name", "Audrey");
+		Patient_22.put("Last Name", "Fenwick");
+		Patient_22.put("Email", "audrey.fenwick.astermd261112batch1036@yopmail.com");
+		Patient_22.put("Phone", "3125550136");
+		Patient_22.put("Date of Birth", "09/16/1990");
+		Patient_22.put("Height", "66");
+		Patient_22.put("Weight", "151");
+		Patient_22.put("Address", "1323 QA Charles Street");
+		Patient_22.put("Cardholder Name", "Audrey Fenwick");
+		Patient_22.put("ID Verification Image", "ID_Verification_data11.png");
+
+		// Patient 23
+		TreeMap<String,String> Patient_23 = new TreeMap<String,String>(Boston_Patient_Data);
+		Patient_23.put("First Name", "Nina");
+		Patient_23.put("Last Name", "Bellamy");
+		Patient_23.put("Email", "nina.bellamy.astermd261112batch1037@yopmail.com");
+		Patient_23.put("Phone", "3125550137");
+		Patient_23.put("Date of Birth", "07/08/1995");
+		Patient_23.put("Height", "67");
+		Patient_23.put("Weight", "149");
+		Patient_23.put("Address", "1324 QA Park Street");
+		Patient_23.put("Cardholder Name", "Nina Bellamy");
+		Patient_23.put("ID Verification Image", "ID_Verification_data12.png");
+
+		// Patient 24
+		TreeMap<String,String> Patient_24 = new TreeMap<String,String>(Boston_Patient_Data);
+		Patient_24.put("First Name", "Livia");
+		Patient_24.put("Last Name", "Kenwood");
+		Patient_24.put("Email", "livia.kenwood.astermd261112batch1038@yopmail.com");
+		Patient_24.put("Phone", "3125550138");
+		Patient_24.put("Date of Birth", "11/19/1991");
+		Patient_24.put("Height", "64");
+		Patient_24.put("Weight", "157");
+		Patient_24.put("Address", "1325 QA Temple Street");
+		Patient_24.put("Cardholder Name", "Livia Kenwood");
+		Patient_24.put("ID Verification Image", "ID_Verification_data13.png");
+
+		return new Object[][] {
+			{ Patient_1 }, /*
+			{ Patient_2 },
+			{ Patient_3 },
+			{ Patient_4 },
+			{ Patient_5 },
+			{ Patient_6 },
+			{ Patient_7 },
+			{ Patient_8 },
+			{ Patient_9 },
+			{ Patient_10 },
+			{ Patient_11 },
+			{ Patient_12 },
+			{ Patient_13 },
+			{ Patient_14 },
+			{ Patient_15 },
+			{ Patient_21 },
+			{ Patient_22 },
+			{ Patient_23 },
+			{ Patient_24 }, */
+		};
+	}
    
+	
+	
+	@DataProvider
+	public Object[][] Storefront_Product_Variant_And_Intake_Data(){
+
+		String Medication_Question_Key = "Intake Q&A - Are you currently taking any of the following medicines or supplements, either regularly or as needed? Select all that apply. Select None only if you take no medicines or supplements.";
+		String Medication_Details_Key = "Intake Q&A - List all medicines and supplements you currently take, including doses and frequency. Enter None if you take none.";
+
+		TreeMap<String,String> Shared_Intake_Data = new TreeMap<String,String>();
+		Shared_Intake_Data.put("Intake Q&A - Are you pregnant, breastfeeding, or planning a pregnancy?", "No");
+
+		// AsterSomnera - Sleep Intake Questions
+		TreeMap<String,String> Sleep_Intake_Data = new TreeMap<String,String>();
+		Sleep_Intake_Data.put("Intake Reason", "Sleep or insomnia");
+		Sleep_Intake_Data.put("Intake Q&A - What is your main sleep difficulty?", "Falling asleep");
+		Sleep_Intake_Data.put("Intake Q&A - How long have you had this sleep difficulty?", "3 months or longer");
+		Sleep_Intake_Data.put("Intake Q&A - How many nights a week do you have difficulty sleeping?", "3-4 nights");
+		Sleep_Intake_Data.put("Intake Q&A - How much does poor sleep affect your daytime activities?", "Mildly");
+		Sleep_Intake_Data.put("Intake Q&A - Do you snore loudly, wake up gasping, or have a diagnosis of sleep apnea?", "No");
+		Sleep_Intake_Data.put("Intake Q&A - Describe the treatments or changes you have tried for sleep and how they worked. Enter None if you have tried none.", "Tried a regular bedtime and reduced evening screen time; sleep difficulty continues.");
+
+		// AsterMigraEase - Migraine Intake Questions
+		TreeMap<String,String> Migraine_Intake_Data = new TreeMap<String,String>();
+		Migraine_Intake_Data.put("Intake Reason", "Migraine or recurring headaches");
+		Migraine_Intake_Data.put("Intake Q&A - Has a clinician previously diagnosed you with migraine?", "No");
+		Migraine_Intake_Data.put("Intake Q&A - On how many days a month do you have a headache?", "1-3 days");
+		Migraine_Intake_Data.put("Intake Q&A - How long does a typical headache last?", "4-24 hours");
+		Migraine_Intake_Data.put("Intake Q&A - Describe your usual headache: where it hurts, severity, and any nausea, light or sound sensitivity, visual changes, or other symptoms.", "Recurring moderate one-sided headache with light sensitivity and occasional nausea; no new visual symptoms.");
+		Migraine_Intake_Data.put("Intake Q&A - Do you currently have a sudden extremely severe headache, new weakness, difficulty speaking, confusion, or loss of vision?", "No");
+		Migraine_Intake_Data.put("Intake Q&A - List headache treatments you have tried, how often you use them, and how they worked. Enter None if you have tried none.", "Tried rest in a dark room and hydration during headache episodes with partial relief.");
+
+		// AsterRefluxa - Reflux Intake Questions
+		TreeMap<String,String> Reflux_Intake_Data = new TreeMap<String,String>();
+		Reflux_Intake_Data.put("Intake Reason", "Heartburn or acid reflux");
+		Reflux_Intake_Data.put("Intake Q&A - Which symptom is most troublesome?", "Both");
+		Reflux_Intake_Data.put("Intake Q&A - How long have you had these symptoms?", "3 months or longer");
+		Reflux_Intake_Data.put("Intake Q&A - How often do you experience these symptoms?", "1-2 days a week");
+		Reflux_Intake_Data.put("Intake Q&A - Have you had difficulty or pain when swallowing, persistent vomiting, blood in vomit, black stools, or unexplained weight loss?", "No");
+		Reflux_Intake_Data.put("Intake Q&A - Describe reflux treatments or lifestyle changes you have tried and how they worked. Enter None if you have tried none.", "Tried smaller meals and avoiding late-night food with partial relief.");
+
+		// Product 1 - AsterSomnera - 30 Tablet Supply
+		TreeMap<String,String> Product_1 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_1.put("Product Name", "AsterSomnera Sleep Support Tablets");
+		Product_1.put("Treatment Variant", "30 Tablet Supply");
+		Product_1.put("Subscription Type", "One-Time Sale");
+		Product_1.put("Expected Price", "40.00");
+		Product_1.put("VRIO Offer ID", "");
+		Product_1.put("VRIO Product ID", "");
+		Product_1.put("Notes", "I would like to discuss sleep quality, occasional sleeplessness, and appropriate sleep support options.");
+		Product_1.put(Medication_Question_Key, "Melatonin");
+		Product_1.put(Medication_Details_Key, "Melatonin, dose unknown, taken on some nights.");
+		Product_1.putAll(Sleep_Intake_Data);
+
+		// Product 2 - AsterSomnera - 60 Tablet Supply
+		TreeMap<String,String> Product_2 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_2.put("Product Name", "AsterSomnera Sleep Support Tablets");
+		Product_2.put("Treatment Variant", "60 Tablet Supply");
+		Product_2.put("Subscription Type", "One-Time Sale");
+		Product_2.put("Expected Price", "74.00");
+		Product_2.put("VRIO Offer ID", "");
+		Product_2.put("VRIO Product ID", "");
+		Product_2.put("Notes", "I would like information about irregular sleep patterns, sleep treatment precautions, and improving nighttime rest.");
+		Product_2.put(Medication_Question_Key, "Diphenhydramine");
+		Product_2.put(Medication_Details_Key, "Diphenhydramine, dose unknown, taken occasionally.");
+		Product_2.putAll(Sleep_Intake_Data);
+
+		// Product 3 - AsterSomnera - 90 Tablet Supply
+		TreeMap<String,String> Product_3 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_3.put("Product Name", "AsterSomnera Sleep Support Tablets");
+		Product_3.put("Treatment Variant", "90 Tablet Supply");
+		Product_3.put("Subscription Type", "One-Time Sale");
+		Product_3.put("Expected Price", "106.00");
+		Product_3.put("VRIO Offer ID", "");
+		Product_3.put("VRIO Product ID", "");
+		Product_3.put("Notes", "I would like to discuss long-term sleep support, treatment eligibility, possible side effects, and follow-up care.");
+		Product_3.put(Medication_Question_Key, "Doxylamine");
+		Product_3.put(Medication_Details_Key, "Doxylamine, dose unknown, taken as needed at night.");
+		Product_3.putAll(Sleep_Intake_Data);
+
+		// Product 4 - AsterSomnera - 30 Tablet Supply
+		TreeMap<String,String> Product_4 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_4.put("Product Name", "AsterSomnera Sleep Support Tablets");
+		Product_4.put("Treatment Variant", "30 Tablet Supply");
+		Product_4.put("Subscription Type", "One-Time Sale");
+		Product_4.put("Expected Price", "40.00");
+		Product_4.put("VRIO Offer ID", "");
+		Product_4.put("VRIO Product ID", "");
+		Product_4.put("Notes", "I would like guidance on falling asleep faster, maintaining regular sleep schedules, and treatment suitability.");
+		Product_4.put(Medication_Question_Key, "Zolpidem");
+		Product_4.put(Medication_Details_Key, "Zolpidem, dose unknown, taken at bedtime as needed.");
+		Product_4.putAll(Sleep_Intake_Data);
+
+		// Product 5 - AsterSomnera - 60 Tablet Supply
+		TreeMap<String,String> Product_5 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_5.put("Product Name", "AsterSomnera Sleep Support Tablets");
+		Product_5.put("Treatment Variant", "60 Tablet Supply");
+		Product_5.put("Subscription Type", "One-Time Sale");
+		Product_5.put("Expected Price", "74.00");
+		Product_5.put("VRIO Offer ID", "");
+		Product_5.put("VRIO Product ID", "");
+		Product_5.put("Notes", "I would like to understand sleep improvement options, possible medication interactions, and appropriate treatment duration.");
+		Product_5.put(Medication_Question_Key, "Other medicine or supplement (list it in the next question)");
+		Product_5.put(Medication_Details_Key, "Eszopiclone, dose unknown, taken at bedtime on some nights.");
+		Product_5.putAll(Sleep_Intake_Data);
+
+		// Product 6 - AsterSomnera - 90 Tablet Supply
+		TreeMap<String,String> Product_6 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_6.put("Product Name", "AsterSomnera Sleep Support Tablets");
+		Product_6.put("Treatment Variant", "90 Tablet Supply");
+		Product_6.put("Subscription Type", "One-Time Sale");
+		Product_6.put("Expected Price", "106.00");
+		Product_6.put("VRIO Offer ID", "");
+		Product_6.put("VRIO Product ID", "");
+		Product_6.put("Notes", "I would like information about recurring insomnia symptoms, sleep regulation, medication precautions, and follow-up monitoring.");
+		Product_6.put(Medication_Question_Key, "Famotidine");
+		Product_6.put(Medication_Details_Key, "Famotidine, dose unknown, taken as needed.");
+		Product_6.putAll(Sleep_Intake_Data);
+
+		// Product 7 - AsterSomnera - 30 Tablet Supply
+		TreeMap<String,String> Product_7 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_7.put("Product Name", "AsterSomnera Sleep Support Tablets");
+		Product_7.put("Treatment Variant", "30 Tablet Supply");
+		Product_7.put("Subscription Type", "One-Time Sale");
+		Product_7.put("Expected Price", "40.00");
+		Product_7.put("VRIO Offer ID", "");
+		Product_7.put("VRIO Product ID", "");
+		Product_7.put("Notes", "I would like to improve sleep consistency and discuss safe treatment options for occasional sleep difficulties.");
+		Product_7.put(Medication_Question_Key, "Pantoprazole");
+		Product_7.put(Medication_Details_Key, "Pantoprazole, dose unknown, taken daily.");
+		Product_7.putAll(Sleep_Intake_Data);
+
+		// Product 8 - AsterMigraEase
+		TreeMap<String,String> Product_8 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_8.put("Product Name", "AsterMigraEase Headache Support Tablets");
+		Product_8.put("Treatment Variant", "AsterMigraEase Headache Support Tablets");
+		Product_8.put("Subscription Type", "One-Time Sale");
+		Product_8.put("Expected Price", "47.90");
+		Product_8.put("VRIO Offer ID", "");
+		Product_8.put("VRIO Product ID", "");
+		Product_8.put("Notes", "I would like to discuss frequent headaches, migraine triggers, treatment precautions, and preventive recommendations.");
+		Product_8.put(Medication_Question_Key, "Acetaminophen");
+		Product_8.put(Medication_Details_Key, "Acetaminophen, dose unknown, taken as needed for headaches.");
+		Product_8.putAll(Migraine_Intake_Data);
+
+		// Product 9 - AsterMigraEase
+		TreeMap<String,String> Product_9 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_9.put("Product Name", "AsterMigraEase Headache Support Tablets");
+		Product_9.put("Treatment Variant", "AsterMigraEase Headache Support Tablets");
+		Product_9.put("Subscription Type", "One-Time Sale");
+		Product_9.put("Expected Price", "47.90");
+		Product_9.put("VRIO Offer ID", "");
+		Product_9.put("VRIO Product ID", "");
+		Product_9.put("Notes", "I would like information about migraine episodes, headache frequency, treatment suitability, and potential medication interactions.");
+		Product_9.put(Medication_Question_Key, "Ibuprofen");
+		Product_9.put(Medication_Details_Key, "Ibuprofen, dose unknown, taken as needed for headaches.");
+		Product_9.putAll(Migraine_Intake_Data);
+
+		// Product 10 - AsterMigraEase
+		TreeMap<String,String> Product_10 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_10.put("Product Name", "AsterMigraEase Headache Support Tablets");
+		Product_10.put("Treatment Variant", "AsterMigraEase Headache Support Tablets");
+		Product_10.put("Subscription Type", "One-Time Sale");
+		Product_10.put("Expected Price", "47.90");
+		Product_10.put("VRIO Offer ID", "");
+		Product_10.put("VRIO Product ID", "");
+		Product_10.put("Notes", "I would like advice regarding recurring migraine symptoms, medication safety, headache monitoring, and follow-up care.");
+		Product_10.put(Medication_Question_Key, "Naproxen");
+		Product_10.put(Medication_Details_Key, "Naproxen, dose unknown, taken as needed for headaches.");
+		Product_10.putAll(Migraine_Intake_Data);
+
+		// Product 11 - AsterMigraEase
+		TreeMap<String,String> Product_11 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_11.put("Product Name", "AsterMigraEase Headache Support Tablets");
+		Product_11.put("Treatment Variant", "AsterMigraEase Headache Support Tablets");
+		Product_11.put("Subscription Type", "One-Time Sale");
+		Product_11.put("Expected Price", "47.90");
+		Product_11.put("VRIO Offer ID", "");
+		Product_11.put("VRIO Product ID", "");
+		Product_11.put("Notes", "I would like to discuss headache severity, migraine-related discomfort, possible treatment side effects, and preventive measures.");
+		Product_11.put(Medication_Question_Key, "Sumatriptan");
+		Product_11.put(Medication_Details_Key, "Sumatriptan, dose unknown, taken during migraine episodes as needed.");
+		Product_11.putAll(Migraine_Intake_Data);
+
+		// Product 12 - AsterMigraEase
+		TreeMap<String,String> Product_12 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_12.put("Product Name", "AsterMigraEase Headache Support Tablets");
+		Product_12.put("Treatment Variant", "AsterMigraEase Headache Support Tablets");
+		Product_12.put("Subscription Type", "One-Time Sale");
+		Product_12.put("Expected Price", "47.90");
+		Product_12.put("VRIO Offer ID", "");
+		Product_12.put("VRIO Product ID", "");
+		Product_12.put("Notes", "I would like information about migraine prevention, treatment eligibility, possible interactions, and clinical guidance.");
+		Product_12.put(Medication_Question_Key, "Topiramate");
+		Product_12.put(Medication_Details_Key, "Topiramate, dose unknown, taken daily.");
+		Product_12.putAll(Migraine_Intake_Data);
+
+		// Product 13 - AsterMigraEase
+		TreeMap<String,String> Product_13 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_13.put("Product Name", "AsterMigraEase Headache Support Tablets");
+		Product_13.put("Treatment Variant", "AsterMigraEase Headache Support Tablets");
+		Product_13.put("Subscription Type", "One-Time Sale");
+		Product_13.put("Expected Price", "47.90");
+		Product_13.put("VRIO Offer ID", "");
+		Product_13.put("VRIO Product ID", "");
+		Product_13.put("Notes", "I would like to discuss migraine symptom tracking, treatment precautions, and suitable headache management options.");
+		Product_13.put(Medication_Question_Key, "Other medicine or supplement (list it in the next question)");
+		Product_13.put(Medication_Details_Key, "Rizatriptan, dose unknown, taken during migraine episodes as needed.");
+		Product_13.putAll(Migraine_Intake_Data);
+
+		// Product 14 - AsterMigraEase
+		TreeMap<String,String> Product_14 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_14.put("Product Name", "AsterMigraEase Headache Support Tablets");
+		Product_14.put("Treatment Variant", "AsterMigraEase Headache Support Tablets");
+		Product_14.put("Subscription Type", "One-Time Sale");
+		Product_14.put("Expected Price", "47.90");
+		Product_14.put("VRIO Offer ID", "");
+		Product_14.put("VRIO Product ID", "");
+		Product_14.put("Notes", "I would like advice on recurring headaches, migraine treatment safety, medication precautions, and preventive care.");
+		Product_14.put(Medication_Question_Key, "Calcium carbonate");
+		Product_14.put(Medication_Details_Key, "Calcium carbonate, dose unknown, taken as needed.");
+		Product_14.putAll(Migraine_Intake_Data);
+
+		// Product 15 - AsterRefluxa
+		TreeMap<String,String> Product_15 = new TreeMap<String,String>(Shared_Intake_Data);
+		Product_15.put("Product Name", "AsterRefluxa Digestive Relief Capsules");
+		Product_15.put("Treatment Variant", "");
+		Product_15.put("Subscription Type", "Monthly / 30-Day Recurring");
+		Product_15.put("Expected Price", "");
+		Product_15.put("VRIO Offer ID", "");
+		Product_15.put("VRIO Product ID", "");
+		Product_15.put("Notes", "I would like information about digestive discomfort, recurring acid reflux, treatment suitability, and dietary recommendations.");
+		Product_15.put(Medication_Question_Key, "Omeprazole");
+		Product_15.put(Medication_Details_Key, "Omeprazole, dose unknown, taken daily.");
+		Product_15.putAll(Reflux_Intake_Data);
+
+		// Detailed Page 3 Medical History Answers
+		String Allergy_Details_Key = "Intake Q&A - List your allergies and what reaction each causes. Enter None if you have no known allergies.";
+		String Medical_History_Key = "Intake Q&A - List your medical conditions, relevant mental health history, and significant past illnesses or operations. Enter None if you have none to report.";
+		String Substance_Use_Key = "Intake Q&A - Describe your caffeine, nicotine, alcohol, cannabis or other substance use, including amount and frequency. Enter None if you use none.";
+
+		Product_1.put(Allergy_Details_Key, "Grass pollen causes sneezing and watery eyes in spring. Nickel jewelry leaves an itchy rash where it touches my skin.");
+		Product_1.put(Medical_History_Key, "I have seasonal allergic rhinitis and have had trouble falling asleep for several months. I had an appendectomy in 2016 and recovered fully.");
+		Product_1.put(Substance_Use_Key, "I drink one 8-ounce cup of coffee most mornings and have one glass of wine about once a month. I do not use nicotine, cannabis, or other substances.");
+
+		Product_2.put(Allergy_Details_Key, "Dust exposure makes me sneeze and gives me itchy eyes. Adhesive tape can leave a red patch that itches for a day.");
+		Product_2.put(Medical_History_Key, "I have mild hand eczema that flares in winter. I had my wisdom teeth removed in 2017 and recovered without complications.");
+		Product_2.put(Substance_Use_Key, "I drink two 8-ounce cups of black tea on weekdays, one at breakfast and one at lunch. I do not use nicotine, alcohol, cannabis, or other substances.");
+
+		Product_3.put(Allergy_Details_Key, "Cat dander gives me a runny nose and watery eyes. Latex gloves make the skin on my hands red and itchy.");
+		Product_3.put(Medical_History_Key, "I have eczema that flares in dry weather. I had my tonsils removed as a child and recovered without complications.");
+		Product_3.put(Substance_Use_Key, "I have one 12-ounce coffee three mornings a week and one 12-ounce beer about twice a month. I do not use nicotine, cannabis, or other substances.");
+
+		Product_4.put(Allergy_Details_Key, "Tree pollen causes sneezing and itchy, watery eyes in spring. Adhesive bandages sometimes leave a red, itchy patch.");
+		Product_4.put(Medical_History_Key, "I have seasonal allergic rhinitis and ongoing difficulty falling asleep. I had an appendectomy in 2017 and recovered without complications.");
+		Product_4.put(Substance_Use_Key, "I drink one 8-ounce cup of coffee on weekday mornings and one cup of black tea on about two afternoons a week. I do not use nicotine, alcohol, cannabis, or other substances.");
+
+		Product_5.put(Allergy_Details_Key, "Mold exposure causes nasal congestion and watery eyes. Fragranced lotions sometimes cause an itchy rash on my arms.");
+		Product_5.put(Medical_History_Key, "I had childhood asthma and have had no flare in recent years. I attended counseling for work-related anxiety in 2021 and completed it that year.");
+		Product_5.put(Substance_Use_Key, "I have one 8-ounce green tea with breakfast on most days. I drink alcohol about once every two months, usually one glass of wine. I do not use nicotine, cannabis, or other substances.");
+
+		Product_6.put(Allergy_Details_Key, "Dog dander causes sneezing and itchy eyes after prolonged exposure. Adhesive tape leaves a red patch that fades the next day.");
+		Product_6.put(Medical_History_Key, "I have intermittent acid reflux, mainly after large or late meals. My gallbladder was removed in 2019 and I recovered without complications.");
+		Product_6.put(Substance_Use_Key, "I drink one 8-ounce coffee four mornings a week and one glass of wine about twice a month. I do not use nicotine, cannabis, or other substances.");
+
+		Product_7.put(Allergy_Details_Key, "Nickel earrings cause an itchy red rash on my earlobes. Ragweed pollen gives me congestion and watery eyes in late summer.");
+		Product_7.put(Medical_History_Key, "I was diagnosed with acid reflux in 2023. I had iron deficiency in 2020, and my follow-up blood tests returned to normal.");
+		Product_7.put(Substance_Use_Key, "I have one 12-ounce iced tea on two or three days a week and one 12-ounce beer on some weekends. I do not use nicotine, cannabis, or other substances.");
+
+		Product_8.put(Allergy_Details_Key, "Dust mites cause sneezing and nasal congestion when I clean. Adhesive bandages cause mild itching around the edges.");
+		Product_8.put(Medical_History_Key, "I have recurring headaches with light sensitivity and a history of seasonal allergies. I recovered fully from a sinus infection in 2022.");
+		Product_8.put(Substance_Use_Key, "I have one 8-ounce cup of coffee each morning and one glass of wine roughly once a month. I do not use nicotine, cannabis, or other substances.");
+
+		Product_9.put(Allergy_Details_Key, "Ragweed gives me sneezing and itchy eyes in the fall. Latex gloves cause an itchy rash on my hands.");
+		Product_9.put(Medical_History_Key, "I have recurrent headaches and seasonal allergies. I had a mild concussion in 2017 and recovered after follow-up.");
+		Product_9.put(Substance_Use_Key, "I drink one 12-ounce coffee on workdays. I use a nicotine vape about twice a week, usually three to five puffs. I do not use alcohol, cannabis, or other substances.");
+
+		Product_10.put(Allergy_Details_Key, "Birch pollen makes my eyes water and causes a runny nose. Nickel watchbands leave an itchy patch on my wrist.");
+		Product_10.put(Medical_History_Key, "I have recurring headaches and neck tension after long periods at my desk. I had an uncomplicated tonsillectomy as a teenager.");
+		Product_10.put(Substance_Use_Key, "I drink two 8-ounce cups of coffee on most weekdays and one glass of wine about twice a month. I do not use nicotine, cannabis, or other substances.");
+
+		Product_11.put(Allergy_Details_Key, "Pet dander causes sneezing and a stuffy nose. Some adhesive dressings leave an itchy rash for one to two days.");
+		Product_11.put(Medical_History_Key, "I have recurring headaches that sometimes come with nausea. I attended counseling for anxiety in 2020 and completed the course of care.");
+		Product_11.put(Substance_Use_Key, "I drink one 8-ounce cup of black tea most mornings and have one 12-ounce beer about once a month. I do not use nicotine, cannabis, or other substances.");
+
+		Product_12.put(Allergy_Details_Key, "Cedar pollen causes itchy eyes and sneezing during pollen season. Adhesive bandages can leave a small red rash.");
+		Product_12.put(Medical_History_Key, "I have a history of seizures and continue routine follow-ups. My last seizure was several years ago, and I also report recurring headaches.");
+		Product_12.put(Substance_Use_Key, "I drink one 8-ounce cup of coffee on two mornings a week. I do not use nicotine, alcohol, cannabis, or other substances.");
+
+		Product_13.put(Allergy_Details_Key, "Cat dander causes nasal congestion and itchy eyes. Some scented soaps leave an itchy rash on my hands.");
+		Product_13.put(Medical_History_Key, "I have recurring headaches with light sensitivity and a history of motion sickness. I had a small skin cyst removed in 2021 and healed without complications.");
+		Product_13.put(Substance_Use_Key, "I drink one 8-ounce cup of coffee most mornings and have one 12-ounce beer about once a month. I do not use nicotine, cannabis, or other substances.");
+
+		Product_14.put(Allergy_Details_Key, "Grass pollen causes a runny nose and watery eyes. Metal belt buckles sometimes leave an itchy rash where they touch my skin.");
+		Product_14.put(Medical_History_Key, "I have occasional acid reflux after large meals and recurrent headaches. I had an appendectomy in 2014 and recovered fully.");
+		Product_14.put(Substance_Use_Key, "I have one 8-ounce cup of green tea four mornings a week and one glass of wine about once a month. I do not use nicotine, cannabis, or other substances.");
+
+		Product_15.put(Allergy_Details_Key, "Dust mites give me sneezing and congestion. Latex gloves cause redness and itching where they touch my skin.");
+		Product_15.put(Medical_History_Key, "A clinician diagnosed reflux in 2022. I have had burning and a sour taste after meals for several months. I had an appendectomy in 2016 and recovered without complications.");
+		Product_15.put(Substance_Use_Key, "I drink one 8-ounce coffee in the morning on weekdays and have one glass of wine about twice a month. I do not use nicotine, cannabis, or other substances.");
+
+		// AsterMigraNova intake question keys
+		String MigraNova_Relief_Days_Key = "Intake Q&A - In the last 30 days, on how many days did you take medicine to relieve a headache?";
+		String MigraNova_Diagnosed_Key = "Intake Q&A - Has a clinician previously diagnosed you with migraine?";
+		String MigraNova_Pattern_Key = "Intake Q&A - When did your headaches start, and have they recently changed in frequency, severity, or location?";
+		String MigraNova_Frequency_Key = "Intake Q&A - On how many days a month do you have a headache?";
+		String MigraNova_Duration_Key = "Intake Q&A - How long does a typical headache last?";
+		String MigraNova_Symptoms_Key = "Intake Q&A - Describe your usual headache: where it hurts, severity, and any nausea, light or sound sensitivity, visual changes, or other symptoms.";
+		String MigraNova_Aura_Key = "Intake Q&A - Before or during your usual headaches, do you notice symptoms that go away, such as flashing lights, zigzag lines, or tingling?";
+		String MigraNova_Aura_Details_Key = "Intake Q&A - If you notice these symptoms, describe what happens, when it starts in relation to the headache, and how long it lasts.";
+		String MigraNova_Impact_Key = "Intake Q&A - How much do your headaches interfere with work, school, or usual daily activities?";
+		String MigraNova_Previous_Treatment_Key = "Intake Q&A - List headache treatments you have tried, how often you use them, and how they worked. Enter None if you have tried none.";
+
+		TreeMap<String,String> AsterMigraNova_Shared_Data = new TreeMap<String,String>(Shared_Intake_Data);
+		AsterMigraNova_Shared_Data.putAll(Migraine_Intake_Data);
+		AsterMigraNova_Shared_Data.put("Product Name", "AsterMigraNova Migraine Wellness Tablets");
+		AsterMigraNova_Shared_Data.put("Subscription Type", "One-Time Sale");
+		AsterMigraNova_Shared_Data.put("VRIO Offer ID", "");
+		AsterMigraNova_Shared_Data.put("VRIO Product ID", "");
+
+		// Product 21 - AsterMigraNova - 15 Tablets
+		TreeMap<String,String> Product_21 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
+		Product_21.put("Treatment Variant", "AsterMigraNova - 15 Tablets");
+		Product_21.put("Expected Price", "18.00");
+		Product_21.put("Notes", "A missed meal sometimes precedes a headache. I would like to discuss the recurring visual changes with the clinician.");
+		Product_21.put(Medication_Question_Key, "Naproxen");
+		Product_21.put(Medication_Details_Key, "Naproxen, dose unknown, taken as needed for headache relief. I used it on three days in the last 30 days.");
+		Product_21.put(Allergy_Details_Key, "Grass pollen gives me itchy eyes and a runny nose. Adhesive tape can leave an itchy patch.");
+		Product_21.put(Medical_History_Key, "I have seasonal allergies and recurring headaches. I recovered fully after an appendectomy in 2017.");
+		Product_21.put(Substance_Use_Key, "I drink one 8-ounce cup of coffee most mornings. I have one glass of wine about once a month.");
+		Product_21.put(MigraNova_Relief_Days_Key, "1-4 days");
+		Product_21.put(MigraNova_Diagnosed_Key, "No");
+		Product_21.put(MigraNova_Pattern_Key, "The headaches started about 18 months ago. They have followed a similar pattern over the past six months.");
+		Product_21.put(MigraNova_Frequency_Key, "1-3 days");
+		Product_21.put(MigraNova_Duration_Key, "4-24 hours");
+		Product_21.put(MigraNova_Symptoms_Key, "I get moderate throbbing pain around my left temple with light sensitivity and occasional nausea.");
+		Product_21.put(MigraNova_Aura_Key, "Yes");
+		Product_21.put(MigraNova_Aura_Details_Key, "Sometimes I see a bright zigzag about 15 minutes before the headache. It clears after about 10 minutes.");
+		Product_21.put(MigraNova_Impact_Key, "I have to pause or reduce activities");
+		Product_21.put(MigraNova_Previous_Treatment_Key, "Resting in a dark room helps with the light sensitivity. Naproxen gave partial pain relief on three headache days last month.");
+
+		// Product 22 - AsterMigraNova - 30 Tablets
+		TreeMap<String,String> Product_22 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
+		Product_22.put("Treatment Variant", "AsterMigraNova - 30 Tablets");
+		Product_22.put("Expected Price", "29.99");
+		Product_22.put("Notes", "Headaches often follow long stretches of screen work. I would like to discuss how to track that pattern.");
+		Product_22.put(Medication_Question_Key, "Ibuprofen");
+		Product_22.put(Medication_Details_Key, "Ibuprofen, dose unknown, taken as needed for headaches. I used it on six days in the last 30 days.");
+		Product_22.put(Allergy_Details_Key, "Dust exposure causes sneezing and watery eyes. Nickel earrings leave an itchy rash.");
+		Product_22.put(Medical_History_Key, "I have mild eczema that flares in winter. I recovered without complications after wisdom tooth removal in 2018.");
+		Product_22.put(Substance_Use_Key, "I drink one cup of black tea most mornings and one cup on some afternoons.");
+		Product_22.put(MigraNova_Relief_Days_Key, "5-9 days");
+		Product_22.put(MigraNova_Diagnosed_Key, "No");
+		Product_22.put(MigraNova_Pattern_Key, "The headaches began about two years ago. For the past few months they have occurred on about six days each month.");
+		Product_22.put(MigraNova_Frequency_Key, "4-14 days");
+		Product_22.put(MigraNova_Duration_Key, "4-24 hours");
+		Product_22.put(MigraNova_Symptoms_Key, "The pain is usually on the right side, with sensitivity to sound. Walking upstairs can make the pain worse.");
+		Product_22.put(MigraNova_Aura_Key, "No");
+		Product_22.put(MigraNova_Aura_Details_Key, "My vision and sensation stay normal before and during the headache.");
+		Product_22.put(MigraNova_Impact_Key, "I can continue with some difficulty");
+		Product_22.put(MigraNova_Previous_Treatment_Key, "Taking a screen break and drinking water helped a little. I used ibuprofen on six headache days this month and usually felt partial relief.");
+
+		// Product 23 - AsterMigraNova - 60 Tablets
+		TreeMap<String,String> Product_23 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
+		Product_23.put("Treatment Variant", "AsterMigraNova - 60 Tablets");
+		Product_23.put("Expected Price", "49.99");
+		Product_23.put("Notes", "Poor sleep sometimes precedes a longer attack. I would like the clinician to review my recent headache diary.");
+		Product_23.put(Medication_Question_Key, "Sumatriptan");
+		Product_23.put(Medication_Details_Key, "Sumatriptan, dose unknown, taken as prescribed during attacks. I used it on four days in the last 30 days.");
+		Product_23.put(Allergy_Details_Key, "Cat dander causes itchy eyes and congestion. Some scented lotions leave an itchy rash on my arms.");
+		Product_23.put(Medical_History_Key, "A clinician diagnosed migraine in 2023. I also have seasonal allergic rhinitis and recovered fully after a sinus infection in 2022.");
+		Product_23.put(Substance_Use_Key, "I drink one cup of coffee three mornings a week and one 12-ounce beer about once a month.");
+		Product_23.put(MigraNova_Relief_Days_Key, "1-4 days");
+		Product_23.put(MigraNova_Diagnosed_Key, "Yes");
+		Product_23.put(MigraNova_Pattern_Key, "These headaches began about three years ago. They have affected roughly eight days per month for the last six months.");
+		Product_23.put(MigraNova_Frequency_Key, "4-14 days");
+		Product_23.put(MigraNova_Duration_Key, "More than 24 hours up to 3 days");
+		Product_23.put(MigraNova_Symptoms_Key, "I get strong pulsing pain on one side of my head, nausea, and sensitivity to both light and sound.");
+		Product_23.put(MigraNova_Aura_Key, "Yes");
+		Product_23.put(MigraNova_Aura_Details_Key, "A shimmering spot slowly spreads across my vision before some attacks. It usually clears within 20 minutes.");
+		Product_23.put(MigraNova_Impact_Key, "I cannot carry out usual activities");
+		Product_23.put(MigraNova_Previous_Treatment_Key, "Sumatriptan gave partial relief on four days this month. Rest in a quiet, dark room helped me get through longer attacks.");
+
+		// Product 24 - AsterMigraNova - 90 Tablets
+		TreeMap<String,String> Product_24 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
+		Product_24.put("Treatment Variant", "AsterMigraNova - 90 Tablets");
+		Product_24.put("Expected Price", "69.99");
+		Product_24.put("Notes", "I would like the clinician to review the headache frequency since I started the current preventive medicine.");
+		Product_24.put(Medication_Question_Key, "Topiramate");
+		Product_24.put(Medication_Details_Key, "Topiramate, dose unknown, taken daily as prescribed for prevention. I used no headache-relief medicine in the last 30 days.");
+		Product_24.put(Allergy_Details_Key, "Ragweed gives me nasal congestion and itchy eyes. Latex gloves make my hands red and itchy.");
+		Product_24.put(Medical_History_Key, "A clinician diagnosed migraine several years ago. I have mild reflux after late meals and had an uncomplicated tonsillectomy as a teenager.");
+		Product_24.put(Substance_Use_Key, "I drink one cup of decaffeinated coffee with breakfast most days. I have one glass of wine about twice a month.");
+		Product_24.put(MigraNova_Relief_Days_Key, "0 days");
+		Product_24.put(MigraNova_Diagnosed_Key, "Yes");
+		Product_24.put(MigraNova_Pattern_Key, "The headaches started about four years ago. They have occurred on about eight days a month since the current prevention routine stabilized.");
+		Product_24.put(MigraNova_Frequency_Key, "4-14 days");
+		Product_24.put(MigraNova_Duration_Key, "Less than 4 hours");
+		Product_24.put(MigraNova_Symptoms_Key, "I usually have moderate pain over my right temple, with some light sensitivity. It often eases after two to three hours of rest.");
+		Product_24.put(MigraNova_Aura_Key, "No");
+		Product_24.put(MigraNova_Aura_Details_Key, "The pain develops gradually. My vision and sensation stay normal throughout the usual episode.");
+		Product_24.put(MigraNova_Impact_Key, "I have to pause or reduce activities");
+		Product_24.put(MigraNova_Previous_Treatment_Key, "Daily topiramate as prescribed reduced how often the headaches occur. A brief rest in a dark room helps during episodes.");
+
+		return new Object[][] {
+			{ Product_1 },/*
+			{ Product_2 },
+			{ Product_3 },
+			{ Product_4 },
+			{ Product_5 },
+			{ Product_6 },
+			{ Product_7 },
+			{ Product_8 },
+			{ Product_9 },
+			{ Product_10 },
+			{ Product_11 },
+			{ Product_12 },
+			{ Product_13 },
+			{ Product_14 },
+			{ Product_15 },
+			{ Product_21 },
+			{ Product_22 },
+			{ Product_23 },
+			{ Product_24 },
+			*/
+		};
+	}
+	
+	
+	
+	
 
 @DataProvider
+@SuppressWarnings("unchecked")
 public Object[][] Storefront_Product_Data(){
 
-	String Medication_Question_Key = "Intake Q&A - Are you currently taking any of the following medicines or supplements, either regularly or as needed? Select all that apply. Select None only if you take no medicines or supplements.";
-	String Medication_Details_Key = "Intake Q&A - List all medicines and supplements you currently take, including doses and frequency. Enter None if you take none.";
+	Object[][] Patient_Datas = Storefront_Patient_Details_Data();
+	Object[][] Product_Intake_Datas = Storefront_Product_Variant_And_Intake_Data();
 
-	// Shared Checkout Data
-	TreeMap<String,String> Shared_Checkout_Data = new TreeMap<String,String>();
-	Shared_Checkout_Data.put("Delivery Country", "United States");
-	Shared_Checkout_Data.put("Card Number", "1444444444444440");
-	Shared_Checkout_Data.put("Expiry Date", "12/29");
-	Shared_Checkout_Data.put("Security Code", "123");
-	Shared_Checkout_Data.put("Patient Password", "Password@123");
-	Shared_Checkout_Data.put("Weight Loss Goal", "21-50 lbs");
+	int n = IntStream.of(Patient_Datas.length, Product_Intake_Datas.length).min().orElse(0);
 
-	// Shared Five-Page Intake Form Data - Synthetic QA Answers
-	TreeMap<String,String> Shared_Intake_Data = new TreeMap<String,String>();
-	Shared_Intake_Data.put("Biological Sex at Birth", "Female");
-	Shared_Intake_Data.put("Intake Q&A - Are you pregnant, breastfeeding, or planning a pregnancy?", "No");
+	Object[][] combined_data = new Object[n][2];
+	int i = 0;
 
-	// AsterSomnera - Sleep Intake Questions
-	TreeMap<String,String> Sleep_Intake_Data = new TreeMap<String,String>();
-	Sleep_Intake_Data.put("Intake Reason", "Sleep or insomnia");
-	Sleep_Intake_Data.put("Intake Q&A - What is your main sleep difficulty?", "Falling asleep");
-	Sleep_Intake_Data.put("Intake Q&A - How long have you had this sleep difficulty?", "3 months or longer");
-	Sleep_Intake_Data.put("Intake Q&A - How many nights a week do you have difficulty sleeping?", "3-4 nights");
-	Sleep_Intake_Data.put("Intake Q&A - How much does poor sleep affect your daytime activities?", "Mildly");
-	Sleep_Intake_Data.put("Intake Q&A - Do you snore loudly, wake up gasping, or have a diagnosis of sleep apnea?", "No");
-	Sleep_Intake_Data.put("Intake Q&A - Describe the treatments or changes you have tried for sleep and how they worked. Enter None if you have tried none.", "Tried a regular bedtime and reduced evening screen time; sleep difficulty continues.");
+	while(i < n){
 
-	// AsterMigraEase - Migraine Intake Questions
-	TreeMap<String,String> Migraine_Intake_Data = new TreeMap<String,String>();
-	Migraine_Intake_Data.put("Intake Reason", "Migraine or recurring headaches");
-	Migraine_Intake_Data.put("Intake Q&A - Has a clinician previously diagnosed you with migraine?", "No");
-	Migraine_Intake_Data.put("Intake Q&A - On how many days a month do you have a headache?", "1-3 days");
-	Migraine_Intake_Data.put("Intake Q&A - How long does a typical headache last?", "4-24 hours");
-	Migraine_Intake_Data.put("Intake Q&A - Describe your usual headache: where it hurts, severity, and any nausea, light or sound sensitivity, visual changes, or other symptoms.", "Recurring moderate one-sided headache with light sensitivity and occasional nausea; no new visual symptoms.");
-	Migraine_Intake_Data.put("Intake Q&A - Do you currently have a sudden extremely severe headache, new weakness, difficulty speaking, confusion, or loss of vision?", "No");
-	Migraine_Intake_Data.put("Intake Q&A - List headache treatments you have tried, how often you use them, and how they worked. Enter None if you have tried none.", "Tried rest in a dark room and hydration during headache episodes with partial relief.");
+		combined_data[i][0] = new TreeMap<String,String>((TreeMap<String,String>) Patient_Datas[i][0]);
+		combined_data[i][1] = new TreeMap<String,String>((TreeMap<String,String>) Product_Intake_Datas[i][0]);
 
-	// AsterRefluxa - Reflux Intake Questions
-	TreeMap<String,String> Reflux_Intake_Data = new TreeMap<String,String>();
-	Reflux_Intake_Data.put("Intake Reason", "Heartburn or acid reflux");
-	Reflux_Intake_Data.put("Intake Q&A - Which symptom is most troublesome?", "Both");
-	Reflux_Intake_Data.put("Intake Q&A - How long have you had these symptoms?", "3 months or longer");
-	Reflux_Intake_Data.put("Intake Q&A - How often do you experience these symptoms?", "1-2 days a week");
-	Reflux_Intake_Data.put("Intake Q&A - Have you had difficulty or pain when swallowing, persistent vomiting, blood in vomit, black stools, or unexplained weight loss?", "No");
-	Reflux_Intake_Data.put("Intake Q&A - Describe reflux treatments or lifestyle changes you have tried and how they worked. Enter None if you have tried none.", "Tried smaller meals and avoiding late-night food with partial relief.");
+		i++;
 
-	// Dataset 1 - AsterSomnera - 30 Tablet Supply
-	TreeMap<String,String> data1 = new TreeMap<String,String>();
-	data1.put("Product Name", "AsterSomnera Sleep Support Tablets");
-	data1.put("Treatment Variant", "30 Tablet Supply");
-	data1.put("Subscription Type", "One-Time Sale");
-	data1.put("Expected Price", "40.00");
-	data1.put("VRIO Offer ID", "");
-	data1.put("VRIO Product ID", "");
-	data1.put("First Name", "Maeve");
-	data1.put("Last Name", "Whitaker");
-	data1.put("Email", "maeve.whitaker.astermd261112batch1020@yopmail.com");
-	data1.put("Phone", "3125550120");
-	data1.put("Date of Birth", "06/12/1992");
-	data1.put("State", "Washington");
-	data1.put("Residential State", "WA");
-	data1.put("Current Location State", "WA");
-	data1.put("Unit System", "Imperial (lbs/inches)");
-	data1.put("Height", "65");
-	data1.put("Weight", "143");
-	data1.put("Notes", "I would like to discuss sleep quality, occasional sleeplessness, and appropriate sleep support options.");
-	data1.put("Address", "1301 QA Pine Avenue");
-	data1.put("City", "Seattle");
-	data1.put("Delivery State", "Washington");
-	data1.put("Zipcode", "98101");
-	data1.put("ZIP Code", "98101");
-	data1.put("Cardholder Name", "Maeve Whitaker");
-	data1.putAll(Shared_Checkout_Data);
-	data1.putAll(Shared_Intake_Data);
-	data1.put(Medication_Question_Key, "Melatonin");
-	data1.put(Medication_Details_Key, "Melatonin, dose unknown, taken on some nights.");
-	data1.putAll(Sleep_Intake_Data);
-	data1.put("SSN", "1234");
-	data1.put("ID Verification Image", "ID_Verification_data01.png");
+	}
 
-	// Dataset 2 - AsterSomnera - 60 Tablet Supply
-	TreeMap<String,String> data2 = new TreeMap<String,String>();
-	data2.put("Product Name", "AsterSomnera Sleep Support Tablets");
-	data2.put("Treatment Variant", "60 Tablet Supply");
-	data2.put("Subscription Type", "One-Time Sale");
-	data2.put("Expected Price", "74.00");
-	data2.put("VRIO Offer ID", "");
-	data2.put("VRIO Product ID", "");
-	data2.put("First Name", "Alina");
-	data2.put("Last Name", "Brookfield");
-	data2.put("Email", "alina.brookfield.astermd261112batch1021@yopmail.com");
-	data2.put("Phone", "3125550121");
-	data2.put("Date of Birth", "04/19/1995");
-	data2.put("State", "Illinois");
-	data2.put("Residential State", "IL");
-	data2.put("Current Location State", "IL");
-	data2.put("Unit System", "Imperial (lbs/inches)");
-	data2.put("Height", "66");
-	data2.put("Weight", "151");
-	data2.put("Notes", "I would like information about irregular sleep patterns, sleep treatment precautions, and improving nighttime rest.");
-	data2.put("Address", "1302 QA Lake Avenue");
-	data2.put("City", "Chicago");
-	data2.put("Delivery State", "Illinois");
-	data2.put("Zipcode", "60601");
-	data2.put("ZIP Code", "60601");
-	data2.put("Cardholder Name", "Alina Brookfield");
-	data2.putAll(Shared_Checkout_Data);
-	data2.putAll(Shared_Intake_Data);
-	data2.put(Medication_Question_Key, "Diphenhydramine");
-	data2.put(Medication_Details_Key, "Diphenhydramine, dose unknown, taken occasionally.");
-	data2.putAll(Sleep_Intake_Data);
-	data2.put("SSN", "1234");
-	data2.put("ID Verification Image", "ID_Verification_data02.png");
-
-	// Dataset 3 - AsterSomnera - 90 Tablet Supply
-	TreeMap<String,String> data3 = new TreeMap<String,String>();
-	data3.put("Product Name", "AsterSomnera Sleep Support Tablets");
-	data3.put("Treatment Variant", "90 Tablet Supply");
-	data3.put("Subscription Type", "One-Time Sale");
-	data3.put("Expected Price", "106.00");
-	data3.put("VRIO Offer ID", "");
-	data3.put("VRIO Product ID", "");
-	data3.put("First Name", "Blythe");
-	data3.put("Last Name", "Penrose");
-	data3.put("Email", "blythe.penrose.astermd261112batch1022@yopmail.com");
-	data3.put("Phone", "3125550122");
-	data3.put("Date of Birth", "10/22/1988");
-	data3.put("State", "Colorado");
-	data3.put("Residential State", "CO");
-	data3.put("Current Location State", "CO");
-	data3.put("Unit System", "Imperial (lbs/inches)");
-	data3.put("Height", "67");
-	data3.put("Weight", "149");
-	data3.put("Notes", "I would like to discuss long-term sleep support, treatment eligibility, possible side effects, and follow-up care.");
-	data3.put("Address", "1303 QA Oak Street");
-	data3.put("City", "Denver");
-	data3.put("Delivery State", "Colorado");
-	data3.put("Zipcode", "80202");
-	data3.put("ZIP Code", "80202");
-	data3.put("Cardholder Name", "Blythe Penrose");
-	data3.putAll(Shared_Checkout_Data);
-	data3.putAll(Shared_Intake_Data);
-	data3.put(Medication_Question_Key, "Doxylamine");
-	data3.put(Medication_Details_Key, "Doxylamine, dose unknown, taken as needed at night.");
-	data3.putAll(Sleep_Intake_Data);
-	data3.put("SSN", "1234");
-	data3.put("ID Verification Image", "ID_Verification_data03.png");
-
-	// Dataset 4 - AsterSomnera - 30 Tablet Supply
-	TreeMap<String,String> data4 = new TreeMap<String,String>();
-	data4.put("Product Name", "AsterSomnera Sleep Support Tablets");
-	data4.put("Treatment Variant", "30 Tablet Supply");
-	data4.put("Subscription Type", "One-Time Sale");
-	data4.put("Expected Price", "40.00");
-	data4.put("VRIO Offer ID", "");
-	data4.put("VRIO Product ID", "");
-	data4.put("First Name", "Bridget");
-	data4.put("Last Name", "Sloane");
-	data4.put("Email", "bridget.sloane.astermd261112batch1023@yopmail.com");
-	data4.put("Phone", "3125550123");
-	data4.put("Date of Birth", "03/17/1991");
-	data4.put("State", "Arizona");
-	data4.put("Residential State", "AZ");
-	data4.put("Current Location State", "AZ");
-	data4.put("Unit System", "Imperial (lbs/inches)");
-	data4.put("Height", "64");
-	data4.put("Weight", "139");
-	data4.put("Notes", "I would like guidance on falling asleep faster, maintaining regular sleep schedules, and treatment suitability.");
-	data4.put("Address", "1304 QA Desert Lane");
-	data4.put("City", "Phoenix");
-	data4.put("Delivery State", "Arizona");
-	data4.put("Zipcode", "85004");
-	data4.put("ZIP Code", "85004");
-	data4.put("Cardholder Name", "Bridget Sloane");
-	data4.putAll(Shared_Checkout_Data);
-	data4.putAll(Shared_Intake_Data);
-	data4.put(Medication_Question_Key, "Zolpidem");
-	data4.put(Medication_Details_Key, "Zolpidem, dose unknown, taken at bedtime as needed.");
-	data4.putAll(Sleep_Intake_Data);
-	data4.put("SSN", "1234");
-	data4.put("ID Verification Image", "ID_Verification_data04.png");
-
-	// Dataset 5 - AsterSomnera - 60 Tablet Supply
-	TreeMap<String,String> data5 = new TreeMap<String,String>();
-	data5.put("Product Name", "AsterSomnera Sleep Support Tablets");
-	data5.put("Treatment Variant", "60 Tablet Supply");
-	data5.put("Subscription Type", "One-Time Sale");
-	data5.put("Expected Price", "74.00");
-	data5.put("VRIO Offer ID", "");
-	data5.put("VRIO Product ID", "");
-	data5.put("First Name", "Naomi");
-	data5.put("Last Name", "Hensley");
-	data5.put("Email", "naomi.hensley.astermd261112batch1024@yopmail.com");
-	data5.put("Phone", "3125550124");
-	data5.put("Date of Birth", "12/08/1993");
-	data5.put("State", "Oregon");
-	data5.put("Residential State", "OR");
-	data5.put("Current Location State", "OR");
-	data5.put("Unit System", "Imperial (lbs/inches)");
-	data5.put("Height", "65");
-	data5.put("Weight", "146");
-	data5.put("Notes", "I would like to understand sleep improvement options, possible medication interactions, and appropriate treatment duration.");
-	data5.put("Address", "1305 QA River Road");
-	data5.put("City", "Portland");
-	data5.put("Delivery State", "Oregon");
-	data5.put("Zipcode", "97204");
-	data5.put("ZIP Code", "97204");
-	data5.put("Cardholder Name", "Naomi Hensley");
-	data5.putAll(Shared_Checkout_Data);
-	data5.putAll(Shared_Intake_Data);
-	data5.put(Medication_Question_Key, "Other medicine or supplement (list it in the next question)");
-	data5.put(Medication_Details_Key, "Eszopiclone, dose unknown, taken at bedtime on some nights.");
-	data5.putAll(Sleep_Intake_Data);
-	data5.put("SSN", "1234");
-	data5.put("ID Verification Image", "ID_Verification_data05.png");
-
-	// Dataset 6 - AsterSomnera - 90 Tablet Supply
-	TreeMap<String,String> data6 = new TreeMap<String,String>();
-	data6.put("Product Name", "AsterSomnera Sleep Support Tablets");
-	data6.put("Treatment Variant", "90 Tablet Supply");
-	data6.put("Subscription Type", "One-Time Sale");
-	data6.put("Expected Price", "106.00");
-	data6.put("VRIO Offer ID", "");
-	data6.put("VRIO Product ID", "");
-	data6.put("First Name", "Serena");
-	data6.put("Last Name", "Northcott");
-	data6.put("Email", "serena.northcott.astermd261112batch1025@yopmail.com");
-	data6.put("Phone", "3125550125");
-	data6.put("Date of Birth", "07/24/1990");
-	data6.put("State", "California");
-	data6.put("Residential State", "CA");
-	data6.put("Current Location State", "CA");
-	data6.put("Unit System", "Imperial (lbs/inches)");
-	data6.put("Height", "66");
-	data6.put("Weight", "155");
-	data6.put("Notes", "I would like information about recurring insomnia symptoms, sleep regulation, medication precautions, and follow-up monitoring.");
-	data6.put("Address", "1306 QA Harbor Drive");
-	data6.put("City", "San Diego");
-	data6.put("Delivery State", "California");
-	data6.put("Zipcode", "92101");
-	data6.put("ZIP Code", "92101");
-	data6.put("Cardholder Name", "Serena Northcott");
-	data6.putAll(Shared_Checkout_Data);
-	data6.putAll(Shared_Intake_Data);
-	data6.put(Medication_Question_Key, "Famotidine");
-	data6.put(Medication_Details_Key, "Famotidine, dose unknown, taken as needed.");
-	data6.putAll(Sleep_Intake_Data);
-	data6.put("SSN", "1234");
-	data6.put("ID Verification Image", "ID_Verification_data06.png");
-
-	// Dataset 7 - AsterSomnera - 30 Tablet Supply
-	TreeMap<String,String> data7 = new TreeMap<String,String>();
-	data7.put("Product Name", "AsterSomnera Sleep Support Tablets");
-	data7.put("Treatment Variant", "30 Tablet Supply");
-	data7.put("Subscription Type", "One-Time Sale");
-	data7.put("Expected Price", "40.00");
-	data7.put("VRIO Offer ID", "");
-	data7.put("VRIO Product ID", "");
-	data7.put("First Name", "Keira");
-	data7.put("Last Name", "Ellington");
-	data7.put("Email", "keira.ellington.astermd261112batch1026@yopmail.com");
-	data7.put("Phone", "3125550126");
-	data7.put("Date of Birth", "02/11/1996");
-	data7.put("State", "Florida");
-	data7.put("Residential State", "FL");
-	data7.put("Current Location State", "FL");
-	data7.put("Unit System", "Imperial (lbs/inches)");
-	data7.put("Height", "68");
-	data7.put("Weight", "158");
-	data7.put("Notes", "I would like to improve sleep consistency and discuss safe treatment options for occasional sleep difficulties.");
-	data7.put("Address", "1307 QA Franklin Street");
-	data7.put("City", "Tampa");
-	data7.put("Delivery State", "Florida");
-	data7.put("Zipcode", "33602");
-	data7.put("ZIP Code", "33602");
-	data7.put("Cardholder Name", "Keira Ellington");
-	data7.putAll(Shared_Checkout_Data);
-	data7.putAll(Shared_Intake_Data);
-	data7.put(Medication_Question_Key, "Pantoprazole");
-	data7.put(Medication_Details_Key, "Pantoprazole, dose unknown, taken daily.");
-	data7.putAll(Sleep_Intake_Data);
-	data7.put("SSN", "1234");
-	data7.put("ID Verification Image", "ID_Verification_data07.png");
-
-	// Dataset 8 - AsterMigraEase
-	TreeMap<String,String> data8 = new TreeMap<String,String>();
-	data8.put("Product Name", "AsterMigraEase Headache Support Tablets");
-	data8.put("Treatment Variant", "AsterMigraEase Headache Support Tablets");
-	data8.put("Subscription Type", "One-Time Sale");
-	data8.put("Expected Price", "47.90");
-	data8.put("VRIO Offer ID", "");
-	data8.put("VRIO Product ID", "");
-	data8.put("First Name", "Matilda");
-	data8.put("Last Name", "Hawthorne");
-	data8.put("Email", "matilda.hawthorne.astermd261112batch1027@yopmail.com");
-	data8.put("Phone", "3125550127");
-	data8.put("Date of Birth", "01/19/1990");
-	data8.put("State", "New York");
-	data8.put("Residential State", "NY");
-	data8.put("Current Location State", "NY");
-	data8.put("Unit System", "Imperial (lbs/inches)");
-	data8.put("Height", "65");
-	data8.put("Weight", "144");
-	data8.put("Notes", "I would like to discuss frequent headaches, migraine triggers, treatment precautions, and preventive recommendations.");
-	data8.put("Address", "1308 QA Madison Avenue");
-	data8.put("City", "New York");
-	data8.put("Delivery State", "New York");
-	data8.put("Zipcode", "10001");
-	data8.put("ZIP Code", "10001");
-	data8.put("Cardholder Name", "Matilda Hawthorne");
-	data8.putAll(Shared_Checkout_Data);
-	data8.putAll(Shared_Intake_Data);
-	data8.put(Medication_Question_Key, "Acetaminophen");
-	data8.put(Medication_Details_Key, "Acetaminophen, dose unknown, taken as needed for headaches.");
-	data8.putAll(Migraine_Intake_Data);
-	data8.put("SSN", "1234");
-	data8.put("ID Verification Image", "ID_Verification_data08.png");
-
-	// Dataset 9 - AsterMigraEase
-	TreeMap<String,String> data9 = new TreeMap<String,String>();
-	data9.put("Product Name", "AsterMigraEase Headache Support Tablets");
-	data9.put("Treatment Variant", "AsterMigraEase Headache Support Tablets");
-	data9.put("Subscription Type", "One-Time Sale");
-	data9.put("Expected Price", "47.90");
-	data9.put("VRIO Offer ID", "");
-	data9.put("VRIO Product ID", "");
-	data9.put("First Name", "Elise");
-	data9.put("Last Name", "Fairchild");
-	data9.put("Email", "elise.fairchild.astermd261112batch1028@yopmail.com");
-	data9.put("Phone", "3125550128");
-	data9.put("Date of Birth", "11/14/1994");
-	data9.put("State", "Texas");
-	data9.put("Residential State", "TX");
-	data9.put("Current Location State", "TX");
-	data9.put("Unit System", "Imperial (lbs/inches)");
-	data9.put("Height", "67");
-	data9.put("Weight", "152");
-	data9.put("Notes", "I would like information about migraine episodes, headache frequency, treatment suitability, and potential medication interactions.");
-	data9.put("Address", "1309 QA Congress Avenue");
-	data9.put("City", "Austin");
-	data9.put("Delivery State", "Texas");
-	data9.put("Zipcode", "78701");
-	data9.put("ZIP Code", "78701");
-	data9.put("Cardholder Name", "Elise Fairchild");
-	data9.putAll(Shared_Checkout_Data);
-	data9.putAll(Shared_Intake_Data);
-	data9.put(Medication_Question_Key, "Ibuprofen");
-	data9.put(Medication_Details_Key, "Ibuprofen, dose unknown, taken as needed for headaches.");
-	data9.putAll(Migraine_Intake_Data);
-	data9.put("SSN", "1234");
-	data9.put("ID Verification Image", "ID_Verification_data09.png");
-
-	// Dataset 10 - AsterMigraEase
-	TreeMap<String,String> data10 = new TreeMap<String,String>();
-	data10.put("Product Name", "AsterMigraEase Headache Support Tablets");
-	data10.put("Treatment Variant", "AsterMigraEase Headache Support Tablets");
-	data10.put("Subscription Type", "One-Time Sale");
-	data10.put("Expected Price", "47.90");
-	data10.put("VRIO Offer ID", "");
-	data10.put("VRIO Product ID", "");
-	data10.put("First Name", "Astrid");
-	data10.put("Last Name", "Redmond");
-	data10.put("Email", "astrid.redmond.astermd261112batch1029@yopmail.com");
-	data10.put("Phone", "3125550129");
-	data10.put("Date of Birth", "05/05/1989");
-	data10.put("State", "Massachusetts");
-	data10.put("Residential State", "MA");
-	data10.put("Current Location State", "MA");
-	data10.put("Unit System", "Imperial (lbs/inches)");
-	data10.put("Height", "66");
-	data10.put("Weight", "148");
-	data10.put("Notes", "I would like advice regarding recurring migraine symptoms, medication safety, headache monitoring, and follow-up care.");
-	data10.put("Address", "1310 QA Beacon Street");
-	data10.put("City", "Boston");
-	data10.put("Delivery State", "Massachusetts");
-	data10.put("Zipcode", "02108");
-	data10.put("ZIP Code", "02108");
-	data10.put("Cardholder Name", "Astrid Redmond");
-	data10.putAll(Shared_Checkout_Data);
-	data10.putAll(Shared_Intake_Data);
-	data10.put(Medication_Question_Key, "Naproxen");
-	data10.put(Medication_Details_Key, "Naproxen, dose unknown, taken as needed for headaches.");
-	data10.putAll(Migraine_Intake_Data);
-	data10.put("SSN", "1234");
-	data10.put("ID Verification Image", "ID_Verification_data10.png");
-
-	// Dataset 11 - AsterMigraEase
-	TreeMap<String,String> data11 = new TreeMap<String,String>();
-	data11.put("Product Name", "AsterMigraEase Headache Support Tablets");
-	data11.put("Treatment Variant", "AsterMigraEase Headache Support Tablets");
-	data11.put("Subscription Type", "One-Time Sale");
-	data11.put("Expected Price", "47.90");
-	data11.put("VRIO Offer ID", "");
-	data11.put("VRIO Product ID", "");
-	data11.put("First Name", "Sylvie");
-	data11.put("Last Name", "Delaney");
-	data11.put("Email", "sylvie.delaney.astermd261112batch1030@yopmail.com");
-	data11.put("Phone", "3125550130");
-	data11.put("Date of Birth", "09/02/1995");
-	data11.put("State", "Minnesota");
-	data11.put("Residential State", "MN");
-	data11.put("Current Location State", "MN");
-	data11.put("Unit System", "Imperial (lbs/inches)");
-	data11.put("Height", "64");
-	data11.put("Weight", "137");
-	data11.put("Notes", "I would like to discuss headache severity, migraine-related discomfort, possible treatment side effects, and preventive measures.");
-	data11.put("Address", "1311 QA Hennepin Avenue");
-	data11.put("City", "Minneapolis");
-	data11.put("Delivery State", "Minnesota");
-	data11.put("Zipcode", "55401");
-	data11.put("ZIP Code", "55401");
-	data11.put("Cardholder Name", "Sylvie Delaney");
-	data11.putAll(Shared_Checkout_Data);
-	data11.putAll(Shared_Intake_Data);
-	data11.put(Medication_Question_Key, "Sumatriptan");
-	data11.put(Medication_Details_Key, "Sumatriptan, dose unknown, taken during migraine episodes as needed.");
-	data11.putAll(Migraine_Intake_Data);
-	data11.put("SSN", "1234");
-	data11.put("ID Verification Image", "ID_Verification_data11.png");
-
-	// Dataset 12 - AsterMigraEase
-	TreeMap<String,String> data12 = new TreeMap<String,String>();
-	data12.put("Product Name", "AsterMigraEase Headache Support Tablets");
-	data12.put("Treatment Variant", "AsterMigraEase Headache Support Tablets");
-	data12.put("Subscription Type", "One-Time Sale");
-	data12.put("Expected Price", "47.90");
-	data12.put("VRIO Offer ID", "");
-	data12.put("VRIO Product ID", "");
-	data12.put("First Name", "Vivian");
-	data12.put("Last Name", "Langley");
-	data12.put("Email", "vivian.langley.astermd261112batch1031@yopmail.com");
-	data12.put("Phone", "3125550131");
-	data12.put("Date of Birth", "08/18/1992");
-	data12.put("State", "Georgia");
-	data12.put("Residential State", "GA");
-	data12.put("Current Location State", "GA");
-	data12.put("Unit System", "Imperial (lbs/inches)");
-	data12.put("Height", "68");
-	data12.put("Weight", "161");
-	data12.put("Notes", "I would like information about migraine prevention, treatment eligibility, possible interactions, and clinical guidance.");
-	data12.put("Address", "1312 QA Peachtree Street");
-	data12.put("City", "Atlanta");
-	data12.put("Delivery State", "Georgia");
-	data12.put("Zipcode", "30303");
-	data12.put("ZIP Code", "30303");
-	data12.put("Cardholder Name", "Vivian Langley");
-	data12.putAll(Shared_Checkout_Data);
-	data12.putAll(Shared_Intake_Data);
-	data12.put(Medication_Question_Key, "Topiramate");
-	data12.put(Medication_Details_Key, "Topiramate, dose unknown, taken daily.");
-	data12.putAll(Migraine_Intake_Data);
-	data12.put("SSN", "1234");
-	data12.put("ID Verification Image", "ID_Verification_data12.png");
-
-	// Dataset 13 - AsterMigraEase
-	TreeMap<String,String> data13 = new TreeMap<String,String>();
-	data13.put("Product Name", "AsterMigraEase Headache Support Tablets");
-	data13.put("Treatment Variant", "AsterMigraEase Headache Support Tablets");
-	data13.put("Subscription Type", "One-Time Sale");
-	data13.put("Expected Price", "47.90");
-	data13.put("VRIO Offer ID", "");
-	data13.put("VRIO Product ID", "");
-	data13.put("First Name", "Elodie");
-	data13.put("Last Name", "Prescott");
-	data13.put("Email", "elodie.prescott.astermd261112batch1032@yopmail.com");
-	data13.put("Phone", "3125550132");
-	data13.put("Date of Birth", "04/29/1987");
-	data13.put("State", "North Carolina");
-	data13.put("Residential State", "NC");
-	data13.put("Current Location State", "NC");
-	data13.put("Unit System", "Imperial (lbs/inches)");
-	data13.put("Height", "65");
-	data13.put("Weight", "150");
-	data13.put("Notes", "I would like to discuss migraine symptom tracking, treatment precautions, and suitable headache management options.");
-	data13.put("Address", "1313 QA Tryon Street");
-	data13.put("City", "Charlotte");
-	data13.put("Delivery State", "North Carolina");
-	data13.put("Zipcode", "28202");
-	data13.put("ZIP Code", "28202");
-	data13.put("Cardholder Name", "Elodie Prescott");
-	data13.putAll(Shared_Checkout_Data);
-	data13.putAll(Shared_Intake_Data);
-	data13.put(Medication_Question_Key, "Other medicine or supplement (list it in the next question)");
-	data13.put(Medication_Details_Key, "Rizatriptan, dose unknown, taken during migraine episodes as needed.");
-	data13.putAll(Migraine_Intake_Data);
-	data13.put("SSN", "1234");
-	data13.put("ID Verification Image", "ID_Verification_data13.png");
-
-	// Dataset 14 - AsterMigraEase
-	TreeMap<String,String> data14 = new TreeMap<String,String>();
-	data14.put("Product Name", "AsterMigraEase Headache Support Tablets");
-	data14.put("Treatment Variant", "AsterMigraEase Headache Support Tablets");
-	data14.put("Subscription Type", "One-Time Sale");
-	data14.put("Expected Price", "47.90");
-	data14.put("VRIO Offer ID", "");
-	data14.put("VRIO Product ID", "");
-	data14.put("First Name", "Juliette");
-	data14.put("Last Name", "Sinclair");
-	data14.put("Email", "juliette.sinclair.astermd261112batch1033@yopmail.com");
-	data14.put("Phone", "3125550133");
-	data14.put("Date of Birth", "12/03/1996");
-	data14.put("State", "Ohio");
-	data14.put("Residential State", "OH");
-	data14.put("Current Location State", "OH");
-	data14.put("Unit System", "Imperial (lbs/inches)");
-	data14.put("Height", "66");
-	data14.put("Weight", "142");
-	data14.put("Notes", "I would like advice on recurring headaches, migraine treatment safety, medication precautions, and preventive care.");
-	data14.put("Address", "1314 QA High Street");
-	data14.put("City", "Columbus");
-	data14.put("Delivery State", "Ohio");
-	data14.put("Zipcode", "43215");
-	data14.put("ZIP Code", "43215");
-	data14.put("Cardholder Name", "Juliette Sinclair");
-	data14.putAll(Shared_Checkout_Data);
-	data14.putAll(Shared_Intake_Data);
-	data14.put(Medication_Question_Key, "Calcium carbonate");
-	data14.put(Medication_Details_Key, "Calcium carbonate, dose unknown, taken as needed.");
-	data14.putAll(Migraine_Intake_Data);
-	data14.put("SSN", "1234");
-	data14.put("ID Verification Image", "ID_Verification_data14.png");
-
-	// Dataset 15 - AsterRefluxa
-	TreeMap<String,String> data15 = new TreeMap<String,String>();
-	data15.put("Product Name", "AsterRefluxa Digestive Relief Capsules");
-	data15.put("Treatment Variant", "");
-	data15.put("Subscription Type", "Monthly / 30-Day Recurring");
-	data15.put("Expected Price", "");
-	data15.put("VRIO Offer ID", "");
-	data15.put("VRIO Product ID", "");
-	data15.put("First Name", "Margot");
-	data15.put("Last Name", "Merriweather");
-	data15.put("Email", "margot.merriweather.astermd261112batch1034@yopmail.com");
-	data15.put("Phone", "3125550134");
-	data15.put("Date of Birth", "07/09/1991");
-	data15.put("State", "Pennsylvania");
-	data15.put("Residential State", "PA");
-	data15.put("Current Location State", "PA");
-	data15.put("Unit System", "Imperial (lbs/inches)");
-	data15.put("Height", "65");
-	data15.put("Weight", "147");
-	data15.put("Notes", "I would like information about digestive discomfort, recurring acid reflux, treatment suitability, and dietary recommendations.");
-	data15.put("Address", "1315 QA Market Street");
-	data15.put("City", "Philadelphia");
-	data15.put("Delivery State", "Pennsylvania");
-	data15.put("Zipcode", "19103");
-	data15.put("ZIP Code", "19103");
-	data15.put("Cardholder Name", "Margot Merriweather");
-	data15.putAll(Shared_Checkout_Data);
-	data15.putAll(Shared_Intake_Data);
-	data15.put(Medication_Question_Key, "Omeprazole");
-	data15.put(Medication_Details_Key, "Omeprazole, dose unknown, taken daily.");
-	data15.putAll(Reflux_Intake_Data);
-	data15.put("SSN", "1234");
-	data15.put("ID Verification Image", "ID_Verification_data15.png");
-
-	// Detailed Page 3 Medical History Answers
-	String Allergy_Details_Key = "Intake Q&A - List your allergies and what reaction each causes. Enter None if you have no known allergies.";
-	String Medical_History_Key = "Intake Q&A - List your medical conditions, relevant mental health history, and significant past illnesses or operations. Enter None if you have none to report.";
-	String Substance_Use_Key = "Intake Q&A - Describe your caffeine, nicotine, alcohol, cannabis or other substance use, including amount and frequency. Enter None if you use none.";
-
-	data1.put(Allergy_Details_Key, "Grass pollen causes sneezing and watery eyes in spring. Nickel jewelry leaves an itchy rash where it touches my skin.");
-	data1.put(Medical_History_Key, "I have seasonal allergic rhinitis and have had trouble falling asleep for several months. I had an appendectomy in 2016 and recovered fully.");
-	data1.put(Substance_Use_Key, "I drink one 8-ounce cup of coffee most mornings and have one glass of wine about once a month. I do not use nicotine, cannabis, or other substances.");
-
-	data2.put(Allergy_Details_Key, "Dust exposure makes me sneeze and gives me itchy eyes. Adhesive tape can leave a red patch that itches for a day.");
-	data2.put(Medical_History_Key, "I have mild hand eczema that flares in winter. I had my wisdom teeth removed in 2017 and recovered without complications.");
-	data2.put(Substance_Use_Key, "I drink two 8-ounce cups of black tea on weekdays, one at breakfast and one at lunch. I do not use nicotine, alcohol, cannabis, or other substances.");
-
-	data3.put(Allergy_Details_Key, "Cat dander gives me a runny nose and watery eyes. Latex gloves make the skin on my hands red and itchy.");
-	data3.put(Medical_History_Key, "I have eczema that flares in dry weather. I had my tonsils removed as a child and recovered without complications.");
-	data3.put(Substance_Use_Key, "I have one 12-ounce coffee three mornings a week and one 12-ounce beer about twice a month. I do not use nicotine, cannabis, or other substances.");
-
-	data4.put(Allergy_Details_Key, "Tree pollen causes sneezing and itchy, watery eyes in spring. Adhesive bandages sometimes leave a red, itchy patch.");
-	data4.put(Medical_History_Key, "I have seasonal allergic rhinitis and ongoing difficulty falling asleep. I had an appendectomy in 2017 and recovered without complications.");
-	data4.put(Substance_Use_Key, "I drink one 8-ounce cup of coffee on weekday mornings and one cup of black tea on about two afternoons a week. I do not use nicotine, alcohol, cannabis, or other substances.");
-
-	data5.put(Allergy_Details_Key, "Mold exposure causes nasal congestion and watery eyes. Fragranced lotions sometimes cause an itchy rash on my arms.");
-	data5.put(Medical_History_Key, "I had childhood asthma and have had no flare in recent years. I attended counseling for work-related anxiety in 2021 and completed it that year.");
-	data5.put(Substance_Use_Key, "I have one 8-ounce green tea with breakfast on most days. I drink alcohol about once every two months, usually one glass of wine. I do not use nicotine, cannabis, or other substances.");
-
-	data6.put(Allergy_Details_Key, "Dog dander causes sneezing and itchy eyes after prolonged exposure. Adhesive tape leaves a red patch that fades the next day.");
-	data6.put(Medical_History_Key, "I have intermittent acid reflux, mainly after large or late meals. My gallbladder was removed in 2019 and I recovered without complications.");
-	data6.put(Substance_Use_Key, "I drink one 8-ounce coffee four mornings a week and one glass of wine about twice a month. I do not use nicotine, cannabis, or other substances.");
-
-	data7.put(Allergy_Details_Key, "Nickel earrings cause an itchy red rash on my earlobes. Ragweed pollen gives me congestion and watery eyes in late summer.");
-	data7.put(Medical_History_Key, "I was diagnosed with acid reflux in 2023. I had iron deficiency in 2020, and my follow-up blood tests returned to normal.");
-	data7.put(Substance_Use_Key, "I have one 12-ounce iced tea on two or three days a week and one 12-ounce beer on some weekends. I do not use nicotine, cannabis, or other substances.");
-
-	data8.put(Allergy_Details_Key, "Dust mites cause sneezing and nasal congestion when I clean. Adhesive bandages cause mild itching around the edges.");
-	data8.put(Medical_History_Key, "I have recurring headaches with light sensitivity and a history of seasonal allergies. I recovered fully from a sinus infection in 2022.");
-	data8.put(Substance_Use_Key, "I have one 8-ounce cup of coffee each morning and one glass of wine roughly once a month. I do not use nicotine, cannabis, or other substances.");
-
-	data9.put(Allergy_Details_Key, "Ragweed gives me sneezing and itchy eyes in the fall. Latex gloves cause an itchy rash on my hands.");
-	data9.put(Medical_History_Key, "I have recurrent headaches and seasonal allergies. I had a mild concussion in 2017 and recovered after follow-up.");
-	data9.put(Substance_Use_Key, "I drink one 12-ounce coffee on workdays. I use a nicotine vape about twice a week, usually three to five puffs. I do not use alcohol, cannabis, or other substances.");
-
-	data10.put(Allergy_Details_Key, "Birch pollen makes my eyes water and causes a runny nose. Nickel watchbands leave an itchy patch on my wrist.");
-	data10.put(Medical_History_Key, "I have recurring headaches and neck tension after long periods at my desk. I had an uncomplicated tonsillectomy as a teenager.");
-	data10.put(Substance_Use_Key, "I drink two 8-ounce cups of coffee on most weekdays and one glass of wine about twice a month. I do not use nicotine, cannabis, or other substances.");
-
-	data11.put(Allergy_Details_Key, "Pet dander causes sneezing and a stuffy nose. Some adhesive dressings leave an itchy rash for one to two days.");
-	data11.put(Medical_History_Key, "I have recurring headaches that sometimes come with nausea. I attended counseling for anxiety in 2020 and completed the course of care.");
-	data11.put(Substance_Use_Key, "I drink one 8-ounce cup of black tea most mornings and have one 12-ounce beer about once a month. I do not use nicotine, cannabis, or other substances.");
-
-	data12.put(Allergy_Details_Key, "Cedar pollen causes itchy eyes and sneezing during pollen season. Adhesive bandages can leave a small red rash.");
-	data12.put(Medical_History_Key, "I have a history of seizures and continue routine follow-ups. My last seizure was several years ago, and I also report recurring headaches.");
-	data12.put(Substance_Use_Key, "I drink one 8-ounce cup of coffee on two mornings a week. I do not use nicotine, alcohol, cannabis, or other substances.");
-
-	data13.put(Allergy_Details_Key, "Cat dander causes nasal congestion and itchy eyes. Some scented soaps leave an itchy rash on my hands.");
-	data13.put(Medical_History_Key, "I have recurring headaches with light sensitivity and a history of motion sickness. I had a small skin cyst removed in 2021 and healed without complications.");
-	data13.put(Substance_Use_Key, "I drink one 8-ounce cup of coffee most mornings and have one 12-ounce beer about once a month. I do not use nicotine, cannabis, or other substances.");
-
-	data14.put(Allergy_Details_Key, "Grass pollen causes a runny nose and watery eyes. Metal belt buckles sometimes leave an itchy rash where they touch my skin.");
-	data14.put(Medical_History_Key, "I have occasional acid reflux after large meals and recurrent headaches. I had an appendectomy in 2014 and recovered fully.");
-	data14.put(Substance_Use_Key, "I have one 8-ounce cup of green tea four mornings a week and one glass of wine about once a month. I do not use nicotine, cannabis, or other substances.");
-
-	data15.put(Allergy_Details_Key, "Dust mites give me sneezing and congestion. Latex gloves cause redness and itching where they touch my skin.");
-	data15.put(Medical_History_Key, "A clinician diagnosed reflux in 2022. I have had burning and a sour taste after meals for several months. I had an appendectomy in 2016 and recovered without complications.");
-	data15.put(Substance_Use_Key, "I drink one 8-ounce coffee in the morning on weekdays and have one glass of wine about twice a month. I do not use nicotine, cannabis, or other substances.");
-
-	// AsterMigraNova intake question keys
-	String MigraNova_Relief_Days_Key = "Intake Q&A - In the last 30 days, on how many days did you take medicine to relieve a headache?";
-	String MigraNova_Diagnosed_Key = "Intake Q&A - Has a clinician previously diagnosed you with migraine?";
-	String MigraNova_Pattern_Key = "Intake Q&A - When did your headaches start, and have they recently changed in frequency, severity, or location?";
-	String MigraNova_Frequency_Key = "Intake Q&A - On how many days a month do you have a headache?";
-	String MigraNova_Duration_Key = "Intake Q&A - How long does a typical headache last?";
-	String MigraNova_Symptoms_Key = "Intake Q&A - Describe your usual headache: where it hurts, severity, and any nausea, light or sound sensitivity, visual changes, or other symptoms.";
-	String MigraNova_Aura_Key = "Intake Q&A - Before or during your usual headaches, do you notice symptoms that go away, such as flashing lights, zigzag lines, or tingling?";
-	String MigraNova_Aura_Details_Key = "Intake Q&A - If you notice these symptoms, describe what happens, when it starts in relation to the headache, and how long it lasts.";
-	String MigraNova_Impact_Key = "Intake Q&A - How much do your headaches interfere with work, school, or usual daily activities?";
-	String MigraNova_Previous_Treatment_Key = "Intake Q&A - List headache treatments you have tried, how often you use them, and how they worked. Enter None if you have tried none.";
-
-	// Shared data for the four AsterMigraNova checkout variants
-	TreeMap<String,String> AsterMigraNova_Shared_Data = new TreeMap<String,String>(Shared_Checkout_Data);
-	AsterMigraNova_Shared_Data.putAll(Shared_Intake_Data);
-	AsterMigraNova_Shared_Data.putAll(Migraine_Intake_Data);
-	AsterMigraNova_Shared_Data.put("Product Name", "AsterMigraNova Migraine Wellness Tablets");
-	AsterMigraNova_Shared_Data.put("Subscription Type", "One-Time Sale");
-	AsterMigraNova_Shared_Data.put("VRIO Offer ID", "");
-	AsterMigraNova_Shared_Data.put("VRIO Product ID", "");
-	AsterMigraNova_Shared_Data.put("State", "Massachusetts");
-	AsterMigraNova_Shared_Data.put("Residential State", "MA");
-	AsterMigraNova_Shared_Data.put("Current Location State", "MA");
-	AsterMigraNova_Shared_Data.put("Unit System", "Imperial (lbs/inches)");
-	AsterMigraNova_Shared_Data.put("City", "Boston");
-	AsterMigraNova_Shared_Data.put("Delivery State", "Massachusetts");
-	AsterMigraNova_Shared_Data.put("Zipcode", "02108");
-	AsterMigraNova_Shared_Data.put("ZIP Code", "02108");
-	AsterMigraNova_Shared_Data.put("SSN", "1234");
-
-	// Dataset 21 - AsterMigraNova - 15 Tablets
-	TreeMap<String,String> data21 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
-	data21.put("Treatment Variant", "AsterMigraNova - 15 Tablets");
-	data21.put("Expected Price", "18.00");
-	data21.put("First Name", "Phoebe");
-	data21.put("Last Name", "Halstead");
-	data21.put("Email", "phoebe.halstead.astermd261112batch1035@yopmail.com");
-	data21.put("Phone", "3125550135");
-	data21.put("Date of Birth", "02/24/1993");
-	data21.put("Height", "65");
-	data21.put("Weight", "143");
-	data21.put("Address", "1322 QA Beacon Street");
-	data21.put("Cardholder Name", "Phoebe Halstead");
-	data21.put("Notes", "A missed meal sometimes precedes a headache. I would like to discuss the recurring visual changes with the clinician.");
-	data21.put("ID Verification Image", "ID_Verification_data10.png");
-
-	data21.put(Medication_Question_Key, "Naproxen");
-	data21.put(Medication_Details_Key, "Naproxen, dose unknown, taken as needed for headache relief. I used it on three days in the last 30 days.");
-	data21.put(Allergy_Details_Key, "Grass pollen gives me itchy eyes and a runny nose. Adhesive tape can leave an itchy patch.");
-	data21.put(Medical_History_Key, "I have seasonal allergies and recurring headaches. I recovered fully after an appendectomy in 2017.");
-	data21.put(Substance_Use_Key, "I drink one 8-ounce cup of coffee most mornings. I have one glass of wine about once a month.");
-	data21.put(MigraNova_Relief_Days_Key, "1-4 days");
-	data21.put(MigraNova_Diagnosed_Key, "No");
-	data21.put(MigraNova_Pattern_Key, "The headaches started about 18 months ago. They have followed a similar pattern over the past six months.");
-	data21.put(MigraNova_Frequency_Key, "1-3 days");
-	data21.put(MigraNova_Duration_Key, "4-24 hours");
-	data21.put(MigraNova_Symptoms_Key, "I get moderate throbbing pain around my left temple with light sensitivity and occasional nausea.");
-	data21.put(MigraNova_Aura_Key, "Yes");
-	data21.put(MigraNova_Aura_Details_Key, "Sometimes I see a bright zigzag about 15 minutes before the headache. It clears after about 10 minutes.");
-	data21.put(MigraNova_Impact_Key, "I have to pause or reduce activities");
-	data21.put(MigraNova_Previous_Treatment_Key, "Resting in a dark room helps with the light sensitivity. Naproxen gave partial pain relief on three headache days last month.");
-
-	// Dataset 22 - AsterMigraNova - 30 Tablets
-	TreeMap<String,String> data22 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
-	data22.put("Treatment Variant", "AsterMigraNova - 30 Tablets");
-	data22.put("Expected Price", "29.99");
-	data22.put("First Name", "Audrey");
-	data22.put("Last Name", "Fenwick");
-	data22.put("Email", "audrey.fenwick.astermd261112batch1036@yopmail.com");
-	data22.put("Phone", "3125550136");
-	data22.put("Date of Birth", "09/16/1990");
-	data22.put("Height", "66");
-	data22.put("Weight", "151");
-	data22.put("Address", "1323 QA Charles Street");
-	data22.put("Cardholder Name", "Audrey Fenwick");
-	data22.put("Notes", "Headaches often follow long stretches of screen work. I would like to discuss how to track that pattern.");
-	data22.put("ID Verification Image", "ID_Verification_data11.png");
-
-	data22.put(Medication_Question_Key, "Ibuprofen");
-	data22.put(Medication_Details_Key, "Ibuprofen, dose unknown, taken as needed for headaches. I used it on six days in the last 30 days.");
-	data22.put(Allergy_Details_Key, "Dust exposure causes sneezing and watery eyes. Nickel earrings leave an itchy rash.");
-	data22.put(Medical_History_Key, "I have mild eczema that flares in winter. I recovered without complications after wisdom tooth removal in 2018.");
-	data22.put(Substance_Use_Key, "I drink one cup of black tea most mornings and one cup on some afternoons.");
-	data22.put(MigraNova_Relief_Days_Key, "5-9 days");
-	data22.put(MigraNova_Diagnosed_Key, "No");
-	data22.put(MigraNova_Pattern_Key, "The headaches began about two years ago. For the past few months they have occurred on about six days each month.");
-	data22.put(MigraNova_Frequency_Key, "4-14 days");
-	data22.put(MigraNova_Duration_Key, "4-24 hours");
-	data22.put(MigraNova_Symptoms_Key, "The pain is usually on the right side, with sensitivity to sound. Walking upstairs can make the pain worse.");
-	data22.put(MigraNova_Aura_Key, "No");
-	data22.put(MigraNova_Aura_Details_Key, "My vision and sensation stay normal before and during the headache.");
-	data22.put(MigraNova_Impact_Key, "I can continue with some difficulty");
-	data22.put(MigraNova_Previous_Treatment_Key, "Taking a screen break and drinking water helped a little. I used ibuprofen on six headache days this month and usually felt partial relief.");
-
-	// Dataset 23 - AsterMigraNova - 60 Tablets
-	TreeMap<String,String> data23 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
-	data23.put("Treatment Variant", "AsterMigraNova - 60 Tablets");
-	data23.put("Expected Price", "49.99");
-	data23.put("First Name", "Nina");
-	data23.put("Last Name", "Bellamy");
-	data23.put("Email", "nina.bellamy.astermd261112batch1037@yopmail.com");
-	data23.put("Phone", "3125550137");
-	data23.put("Date of Birth", "07/08/1995");
-	data23.put("Height", "67");
-	data23.put("Weight", "149");
-	data23.put("Address", "1324 QA Park Street");
-	data23.put("Cardholder Name", "Nina Bellamy");
-	data23.put("Notes", "Poor sleep sometimes precedes a longer attack. I would like the clinician to review my recent headache diary.");
-	data23.put("ID Verification Image", "ID_Verification_data12.png");
-
-	data23.put(Medication_Question_Key, "Sumatriptan");
-	data23.put(Medication_Details_Key, "Sumatriptan, dose unknown, taken as prescribed during attacks. I used it on four days in the last 30 days.");
-	data23.put(Allergy_Details_Key, "Cat dander causes itchy eyes and congestion. Some scented lotions leave an itchy rash on my arms.");
-	data23.put(Medical_History_Key, "A clinician diagnosed migraine in 2023. I also have seasonal allergic rhinitis and recovered fully after a sinus infection in 2022.");
-	data23.put(Substance_Use_Key, "I drink one cup of coffee three mornings a week and one 12-ounce beer about once a month.");
-	data23.put(MigraNova_Relief_Days_Key, "1-4 days");
-	data23.put(MigraNova_Diagnosed_Key, "Yes");
-	data23.put(MigraNova_Pattern_Key, "These headaches began about three years ago. They have affected roughly eight days per month for the last six months.");
-	data23.put(MigraNova_Frequency_Key, "4-14 days");
-	data23.put(MigraNova_Duration_Key, "More than 24 hours up to 3 days");
-	data23.put(MigraNova_Symptoms_Key, "I get strong pulsing pain on one side of my head, nausea, and sensitivity to both light and sound.");
-	data23.put(MigraNova_Aura_Key, "Yes");
-	data23.put(MigraNova_Aura_Details_Key, "A shimmering spot slowly spreads across my vision before some attacks. It usually clears within 20 minutes.");
-	data23.put(MigraNova_Impact_Key, "I cannot carry out usual activities");
-	data23.put(MigraNova_Previous_Treatment_Key, "Sumatriptan gave partial relief on four days this month. Rest in a quiet, dark room helped me get through longer attacks.");
-
-	// Dataset 24 - AsterMigraNova - 90 Tablets
-	TreeMap<String,String> data24 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
-	data24.put("Treatment Variant", "AsterMigraNova - 90 Tablets");
-	data24.put("Expected Price", "69.99");
-	data24.put("First Name", "Livia");
-	data24.put("Last Name", "Kenwood");
-	data24.put("Email", "livia.kenwood.astermd261112batch1038@yopmail.com");
-	data24.put("Phone", "3125550138");
-	data24.put("Date of Birth", "11/19/1991");
-	data24.put("Height", "64");
-	data24.put("Weight", "157");
-	data24.put("Address", "1325 QA Temple Street");
-	data24.put("Cardholder Name", "Livia Kenwood");
-	data24.put("Notes", "I would like the clinician to review the headache frequency since I started the current preventive medicine.");
-	data24.put("ID Verification Image", "ID_Verification_data13.png");
-
-	data24.put(Medication_Question_Key, "Topiramate");
-	data24.put(Medication_Details_Key, "Topiramate, dose unknown, taken daily as prescribed for prevention. I used no headache-relief medicine in the last 30 days.");
-	data24.put(Allergy_Details_Key, "Ragweed gives me nasal congestion and itchy eyes. Latex gloves make my hands red and itchy.");
-	data24.put(Medical_History_Key, "A clinician diagnosed migraine several years ago. I have mild reflux after late meals and had an uncomplicated tonsillectomy as a teenager.");
-	data24.put(Substance_Use_Key, "I drink one cup of decaffeinated coffee with breakfast most days. I have one glass of wine about twice a month.");
-	data24.put(MigraNova_Relief_Days_Key, "0 days");
-	data24.put(MigraNova_Diagnosed_Key, "Yes");
-	data24.put(MigraNova_Pattern_Key, "The headaches started about four years ago. They have occurred on about eight days a month since the current prevention routine stabilized.");
-	data24.put(MigraNova_Frequency_Key, "4-14 days");
-	data24.put(MigraNova_Duration_Key, "Less than 4 hours");
-	data24.put(MigraNova_Symptoms_Key, "I usually have moderate pain over my right temple, with some light sensitivity. It often eases after two to three hours of rest.");
-	data24.put(MigraNova_Aura_Key, "No");
-	data24.put(MigraNova_Aura_Details_Key, "The pain develops gradually. My vision and sensation stay normal throughout the usual episode.");
-	data24.put(MigraNova_Impact_Key, "I have to pause or reduce activities");
-	data24.put(MigraNova_Previous_Treatment_Key, "Daily topiramate as prescribed reduced how often the headaches occur. A brief rest in a dark room helps during episodes.");
-
-	return new Object[][] { /*
-		{ data1 }, 
-		{ data2 }, 
-		{ data3 },
-		{ data4 },
-		{ data5 },
-		{ data6 }, 
-		{ data7 },
-		{ data8 }, 
-		{ data9 }, 
-		{ data10 }, 
-		{ data11 },
-		{ data12 },
-		{ data13 },
-		{ data14 }, */
-		{ data15 }, /*
-		{ data21 },
-		{ data22 },
-		{ data23 },
-		{ data24 }  */
-	};
+	return combined_data;
 }
 
 
@@ -852,10 +928,8 @@ public Object[][] Storefront_Product_Data(){
 
 
 
-
-
- @Test(dataProvider="Storefront_Product_Data")
-public void Product_Choose(TreeMap<String, String> Product_data) throws IOException, InterruptedException{
+@Test(dataProvider="Storefront_Product_Data")
+public void Product_Choose(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws IOException, InterruptedException{
 
 	StoreFront_Locaters p = new StoreFront_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -863,7 +937,7 @@ public void Product_Choose(TreeMap<String, String> Product_data) throws IOExcept
 	// Manual Flow Switch
 	boolean Proceed_To_Checkout_Directly = true;
 
-	String Product_Name = Product_data.get("Product Name");
+	String Product_Name = Product_Data.get("Product Name");
 
 	System.out.println();
 	System.out.println("============================================================");
@@ -935,7 +1009,7 @@ public void Product_Choose(TreeMap<String, String> Product_data) throws IOExcept
 
 			Report_Listen.log_print_in_report().info("Starting Storefront Checkout.");
 
-			Checkout_Manager(Product_data);
+			Checkout_Manager(Patient_Data, Product_Data);;
 
 			// Collect Order Details
 			TreeMap<String, String> Actual_Order_Details = Order_Details_Collector();
@@ -1032,23 +1106,23 @@ public void Q_and_A_Resolver(TreeMap<String, String> Form_Data) throws IOExcepti
 
 
 
-public void Checkout_Manager(TreeMap<String, String> Form_Data){
+ public void Checkout_Manager(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data){
 
 	StoreFront_Locaters p = new StoreFront_Locaters(d);
 	Repeat rp = new Repeat(d);
 
-	String Product_Name = Form_Data.get("Product Name");
-	String First_Name = Form_Data.get("First Name");
-	String Last_Name = Form_Data.get("Last Name");
-	String Email = Form_Data.get("Email");
-	String Phone = Form_Data.get("Phone");
-	String Address = Form_Data.get("Address");
-	String City = Form_Data.get("City");
-	String State = Form_Data.get("Delivery State");
-	String Zipcode = Form_Data.get("Zipcode");
-	String Card_Number = Form_Data.get("Card Number");
-	String Expiry = Form_Data.get("Expiry Date");
-	String CVV = Form_Data.get("Security Code");
+	String Product_Name = Product_Data.get("Product Name");
+	String First_Name = Patient_Data.get("First Name");
+	String Last_Name = Patient_Data.get("Last Name");
+	String Email = Patient_Data.get("Email");
+	String Phone = Patient_Data.get("Phone");
+	String Address = Patient_Data.get("Address");
+	String City = Patient_Data.get("City");
+	String State = Patient_Data.get("Delivery State");
+	String Zipcode = Patient_Data.get("Zipcode");
+	String Card_Number = Patient_Data.get("Card Number");
+	String Expiry = Patient_Data.get("Expiry Date");
+	String CVV = Patient_Data.get("Security Code");
 
 	System.out.println();
 	System.out.println("============================================================");
@@ -1094,7 +1168,7 @@ public void Checkout_Manager(TreeMap<String, String> Form_Data){
 		}
 
 		// Treatment Variant and Subscription Selection
-		Treatment_Variant_Selector(Form_Data);
+		Treatment_Variant_Selector(Product_Data);
 
 		// Contact Information
 		WebElement Email_Field = p.Checkout_Email();

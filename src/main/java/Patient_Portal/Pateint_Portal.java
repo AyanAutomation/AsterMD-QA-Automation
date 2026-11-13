@@ -126,17 +126,17 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 	Report_Listen.log_print_in_report().pass("Patient Portal credentials configured successfully for: " + Patient_Email);
 }
 
-public void Patient_Portal_Login(TreeMap<String,String> Product_data){
+public void Patient_Portal_Login(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data){
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
 
-	String Patient_Email = Product_data.get("Email");
-	String First_Name = Product_data.get("First Name");
-	String Last_Name = Product_data.get("Last Name");
+	String Patient_Email = Patient_Data.get("Email");
+	String First_Name = Patient_Data.get("First Name");
+	String Last_Name = Patient_Data.get("Last Name");
 	String Patient_Name = First_Name + " " + Last_Name;
-	String Product_Name = Product_data.get("Product Name");
-	String Patient_Password = Product_data.get("Patient Password");
+	String Product_Name = Product_Data.get("Product Name");
+	String Patient_Password = Patient_Data.get("Patient Password");
 
 	System.out.println();
 	System.out.println("============================================================");
@@ -198,11 +198,11 @@ public void Patient_Portal_Login(TreeMap<String,String> Product_data){
 	Report_Listen.log_print_in_report().pass("Patient Portal login confirmed | Patient: " + Patient_Name + " | Email: " + Patient_Email + " | Product: " + Product_Name + " | Login page closed and header menu available | Result: PASS");
 }
 
-public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,String> Product_data) throws InterruptedException{
+public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws InterruptedException{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
-	Patient_Portal_Login(Product_data);
+	Patient_Portal_Login(Patient_Data, Product_Data);
 	List<WebElement> Menu_Options = p.Patient_Portal_Header_Menu_Options();
 
 	System.out.println("---------- PATIENT PORTAL MENU ----------");
@@ -229,17 +229,18 @@ public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,S
 	throw new IllegalStateException("Patient Portal menu is unavailable: " + Option);
 }
 
-@Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
-public void Intake_form_filling(TreeMap<String,String> Product_data) throws InterruptedException{
+    @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
+   public void Intake_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws InterruptedException{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
-	String Product_Name = Product_data.get("Product Name");
-	String Treatment_Variant = Product_data.get("Treatment Variant");
-	String Patient_Name = Product_data.get("First Name") + " " + Product_data.get("Last Name");
+
+	String Product_Name = Product_Data.get("Product Name");
+	String Treatment_Variant = Product_Data.get("Treatment Variant");
+	String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
 	String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
 
-	Patient_portal_header_menu_navigator("Treatments", Product_data);
+	Patient_portal_header_menu_navigator("Treatments", Patient_Data, Product_Data);
 	System.out.println("---------- PATIENT INTAKE ----------");
 	System.out.println("Patient : " + Patient_Name);
 	System.out.println("Product : " + Product_Name + " | Variant: " + Treatment_Variant);
@@ -287,7 +288,7 @@ public void Intake_form_filling(TreeMap<String,String> Product_data) throws Inte
 						
 						if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraNova Migraine Wellness Tablets")){
 							
-							Fill_Five_Page_Intake_Form(Product_data);
+							Fill_Five_Page_Intake_Form(Patient_Data, Product_Data);
 							
 							System.out.println("Patient Intake | Product: " + Product_Name + " | Result: COMPLETED");
 							Report_Listen.log_print_in_report().pass("Patient Intake completed | Patient: " + Patient_Name + " | Product: " + Product_Name);
@@ -305,24 +306,24 @@ public void Intake_form_filling(TreeMap<String,String> Product_data) throws Inte
 	Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: No usable matching Start Intake button.");
 }
 
-public void Fill_Five_Page_Intake_Form(TreeMap<String,String> Product_data){
+    public void Fill_Five_Page_Intake_Form(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data){
 
-	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
-	Repeat rp = new Repeat(d);
+    	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
+    	Repeat rp = new Repeat(d);
 
-	String Product_Name = Product_data.get("Product Name");
-	String First_Name = Product_data.get("First Name");
-	String Last_Name = Product_data.get("Last Name");
-	String Patient_Email = Product_data.get("Email");
-	String Date_Of_Birth = Product_data.get("Date of Birth");
-	String Biological_Sex = Product_data.get("Biological Sex at Birth");
-	String Patient_Phone = Product_data.get("Phone");
-	String Intake_Reason = Product_data.get("Intake Reason");
-	String Patient_Address = Product_data.get("Address");
-	String Patient_City = Product_data.get("City");
-	String Residential_State = Product_data.get("Residential State");
-	String Current_Location_State = Product_data.get("Current Location State");
-	String Patient_ZIP = Product_data.get("ZIP Code");
+    	String Product_Name = Product_Data.get("Product Name");
+    	String First_Name = Patient_Data.get("First Name");
+    	String Last_Name = Patient_Data.get("Last Name");
+    	String Patient_Email = Patient_Data.get("Email");
+    	String Date_Of_Birth = Patient_Data.get("Date of Birth");
+    	String Biological_Sex = Patient_Data.get("Biological Sex at Birth");
+    	String Patient_Phone = Patient_Data.get("Phone");
+    	String Intake_Reason = Product_Data.get("Intake Reason");
+    	String Patient_Address = Patient_Data.get("Address");
+    	String Patient_City = Patient_Data.get("City");
+    	String Residential_State = Patient_Data.get("Residential State");
+    	String Current_Location_State = Patient_Data.get("Current Location State");
+    	String Patient_ZIP = Patient_Data.get("ZIP Code");
 
 	Residential_State = Residential_State.trim().toUpperCase(Locale.ENGLISH);
 	Current_Location_State = Current_Location_State.trim().toUpperCase(Locale.ENGLISH);
@@ -458,7 +459,7 @@ public void Fill_Five_Page_Intake_Form(TreeMap<String,String> Product_data){
 	System.out.println();
 	System.out.println("---------- PAGE 3 : MEDICAL HISTORY ----------");
 
-	Teleform_Question_Selector(Product_data);
+	Teleform_Question_Selector(Product_Data);
 
 	Next_Button = p.Teleform_Continue_Button();
 	rp.movetoelement(Next_Button);
@@ -477,7 +478,7 @@ public void Fill_Five_Page_Intake_Form(TreeMap<String,String> Product_data){
 	System.out.println();
 	System.out.println("---------- PAGE 4 : YOUR SYMPTOMS ----------");
 
-	Teleform_Question_Selector(Product_data);
+	Teleform_Question_Selector(Product_Data);
 
 	
 	Next_Button = p.Teleform_Continue_Button();
@@ -538,7 +539,7 @@ public void Fill_Five_Page_Intake_Form(TreeMap<String,String> Product_data){
 	
 }
 
-   public void Teleform_Question_Selector(TreeMap<String,String> Product_data){
+   public void Teleform_Question_Selector(TreeMap<String,String> Product_Data){
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -558,7 +559,7 @@ public void Fill_Five_Page_Intake_Form(TreeMap<String,String> Product_data){
 
 			String Data_Key = "Intake Q&A - " + Question;
 
-			String Expected_Answer = Product_data.get(Data_Key);
+			String Expected_Answer = Product_Data.get(Data_Key);
 
 			List<WebElement> Answer_Options = Question_Card.findElements(By.xpath(".//label[contains(@class,'ant-radio-wrapper') or contains(@class,'ant-checkbox-wrapper')]"));
 
@@ -633,7 +634,7 @@ public void Fill_Five_Page_Intake_Form(TreeMap<String,String> Product_data){
 
 			}
 
-			String Expected_Answer = Product_data.get(Data_Key);
+			String Expected_Answer = Product_Data.get(Data_Key);
 			WebElement Answer_Field = Question_Card.findElement(By.xpath(".//textarea"));
 			Boolean Answer_Visible = rp.check_element_visibility(Answer_Field, 5);
 			Boolean Answer_Enabled = Answer_Field.isEnabled();
@@ -851,25 +852,25 @@ public Boolean Teleform_Toast_Detector_Printer(WebElement Toast){
 }
 
 
-    @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
-    public void Veirfy_Id_form_filling(TreeMap<String,String> Product_data) throws InterruptedException{
+   @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
+  public void Veirfy_Id_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws InterruptedException{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
 	Assertion Assert_Check = new Assertion();
 
-	String Product_Name = Product_data.get("Product Name");
-	String Treatment_Variant = Product_data.get("Treatment Variant");
-	String Patient_Name = Product_data.get("First Name") + " " + Product_data.get("Last Name");
+	String Product_Name = Product_Data.get("Product Name");
+	String Treatment_Variant = Product_Data.get("Treatment Variant");
+	String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
 	String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
 
-	String SSN = Product_data.get("SSN");
-	String ID_Verification_Image = Product_data.get("ID Verification Image");
+	String SSN = Patient_Data.get("SSN");
+	String ID_Verification_Image = Patient_Data.get("ID Verification Image");
 	File ID_Verification_Folder = new File(System.getProperty("user.dir"), "Images/AsterMD_ID_Verification_QA_Fixtures_20_Images/Images/ID_Verification");
 	File ID_Verification_File = new File(ID_Verification_Folder, ID_Verification_Image);
 	String ID_Verification_Image_Path = ID_Verification_File.getAbsolutePath();
 
-	Patient_portal_header_menu_navigator("Treatments", Product_data);
+	Patient_portal_header_menu_navigator("Treatments", Patient_Data, Product_Data);
 	System.out.println("---------- PATIENT INTAKE ----------");
 	System.out.println("Patient : " + Patient_Name);
 	System.out.println("Product : " + Product_Name + " | Variant: " + Treatment_Variant);

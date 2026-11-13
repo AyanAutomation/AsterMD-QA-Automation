@@ -88,13 +88,13 @@ public class Doctor_network extends Frontend_Store_Front{
 	
 	
 	
-	public String beluga_visit_check_and_Authorize(TreeMap<String,String> Data, String Case_ID, WebDriver d) throws IOException, InterruptedException{
+	public String beluga_visit_check_and_Authorize(TreeMap<String,String> Patient_Data, String Case_ID, WebDriver d) throws IOException, InterruptedException{
 
 	Dr_Network_locaters p = new Dr_Network_locaters(d);
 	Repeat rp = new Repeat(d);
 	Json Payload_Json = new Json();
 
-	String Patient_Name = Data.get("First Name") + " " + Data.get("Last Name");
+	String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
 	String CaseID = Case_ID.trim();
 	String Assigned_Dr_Name = null;
 
@@ -169,8 +169,11 @@ public class Doctor_network extends Frontend_Store_Front{
 
 				String Actual_Master_ID = p.Visit_Master_ID().getText().trim();
 				String Actual_Patient_Email = p.Visit_Patient_Email().getText().trim();
+				
 				Assert.assertEquals(Actual_Master_ID, CaseID, "The opened Beluga visit belongs to a different treatment case.");
-				Assert.assertEquals(Actual_Patient_Email, Data.get("Email"), "The opened Beluga visit belongs to a different patient.");
+				
+				Assert.assertEquals(Actual_Patient_Email, Patient_Data.get("Email"), "The opened Beluga visit belongs to a different patient.");
+				
 				System.out.println("Verified Visit Master ID : " + Actual_Master_ID);
 				Report_Listen.log_print_in_report().info("Beluga visit identity verified | Patient: " + Patient_Name + " | Email: " + Actual_Patient_Email + " | Visit Master ID: " + Actual_Master_ID);
 
@@ -317,4 +320,9 @@ public class Doctor_network extends Frontend_Store_Front{
 	throw new IllegalStateException("Intended Beluga visit was not found for patient: " + Patient_Name + " | Expected ID: " + CaseID + ". No webhook was sent.");
 
 }
+
+
+
+
+
 }
