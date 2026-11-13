@@ -1,6 +1,9 @@
 package Patient_Portal;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
 import java.io.File;
+import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -11,22 +14,29 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WindowType;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 import org.testng.asserts.Assertion;
 
+import AsterMD.Project.AsterMD.Patient_Module;
 import Listerners.Report_Listen;
+import Locaters.Patient_Module_Locaters;
 import Locaters.Patient_Portal_Locaters;
 import Repeatative_codes.Repeat;
 import Store.Frontend_Store_Front;
 
+
+
+
 public class Pateint_Portal extends Frontend_Store_Front{
 
-public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, String Patient_Password){
+public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, String Patient_Password) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -51,7 +61,9 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 
 	rp.movetoelement(Open_Inbox);
 	Open_Inbox.click();
+	Thread.sleep(800);
 
+    
 	System.out.println();
 	System.out.println("---------------- YOPMAIL INBOX ----------------");
 	System.out.println("Inbox : " + Patient_Email);
@@ -60,60 +72,68 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 	WebElement Refresh_Button = p.Yopmail_Refresh();
 
 	rp.movetoelement(Refresh_Button);
-	Refresh_Button.click();
-
-	// Open Latest Email
-	WebElement Inbox_Frame = p.Yopmail_Inbox_Frame();
-	d.switchTo().frame(Inbox_Frame);
-
-	WebElement First_Mail = p.Yopmail_First_Mail();
-
-	rp.movetoelement(First_Mail);
-	First_Mail.click();
-
-	d.switchTo().defaultContent();
-
-	// Read Password Setup Link
-	WebElement Message_Frame = p.Yopmail_Message_Frame();
-	d.switchTo().frame(Message_Frame);
-
-	WebElement Mail_Body = p.Yopmail_Message_Body();
-	String Email_Content = Mail_Body.getText();
-
-	Matcher Reset_Link = Pattern.compile("https://testdemo\\.logistial\\.com/set-password\\?token=[A-Za-z0-9._~-]+").matcher(Email_Content);
-
-	Boolean Link_Found = Reset_Link.find();
 	
-	if(Link_Found){
-		System.out.println("Password setup link | Result: PASS");
-		Report_Listen.log_print_in_report().pass("Patient Portal password setup link retrieved successfully.");
+	try {
+		
+	   Refresh_Button.click(); 
+	// Open Latest Email
+		WebElement Inbox_Frame = p.Yopmail_Inbox_Frame();
+		d.switchTo().frame(Inbox_Frame);
+
+		WebElement First_Mail = p.Yopmail_First_Mail();
+
+		rp.movetoelement(First_Mail);
+		First_Mail.click();
+
+		d.switchTo().defaultContent();
+
+		// Read Password Setup Link
+		WebElement Message_Frame = p.Yopmail_Message_Frame();
+		d.switchTo().frame(Message_Frame);
+
+		WebElement Mail_Body = p.Yopmail_Message_Body();
+		String Email_Content = Mail_Body.getText();
+
+		Matcher Reset_Link = Pattern.compile("https://testdemo\\.logistial\\.com/set-password\\?token=[A-Za-z0-9._~-]+").matcher(Email_Content);
+
+		Boolean Link_Found = Reset_Link.find();
+		
+		if(Link_Found){
+			System.out.println("Password setup link | Result: PASS");
+			Report_Listen.log_print_in_report().pass("Patient Portal password setup link retrieved successfully.");
+		}
+		else{
+			System.out.println();
+			System.out.println("Result : FAIL");
+			System.out.println("Reason : Password setup link not found in Yopmail.");
+
+			Report_Listen.log_print_in_report().fail("Password setup link not found for: " + Patient_Email);
+			throw new IllegalStateException("Password setup link not found in the latest email for: " + Patient_Email);
+		}
+
+		String Password_Setup_URL = Reset_Link.group();
+
+		// Configure Patient Credentials
+		d.switchTo().defaultContent();
+		d.navigate().to(Password_Setup_URL);
+
+		WebElement Password_Field = p.Portal_Password();
+		WebElement Confirm_Password_Field = p.Portal_Confirm_Password();
+
+		Password_Field.sendKeys(Patient_Password);
+		Confirm_Password_Field.sendKeys(Patient_Password);
+
+		WebElement Continue_Button = p.Portal_Continue_Button();
+
+		rp.movetoelement(Continue_Button);
+		Continue_Button.click();
+}
+	catch(ElementClickInterceptedException yopmail_error){
+		
+	//	patient_portal_login_via_Admin(Patient_Email);
 	}
-	else{
-		System.out.println();
-		System.out.println("Result : FAIL");
-		System.out.println("Reason : Password setup link not found in Yopmail.");
 
-		Report_Listen.log_print_in_report().fail("Password setup link not found for: " + Patient_Email);
-		throw new IllegalStateException("Password setup link not found in the latest email for: " + Patient_Email);
-	}
-
-	String Password_Setup_URL = Reset_Link.group();
-
-	// Configure Patient Credentials
-	d.switchTo().defaultContent();
-	d.navigate().to(Password_Setup_URL);
-
-	WebElement Password_Field = p.Portal_Password();
-	WebElement Confirm_Password_Field = p.Portal_Confirm_Password();
-
-	Password_Field.sendKeys(Patient_Password);
-	Confirm_Password_Field.sendKeys(Patient_Password);
-
-	WebElement Continue_Button = p.Portal_Continue_Button();
-
-	rp.movetoelement(Continue_Button);
-	Continue_Button.click();
-
+	
 	// Verify Patient Portal Login Page
 	WebElement Login_Title = p.Portal_Login_Title();
 
@@ -126,7 +146,78 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 	Report_Listen.log_print_in_report().pass("Patient Portal credentials configured successfully for: " + Patient_Email);
 }
 
-public void Patient_Portal_Login(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data){
+ 
+ @Test
+ public void patient_portal_login_via_Admin(/* String Patient_data */) throws Exception{
+	 
+	 Patient_Module_Locaters p = new Patient_Module_Locaters(d);
+	 Repeat rp = new Repeat(d);
+
+	 
+	 String Patient_mailid = /* Patient_data */  "hea.ridley.astermd261113batch1064@yopmail.com";
+	 
+	 Side_Menu_Navigation("Patients");
+	 Thread.sleep(800);
+
+	 WebElement Search_box = p.Search();
+	 Search_box.clear();
+	 Search_box.sendKeys(Patient_mailid);
+	 
+	 Thread.sleep(1900);
+	 
+	 List<WebElement> Rows = p.Table_Rows();
+	 
+	 MainLoop:
+	 for(WebElement Row:Rows){
+		 
+		 WebElement Eye_button=Row.findElement(By.xpath(".//a"));
+		 List<WebElement> Cells = Row.findElements(By.xpath(".//td[contains(@class,'ant-table-cell-ellipsis')]"));
+		 
+		 for(WebElement Cell:Cells){
+			 
+			 String Cell_Text=Cell.getText().trim();
+			 
+			 if(Cell_Text.contains(Patient_mailid)) {
+				 
+				 rp.movetoelement(Eye_button);
+				 Eye_button.click();
+				  break MainLoop;
+			 
+			 }
+		 }
+	 }
+	
+	 
+	 WebElement Edit_Button = p.Patient_Details_Edit_Button();
+     rp.wait_for_theElement_to_be_clickable(Edit_Button);
+     rp.Scroll_Down();
+	 WebElement patient_portal_access_button =p.Dropdown_Patient_url_access_button();
+	 rp.movetoelement(patient_portal_access_button);
+	 patient_portal_access_button.click();
+	 
+	 WebElement Copy_Element = p.Copy_Address_dropdown_Element();
+	 Copy_Element.click();
+	 WebElement Confirmation_Message = p.Success_Toast();
+	 rp.wait_for_expected_text(Confirmation_Message, "Copied Portal Access URL");
+
+	 String Confirmation_Message_Text = Confirmation_Message.getText().trim();
+	 System.out.println(Confirmation_Message_Text);
+	 String Portal_URL = ((String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor)).trim();
+	 URI Portal_Address = URI.create(Portal_URL);
+
+	 if(!"https".equalsIgnoreCase(Portal_Address.getScheme()) || Portal_Address.getHost() == null){
+
+	 	throw new IllegalStateException("Clipboard does not contain a valid HTTPS Patient Portal URL.");
+
+	 }
+
+	 d.switchTo().newWindow(WindowType.TAB);
+	 d.navigate().to(Portal_URL);
+ }
+
+
+
+public void Patient_Portal_Login(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -198,7 +289,7 @@ public void Patient_Portal_Login(TreeMap<String,String> Patient_Data, TreeMap<St
 	Report_Listen.log_print_in_report().pass("Patient Portal login confirmed | Patient: " + Patient_Name + " | Email: " + Patient_Email + " | Product: " + Product_Name + " | Login page closed and header menu available | Result: PASS");
 }
 
-public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws InterruptedException{
+public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -230,7 +321,7 @@ public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,S
 }
 
     @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
-   public void Intake_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws InterruptedException{
+   public void Intake_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -853,7 +944,7 @@ public Boolean Teleform_Toast_Detector_Printer(WebElement Toast){
 
 
    @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
-  public void Veirfy_Id_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws InterruptedException{
+  public void Veirfy_Id_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);

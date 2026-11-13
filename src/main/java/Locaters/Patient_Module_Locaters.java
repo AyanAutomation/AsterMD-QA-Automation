@@ -59,11 +59,11 @@ public class Patient_Module_Locaters extends Repeat{
     @FindBy(xpath="//*[text()='Patient Details' and contains(@class,'medium text-dark')]/..//button")
 	private WebElement Patient_Details_Edit_Button; 
     @FindBy(xpath="(//div[contains(@class,'inner-card-wrapper')])[1]")
-	private WebElement Patient_Details_Card; /*
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Patient_Details_Card; 
+    @FindBy(xpath="//button[contains(@class,'ant-dropdown-trigger')]")
+	private WebElement Dropdown_Patient_url_access_button; 
+    @FindBy(xpath="//li[@class='ant-dropdown-menu-item ant-dropdown-menu-item-only-child']")
+	private WebElement Copy_Address_dropdown_Element;  /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -363,13 +363,14 @@ public class Patient_Module_Locaters extends Repeat{
 	return Patient_Details_Edit_Button;}
 	public WebElement Patient_Details_Card(){
 	wait_for_theElement(Patient_Details_Card);
-	return Patient_Details_Card;} /*
+	return Patient_Details_Card;} 
+	public WebElement Dropdown_Patient_url_access_button(){
+	wait_for_theElement(Dropdown_Patient_url_access_button);
+	return Dropdown_Patient_url_access_button;} 
+	public WebElement Copy_Address_dropdown_Element(){
+	wait_for_theElement(Copy_Address_dropdown_Element);
+	return Copy_Address_dropdown_Element;} /*
 	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
