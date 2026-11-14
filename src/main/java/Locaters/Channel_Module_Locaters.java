@@ -71,8 +71,6 @@ public class Channel_Module_Locaters extends Repeat{
 	private WebElement API_Contact_Mail_input; 
     @FindBy(xpath="//*[text()='Add Question']/..")
 	private WebElement Add_Question_Button; 
-
-    
     @FindBy(xpath="//input[contains(@id,'sections_1_questions')]")
 	private List<WebElement> Second_Sections_All_Question_fields;
     @FindBy(xpath="//textarea[contains(@id,'answer')]")
@@ -96,11 +94,11 @@ public class Channel_Module_Locaters extends Repeat{
     @FindBy(xpath=" //*[text()='Add New Section']/..")
 	private WebElement Add_Section_Button; 
     @FindBy(xpath="//div[@class='style-module__g-miaa__faqSectionCard']")
-	private List<WebElement> Question_Sections; /*
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
+	private List<WebElement> Question_Sections; 
+    @FindBy(id="security")
+	private WebElement Security_Section; 
+    @FindBy(xpath="//*[text()='Two-Factor Authentication']/../..//div[contains(@class,'ant-select ant-select-outlined ant-select-in-form-item')]")
+	private WebElement Two_Factor_Authentication_Field; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -424,13 +422,13 @@ public class Channel_Module_Locaters extends Repeat{
 	return Add_Section_Button;}
 	public List<WebElement> Question_Sections(){
 	wait_for_theElement(Question_Sections);
-	return Question_Sections;} /*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return Question_Sections;} 
+	public WebElement Security_Section(){
+	wait_for_theElement(Security_Section);
+	return Security_Section;} 
+	public WebElement Two_Factor_Authentication_Field(){
+	wait_for_theElement(Two_Factor_Authentication_Field);
+	return Two_Factor_Authentication_Field;} /*
 	public WebElement (){
 	wait_for_theElement();
 	return ;} public WebElement (){

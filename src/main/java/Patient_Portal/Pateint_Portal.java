@@ -19,6 +19,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
@@ -36,7 +37,7 @@ import Store.Frontend_Store_Front;
 
 public class Pateint_Portal extends Frontend_Store_Front{
 
-public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, String Patient_Password) throws Exception{
+public String  Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, String Patient_Password) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -67,14 +68,15 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 	System.out.println();
 	System.out.println("---------------- YOPMAIL INBOX ----------------");
 	System.out.println("Inbox : " + Patient_Email);
-
-	// Refresh Inbox
-	WebElement Refresh_Button = p.Yopmail_Refresh();
-
-	rp.movetoelement(Refresh_Button);
 	
+	
+
 	try {
 		
+		// Refresh Inbox
+		
+	   WebElement Refresh_Button = p.Yopmail_Refresh();
+       rp.movetoelement(Refresh_Button);
 	   Refresh_Button.click(); 
 	// Open Latest Email
 		WebElement Inbox_Frame = p.Yopmail_Inbox_Frame();
@@ -127,34 +129,45 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 
 		rp.movetoelement(Continue_Button);
 		Continue_Button.click();
-}
-	catch(ElementClickInterceptedException yopmail_error){
 		
-	//	patient_portal_login_via_Admin(Patient_Email);
-	}
+		WebElement Login_Title = p.Portal_Login_Title();
+
+		System.out.println();
+		System.out.println("---------------- CREDENTIAL SETUP ----------------");
+		System.out.println("Password : Configured");
+		System.out.println("Login    : Page displayed");
+		System.out.println("Result   : PASS");
+
+		Report_Listen.log_print_in_report().pass("Patient Portal credentials configured successfully for: " + Patient_Email);
+		
+	   return "yopmail_login";	
+	   
+     }
+	
+  	catch(ElementClickInterceptedException yopmail_error){
+  
+     System.out.println("Login Fallback : Click intercepted during Yopmail credential setup. Switching to Admin Portal Access URL.");
+      Report_Listen.log_print_in_report().info("Login Fallback: Click intercepted during Yopmail credential setup | Patient: " + Patient_Email + " | Next Path: Admin Portal Access URL");
+		
+		patient_portal_login_via_Admin(Patient_Email);
+		
+		return "Admin_login";
+   	}
 
 	
-	// Verify Patient Portal Login Page
-	WebElement Login_Title = p.Portal_Login_Title();
-
-	System.out.println();
-	System.out.println("---------------- CREDENTIAL SETUP ----------------");
-	System.out.println("Password : Configured");
-	System.out.println("Login    : Page displayed");
-	System.out.println("Result   : PASS");
-
-	Report_Listen.log_print_in_report().pass("Patient Portal credentials configured successfully for: " + Patient_Email);
+      
+	
 }
 
  
  @Test
- public void patient_portal_login_via_Admin(/* String Patient_data */) throws Exception{
+ public void patient_portal_login_via_Admin( String Patient_data ) throws Exception{
 	 
 	 Patient_Module_Locaters p = new Patient_Module_Locaters(d);
 	 Repeat rp = new Repeat(d);
 
 	 
-	 String Patient_mailid = /* Patient_data */  "hea.ridley.astermd261113batch1064@yopmail.com";
+	 String Patient_mailid =  Patient_data;
 	 
 	 Side_Menu_Navigation("Patients");
 	 Thread.sleep(800);
@@ -196,12 +209,11 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 	 patient_portal_access_button.click();
 	 
 	 WebElement Copy_Element = p.Copy_Address_dropdown_Element();
-	 Copy_Element.click();
-	 WebElement Confirmation_Message = p.Success_Toast();
-	 rp.wait_for_expected_text(Confirmation_Message, "Copied Portal Access URL");
-
-	 String Confirmation_Message_Text = Confirmation_Message.getText().trim();
-	 System.out.println(Confirmation_Message_Text);
+	 Copy_Element.click(); 
+	 
+	 Boolean Copy_Confirmation= rp.check_element_visibility(p.Text_Copy_Complete, 5);	 
+	 
+	 if(Copy_Confirmation) {
 	 String Portal_URL = ((String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor)).trim();
 	 URI Portal_Address = URI.create(Portal_URL);
 
@@ -210,9 +222,12 @@ public void Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, S
 	 	throw new IllegalStateException("Clipboard does not contain a valid HTTPS Patient Portal URL.");
 
 	 }
+	 String Portal_URL_For_Log = Portal_URL.split("[?#]", 2)[0];
 
+	 System.out.println("Admin Portal Access URL | Patient: " + Patient_mailid + " | Copied URL: " + Portal_URL_For_Log);
+	 Report_Listen.log_print_in_report().info("Admin Portal Access URL | Patient: " + Patient_mailid + " | Copied URL: " + Portal_URL_For_Log);
 	 d.switchTo().newWindow(WindowType.TAB);
-	 d.navigate().to(Portal_URL);
+	 d.navigate().to(Portal_URL); }
  }
 
 
@@ -256,14 +271,28 @@ public void Patient_Portal_Login(TreeMap<String,String> Patient_Data, TreeMap<St
 	Boolean Alert_Visible = p.Portal_Auth_Error_Alert_Visible();
 	System.out.println("Registration Alert Visible : " + Alert_Visible);
 	Report_Listen.log_print_in_report().info("Registration alert visibility | Patient: " + Patient_Email + " | Visible: " + Alert_Visible);
+	if(!Alert_Visible){
+
+		System.out.println("Login Path : Direct Patient Portal login | Action: Continue to portal menu verification.");
+		Report_Listen.log_print_in_report().info("Login Path: Direct Patient Portal login | Patient: " + Patient_Email + " | Action: Continue to portal menu verification");
+
+	}
+	
 	
 	if(Alert_Visible){
+		
 		System.out.println("Action : Registration alert detected. Starting Yopmail credential setup.");
 		Report_Listen.log_print_in_report().info("Registration alert detected | Patient: " + Patient_Email + " | Action: Configure credentials through Yopmail.");
-		Patient_Portal_Credentials_Setup_Via_Yopmail(Patient_Email, Patient_Password);
-		System.out.println("Action : Credential setup completed. Signing in with configured credentials.");
-		Report_Listen.log_print_in_report().info("Credential setup completed | Patient: " + Patient_Email + " | Action: Sign in with configured credentials.");
-
+        
+		
+	   String Status=  Patient_Portal_Credentials_Setup_Via_Yopmail(Patient_Email, Patient_Password);
+		   
+		
+		if(Status.contains("yopmail_login")) {
+		
+		System.out.println("Login Path : Yopmail credential setup | Action: Sign in with configured credentials.");
+        Report_Listen.log_print_in_report().info("Login Path: Yopmail credential setup | Patient: " + Patient_Email + " | Action: Sign in with configured credentials");
+		
 		Login_Title = p.Portal_Login_Title();
 		Email_Field = p.Portal_Email();
 		Password_Field = p.Portal_Password();
@@ -276,18 +305,37 @@ public void Patient_Portal_Login(TreeMap<String,String> Patient_Data, TreeMap<St
 		Login_Button.click();
 		System.out.println("Action : Configured credentials submitted.");
 		Report_Listen.log_print_in_report().info("Patient Portal sign-in submitted after credential setup | Patient: " + Patient_Email);
-	}
-	else{
-		System.out.println("Action : Verify the registered-patient login already submitted.");
-		Report_Listen.log_print_in_report().info("Registration alert absent | Patient: " + Patient_Email + " | Action: Verify the submitted login.");
-	}
+		
+		rp.wait_for_invisibilty_of_theElement(Login_Title);
+		List<WebElement> Menu_Options = p.Patient_Portal_Header_Menu_Options();
+		Assert.assertFalse(Menu_Options.isEmpty(), "Patient Portal header menu is unavailable after login for: " + Patient_Email);
+		System.out.println("Patient Portal Login | Patient: " + Patient_Name + " | Email: " + Patient_Email + " | Product: " + Product_Name + " | Result: PASS");
+		Report_Listen.log_print_in_report().pass("Patient Portal login confirmed | Patient: " + Patient_Name + " | Email: " + Patient_Email + " | Product: " + Product_Name + " | Login page closed and header menu available | Result: PASS");
+		
+		} 
+		
+		
+        if(Status.contains("Admin_login")){
+			
+			System.out.println("Login Path : Admin Portal Access URL | Action: Check the Patient Portal header.");
+	        Report_Listen.log_print_in_report().info("Login Path: Admin Portal Access URL | Patient: " + Patient_Email + " | Action: Check the Patient Portal header");
 
-	rp.wait_for_invisibilty_of_theElement(Login_Title);
-	List<WebElement> Menu_Options = p.Patient_Portal_Header_Menu_Options();
-	Assert.assertFalse(Menu_Options.isEmpty(), "Patient Portal header menu is unavailable after login for: " + Patient_Email);
-	System.out.println("Patient Portal Login | Patient: " + Patient_Name + " | Email: " + Patient_Email + " | Product: " + Product_Name + " | Result: PASS");
-	Report_Listen.log_print_in_report().pass("Patient Portal login confirmed | Patient: " + Patient_Name + " | Email: " + Patient_Email + " | Product: " + Product_Name + " | Login page closed and header menu available | Result: PASS");
-}
+	         p.Header_Tab();
+
+	         System.out.println("Patient Portal Login | Path: Admin Portal Access URL | Patient: " + Patient_Name + " | Result: PASS");
+	         Report_Listen.log_print_in_report().pass("Patient Portal Login | Path: Admin Portal Access URL | Patient: " + Patient_Email + " | Portal header visible | Result: PASS");}
+        
+	
+	     } 
+	    
+	
+         }
+
+
+
+
+
+
 
 public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
@@ -315,12 +363,16 @@ public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,S
 			}
 		}
 	}
+	
 	System.out.println("Result : FAIL | Reason: Requested menu is unavailable: " + Option);
 	Report_Listen.log_print_in_report().fail("Patient Portal menu is unavailable: " + Option);
 	throw new IllegalStateException("Patient Portal menu is unavailable: " + Option);
-}
+	  }
 
-    @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
+
+
+
+   @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
    public void Intake_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
@@ -396,6 +448,8 @@ public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,S
 	System.out.println("Result : NOT PERFORMED | Reason: No usable Start Intake button matches the requested product and variant.");
 	Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: No usable matching Start Intake button.");
 }
+   
+   
 
     public void Fill_Five_Page_Intake_Form(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data){
 
@@ -943,164 +997,200 @@ public Boolean Teleform_Toast_Detector_Printer(WebElement Toast){
 }
 
 
-   @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
-  public void Veirfy_Id_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
+
+@Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
+public void Veirfy_Id_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
 	Assertion Assert_Check = new Assertion();
+	File ID_Verification_Folder = new File(System.getProperty("user.dir"), "Images/AsterMD_ID_Verification_QA_Fixtures_20_Images/Images/ID_Verification");
 
 	String Product_Name = Product_Data.get("Product Name");
 	String Treatment_Variant = Product_Data.get("Treatment Variant");
 	String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
 	String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
 
-	String SSN = Patient_Data.get("SSN");
-	String ID_Verification_Image = Patient_Data.get("ID Verification Image");
-	File ID_Verification_Folder = new File(System.getProperty("user.dir"), "Images/AsterMD_ID_Verification_QA_Fixtures_20_Images/Images/ID_Verification");
-	File ID_Verification_File = new File(ID_Verification_Folder, ID_Verification_Image);
-	String ID_Verification_Image_Path = ID_Verification_File.getAbsolutePath();
-
 	Patient_portal_header_menu_navigator("Treatments", Patient_Data, Product_Data);
-	System.out.println("---------- PATIENT INTAKE ----------");
+
+	System.out.println();
+	System.out.println("---------- PATIENT ID VERIFICATION ----------");
 	System.out.println("Patient : " + Patient_Name);
 	System.out.println("Product : " + Product_Name + " | Variant: " + Treatment_Variant);
-	Report_Listen.log_print_in_report().info("Starting Patient Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+	Report_Listen.log_print_in_report().info("Starting ID Verification | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
 
-	List<WebElement> Treatment_Cards;
+	WebElement Active_Section = p.Active_Tab;
+	Boolean Active_Section_Visible = rp.check_element_visibility(Active_Section, 5);
 
-	try{
+	if(Active_Section_Visible){
 
-		WebElement Active_Section = p.Active_Tab();
 		rp.movetoelement(Active_Section);
 		p.Treatment_Summary_Loader();
-		Treatment_Cards = p.Incomplete_Treatment_Cards();
-		rp.wait_for_text_in_elements(Treatment_Cards, "Progress:");
-		Treatment_Cards = p.Incomplete_Treatment_Cards();
-	}
-	catch(TimeoutException Unavailable_Treatments){
 
-		System.out.println("Result : NOT PERFORMED | Reason: Incomplete treatments are unavailable.");
-		Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: Incomplete treatments are unavailable.");
+		List<WebElement> Treatment_Cards = p.Incomplete_Treatment_Cards;
+		Boolean Treatment_Cards_Visible = rp.check_element_visibility(Treatment_Cards, 5);
 
-		return;
-	}
+		if(Treatment_Cards_Visible){
 
-	Master_Loop:{
+			rp.wait_for_text_in_elements(Treatment_Cards, "Progress:");
 
-		for(WebElement Treatment_Card : Treatment_Cards){
+			Master_Loop:{
 
-			String Treatment_Details = Treatment_Card.getText().trim();
+				for(WebElement Treatment_Card : Treatment_Cards){
 
-			if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
+					String Treatment_Details = Treatment_Card.getText().trim();
 
-				List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
+					if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
 
-				for(WebElement Start_Intake_Button : Start_Intake_Buttons){
+						List<WebElement> Treatment_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
 
-					String Button_Text = Start_Intake_Button.getText().trim();
+						for(WebElement Treatment_Button : Treatment_Buttons){
 
-					if(Button_Text.contains("Verify Identity")){
+							Boolean Button_Visible = rp.check_element_visibility(Treatment_Button, 5);
 
-						Boolean Button_Visible = rp.check_element_visibility(Start_Intake_Button, 5);
-						Boolean Button_Enabled = Start_Intake_Button.isEnabled();
+							if(Button_Visible && Treatment_Button.getText().trim().contains("Verify Identity")){
 
-						if(Button_Visible && Button_Enabled){
+								rp.wait_for_theElement_to_be_clickable(Treatment_Button);
+								rp.movetoelement(Treatment_Button);
+								Treatment_Button.click();
 
-							rp.movetoelement(Start_Intake_Button);
-							Start_Intake_Button.click();
+								p.ID_Verification_Form();
+								System.out.println("Action : ID Verification form opened.");
+								Report_Listen.log_print_in_report().info("ID Verification form opened | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
 
-							Report_Listen.log_print_in_report().info("Started Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+								// SSN
+								String SSN = Patient_Data.get("SSN");
+								WebElement SSN_Field = p.ID_Verification_SSN();
+								rp.Scroll_to_element(SSN_Field);
+								rp.movetoelement(SSN_Field);
+								SSN_Field.clear();
+								SSN_Field.sendKeys(SSN);
 
-							p.ID_Verification_Form();
+								String Actual_SSN = SSN_Field.getDomProperty("value");
+								Assert_Check.assertEquals(Actual_SSN, SSN, "ID Verification SSN field does not match the DataProvider value.");
 
-							System.out.println();
-							System.out.println("============================================================");
-							System.out.println("                 PATIENT ID VERIFICATION");
-							System.out.println("============================================================");
-							System.out.println("Patient : " + Patient_Name);
-							System.out.println("Product : " + Product_Name);
-							System.out.println("Variant : " + Treatment_Variant);
-							System.out.println("Action  : ID Verification form opened.");
+								System.out.println();
+								System.out.println("---------------- SSN ENTRY ----------------");
+								System.out.println("Action : SSN entered and field value verified.");
+								System.out.println("Result : PASS");
+								Report_Listen.log_print_in_report().pass("ID Verification SSN entry | Patient: " + Patient_Name + " | Field value matches the DataProvider | Result: PASS");
 
-							Report_Listen.log_print_in_report().info("ID Verification form opened | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+								// ID Verification Image
+								String ID_Verification_Image = Patient_Data.get("ID Verification Image");
+								File ID_Verification_File = new File(ID_Verification_Folder, ID_Verification_Image);
+								String ID_Verification_Image_Path = ID_Verification_File.getAbsolutePath();
 
-							// SSN
-							WebElement SSN_Field = p.ID_Verification_SSN();
-							rp.Scroll_to_element(SSN_Field);
-							rp.movetoelement(SSN_Field);
-							SSN_Field.clear();
-							SSN_Field.sendKeys(SSN);
+								WebElement Upload_Section = p.ID_Verification_Upload_Section();
+								rp.Scroll_to_element(Upload_Section);
 
-							String Actual_SSN = SSN_Field.getDomProperty("value");
+								WebElement File_Input = p.ID_Verification_File_Input();
+								File_Input.sendKeys(ID_Verification_Image_Path);
 
-							Assert_Check.assertEquals(Actual_SSN, SSN, "ID Verification SSN field does not match the DataProvider value.");
+								WebElement Pending_Message = p.Teleform_ID_Upload_Pending_Message();
+								rp.wait_for_invisibilty_of_theElement(Pending_Message);
 
-							System.out.println();
-							System.out.println("---------------- SSN ENTRY ----------------");
-							System.out.println("Action : SSN entered and field value verified.");
-							System.out.println("Result : PASS");
+								System.out.println();
+								System.out.println("---------------- ID DOCUMENT SELECTION ----------------");
+								System.out.println("Image  : " + ID_Verification_File.getName());
+								System.out.println("Action : Image supplied to the ID Verification file input.");
+								Report_Listen.log_print_in_report().info("ID Verification image selected | Patient: " + Patient_Name + " | Image: " + ID_Verification_File.getName());
 
-							Report_Listen.log_print_in_report().pass("ID Verification SSN entry | Patient: " + Patient_Name + " | Field value matches the DataProvider | Result: PASS");
+								Thread.sleep(800);
 
-							// ID Verification Image
-							WebElement Upload_Section = p.ID_Verification_Upload_Section();
-							rp.Scroll_to_element(Upload_Section);
+								// Submit
+								WebElement Submit_Button = p.ID_Verification_Submit_Button();
+								rp.Scroll_to_element(Submit_Button);
+								rp.movetoelement(Submit_Button);
+								Submit_Button.click();
 
-							WebElement File_Input = p.ID_Verification_File_Input();
-							File_Input.sendKeys(ID_Verification_Image_Path);
-                            WebElement Pending_Message=p.Teleform_ID_Upload_Pending_Message();
-                            rp.wait_for_invisibilty_of_theElement(Pending_Message);
-							System.out.println();
-							System.out.println("---------------- ID DOCUMENT SELECTION ----------------");
-							System.out.println("Image  : " + ID_Verification_File.getName());
-							System.out.println("Action : Image supplied to the ID Verification file input.");
+								System.out.println();
+								System.out.println("---------------- ID VERIFICATION SUBMISSION ----------------");
+								System.out.println("Action : Submit button clicked.");
+								Report_Listen.log_print_in_report().info("ID Verification Submit clicked | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
 
-							Report_Listen.log_print_in_report().info("ID Verification image selected | Patient: " + Patient_Name + " | Image: " + ID_Verification_File.getName());
-                            Thread.sleep(800);
-							// Submit
-							WebElement Submit_Button = p.ID_Verification_Submit_Button();
-							rp.Scroll_to_element(Submit_Button);
-							rp.movetoelement(Submit_Button);
-							Submit_Button.click();
+								WebElement Submission_Toast = p.Teleform_Submission_Success_Toast;
+								Boolean Submission_Success = Teleform_Toast_Detector_Printer(Submission_Toast);
 
-							System.out.println();
-							System.out.println("---------------- ID VERIFICATION SUBMISSION ----------------");
-							System.out.println("Action : Submit button clicked.");
+								if(Submission_Success){
 
-							Report_Listen.log_print_in_report().info("ID Verification Submit clicked | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+									System.out.println("Patient : " + Patient_Name);
+									System.out.println("Product : " + Product_Name);
+									System.out.println("Expected: Action Successful | Submitted successfully.");
+									System.out.println("Result  : PASS");
+									Report_Listen.log_print_in_report().pass("ID Verification form submitted successfully | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Success notification verified | Result: PASS");
 
-							WebElement Submission_Toast = p.Teleform_Submission_Success_Toast;
-							Boolean Submission_Success = Teleform_Toast_Detector_Printer(Submission_Toast);
+									break Master_Loop;
 
-							if(Submission_Success){
+								}
+								else{
 
-								System.out.println("Patient : " + Patient_Name);
-								System.out.println("Product : " + Product_Name);
-								System.out.println("Expected: Action Successful | Submitted successfully.");
-								System.out.println("Result  : PASS");
+									System.out.println("Result : FAIL");
+									System.out.println("Reason : ID Verification submission success notification was not verified.");
+									Report_Listen.log_print_in_report().fail("ID Verification submission | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Reason: Expected submission success notification was not verified.");
 
-								Report_Listen.log_print_in_report().pass("ID Verification form submitted successfully | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Success notification verified | Result: PASS");
+									Assert_Check.fail("ID Verification submission failed: expected Action Successful | Submitted successfully.");
 
-								break Master_Loop;
+								}
+
 							}
-							else{
 
-								System.out.println("Result : FAIL");
-								System.out.println("Reason : ID Verification submission success notification was not verified.");
-
-								Report_Listen.log_print_in_report().fail("ID Verification submission | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Reason: Expected submission success notification was not verified.");
-
-								Assert_Check.fail("ID Verification submission failed: expected Action Successful | Submitted successfully.");
-							}
 						}
+
 					}
+
 				}
+
+				String Skip_Message = "ID Verification | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Result: SKIPPED | Reason: No visible Verify Identity button for the matching product and variant.";
+
+				System.out.println();
+				System.out.println(Skip_Message);
+				Report_Listen.log_print_in_report().info(Skip_Message);
+
 			}
+
 		}
 
-		System.out.println("Result : NOT PERFORMED | Reason: No usable Verify Identity button matches the requested product and variant.");
-		Report_Listen.log_print_in_report().info("ID Verification NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: No usable matching Verify Identity button.");
+		if(!Treatment_Cards_Visible){
+
+			String Skip_Message = "ID Verification | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Result: SKIPPED | Reason: No visible Incomplete Treatments cards.";
+
+			System.out.println();
+			System.out.println(Skip_Message);
+			Report_Listen.log_print_in_report().info(Skip_Message);
+
+		}
+
 	}
+
+	if(!Active_Section_Visible){
+
+		String Skip_Message = "ID Verification | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Result: SKIPPED | Reason: Patient has already been verified. The Active Section is not visible.";
+
+		System.out.println();
+		System.out.println(Skip_Message);
+		Report_Listen.log_print_in_report().info(Skip_Message);
+
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

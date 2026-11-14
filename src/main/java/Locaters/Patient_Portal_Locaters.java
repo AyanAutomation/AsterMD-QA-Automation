@@ -1,10 +1,16 @@
 package Locaters;
 
+import java.time.Duration;
 import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.interactions.Actions;
 import Repeatative_codes.Repeat;
 
 public class Patient_Portal_Locaters extends Repeat {
@@ -37,7 +43,7 @@ public class Patient_Portal_Locaters extends Repeat {
     @FindBy(xpath="//div[contains(@class,'tabGroup')]//a[contains(@href,'/')]")
 	private List<WebElement> Patient_Portal_Header_Menu_Options;
     @FindBy(xpath="//*[text()='Incomplete Treatments']/../../..//div[@class='ant-collapse-panel ant-collapse-panel-active']//div[contains(@class,'ant-card ant-card-bordered')]")
-	private List<WebElement> Incomplete_Treatment_Cards;
+	public List<WebElement> Incomplete_Treatment_Cards;
     @FindBy(xpath="//h2[normalize-space()='About You']")
 	private WebElement Intake_Page_Heading;
     @FindBy(xpath="//input[@placeholder='Enter first name']")
@@ -162,7 +168,16 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement ID_Verification_File_Input;
     @FindBy(xpath="//div[contains(@class,'canvasPaper')][.//h2[normalize-space()='ID VERIFICATIONS']]//button[normalize-space()='Submit']")
 	private WebElement ID_Verification_Submit_Button;
-
+    @FindBy(id="r_dialog")
+	private WebElement yopmail_popup;
+    @FindBy(xpath="//div[@id='r_dialog']//div[@id='r_element']/div/div")
+	private WebElement Yopmail_Verification_Shadow_Host;
+    @FindBy(xpath="//div[@id='r_dialog'][.//div[contains(@class,'r_message') and contains(normalize-space(.),'human to continue')]]")
+	public WebElement Yopmail_Human_Verification_Dialog;
+    
+    
+    
+    
 	public Patient_Portal_Locaters(WebDriver d){
 	super(d);
 	PageFactory.initElements(d, this);}
@@ -402,5 +417,17 @@ public class Patient_Portal_Locaters extends Repeat {
 		wait_for_theElement_to_be_clickable(ID_Verification_Submit_Button);
 		return ID_Verification_Submit_Button;
 	}
+	public WebElement yopmail_popup(){
+	wait_for_theElement_to_be_clickable(yopmail_popup);
+	return yopmail_popup;}
+	
 
+	public WebElement Yopmail_Verification_Frame(){
+
+		WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(10));
+		w.ignoring(StaleElementReferenceException.class);
+
+		return w.<WebElement>until(driver -> Yopmail_Verification_Shadow_Host.getShadowRoot().findElement(By.cssSelector("iframe[title*='Cloudflare']")));
+
+	}
 }

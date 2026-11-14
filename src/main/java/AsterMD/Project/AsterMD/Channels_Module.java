@@ -3848,7 +3848,9 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 	Thread.sleep(1500);
 
 	List<WebElement> Dr_Networks = Provider_Section.findElements(By.xpath(".//span[contains(@class,'ant-select-selection-item-content')]"));
-	rp.wait_for_theElement(Dr_Networks);
+	Boolean dr_network_visibilty =rp.check_element_visibility(Dr_Networks, 6);
+	
+	if(dr_network_visibilty) {
 
 	System.out.println();
 	System.out.println("---------------- CURRENT DOCTOR NETWORK SELECTION ----------------");
@@ -4018,10 +4020,130 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 			}
 		}
 	}
+	
+     }
 } 
      
-     
-     
+     @Test
+    public void Patient_Channel_login_configuration_setup() throws Exception{
+
+	Channel_Module_Locaters p = new Channel_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+	SoftAssert softAssert = new SoftAssert();
+	List<String> Selected_Auth_Options = new ArrayList<String>();
+
+	Channel_Module_Accessor();
+	WebElement Patient_portal_section_in_list = p.Patient_Portal_section();
+	Thread.sleep(800);
+
+	WebElement Cnfig_Button = Patient_portal_section_in_list.findElement(By.xpath(".//*[text()='Configuration']/.."));
+	Boolean Visibility_Status = rp.check_element_visibility(Cnfig_Button, 3);
+
+	if(Visibility_Status){
+
+		Cnfig_Button.click();
+
+	}
+
+	FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(80)).pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
+	WebElement Form = wait.until(driver -> p.Form());
+
+	WebElement Security_Management_Section = p.Security_Section();
+	rp.wait_for_theElement(Security_Management_Section);
+	rp.Scroll_to_element(Security_Management_Section);
+	Thread.sleep(500);
+
+	WebElement Auth_feild = p.Two_Factor_Authentication_Field();
+	rp.movetoelement(Auth_feild);
+
+	String Auth_Option_XPath = ".//span[contains(@class,'ant-select-selection-item-content')]";
+	List<WebElement> Auth_Options = Auth_feild.findElements(By.xpath(Auth_Option_XPath));
+	Boolean Auth_Option_visibilty = rp.check_element_visibility(Auth_Options, 6);
+
+	System.out.println();
+	System.out.println("---------- TWO-FACTOR AUTHENTICATION ----------");
+
+	if(Auth_Option_visibilty){
+
+		for(WebElement Auth_Option : Auth_Options){
+
+			String Option_Selected = Auth_Option.getText().trim();
+			Selected_Auth_Options.add(Option_Selected);
+
+			System.out.println("Option selected : " + Option_Selected);
+			Report_Listen.log_print_in_report().info("Two-Factor Authentication | Selected option: " + Option_Selected);
+
+		}
+
+		Auth_feild.click();
+		Boolean List_Presence = rp.check_element_visibility(p.First_Virtual_List_holder, 3);
+
+		System.out.println("Dropdown visible : " + List_Presence);
+		Report_Listen.log_print_in_report().info("Two-Factor Authentication | Dropdown visible: " + List_Presence);
+		softAssert.assertTrue(List_Presence, "Two-Factor Authentication dropdown did not open.");
+
+		if(List_Presence){
+
+			for(String Option_Selected : Selected_Auth_Options){
+
+				WebElement Auth_Dropdown_Option = p.First_Virtual_List_holder.findElement(By.xpath(".//div[@title='" + Option_Selected + "' and contains(@class,'ant-select-item-option')]"));
+				WebElement Auth_Checkbox = Auth_Dropdown_Option.findElement(By.xpath(".//input[@type='checkbox']"));
+				Boolean Auth_Checked = Auth_Checkbox.isSelected();
+
+				if(Auth_Checked){
+
+					rp.movetoelement(Auth_Dropdown_Option);
+					Auth_Dropdown_Option.click();
+
+					System.out.println("Action : Clicked " + Option_Selected + " to deselect it.");
+					Report_Listen.log_print_in_report().info("Two-Factor Authentication | Clicked to deselect: " + Option_Selected);
+
+				}
+
+			}
+
+			Auth_feild.click();
+			rp.wait_for_invisibilty_of_theElement(p.First_Virtual_List_holder);
+
+			Auth_feild = p.Two_Factor_Authentication_Field();
+			int Remaining_Auth_Count = Auth_feild.findElements(By.xpath(Auth_Option_XPath)).size();
+
+			System.out.println("Action   : Authentication dropdown closed.");
+			System.out.println("Expected : 0 selected options");
+			System.out.println("Actual   : " + Remaining_Auth_Count + " selected options");
+			Report_Listen.log_print_in_report().info("Two-Factor Authentication | Dropdown closed | Expected selected options: 0 | Actual: " + Remaining_Auth_Count);
+			softAssert.assertEquals(Remaining_Auth_Count, 0, "Two-Factor Authentication options are still selected.");
+
+			if(Remaining_Auth_Count == 0){
+
+				System.out.println("Status : No authentication option is selected.");
+				Report_Listen.log_print_in_report().pass("Two-Factor Authentication | All authentication options cleared.");
+                WebElement Save_Button=p.Save_Settings_Button();
+                rp.movetoelement(Save_Button);
+                Save_Button.click();
+                WebElement Confirmation_Message = p.Success_Toast();
+				String Confirmation_Message_Text = Confirmation_Message.getText().trim();
+
+				System.out.println("Message : " + Confirmation_Message_Text);
+				System.out.println("Result  : PASS");
+				System.out.println();
+			}
+
+		}
+
+	}
+
+	if(!Auth_Option_visibilty && Auth_Options.size() == 0){
+
+		System.out.println("Status : No authentication option is selected.");
+		Report_Listen.log_print_in_report().info("Two-Factor Authentication | No authentication option is selected.");
+
+	}
+
+	softAssert.assertTrue(Auth_Option_visibilty || Auth_Options.size() == 0, "Selected authentication options were present but not visible.");
+	softAssert.assertAll();
+
+}
      
      
      

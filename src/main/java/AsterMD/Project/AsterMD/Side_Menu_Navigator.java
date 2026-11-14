@@ -73,9 +73,10 @@ public void Side_Menu_Navigation(String menu_option) throws Exception {
 
 		System.out.println("🔹 Retrieving the Side Menu.");
 		System.out.println();
-
+		p.Greetings_text_Heading();
+        Thread.sleep(800);
 		p.Side_menu();
-
+ 
 		Report_Listen.log_print_in_report().pass("✅ Side Menu retrieved successfully.");
 		System.out.println("✅ Side Menu retrieved successfully.");
 		System.out.println();

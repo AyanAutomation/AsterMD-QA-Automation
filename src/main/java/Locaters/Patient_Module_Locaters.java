@@ -63,9 +63,9 @@ public class Patient_Module_Locaters extends Repeat{
     @FindBy(xpath="//button[contains(@class,'ant-dropdown-trigger')]")
 	private WebElement Dropdown_Patient_url_access_button; 
     @FindBy(xpath="//li[@class='ant-dropdown-menu-item ant-dropdown-menu-item-only-child']")
-	private WebElement Copy_Address_dropdown_Element;  /*
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Copy_Address_dropdown_Element;  
+    @FindBy(xpath="//*[text()='Copied Portal Access URL']")
+	public WebElement Text_Copy_Complete; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")

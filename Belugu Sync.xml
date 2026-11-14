@@ -7,6 +7,7 @@
             <class name="AsterMD.Project.AsterMD.Channels_Module">
                 <methods>
                     <include name="Beluga_Dr_Network_Channel_Connector"/>
+                    <include name="Patient_Channel_login_configuration_setup"/>
                 </methods>
             </class>
         </classes>

@@ -16,9 +16,9 @@ public class Side_menu_locaters extends Repeat{
 	@FindBy(xpath="//*[@role='menu' and contains(@class,'ant-menu-light menu-height')]")
 	private WebElement Side_menu;
 	@FindBy(xpath="//ul//button")
-	private WebElement Menu_Expander;/*
-	@FindBy(xpath="")
-	private WebElement  ;
+	private WebElement Menu_Expander;
+	@FindBy(xpath="//h1[contains(@class,'__greeting ')]")
+	private WebElement  Greetings_text_Heading; /*
 	@FindBy(xpath="")
 	private WebElement  ;
     @FindBy(xpath="")
@@ -46,10 +46,10 @@ public class Side_menu_locaters extends Repeat{
 	wait_for_theElement(Menu_Expander);
 	return Menu_Expander;}
 	public boolean Side_Menu_Presence_Check(){
-    return check_element_visibility(Side_menu, 4);}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+    return check_element_visibility(Side_menu, 4);}
+	public WebElement Greetings_text_Heading(){
+	wait_for_theElement(Greetings_text_Heading);
+	return Greetings_text_Heading;} /*
 	public WebElement (){
 	wait_for_theElement();
 	return ;} public WebElement (){
