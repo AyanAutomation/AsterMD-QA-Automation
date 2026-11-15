@@ -912,9 +912,9 @@ public class Frontend_Store_Front extends Patient_Module {
 	
 	
 
-@DataProvider
-@SuppressWarnings("unchecked")
-public Object[][] Storefront_Product_Data(){
+    @DataProvider
+    @SuppressWarnings("unchecked")
+    public Object[][] Storefront_Product_Data(){
 
 	Object[][] Patient_Datas = Storefront_Patient_Details_Data();
 	Object[][] Product_Intake_Datas = Storefront_Product_Variant_And_Intake_Data();
@@ -933,8 +933,7 @@ public Object[][] Storefront_Product_Data(){
 
 	}
 
-	return combined_data;
-}
+	return combined_data; }
 
 
 
@@ -1080,62 +1079,10 @@ public Object[][] Storefront_Product_Data(){
 
 
 
-   public void Q_and_A_Resolver(TreeMap<String, String> Form_Data) throws IOException, InterruptedException{
-
-	StoreFront_Locaters p = new StoreFront_Locaters(d);
-	Repeat rp = new Repeat(d);
-
-	System.out.println();
-	System.out.println("---------------- NAD+ QUESTIONNAIRE ----------------");
-	Report_Listen.log_print_in_report().info("Processing NAD+ assessment questionnaire.");
-
-	for(int Page_Number=1; Page_Number<=6; Page_Number++){
-
-		p.Medical_Intake_Active_Page();
-		List<WebElement> Option_Labels = p.Intake_Option_Labels();
-
-		if(Page_Number==6){
-			WebElement Notes_Field = p.Notes_textarea();
-			rp.movetoelement(Notes_Field);
-			Notes_Field.sendKeys(Form_Data.get("Notes"));
-			Report_Listen.log_print_in_report().pass("Assessment Notes entered successfully.");
-		}
-
-		for(WebElement Option_Label : Option_Labels){
-
-			String Option_Text = Option_Label.getText().trim();
-
-			if(Option_Label.isDisplayed() && ((Page_Number==2 && (Option_Text.contains("health") || Option_Text.contains("No"))) || (Page_Number==6 && Option_Text.toLowerCase().contains("consent")) || (Page_Number!=2 && Page_Number!=6 && (Option_Text.equalsIgnoreCase("None") || Option_Text.contains("No"))))){
-				rp.movetoelement(Option_Label);
-				Option_Label.click();
-			}
-		}
-
-		if(Page_Number==4){
-			List<WebElement> Pregnancy_Options = p.Optional_Pregnancy_Status_No_Options();
-			if(!Pregnancy_Options.isEmpty() && Pregnancy_Options.get(0).isDisplayed()){
-				WebElement Pregnancy_No = Pregnancy_Options.get(0);
-				rp.movetoelement(Pregnancy_No);
-				Pregnancy_No.click();
-			}
-		}
-
-		WebElement Continue_Button = p.NAD_Next_Button();
-		rp.movetoelement(Continue_Button);
-		Continue_Button.click();
-
-		System.out.println("Page " + Page_Number + " : COMPLETED");
-		Report_Listen.log_print_in_report().pass("NAD+ Assessment Page " + Page_Number + " completed.");
-	}
-
-	System.out.println("Action : Continue to Review");
-	System.out.println("Result : PASS");
-	Report_Listen.log_print_in_report().pass("NAD+ Assessment questionnaire Continue button clicked successfully.");
-}
 
 
 
- public void Checkout_Manager(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data){
+   public void Checkout_Manager(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data){
 
 	StoreFront_Locaters p = new StoreFront_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -1397,77 +1344,11 @@ public Object[][] Storefront_Product_Data(){
 
 
 
-public void Medical_Q_and_A_Resolver(WebElement Assesment_form, TreeMap<String, String> Form_Data) throws IOException, InterruptedException{
-
-	StoreFront_Locaters p = new StoreFront_Locaters(d);
-	Repeat rp = new Repeat(d);
-
-	String Product_Name = Form_Data.get("Product Name");
-	int Total_Pages = Integer.parseInt(Assesment_form.getAttribute("data-page-count"));
-
-	System.out.println();
-	System.out.println("============================================================");
-	System.out.println("                  MEDICAL QUESTIONNAIRE");
-	System.out.println("============================================================");
-	System.out.println("Product     : " + Product_Name);
-	System.out.println("Total Pages : " + Total_Pages);
-	Report_Listen.log_print_in_report().info("Starting Medical Questionnaire: " + Product_Name);
-
-	for(int Page_Number=1; Page_Number<Total_Pages; Page_Number++){
-
-		p.Medical_Intake_Active_Page();
-		List<WebElement> Question_Fields = p.Medical_Intake_Fields();
-
-		System.out.println("---------------- PAGE " + (Page_Number+1) + " ----------------");
-
-		for(WebElement Question_Field : Question_Fields){
-
-			if(Question_Field.isDisplayed()){
-
-				String Question_Name = Question_Field.getAttribute("data-intake-field");
-				String Question_Type = Question_Field.getAttribute("data-intake-type");
-				String Answer = Form_Data.getOrDefault("Q&A " + Question_Name, "");
-
-				if("textarea".equals(Question_Type)){
-					String Text = Question_Name.equals("additional_notes") ? Form_Data.getOrDefault("Notes", "") : Answer;
-
-					if(!Text.isBlank()){
-						WebElement Textarea = Question_Field.findElement(By.tagName("textarea"));
-						rp.movetoelement(Textarea);
-						Textarea.sendKeys(Text);
-						System.out.println("Text Entered : " + Question_Name);
-					}
-					else if("1".equals(Question_Field.getAttribute("data-intake-required"))){
-						throw new IllegalStateException("Required questionnaire answer missing: " + Question_Name);
-					}
-				}
-				else if("choice-multi".equals(Question_Type)){
-					String Option_XPath = Answer.isBlank() ? ".//label[.//input[@value='no' or @value='none' or @value='no-first-time' or @value='no-known-allergies' or @value='not-applicable' or @value='consent-to-proceed']]" : ".//label[.//input[@value='" + Answer + "']]";
-					WebElement Option_Label = Question_Field.findElement(By.xpath(Option_XPath));
-					rp.movetoelement(Option_Label);
-					Option_Label.click();
-					System.out.println("Question : " + Question_Name + " | Answer : " + Option_Label.getText().trim());
-				}
-			}
-		}
-
-		WebElement Action_Button = Page_Number==Total_Pages-1 ? p.Medical_Intake_Submit_Button() : p.Medical_Intake_Next_Button();
-		rp.movetoelement(Action_Button);
-		Action_Button.click();
-
-		System.out.println("Page " + (Page_Number+1) + " : COMPLETED");
-		Report_Listen.log_print_in_report().pass("Medical Questionnaire Page " + (Page_Number+1) + " completed.");
-	}
-
-	System.out.println("Product : " + Product_Name);
-	System.out.println("Result  : SUBMISSION ATTEMPTED");
-	Report_Listen.log_print_in_report().info("Medical Questionnaire submission attempted: " + Product_Name);
-}
 
 
 
 
-public TreeMap<String, String> Order_Details_Collector(){
+   public TreeMap<String, String> Order_Details_Collector(){
 
 	StoreFront_Locaters p = new StoreFront_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -1559,7 +1440,7 @@ public TreeMap<String, String> Order_Details_Collector(){
 
 
 
-public void Treatment_Variant_Selector(TreeMap<String, String> Form_Data){
+   public void Treatment_Variant_Selector(TreeMap<String, String> Form_Data){
 
 	StoreFront_Locaters p = new StoreFront_Locaters(d);
 	Repeat rp = new Repeat(d);
