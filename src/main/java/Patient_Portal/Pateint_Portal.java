@@ -17,6 +17,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
 import org.openqa.selenium.interactions.Actions;
@@ -37,7 +38,7 @@ import Store.Frontend_Store_Front;
 
 public class Pateint_Portal extends Frontend_Store_Front{
 
-public String  Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, String Patient_Password) throws Exception{
+   public String  Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email, String Patient_Password) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -160,8 +161,7 @@ public String  Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email
 }
 
  
- @Test
- public void patient_portal_login_via_Admin( String Patient_data ) throws Exception{
+   public void patient_portal_login_via_Admin( String Patient_data ) throws Exception{
 	 
 	 Patient_Module_Locaters p = new Patient_Module_Locaters(d);
 	 Repeat rp = new Repeat(d);
@@ -232,7 +232,7 @@ public String  Patient_Portal_Credentials_Setup_Via_Yopmail(String Patient_Email
 
 
 
-public void Patient_Portal_Login(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
+   public void Patient_Portal_Login(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -326,18 +326,12 @@ public void Patient_Portal_Login(TreeMap<String,String> Patient_Data, TreeMap<St
 	         Report_Listen.log_print_in_report().pass("Patient Portal Login | Path: Admin Portal Access URL | Patient: " + Patient_Email + " | Portal header visible | Result: PASS");}
         
 	
-	     } 
-	    
-	
-         }
+	     }}
 
 
 
-
-
-
-
-public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
+   
+   public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -371,87 +365,126 @@ public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,S
 
 
 
-
    @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
    public void Intake_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
-	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
-	Repeat rp = new Repeat(d);
-
 	String Product_Name = Product_Data.get("Product Name");
-	String Treatment_Variant = Product_Data.get("Treatment Variant");
-	String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
-	String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
+	Boolean Proceed_To_Checkout_Directly = Boolean.parseBoolean(Product_Data.get("Proceed to Checkout Directly"));
 
-	Patient_portal_header_menu_navigator("Treatments", Patient_Data, Product_Data);
-	System.out.println("---------- PATIENT INTAKE ----------");
-	System.out.println("Patient : " + Patient_Name);
-	System.out.println("Product : " + Product_Name + " | Variant: " + Treatment_Variant);
-	Report_Listen.log_print_in_report().info("Starting Patient Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+	if(Proceed_To_Checkout_Directly == true){
 
-	List<WebElement> Treatment_Cards;
-	try{
-		
-		WebElement Active_Section = p.Active_Tab();
-		rp.movetoelement(Active_Section);
-		p.Treatment_Summary_Loader();
-		Treatment_Cards = p.Incomplete_Treatment_Cards();
-		rp.wait_for_text_in_elements(Treatment_Cards, "Progress:");
-		Treatment_Cards = p.Incomplete_Treatment_Cards();
-	}
-	catch(TimeoutException Unavailable_Treatments){
-		System.out.println("Result : NOT PERFORMED | Reason: Incomplete treatments are unavailable.");
-		Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: Incomplete treatments are unavailable.");
-		return;
-	}
+		System.out.println("Patient Intake | Product: " + Product_Name + " | Result: SKIPPED | Reason: Intake already filled in Product_Choose during storefront checkout.");
+		Report_Listen.log_print_in_report().info("Patient Intake skipped | Product: " + Product_Name + " | Intake already filled in Product_Choose during storefront checkout.");
 
-	for(WebElement Treatment_Card : Treatment_Cards){
-		
-		String Treatment_Details = Treatment_Card.getText().trim();
-		
-		if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
-			
-			List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
-			
-			for(WebElement Start_Intake_Button : Start_Intake_Buttons){
-				
-				String Button_Text = Start_Intake_Button.getText().trim();
-				
-				if(Button_Text.contains("Intake")){
-					
-					Boolean Button_Visible = rp.check_element_visibility(Start_Intake_Button, 5);
-					Boolean Button_Enabled = Start_Intake_Button.isEnabled();
-					
-					if(Button_Visible && Button_Enabled){
-						
-						rp.movetoelement(Start_Intake_Button);
-						Start_Intake_Button.click();
-						
-						Report_Listen.log_print_in_report().info("Started Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
-						
-						if(Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraNova Migraine Wellness Tablets")){
-							
-							Fill_Five_Page_Intake_Form(Patient_Data, Product_Data);
-							
-							System.out.println("Patient Intake | Product: " + Product_Name + " | Result: COMPLETED");
-							Report_Listen.log_print_in_report().pass("Patient Intake completed | Patient: " + Patient_Name + " | Product: " + Product_Name);
-						}
-						else{
-							throw new SkipException("Intake automation not configured for: " + Product_Name);
-						}
-						return;
-					}
-				}
-			}
+		   }
+
+	if(Proceed_To_Checkout_Directly == false){
+
+		Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
+		Repeat rp = new Repeat(d);
+
+		String Treatment_Variant = Product_Data.get("Treatment Variant");
+		String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
+		String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
+
+		Patient_portal_header_menu_navigator("Treatments", Patient_Data, Product_Data);
+
+		System.out.println("---------- PATIENT INTAKE ----------");
+		System.out.println("Patient : " + Patient_Name);
+		System.out.println("Product : " + Product_Name + " | Variant: " + Treatment_Variant);
+		Report_Listen.log_print_in_report().info("Starting Patient Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+
+		List<WebElement> Treatment_Cards = List.of();
+
+		try{
+
+			WebElement Active_Section = p.Active_Tab();
+			rp.movetoelement(Active_Section);
+			p.Treatment_Summary_Loader();
+			List<WebElement> Loaded_Treatment_Cards = p.Incomplete_Treatment_Cards();
+			rp.wait_for_text_in_elements(Loaded_Treatment_Cards, "Progress:");
+			Treatment_Cards = List.copyOf(p.Incomplete_Treatment_Cards());
+
 		}
+		catch(TimeoutException Unavailable_Treatments){
+
+			System.out.println("Result : NOT PERFORMED | Reason: Incomplete treatments are unavailable.");
+			Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: Incomplete treatments are unavailable.");
+
+		}
+
+		Treatment_Card_Loop:
+		for(WebElement Treatment_Card : Treatment_Cards){
+
+			String Treatment_Details = Treatment_Card.getText().trim();
+
+			if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
+
+				List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
+
+				for(WebElement Start_Intake_Button : Start_Intake_Buttons){
+
+					String Button_Text = Start_Intake_Button.getText().trim();
+
+					if(Button_Text.contains("Intake")){
+
+						Boolean Button_Visible = rp.check_element_visibility(Start_Intake_Button, 5);
+						Boolean Button_Enabled = Start_Intake_Button.isEnabled();
+
+						if(Button_Visible == true && Button_Enabled == true){
+
+							rp.movetoelement(Start_Intake_Button);
+							Start_Intake_Button.click();
+
+							Report_Listen.log_print_in_report().info("Started Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+
+							Boolean Intake_Configured = Product_Name.equalsIgnoreCase("AsterRefluxa Digestive Relief Capsules") || Product_Name.equalsIgnoreCase("AsterSomnera Sleep Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraEase Headache Support Tablets") || Product_Name.equalsIgnoreCase("AsterMigraNova Migraine Wellness Tablets");
+
+							if(Intake_Configured == true){
+
+								Fill_Five_Page_Intake_Form(Patient_Data, Product_Data, d);
+
+								WebElement Submission_Toast = p.Teleform_Submission_Success_Toast;
+								Boolean Submission_Success = Teleform_Toast_Detector_Printer(Submission_Toast);
+								Assert.assertTrue(Submission_Success, "Page 5 intake submission failed: expected Action Successful | Submitted successfully.");
+
+								System.out.println("Patient Intake | Product: " + Product_Name + " | Result: COMPLETED");
+								Report_Listen.log_print_in_report().pass("Patient Intake completed | Patient: " + Patient_Name + " | Product: " + Product_Name);
+
+							}
+
+							if(Intake_Configured == false){
+
+								System.out.println("Result : NOT PERFORMED | Reason: Intake automation is not configured for " + Product_Name);
+								Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Reason: Intake automation is not configured.");
+
+							}
+
+							break Treatment_Card_Loop;
+
+						}
+
+					}
+
+				}
+
+			}
+
+			if(Treatment_Card.equals(Treatment_Cards.get(Treatment_Cards.size() - 1))){
+
+				System.out.println("Result : NOT PERFORMED | Reason: No usable Start Intake button matches the requested product and variant.");
+				Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: No usable matching Start Intake button.");
+
+			}
+
+		}
+
 	}
-	System.out.println("Result : NOT PERFORMED | Reason: No usable Start Intake button matches the requested product and variant.");
-	Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: No usable matching Start Intake button.");
+
 }
    
    
-
-    public void Fill_Five_Page_Intake_Form(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data){
+   public void Fill_Five_Page_Intake_Form(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data, WebDriver d){
 
     	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
     	Repeat rp = new Repeat(d);
@@ -525,16 +558,16 @@ public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,S
 	String Actual_Phone = Phone_Field.getDomProperty("value").replaceAll("\\D", "");
 	Assert.assertEquals(Actual_Phone, "1" + Patient_Phone, "US mobile phone number mismatch.");
 
-	Teleform_Date_Of_Birth_Selector(Date_Of_Birth);
+	Teleform_Date_Of_Birth_Selector(Date_Of_Birth, d);
 
 	WebElement Sex_Dropdown = p.Teleform_Sex_Dropdown();
-	Intake_Dropdown_Option_Selector(Sex_Dropdown, Biological_Sex);
+	Intake_Dropdown_Option_Selector(Sex_Dropdown, Biological_Sex, d);
 
 	String Actual_Biological_Sex = Sex_Dropdown.getText().trim();
 	Assert.assertEquals(Actual_Biological_Sex, Biological_Sex, "Sex for your medical record mismatch.");
 
 	WebElement Reason_Dropdown = p.Teleform_Care_Reason_Dropdown();
-	Intake_Dropdown_Option_Selector(Reason_Dropdown, Intake_Reason);
+	Intake_Dropdown_Option_Selector(Reason_Dropdown, Intake_Reason, d);
 
 	String Actual_Intake_Reason = Reason_Dropdown.getText().trim();
 	Assert.assertEquals(Actual_Intake_Reason, Intake_Reason, "Care reason mismatch.");
@@ -582,10 +615,10 @@ public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,S
 	Assert.assertEquals(Actual_ZIP, Patient_ZIP, "ZIP Code mismatch.");
 
 	WebElement Residential_State_Dropdown = p.Teleform_Residential_State_Dropdown();
-	Intake_Dropdown_Option_Selector(Residential_State_Dropdown, Residential_State);
+	Intake_Dropdown_Option_Selector(Residential_State_Dropdown, Residential_State, d);
 
 	WebElement Current_Location_State_Dropdown = p.Teleform_Current_Location_State_Dropdown();
-	Intake_Dropdown_Option_Selector(Current_Location_State_Dropdown, Current_Location_State);
+	Intake_Dropdown_Option_Selector(Current_Location_State_Dropdown, Current_Location_State, d);
 
 	Next_Button = p.Teleform_Continue_Button();
 	rp.movetoelement(Next_Button);
@@ -604,7 +637,7 @@ public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,S
 	System.out.println();
 	System.out.println("---------- PAGE 3 : MEDICAL HISTORY ----------");
 
-	Teleform_Question_Selector(Product_Data);
+	Teleform_Question_Selector(Product_Data, d);
 
 	Next_Button = p.Teleform_Continue_Button();
 	rp.movetoelement(Next_Button);
@@ -623,7 +656,7 @@ public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,S
 	System.out.println();
 	System.out.println("---------- PAGE 4 : YOUR SYMPTOMS ----------");
 
-	Teleform_Question_Selector(Product_Data);
+	Teleform_Question_Selector(Product_Data, d);
 
 	
 	Next_Button = p.Teleform_Continue_Button();
@@ -683,8 +716,10 @@ public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,S
 	
 	
 }
-
-   public void Teleform_Question_Selector(TreeMap<String,String> Product_Data){
+   
+   
+   
+   public void Teleform_Question_Selector(TreeMap<String,String> Product_Data, WebDriver d){
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -815,8 +850,7 @@ public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,S
 
 
 
-
-public void Teleform_Date_Of_Birth_Selector(String Date_Of_Birth){
+   public void Teleform_Date_Of_Birth_Selector(String Date_Of_Birth, WebDriver d){
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -899,8 +933,9 @@ public void Teleform_Date_Of_Birth_Selector(String Date_Of_Birth){
 	Assert.fail("DOB year not available: " + Year);
 }
 
-
-public void Intake_Dropdown_Option_Selector(WebElement Dropdown, String Expected_Option){
+   
+   
+   public void Intake_Dropdown_Option_Selector(WebElement Dropdown, String Expected_Option, WebDriver d){
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
@@ -960,8 +995,9 @@ public void Intake_Dropdown_Option_Selector(WebElement Dropdown, String Expected
 	}
 }
 
-
-public Boolean Teleform_Toast_Detector_Printer(WebElement Toast){
+   
+   
+   public Boolean Teleform_Toast_Detector_Printer(WebElement Toast){
 
 	Repeat rp = new Repeat(d);
 	String Expected_Toast = "Action Successful | Submitted successfully.";
@@ -995,11 +1031,10 @@ public Boolean Teleform_Toast_Detector_Printer(WebElement Toast){
 		return false;
 	}
 }
+ 
 
 
-
-@Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
-public void Veirfy_Id_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
+   public void Veirfy_Id_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
