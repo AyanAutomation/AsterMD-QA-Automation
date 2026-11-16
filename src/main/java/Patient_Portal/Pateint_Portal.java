@@ -371,14 +371,14 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	String Product_Name = Product_Data.get("Product Name");
 	Boolean Proceed_To_Checkout_Directly = Boolean.parseBoolean(Product_Data.get("Proceed to Checkout Directly"));
 
-	if(Proceed_To_Checkout_Directly == true){
+	if(Proceed_To_Checkout_Directly == false){
 
 		System.out.println("Patient Intake | Product: " + Product_Name + " | Result: SKIPPED | Reason: Intake already filled in Product_Choose during storefront checkout.");
 		Report_Listen.log_print_in_report().info("Patient Intake skipped | Product: " + Product_Name + " | Intake already filled in Product_Choose during storefront checkout.");
 
 		   }
 
-	if(Proceed_To_Checkout_Directly == false){
+	if(Proceed_To_Checkout_Directly == true){
 
 		Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 		Repeat rp = new Repeat(d);
@@ -1033,7 +1033,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 }
  
 
-
+   @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
    public void Veirfy_Id_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);

@@ -447,10 +447,10 @@ public class Frontend_Store_Front extends Patient_Module {
 		{ Patient_2 },
 		{ Patient_3 },
 		{ Patient_4 },
-		{ Patient_5 }, */
-		{ Patient_6 },  /*
-		{ Patient_7 },  
-		{ Patient_8 }, 
+		{ Patient_5 }, 
+		{ Patient_6 },  
+		{ Patient_7 },   */
+		{ Patient_8 }, /*
 		{ Patient_9 },
 		{ Patient_10 },
 		{ Patient_11 },
@@ -902,9 +902,9 @@ public class Frontend_Store_Front extends Patient_Module {
 		{ Product_14 },
 		{ Product_15 },
 		{ Product_21 },
-		{ Product_22 }, */
-		{ Product_23 }, /*
-		{ Product_24 }, */
+		{ Product_22 }, 
+		{ Product_23 }, */
+		{ Product_24 }, 
 
 	};
 }
@@ -1018,7 +1018,11 @@ public class Frontend_Store_Front extends Patient_Module {
 					System.out.println("---------------- STOREFRONT INTAKE ----------------");
 					System.out.println("Product : " + Product_Name);
 					Report_Listen.log_print_in_report().info("Starting storefront intake before checkout | Product: " + Product_Name);
-
+					
+					WebElement Start_Assessment_Button = p.Optional_Start_Assessment_Buttons();
+					rp.movetoelement(Start_Assessment_Button);
+					Start_Assessment_Button.click();
+					rp.wait_for_invisibilty_of_theElement(Start_Assessment_Button);
 					Patient_Portal.Fill_Five_Page_Intake_Form(Patient_Data, Product_Data, d);
 
 					System.out.println("Action : Intake submit clicked. Waiting for checkout.");

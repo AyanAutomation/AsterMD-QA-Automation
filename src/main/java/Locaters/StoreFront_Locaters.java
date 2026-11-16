@@ -20,7 +20,7 @@ public class StoreFront_Locaters extends Repeat {
     @FindBy(id="treatments-grid")
 	private WebElement Optional_Second_Treatment_List; 
     @FindBy(xpath="//button[@value='assessment']")
-	private List<WebElement> Optional_Start_Assessment_Buttons; 
+	private WebElement Optional_Start_Assessment_Buttons; 
     @FindBy(css="form[data-intake-form]")
 	private List<WebElement> Optional_Medical_Intake_Forms; 
     @FindBy(xpath="(//button[text()='Continue'])[1]")
@@ -150,7 +150,8 @@ public class StoreFront_Locaters extends Repeat {
 	return Product_Cards;}
 	public WebElement Optional_Second_Treatment_List(){
 	return Optional_Second_Treatment_List;}
-	public List<WebElement> Optional_Start_Assessment_Buttons(){
+	public WebElement Optional_Start_Assessment_Buttons(){
+	wait_for_theElement(Optional_Start_Assessment_Buttons);
 	return Optional_Start_Assessment_Buttons;}
 	public List<WebElement> Optional_Medical_Intake_Forms(){
 	return Optional_Medical_Intake_Forms;}
@@ -283,11 +284,11 @@ public class StoreFront_Locaters extends Repeat {
 	public WebElement Second_Treatment_List(){
 	WebElement Treatment_List = Optional_Second_Treatment_List.get(0);
 	wait_for_theElement(Treatment_List);
-	return Treatment_List;} */
+	return Treatment_List;} 
 	public WebElement Star_Assesment_Button(){
 	WebElement Assesment_Button = Optional_Start_Assessment_Buttons.get(0);
 	wait_for_theElement(Assesment_Button);
-	return Assesment_Button;}
+	return Assesment_Button;} */
 	public WebElement Checkout_Email(){
 	wait_for_theElement(Checkout_Email);
 	return Checkout_Email;}
