@@ -444,18 +444,18 @@ public class Frontend_Store_Front extends Patient_Module {
 
 	return new Object[][] { /*
 		{ Patient_1 },
-		{ Patient_2 },  */
-		{ Patient_3 }, /*
-		{ Patient_4 },
+		{ Patient_2 }, 
+		{ Patient_3 },  
+		{ Patient_4 }, 
 		{ Patient_5 }, 
 		{ Patient_6 }, 
 		{ Patient_7 },
 		{ Patient_8 },
-		{ Patient_9 },
-		{ Patient_10 },
+		{ Patient_9 }, 
+		{ Patient_10 }, 
 		{ Patient_11 },
-		{ Patient_12 },
-		{ Patient_13 },
+		{ Patient_12 }, */
+		{ Patient_13 }, /*
 		{ Patient_14 },
 		{ Patient_15 },
 		{ Patient_21 },
@@ -901,9 +901,9 @@ public class Frontend_Store_Front extends Patient_Module {
 		{ Product_14 },
 		{ Product_15 },
 		{ Product_21 },
-		{ Product_22 }, */
-		{ Product_23 }, /*
-		{ Product_24 }, */
+		{ Product_22 }, 
+		{ Product_23 },  */
+		{ Product_24 }, 
 
 	};
 }

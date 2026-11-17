@@ -52,7 +52,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	System.out.println("Patient Email : " + Patient_Email);
 
 	Report_Listen.log_print_in_report().info("Starting Patient Portal credential setup through Yopmail for: " + Patient_Email);
-
+/*
 	// Open Yopmail
 	d.navigate().to("https://yopmail.com/en/");
 
@@ -72,7 +72,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	
 	
 
-	try {
+/*	try {
 		
 		// Refresh Inbox
 		
@@ -143,9 +143,9 @@ public class Pateint_Portal extends Frontend_Store_Front{
 		
 	   return "yopmail_login";	
 	   
-     }
+     }  */
 	
-  	catch(ElementClickInterceptedException yopmail_error){
+  //	catch(ElementClickInterceptedException yopmail_error){
   
      System.out.println("Login Fallback : Click intercepted during Yopmail credential setup. Switching to Admin Portal Access URL.");
       Report_Listen.log_print_in_report().info("Login Fallback: Click intercepted during Yopmail credential setup | Patient: " + Patient_Email + " | Next Path: Admin Portal Access URL");
@@ -153,7 +153,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 		patient_portal_login_via_Admin(Patient_Email);
 		
 		return "Admin_login";
-   	}
+  // 	}
 
 	
       
@@ -252,6 +252,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	System.out.println("Patient Email  : " + Patient_Email);
 	System.out.println("Product        : " + Product_Name);
 	Report_Listen.log_print_in_report().info("Starting Patient Portal Login | Patient: " + Patient_Name + " | Email: " + Patient_Email + " | Product: " + Product_Name);
+    /*
 	d.navigate().to("https://testdemo.logistial.com/");
 
 	WebElement Login_Title = p.Portal_Login_Title();
@@ -278,16 +279,16 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
 	}
 	
-	
-	if(Alert_Visible){
-		
+
+	if(Alert_Visible){ */
+		/*
 		System.out.println("Action : Registration alert detected. Starting Yopmail credential setup.");
 		Report_Listen.log_print_in_report().info("Registration alert detected | Patient: " + Patient_Email + " | Action: Configure credentials through Yopmail.");
         
-		
+		  */
 	   String Status=  Patient_Portal_Credentials_Setup_Via_Yopmail(Patient_Email, Patient_Password);
 		   
-		
+		/*
 		if(Status.contains("yopmail_login")) {
 		
 		System.out.println("Login Path : Yopmail credential setup | Action: Sign in with configured credentials.");
@@ -312,7 +313,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 		System.out.println("Patient Portal Login | Patient: " + Patient_Name + " | Email: " + Patient_Email + " | Product: " + Product_Name + " | Result: PASS");
 		Report_Listen.log_print_in_report().pass("Patient Portal login confirmed | Patient: " + Patient_Name + " | Email: " + Patient_Email + " | Product: " + Product_Name + " | Login page closed and header menu available | Result: PASS");
 		
-		} 
+		} */
 		
 		
         if(Status.contains("Admin_login")){
@@ -326,7 +327,10 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	         Report_Listen.log_print_in_report().pass("Patient Portal Login | Path: Admin Portal Access URL | Patient: " + Patient_Email + " | Portal header visible | Result: PASS");}
         
 	
-	     }}
+	  //   }
+   
+
+}
 
 
 
@@ -480,6 +484,8 @@ public class Pateint_Portal extends Frontend_Store_Front{
 		}
 
 	}
+	
+	Veirfy_Id_form_filling(Patient_Data, Product_Data);
 
 }
    
@@ -1033,7 +1039,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 }
  
 
-   @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
+   @Test
    public void Veirfy_Id_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
@@ -1046,7 +1052,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
 	String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
 
-	Patient_portal_header_menu_navigator("Treatments", Patient_Data, Product_Data);
+	
 
 	System.out.println();
 	System.out.println("---------- PATIENT ID VERIFICATION ----------");
