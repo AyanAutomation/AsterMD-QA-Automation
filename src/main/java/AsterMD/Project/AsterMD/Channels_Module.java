@@ -3848,7 +3848,7 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 	Thread.sleep(1500);
 
 	List<WebElement> Dr_Networks = Provider_Section.findElements(By.xpath(".//span[contains(@class,'ant-select-selection-item-content')]"));
-	Boolean dr_network_visibilty =rp.check_element_visibility(Dr_Networks, 6);
+	Boolean dr_network_visibilty =rp.check_element_visibility(Dr_Networks, 7);
 	
 	if(dr_network_visibilty) {
 
@@ -4051,7 +4051,7 @@ public void Channel_Add(TreeMap<String, String> Channel_data) throws Exception{
 	WebElement Security_Management_Section = p.Security_Section();
 	rp.wait_for_theElement(Security_Management_Section);
 	rp.Scroll_to_element(Security_Management_Section);
-	Thread.sleep(500);
+	
 
 	WebElement Auth_feild = p.Two_Factor_Authentication_Field();
 	rp.movetoelement(Auth_feild);
