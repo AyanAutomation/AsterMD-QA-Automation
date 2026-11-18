@@ -1053,7 +1053,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 								p.ID_Verification_Form();
 								System.out.println("Action : ID Verification form opened.");
 								Report_Listen.log_print_in_report().info("ID Verification form opened | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
-
+                               
 								// SSN
 								String SSN = Patient_Data.get("SSN");
 								WebElement SSN_Field = p.ID_Verification_SSN();
@@ -1070,7 +1070,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 								System.out.println("Action : SSN entered and field value verified.");
 								System.out.println("Result : PASS");
 								Report_Listen.log_print_in_report().pass("ID Verification SSN entry | Patient: " + Patient_Name + " | Field value matches the DataProvider | Result: PASS");
-
+                               
 								// ID Verification Image
 								String ID_Verification_Image = Patient_Data.get("ID Verification Image");
 								File ID_Verification_File = new File(ID_Verification_Folder, ID_Verification_Image);
@@ -1091,7 +1091,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 								System.out.println("Action : Image supplied to the ID Verification file input.");
 								Report_Listen.log_print_in_report().info("ID Verification image selected | Patient: " + Patient_Name + " | Image: " + ID_Verification_File.getName());
 
-								Thread.sleep(800);
+								Thread.sleep(800); 
 
 								// Submit
 								WebElement Submit_Button = p.ID_Verification_Submit_Button();

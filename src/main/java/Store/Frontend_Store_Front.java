@@ -442,12 +442,12 @@ public class Frontend_Store_Front extends Patient_Module {
 	Patient_24.put("Cardholder Name", "Beatrice Wellington");
 	Patient_24.put("ID Verification Image", "ID_Verification_data13.png");
 
-	return new Object[][] { 
+	return new Object[][] { /*
 		{ Patient_1 }, 
 	//	{ Patient_2 }, 
 		{ Patient_3 },  
 		{ Patient_4 }, 
-		{ Patient_5 }, /*
+		{ Patient_5 }, 
 		{ Patient_6 }, 
 		{ Patient_7 },
 		{ Patient_8 },
@@ -458,9 +458,9 @@ public class Frontend_Store_Front extends Patient_Module {
 		{ Patient_13 }, 
 		{ Patient_14 },  
 		{ Patient_15 },
-		{ Patient_21 },
-		{ Patient_22 },
-		{ Patient_23 },
+		{ Patient_21 }, */
+		{ Patient_22 }, /*
+		{ Patient_23 }, 
 		{ Patient_24 } */
 	};
 }
@@ -806,7 +806,7 @@ public class Frontend_Store_Front extends Patient_Module {
 
 	// Product 21 - AsterMigraNova - 15 Tablets
 	TreeMap<String,String> Product_21 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
-	Product_21.put("Proceed to Checkout Directly", "false");
+	Product_21.put("Proceed to Checkout Directly", "true");
 	Product_21.put("Treatment Variant", "AsterMigraNova - 15 Tablets");
 	Product_21.put("Expected Price", "18.00");
 	Product_21.put("Notes", "A missed meal sometimes precedes a headache. I would like to discuss the recurring visual changes with the clinician.");
@@ -828,7 +828,7 @@ public class Frontend_Store_Front extends Patient_Module {
 
 	// Product 22 - AsterMigraNova - 30 Tablets
 	TreeMap<String,String> Product_22 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
-	Product_22.put("Proceed to Checkout Directly", "false");
+	Product_22.put("Proceed to Checkout Directly", "true");
 	Product_22.put("Treatment Variant", "AsterMigraNova - 30 Tablets");
 	Product_22.put("Expected Price", "29.99");
 	Product_22.put("Notes", "Headaches often follow long stretches of screen work. I would like to discuss how to track that pattern.");
