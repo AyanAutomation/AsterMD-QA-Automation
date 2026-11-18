@@ -75,20 +75,31 @@ public class Treatment_Module extends Product_Module{
 	Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Verify Treatments module visibility and retrieve treatment rows.");
 	System.out.println("Step " + step + " : Checking Treatments module visibility.");
 
-	Boolean is_Visible = rp.check_element_visibility(p.Landed_In_Treatment_Module, 4);
+	Boolean is_Visible = rp.check_element_visibility(p.Landed_In_Treatment_Module, 6);
 
 	if(is_Visible){
 
 		System.out.println("Treatments Module Visible : " + is_Visible);
 
 		List<WebElement> rows = p.Rows();
+		
+		Boolean row_visibilty = rp.check_element_visibility(rows, 6);
+		
+		
 
 		System.out.println("Treatment Rows Retrieved : " + rows.size());
 		System.out.println("Result : PASS - Treatment list accessed successfully.");
 
 		Report_Listen.log_print_in_report().pass("Treatment Module is visible. Treatment rows retrieved: " + rows.size());
+		
+		if(row_visibilty==true) {
 
-		return rows;
+		return rows; }
+		else {
+			
+			return null;
+			
+		}
 	}
 	else{
 
@@ -125,8 +136,10 @@ public class Treatment_Module extends Product_Module{
 	System.out.println("Searching Patient    : " + Patient_Name);
 
 	Report_Listen.log_print_in_report().info("Searching Treatment Module records for patient: " + Patient_Name);
+	
 
-	// Search Patient in Treatment Table
+
+	Main_row_loop:
 	for(WebElement Row : Rows){
 
 		List<WebElement> Text_Cells = Row.findElements(By.xpath(".//td//span[contains(@class,'text-dark')]"));
@@ -178,7 +191,7 @@ public class Treatment_Module extends Product_Module{
 
 				Report_Listen.log_print_in_report().info("Treatment Patient Details verification completed for: " + Patient_Name + " | Review the detailed hard comparison and warning summary.");
 
-				return;
+				break Main_row_loop;
 			}
 		}
 	}
@@ -225,7 +238,7 @@ public class Treatment_Module extends Product_Module{
 	System.out.println("Treatment Rows   : " + Rows.size());
 	Report_Listen.log_print_in_report().info("Searching treatment rows | Expected Patient: " + Patient_Name + " | Treatment Rows: " + Rows.size());
 
-	Main_loop:
+	Main_loop_row:
 	for(WebElement Row : Rows){
 
 		List<WebElement> Text_Cells = Row.findElements(By.xpath(".//td//span[contains(@class,'text-dark')]"));
@@ -250,13 +263,9 @@ public class Treatment_Module extends Product_Module{
 				System.out.println("Action           : Clicked View for the matching treatment row.");
 				Report_Listen.log_print_in_report().info("Clicked View for the matching treatment row | Patient: " + Patient_Name);
 
-				break Main_loop;
+				break Main_loop_row;
 
-			}
-
-		}
-
-	}
+			}}}
 
 	WebElement Details_Title = p.Admin_Patient_Details_Title();
 	String Actual_Title = Details_Title.getText().trim();
@@ -306,19 +315,22 @@ public class Treatment_Module extends Product_Module{
 			System.out.println("Popup Rows : " + Intake_pop_rows.size());
 			Report_Listen.log_print_in_report().info("Intake form popup opened | Form Row: " + Form_Row_Text + " | Popup Rows: " + Intake_pop_rows.size());
 
-			for(WebElement Intake_pop_row : Intake_pop_rows){
+			
+                for(WebElement Intake_pop_row : Intake_pop_rows){
 
-				List<WebElement> Values = Intake_pop_row.findElements(By.xpath(".//span"));
+                    List<WebElement> Values = Intake_pop_row.findElements(By.xpath(".//span[@class='font-14 text-dark']"));
+                    List<WebElement> Labels = Intake_pop_row.findElements(By.xpath(".//span[contains(@class,'flex-grow-')]"));
 
-				for(WebElement Value : Values){
+                          for(int i = 0; i < Values.size() && i < Labels.size(); i++){
 
-					String Value_Text = Value.getText().trim();
-					System.out.println("Popup Text : " + Value_Text);
-					Report_Listen.log_print_in_report().info("Intake form popup | Form Row: " + Form_Row_Text + " | Text: " + Value_Text);
+                              String Label_Text = Labels.get(i).getText().trim();
+                              String Value_Text = Values.get(i).getText().trim();
 
-				}
+                              System.out.println();
+                              System.out.println("Label : " + Label_Text);
+                              System.out.println("Value : " + Value_Text);
 
-			}
+                              Report_Listen.log_print_in_report().info("Intake Form | Label: " + Label_Text + " | Value: " + Value_Text);}}
 
 			WebElement Close_Button = Intake_popUp.findElement(By.xpath(".//span[@aria-label='Close']"));
 			rp.movetoelement(Close_Button);
@@ -391,7 +403,7 @@ public class Treatment_Module extends Product_Module{
 
 	List<WebElement> Patient_Details_Rows = Patient_details_section.findElements(By.xpath(".//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css')]"));
 
-    Boolean If_Rows_visible = rp.check_element_visibility(Patient_Details_Rows, 5);	
+    Boolean If_Rows_visible = rp.check_element_visibility(Patient_Details_Rows, 8);	
     
     if(If_Rows_visible) {
 	
