@@ -1,6 +1,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="AsterMD Complete Order and Patient Verification Flow" parallel="false" preserve-order="true">
 
+    <!-- Step 1 - Storefront product selection and checkout -->
     <test name="Step 1 - Storefront Product Selection and Checkout" preserve-order="true">
         <classes>
             <class name="Store.Frontend_Store_Front">
@@ -11,7 +12,8 @@
         </classes>
     </test>
 
-    <test name="Step 2 - Patient Portal Intake Form Submission" preserve-order="true">
+    <!-- Step 2 - Patient portal intake and ID verification in one invocation -->
+    <test name="Step 2 - Patient Portal Intake and ID Verification" preserve-order="true">
         <classes>
             <class name="Patient_Portal.Pateint_Portal">
                 <methods>
@@ -21,7 +23,8 @@
         </classes>
     </test>
 
-    <test name="Step 3 - Admin Intake Form Check" preserve-order="true">
+    <!-- Step 3 - Admin inspection of the submitted intake and ID forms -->
+    <test name="Step 3 - Admin Intake and ID Form Check" preserve-order="true">
         <classes>
             <class name="AsterMD.Project.AsterMD.Treatment_Module">
                 <methods>
@@ -31,17 +34,8 @@
         </classes>
     </test>
 
-    <test name="Step 4 - Patient Portal ID Verification" preserve-order="true">
-        <classes>
-            <class name="Patient_Portal.Pateint_Portal">
-                <methods>
-                    <include name="Veirfy_Id_form_filling"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-
-    <test name="Step 5 - Admin Treatment Patient Details Verification" preserve-order="true">
+    <!-- Step 4 - Admin treatment patient details and Beluga authorization -->
+    <test name="Step 4 - Admin Treatment Patient Details Verification" preserve-order="true">
         <classes>
             <class name="AsterMD.Project.AsterMD.Treatment_Module">
                 <methods>
