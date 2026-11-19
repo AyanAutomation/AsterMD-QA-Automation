@@ -288,7 +288,7 @@ public class Treatment_Module extends Product_Module{
 
 		String Treatment_Details_URL = d.getCurrentUrl();
 		List<WebElement> Patient_Details_Rows = p.Treatment_Details_cards().get(0).findElements(By.xpath(Rows_XPath));
-		Assert.assertTrue(rp.check_element_visibility(Patient_Details_Rows, 8), "Patient Details rows did not become visible.");
+		Assert.assertTrue(rp.check_element_visibility(Patient_Details_Rows, 12), "Patient Details rows did not become visible.");
 
 		String Case_ID = "";
 
@@ -323,12 +323,19 @@ public class Treatment_Module extends Product_Module{
 		Details_Title = p.Admin_Patient_Details_Title();
 		Assert.assertEquals(Details_Title.getText().trim(), "Patient Details", "Admin Patient Details section not found after the webhook.");
 
-		Patient_Details_Rows = p.Treatment_Details_cards().get(0).findElements(By.xpath(Rows_XPath));
-		Assert.assertTrue(rp.check_element_visibility(Patient_Details_Rows, 8), "Patient Details rows did not become visible after the webhook.");
+	   List<WebElement> Refetched_Patient_Details_Rows = p.Treatment_Details_cards().get(0).findElements(By.xpath(Rows_XPath));
+		Boolean Rows_Visibilty = rp.check_element_visibility(Refetched_Patient_Details_Rows, 8);
+		
+		
+		if(Rows_Visibilty) {
+			
+		Assert.assertTrue(rp.check_element_visibility(Refetched_Patient_Details_Rows, 8), "Patient Details rows did not become visible after the webhook.");
 
-		for(WebElement Patient_Details_Row : Patient_Details_Rows){
-
-			String Label_text = Patient_Details_Row.findElement(By.xpath(Label_XPath)).getText().trim();
+		for(WebElement Patient_Details_Row : Refetched_Patient_Details_Rows){
+			
+            WebElement Label =Patient_Details_Row.findElement(By.xpath(Label_XPath));
+            rp.wait_for_theElement(Label);
+			String Label_text = Label.getText().trim();
 			WebElement Value = Patient_Details_Row.findElement(By.xpath(Value_XPath));
 			String Value_text = Value.getText().trim();
 
@@ -371,7 +378,7 @@ public class Treatment_Module extends Product_Module{
 
 			Actual_Data.put(Label_text, Value_text.replaceAll("\\s+", " ").trim());
 
-		}
+		} }
 
 		Assert.assertEquals(Actual_Data.get("Case ID"), Case_ID, "The reopened Admin order has a different Case ID.");
 

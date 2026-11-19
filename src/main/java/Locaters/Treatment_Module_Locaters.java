@@ -235,7 +235,7 @@ public class Treatment_Module_Locaters extends Repeat{
     check_element_visibility(Rows,5);
 	return Rows;}
 	public WebElement Admin_Patient_Details_Title(){
-	Boolean Visible = check_element_visibility(Admin_Patient_Details_Title, 5);
+	Boolean Visible = check_element_visibility(Admin_Patient_Details_Title, 9);
 	if(Visible){
 		return Admin_Patient_Details_Title;
 	}

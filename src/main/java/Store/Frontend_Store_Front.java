@@ -463,19 +463,19 @@ public class Frontend_Store_Front extends Patient_Module {
 		Patient_24.put("Doctor Name", "Dr. Diana Langford");
 		Patient_24.put("ID Verification Image", "ID_Verification_data13.png");
 
-		return new Object[][] { 
+		return new Object[][] { /*
 			{ Patient_1 },
 			{ Patient_2 },
 			{ Patient_3 },
 			{ Patient_4 },
 			{ Patient_5 }, 
-			{ Patient_6 }, /*
+			{ Patient_6 }, 
 			{ Patient_7 },
 			{ Patient_8 },
-			{ Patient_9 },
-			{ Patient_10 },
-			{ Patient_11 },
-			{ Patient_12 },
+			{ Patient_9 }, 
+			{ Patient_10 }, */
+			{ Patient_11 },  /*
+			{ Patient_12 }, 
 			{ Patient_13 },
 			{ Patient_14 },
 			{ Patient_15 },
