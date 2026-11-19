@@ -52,12 +52,14 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
 	try{
 
+		System.out.println();
 		System.out.println("Login Path : Admin Portal Access URL");
 		Report_Listen.log_print_in_report().info("Trying Admin Portal Access URL | Patient: " + Patient_Email);
 
 		patient_portal_login_via_Admin(Patient_Email);
 		p.Header_Tab();
 
+		System.out.println();
 		System.out.println("Admin Portal Access | Patient: " + Patient_Email + " | Result: PASS");
 		Report_Listen.log_print_in_report().pass("Admin Portal Access | Patient: " + Patient_Email + " | Patient Portal header verified | Result: PASS");
 
@@ -66,6 +68,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	}
 	catch(Exception Admin_Login_Error){
 
+		System.out.println();
 		System.out.println("Admin Portal Access | Result: FALLBACK | Reason: " + Admin_Login_Error.getClass().getSimpleName());
 		System.out.println("Next Path : Yopmail credential setup");
 		Report_Listen.log_print_in_report().info("Admin Portal Access fallback | Patient: " + Patient_Email + " | Reason: " + Admin_Login_Error.getClass().getSimpleName() + " | Next path: Yopmail credential setup");
@@ -111,6 +114,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
 		if(Link_Found == true){
 
+			System.out.println();
 			System.out.println("Password setup link | Result: PASS");
 			Report_Listen.log_print_in_report().pass("Patient Portal password setup link retrieved successfully.");
 
@@ -118,6 +122,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
 		if(Link_Found == false){
 
+			System.out.println();
 			System.out.println("Result : FAIL | Reason: Password setup link not found in Yopmail.");
 			Report_Listen.log_print_in_report().fail("Password setup link not found for: " + Patient_Email);
 			d.switchTo().defaultContent();
@@ -173,7 +178,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	 Search_box.clear();
 	 Search_box.sendKeys(Patient_mailid);
 	 
-	 Thread.sleep(1900);
+	 Thread.sleep(2000);
 	 
 	 List<WebElement> Rows = p.Table_Rows();
 	 
@@ -221,6 +226,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	 }
 	 String Portal_URL_For_Log = Portal_URL.split("[?#]", 2)[0];
 
+	 System.out.println();
 	 System.out.println("Admin Portal Access URL | Patient: " + Patient_mailid + " | Copied URL: " + Portal_URL_For_Log);
 	 Report_Listen.log_print_in_report().info("Admin Portal Access URL | Patient: " + Patient_mailid + " | Copied URL: " + Portal_URL_For_Log);
 	 d.switchTo().newWindow(WindowType.TAB);
@@ -254,6 +260,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
 		p.Header_Tab();
 
+		System.out.println();
 		System.out.println("Patient Portal Login | Path: Admin Portal Access URL | Patient: " + Patient_Name + " | Result: PASS");
 		Report_Listen.log_print_in_report().pass("Patient Portal Login | Path: Admin Portal Access URL | Patient: " + Patient_Email + " | Portal header visible | Result: PASS");
 
@@ -261,6 +268,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
 	if(Status.contains("yopmail_login")){
 
+		System.out.println();
 		System.out.println("Login Path : Yopmail credential setup");
 		System.out.println("Action     : Sign in with configured credentials.");
 		Report_Listen.log_print_in_report().info("Login Path: Yopmail credential setup | Patient: " + Patient_Email + " | Action: Sign in with configured credentials");
@@ -278,12 +286,14 @@ public class Pateint_Portal extends Frontend_Store_Front{
 		rp.movetoelement(Login_Button);
 		Login_Button.click();
 
+		System.out.println();
 		System.out.println("Action : Configured credentials submitted.");
 		Report_Listen.log_print_in_report().info("Patient Portal sign-in submitted after Yopmail setup | Patient: " + Patient_Email);
 
 		rp.wait_for_invisibilty_of_theElement(Login_Title);
 		p.Header_Tab();
 
+		System.out.println();
 		System.out.println("Patient Portal Login | Path: Yopmail credential setup | Patient: " + Patient_Name + " | Result: PASS");
 		Report_Listen.log_print_in_report().pass("Patient Portal Login | Path: Yopmail credential setup | Patient: " + Patient_Email + " | Portal header visible | Result: PASS");
 
@@ -300,6 +310,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	Patient_Portal_Login(Patient_Data, Product_Data);
 	List<WebElement> Menu_Options = p.Patient_Portal_Header_Menu_Options();
 
+	System.out.println();
 	System.out.println("---------- PATIENT PORTAL MENU ----------");
 	System.out.println("Expected : " + Option);
 	
@@ -312,6 +323,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 			if(Menu_Visible){
 				rp.movetoelement(Menu_Option);
 				Menu_Option.click();
+				System.out.println();
 				System.out.println("Actual   : " + Menu_Name);
 				System.out.println("Result   : PASS");
 				Report_Listen.log_print_in_report().pass("Patient Portal menu | Expected: " + Option + " | Actual: " + Menu_Name + " | Result: PASS");
@@ -351,6 +363,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
     if(Proceed_To_Checkout_Directly == false){
 
+        System.out.println();
         System.out.println("Patient Intake | Product: " + Product_Name + " | Result: SKIPPED | Reason: Intake already filled in Product_Choose during storefront checkout.");
         Report_Listen.log_print_in_report().info("Patient Intake skipped | Product: " + Product_Name + " | Intake already filled during storefront checkout.");
 
@@ -358,6 +371,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
     if(Proceed_To_Checkout_Directly == true){
 
+        System.out.println();
         System.out.println("Intake Path : Patient Portal after direct checkout");
         Report_Listen.log_print_in_report().info("Intake Path: Patient Portal after direct checkout | Patient: " + Patient_Name + " | Product: " + Product_Name);
 
@@ -375,6 +389,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
         }
         catch(TimeoutException Unavailable_Treatments){
 
+            System.out.println();
             System.out.println("Result : NOT PERFORMED | Reason: Incomplete treatments are unavailable.");
             Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: Incomplete treatments are unavailable.");
 
@@ -404,6 +419,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
                             Fill_Five_Page_Intake_Form(Patient_Data, Product_Data, d);
 
+                            System.out.println();
                             System.out.println("Patient Intake | Product: " + Product_Name + " | Result: COMPLETED");
                             Report_Listen.log_print_in_report().pass("Patient Intake completed | Patient: " + Patient_Name + " | Product: " + Product_Name);
                             
@@ -414,6 +430,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
                         if(Button_Text.contains("Verify Identity")){
 
+                            System.out.println();
                             System.out.println("Patient Intake | Product: " + Product_Name + " | Result: ALREADY COMPLETED | Proceeding to ID Verification.");
                             Report_Listen.log_print_in_report().info("Patient Intake already completed | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Proceeding to ID Verification.");
 
@@ -431,6 +448,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
             if(Treatment_Card.equals(Treatment_Cards.get(Treatment_Cards.size() - 1))){
 
+                System.out.println();
                 System.out.println("Result : NOT PERFORMED | Reason: No usable Intake or Verify Identity button matches the requested product and variant.");
                 Report_Listen.log_print_in_report().info("Patient Intake and ID Verification NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: No usable matching Intake or Verify Identity button.");
 
@@ -492,6 +510,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	First_Name_Field.clear();
 	First_Name_Field.sendKeys(First_Name);
 	String Actual_First_Name = First_Name_Field.getDomProperty("value");
+	System.out.println();
 	System.out.println("First Name | Expected: " + First_Name + " | Actual: " + Actual_First_Name);
 	Assert.assertEquals(Actual_First_Name, First_Name, "First Name mismatch.");
 
@@ -500,6 +519,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	Last_Name_Field.clear();
 	Last_Name_Field.sendKeys(Last_Name);
 	String Actual_Last_Name = Last_Name_Field.getDomProperty("value");
+	System.out.println();
 	System.out.println("Last Name | Expected: " + Last_Name + " | Actual: " + Actual_Last_Name);
 	Assert.assertEquals(Actual_Last_Name, Last_Name, "Last Name mismatch.");
 
@@ -508,6 +528,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	Email_Field.clear();
 	Email_Field.sendKeys(Patient_Email);
 	String Actual_Email = Email_Field.getDomProperty("value");
+	System.out.println();
 	System.out.println("Email | Expected: " + Patient_Email + " | Actual: " + Actual_Email);
 	Assert.assertEquals(Actual_Email, Patient_Email, "Email mismatch.");
 
@@ -542,6 +563,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	rp.wait_for_expected_text(Page_Indicator, "Page 2 of 5");
 	Actual_Page = Page_Indicator.getText().trim();
 	Assert.assertEquals(Actual_Page, "Page 2 of 5");
+	System.out.println();
 	System.out.println("Expected : Page 2 of 5");
 	System.out.println("Actual   : " + Actual_Page);
 	System.out.println("Result   : PASS");
@@ -556,6 +578,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	Address_Field.clear();
 	Address_Field.sendKeys(Patient_Address);
 	String Actual_Address = Address_Field.getDomProperty("value");
+	System.out.println();
 	System.out.println("Address | Expected: " + Patient_Address + " | Actual: " + Actual_Address);
 	Assert.assertEquals(Actual_Address, Patient_Address, "Address mismatch.");
 
@@ -564,6 +587,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	City_Field.clear();
 	City_Field.sendKeys(Patient_City);
 	String Actual_City = City_Field.getDomProperty("value");
+	System.out.println();
 	System.out.println("City | Expected: " + Patient_City + " | Actual: " + Actual_City);
 	Assert.assertEquals(Actual_City, Patient_City, "City mismatch.");
     
@@ -573,6 +597,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	ZIP_Field.clear();
 	ZIP_Field.sendKeys(Patient_ZIP);
 	String Actual_ZIP = ZIP_Field.getDomProperty("value");
+	System.out.println();
 	System.out.println("ZIP Code | Expected: " + Patient_ZIP + " | Actual: " + Actual_ZIP);
 	Assert.assertEquals(Actual_ZIP, Patient_ZIP, "ZIP Code mismatch.");
 
@@ -590,6 +615,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	rp.wait_for_expected_text(Page_Indicator, "Page 3 of 5");
 	Actual_Page = Page_Indicator.getText().trim();
 	Assert.assertEquals(Actual_Page, "Page 3 of 5");
+	System.out.println();
 	System.out.println("Expected : Page 3 of 5");
 	System.out.println("Actual   : " + Actual_Page);
 	System.out.println("Result   : PASS");
@@ -609,6 +635,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	rp.wait_for_expected_text(Page_Indicator, "Page 4 of 5");
 	Actual_Page = Page_Indicator.getText().trim();
 	Assert.assertEquals(Actual_Page, "Page 4 of 5");
+	System.out.println();
 	System.out.println("Expected : Page 4 of 5");
 	System.out.println("Actual   : " + Actual_Page);
 	System.out.println("Result   : PASS");
@@ -629,6 +656,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	rp.wait_for_expected_text(Page_Indicator, "Page 5 of 5");
 	Actual_Page = Page_Indicator.getText().trim();
 	Assert.assertEquals(Actual_Page, "Page 5 of 5");
+	System.out.println();
 	System.out.println("Expected : Page 5 of 5");
 	System.out.println("Actual   : " + Actual_Page);
 	System.out.println("Result   : PASS");
@@ -651,13 +679,16 @@ public class Pateint_Portal extends Frontend_Store_Front{
 			Consent_Checkbox.click();
 		}
 		else{
+			System.out.println();
 			System.out.println("Action : Consent " + (n + 1) + " is already selected.");
 		}
 
 		Consent_Selected = Consent_Input.isSelected();
 
+		System.out.println();
 		System.out.println("Consent " + (n + 1) + " | Expected: true | Actual: " + Consent_Selected);
 		Assert.assertTrue(Consent_Selected, "Consent " + (n + 1) + " was not selected.");
+		System.out.println();
 		System.out.println("Result : PASS");
 
 		Report_Listen.log_print_in_report().pass("Consent " + (n + 1) + " | Expected: true | Actual: " + Consent_Selected + " | Result: PASS");
@@ -685,6 +716,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
+	System.out.println();
 	System.out.println("---------- INTAKE QUESTIONS ----------");
 
 	List<WebElement> Question_Cards = p.Teleform_Choice_Cards();
@@ -822,6 +854,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	String Month = DOB.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
 	String Date = DOB.toString();
 	String Expected_DOB = DOB.format(DateTimeFormatter.ofPattern("uuuu/MM/dd"));
+	System.out.println();
 	System.out.println("---------- DATE OF BIRTH ----------");
 
 	WebElement Date_Field = p.Teleform_DOB_Input();
@@ -878,6 +911,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 						Date_Field = p.Teleform_DOB_Input();
 						String Actual_DOB = Date_Field.getDomProperty("value").trim();
 						Assert.assertEquals(Actual_DOB, Expected_DOB, "Date of Birth mismatch.");
+						System.out.println();
 						System.out.println("Expected : " + Expected_DOB + " | Actual: " + Actual_DOB + " | Result: PASS");
 						Report_Listen.log_print_in_report().pass("DOB | Expected: " + Expected_DOB + " | Actual: " + Actual_DOB + " | Result: PASS");
 						return;
@@ -903,6 +937,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	Repeat rp = new Repeat(d);
 	
 	String Expected_Value = Expected_Option.replaceAll("\\s+", "");
+	System.out.println();
 	System.out.println("---------- INTAKE DROPDOWN ----------");
 	Report_Listen.log_print_in_report().info("Selecting intake dropdown option: " + Expected_Option);
 	
@@ -935,6 +970,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 					if(Scroll_Holder.isDisplayed()){
 						Boolean Holder_Visible = rp.check_element_visibility(Scroll_Holder, 5);
 						if(Holder_Visible){
+							System.out.println();
 							System.out.println("Scroll attempt : " + Scroll_Attempt);
 							new org.openqa.selenium.interactions.Actions(d).scrollFromOrigin(org.openqa.selenium.interactions.WheelInput.ScrollOrigin.fromElement(Scroll_Holder), 0, 160).perform();
 							break;
@@ -945,12 +981,15 @@ public class Pateint_Portal extends Frontend_Store_Front{
 		}
 	}
 	String Actual_Option = Dropdown.getText().trim();
+	System.out.println();
 	System.out.println("Expected : " + Expected_Option + " | Actual: " + Actual_Option);
 	if(Actual_Option.replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
+		System.out.println();
 		System.out.println("Result : PASS");
 		Report_Listen.log_print_in_report().pass("Intake dropdown | Expected: " + Expected_Option + " | Actual: " + Actual_Option + " | Result: PASS");
 	}
 	else{
+		System.out.println();
 		System.out.println("Result : FAIL | Reason: Requested option was not selected.");
 		Report_Listen.log_print_in_report().fail("Intake dropdown | Expected: " + Expected_Option + " | Actual: " + Actual_Option + " | Result: FAIL");
 		throw new IllegalStateException("Unable to select intake dropdown option: " + Expected_Option + " | Actual: " + Actual_Option);
@@ -971,6 +1010,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
 	if(Toast_Visible){
 		String Toast_Message = Toast.getText().trim().replaceAll("\\s*\\r?\\n\\s*", " | ");
+		System.out.println();
 		System.out.println("Actual : " + Toast_Message);
 
 		if(Expected_Toast.equals(Toast_Message)){
@@ -986,6 +1026,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 		}
 	}
 	else{
+		System.out.println();
 		System.out.println("Actual : Notification not displayed.");
 		System.out.println("Result : FAIL");
 		System.out.println("Reason : Expected success notification was not visible within 10 seconds.");
@@ -1051,6 +1092,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 								Treatment_Button.click();
 
 								p.ID_Verification_Form();
+								System.out.println();
 								System.out.println("Action : ID Verification form opened.");
 								Report_Listen.log_print_in_report().info("ID Verification form opened | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
                                
@@ -1091,7 +1133,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 								System.out.println("Action : Image supplied to the ID Verification file input.");
 								Report_Listen.log_print_in_report().info("ID Verification image selected | Patient: " + Patient_Name + " | Image: " + ID_Verification_File.getName());
 
-								Thread.sleep(800); 
+								Thread.sleep(1000); 
 
 								// Submit
 								WebElement Submit_Button = p.ID_Verification_Submit_Button();
@@ -1109,6 +1151,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
 								if(Submission_Success){
 
+									System.out.println();
 									System.out.println("Patient : " + Patient_Name);
 									System.out.println("Product : " + Product_Name);
 									System.out.println("Expected: Action Successful | Submitted successfully.");
@@ -1120,6 +1163,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 								}
 								else{
 
+									System.out.println();
 									System.out.println("Result : FAIL");
 									System.out.println("Reason : ID Verification submission success notification was not verified.");
 									Report_Listen.log_print_in_report().fail("ID Verification submission | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Reason: Expected submission success notification was not verified.");

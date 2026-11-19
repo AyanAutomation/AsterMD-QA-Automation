@@ -1,5 +1,6 @@
 package AsterMD.Project.AsterMD;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 import java.util.TreeMap;
@@ -36,6 +37,7 @@ public class Treatment_Module extends Product_Module{
 	Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
 
 	Report_Listen.log_print_in_report().info("<b>Step " + step + ":</b> Treatment Module locator class initialized.");
+	System.out.println();
 	System.out.println("Step " + step + " : Treatment Module locator class initialized.");
 
 	step++;
@@ -50,6 +52,7 @@ public class Treatment_Module extends Product_Module{
 	Side_Menu_Navigation("Treatments");
 
 	Report_Listen.log_print_in_report().pass("Treatments side-menu navigation completed successfully.");
+	System.out.println();
 	System.out.println("Result : Treatments module navigation completed.");
 
 	step++;
@@ -64,6 +67,7 @@ public class Treatment_Module extends Product_Module{
 	p.Top_Navigation_bar();
 
 	Report_Listen.log_print_in_report().pass("Treatment Module top navigation bar verified successfully.");
+	System.out.println();
 	System.out.println("Result : Treatment Module navigation bar verified.");
 
 	step++;
@@ -79,6 +83,7 @@ public class Treatment_Module extends Product_Module{
 
 	if(is_Visible){
 
+		System.out.println();
 		System.out.println("Treatments Module Visible : " + is_Visible);
 
 		List<WebElement> rows = p.Rows();
@@ -87,6 +92,7 @@ public class Treatment_Module extends Product_Module{
 		
 		
 
+		System.out.println();
 		System.out.println("Treatment Rows Retrieved : " + rows.size());
 		System.out.println("Result : PASS - Treatment list accessed successfully.");
 
@@ -103,6 +109,7 @@ public class Treatment_Module extends Product_Module{
 	}
 	else{
 
+		System.out.println();
 		System.out.println("Treatments Module Visible : " + is_Visible);
 		System.out.println("Result : FAIL - Treatments module is not visible.");
 
@@ -113,423 +120,438 @@ public class Treatment_Module extends Product_Module{
 }
 
 
-  @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
-  public void Treatment_Patient_Details_Check(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
-
-  	String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
-  	Repeat rp = new Repeat(d);
-
-	System.out.println();
-	System.out.println("============================================================");
-	System.out.println("                TREATMENT PATIENT DETAILS CHECK");
-	System.out.println("============================================================");
-	System.out.println("Expected Patient : " + Patient_Name);
-
-	Report_Listen.log_print_in_report().info("Starting Treatment Module patient verification for: " + Patient_Name);
-
-	// Access Treatment Module
-	List<WebElement> Rows = Treatment_Module_Accessor();
-
-	System.out.println();
-	System.out.println("---------- TREATMENT LIST VERIFICATION ----------");
-	System.out.println("Total Treatment Rows : " + Rows.size());
-	System.out.println("Searching Patient    : " + Patient_Name);
-
-	Report_Listen.log_print_in_report().info("Searching Treatment Module records for patient: " + Patient_Name);
-	
-
-
-	Main_row_loop:
-	for(WebElement Row : Rows){
-
-		List<WebElement> Text_Cells = Row.findElements(By.xpath(".//td//span[contains(@class,'text-dark')]"));
-		WebElement View_Button = Row.findElement(By.xpath(".//span[@class='ant-btn-icon']/.."));
-
-		for(WebElement Text_Cell : Text_Cells){
-
-			String Cell_Text = Text_Cell.getText().trim();
-
-			if(Cell_Text.contains(Patient_Name)){
-
-				System.out.println();
-				System.out.println("---------- PATIENT MATCH RESULT ----------");
-				System.out.println("Expected Patient : " + Patient_Name);
-				System.out.println("Actual Patient   : " + Cell_Text);
-				System.out.println("Result           : PASS");
-
-				Report_Listen.log_print_in_report().pass("Patient found in Treatment Module. Expected: " + Patient_Name + " | Actual: " + Cell_Text);
-
-				// Open Matching Treatment Details Using View Button
-				System.out.println();
-				System.out.println("---------- TREATMENT DETAILS NAVIGATION ----------");
-				System.out.println("Patient : " + Patient_Name);
-				System.out.println("Action  : Click View button of matching treatment row.");
-
-				rp.movetoelement(View_Button);
-				View_Button.click();
-                Thread.sleep(800);
-				Report_Listen.log_print_in_report().info("Clicked View button for matching patient: " + Patient_Name);
-
-				// Verify Admin Patient Details Against DataProvider
-				System.out.println();
-				System.out.println("---------- ADMIN PATIENT DETAILS VERIFICATION ----------");
-				System.out.println("Patient : " + Patient_Name);
-				System.out.println("Action  : Compare Admin Patient Details with Storefront and Intake DataProvider.");
-
-				Report_Listen.log_print_in_report().info("Starting Admin Patient Details field-by-field comparison for: " + Patient_Name);
-
-				Admin_Patient_Details_Verification(Patient_Data, Product_Data);
-
-				// Final Verification Result
-				System.out.println();
-				System.out.println("============================================================");
-				System.out.println("             TREATMENT PATIENT VERIFICATION RESULT");
-				System.out.println("============================================================");
-				System.out.println("Patient : " + Patient_Name);
-				System.out.println("Result  : Verification completed; see the detailed comparison summary.");
-				System.out.println("Reason  : Patient found and Admin details verification returned; review hard results and warnings.");
-
-				Report_Listen.log_print_in_report().info("Treatment Patient Details verification completed for: " + Patient_Name + " | Review the detailed hard comparison and warning summary.");
-
-				break Main_row_loop;
-			}
-		}
-	}
-
-	// Patient Not Found
-	System.out.println();
-	System.out.println("---------- PATIENT MATCH RESULT ----------");
-	System.out.println("Expected Patient : " + Patient_Name);
-	System.out.println("Actual Patient   : Not Found");
-	System.out.println("Result           : FAIL");
-
-	Report_Listen.log_print_in_report().fail("Patient not found in Treatment Module: " + Patient_Name);
-	Assert.fail("Treatment Module patient verification failed. Patient not found: " + Patient_Name);
- 
-    
-    
-     }
-
-    
-    
-
    @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
-   public void Intake_form_Admin_Check(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
+   public void Treatment_Patient_Details_Check(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
-  	Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
-  	Repeat rp = new Repeat(d);
+    Repeat rp = new Repeat(d);
 
-  	String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
-  	String Product_Name = Product_Data.get("Product Name");
+    String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
+    String Product_Name = Product_Data.get("Product Name");
+    String Doctor_Name = Patient_Data.get("Doctor Name");
+    String Expected_Status = "Prescription Issued";
 
-	System.out.println();
-	System.out.println("============================================================");
-	System.out.println("                  ADMIN INTAKE FORM CHECK");
-	System.out.println("============================================================");
-	System.out.println("Patient : " + Patient_Name);
-	System.out.println("Product : " + Product_Name);
-	Report_Listen.log_print_in_report().info("Starting admin intake form check | Patient: " + Patient_Name + " | Product: " + Product_Name);
+    System.out.println();
+    System.out.println("============================================================");
+    System.out.println("                TREATMENT PATIENT DETAILS CHECK");
+    System.out.println("============================================================");
+    System.out.println("Expected Patient : " + Patient_Name);
+    System.out.println("Product          : " + Product_Name);
+    System.out.println("Expected Doctor  : " + Doctor_Name);
+    System.out.println("Expected Status  : " + Expected_Status);
 
-	List<WebElement> Rows = Treatment_Module_Accessor();
+    Report_Listen.log_print_in_report().info("Starting Treatment Patient Details verification | Patient: " + Patient_Name + " | Product: " + Product_Name);
 
-	System.out.println();
-	System.out.println("---------- TREATMENT PATIENT SEARCH ----------");
-	System.out.println("Expected Patient : " + Patient_Name);
-	System.out.println("Treatment Rows   : " + Rows.size());
-	Report_Listen.log_print_in_report().info("Searching treatment rows | Expected Patient: " + Patient_Name + " | Treatment Rows: " + Rows.size());
+    List<WebElement> Rows = Treatment_Module_Accessor();
 
-	Main_loop_row:
-	for(WebElement Row : Rows){
+    Assert.assertNotNull(Rows, "Treatment rows unavailable | Patient: " + Patient_Name);
+    Assert.assertFalse(Rows.isEmpty(), "Treatment list is empty | Patient: " + Patient_Name);
 
-		List<WebElement> Text_Cells = Row.findElements(By.xpath(".//td//span[contains(@class,'text-dark')]"));
-		WebElement View_Button = Row.findElement(By.xpath(".//span[@class='ant-btn-icon']/.."));
+    System.out.println();
+    System.out.println("---------- TREATMENT PATIENT SEARCH ----------");
+    System.out.println("Expected Patient : " + Patient_Name);
+    System.out.println("Total Rows       : " + Rows.size());
 
-		for(WebElement Text_Cell : Text_Cells){
+    Main_row_loop:
+    for(WebElement Row : Rows){
 
-			String Cell_Text = Text_Cell.getText().trim();
+        List<WebElement> Text_Cells = Row.findElements(By.xpath(".//td//span[contains(@class,'text-dark')]"));
 
-			if(Cell_Text.contains(Patient_Name)){
+        for(WebElement Text_Cell : Text_Cells){
 
-				System.out.println();
-				System.out.println("---------- PATIENT MATCH RESULT ----------");
-				System.out.println("Expected Patient : " + Patient_Name);
-				System.out.println("Actual Patient   : " + Cell_Text);
-				System.out.println("Result           : PASS");
-				Report_Listen.log_print_in_report().pass("Treatment patient matched | Expected: " + Patient_Name + " | Actual: " + Cell_Text);
+            String Cell_Text = Text_Cell.getText().replaceAll("\\s+", " ").trim();
 
-				rp.movetoelement(View_Button);
-				View_Button.click();
+            if(Cell_Text.equalsIgnoreCase(Patient_Name)){
 
-				System.out.println("Action           : Clicked View for the matching treatment row.");
-				Report_Listen.log_print_in_report().info("Clicked View for the matching treatment row | Patient: " + Patient_Name);
+                System.out.println();
+                System.out.println("---------- PATIENT MATCH RESULT ----------");
+                System.out.println("Expected Patient : " + Patient_Name);
+                System.out.println("Actual Patient   : " + Cell_Text);
+                System.out.println("Result           : PASS");
 
-				break Main_loop_row;
+                Report_Listen.log_print_in_report().pass("Treatment patient matched | Expected: " + Patient_Name + " | Actual: " + Cell_Text);
 
-			}}}
+                WebElement View_Button = Row.findElement(By.xpath(".//span[@class='ant-btn-icon']/.."));
 
-	WebElement Details_Title = p.Admin_Patient_Details_Title();
-	String Actual_Title = Details_Title.getText().trim();
+                rp.movetoelement(View_Button);
+                View_Button.click();
 
-	System.out.println();
-	System.out.println("---------- TREATMENT DETAILS SECTION ----------");
-	System.out.println("Expected Title : Patient Details");
-	System.out.println("Actual Title   : " + Actual_Title);
-	Report_Listen.log_print_in_report().info("Checking treatment details section | Expected Title: Patient Details | Actual Title: " + Actual_Title);
-	Assert.assertEquals(Actual_Title, "Patient Details", "Admin Patient Details section not found.");
+                System.out.println();
+                System.out.println("Action : Opened matching treatment details.");
 
-	System.out.println("Result         : PASS");
-	Report_Listen.log_print_in_report().pass("Patient Details section verified | Patient: " + Patient_Name);
+                Admin_Patient_Details_Verification(Patient_Data, Product_Data, Doctor_Name, Expected_Status);
 
-	List<WebElement> Sections = p.Treatment_Details_cards();
-	WebElement Intake_Section = Sections.get(4);
-	rp.movetoelement(Intake_Section);
+                System.out.println();
+                System.out.println("============================================================");
+                System.out.println("             TREATMENT VERIFICATION RESULT");
+                System.out.println("============================================================");
+                System.out.println("Patient : " + Patient_Name);
+                System.out.println("Result  : PASS | Patient, doctor and data verification completed.");
 
-	List<WebElement> Intake_From_Rows = Intake_Section.findElements(By.xpath(".//tr[contains(@class,'ant-table-row ant-table-row-level-0')]"));
+                Report_Listen.log_print_in_report().pass("Treatment patient verification completed | Patient: " + Patient_Name);
 
-	System.out.println();
-	System.out.println("---------- ADMIN INTAKE FORM ROWS ----------");
-	System.out.println("Intake Form Rows : " + Intake_From_Rows.size());
-	Report_Listen.log_print_in_report().info("Intake form rows collected | Patient: " + Patient_Name + " | Intake Form Rows: " + Intake_From_Rows.size());
+                break Main_row_loop;
 
-	Boolean Intake_rows_visible = rp.check_element_visibility(Intake_From_Rows, 3);
+            }
 
-	if(Intake_rows_visible){
+        }
 
-		for(WebElement Intake_From_Row : Intake_From_Rows){
+        if(Row.equals(Rows.get(Rows.size() - 1))){
 
-			String Form_Row_Text = Intake_From_Row.getText().trim().replaceAll("\\R", " | ");
-			WebElement View_Button = Intake_From_Row.findElement(By.xpath(".//span[@class='ant-btn-icon']/.."));
+            System.out.println();
+            System.out.println("Result : FAIL | Patient not found in the treatment rows.");
+            System.out.println("Expected Patient : " + Patient_Name);
+            System.out.println("Rows Searched    : " + Rows.size());
 
-			System.out.println();
-			System.out.println("---------- INTAKE FORM POPUP ----------");
-			System.out.println("Form Row : " + Form_Row_Text);
-			System.out.println("Action   : Opening the form popup.");
-			Report_Listen.log_print_in_report().info("Opening intake form popup | Patient: " + Patient_Name + " | Form Row: " + Form_Row_Text);
+            Report_Listen.log_print_in_report().fail("Treatment patient not found | Patient: " + Patient_Name + " | Rows searched: " + Rows.size());
 
-			rp.movetoelement(View_Button);
-			View_Button.click();
+            Assert.fail("Treatment patient not found | Expected Patient: " + Patient_Name + " | Product: " + Product_Name + " | Rows searched: " + Rows.size());
 
-			WebElement Intake_popUp = p.Intake_popup_form();
-			List<WebElement> Intake_pop_rows = Intake_popUp.findElements(By.xpath(".//div[contains(@class,'ant-flex-align-flex-start')]"));
+        }
 
-			System.out.println("Popup Rows : " + Intake_pop_rows.size());
-			Report_Listen.log_print_in_report().info("Intake form popup opened | Form Row: " + Form_Row_Text + " | Popup Rows: " + Intake_pop_rows.size());
-
-			
-                for(WebElement Intake_pop_row : Intake_pop_rows){
-
-                    List<WebElement> Values = Intake_pop_row.findElements(By.xpath(".//span[@class='font-14 text-dark']"));
-                    List<WebElement> Labels = Intake_pop_row.findElements(By.xpath(".//span[contains(@class,'flex-grow-')]"));
-
-                          for(int i = 0; i < Values.size() && i < Labels.size(); i++){
-
-                              String Label_Text = Labels.get(i).getText().trim();
-                              String Value_Text = Values.get(i).getText().trim();
-
-                              System.out.println();
-                              System.out.println("Label : " + Label_Text);
-                              System.out.println("Value : " + Value_Text);
-
-                              Report_Listen.log_print_in_report().info("Intake Form | Label: " + Label_Text + " | Value: " + Value_Text);}}
-
-			WebElement Close_Button = Intake_popUp.findElement(By.xpath(".//span[@aria-label='Close']"));
-			rp.movetoelement(Close_Button);
-			Close_Button.click();
-			rp.wait_for_invisibilty_of_theElement(Intake_popUp);
-
-			System.out.println("Result : Form popup read and closed.");
-			Report_Listen.log_print_in_report().info("Form popup read and closed | Patient: " + Patient_Name + " | Form Row: " + Form_Row_Text);
-
-		}
-
-		System.out.println();
-		System.out.println("---------- ADMIN INTAKE FORM CHECK RESULT ----------");
-		System.out.println("Patient       : " + Patient_Name);
-		System.out.println("Rows Inspected : " + Intake_From_Rows.size());
-		Report_Listen.log_print_in_report().info("Intake form inspection completed | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Rows Inspected: " + Intake_From_Rows.size());
-
-	}
-
-	else{
-
-		System.out.println("Result : WARNING | Intake form rows did not become visible.");
-		Report_Listen.log_print_in_report().warning("Intake form rows did not become visible | Patient: " + Patient_Name + " | Product: " + Product_Name);
-
-	}
+    }
 
 }
-      
-      
-      
-      
 
-   public void Admin_Patient_Details_Verification(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws IOException, InterruptedException{
+	@Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
+	public void Intake_form_Admin_Check(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
-    Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
-    Repeat rp = new Repeat(d);
-    Doctor_network Dr_Network = new Doctor_network();
+		Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
+		Repeat rp = new Repeat(d);
+		List<String> Mismatches = new ArrayList<String>();
 
-    TreeMap<String,String> Expected_Data = new TreeMap<String,String>();
-    TreeMap<String,String> Actual_Data = new TreeMap<String,String>();
-    TreeMap<String,String> Beluga_Data = new TreeMap<String,String>(Patient_Data);
-
-    String Product_Name = Product_Data.getOrDefault("Product Name", "");
-
-    Expected_Data.put("First Name", Patient_Data.get("First Name"));
-    Expected_Data.put("Last Name", Patient_Data.get("Last Name"));
-    Expected_Data.put("Email", Patient_Data.get("Email"));
-    Expected_Data.put("Phone", Patient_Data.get("Phone").replaceAll("\\D", ""));
-    Expected_Data.put("Date of Birth", Patient_Data.get("Date of Birth"));
-    Expected_Data.put("Gender", Patient_Data.get("Biological Sex at Birth"));
-    Expected_Data.put("Height", Patient_Data.get("Height"));
-    Expected_Data.put("Weight", Patient_Data.get("Weight"));
-
-     String Patient_Name = Expected_Data.get("First Name") + " " + Expected_Data.get("Last Name");
-     
-     
-
-	System.out.println();
-	System.out.println("---------------- ADMIN PATIENT DETAILS VERIFICATION ----------------");
-	System.out.println("Patient : " + Patient_Name);
-	System.out.println("Product : " + Product_Name);
-	Report_Listen.log_print_in_report().info("Verifying Admin Patient Details before and after Beluga authorization | Patient: " + Patient_Name + " | Product: " + Product_Name);
-
-	WebElement Details_Title = p.Admin_Patient_Details_Title();
-	Assert.assertEquals(Details_Title.getText().trim(), "Patient Details", "Admin Patient Details section not found.");
-
-	List<WebElement> Sections = p.Treatment_Details_cards();
-
-	WebElement Patient_details_section = Sections.get(0);
-
-	List<WebElement> Patient_Details_Rows = Patient_details_section.findElements(By.xpath(".//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css')]"));
-
-    Boolean If_Rows_visible = rp.check_element_visibility(Patient_Details_Rows, 8);	
-    
-    if(If_Rows_visible) {
-	
-	for(WebElement Patient_Details_Row : Patient_Details_Rows){
-
-		WebElement Label = Patient_Details_Row.findElement(By.xpath(".//span[contains(@class,'text-muted font-')]"));
-		WebElement Values = Patient_Details_Row.findElement(By.xpath(".//span[contains(@class,'text-dark')]"));
-		String Label_text = Label.getText().trim();
-		String Values_text = Values.getText().trim();
-
-		if(Label_text.equals("Case ID") && (Values_text.endsWith("...") || Values_text.endsWith("\u2026"))){
-
-			rp.movetoelement(Values);
-			Values_text = p.Admin_Case_ID_Tooltip(Values_text);
-
-		}
-
-		if(Label_text.equals("Date of Birth")){
-
-			Values_text = Values_text.replaceAll("\\s*\\([^)]*\\)\\s*$", "").trim();
-
-		}
-
-		if(Label_text.equals("Phone")){
-
-			Values_text = Values_text.replaceAll("\\D", "");
-
-		}
+		String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
+		String Product_Name = Product_Data.get("Product Name");
+		String Scenario = "Admin Intake Check | Patient: " + Patient_Name + " | Product: " + Product_Name;
 
 		System.out.println();
-		System.out.println(Label_text+" : - "+Values_text);
-		System.out.println();
-		Actual_Data.put(Label_text, Values_text);
+		System.out.println("---------------- ADMIN INTAKE FORM CHECK ----------------");
+		System.out.println(Scenario);
+		Report_Listen.log_print_in_report().info(Scenario);
 
-	} }
+		List<WebElement> Rows = Treatment_Module_Accessor();
+		Assert.assertNotNull(Rows, "Admin treatment rows are unavailable.");
 
-	String Treatment_Details_URL = d.getCurrentUrl();
-	String Case_ID = Actual_Data.get("Case ID");
-	String Before_Doctor = Actual_Data.get("Doctor");
-	String Before_Status = Actual_Data.get("Status");
-	String Before_Medications = Actual_Data.get("Medications");
+		Main_loop_row:{
 
-	System.out.println("Before Doctor : " + Before_Doctor);
-	System.out.println("Before Status : " + Before_Status);
-	System.out.println("Before Medications : " + Before_Medications);
-	Report_Listen.log_print_in_report().info("Before webhook | Case ID: " + Case_ID + " | Doctor: " + Before_Doctor + " | Status: " + Before_Status + " | Medications: " + Before_Medications);
+			for(WebElement Row : Rows){
 
-	String Assigned_Dr_Name = Dr_Network.beluga_visit_check_and_Authorize(Patient_Data, Case_ID,d);
+				List<WebElement> Text_Cells = Row.findElements(By.xpath(".//td//span[contains(@class,'text-dark')]"));
 
-	Expected_Data.put("Doctor", Assigned_Dr_Name);
-	Expected_Data.put("Status", "Approved For Treatment");
-	Expected_Data.put("Medications", "Populated medication value other than None");
+				for(WebElement Text_Cell : Text_Cells){
 
-	d.navigate().to(Treatment_Details_URL);
-    Thread.sleep(1800);
-	Sections = p.Treatment_Details_cards();
-	Patient_details_section = Sections.get(0);
-	Patient_Details_Rows = Patient_details_section.findElements(By.xpath(".//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css')]"));
-	Actual_Data.clear();
+					if(Text_Cell.getText().replaceAll("\\s+", " ").trim().equalsIgnoreCase(Patient_Name)){
 
-	for(WebElement Patient_Details_Row : Patient_Details_Rows){
+						WebElement View_Button = Row.findElement(By.xpath(".//span[@class='ant-btn-icon']/.."));
+						rp.movetoelement(View_Button);
+						View_Button.click();
 
-		WebElement Label = Patient_Details_Row.findElement(By.xpath(".//span[contains(@class,'text-muted font-')]"));
-		WebElement Values = Patient_Details_Row.findElement(By.xpath(".//span[contains(@class,'text-dark')]"));
-		String Label_text = Label.getText().trim();
-		String Values_text = Values.getText().trim();
+						WebElement Details_Title = p.Admin_Patient_Details_Title();
+						Assert.assertEquals(Details_Title.getText().trim(), "Patient Details", "Admin Patient Details section not found.");
 
-		if(Label_text.equals("Case ID") && (Values_text.endsWith("...") || Values_text.endsWith("\u2026"))){
+						Admin_Intake_Data_Verification(Product_Data, Mismatches);
+						break Main_loop_row;
 
-			rp.movetoelement(Values);
-			Values_text = p.Admin_Case_ID_Tooltip(Values_text);
+					}
+
+				}
+
+			}
+
+			Assert.fail("Treatment patient not found | Patient: " + Patient_Name);
 
 		}
 
-		if(Label_text.equals("Date of Birth")){
-
-			Values_text = Values_text.replaceAll("\\s*\\([^)]*\\)\\s*$", "").trim();
-
-		}
-
-		if(Label_text.equals("Phone")){
-
-			Values_text = Values_text.replaceAll("\\D", "");
-
-		}
-
+		Assert.assertTrue(Mismatches.size() == 0, Scenario + "\n" + String.join("\n", Mismatches));
 		System.out.println();
-		System.out.println("Refetched after Webhook :--->  "+Label_text+" : - "+Values_text);
-		System.out.println();
-		Actual_Data.put(Label_text, Values_text);
+		System.out.println("Admin Intake : PASS");
+		Report_Listen.log_print_in_report().pass(Scenario + " | Result: PASS");
 
 	}
 
-	String Assigned_Dr_Name_in_Admin_Patient_details = Actual_Data.get("Doctor");
+	public void Admin_Patient_Details_Verification(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data, String Doctor_Name, String Expected_Status) throws IOException, InterruptedException{
 
-	System.out.println("Doctor | Before: " + Before_Doctor + " | After: " + Assigned_Dr_Name_in_Admin_Patient_details);
-	System.out.println("Status | Before: " + Before_Status + " | After: " + Actual_Data.get("Status"));
-	System.out.println("Medications | Before: " + Before_Medications + " | After: " + Actual_Data.get("Medications"));
-	Report_Listen.log_print_in_report().info("After webhook | Doctor: " + Before_Doctor + " -> " + Actual_Data.get("Doctor") + " | Status: " + Before_Status + " -> " + Actual_Data.get("Status") + " | Medications: " + Before_Medications + " -> " + Actual_Data.get("Medications"));
+		Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
+		Repeat rp = new Repeat(d);
+		Doctor_network Dr_Network = new Doctor_network();
+		TreeMap<String,String> Expected_Data = new TreeMap<String,String>();
+		TreeMap<String,String> Actual_Data = new TreeMap<String,String>();
+		List<String> Mismatches = new ArrayList<String>();
 
-	System.out.println();
-	System.out.println("---------------- POST-WEBHOOK DOCTOR AND STATUS CHECK ----------------");
+		String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
+		String Product_Name = Product_Data.get("Product Name");
+		String Rows_XPath = ".//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css')]";
+		String Label_XPath = ".//span[contains(@class,'text-muted font-')]";
+		String Value_XPath = ".//span[contains(@class,'text-dark')]";
 
-	for(String Label_text : Expected_Data.keySet()){
+		WebElement Details_Title = p.Admin_Patient_Details_Title();
+		Assert.assertEquals(Details_Title.getText().trim(), "Patient Details", "Admin Patient Details section not found.");
 
-		if(Label_text.equals("Doctor") || Label_text.equals("Status")){
+		String Treatment_Details_URL = d.getCurrentUrl();
+		List<WebElement> Patient_Details_Rows = p.Treatment_Details_cards().get(0).findElements(By.xpath(Rows_XPath));
+		Assert.assertTrue(rp.check_element_visibility(Patient_Details_Rows, 8), "Patient Details rows did not become visible.");
+
+		String Case_ID = "";
+
+		for(WebElement Patient_Details_Row : Patient_Details_Rows){
+
+			String Label_text = Patient_Details_Row.findElement(By.xpath(Label_XPath)).getText().trim();
+
+			if(Label_text.equals("Case ID")){
+
+				WebElement Value = Patient_Details_Row.findElement(By.xpath(Value_XPath));
+				Case_ID = Value.getText().trim();
+
+				if(Case_ID.endsWith("...") || Case_ID.endsWith("…")){
+
+					rp.movetoelement(Value);
+					Case_ID = p.Admin_Case_ID_Tooltip(Case_ID).trim();
+
+				}
+
+				break;
+
+			}
+
+		}
+
+		Assert.assertTrue(Case_ID.isBlank() == false, "Admin Case ID is required before sending the webhook | Patient: " + Patient_Name);
+
+		String Payload_Doctor_Name = Dr_Network.beluga_visit_check_and_Authorize(Patient_Data, Case_ID, Doctor_Name, d);
+
+		d.navigate().to(Treatment_Details_URL);
+
+		Details_Title = p.Admin_Patient_Details_Title();
+		Assert.assertEquals(Details_Title.getText().trim(), "Patient Details", "Admin Patient Details section not found after the webhook.");
+
+		Patient_Details_Rows = p.Treatment_Details_cards().get(0).findElements(By.xpath(Rows_XPath));
+		Assert.assertTrue(rp.check_element_visibility(Patient_Details_Rows, 8), "Patient Details rows did not become visible after the webhook.");
+
+		for(WebElement Patient_Details_Row : Patient_Details_Rows){
+
+			String Label_text = Patient_Details_Row.findElement(By.xpath(Label_XPath)).getText().trim();
+			WebElement Value = Patient_Details_Row.findElement(By.xpath(Value_XPath));
+			String Value_text = Value.getText().trim();
+
+			if(Label_text.equals("Case ID") && (Value_text.endsWith("...") || Value_text.endsWith("…"))){
+
+				rp.movetoelement(Value);
+				Value_text = p.Admin_Case_ID_Tooltip(Value_text).trim();
+
+			}
+
+			if(Label_text.equals("Email") && (Value_text.endsWith("...") || Value_text.endsWith("…"))){
+
+				String Full_Email = Value.getDomAttribute("title");
+
+				if(Full_Email == null || Full_Email.isBlank()){
+
+					Full_Email = Value.getDomProperty("textContent");
+
+				}
+
+				if(Full_Email != null && Full_Email.isBlank() == false){
+
+					Value_text = Full_Email.trim();
+
+				}
+
+			}
+
+			if(Label_text.equals("Date of Birth")){
+
+				Value_text = Value_text.replaceAll("\\s*\\([^)]*\\)\\s*$", "").trim();
+
+			}
+
+			if(Label_text.equals("Phone")){
+
+				Value_text = Value_text.replaceAll("\\D", "");
+
+			}
+
+			Actual_Data.put(Label_text, Value_text.replaceAll("\\s+", " ").trim());
+
+		}
+
+		Assert.assertEquals(Actual_Data.get("Case ID"), Case_ID, "The reopened Admin order has a different Case ID.");
+
+		Expected_Data.put("First Name", Patient_Data.get("First Name"));
+		Expected_Data.put("Last Name", Patient_Data.get("Last Name"));
+		Expected_Data.put("Email", Patient_Data.get("Email"));
+		Expected_Data.put("Phone", Patient_Data.get("Phone").replaceAll("\\D", ""));
+		Expected_Data.put("Date of Birth", Patient_Data.get("Date of Birth"));
+		Expected_Data.put("Gender", Patient_Data.get("Biological Sex at Birth"));
+
+		if(Expected_Status != null && Expected_Status.isBlank() == false){
+
+			Expected_Data.put("Status", Expected_Status.trim());
+
+		}
+
+		if(Payload_Doctor_Name.isBlank()){
+
+			System.out.println();
+			System.out.println("Doctor : WARNING | No docName was sent in the webhook.");
+			Report_Listen.log_print_in_report().warning("Doctor comparison skipped | No docName in sent payload | Case ID: " + Case_ID);
+
+		}
+		else{
+
+			Expected_Data.put("Doctor", Payload_Doctor_Name.replaceAll("\\s+", " ").trim());
+
+		}
+
+		System.out.println();
+		System.out.println("---------------- ADMIN PATIENT DETAILS AFTER WEBHOOK ----------------");
+		System.out.println("Patient: " + Patient_Name + " | Case ID: " + Case_ID);
+		Report_Listen.log_print_in_report().info("Reopened Admin order | Patient: " + Patient_Name + " | Case ID: " + Case_ID);
+
+		for(String Label_text : Expected_Data.keySet()){
 
 			String Expected_Value = Expected_Data.get(Label_text);
 			String Actual_Value = Actual_Data.get(Label_text);
+			String Comparison = "Label: " + Label_text + " | Expected: " + Expected_Value + " | Actual: " + Actual_Value;
 
-			System.out.println();
-			System.out.println("Label    : " + Label_text);
-			System.out.println("Expected : " + Expected_Value);
-			System.out.println("Actual   : " + Actual_Value);
+			if(Expected_Value != null && Expected_Value.equals(Actual_Value)){
 
-			if(Expected_Value.trim().equals(Actual_Value)){
+				System.out.println();
+				System.out.println("PASS | " + Comparison);
+				Report_Listen.log_print_in_report().pass(Comparison);
 
-				System.out.println("Result   : PASS");
-				Report_Listen.log_print_in_report().pass("Label: " + Label_text + " | Expected: " + Expected_Value + " | Actual: " + Actual_Value + " | Result: PASS");
+			}
+			else if(Label_text.equals("Doctor") && (Actual_Value == null || Actual_Value.isBlank() || Actual_Value.equals("--"))){
+
+				System.out.println();
+				System.out.println("WARNING | Admin Doctor is missing | " + Comparison);
+				Report_Listen.log_print_in_report().warning("Admin Doctor is missing | " + Comparison);
+
+			}
+			else{
+
+				System.out.println();
+				System.out.println("FAIL | " + Comparison);
+				Report_Listen.log_print_in_report().fail(Comparison);
+				Mismatches.add(Comparison);
 
 			}
 
+		}
+
+		Admin_Intake_Data_Verification(Product_Data, Mismatches);
+		Assert.assertTrue(Mismatches.size() == 0, "Admin verification failed | Patient: " + Patient_Name + " | Product: " + Product_Name + "\n" + String.join("\n", Mismatches));
+
+	}
+
+	private void Admin_Intake_Data_Verification(TreeMap<String,String> Product_Data, List<String> Mismatches){
+
+		Treatment_Module_Locaters p = new Treatment_Module_Locaters(d);
+		Repeat rp = new Repeat(d);
+		TreeMap<String,String> Expected_Intake_Data = new TreeMap<String,String>();
+		TreeMap<String,List<String>> Actual_Intake_Data = new TreeMap<String,List<String>>(String.CASE_INSENSITIVE_ORDER);
+
+		for(String Key : Product_Data.keySet()){
+
+			if(Key.startsWith("Intake Q&A - ") || Key.equals("Intake Reason") || Key.equals("Notes")){
+
+				String Label_text = Key.replaceFirst("^Intake Q&A - ", "").replaceFirst("^\\d+[.)]\\s*", "").replaceAll("[\\s:*]+$", "").replaceAll("\\s+", " ").trim();
+				Expected_Intake_Data.put(Label_text, Product_Data.get(Key));
+
+			}
+
+		}
+
+		List<WebElement> Sections = p.Treatment_Details_cards();
+		Assert.assertTrue(Sections.size() > 4, "Admin Intake Forms section was not found.");
+
+		WebElement Intake_Section = Sections.get(4);
+		rp.movetoelement(Intake_Section);
+		List<WebElement> Intake_Form_Rows = Intake_Section.findElements(By.xpath(".//tr[contains(@class,'ant-table-row ant-table-row-level-0')]"));
+		Assert.assertTrue(rp.check_element_visibility(Intake_Form_Rows, 3), "Admin Intake form rows did not become visible.");
+
+		for(WebElement Intake_Form_Row : Intake_Form_Rows){
+
+			String Form_Row_Text = Intake_Form_Row.getText().trim().replaceAll("\\R", " | ");
+			WebElement View_Button = Intake_Form_Row.findElement(By.xpath(".//span[@class='ant-btn-icon']/.."));
+			rp.movetoelement(View_Button);
+			View_Button.click();
+
+			System.out.println();
+			System.out.println("Intake Form : " + Form_Row_Text);
+			Report_Listen.log_print_in_report().info("Intake Form | " + Form_Row_Text);
+
+			WebElement Intake_Popup = p.Intake_popup_form();
+			List<WebElement> Intake_Popup_Rows = Intake_Popup.findElements(By.xpath(".//div[contains(@class,'ant-flex-align-flex-start')]"));
+
+			for(WebElement Intake_Popup_Row : Intake_Popup_Rows){
+
+				List<WebElement> Labels = Intake_Popup_Row.findElements(By.xpath(".//span[contains(@class,'flex-grow-')]"));
+				List<WebElement> Values = Intake_Popup_Row.findElements(By.xpath(".//span[@class='font-14 text-dark']"));
+
+				if(Labels.size() == Values.size()){
+
+					for(int i=0; i<Labels.size(); i++){
+
+						String Label_text = Labels.get(i).getText().trim().replaceFirst("(?i)^Intake Q&A\\s*-\\s*", "").replaceFirst("^\\d+[.)]\\s*", "").replaceAll("[\\s:*]+$", "").replaceAll("\\s+", " ").trim();
+						String Value_text = Values.get(i).getText().replaceAll("\\s+", " ").trim();
+
+						if(Label_text.equalsIgnoreCase("Which concern are you requesting care for?")){
+
+							Label_text = "Intake Reason";
+
+						}
+						else if(Label_text.equalsIgnoreCase("Tell the clinician anything else about your symptoms, triggers, previous tests, or questions.")){
+
+							Label_text = "Notes";
+
+						}
+
+						if(Actual_Intake_Data.containsKey(Label_text) == false){
+
+							Actual_Intake_Data.put(Label_text, new ArrayList<String>());
+
+						}
+
+						Actual_Intake_Data.get(Label_text).add(Value_text);
+
+					}
+
+				}
+
+			}
+
+			WebElement Close_Button = Intake_Popup.findElement(By.xpath(".//span[@aria-label='Close']"));
+			rp.movetoelement(Close_Button);
+			Close_Button.click();
+			rp.wait_for_invisibilty_of_theElement(Intake_Popup);
+
+		}
+
+		System.out.println();
+		System.out.println("---------------- DATAPROVIDER VS ADMIN INTAKE ----------------");
+
+		for(String Label_text : Expected_Intake_Data.keySet()){
+
+			String Expected_Value = Expected_Intake_Data.get(Label_text);
+			List<String> Actual_Values = Actual_Intake_Data.getOrDefault(Label_text, List.of());
+			String Comparison = "Intake Label: " + Label_text + " | Expected: " + Expected_Value + " | Actual: " + Actual_Values;
+
+			System.out.println();
+			System.out.println("Question : " + Label_text);
+			System.out.println("Expected : " + Expected_Value);
+			System.out.println("Actual   : " + Actual_Values);
+
+			if(Expected_Value != null && Actual_Values.contains(Expected_Value.replaceAll("\\s+", " ").trim())){
+
+				System.out.println("Result   : PASS");
+				Report_Listen.log_print_in_report().pass(Comparison);
+
+			}
 			else{
 
-				System.out.println("Result   : WARNING");
-				Report_Listen.log_print_in_report().warning("Label: " + Label_text + " | Expected: " + Expected_Value + " | Actual: " + Actual_Value + " | Result: WARNING");
+				System.out.println();
+				System.out.println("Result   : FAIL");
+				Report_Listen.log_print_in_report().fail(Comparison);
+				Mismatches.add(Comparison);
 
 			}
 
@@ -538,16 +560,3 @@ public class Treatment_Module extends Product_Module{
 	}
 
 }
-
-}
-
-
-
- 
-  
-  
-  
-  
-  
-  
-

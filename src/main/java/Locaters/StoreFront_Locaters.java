@@ -280,15 +280,15 @@ public class StoreFront_Locaters extends Repeat {
 	return Order_Total;}
 	public WebElement Payment_Notice(){
 	wait_for_theElement(Payment_Notice);
-	return Payment_Notice;} /*
+	return Payment_Notice;} 
 	public WebElement Second_Treatment_List(){
-	WebElement Treatment_List = Optional_Second_Treatment_List.get(0);
+	WebElement Treatment_List = Optional_Second_Treatment_List;
 	wait_for_theElement(Treatment_List);
 	return Treatment_List;} 
 	public WebElement Star_Assesment_Button(){
-	WebElement Assesment_Button = Optional_Start_Assessment_Buttons.get(0);
+	WebElement Assesment_Button = Optional_Start_Assessment_Buttons;
 	wait_for_theElement(Assesment_Button);
-	return Assesment_Button;} */
+	return Assesment_Button;} 
 	public WebElement Checkout_Email(){
 	wait_for_theElement(Checkout_Email);
 	return Checkout_Email;}

@@ -38,13 +38,57 @@ public class Report_Listen implements ITestListener {
 	@Override
 	public void onTestFailure(ITestResult result) {
 
-		if(log_report.get() != null) {
+		Throwable Failure = result.getThrowable();
+		ExtentTest Failed_Report = log_report.get();
+		String Failure_Location = "Java source line unavailable";
 
-			log_report.get().log(Status.FAIL, result.getThrowable());
+		Failure_Trace:
+		for(Throwable Cause = Failure; Cause != null; Cause = Cause.getCause()){
+
+			for(StackTraceElement Frame : Cause.getStackTrace()){
+
+				String Class_Name = Frame.getClassName();
+				Boolean Framework_Frame = Class_Name.startsWith("org.testng.") || Class_Name.startsWith("org.openqa.selenium.") || Class_Name.startsWith("java.") || Class_Name.startsWith("jdk.") || Class_Name.startsWith("sun.") || Class_Name.startsWith("io.cucumber.") || Class_Name.startsWith("org.apache.maven.surefire.") || Class_Name.startsWith("com.aventstack.extentreports.");
+
+				if(Framework_Frame == false && Frame.getFileName() != null && Frame.getLineNumber() > 0){
+
+					Failure_Location = Frame.toString();
+					break Failure_Trace;
+
+				}
+
+			}
+
+		}
+
+		String Failure_Message = Failure == null ? "Test failed." : Failure.toString();
+
+		System.out.println();
+		System.out.println("---------------- TEST FAILURE ----------------");
+		System.out.println("Test      : " + result.getMethod().getMethodName());
+		System.out.println("Failed at : " + Failure_Location);
+		System.out.println("Error     : " + Failure_Message);
+		System.out.println();
+
+		if(Failed_Report != null) {
+
+			Failed_Report.info("Failed at: " + Failure_Location);
+
+			if(Failure != null){
+
+				Failed_Report.log(Status.FAIL, Failure);
+
+			}
+			else{
+
+				Failed_Report.log(Status.FAIL, Failure_Message);
+
+			}
 
 			log_report.get().info("──────────────────── 📸 FAILURE SCREENSHOT ────────────────────");
 			log_report.get().info("<b>Action:</b> Capture the browser state at the point of test failure.");
 
+			System.out.println();
 			System.out.println("📸 FAILURE SCREENSHOT");
 			System.out.println();
 
@@ -67,6 +111,7 @@ public class Report_Listen implements ITestListener {
 
 						log_report.get().pass("✅ Failure screenshot captured and attached to the Extent Report successfully.");
 
+						System.out.println();
 						System.out.println("✅ Failure screenshot captured and attached to the Extent Report successfully.");
 						System.out.println();
 
@@ -74,6 +119,7 @@ public class Report_Listen implements ITestListener {
 
 						log_report.get().warning("⚠️ Failure screenshot could not be captured because the WebDriver was unavailable or did not support screenshots.");
 
+						System.out.println();
 						System.out.println("⚠️ Failure screenshot could not be captured because the WebDriver was unavailable.");
 						System.out.println();
 					}
@@ -82,6 +128,7 @@ public class Report_Listen implements ITestListener {
 
 					log_report.get().warning("⚠️ Failure screenshot could not be captured because the failed test instance does not extend the AsterMD Base class.");
 
+					System.out.println();
 					System.out.println("⚠️ Failed test instance does not extend the AsterMD Base class.");
 					System.out.println();
 				}
@@ -90,6 +137,7 @@ public class Report_Listen implements ITestListener {
 
 				log_report.get().warning("⚠️ Screenshot capture failed. Reason: " + e.getMessage());
 
+				System.out.println();
 				System.out.println("⚠️ Screenshot capture failed.");
 				System.out.println();
 
