@@ -344,99 +344,114 @@ public class Pateint_Portal extends Frontend_Store_Front{
      @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
      public void Intake_form_filling(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
-    Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
-    Repeat rp = new Repeat(d);
+    Boolean Checkout_Only = Boolean.parseBoolean(Product_Data.get("Checkout Only"));
 
-    String Product_Name = Product_Data.get("Product Name");
-    String Treatment_Variant = Product_Data.get("Treatment Variant");
-    String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
-    String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
-    Boolean Proceed_To_Checkout_Directly = Boolean.parseBoolean(Product_Data.get("Proceed to Checkout Directly"));
+    if(Checkout_Only == true){
 
-    Patient_portal_header_menu_navigator("Treatments", Patient_Data, Product_Data);
-
-    System.out.println();
-    System.out.println("---------------- PATIENT INTAKE AND ID VERIFICATION ----------------");
-    System.out.println("Patient : " + Patient_Name);
-    System.out.println("Product : " + Product_Name + " | Variant: " + Treatment_Variant);
-    Report_Listen.log_print_in_report().info("Starting Patient Intake and ID Verification | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
-
-    if(Proceed_To_Checkout_Directly == false){
+        String Skip_Message = "Patient Intake and ID Verification | Product: " + Product_Data.get("Product Name") + " | Result: SKIPPED | Reason: Checkout-only product";
 
         System.out.println();
-        System.out.println("Patient Intake | Product: " + Product_Name + " | Result: SKIPPED | Reason: Intake already filled in Product_Choose during storefront checkout.");
-        Report_Listen.log_print_in_report().info("Patient Intake skipped | Product: " + Product_Name + " | Intake already filled during storefront checkout.");
+        System.out.println(Skip_Message);
+        Report_Listen.log_print_in_report().info(Skip_Message);
 
     }
+    else{
 
-    if(Proceed_To_Checkout_Directly == true){
+        Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
+        Repeat rp = new Repeat(d);
+
+        String Product_Name = Product_Data.get("Product Name");
+        String Treatment_Variant = Product_Data.get("Treatment Variant");
+        String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
+        String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
+        Boolean Proceed_To_Checkout_Directly = Boolean.parseBoolean(Product_Data.get("Proceed to Checkout Directly"));
+
+        Patient_portal_header_menu_navigator("Treatments", Patient_Data, Product_Data);
 
         System.out.println();
-        System.out.println("Intake Path : Patient Portal after direct checkout");
-        Report_Listen.log_print_in_report().info("Intake Path: Patient Portal after direct checkout | Patient: " + Patient_Name + " | Product: " + Product_Name);
+        System.out.println("---------------- PATIENT INTAKE AND ID VERIFICATION ----------------");
+        System.out.println("Patient : " + Patient_Name);
+        System.out.println("Product : " + Product_Name + " | Variant: " + Treatment_Variant);
+        Report_Listen.log_print_in_report().info("Starting Patient Intake and ID Verification | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
 
-        List<WebElement> Treatment_Cards = List.of();
-
-        try{
-
-            WebElement Active_Section = p.Active_Tab();
-            rp.movetoelement(Active_Section);
-            p.Treatment_Summary_Loader();
-            List<WebElement> Loaded_Treatment_Cards = p.Incomplete_Treatment_Cards();
-            rp.wait_for_text_in_elements(Loaded_Treatment_Cards, "Progress:");
-            Treatment_Cards = List.copyOf(p.Incomplete_Treatment_Cards());
-
-        }
-        catch(TimeoutException Unavailable_Treatments){
+        if(Proceed_To_Checkout_Directly == false){
 
             System.out.println();
-            System.out.println("Result : NOT PERFORMED | Reason: Incomplete treatments are unavailable.");
-            Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: Incomplete treatments are unavailable.");
+            System.out.println("Patient Intake | Product: " + Product_Name + " | Result: SKIPPED | Reason: Intake already filled in Product_Choose during storefront checkout.");
+            Report_Listen.log_print_in_report().info("Patient Intake skipped | Product: " + Product_Name + " | Intake already filled during storefront checkout.");
 
         }
 
-        Treatment_Card_Loop:
-        for(WebElement Treatment_Card : Treatment_Cards){
+        if(Proceed_To_Checkout_Directly == true){
 
-            String Treatment_Details = Treatment_Card.getText().trim();
+            System.out.println();
+            System.out.println("Intake Path : Patient Portal after direct checkout");
+            Report_Listen.log_print_in_report().info("Intake Path: Patient Portal after direct checkout | Patient: " + Patient_Name + " | Product: " + Product_Name);
 
-            if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
+            List<WebElement> Treatment_Cards = List.of();
 
-                List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
+            try{
 
-                for(WebElement Start_Intake_Button : Start_Intake_Buttons){
+                WebElement Active_Section = p.Active_Tab();
+                rp.movetoelement(Active_Section);
+                p.Treatment_Summary_Loader();
+                List<WebElement> Loaded_Treatment_Cards = p.Incomplete_Treatment_Cards();
+                rp.wait_for_text_in_elements(Loaded_Treatment_Cards, "Progress:");
+                Treatment_Cards = List.copyOf(p.Incomplete_Treatment_Cards());
 
-                    String Button_Text = Start_Intake_Button.getText().trim();
+            }
+            catch(TimeoutException Unavailable_Treatments){
 
-                    if(rp.check_element_visibility(Start_Intake_Button, 5) == true && Start_Intake_Button.isEnabled() == true){
+                System.out.println();
+                System.out.println("Result : NOT PERFORMED | Reason: Incomplete treatments are unavailable.");
+                Report_Listen.log_print_in_report().info("Patient Intake NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: Incomplete treatments are unavailable.");
 
-                        if(Button_Text.contains("Intake")){
+            }
 
-                            rp.movetoelement(Start_Intake_Button);
-                            Start_Intake_Button.click();
+            Treatment_Card_Loop:
+            for(WebElement Treatment_Card : Treatment_Cards){
 
-                            Report_Listen.log_print_in_report().info("Started Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+                String Treatment_Details = Treatment_Card.getText().trim();
 
-                            Fill_Five_Page_Intake_Form(Patient_Data, Product_Data, d);
+                if(Treatment_Details.contains(Product_Name) && Treatment_Details.contains(Treatment_Variant)){
 
-                            System.out.println();
-                            System.out.println("Patient Intake | Product: " + Product_Name + " | Result: COMPLETED");
-                            Report_Listen.log_print_in_report().pass("Patient Intake completed | Patient: " + Patient_Name + " | Product: " + Product_Name);
+                    List<WebElement> Start_Intake_Buttons = Treatment_Card.findElements(By.xpath(Button_XPath));
+
+                    for(WebElement Start_Intake_Button : Start_Intake_Buttons){
+
+                        String Button_Text = Start_Intake_Button.getText().trim();
+
+                        if(rp.check_element_visibility(Start_Intake_Button, 5) == true && Start_Intake_Button.isEnabled() == true){
+
+                            if(Button_Text.contains("Intake")){
+
+                                rp.movetoelement(Start_Intake_Button);
+                                Start_Intake_Button.click();
+
+                                Report_Listen.log_print_in_report().info("Started Intake | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+
+                                Fill_Five_Page_Intake_Form(Patient_Data, Product_Data, d);
+
+                                System.out.println();
+                                System.out.println("Patient Intake | Product: " + Product_Name + " | Result: COMPLETED");
+                                Report_Listen.log_print_in_report().pass("Patient Intake completed | Patient: " + Patient_Name + " | Product: " + Product_Name);
                             
-                            Veirfy_Id_form_filling(Patient_Data, Product_Data);
-                            break Treatment_Card_Loop;
+                                Veirfy_Id_form_filling(Patient_Data, Product_Data);
+                                break Treatment_Card_Loop;
 
-                        }
+                            }
 
-                        if(Button_Text.contains("Verify Identity")){
+                            if(Button_Text.contains("Verify Identity")){
 
-                            System.out.println();
-                            System.out.println("Patient Intake | Product: " + Product_Name + " | Result: ALREADY COMPLETED | Proceeding to ID Verification.");
-                            Report_Listen.log_print_in_report().info("Patient Intake already completed | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Proceeding to ID Verification.");
+                                System.out.println();
+                                System.out.println("Patient Intake | Product: " + Product_Name + " | Result: ALREADY COMPLETED | Proceeding to ID Verification.");
+                                Report_Listen.log_print_in_report().info("Patient Intake already completed | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Proceeding to ID Verification.");
 
-                            Veirfy_Id_form_filling(Patient_Data, Product_Data);
+                                Veirfy_Id_form_filling(Patient_Data, Product_Data);
 
-                            break Treatment_Card_Loop;
+                                break Treatment_Card_Loop;
+
+                            }
 
                         }
 
@@ -444,13 +459,13 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
                 }
 
-            }
+                if(Treatment_Card.equals(Treatment_Cards.get(Treatment_Cards.size() - 1))){
 
-            if(Treatment_Card.equals(Treatment_Cards.get(Treatment_Cards.size() - 1))){
+                    System.out.println();
+                    System.out.println("Result : NOT PERFORMED | Reason: No usable Intake or Verify Identity button matches the requested product and variant.");
+                    Report_Listen.log_print_in_report().info("Patient Intake and ID Verification NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: No usable matching Intake or Verify Identity button.");
 
-                System.out.println();
-                System.out.println("Result : NOT PERFORMED | Reason: No usable Intake or Verify Identity button matches the requested product and variant.");
-                Report_Listen.log_print_in_report().info("Patient Intake and ID Verification NOT PERFORMED | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | Reason: No usable matching Intake or Verify Identity button.");
+                }
 
             }
 

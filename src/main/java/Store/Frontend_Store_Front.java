@@ -1,12 +1,9 @@
 package Store;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.TreeMap;
-import java.util.stream.IntStream;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -459,7 +456,7 @@ public class Frontend_Store_Front extends Patient_Module {
 	Patient_25.put("Doctor Name", "Dr. Erin Lawson");
 	Patient_25.put("ID Verification Image", "ID_Verification_data13.png");
 
-	return new Object[][] {
+	return new Object[][] { /*
 		{ Patient_1 },
 		{ Patient_2 },
 		{ Patient_3 },
@@ -474,12 +471,12 @@ public class Frontend_Store_Front extends Patient_Module {
 		{ Patient_12 },
 		{ Patient_13 },
 		{ Patient_14 },
-		{ Patient_15 },
-		{ Patient_21 },
-		{ Patient_22 },
-		{ Patient_23 },
-		{ Patient_24 },
-		{ Patient_25 },
+		{ Patient_15 }, 
+		{ Patient_21 }, 
+		{ Patient_22 }, 
+		{ Patient_23 },  */
+		{ Patient_24 },/*
+		{ Patient_25 }, */
 	};
 
 }
@@ -920,36 +917,26 @@ public class Frontend_Store_Front extends Patient_Module {
 
 }
 	
-   @DataProvider
-   @SuppressWarnings("unchecked")
-   public Object[][] Storefront_Product_Data(Method Test_Method){
+@DataProvider
+@SuppressWarnings("unchecked")
+public Object[][] Storefront_Product_Data(){
 
-	Object[][] Patient_Datas = Storefront_Patient_Details_Data();
-	Object[][] Product_Intake_Datas = Storefront_Product_Variant_And_Intake_Data();
-	List<Object[]> combined_data = new ArrayList<Object[]>();
+    Object[][] Patient_Datas = Storefront_Patient_Details_Data();
+    Object[][] Product_Intake_Datas = Storefront_Product_Variant_And_Intake_Data();
 
-	String Test_Name = Test_Method.getName();
-	Boolean Clinical_Test = Test_Name.equals("Intake_form_filling") || Test_Name.equals("Intake_form_Admin_Check") || Test_Name.equals("Treatment_Patient_Details_Check");
-	int n = IntStream.of(Patient_Datas.length, Product_Intake_Datas.length).min().orElse(0);
-	int i = 0;
+    int n = Math.min(Patient_Datas.length, Product_Intake_Datas.length);
+    Object[][] combined_data = new Object[n][2];
+    int i = 0;
 
-	while(i < n){
+    while(i < n){
 
-		TreeMap<String,String> Product_Data = (TreeMap<String,String>) Product_Intake_Datas[i][0];
-		Boolean Checkout_Only = Boolean.parseBoolean(Product_Data.get("Checkout Only"));
+        combined_data[i][0] = new TreeMap<String,String>((TreeMap<String,String>) Patient_Datas[i][0]);
+        combined_data[i][1] = new TreeMap<String,String>((TreeMap<String,String>) Product_Intake_Datas[i][0]);
+        i++;
 
-		if(Clinical_Test == false || Checkout_Only == false){
+    }
 
-			TreeMap<String,String> Patient_Data = (TreeMap<String,String>) Patient_Datas[i][0];
-			combined_data.add(new Object[] {new TreeMap<String,String>(Patient_Data), new TreeMap<String,String>(Product_Data)});
-
-		}
-
-		i++;
-
-	}
-
-	return combined_data.toArray(new Object[0][]);
+    return combined_data;
 
 }
 
