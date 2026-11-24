@@ -21,6 +21,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
@@ -30,6 +31,7 @@ import AsterMD.Project.AsterMD.Patient_Module;
 import Listerners.Report_Listen;
 import Locaters.Patient_Module_Locaters;
 import Locaters.Patient_Portal_Locaters;
+import Locaters.StoreFront_Locaters;
 import Repeatative_codes.Repeat;
 import Store.Frontend_Store_Front;
 
@@ -506,21 +508,43 @@ public class Pateint_Portal extends Frontend_Store_Front{
 		Patient_Phone = Patient_Phone.substring(1);
 	}
 
+	// The visible form root identifies the intake UI before any field or progress indicator is awaited.
+	String Intake_UI = p.Active_Intake_Form();
+	Boolean Storefront_Intake = Intake_UI.equals("Storefront");
+
 	System.out.println();
 	System.out.println("========== PATIENT INTAKE FORM ==========");
 	System.out.println("Product : " + Product_Name);
+	System.out.println("Intake UI : " + Intake_UI);
 	Report_Listen.log_print_in_report().info("Starting intake for: " + Product_Name);
+	Report_Listen.log_print_in_report().info("Intake UI: " + Intake_UI + " | Identified by the visible form root");
 
 	// Page 1 - Patient Information
 	System.out.println();
 	System.out.println("---------- PAGE 1 : PATIENT INFORMATION ----------");
 
-	WebElement Page_Indicator = p.Teleform_Page_Indicator();
-	rp.wait_for_expected_text(Page_Indicator, "Page 1 of 5");
-	String Actual_Page = Page_Indicator.getText().trim();
+	WebElement Page_Indicator = null;
+	WebElement Intake_Page = null;
+	String Actual_Page;
+
+	if(Storefront_Intake == true){
+
+		Assert.assertEquals(p.Storefront_Intake_Form().getDomAttribute("data-page-count"), "5", "Storefront intake page count mismatch.");
+		Intake_Page = p.Storefront_Intake_Page(0);
+		Actual_Page = "Page " + (Integer.parseInt(Intake_Page.getDomAttribute("data-intake-page")) + 1) + " of 5";
+
+	}
+	else{
+
+		Page_Indicator = p.Teleform_Page_Indicator();
+		rp.wait_for_expected_text(Page_Indicator, "Page 1 of 5");
+		Actual_Page = Page_Indicator.getText().trim();
+
+	}
+
 	Assert.assertEquals(Actual_Page, "Page 1 of 5");
 
-	WebElement First_Name_Field = p.Teleform_First_Name();
+	WebElement First_Name_Field = Storefront_Intake == true ? p.Storefront_First_Name() : p.Teleform_First_Name();
 	rp.movetoelement(First_Name_Field);
 	First_Name_Field.clear();
 	First_Name_Field.sendKeys(First_Name);
@@ -529,7 +553,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	System.out.println("First Name | Expected: " + First_Name + " | Actual: " + Actual_First_Name);
 	Assert.assertEquals(Actual_First_Name, First_Name, "First Name mismatch.");
 
-	WebElement Last_Name_Field = p.Teleform_Last_Name();
+	WebElement Last_Name_Field = Storefront_Intake == true ? p.Storefront_Last_Name() : p.Teleform_Last_Name();
 	rp.movetoelement(Last_Name_Field);
 	Last_Name_Field.clear();
 	Last_Name_Field.sendKeys(Last_Name);
@@ -538,7 +562,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	System.out.println("Last Name | Expected: " + Last_Name + " | Actual: " + Actual_Last_Name);
 	Assert.assertEquals(Actual_Last_Name, Last_Name, "Last Name mismatch.");
 
-	WebElement Email_Field = p.Teleform_Account_Email();
+	WebElement Email_Field = Storefront_Intake == true ? p.Storefront_Email() : p.Teleform_Account_Email();
 	rp.movetoelement(Email_Field);
 	Email_Field.clear();
 	Email_Field.sendKeys(Patient_Email);
@@ -547,36 +571,61 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	System.out.println("Email | Expected: " + Patient_Email + " | Actual: " + Actual_Email);
 	Assert.assertEquals(Actual_Email, Patient_Email, "Email mismatch.");
 
-	WebElement Phone_Field = p.Teleform_Phone();
+	WebElement Phone_Field = Storefront_Intake == true ? p.Storefront_Phone() : p.Teleform_Phone();
 	rp.movetoelement(Phone_Field);
-	Phone_Field.click();
-	Phone_Field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-	Phone_Field.sendKeys("+1" + Patient_Phone);
-	Phone_Field.sendKeys(Keys.TAB);
-	String Actual_Phone = Phone_Field.getDomProperty("value").replaceAll("\\D", "");
-	Assert.assertEquals(Actual_Phone, "1" + Patient_Phone, "US mobile phone number mismatch.");
+
+	if(Storefront_Intake == true){
+
+		// The Storefront phone input takes the 10-digit US number without a country code.
+		Phone_Field.clear();
+		Phone_Field.sendKeys(Patient_Phone);
+		String Actual_Phone = Phone_Field.getDomProperty("value");
+		Assert.assertEquals(Actual_Phone, Patient_Phone, "US mobile phone number mismatch.");
+
+	}
+	else{
+
+		Phone_Field.click();
+		Phone_Field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		Phone_Field.sendKeys("+1" + Patient_Phone);
+		Phone_Field.sendKeys(Keys.TAB);
+		String Actual_Phone = Phone_Field.getDomProperty("value").replaceAll("\\D", "");
+		Assert.assertEquals(Actual_Phone, "1" + Patient_Phone, "US mobile phone number mismatch.");
+
+	}
 
 	Teleform_Date_Of_Birth_Selector(Date_Of_Birth, d);
 
-	WebElement Sex_Dropdown = p.Teleform_Sex_Dropdown();
+	WebElement Sex_Dropdown = Storefront_Intake == true ? p.Storefront_Sex_Dropdown() : p.Teleform_Sex_Dropdown();
 	Intake_Dropdown_Option_Selector(Sex_Dropdown, Biological_Sex, d);
 
-	String Actual_Biological_Sex = Sex_Dropdown.getText().trim();
+	String Actual_Biological_Sex = Storefront_Intake == true ? Sex_Dropdown.getDomProperty("value") : Sex_Dropdown.getText().trim();
 	Assert.assertEquals(Actual_Biological_Sex, Biological_Sex, "Sex for your medical record mismatch.");
 
-	WebElement Reason_Dropdown = p.Teleform_Care_Reason_Dropdown();
+	WebElement Reason_Dropdown = Storefront_Intake == true ? p.Storefront_Care_Reason_Dropdown() : p.Teleform_Care_Reason_Dropdown();
 	Intake_Dropdown_Option_Selector(Reason_Dropdown, Intake_Reason, d);
 
-	String Actual_Intake_Reason = Reason_Dropdown.getText().trim();
+	String Actual_Intake_Reason = Storefront_Intake == true ? Reason_Dropdown.getDomProperty("value") : Reason_Dropdown.getText().trim();
 	Assert.assertEquals(Actual_Intake_Reason, Intake_Reason, "Care reason mismatch.");
 
-	WebElement Next_Button = p.Teleform_Continue_Button();
+	WebElement Next_Button = Storefront_Intake == true ? p.Storefront_Continue_Button() : p.Teleform_Continue_Button();
 	rp.movetoelement(Next_Button);
 	Next_Button.click();
 
-	Page_Indicator = p.Teleform_Page_Indicator();
-	rp.wait_for_expected_text(Page_Indicator, "Page 2 of 5");
-	Actual_Page = Page_Indicator.getText().trim();
+	if(Storefront_Intake == true){
+
+		Intake_Page = p.Storefront_Intake_Page(1);
+		Actual_Page = "Page " + (Integer.parseInt(Intake_Page.getDomAttribute("data-intake-page")) + 1) + " of 5";
+
+	}
+	else{
+
+		Page_Indicator = p.Teleform_Page_Indicator();
+		rp.wait_for_expected_text(Page_Indicator, "Page 2 of 5");
+		Actual_Page = Page_Indicator.getText().trim();
+
+	}
+
 	Assert.assertEquals(Actual_Page, "Page 2 of 5");
 	System.out.println();
 	System.out.println("Expected : Page 2 of 5");
@@ -588,7 +637,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	System.out.println();
 	System.out.println("---------- PAGE 2 : ADDRESS AND CURRENT LOCATION ----------");
 
-	WebElement Address_Field = p.Teleform_Address();
+	WebElement Address_Field = Storefront_Intake == true ? p.Storefront_Address() : p.Teleform_Address();
 	rp.movetoelement(Address_Field);
 	Address_Field.clear();
 	Address_Field.sendKeys(Patient_Address);
@@ -597,7 +646,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	System.out.println("Address | Expected: " + Patient_Address + " | Actual: " + Actual_Address);
 	Assert.assertEquals(Actual_Address, Patient_Address, "Address mismatch.");
 
-	WebElement City_Field = p.Teleform_City();
+	WebElement City_Field = Storefront_Intake == true ? p.Storefront_City() : p.Teleform_City();
 	rp.movetoelement(City_Field);
 	City_Field.clear();
 	City_Field.sendKeys(Patient_City);
@@ -607,7 +656,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	Assert.assertEquals(Actual_City, Patient_City, "City mismatch.");
     
 	
-	WebElement ZIP_Field = p.Teleform_ZIP();
+	WebElement ZIP_Field = Storefront_Intake == true ? p.Storefront_ZIP() : p.Teleform_ZIP();
 	rp.movetoelement(ZIP_Field);
 	ZIP_Field.clear();
 	ZIP_Field.sendKeys(Patient_ZIP);
@@ -616,19 +665,30 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	System.out.println("ZIP Code | Expected: " + Patient_ZIP + " | Actual: " + Actual_ZIP);
 	Assert.assertEquals(Actual_ZIP, Patient_ZIP, "ZIP Code mismatch.");
 
-	WebElement Residential_State_Dropdown = p.Teleform_Residential_State_Dropdown();
+	WebElement Residential_State_Dropdown = Storefront_Intake == true ? p.Storefront_Residential_State_Dropdown() : p.Teleform_Residential_State_Dropdown();
 	Intake_Dropdown_Option_Selector(Residential_State_Dropdown, Residential_State, d);
 
-	WebElement Current_Location_State_Dropdown = p.Teleform_Current_Location_State_Dropdown();
+	WebElement Current_Location_State_Dropdown = Storefront_Intake == true ? p.Storefront_Current_Location_State_Dropdown() : p.Teleform_Current_Location_State_Dropdown();
 	Intake_Dropdown_Option_Selector(Current_Location_State_Dropdown, Current_Location_State, d);
 
-	Next_Button = p.Teleform_Continue_Button();
+	Next_Button = Storefront_Intake == true ? p.Storefront_Continue_Button() : p.Teleform_Continue_Button();
 	rp.movetoelement(Next_Button);
 	Next_Button.click();
 
-	Page_Indicator = p.Teleform_Page_Indicator();
-	rp.wait_for_expected_text(Page_Indicator, "Page 3 of 5");
-	Actual_Page = Page_Indicator.getText().trim();
+	if(Storefront_Intake == true){
+
+		Intake_Page = p.Storefront_Intake_Page(2);
+		Actual_Page = "Page " + (Integer.parseInt(Intake_Page.getDomAttribute("data-intake-page")) + 1) + " of 5";
+
+	}
+	else{
+
+		Page_Indicator = p.Teleform_Page_Indicator();
+		rp.wait_for_expected_text(Page_Indicator, "Page 3 of 5");
+		Actual_Page = Page_Indicator.getText().trim();
+
+	}
+
 	Assert.assertEquals(Actual_Page, "Page 3 of 5");
 	System.out.println();
 	System.out.println("Expected : Page 3 of 5");
@@ -642,13 +702,24 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
 	Teleform_Question_Selector(Product_Data, d);
 
-	Next_Button = p.Teleform_Continue_Button();
+	Next_Button = Storefront_Intake == true ? p.Storefront_Continue_Button() : p.Teleform_Continue_Button();
 	rp.movetoelement(Next_Button);
 	Next_Button.click();
 
-	Page_Indicator = p.Teleform_Page_Indicator();
-	rp.wait_for_expected_text(Page_Indicator, "Page 4 of 5");
-	Actual_Page = Page_Indicator.getText().trim();
+	if(Storefront_Intake == true){
+
+		Intake_Page = p.Storefront_Intake_Page(3);
+		Actual_Page = "Page " + (Integer.parseInt(Intake_Page.getDomAttribute("data-intake-page")) + 1) + " of 5";
+
+	}
+	else{
+
+		Page_Indicator = p.Teleform_Page_Indicator();
+		rp.wait_for_expected_text(Page_Indicator, "Page 4 of 5");
+		Actual_Page = Page_Indicator.getText().trim();
+
+	}
+
 	Assert.assertEquals(Actual_Page, "Page 4 of 5");
 	System.out.println();
 	System.out.println("Expected : Page 4 of 5");
@@ -663,13 +734,24 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	Teleform_Question_Selector(Product_Data, d);
 
 	
-	Next_Button = p.Teleform_Continue_Button();
+	Next_Button = Storefront_Intake == true ? p.Storefront_Continue_Button() : p.Teleform_Continue_Button();
 	rp.movetoelement(Next_Button); 
 	Next_Button.click();
 
-	Page_Indicator = p.Teleform_Page_Indicator();
-	rp.wait_for_expected_text(Page_Indicator, "Page 5 of 5");
-	Actual_Page = Page_Indicator.getText().trim();
+	if(Storefront_Intake == true){
+
+		Intake_Page = p.Storefront_Intake_Page(4);
+		Actual_Page = "Page " + (Integer.parseInt(Intake_Page.getDomAttribute("data-intake-page")) + 1) + " of 5";
+
+	}
+	else{
+
+		Page_Indicator = p.Teleform_Page_Indicator();
+		rp.wait_for_expected_text(Page_Indicator, "Page 5 of 5");
+		Actual_Page = Page_Indicator.getText().trim();
+
+	}
+
 	Assert.assertEquals(Actual_Page, "Page 5 of 5");
 	System.out.println();
 	System.out.println("Expected : Page 5 of 5");
@@ -681,7 +763,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	System.out.println();
 	System.out.println("---------- PAGE 5 : REVIEW AND CONSENT ----------");
 
-	List<WebElement> Consent_Checkboxes = p.Teleform_Consent_Checkboxes();
+	List<WebElement> Consent_Checkboxes = Storefront_Intake == true ? p.Storefront_Consent_Checkboxes() : p.Teleform_Consent_Checkboxes();
 	Assert.assertEquals(Consent_Checkboxes.size(), 2, "Expected the adult/accuracy and telehealth consent checkboxes.");
 
 	for(int n=0;n<Consent_Checkboxes.size();n++){
@@ -713,9 +795,35 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	System.out.println();
 	System.out.println("---------- INTAKE FORM SUBMISSION ----------");
 
-	WebElement Submit_Button = p.Teleform_Submit_Button();
+	WebElement Submit_Button = Storefront_Intake == true ? p.Storefront_Submit_Button() : p.Teleform_Submit_Button();
 	rp.movetoelement(Submit_Button); 
 	Submit_Button.click();
+
+	if(Storefront_Intake == true){
+
+		// Storefront submission opens checkout; the Patient Portal success toast does not apply here.
+		p.Storefront_Intake_Form_Closed();
+		WebElement Checkout_Address;
+
+		try{
+			Checkout_Address = new StoreFront_Locaters(d).Address_Field();
+		}
+		catch(TimeoutException Checkout_Not_Open){
+			throw new TimeoutException("Checkout did not open after Storefront intake submission | URL: " + d.getCurrentUrl(), Checkout_Not_Open);
+		}
+
+		Boolean Checkout_Opened = Checkout_Address.isDisplayed();
+
+		System.out.println();
+		System.out.println("Expected : Checkout opened after intake submission");
+		System.out.println("Actual   : Checkout address field visible = " + Checkout_Opened);
+		Assert.assertTrue(Checkout_Opened, "Storefront intake submission did not open checkout.");
+		System.out.println("Result   : PASS");
+		Report_Listen.log_print_in_report().pass("Storefront intake submission | Expected: Checkout opened | Actual: Checkout address field visible | Result: PASS");
+
+		return;
+
+	}
 
 	WebElement Submission_Toast = p.Teleform_Submission_Success_Toast;
 	Boolean Submission_Success = Teleform_Toast_Detector_Printer(Submission_Toast);
@@ -733,6 +841,103 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	Repeat rp = new Repeat(d);
 	System.out.println();
 	System.out.println("---------- INTAKE QUESTIONS ----------");
+
+	Boolean Storefront_Intake = p.Active_Intake_Form().equals("Storefront");
+
+	if(Storefront_Intake == true){
+
+		// Storefront cards are read in DOM order and their visibility is checked when each is reached,
+		// so a follow-up question revealed by an earlier answer is included.
+		WebElement Intake_Page = p.Storefront_Active_Intake_Page();
+		String Page_Number = "Page " + (Integer.parseInt(Intake_Page.getDomAttribute("data-intake-page")) + 1) + " of 5";
+
+		for(WebElement Question_Card : p.Storefront_Question_Cards(Intake_Page)){
+
+			if(Question_Card.isDisplayed() == false){
+				continue;
+			}
+
+			String Field_Name = Question_Card.getDomAttribute("data-intake-field");
+			String Required_Now = Question_Card.getDomAttribute("data-intake-required-now");
+			Boolean Question_Required = "1".equals(Required_Now != null ? Required_Now : Question_Card.getDomAttribute("data-intake-required"));
+			List<WebElement> Answer_Options = p.Storefront_Choice_Inputs(Question_Card);
+			List<WebElement> Answer_Fields = p.Storefront_Textareas(Question_Card);
+
+			if(Answer_Options.isEmpty() == true && Answer_Fields.isEmpty() == true){
+
+				// Headings, paragraphs and the Continue button carry no answer.
+				Assert.assertFalse(Question_Required, Page_Number + " | Field: " + Field_Name + " | Unsupported required field type: " + Question_Card.getDomAttribute("data-intake-type"));
+				continue;
+			}
+
+			List<WebElement> Question_Labels = Answer_Options.isEmpty() == false ? p.Storefront_Choice_Question(Question_Card) : p.Storefront_Textarea_Question(Question_Card);
+			Assert.assertFalse(Question_Labels.isEmpty(), Page_Number + " | Field: " + Field_Name + " | Question text not found.");
+
+			String Question = Question_Labels.get(0).getText().replaceAll("\\s+", " ").trim().replaceAll("\\s*\\*$", "");
+			String Data_Key = Field_Name.equals("symptomDetails") ? "Notes" : "Intake Q&A - " + Question;
+			String Expected_Answer = Product_Data.get(Data_Key);
+
+			System.out.println();
+			System.out.println("Question        : " + Question);
+
+			if(Expected_Answer == null || Expected_Answer.isBlank()){
+
+				Assert.assertFalse(Question_Required, Page_Number + " | Field: " + Field_Name + " | Question: " + Question + " | No fixture answer for: " + Data_Key);
+				System.out.println("Result          : SKIPPED | Reason: Optional question without a fixture answer.");
+				continue;
+			}
+
+			if(Answer_Options.isEmpty() == false){
+
+				WebElement Answer_Input = null;
+				String Option_Values = "";
+
+				for(WebElement Answer_Option : Answer_Options){
+
+					String Option_Value = Answer_Option.getDomAttribute("value");
+					Option_Values += "|" + Option_Value;
+
+					if(Option_Value != null && Option_Value.trim().equalsIgnoreCase(Expected_Answer.trim())){
+						Answer_Input = Answer_Option;
+						break;
+					}
+				}
+
+				Assert.assertNotNull(Answer_Input, Page_Number + " | Field: " + Field_Name + " | Question: " + Question + " | No option with value: " + Expected_Answer + " | Options: " + Option_Values);
+
+				if(Answer_Input.isSelected() == false){
+
+					WebElement Answer_Label = p.Storefront_Choice_Label(Answer_Input);
+					rp.movetoelement(Answer_Label);
+					Answer_Label.click();
+				}
+
+				String Actual_Answer = Answer_Input.getDomAttribute("value");
+				Boolean Answer_Selected = Answer_Input.isSelected();
+				Assert.assertTrue(Answer_Selected, Page_Number + " | Field: " + Field_Name + " | Question: " + Question + " | Intake answer was not selected: " + Expected_Answer);
+				System.out.println("Selected Answer : " + Actual_Answer);
+				System.out.println("Expected Answer : " + Expected_Answer);
+				System.out.println("Selected        : " + Answer_Selected);
+				System.out.println("Result          : PASS");
+				Report_Listen.log_print_in_report().pass(Question + " | Expected: " + Expected_Answer + " | Actual: " + Actual_Answer + " | Selected: " + Answer_Selected + " | Result: PASS");
+			}
+			else{
+
+				WebElement Answer_Field = Answer_Fields.get(0);
+				rp.movetoelement(Answer_Field);
+				Answer_Field.clear();
+				Answer_Field.sendKeys(Expected_Answer);
+				String Actual_Answer = Answer_Field.getDomProperty("value");
+				Assert.assertEquals(Actual_Answer, Expected_Answer, Page_Number + " | Field: " + Field_Name + " | Question: " + Question + " | Intake textarea mismatch.");
+				System.out.println("Entered Answer  : " + Actual_Answer);
+				System.out.println("Expected Answer : " + Expected_Answer);
+				System.out.println("Result          : PASS");
+				Report_Listen.log_print_in_report().pass(Question + " | Expected: " + Expected_Answer + " | Actual: " + Actual_Answer + " | Result: PASS");
+			}
+		}
+
+		return;
+	}
 
 	List<WebElement> Question_Cards = p.Teleform_Choice_Cards();
 
@@ -869,8 +1074,29 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	String Month = DOB.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
 	String Date = DOB.toString();
 	String Expected_DOB = DOB.format(DateTimeFormatter.ofPattern("uuuu/MM/dd"));
+	Boolean Storefront_Intake = p.Active_Intake_Form().equals("Storefront");
 	System.out.println();
 	System.out.println("---------- DATE OF BIRTH ----------");
+
+	if(Storefront_Intake == true){
+
+		// The Storefront data-datepicker-input accepts the typed mask MM / dd / uuuu; Escape closes its calendar.
+		Expected_DOB = DOB.format(DateTimeFormatter.ofPattern("MM / dd / uuuu"));
+		WebElement Date_Field = p.Storefront_DOB_Input();
+		rp.movetoelement(Date_Field);
+		Date_Field.clear();
+		Date_Field.sendKeys(Expected_DOB);
+		Date_Field.sendKeys(Keys.ESCAPE);
+		rp.wait_for_invisibilty_of_theElement(p.Storefront_DOB_Panel());
+
+		String Actual_DOB = Date_Field.getDomProperty("value").trim();
+		Assert.assertEquals(Actual_DOB, Expected_DOB, "Date of Birth mismatch.");
+		System.out.println();
+		System.out.println("Expected : " + Expected_DOB + " | Actual: " + Actual_DOB + " | Result: PASS");
+		Report_Listen.log_print_in_report().pass("DOB | Expected: " + Expected_DOB + " | Actual: " + Actual_DOB + " | Result: PASS");
+		return;
+
+	}
 
 	WebElement Date_Field = p.Teleform_DOB_Input();
 	rp.movetoelement(Date_Field);
@@ -956,7 +1182,23 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	System.out.println("---------- INTAKE DROPDOWN ----------");
 	Report_Listen.log_print_in_report().info("Selecting intake dropdown option: " + Expected_Option);
 	
-	if(!Dropdown.getText().replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
+	Boolean Native_Select = Dropdown.getTagName().equalsIgnoreCase("select");
+
+	if(Native_Select == true){
+
+		// Storefront dropdowns are native select elements; the option is chosen by its value.
+		rp.movetoelement(Dropdown);
+
+		try{
+			new Select(Dropdown).selectByValue(Expected_Option);
+		}
+		catch(org.openqa.selenium.NoSuchElementException Missing_Option){
+			System.out.println();
+			System.out.println("Option value not available: " + Expected_Option);
+		}
+
+	}
+	else if(!Dropdown.getText().replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){
 		rp.movetoelement(Dropdown);
 		Dropdown.click();
 		for(int Scroll_Attempt=1; Scroll_Attempt<=15; Scroll_Attempt++){
@@ -995,7 +1237,7 @@ public class Pateint_Portal extends Frontend_Store_Front{
 			}
 		}
 	}
-	String Actual_Option = Dropdown.getText().trim();
+	String Actual_Option = Native_Select == true ? Dropdown.getDomProperty("value") : Dropdown.getText().trim();
 	System.out.println();
 	System.out.println("Expected : " + Expected_Option + " | Actual: " + Actual_Option);
 	if(Actual_Option.replaceAll("\\s+", "").equalsIgnoreCase(Expected_Value)){

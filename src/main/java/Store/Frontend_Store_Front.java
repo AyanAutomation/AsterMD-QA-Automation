@@ -469,13 +469,13 @@ public class Frontend_Store_Front extends Patient_Module {
 		{ Patient_10 },
 		{ Patient_11 },
 		{ Patient_12 },
-		{ Patient_13 },
-		{ Patient_14 },
-		{ Patient_15 }, 
+		{ Patient_13 }, 
+		{ Patient_14 }, */
+		{ Patient_15 }, /*
 		{ Patient_21 }, 
 		{ Patient_22 }, 
-		{ Patient_23 },  */
-		{ Patient_24 },/*
+		{ Patient_23 },  
+		{ Patient_24 },
 		{ Patient_25 }, */
 	};
 
@@ -838,7 +838,7 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_22.put(MigraNova_Previous_Treatment_Key, "Taking a screen break and drinking water helped a little. I used ibuprofen on six headache days this month and usually felt partial relief.");
 
 	TreeMap<String,String> Product_23 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
-	Product_23.put("Proceed to Checkout Directly", "true");
+	Product_23.put("Proceed to Checkout Directly", "false");
 	Product_23.put("Treatment Variant", "AsterMigraNova - 60 Tablets");
 	Product_23.put("Expected Price", "49.99");
 	Product_23.put("Notes", "Poor sleep sometimes precedes a longer attack. I would like the clinician to review my recent headache diary.");
