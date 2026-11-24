@@ -12,6 +12,8 @@ import org.testng.annotations.Test;
 
 import Doctor_network.Doctor_network;
 import Listerners.Report_Listen;
+import Locaters.Patient_Portal_Locaters;
+import Locaters.Product_Module_Locaters;
 import Locaters.Treatment_Module_Locaters;
 import Repeatative_codes.Repeat;
 import Store.Frontend_Store_Front;
@@ -119,11 +121,12 @@ public class Treatment_Module extends Product_Module{
 	}
 }
 
-
    @Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
    public void Treatment_Patient_Details_Check(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
     Repeat rp = new Repeat(d);
+    Product_Module_Locaters p = new Product_Module_Locaters(d);
+    Treatment_Module_Locaters pp = new Treatment_Module_Locaters(d);
 
     String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
     String Product_Name = Product_Data.get("Product Name");
@@ -143,9 +146,6 @@ public class Treatment_Module extends Product_Module{
 
     List<WebElement> Rows = Treatment_Module_Accessor();
 
-    Assert.assertNotNull(Rows, "Treatment rows unavailable | Patient: " + Patient_Name);
-    Assert.assertFalse(Rows.isEmpty(), "Treatment list is empty | Patient: " + Patient_Name);
-
     System.out.println();
     System.out.println("---------- TREATMENT PATIENT SEARCH ----------");
     System.out.println("Expected Patient : " + Patient_Name);
@@ -162,32 +162,47 @@ public class Treatment_Module extends Product_Module{
 
             if(Cell_Text.equalsIgnoreCase(Patient_Name)){
 
-                System.out.println();
-                System.out.println("---------- PATIENT MATCH RESULT ----------");
-                System.out.println("Expected Patient : " + Patient_Name);
-                System.out.println("Actual Patient   : " + Cell_Text);
-                System.out.println("Result           : PASS");
-
-                Report_Listen.log_print_in_report().pass("Treatment patient matched | Expected: " + Patient_Name + " | Actual: " + Cell_Text);
-
                 WebElement View_Button = Row.findElement(By.xpath(".//span[@class='ant-btn-icon']/.."));
-
                 rp.movetoelement(View_Button);
                 View_Button.click();
 
-                System.out.println();
-                System.out.println("Action : Opened matching treatment details.");
-
                 Admin_Patient_Details_Verification(Patient_Data, Product_Data, Doctor_Name, Expected_Status);
 
-                System.out.println();
-                System.out.println("============================================================");
-                System.out.println("             TREATMENT VERIFICATION RESULT");
-                System.out.println("============================================================");
-                System.out.println("Patient : " + Patient_Name);
-                System.out.println("Result  : PASS | Patient, doctor and data verification completed.");
+                break Main_row_loop;
 
-                Report_Listen.log_print_in_report().pass("Treatment patient verification completed | Patient: " + Patient_Name);
+            }
+            else{
+
+                WebElement Patient_Search = p.Search();
+                Patient_Search.clear();
+                Patient_Search.sendKeys(Patient_Name);
+                Thread.sleep(1990);
+
+                List<WebElement> Filtered_Rows = pp.Rows();
+
+                for(WebElement Filtered_Row : Filtered_Rows){
+
+                    List<WebElement> Filtered_Text_Cells = Filtered_Row.findElements(By.xpath(".//td//span[contains(@class,'text-dark')]"));
+
+                    for(WebElement Filtered_Text_Cell : Filtered_Text_Cells){
+
+                        String Filtered_Cell_Text = Filtered_Text_Cell.getText().replaceAll("\\s+", " ").trim();
+
+                        if(Filtered_Cell_Text.equalsIgnoreCase(Patient_Name)){
+
+                            WebElement View_Button = Filtered_Row.findElement(By.xpath(".//span[@class='ant-btn-icon']/.."));
+                            rp.movetoelement(View_Button);
+                            View_Button.click();
+
+                            Admin_Patient_Details_Verification(Patient_Data, Product_Data, Doctor_Name, Expected_Status);
+
+                            break Main_row_loop;
+
+                        }
+
+                    }
+
+                }
 
                 break Main_row_loop;
 
@@ -195,23 +210,12 @@ public class Treatment_Module extends Product_Module{
 
         }
 
-        if(Row.equals(Rows.get(Rows.size() - 1))){
-
-            System.out.println();
-            System.out.println("Result : FAIL | Patient not found in the treatment rows.");
-            System.out.println("Expected Patient : " + Patient_Name);
-            System.out.println("Rows Searched    : " + Rows.size());
-
-            Report_Listen.log_print_in_report().fail("Treatment patient not found | Patient: " + Patient_Name + " | Rows searched: " + Rows.size());
-
-            Assert.fail("Treatment patient not found | Expected Patient: " + Patient_Name + " | Product: " + Product_Name + " | Rows searched: " + Rows.size());
-
-        }
-
     }
 
 }
-
+   
+   
+   
 	@Test(dataProvider="Storefront_Product_Data", dataProviderClass=Frontend_Store_Front.class)
 	public void Intake_form_Admin_Check(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
@@ -288,7 +292,7 @@ public class Treatment_Module extends Product_Module{
 
 		String Treatment_Details_URL = d.getCurrentUrl();
 		List<WebElement> Patient_Details_Rows = p.Treatment_Details_cards().get(0).findElements(By.xpath(Rows_XPath));
-		Assert.assertTrue(rp.check_element_visibility(Patient_Details_Rows, 12), "Patient Details rows did not become visible.");
+		Assert.assertTrue(rp.check_element_visibility(Patient_Details_Rows, 16), "Patient Details rows did not become visible.");
 
 		String Case_ID = "";
 

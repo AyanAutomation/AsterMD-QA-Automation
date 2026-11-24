@@ -232,8 +232,9 @@ public class Treatment_Module_Locaters extends Repeat{
 	return Top_Navigation_bar;} 
 
     public List<WebElement> Rows(){
-    check_element_visibility(Rows,5);
+    check_element_visibility(Rows,8);
 	return Rows;}
+    
 	public WebElement Admin_Patient_Details_Title(){
 	Boolean Visible = check_element_visibility(Admin_Patient_Details_Title, 9);
 	if(Visible){

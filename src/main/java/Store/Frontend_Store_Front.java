@@ -1,6 +1,8 @@
 package Store;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.TreeMap;
@@ -36,461 +38,455 @@ public class Frontend_Store_Front extends Patient_Module {
 		System.out.println("Store Front");}
 
 	
-
-
-	
-	@DataProvider
-	public Object[][] Storefront_Patient_Details_Data(){
-
-		TreeMap<String,String> Shared_Patient_Data = new TreeMap<String,String>();
-		Shared_Patient_Data.put("Delivery Country", "United States");
-		Shared_Patient_Data.put("Card Number", "1444444444444440");
-		Shared_Patient_Data.put("Expiry Date", "12/29");
-		Shared_Patient_Data.put("Security Code", "123");
-		Shared_Patient_Data.put("Patient Password", "Password@123");
-		Shared_Patient_Data.put("Weight Loss Goal", "21-50 lbs");
-		Shared_Patient_Data.put("Biological Sex at Birth", "Female");
-
-		TreeMap<String,String> Boston_Patient_Data = new TreeMap<String,String>(Shared_Patient_Data);
-		Boston_Patient_Data.put("State", "Massachusetts");
-		Boston_Patient_Data.put("Residential State", "MA");
-		Boston_Patient_Data.put("Current Location State", "MA");
-		Boston_Patient_Data.put("Unit System", "Imperial (lbs/inches)");
-		Boston_Patient_Data.put("City", "Boston");
-		Boston_Patient_Data.put("Delivery State", "Massachusetts");
-		Boston_Patient_Data.put("Zipcode", "02108");
-		Boston_Patient_Data.put("ZIP Code", "02108");
-		Boston_Patient_Data.put("SSN", "1234");
-
-		/* Patient 1 */
-		TreeMap<String,String> Patient_1 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_1.put("First Name", "Iolantha");
-		Patient_1.put("Last Name", "Wrenbourne");
-		Patient_1.put("Email", "iolantha.wrenbourne.astermd261119batch1301@yopmail.com");
-		Patient_1.put("Phone", "2065550181");
-		Patient_1.put("Date of Birth", "06/12/1992");
-		Patient_1.put("State", "Washington");
-		Patient_1.put("Residential State", "WA");
-		Patient_1.put("Current Location State", "WA");
-		Patient_1.put("Unit System", "Imperial (lbs/inches)");
-		Patient_1.put("Height", "65");
-		Patient_1.put("Weight", "143");
-		Patient_1.put("Address", "1301 QA Pine Avenue");
-		Patient_1.put("City", "Seattle");
-		Patient_1.put("Delivery State", "Washington");
-		Patient_1.put("Zipcode", "98101");
-		Patient_1.put("ZIP Code", "98101");
-		Patient_1.put("Cardholder Name", "Iolantha Wrenbourne");
-		Patient_1.put("Doctor Name", "Dr. Meredith Callahan");
-		Patient_1.put("SSN", "1234");
-		Patient_1.put("ID Verification Image", "ID_Verification_data01.png");
-
-		/* Patient 2 */
-		TreeMap<String,String> Patient_2 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_2.put("First Name", "Nerisse");
-		Patient_2.put("Last Name", "Ellswyck");
-		Patient_2.put("Email", "nerisse.ellswyck.astermd261119batch1302@yopmail.com");
-		Patient_2.put("Phone", "7735550182");
-		Patient_2.put("Date of Birth", "04/19/1995");
-		Patient_2.put("State", "Illinois");
-		Patient_2.put("Residential State", "IL");
-		Patient_2.put("Current Location State", "IL");
-		Patient_2.put("Unit System", "Imperial (lbs/inches)");
-		Patient_2.put("Height", "66");
-		Patient_2.put("Weight", "151");
-		Patient_2.put("Address", "1302 QA Lake Avenue");
-		Patient_2.put("City", "Chicago");
-		Patient_2.put("Delivery State", "Illinois");
-		Patient_2.put("Zipcode", "60601");
-		Patient_2.put("ZIP Code", "60601");
-		Patient_2.put("Cardholder Name", "Nerisse Ellswyck");
-		Patient_2.put("Doctor Name", "Dr. Grant Whitcomb");
-		Patient_2.put("SSN", "1234");
-		Patient_2.put("ID Verification Image", "ID_Verification_data02.png");
-
-		/* Patient 3 */
-		TreeMap<String,String> Patient_3 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_3.put("First Name", "Zuleira");
-		Patient_3.put("Last Name", "Venscroft");
-		Patient_3.put("Email", "zuleira.venscroft.astermd261119batch1303@yopmail.com");
-		Patient_3.put("Phone", "7205550183");
-		Patient_3.put("Date of Birth", "10/22/1988");
-		Patient_3.put("State", "Colorado");
-		Patient_3.put("Residential State", "CO");
-		Patient_3.put("Current Location State", "CO");
-		Patient_3.put("Unit System", "Imperial (lbs/inches)");
-		Patient_3.put("Height", "67");
-		Patient_3.put("Weight", "149");
-		Patient_3.put("Address", "1303 QA Oak Street");
-		Patient_3.put("City", "Denver");
-		Patient_3.put("Delivery State", "Colorado");
-		Patient_3.put("Zipcode", "80202");
-		Patient_3.put("ZIP Code", "80202");
-		Patient_3.put("Cardholder Name", "Zuleira Venscroft");
-		Patient_3.put("Doctor Name", "Dr. Lauren McKinney");
-		Patient_3.put("SSN", "1234");
-		Patient_3.put("ID Verification Image", "ID_Verification_data03.png");
-
-		/* Patient 4 */
-		TreeMap<String,String> Patient_4 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_4.put("First Name", "Eirlynn");
-		Patient_4.put("Last Name", "Fallowmere");
-		Patient_4.put("Email", "eirlynn.fallowmere.astermd261119batch1304@yopmail.com");
-		Patient_4.put("Phone", "6025550184");
-		Patient_4.put("Date of Birth", "03/17/1991");
-		Patient_4.put("State", "Arizona");
-		Patient_4.put("Residential State", "AZ");
-		Patient_4.put("Current Location State", "AZ");
-		Patient_4.put("Unit System", "Imperial (lbs/inches)");
-		Patient_4.put("Height", "64");
-		Patient_4.put("Weight", "139");
-		Patient_4.put("Address", "1304 QA Desert Lane");
-		Patient_4.put("City", "Phoenix");
-		Patient_4.put("Delivery State", "Arizona");
-		Patient_4.put("Zipcode", "85004");
-		Patient_4.put("ZIP Code", "85004");
-		Patient_4.put("Cardholder Name", "Eirlynn Fallowmere");
-		Patient_4.put("Doctor Name", "Dr. Wesley Hargrove");
-		Patient_4.put("SSN", "1234");
-		Patient_4.put("ID Verification Image", "ID_Verification_data04.png");
-
-		/* Patient 5 */
-		TreeMap<String,String> Patient_5 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_5.put("First Name", "Idalune");
-		Patient_5.put("Last Name", "Kerseyford");
-		Patient_5.put("Email", "idalune.kerseyford.astermd261119batch1305@yopmail.com");
-		Patient_5.put("Phone", "9715550185");
-		Patient_5.put("Date of Birth", "12/08/1993");
-		Patient_5.put("State", "Oregon");
-		Patient_5.put("Residential State", "OR");
-		Patient_5.put("Current Location State", "OR");
-		Patient_5.put("Unit System", "Imperial (lbs/inches)");
-		Patient_5.put("Height", "65");
-		Patient_5.put("Weight", "146");
-		Patient_5.put("Address", "1305 QA River Road");
-		Patient_5.put("City", "Portland");
-		Patient_5.put("Delivery State", "Oregon");
-		Patient_5.put("Zipcode", "97204");
-		Patient_5.put("ZIP Code", "97204");
-		Patient_5.put("Cardholder Name", "Idalune Kerseyford");
-		Patient_5.put("Doctor Name", "Dr. Claire Ashford");
-		Patient_5.put("SSN", "1234");
-		Patient_5.put("ID Verification Image", "ID_Verification_data05.png");
-
-		/* Patient 6 */
-		TreeMap<String,String> Patient_6 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_6.put("First Name", "Odelira");
-		Patient_6.put("Last Name", "Ravencairn");
-		Patient_6.put("Email", "odelira.ravencairn.astermd261119batch1306@yopmail.com");
-		Patient_6.put("Phone", "6195550186");
-		Patient_6.put("Date of Birth", "07/24/1990");
-		Patient_6.put("State", "California");
-		Patient_6.put("Residential State", "CA");
-		Patient_6.put("Current Location State", "CA");
-		Patient_6.put("Unit System", "Imperial (lbs/inches)");
-		Patient_6.put("Height", "66");
-		Patient_6.put("Weight", "155");
-		Patient_6.put("Address", "1306 QA Harbor Drive");
-		Patient_6.put("City", "San Diego");
-		Patient_6.put("Delivery State", "California");
-		Patient_6.put("Zipcode", "92101");
-		Patient_6.put("ZIP Code", "92101");
-		Patient_6.put("Cardholder Name", "Odelira Ravencairn");
-		Patient_6.put("Doctor Name", "Dr. Nathaniel Beckett");
-		Patient_6.put("SSN", "1234");
-		Patient_6.put("ID Verification Image", "ID_Verification_data06.png");
-
-		/* Patient 7 */
-		TreeMap<String,String> Patient_7 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_7.put("First Name", "Illyrene");
-		Patient_7.put("Last Name", "Vauncourt");
-		Patient_7.put("Email", "illyrene.vauncourt.astermd261119batch1307@yopmail.com");
-		Patient_7.put("Phone", "8135550187");
-		Patient_7.put("Date of Birth", "02/11/1996");
-		Patient_7.put("State", "Florida");
-		Patient_7.put("Residential State", "FL");
-		Patient_7.put("Current Location State", "FL");
-		Patient_7.put("Unit System", "Imperial (lbs/inches)");
-		Patient_7.put("Height", "68");
-		Patient_7.put("Weight", "158");
-		Patient_7.put("Address", "1307 QA Franklin Street");
-		Patient_7.put("City", "Tampa");
-		Patient_7.put("Delivery State", "Florida");
-		Patient_7.put("Zipcode", "33602");
-		Patient_7.put("ZIP Code", "33602");
-		Patient_7.put("Cardholder Name", "Illyrene Vauncourt");
-		Patient_7.put("Doctor Name", "Dr. Rachel Sutton");
-		Patient_7.put("SSN", "1234");
-		Patient_7.put("ID Verification Image", "ID_Verification_data07.png");
-
-		/* Patient 8 */
-		TreeMap<String,String> Patient_8 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_8.put("First Name", "Ondelle");
-		Patient_8.put("Last Name", "Norvesden");
-		Patient_8.put("Email", "ondelle.norvesden.astermd261119batch1308@yopmail.com");
-		Patient_8.put("Phone", "6465550188");
-		Patient_8.put("Date of Birth", "01/19/1990");
-		Patient_8.put("State", "New York");
-		Patient_8.put("Residential State", "NY");
-		Patient_8.put("Current Location State", "NY");
-		Patient_8.put("Unit System", "Imperial (lbs/inches)");
-		Patient_8.put("Height", "65");
-		Patient_8.put("Weight", "144");
-		Patient_8.put("Address", "1308 QA Madison Avenue");
-		Patient_8.put("City", "New York");
-		Patient_8.put("Delivery State", "New York");
-		Patient_8.put("Zipcode", "10001");
-		Patient_8.put("ZIP Code", "10001");
-		Patient_8.put("Cardholder Name", "Ondelle Norvesden");
-		Patient_8.put("Doctor Name", "Dr. Owen Mercer");
-		Patient_8.put("SSN", "1234");
-		Patient_8.put("ID Verification Image", "ID_Verification_data08.png");
-
-		/* Patient 9 */
-		TreeMap<String,String> Patient_9 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_9.put("First Name", "Celavine");
-		Patient_9.put("Last Name", "Emberwick");
-		Patient_9.put("Email", "celavine.emberwick.astermd261119batch1309@yopmail.com");
-		Patient_9.put("Phone", "5125550189");
-		Patient_9.put("Date of Birth", "11/14/1994");
-		Patient_9.put("State", "Texas");
-		Patient_9.put("Residential State", "TX");
-		Patient_9.put("Current Location State", "TX");
-		Patient_9.put("Unit System", "Imperial (lbs/inches)");
-		Patient_9.put("Height", "67");
-		Patient_9.put("Weight", "152");
-		Patient_9.put("Address", "1309 QA Congress Avenue");
-		Patient_9.put("City", "Austin");
-		Patient_9.put("Delivery State", "Texas");
-		Patient_9.put("Zipcode", "78701");
-		Patient_9.put("ZIP Code", "78701");
-		Patient_9.put("Cardholder Name", "Celavine Emberwick");
-		Patient_9.put("Doctor Name", "Dr. Allison Stafford");
-		Patient_9.put("SSN", "1234");
-		Patient_9.put("ID Verification Image", "ID_Verification_data09.png");
-
-		/* Patient 10 */
-		TreeMap<String,String> Patient_10 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_10.put("First Name", "Vessara");
-		Patient_10.put("Last Name", "Hollingmere");
-		Patient_10.put("Email", "vessara.hollingmere.astermd261119batch1310@yopmail.com");
-		Patient_10.put("Phone", "8575550190");
-		Patient_10.put("Date of Birth", "05/05/1989");
-		Patient_10.put("State", "Massachusetts");
-		Patient_10.put("Residential State", "MA");
-		Patient_10.put("Current Location State", "MA");
-		Patient_10.put("Unit System", "Imperial (lbs/inches)");
-		Patient_10.put("Height", "66");
-		Patient_10.put("Weight", "148");
-		Patient_10.put("Address", "1310 QA Beacon Street");
-		Patient_10.put("City", "Boston");
-		Patient_10.put("Delivery State", "Massachusetts");
-		Patient_10.put("Zipcode", "02108");
-		Patient_10.put("ZIP Code", "02108");
-		Patient_10.put("Cardholder Name", "Vessara Hollingmere");
-		Patient_10.put("Doctor Name", "Dr. Ethan Caldwell");
-		Patient_10.put("SSN", "1234");
-		Patient_10.put("ID Verification Image", "ID_Verification_data10.png");
-
-		/* Patient 11 */
-		TreeMap<String,String> Patient_11 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_11.put("First Name", "Xanthira");
-		Patient_11.put("Last Name", "Carrowden");
-		Patient_11.put("Email", "xanthira.carrowden.astermd261119batch1311@yopmail.com");
-		Patient_11.put("Phone", "6125550191");
-		Patient_11.put("Date of Birth", "09/02/1995");
-		Patient_11.put("State", "Minnesota");
-		Patient_11.put("Residential State", "MN");
-		Patient_11.put("Current Location State", "MN");
-		Patient_11.put("Unit System", "Imperial (lbs/inches)");
-		Patient_11.put("Height", "64");
-		Patient_11.put("Weight", "137");
-		Patient_11.put("Address", "1311 QA Hennepin Avenue");
-		Patient_11.put("City", "Minneapolis");
-		Patient_11.put("Delivery State", "Minnesota");
-		Patient_11.put("Zipcode", "55401");
-		Patient_11.put("ZIP Code", "55401");
-		Patient_11.put("Cardholder Name", "Xanthira Carrowden");
-		Patient_11.put("Doctor Name", "Dr. Jillian Benton");
-		Patient_11.put("SSN", "1234");
-		Patient_11.put("ID Verification Image", "ID_Verification_data11.png");
-
-		/* Patient 12 */
-		TreeMap<String,String> Patient_12 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_12.put("First Name", "Aderelle");
-		Patient_12.put("Last Name", "Fenlowe");
-		Patient_12.put("Email", "aderelle.fenlowe.astermd261119batch1312@yopmail.com");
-		Patient_12.put("Phone", "4705550192");
-		Patient_12.put("Date of Birth", "08/18/1992");
-		Patient_12.put("State", "Georgia");
-		Patient_12.put("Residential State", "GA");
-		Patient_12.put("Current Location State", "GA");
-		Patient_12.put("Unit System", "Imperial (lbs/inches)");
-		Patient_12.put("Height", "68");
-		Patient_12.put("Weight", "161");
-		Patient_12.put("Address", "1312 QA Peachtree Street");
-		Patient_12.put("City", "Atlanta");
-		Patient_12.put("Delivery State", "Georgia");
-		Patient_12.put("Zipcode", "30303");
-		Patient_12.put("ZIP Code", "30303");
-		Patient_12.put("Cardholder Name", "Aderelle Fenlowe");
-		Patient_12.put("Doctor Name", "Dr. Marcus Holloway");
-		Patient_12.put("SSN", "1234");
-		Patient_12.put("ID Verification Image", "ID_Verification_data12.png");
-
-		/* Patient 13 */
-		TreeMap<String,String> Patient_13 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_13.put("First Name", "Cresselle");
-		Patient_13.put("Last Name", "Brindlewick");
-		Patient_13.put("Email", "cresselle.brindlewick.astermd261119batch1313@yopmail.com");
-		Patient_13.put("Phone", "9805550193");
-		Patient_13.put("Date of Birth", "04/29/1987");
-		Patient_13.put("State", "North Carolina");
-		Patient_13.put("Residential State", "NC");
-		Patient_13.put("Current Location State", "NC");
-		Patient_13.put("Unit System", "Imperial (lbs/inches)");
-		Patient_13.put("Height", "65");
-		Patient_13.put("Weight", "150");
-		Patient_13.put("Address", "1313 QA Tryon Street");
-		Patient_13.put("City", "Charlotte");
-		Patient_13.put("Delivery State", "North Carolina");
-		Patient_13.put("Zipcode", "28202");
-		Patient_13.put("ZIP Code", "28202");
-		Patient_13.put("Cardholder Name", "Cresselle Brindlewick");
-		Patient_13.put("Doctor Name", "Dr. Caroline Fletcher");
-		Patient_13.put("SSN", "1234");
-		Patient_13.put("ID Verification Image", "ID_Verification_data13.png");
-
-		/* Patient 14 */
-		TreeMap<String,String> Patient_14 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_14.put("First Name", "Avelora");
-		Patient_14.put("Last Name", "Stormwell");
-		Patient_14.put("Email", "avelora.stormwell.astermd261119batch1314@yopmail.com");
-		Patient_14.put("Phone", "6145550194");
-		Patient_14.put("Date of Birth", "12/03/1996");
-		Patient_14.put("State", "Ohio");
-		Patient_14.put("Residential State", "OH");
-		Patient_14.put("Current Location State", "OH");
-		Patient_14.put("Unit System", "Imperial (lbs/inches)");
-		Patient_14.put("Height", "66");
-		Patient_14.put("Weight", "142");
-		Patient_14.put("Address", "1314 QA High Street");
-		Patient_14.put("City", "Columbus");
-		Patient_14.put("Delivery State", "Ohio");
-		Patient_14.put("Zipcode", "43215");
-		Patient_14.put("ZIP Code", "43215");
-		Patient_14.put("Cardholder Name", "Avelora Stormwell");
-		Patient_14.put("Doctor Name", "Dr. Trevor Dawson");
-		Patient_14.put("SSN", "1234");
-		Patient_14.put("ID Verification Image", "ID_Verification_data14.png");
-
-		/* Patient 15 */
-		TreeMap<String,String> Patient_15 = new TreeMap<String,String>(Shared_Patient_Data);
-		Patient_15.put("First Name", "Isevara");
-		Patient_15.put("Last Name", "Dunsgrove");
-		Patient_15.put("Email", "isevara.dunsgrove.astermd261119batch1315@yopmail.com");
-		Patient_15.put("Phone", "2675550195");
-		Patient_15.put("Date of Birth", "07/09/1991");
-		Patient_15.put("State", "Pennsylvania");
-		Patient_15.put("Residential State", "PA");
-		Patient_15.put("Current Location State", "PA");
-		Patient_15.put("Unit System", "Imperial (lbs/inches)");
-		Patient_15.put("Height", "65");
-		Patient_15.put("Weight", "147");
-		Patient_15.put("Address", "1315 QA Market Street");
-		Patient_15.put("City", "Philadelphia");
-		Patient_15.put("Delivery State", "Pennsylvania");
-		Patient_15.put("Zipcode", "19103");
-		Patient_15.put("ZIP Code", "19103");
-		Patient_15.put("Cardholder Name", "Isevara Dunsgrove");
-		Patient_15.put("Doctor Name", "Dr. Megan Ralston");
-		Patient_15.put("SSN", "1234");
-		Patient_15.put("ID Verification Image", "ID_Verification_data15.png");
-
-		/* Patient 21 */
-		TreeMap<String,String> Patient_21 = new TreeMap<String,String>(Boston_Patient_Data);
-		Patient_21.put("First Name", "Zinnera");
-		Patient_21.put("Last Name", "Vellbourne");
-		Patient_21.put("Email", "zinnera.vellbourne.astermd261119batch1316@yopmail.com");
-		Patient_21.put("Phone", "6175550196");
-		Patient_21.put("Date of Birth", "02/24/1993");
-		Patient_21.put("Height", "65");
-		Patient_21.put("Weight", "143");
-		Patient_21.put("Address", "1322 QA Beacon Street");
-		Patient_21.put("Cardholder Name", "Zinnera Vellbourne");
-		Patient_21.put("Doctor Name", "Dr. Eric Townsend");
-		Patient_21.put("ID Verification Image", "ID_Verification_data10.png");
-
-		/* Patient 22 */
-		TreeMap<String,String> Patient_22 = new TreeMap<String,String>(Boston_Patient_Data);
-		Patient_22.put("First Name", "Mirelva");
-		Patient_22.put("Last Name", "Briarmere");
-		Patient_22.put("Email", "mirelva.briarmere.astermd261119batch1317@yopmail.com");
-		Patient_22.put("Phone", "6175550197");
-		Patient_22.put("Date of Birth", "09/16/1990");
-		Patient_22.put("Height", "66");
-		Patient_22.put("Weight", "151");
-		Patient_22.put("Address", "1323 QA Charles Street");
-		Patient_22.put("Cardholder Name", "Mirelva Briarmere");
-		Patient_22.put("Doctor Name", "Dr. Brooke Haskell");
-		Patient_22.put("ID Verification Image", "ID_Verification_data11.png");
-
-		/* Patient 23 */
-		TreeMap<String,String> Patient_23 = new TreeMap<String,String>(Boston_Patient_Data);
-		Patient_23.put("First Name", "Sorevia");
-		Patient_23.put("Last Name", "Talverton");
-		Patient_23.put("Email", "sorevia.talverton.astermd261119batch1318@yopmail.com");
-		Patient_23.put("Phone", "6175550198");
-		Patient_23.put("Date of Birth", "07/08/1995");
-		Patient_23.put("Height", "67");
-		Patient_23.put("Weight", "149");
-		Patient_23.put("Address", "1324 QA Park Street");
-		Patient_23.put("Cardholder Name", "Sorevia Talverton");
-		Patient_23.put("Doctor Name", "Dr. Colin Barrett");
-		Patient_23.put("ID Verification Image", "ID_Verification_data12.png");
-
-		/* Patient 24 */
-		TreeMap<String,String> Patient_24 = new TreeMap<String,String>(Boston_Patient_Data);
-		Patient_24.put("First Name", "Neomira");
-		Patient_24.put("Last Name", "Wyndecroft");
-		Patient_24.put("Email", "neomira.wyndecroft.astermd261119batch1319@yopmail.com");
-		Patient_24.put("Phone", "6175550199");
-		Patient_24.put("Date of Birth", "11/19/1991");
-		Patient_24.put("Height", "64");
-		Patient_24.put("Weight", "157");
-		Patient_24.put("Address", "1325 QA Temple Street");
-		Patient_24.put("Cardholder Name", "Neomira Wyndecroft");
-		Patient_24.put("Doctor Name", "Dr. Diana Langford");
-		Patient_24.put("ID Verification Image", "ID_Verification_data13.png");
-
-		return new Object[][] { /*
-			{ Patient_1 },
-			{ Patient_2 },
-			{ Patient_3 },
-			{ Patient_4 },
-			{ Patient_5 }, 
-			{ Patient_6 }, 
-			{ Patient_7 },
-			{ Patient_8 },
-			{ Patient_9 }, 
-			{ Patient_10 }, */
-			{ Patient_11 },  /*
-			{ Patient_12 }, 
-			{ Patient_13 },
-			{ Patient_14 },
-			{ Patient_15 },
-			{ Patient_21 },
-			{ Patient_22 },
-			{ Patient_23 },
-			{ Patient_24 } */
-		};
-
-	}
 	
 	
-	
-	
-	@DataProvider
+    
+    @DataProvider
+    public Object[][] Storefront_Patient_Details_Data(){
+
+	TreeMap<String,String> Shared_Patient_Data = new TreeMap<String,String>();
+	Shared_Patient_Data.put("Delivery Country", "United States");
+	Shared_Patient_Data.put("Card Number", "1444444444444440");
+	Shared_Patient_Data.put("Expiry Date", "12/29");
+	Shared_Patient_Data.put("Security Code", "123");
+	Shared_Patient_Data.put("Patient Password", "Password@123");
+	Shared_Patient_Data.put("Weight Loss Goal", "21-50 lbs");
+	Shared_Patient_Data.put("Biological Sex at Birth", "Female");
+
+	TreeMap<String,String> Boston_Patient_Data = new TreeMap<String,String>(Shared_Patient_Data);
+	Boston_Patient_Data.put("State", "Massachusetts");
+	Boston_Patient_Data.put("Residential State", "MA");
+	Boston_Patient_Data.put("Current Location State", "MA");
+	Boston_Patient_Data.put("Unit System", "Imperial (lbs/inches)");
+	Boston_Patient_Data.put("City", "Boston");
+	Boston_Patient_Data.put("Delivery State", "Massachusetts");
+	Boston_Patient_Data.put("Zipcode", "02108");
+	Boston_Patient_Data.put("ZIP Code", "02108");
+	Boston_Patient_Data.put("SSN", "1234");
+
+	TreeMap<String,String> Patient_1 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_1.put("First Name", "Adelisse");
+	Patient_1.put("Last Name", "Hartfield");
+	Patient_1.put("Email", "adelisse.hartfield.ayan.astermd261124batch1301@yopmail.com");
+	Patient_1.put("Phone", "2065550120");
+	Patient_1.put("Date of Birth", "06/12/1992");
+	Patient_1.put("State", "Washington");
+	Patient_1.put("Residential State", "WA");
+	Patient_1.put("Current Location State", "WA");
+	Patient_1.put("Unit System", "Imperial (lbs/inches)");
+	Patient_1.put("Height", "65");
+	Patient_1.put("Weight", "143");
+	Patient_1.put("Address", "1301 QA Pine Avenue");
+	Patient_1.put("City", "Seattle");
+	Patient_1.put("Delivery State", "Washington");
+	Patient_1.put("Zipcode", "98101");
+	Patient_1.put("ZIP Code", "98101");
+	Patient_1.put("Cardholder Name", "Adelisse Hartfield");
+	Patient_1.put("Doctor Name", "Dr. Laurel Harding");
+	Patient_1.put("SSN", "1234");
+	Patient_1.put("ID Verification Image", "ID_Verification_data01.png");
+
+	TreeMap<String,String> Patient_2 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_2.put("First Name", "Brielleva");
+	Patient_2.put("Last Name", "Elmsford");
+	Patient_2.put("Email", "brielleva.elmsford.ayan.astermd261124batch1302@yopmail.com");
+	Patient_2.put("Phone", "3125550121");
+	Patient_2.put("Date of Birth", "04/19/1995");
+	Patient_2.put("State", "Illinois");
+	Patient_2.put("Residential State", "IL");
+	Patient_2.put("Current Location State", "IL");
+	Patient_2.put("Unit System", "Imperial (lbs/inches)");
+	Patient_2.put("Height", "66");
+	Patient_2.put("Weight", "151");
+	Patient_2.put("Address", "1302 QA Lake Avenue");
+	Patient_2.put("City", "Chicago");
+	Patient_2.put("Delivery State", "Illinois");
+	Patient_2.put("Zipcode", "60601");
+	Patient_2.put("ZIP Code", "60601");
+	Patient_2.put("Cardholder Name", "Brielleva Elmsford");
+	Patient_2.put("Doctor Name", "Dr. Colton Reeves");
+	Patient_2.put("SSN", "1234");
+	Patient_2.put("ID Verification Image", "ID_Verification_data02.png");
+
+	TreeMap<String,String> Patient_3 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_3.put("First Name", "Calanthea");
+	Patient_3.put("Last Name", "Thornwick");
+	Patient_3.put("Email", "calanthea.thornwick.ayan.astermd261124batch1303@yopmail.com");
+	Patient_3.put("Phone", "3035550122");
+	Patient_3.put("Date of Birth", "10/22/1988");
+	Patient_3.put("State", "Colorado");
+	Patient_3.put("Residential State", "CO");
+	Patient_3.put("Current Location State", "CO");
+	Patient_3.put("Unit System", "Imperial (lbs/inches)");
+	Patient_3.put("Height", "67");
+	Patient_3.put("Weight", "149");
+	Patient_3.put("Address", "1303 QA Oak Street");
+	Patient_3.put("City", "Denver");
+	Patient_3.put("Delivery State", "Colorado");
+	Patient_3.put("Zipcode", "80202");
+	Patient_3.put("ZIP Code", "80202");
+	Patient_3.put("Cardholder Name", "Calanthea Thornwick");
+	Patient_3.put("Doctor Name", "Dr. Audrey Beckett");
+	Patient_3.put("SSN", "1234");
+	Patient_3.put("ID Verification Image", "ID_Verification_data03.png");
+
+	TreeMap<String,String> Patient_4 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_4.put("First Name", "Delmira");
+	Patient_4.put("Last Name", "Glassford");
+	Patient_4.put("Email", "delmira.glassford.ayan.astermd261124batch1304@yopmail.com");
+	Patient_4.put("Phone", "6025550123");
+	Patient_4.put("Date of Birth", "03/17/1991");
+	Patient_4.put("State", "Arizona");
+	Patient_4.put("Residential State", "AZ");
+	Patient_4.put("Current Location State", "AZ");
+	Patient_4.put("Unit System", "Imperial (lbs/inches)");
+	Patient_4.put("Height", "64");
+	Patient_4.put("Weight", "139");
+	Patient_4.put("Address", "1304 QA Desert Lane");
+	Patient_4.put("City", "Phoenix");
+	Patient_4.put("Delivery State", "Arizona");
+	Patient_4.put("Zipcode", "85004");
+	Patient_4.put("ZIP Code", "85004");
+	Patient_4.put("Cardholder Name", "Delmira Glassford");
+	Patient_4.put("Doctor Name", "Dr. Nolan Pierce");
+	Patient_4.put("SSN", "1234");
+	Patient_4.put("ID Verification Image", "ID_Verification_data04.png");
+
+	TreeMap<String,String> Patient_5 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_5.put("First Name", "Elarwyn");
+	Patient_5.put("Last Name", "Rosebrook");
+	Patient_5.put("Email", "elarwyn.rosebrook.ayan.astermd261124batch1305@yopmail.com");
+	Patient_5.put("Phone", "5035550124");
+	Patient_5.put("Date of Birth", "12/08/1993");
+	Patient_5.put("State", "Oregon");
+	Patient_5.put("Residential State", "OR");
+	Patient_5.put("Current Location State", "OR");
+	Patient_5.put("Unit System", "Imperial (lbs/inches)");
+	Patient_5.put("Height", "65");
+	Patient_5.put("Weight", "146");
+	Patient_5.put("Address", "1305 QA River Road");
+	Patient_5.put("City", "Portland");
+	Patient_5.put("Delivery State", "Oregon");
+	Patient_5.put("Zipcode", "97204");
+	Patient_5.put("ZIP Code", "97204");
+	Patient_5.put("Cardholder Name", "Elarwyn Rosebrook");
+	Patient_5.put("Doctor Name", "Dr. Paige Holloway");
+	Patient_5.put("SSN", "1234");
+	Patient_5.put("ID Verification Image", "ID_Verification_data05.png");
+
+	TreeMap<String,String> Patient_6 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_6.put("First Name", "Fidelia");
+	Patient_6.put("Last Name", "Winslade");
+	Patient_6.put("Email", "fidelia.winslade.ayan.astermd261124batch1306@yopmail.com");
+	Patient_6.put("Phone", "6195550125");
+	Patient_6.put("Date of Birth", "07/24/1990");
+	Patient_6.put("State", "California");
+	Patient_6.put("Residential State", "CA");
+	Patient_6.put("Current Location State", "CA");
+	Patient_6.put("Unit System", "Imperial (lbs/inches)");
+	Patient_6.put("Height", "66");
+	Patient_6.put("Weight", "155");
+	Patient_6.put("Address", "1306 QA Harbor Drive");
+	Patient_6.put("City", "San Diego");
+	Patient_6.put("Delivery State", "California");
+	Patient_6.put("Zipcode", "92101");
+	Patient_6.put("ZIP Code", "92101");
+	Patient_6.put("Cardholder Name", "Fidelia Winslade");
+	Patient_6.put("Doctor Name", "Dr. Grant Whitaker");
+	Patient_6.put("SSN", "1234");
+	Patient_6.put("ID Verification Image", "ID_Verification_data06.png");
+
+	TreeMap<String,String> Patient_7 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_7.put("First Name", "Genevra");
+	Patient_7.put("Last Name", "Aldenhurst");
+	Patient_7.put("Email", "genevra.aldenhurst.ayan.astermd261124batch1307@yopmail.com");
+	Patient_7.put("Phone", "8135550126");
+	Patient_7.put("Date of Birth", "02/11/1996");
+	Patient_7.put("State", "Florida");
+	Patient_7.put("Residential State", "FL");
+	Patient_7.put("Current Location State", "FL");
+	Patient_7.put("Unit System", "Imperial (lbs/inches)");
+	Patient_7.put("Height", "68");
+	Patient_7.put("Weight", "158");
+	Patient_7.put("Address", "1307 QA Franklin Street");
+	Patient_7.put("City", "Tampa");
+	Patient_7.put("Delivery State", "Florida");
+	Patient_7.put("Zipcode", "33602");
+	Patient_7.put("ZIP Code", "33602");
+	Patient_7.put("Cardholder Name", "Genevra Aldenhurst");
+	Patient_7.put("Doctor Name", "Dr. Clara Westbrook");
+	Patient_7.put("SSN", "1234");
+	Patient_7.put("ID Verification Image", "ID_Verification_data07.png");
+
+	TreeMap<String,String> Patient_8 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_8.put("First Name", "Hannelise");
+	Patient_8.put("Last Name", "Bellcroft");
+	Patient_8.put("Email", "hannelise.bellcroft.ayan.astermd261124batch1308@yopmail.com");
+	Patient_8.put("Phone", "2125550127");
+	Patient_8.put("Date of Birth", "01/19/1990");
+	Patient_8.put("State", "New York");
+	Patient_8.put("Residential State", "NY");
+	Patient_8.put("Current Location State", "NY");
+	Patient_8.put("Unit System", "Imperial (lbs/inches)");
+	Patient_8.put("Height", "65");
+	Patient_8.put("Weight", "144");
+	Patient_8.put("Address", "1308 QA Madison Avenue");
+	Patient_8.put("City", "New York");
+	Patient_8.put("Delivery State", "New York");
+	Patient_8.put("Zipcode", "10001");
+	Patient_8.put("ZIP Code", "10001");
+	Patient_8.put("Cardholder Name", "Hannelise Bellcroft");
+	Patient_8.put("Doctor Name", "Dr. Micah Sullivan");
+	Patient_8.put("SSN", "1234");
+	Patient_8.put("ID Verification Image", "ID_Verification_data08.png");
+
+	TreeMap<String,String> Patient_9 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_9.put("First Name", "Ivelisse");
+	Patient_9.put("Last Name", "Carrowmere");
+	Patient_9.put("Email", "ivelisse.carrowmere.ayan.astermd261124batch1309@yopmail.com");
+	Patient_9.put("Phone", "5125550128");
+	Patient_9.put("Date of Birth", "11/14/1994");
+	Patient_9.put("State", "Texas");
+	Patient_9.put("Residential State", "TX");
+	Patient_9.put("Current Location State", "TX");
+	Patient_9.put("Unit System", "Imperial (lbs/inches)");
+	Patient_9.put("Height", "67");
+	Patient_9.put("Weight", "152");
+	Patient_9.put("Address", "1309 QA Congress Avenue");
+	Patient_9.put("City", "Austin");
+	Patient_9.put("Delivery State", "Texas");
+	Patient_9.put("Zipcode", "78701");
+	Patient_9.put("ZIP Code", "78701");
+	Patient_9.put("Cardholder Name", "Ivelisse Carrowmere");
+	Patient_9.put("Doctor Name", "Dr. Brooke Hensley");
+	Patient_9.put("SSN", "1234");
+	Patient_9.put("ID Verification Image", "ID_Verification_data09.png");
+
+	TreeMap<String,String> Patient_10 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_10.put("First Name", "Jessalyn");
+	Patient_10.put("Last Name", "Eastvale");
+	Patient_10.put("Email", "jessalyn.eastvale.ayan.astermd261124batch1310@yopmail.com");
+	Patient_10.put("Phone", "6175550129");
+	Patient_10.put("Date of Birth", "05/05/1989");
+	Patient_10.put("State", "Massachusetts");
+	Patient_10.put("Residential State", "MA");
+	Patient_10.put("Current Location State", "MA");
+	Patient_10.put("Unit System", "Imperial (lbs/inches)");
+	Patient_10.put("Height", "66");
+	Patient_10.put("Weight", "148");
+	Patient_10.put("Address", "1310 QA Beacon Street");
+	Patient_10.put("City", "Boston");
+	Patient_10.put("Delivery State", "Massachusetts");
+	Patient_10.put("Zipcode", "02108");
+	Patient_10.put("ZIP Code", "02108");
+	Patient_10.put("Cardholder Name", "Jessalyn Eastvale");
+	Patient_10.put("Doctor Name", "Dr. Elliot Benson");
+	Patient_10.put("SSN", "1234");
+	Patient_10.put("ID Verification Image", "ID_Verification_data10.png");
+
+	TreeMap<String,String> Patient_11 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_11.put("First Name", "Kessara");
+	Patient_11.put("Last Name", "Fenleigh");
+	Patient_11.put("Email", "kessara.fenleigh.ayan.astermd261124batch1311@yopmail.com");
+	Patient_11.put("Phone", "3125550130");
+	Patient_11.put("Date of Birth", "09/02/1995");
+	Patient_11.put("State", "Minnesota");
+	Patient_11.put("Residential State", "MN");
+	Patient_11.put("Current Location State", "MN");
+	Patient_11.put("Unit System", "Imperial (lbs/inches)");
+	Patient_11.put("Height", "64");
+	Patient_11.put("Weight", "137");
+	Patient_11.put("Address", "1311 QA Hennepin Avenue");
+	Patient_11.put("City", "Minneapolis");
+	Patient_11.put("Delivery State", "Minnesota");
+	Patient_11.put("Zipcode", "55401");
+	Patient_11.put("ZIP Code", "55401");
+	Patient_11.put("Cardholder Name", "Kessara Fenleigh");
+	Patient_11.put("Doctor Name", "Dr. Marissa Caldwell");
+	Patient_11.put("SSN", "1234");
+	Patient_11.put("ID Verification Image", "ID_Verification_data11.png");
+
+	TreeMap<String,String> Patient_12 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_12.put("First Name", "Leontyne");
+	Patient_12.put("Last Name", "Greystone");
+	Patient_12.put("Email", "leontyne.greystone.ayan.astermd261124batch1312@yopmail.com");
+	Patient_12.put("Phone", "6175550131");
+	Patient_12.put("Date of Birth", "08/18/1992");
+	Patient_12.put("State", "Georgia");
+	Patient_12.put("Residential State", "GA");
+	Patient_12.put("Current Location State", "GA");
+	Patient_12.put("Unit System", "Imperial (lbs/inches)");
+	Patient_12.put("Height", "68");
+	Patient_12.put("Weight", "161");
+	Patient_12.put("Address", "1312 QA Peachtree Street");
+	Patient_12.put("City", "Atlanta");
+	Patient_12.put("Delivery State", "Georgia");
+	Patient_12.put("Zipcode", "30303");
+	Patient_12.put("ZIP Code", "30303");
+	Patient_12.put("Cardholder Name", "Leontyne Greystone");
+	Patient_12.put("Doctor Name", "Dr. Travis Monroe");
+	Patient_12.put("SSN", "1234");
+	Patient_12.put("ID Verification Image", "ID_Verification_data12.png");
+
+	TreeMap<String,String> Patient_13 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_13.put("First Name", "Mirevelle");
+	Patient_13.put("Last Name", "Hatherford");
+	Patient_13.put("Email", "mirevelle.hatherford.ayan.astermd261124batch1313@yopmail.com");
+	Patient_13.put("Phone", "6175550132");
+	Patient_13.put("Date of Birth", "04/29/1987");
+	Patient_13.put("State", "North Carolina");
+	Patient_13.put("Residential State", "NC");
+	Patient_13.put("Current Location State", "NC");
+	Patient_13.put("Unit System", "Imperial (lbs/inches)");
+	Patient_13.put("Height", "65");
+	Patient_13.put("Weight", "150");
+	Patient_13.put("Address", "1313 QA Tryon Street");
+	Patient_13.put("City", "Charlotte");
+	Patient_13.put("Delivery State", "North Carolina");
+	Patient_13.put("Zipcode", "28202");
+	Patient_13.put("ZIP Code", "28202");
+	Patient_13.put("Cardholder Name", "Mirevelle Hatherford");
+	Patient_13.put("Doctor Name", "Dr. Kendall Harper");
+	Patient_13.put("SSN", "1234");
+	Patient_13.put("ID Verification Image", "ID_Verification_data13.png");
+
+	TreeMap<String,String> Patient_14 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_14.put("First Name", "Nerelle");
+	Patient_14.put("Last Name", "Inglemere");
+	Patient_14.put("Email", "nerelle.inglemere.ayan.astermd261124batch1314@yopmail.com");
+	Patient_14.put("Phone", "6175550133");
+	Patient_14.put("Date of Birth", "12/03/1996");
+	Patient_14.put("State", "Ohio");
+	Patient_14.put("Residential State", "OH");
+	Patient_14.put("Current Location State", "OH");
+	Patient_14.put("Unit System", "Imperial (lbs/inches)");
+	Patient_14.put("Height", "66");
+	Patient_14.put("Weight", "142");
+	Patient_14.put("Address", "1314 QA High Street");
+	Patient_14.put("City", "Columbus");
+	Patient_14.put("Delivery State", "Ohio");
+	Patient_14.put("Zipcode", "43215");
+	Patient_14.put("ZIP Code", "43215");
+	Patient_14.put("Cardholder Name", "Nerelle Inglemere");
+	Patient_14.put("Doctor Name", "Dr. Evan Fletcher");
+	Patient_14.put("SSN", "1234");
+	Patient_14.put("ID Verification Image", "ID_Verification_data14.png");
+
+	TreeMap<String,String> Patient_15 = new TreeMap<String,String>(Shared_Patient_Data);
+	Patient_15.put("First Name", "Orietta");
+	Patient_15.put("Last Name", "Jarrowhill");
+	Patient_15.put("Email", "orietta.jarrowhill.ayan.astermd261124batch1315@yopmail.com");
+	Patient_15.put("Phone", "6175550134");
+	Patient_15.put("Date of Birth", "07/09/1991");
+	Patient_15.put("State", "Pennsylvania");
+	Patient_15.put("Residential State", "PA");
+	Patient_15.put("Current Location State", "PA");
+	Patient_15.put("Unit System", "Imperial (lbs/inches)");
+	Patient_15.put("Height", "65");
+	Patient_15.put("Weight", "147");
+	Patient_15.put("Address", "1315 QA Market Street");
+	Patient_15.put("City", "Philadelphia");
+	Patient_15.put("Delivery State", "Pennsylvania");
+	Patient_15.put("Zipcode", "19103");
+	Patient_15.put("ZIP Code", "19103");
+	Patient_15.put("Cardholder Name", "Orietta Jarrowhill");
+	Patient_15.put("Doctor Name", "Dr. Jillian Rhodes");
+	Patient_15.put("SSN", "1234");
+	Patient_15.put("ID Verification Image", "ID_Verification_data15.png");
+
+	TreeMap<String,String> Patient_21 = new TreeMap<String,String>(Boston_Patient_Data);
+	Patient_21.put("First Name", "Perenna");
+	Patient_21.put("Last Name", "Kinburn");
+	Patient_21.put("Email", "perenna.kinburn.ayan.astermd261124batch1316@yopmail.com");
+	Patient_21.put("Phone", "6175550135");
+	Patient_21.put("Date of Birth", "02/24/1993");
+	Patient_21.put("Height", "65");
+	Patient_21.put("Weight", "143");
+	Patient_21.put("Address", "1322 QA Beacon Street");
+	Patient_21.put("Cardholder Name", "Perenna Kinburn");
+	Patient_21.put("Doctor Name", "Dr. Spencer Hayes");
+	Patient_21.put("ID Verification Image", "ID_Verification_data10.png");
+
+	TreeMap<String,String> Patient_22 = new TreeMap<String,String>(Boston_Patient_Data);
+	Patient_22.put("First Name", "Rosavelle");
+	Patient_22.put("Last Name", "Lynton");
+	Patient_22.put("Email", "rosavelle.lynton.ayan.astermd261124batch1317@yopmail.com");
+	Patient_22.put("Phone", "6175550136");
+	Patient_22.put("Date of Birth", "09/16/1990");
+	Patient_22.put("Height", "66");
+	Patient_22.put("Weight", "151");
+	Patient_22.put("Address", "1323 QA Charles Street");
+	Patient_22.put("Cardholder Name", "Rosavelle Lynton");
+	Patient_22.put("Doctor Name", "Dr. Megan Stafford");
+	Patient_22.put("ID Verification Image", "ID_Verification_data11.png");
+
+	TreeMap<String,String> Patient_23 = new TreeMap<String,String>(Boston_Patient_Data);
+	Patient_23.put("First Name", "Sabrielle");
+	Patient_23.put("Last Name", "Merrifield");
+	Patient_23.put("Email", "sabrielle.merrifield.ayan.astermd261124batch1318@yopmail.com");
+	Patient_23.put("Phone", "6175550137");
+	Patient_23.put("Date of Birth", "07/08/1995");
+	Patient_23.put("Height", "67");
+	Patient_23.put("Weight", "149");
+	Patient_23.put("Address", "1324 QA Park Street");
+	Patient_23.put("Cardholder Name", "Sabrielle Merrifield");
+	Patient_23.put("Doctor Name", "Dr. Owen Maxwell");
+	Patient_23.put("ID Verification Image", "ID_Verification_data12.png");
+
+	TreeMap<String,String> Patient_24 = new TreeMap<String,String>(Boston_Patient_Data);
+	Patient_24.put("First Name", "Tessalune");
+	Patient_24.put("Last Name", "Wildermere");
+	Patient_24.put("Email", "tessalune.wildermere.ayan.astermd261124batch1319@yopmail.com");
+	Patient_24.put("Phone", "6175550138");
+	Patient_24.put("Date of Birth", "11/19/1991");
+	Patient_24.put("Height", "64");
+	Patient_24.put("Weight", "157");
+	Patient_24.put("Address", "1325 QA Temple Street");
+	Patient_24.put("Cardholder Name", "Tessalune Wildermere");
+	Patient_24.put("Doctor Name", "Dr. Natalie Prescott");
+	Patient_24.put("ID Verification Image", "ID_Verification_data13.png");
+
+	TreeMap<String,String> Patient_25 = new TreeMap<String,String>(Boston_Patient_Data);
+	Patient_25.put("First Name", "Vianne");
+	Patient_25.put("Last Name", "Brackenvale");
+	Patient_25.put("Email", "vianne.brackenvale.ayan.astermd261124batch1320@yopmail.com");
+	Patient_25.put("Phone", "6175550139");
+	Patient_25.put("Date of Birth", "03/26/1994");
+	Patient_25.put("Height", "65");
+	Patient_25.put("Weight", "150");
+	Patient_25.put("Address", "1325 QA Temple Street");
+	Patient_25.put("Cardholder Name", "Vianne Brackenvale");
+	Patient_25.put("Doctor Name", "Dr. Erin Lawson");
+	Patient_25.put("ID Verification Image", "ID_Verification_data13.png");
+
+	return new Object[][] {
+		{ Patient_1 },
+		{ Patient_2 },
+		{ Patient_3 },
+		{ Patient_4 },
+		{ Patient_5 },
+		{ Patient_6 },
+		{ Patient_7 },
+		{ Patient_8 },
+		{ Patient_9 },
+		{ Patient_10 },
+		{ Patient_11 },
+		{ Patient_12 },
+		{ Patient_13 },
+		{ Patient_14 },
+		{ Patient_15 },
+		{ Patient_21 },
+		{ Patient_22 },
+		{ Patient_23 },
+		{ Patient_24 },
+		{ Patient_25 },
+	};
+
+}
+
+
+
+    @DataProvider
     public Object[][] Storefront_Product_Variant_And_Intake_Data(){
 
 	String Medication_Question_Key = "Intake Q&A - Are you currently taking any of the following medicines or supplements, either regularly or as needed? Select all that apply. Select None only if you take no medicines or supplements.";
@@ -499,7 +495,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	TreeMap<String,String> Shared_Intake_Data = new TreeMap<String,String>();
 	Shared_Intake_Data.put("Intake Q&A - Are you pregnant, breastfeeding, or planning a pregnancy?", "No");
 
-	// AsterSomnera - Sleep Intake Questions
 	TreeMap<String,String> Sleep_Intake_Data = new TreeMap<String,String>();
 	Sleep_Intake_Data.put("Intake Reason", "Sleep or insomnia");
 	Sleep_Intake_Data.put("Intake Q&A - What is your main sleep difficulty?", "Falling asleep");
@@ -509,7 +504,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Sleep_Intake_Data.put("Intake Q&A - Do you snore loudly, wake up gasping, or have a diagnosis of sleep apnea?", "No");
 	Sleep_Intake_Data.put("Intake Q&A - Describe the treatments or changes you have tried for sleep and how they worked. Enter None if you have tried none.", "Tried a regular bedtime and reduced evening screen time; sleep difficulty continues.");
 
-	// AsterMigraEase - Migraine Intake Questions
 	TreeMap<String,String> Migraine_Intake_Data = new TreeMap<String,String>();
 	Migraine_Intake_Data.put("Intake Reason", "Migraine or recurring headaches");
 	Migraine_Intake_Data.put("Intake Q&A - Has a clinician previously diagnosed you with migraine?", "No");
@@ -519,7 +513,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Migraine_Intake_Data.put("Intake Q&A - Do you currently have a sudden extremely severe headache, new weakness, difficulty speaking, confusion, or loss of vision?", "No");
 	Migraine_Intake_Data.put("Intake Q&A - List headache treatments you have tried, how often you use them, and how they worked. Enter None if you have tried none.", "Tried rest in a dark room and hydration during headache episodes with partial relief.");
 
-	// AsterRefluxa - Reflux Intake Questions
 	TreeMap<String,String> Reflux_Intake_Data = new TreeMap<String,String>();
 	Reflux_Intake_Data.put("Intake Reason", "Heartburn or acid reflux");
 	Reflux_Intake_Data.put("Intake Q&A - Which symptom is most troublesome?", "Both");
@@ -528,7 +521,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Reflux_Intake_Data.put("Intake Q&A - Have you had difficulty or pain when swallowing, persistent vomiting, blood in vomit, black stools, or unexplained weight loss?", "No");
 	Reflux_Intake_Data.put("Intake Q&A - Describe reflux treatments or lifestyle changes you have tried and how they worked. Enter None if you have tried none.", "Tried smaller meals and avoiding late-night food with partial relief.");
 
-	// Product 1 - AsterSomnera - 30 Tablet Supply
 	TreeMap<String,String> Product_1 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_1.put("Proceed to Checkout Directly", "false");
 	Product_1.put("Product Name", "AsterSomnera Sleep Support Tablets");
@@ -542,7 +534,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_1.put(Medication_Details_Key, "Melatonin, dose unknown, taken on some nights.");
 	Product_1.putAll(Sleep_Intake_Data);
 
-	// Product 2 - AsterSomnera - 60 Tablet Supply
 	TreeMap<String,String> Product_2 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_2.put("Proceed to Checkout Directly", "false");
 	Product_2.put("Product Name", "AsterSomnera Sleep Support Tablets");
@@ -556,7 +547,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_2.put(Medication_Details_Key, "Diphenhydramine, dose unknown, taken occasionally.");
 	Product_2.putAll(Sleep_Intake_Data);
 
-	// Product 3 - AsterSomnera - 90 Tablet Supply
 	TreeMap<String,String> Product_3 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_3.put("Proceed to Checkout Directly", "false");
 	Product_3.put("Product Name", "AsterSomnera Sleep Support Tablets");
@@ -570,7 +560,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_3.put(Medication_Details_Key, "Doxylamine, dose unknown, taken as needed at night.");
 	Product_3.putAll(Sleep_Intake_Data);
 
-	// Product 4 - AsterSomnera - 30 Tablet Supply
 	TreeMap<String,String> Product_4 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_4.put("Proceed to Checkout Directly", "false");
 	Product_4.put("Product Name", "AsterSomnera Sleep Support Tablets");
@@ -584,7 +573,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_4.put(Medication_Details_Key, "Zolpidem, dose unknown, taken at bedtime as needed.");
 	Product_4.putAll(Sleep_Intake_Data);
 
-	// Product 5 - AsterSomnera - 60 Tablet Supply
 	TreeMap<String,String> Product_5 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_5.put("Proceed to Checkout Directly", "false");
 	Product_5.put("Product Name", "AsterSomnera Sleep Support Tablets");
@@ -598,7 +586,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_5.put(Medication_Details_Key, "Eszopiclone, dose unknown, taken at bedtime on some nights.");
 	Product_5.putAll(Sleep_Intake_Data);
 
-	// Product 6 - AsterSomnera - 90 Tablet Supply
 	TreeMap<String,String> Product_6 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_6.put("Proceed to Checkout Directly", "false");
 	Product_6.put("Product Name", "AsterSomnera Sleep Support Tablets");
@@ -612,7 +599,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_6.put(Medication_Details_Key, "Famotidine, dose unknown, taken as needed.");
 	Product_6.putAll(Sleep_Intake_Data);
 
-	// Product 7 - AsterSomnera - 30 Tablet Supply
 	TreeMap<String,String> Product_7 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_7.put("Proceed to Checkout Directly", "false");
 	Product_7.put("Product Name", "AsterSomnera Sleep Support Tablets");
@@ -626,7 +612,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_7.put(Medication_Details_Key, "Pantoprazole, dose unknown, taken daily.");
 	Product_7.putAll(Sleep_Intake_Data);
 
-	// Product 8 - AsterMigraEase
 	TreeMap<String,String> Product_8 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_8.put("Proceed to Checkout Directly", "false");
 	Product_8.put("Product Name", "AsterMigraEase Headache Support Tablets");
@@ -640,7 +625,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_8.put(Medication_Details_Key, "Acetaminophen, dose unknown, taken as needed for headaches.");
 	Product_8.putAll(Migraine_Intake_Data);
 
-	// Product 9 - AsterMigraEase
 	TreeMap<String,String> Product_9 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_9.put("Proceed to Checkout Directly", "false");
 	Product_9.put("Product Name", "AsterMigraEase Headache Support Tablets");
@@ -654,7 +638,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_9.put(Medication_Details_Key, "Ibuprofen, dose unknown, taken as needed for headaches.");
 	Product_9.putAll(Migraine_Intake_Data);
 
-	// Product 10 - AsterMigraEase
 	TreeMap<String,String> Product_10 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_10.put("Proceed to Checkout Directly", "false");
 	Product_10.put("Product Name", "AsterMigraEase Headache Support Tablets");
@@ -668,7 +651,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_10.put(Medication_Details_Key, "Naproxen, dose unknown, taken as needed for headaches.");
 	Product_10.putAll(Migraine_Intake_Data);
 
-	// Product 11 - AsterMigraEase
 	TreeMap<String,String> Product_11 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_11.put("Proceed to Checkout Directly", "false");
 	Product_11.put("Product Name", "AsterMigraEase Headache Support Tablets");
@@ -682,7 +664,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_11.put(Medication_Details_Key, "Sumatriptan, dose unknown, taken during migraine episodes as needed.");
 	Product_11.putAll(Migraine_Intake_Data);
 
-	// Product 12 - AsterMigraEase
 	TreeMap<String,String> Product_12 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_12.put("Proceed to Checkout Directly", "false");
 	Product_12.put("Product Name", "AsterMigraEase Headache Support Tablets");
@@ -696,7 +677,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_12.put(Medication_Details_Key, "Topiramate, dose unknown, taken daily.");
 	Product_12.putAll(Migraine_Intake_Data);
 
-	// Product 13 - AsterMigraEase
 	TreeMap<String,String> Product_13 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_13.put("Proceed to Checkout Directly", "false");
 	Product_13.put("Product Name", "AsterMigraEase Headache Support Tablets");
@@ -710,7 +690,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_13.put(Medication_Details_Key, "Rizatriptan, dose unknown, taken during migraine episodes as needed.");
 	Product_13.putAll(Migraine_Intake_Data);
 
-	// Product 14 - AsterMigraEase
 	TreeMap<String,String> Product_14 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_14.put("Proceed to Checkout Directly", "false");
 	Product_14.put("Product Name", "AsterMigraEase Headache Support Tablets");
@@ -724,7 +703,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_14.put(Medication_Details_Key, "Calcium carbonate, dose unknown, taken as needed.");
 	Product_14.putAll(Migraine_Intake_Data);
 
-	// Product 15 - AsterRefluxa
 	TreeMap<String,String> Product_15 = new TreeMap<String,String>(Shared_Intake_Data);
 	Product_15.put("Proceed to Checkout Directly", "false");
 	Product_15.put("Product Name", "AsterRefluxa Digestive Relief Capsules");
@@ -738,7 +716,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_15.put(Medication_Details_Key, "Omeprazole, dose unknown, taken daily.");
 	Product_15.putAll(Reflux_Intake_Data);
 
-	// Detailed Page 3 Medical History Answers
 	String Allergy_Details_Key = "Intake Q&A - List your allergies and what reaction each causes. Enter None if you have no known allergies.";
 	String Medical_History_Key = "Intake Q&A - List your medical conditions, relevant mental health history, and significant past illnesses or operations. Enter None if you have none to report.";
 	String Substance_Use_Key = "Intake Q&A - Describe your caffeine, nicotine, alcohol, cannabis or other substance use, including amount and frequency. Enter None if you use none.";
@@ -803,7 +780,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_15.put(Medical_History_Key, "A clinician diagnosed reflux in 2022. I have had burning and a sour taste after meals for several months. I had an appendectomy in 2016 and recovered without complications.");
 	Product_15.put(Substance_Use_Key, "I drink one 8-ounce coffee in the morning on weekdays and have one glass of wine about twice a month. I do not use nicotine, cannabis, or other substances.");
 
-	// AsterMigraNova intake question keys
 	String MigraNova_Relief_Days_Key = "Intake Q&A - In the last 30 days, on how many days did you take medicine to relieve a headache?";
 	String MigraNova_Diagnosed_Key = "Intake Q&A - Has a clinician previously diagnosed you with migraine?";
 	String MigraNova_Pattern_Key = "Intake Q&A - When did your headaches start, and have they recently changed in frequency, severity, or location?";
@@ -822,9 +798,8 @@ public class Frontend_Store_Front extends Patient_Module {
 	AsterMigraNova_Shared_Data.put("VRIO Offer ID", "");
 	AsterMigraNova_Shared_Data.put("VRIO Product ID", "");
 
-	// Product 21 - AsterMigraNova - 15 Tablets
 	TreeMap<String,String> Product_21 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
-	Product_21.put("Proceed to Checkout Directly", "true");
+	Product_21.put("Proceed to Checkout Directly", "false");
 	Product_21.put("Treatment Variant", "AsterMigraNova - 15 Tablets");
 	Product_21.put("Expected Price", "18.00");
 	Product_21.put("Notes", "A missed meal sometimes precedes a headache. I would like to discuss the recurring visual changes with the clinician.");
@@ -844,9 +819,8 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_21.put(MigraNova_Impact_Key, "I have to pause or reduce activities");
 	Product_21.put(MigraNova_Previous_Treatment_Key, "Resting in a dark room helps with the light sensitivity. Naproxen gave partial pain relief on three headache days last month.");
 
-	// Product 22 - AsterMigraNova - 30 Tablets
 	TreeMap<String,String> Product_22 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
-	Product_22.put("Proceed to Checkout Directly", "true");
+	Product_22.put("Proceed to Checkout Directly", "false");
 	Product_22.put("Treatment Variant", "AsterMigraNova - 30 Tablets");
 	Product_22.put("Expected Price", "29.99");
 	Product_22.put("Notes", "Headaches often follow long stretches of screen work. I would like to discuss how to track that pattern.");
@@ -866,7 +840,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_22.put(MigraNova_Impact_Key, "I can continue with some difficulty");
 	Product_22.put(MigraNova_Previous_Treatment_Key, "Taking a screen break and drinking water helped a little. I used ibuprofen on six headache days this month and usually felt partial relief.");
 
-	// Product 23 - AsterMigraNova - 60 Tablets
 	TreeMap<String,String> Product_23 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
 	Product_23.put("Proceed to Checkout Directly", "true");
 	Product_23.put("Treatment Variant", "AsterMigraNova - 60 Tablets");
@@ -888,7 +861,6 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_23.put(MigraNova_Impact_Key, "I cannot carry out usual activities");
 	Product_23.put(MigraNova_Previous_Treatment_Key, "Sumatriptan gave partial relief on four days this month. Rest in a quiet, dark room helped me get through longer attacks.");
 
-	// Product 24 - AsterMigraNova - 90 Tablets
 	TreeMap<String,String> Product_24 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
 	Product_24.put("Proceed to Checkout Directly", "true");
 	Product_24.put("Treatment Variant", "AsterMigraNova - 90 Tablets");
@@ -910,7 +882,17 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_24.put(MigraNova_Impact_Key, "I have to pause or reduce activities");
 	Product_24.put(MigraNova_Previous_Treatment_Key, "Daily topiramate as prescribed reduced how often the headaches occur. A brief rest in a dark room helps during episodes.");
 
-	return new Object[][] {/*
+	TreeMap<String,String> Product_25 = new TreeMap<String,String>();
+	Product_25.put("Product Name", "AsterRosaCalm Facial Serum");
+	Product_25.put("Product Type", "Standard");
+	Product_25.put("Subscription Type", "One-Time Sale");
+	Product_25.put("Treatment Variant", "");
+	Product_25.put("Expected Price", "29.45");
+	Product_25.put("Proceed to Checkout Directly", "true");
+	Product_25.put("Checkout Only", "true");
+
+	return new Object[][] {
+		/*
 		{ Product_1 },
 		{ Product_2 },
 		{ Product_3 },
@@ -925,40 +907,50 @@ public class Frontend_Store_Front extends Patient_Module {
 		{ Product_12 },
 		{ Product_13 },
 		{ Product_14 },
-		{ Product_15 }, */
+		{ Product_15 },
+		
 		{ Product_21 },
-		{ Product_22 }, 
-		{ Product_23 }, 
-		{ Product_24 }, 
-
+		
+		{ Product_22 }, */
+		{ Product_23 }, /*
+		{ Product_24 },
+		
+		{ Product_25 }, */
 	};
+
 }
 	
-	
-	
-
-@DataProvider
-@SuppressWarnings("unchecked")
-public Object[][] Storefront_Product_Data(){
+   @DataProvider
+   @SuppressWarnings("unchecked")
+   public Object[][] Storefront_Product_Data(Method Test_Method){
 
 	Object[][] Patient_Datas = Storefront_Patient_Details_Data();
 	Object[][] Product_Intake_Datas = Storefront_Product_Variant_And_Intake_Data();
+	List<Object[]> combined_data = new ArrayList<Object[]>();
 
+	String Test_Name = Test_Method.getName();
+	Boolean Clinical_Test = Test_Name.equals("Intake_form_filling") || Test_Name.equals("Intake_form_Admin_Check") || Test_Name.equals("Treatment_Patient_Details_Check");
 	int n = IntStream.of(Patient_Datas.length, Product_Intake_Datas.length).min().orElse(0);
-
-	Object[][] combined_data = new Object[n][2];
 	int i = 0;
 
 	while(i < n){
 
-		combined_data[i][0] = new TreeMap<String,String>((TreeMap<String,String>) Patient_Datas[i][0]);
-		combined_data[i][1] = new TreeMap<String,String>((TreeMap<String,String>) Product_Intake_Datas[i][0]);
+		TreeMap<String,String> Product_Data = (TreeMap<String,String>) Product_Intake_Datas[i][0];
+		Boolean Checkout_Only = Boolean.parseBoolean(Product_Data.get("Checkout Only"));
+
+		if(Clinical_Test == false || Checkout_Only == false){
+
+			TreeMap<String,String> Patient_Data = (TreeMap<String,String>) Patient_Datas[i][0];
+			combined_data.add(new Object[] {new TreeMap<String,String>(Patient_Data), new TreeMap<String,String>(Product_Data)});
+
+		}
 
 		i++;
 
 	}
 
-	return combined_data;
+	return combined_data.toArray(new Object[0][]);
+
 }
 
 
@@ -967,9 +959,7 @@ public Object[][] Storefront_Product_Data(){
 
 
 
-
-
-    @Test(dataProvider="Storefront_Product_Data")
+   @Test(dataProvider="Storefront_Product_Data")
     public void Product_Choose(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws IOException, InterruptedException{
 
 	StoreFront_Locaters p = new StoreFront_Locaters(d);
@@ -977,6 +967,7 @@ public Object[][] Storefront_Product_Data(){
 
 	String Product_Name = Product_Data.get("Product Name");
 	Boolean Proceed_To_Checkout_Directly = Boolean.parseBoolean(Product_Data.get("Proceed to Checkout Directly"));
+	Boolean Checkout_Only = Boolean.parseBoolean(Product_Data.get("Checkout Only"));
 
 	System.out.println();
 	System.out.println("============================================================");
@@ -1048,7 +1039,7 @@ public Object[][] Storefront_Product_Data(){
 					System.out.println("---------------- STOREFRONT INTAKE ----------------");
 					System.out.println("Product : " + Product_Name);
 					Report_Listen.log_print_in_report().info("Starting storefront intake before checkout | Product: " + Product_Name);
-					
+
 					WebElement Start_Button = p.Optional_Start_Assessment_Buttons();
 					rp.movetoelement(Start_Button);
 					Start_Button.click();
@@ -1060,7 +1051,6 @@ public Object[][] Storefront_Product_Data(){
 
 				}
 
-				// Common Checkout Execution
 				System.out.println();
 				System.out.println("---------------- CHECKOUT ----------------");
 				System.out.println("Action : Enter Contact, Delivery and Payment Details");
@@ -1069,8 +1059,21 @@ public Object[][] Storefront_Product_Data(){
 
 				Checkout_Manager(Patient_Data, Product_Data);
 
-				// Collect Order Details
-				TreeMap<String, String> Actual_Order_Details = Order_Details_Collector();
+				TreeMap<String,String> Actual_Order_Details = new TreeMap<String,String>();
+
+				if(Checkout_Only == true){
+
+					Actual_Order_Details.put("Order Number", p.Order_Number().getText().trim());
+					Actual_Order_Details.put("Product Name", p.Order_Product().getText().trim());
+					Actual_Order_Details.put("Total", p.Order_Total().getText().trim());
+
+				}
+
+				if(Checkout_Only == false){
+
+					Actual_Order_Details = Order_Details_Collector();
+
+				}
 
 				System.out.println();
 				System.out.println("---------------- ORDER DETAILS ----------------");
@@ -1114,9 +1117,9 @@ public Object[][] Storefront_Product_Data(){
 }
 
 
-
-
- public void Checkout_Manager(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data){
+   
+    
+   public void Checkout_Manager(TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data){
 
 	StoreFront_Locaters p = new StoreFront_Locaters(d);
 	Repeat rp = new Repeat(d);
