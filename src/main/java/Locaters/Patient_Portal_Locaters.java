@@ -4,7 +4,9 @@ import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -174,6 +176,44 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Yopmail_Verification_Shadow_Host;
     @FindBy(xpath="//div[@id='r_dialog'][.//div[contains(@class,'r_message') and contains(normalize-space(.),'human to continue')]]")
 	public WebElement Yopmail_Human_Verification_Dialog;
+    @FindBy(css="form[data-intake-form]")
+	private WebElement Storefront_Intake_Form;
+    @FindBy(css="form[data-intake-form] [data-intake-page]")
+	private List<WebElement> Storefront_Intake_Pages;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) #intake-first_name")
+	private WebElement Storefront_First_Name;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) #intake-last_name")
+	private WebElement Storefront_Last_Name;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) #intake-email")
+	private WebElement Storefront_Email;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) #intake-phone")
+	private WebElement Storefront_Phone;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) #intake-dob")
+	private WebElement Storefront_DOB_Input;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) [data-intake-field='dob'] [data-datepicker-panel]")
+	private WebElement Storefront_DOB_Panel;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) #intake-sex")
+	private WebElement Storefront_Sex_Dropdown;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) #intake-care_reason")
+	private WebElement Storefront_Care_Reason_Dropdown;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) #intake-address")
+	private WebElement Storefront_Address;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) #intake-city")
+	private WebElement Storefront_City;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) #intake-zip")
+	private WebElement Storefront_ZIP;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) #intake-state")
+	private WebElement Storefront_Residential_State_Dropdown;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) #intake-current_location_state")
+	private WebElement Storefront_Current_Location_State_Dropdown;
+    @FindBy(xpath="//form[@data-intake-form]//*[@data-intake-page and not(@hidden)]//label[.//input[@id='intake-adultAccuracyConfirmation' or @id='intake-consentsSigned']]")
+	private List<WebElement> Storefront_Consent_Checkboxes;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) button[data-intake-action='next_page']")
+	private WebElement Storefront_Continue_Button;
+    @FindBy(css="form[data-intake-form] [data-intake-page]:not([hidden]) button[data-intake-action='submit']")
+	private WebElement Storefront_Submit_Button;
+    @FindBy(css="main [role='alert'], form[data-intake-form] [data-intake-error]")
+	private List<WebElement> Storefront_Intake_Messages;
     
     
     
@@ -430,4 +470,137 @@ public class Patient_Portal_Locaters extends Repeat {
 		return w.<WebElement>until(driver -> Yopmail_Verification_Shadow_Host.getShadowRoot().findElement(By.cssSelector("iframe[title*='Cloudflare']")));
 
 	}
+
+
+	// The Storefront and the Patient Portal render the same five-page intake with different markup.
+	// The visible form root decides which locators apply.
+	public String Active_Intake_Form(){
+	WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(10));
+	w.ignoring(StaleElementReferenceException.class);
+	w.withMessage("No visible intake form. Expected Storefront root form[data-intake-form] or Patient Portal root //section[contains(@class,'canvasPreview')].");
+	return w.<String>until(driver -> {
+		try{
+			if(Storefront_Intake_Form.isDisplayed() == true){
+				return "Storefront";
+			}
+		}
+		catch(NoSuchElementException Storefront_Form_Absent){
+			// Not the Storefront intake; the Patient Portal root is checked next.
+		}
+		return Teleform_Main.isDisplayed() == true ? "Patient Portal" : null;
+	});}
+	public WebElement Storefront_Intake_Form(){
+	wait_for_theElement(Storefront_Intake_Form);
+	return Storefront_Intake_Form;}
+	public WebElement Storefront_Intake_Page(int Page_Index){
+	// data-intake-page is zero-based. Hidden pages stay in the DOM, so the expected page must become visible.
+	for(WebElement Intake_Page : Storefront_Intake_Pages){
+		if(String.valueOf(Page_Index).equals(Intake_Page.getDomAttribute("data-intake-page")) && check_element_visibility(Intake_Page, 10) == true){
+			return Intake_Page;
+		}
+	}
+	throw new TimeoutException("Storefront intake Page " + (Page_Index + 1) + " of 5 did not become visible | " + Storefront_Intake_Status());}
+	public WebElement Storefront_Active_Intake_Page(){
+	wait_for_displayed_elements(Storefront_Intake_Pages);
+	for(WebElement Intake_Page : Storefront_Intake_Pages){
+		if(Intake_Page.isDisplayed() == true){
+			return Intake_Page;
+		}
+	}
+	throw new TimeoutException("No visible Storefront intake page | " + Storefront_Intake_Status());}
+	public void Storefront_Intake_Form_Closed(){
+	try{
+		wait_for_invisibilty_of_theElement(Storefront_Intake_Form);
+	}
+	catch(TimeoutException Form_Still_Open){
+		throw new TimeoutException("Storefront intake form is still open after Submit intake | " + Storefront_Intake_Status(), Form_Still_Open);
+	}}
+	public String Storefront_Intake_Status(){
+	String Visible_Page = "none";
+	String Intake_Messages = "";
+	for(WebElement Intake_Page : Storefront_Intake_Pages){
+		try{
+			if(Intake_Page.isDisplayed() == true){
+				Visible_Page = "Page " + (Integer.parseInt(Intake_Page.getDomAttribute("data-intake-page")) + 1) + " of 5";
+			}
+		}
+		catch(StaleElementReferenceException Stale_Page){
+			// The page changed while it was read.
+		}
+	}
+	for(WebElement Intake_Message : Storefront_Intake_Messages){
+		try{
+			String Message_Text = Intake_Message.getText().replaceAll("\\s+", " ").trim();
+			String Message_Id = Intake_Message.getDomAttribute("id");
+			if(Message_Text.isEmpty() == false){
+				Intake_Messages += " | " + (Message_Id != null && Message_Id.startsWith("intake-error-") ? Message_Id.substring("intake-error-".length()) + ": " : "") + Message_Text;
+			}
+		}
+		catch(StaleElementReferenceException Stale_Message){
+			// The message changed while it was read.
+		}
+	}
+	return "Visible intake page: " + Visible_Page + (Intake_Messages.isEmpty() ? " | No visible validation or eligibility message" : Intake_Messages) + " | URL: " + d.getCurrentUrl();}
+	public WebElement Storefront_First_Name(){
+	wait_for_theElement_to_be_clickable(Storefront_First_Name);
+	return Storefront_First_Name;}
+	public WebElement Storefront_Last_Name(){
+	wait_for_theElement_to_be_clickable(Storefront_Last_Name);
+	return Storefront_Last_Name;}
+	public WebElement Storefront_Email(){
+	wait_for_theElement_to_be_clickable(Storefront_Email);
+	return Storefront_Email;}
+	public WebElement Storefront_Phone(){
+	wait_for_theElement_to_be_clickable(Storefront_Phone);
+	return Storefront_Phone;}
+	public WebElement Storefront_DOB_Input(){
+	wait_for_theElement_to_be_clickable(Storefront_DOB_Input);
+	return Storefront_DOB_Input;}
+	public WebElement Storefront_DOB_Panel(){
+	// Optional control: the calendar panel is hidden until the date field has focus.
+	return Storefront_DOB_Panel;}
+	public WebElement Storefront_Sex_Dropdown(){
+	wait_for_theElement_to_be_clickable(Storefront_Sex_Dropdown);
+	return Storefront_Sex_Dropdown;}
+	public WebElement Storefront_Care_Reason_Dropdown(){
+	wait_for_theElement_to_be_clickable(Storefront_Care_Reason_Dropdown);
+	return Storefront_Care_Reason_Dropdown;}
+	public WebElement Storefront_Address(){
+	wait_for_theElement_to_be_clickable(Storefront_Address);
+	return Storefront_Address;}
+	public WebElement Storefront_City(){
+	wait_for_theElement_to_be_clickable(Storefront_City);
+	return Storefront_City;}
+	public WebElement Storefront_ZIP(){
+	wait_for_theElement_to_be_clickable(Storefront_ZIP);
+	return Storefront_ZIP;}
+	public WebElement Storefront_Residential_State_Dropdown(){
+	wait_for_theElement_to_be_clickable(Storefront_Residential_State_Dropdown);
+	return Storefront_Residential_State_Dropdown;}
+	public WebElement Storefront_Current_Location_State_Dropdown(){
+	wait_for_theElement_to_be_clickable(Storefront_Current_Location_State_Dropdown);
+	return Storefront_Current_Location_State_Dropdown;}
+	public List<WebElement> Storefront_Consent_Checkboxes(){
+	wait_for_displayed_elements(Storefront_Consent_Checkboxes);
+	return Storefront_Consent_Checkboxes;}
+	public WebElement Storefront_Continue_Button(){
+	wait_for_theElement_to_be_clickable(Storefront_Continue_Button);
+	return Storefront_Continue_Button;}
+	public WebElement Storefront_Submit_Button(){
+	wait_for_theElement_to_be_clickable(Storefront_Submit_Button);
+	return Storefront_Submit_Button;}
+	public List<WebElement> Storefront_Question_Cards(WebElement Intake_Page){
+	return Intake_Page.findElements(By.cssSelector("[data-intake-field]"));}
+	public List<WebElement> Storefront_Choice_Inputs(WebElement Question_Card){
+	return Question_Card.findElements(By.xpath(".//input[@type='radio' or @type='checkbox']"));}
+	public List<WebElement> Storefront_Textareas(WebElement Question_Card){
+	return Question_Card.findElements(By.tagName("textarea"));}
+	public List<WebElement> Storefront_Choice_Question(WebElement Question_Card){
+	return Question_Card.findElements(By.xpath("./p[1]"));}
+	public List<WebElement> Storefront_Textarea_Question(WebElement Question_Card){
+	return Question_Card.findElements(By.xpath("./label"));}
+	public WebElement Storefront_Choice_Label(WebElement Choice_Input){
+	WebElement Choice_Label = Choice_Input.findElement(By.xpath("./ancestor::label[1]"));
+	wait_for_theElement_to_be_clickable(Choice_Label);
+	return Choice_Label;}
 }

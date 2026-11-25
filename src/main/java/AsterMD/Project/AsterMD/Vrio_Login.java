@@ -47,7 +47,8 @@ public void Login_to_Vrio() throws Exception{
 	Report_Listen.log_print_in_report().info("Password: ********");
 	
 	System.out.println("Action : Enter Login ID");
-	p.id_field().sendKeys(Login_Id);
+	WebElement Login_ID_Field = p.id_field();
+	Login_ID_Field.sendKeys(Login_Id);
 	
 	System.out.println("Result : PASS");
 	System.out.println();
@@ -55,7 +56,8 @@ public void Login_to_Vrio() throws Exception{
 	Report_Listen.log_print_in_report().pass("Login ID entered successfully.");
 	
 	System.out.println("Action : Enter Password");
-	p.password_field().sendKeys(Password);
+	WebElement Password_Field = p.password_field();
+	Password_Field.sendKeys(Password);
 	
 	System.out.println("Result : PASS");
 	System.out.println();
@@ -63,7 +65,8 @@ public void Login_to_Vrio() throws Exception{
 	Report_Listen.log_print_in_report().pass("Password entered successfully.");
 	
 	System.out.println("Action : Click Login Button");
-	p.Login_button().click();
+	WebElement Login_Button = p.Login_button();
+	Login_Button.click();
 	
 	System.out.println("Result : PASS");
 	System.out.println();
@@ -155,7 +158,8 @@ public void Vrio_Toast_Printer_closer(WebElement toast){
 
 	Report_Listen.log_print_in_report().info("Action: Closing notification.");
 
-	p.Toast_Close_Button().click();
+	WebElement Close_Toast_Button = p.Toast_Close_Button();
+	Close_Toast_Button.click();
 	rp.wait_for_invisibilty_of_theElement(toast);
 
 	System.out.println("Result  : Notification closed successfully.");

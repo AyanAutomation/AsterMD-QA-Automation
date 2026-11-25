@@ -3,6 +3,7 @@ package Cucumber.Step.Definition.Java.Classes;
 import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import Locaters.Login_Locaters;
 import io.cucumber.java.en.Given;
@@ -20,9 +21,12 @@ public class Cucumber_Login {
 
 		d.get(url);
 		lg.Landed_in_Login_Page();
-		lg.id_field().sendKeys(Login_id);
-		lg.password_field().sendKeys(Pass);
-		lg.Login_button().click();
+		WebElement Login_ID_Field = lg.id_field();
+		Login_ID_Field.sendKeys(Login_id);
+		WebElement Password_Field = lg.password_field();
+		Password_Field.sendKeys(Pass);
+		WebElement Login_Button = lg.Login_button();
+		Login_Button.click();
 		lg.login_confirmation();
 	}
 }
