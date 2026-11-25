@@ -114,7 +114,8 @@ public class Doctor_network extends Frontend_Store_Front{
 		Thread.sleep(800);
 
 		List<WebElement> Rows = p.Visit_Rows();
-		Assert.assertTrue(rp.check_element_visibility(Rows, 3), "Beluga visit rows did not become visible | Patient: " + Patient_Name);
+		Boolean Visit_Rows_Visible = rp.check_element_visibility(Rows, 3);
+		Assert.assertTrue(Visit_Rows_Visible == true, "Beluga visit rows did not become visible | Patient: " + Patient_Name);
 
 		Visit_Loop:{
 
@@ -129,15 +130,20 @@ public class Doctor_network extends Frontend_Store_Front{
 
 				}
 
-				String Actual_Patient_Name = Row.findElement(Dr_Network_locaters.Visit_Patient).getText().trim().split("\\R", 2)[0].trim();
+				WebElement Visit_Patient_Cell = Row.findElement(Dr_Network_locaters.Visit_Patient);
+				String Actual_Patient_Name = Visit_Patient_Cell.getText().trim().split("\\R", 2)[0].trim();
 
 				if(Actual_Patient_Name.equalsIgnoreCase(Patient_Name) && CaseID.equals(Actual_ID)){
 
 					rp.movetoelement(Row);
 					Row.click();
 
-					Assert.assertEquals(p.Visit_Master_ID().getText().trim(), CaseID, "Beluga visit Case ID mismatch.");
-					Assert.assertEquals(p.Visit_Patient_Email().getText().trim(), Patient_Email, "Beluga visit patient email mismatch.");
+					WebElement Visit_Master_ID_Field = p.Visit_Master_ID();
+					String Actual_Master_ID = Visit_Master_ID_Field.getText().trim();
+					Assert.assertEquals(Actual_Master_ID, CaseID, "Beluga visit Case ID mismatch.");
+					WebElement Visit_Patient_Email_Field = p.Visit_Patient_Email();
+					String Actual_Patient_Email = Visit_Patient_Email_Field.getText().trim();
+					Assert.assertEquals(Actual_Patient_Email, Patient_Email, "Beluga visit patient email mismatch.");
 
 					System.out.println("Beluga Visit : PASS | Case ID and email verified.");
 					Report_Listen.log_print_in_report().pass("Beluga visit verified | Patient: " + Patient_Name + " | Case ID: " + CaseID);
@@ -173,11 +179,14 @@ public class Doctor_network extends Frontend_Store_Front{
 
 		Dr_network_Accessor("Shared tools", "Webhook Sender", d);
 
-		Select Network_Select = new Select(p.network());
+		WebElement Network_Dropdown = p.network();
+		Select Network_Select = new Select(Network_Dropdown);
 		Network_Select.selectByVisibleText(Network);
-		Select Event_Select = new Select(p.Event());
+		WebElement Event_Dropdown = p.Event();
+		Select Event_Select = new Select(Event_Dropdown);
 		Event_Select.selectByVisibleText(Event);
-		Select Target_Endpoint_Select = new Select(p.Target_Endpoint());
+		WebElement Target_Endpoint_Dropdown = p.Target_Endpoint();
+		Select Target_Endpoint_Select = new Select(Target_Endpoint_Dropdown);
 		Target_Endpoint_Select.selectByVisibleText(Target_Endpoint);
 
 		WebElement Generate = p.Generate_Button();

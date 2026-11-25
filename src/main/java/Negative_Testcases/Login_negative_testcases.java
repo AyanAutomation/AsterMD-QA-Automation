@@ -24,9 +24,12 @@ public class Login_negative_testcases extends Base {
 
 		d.get(Target_url);
 		l.Landed_in_Login_Page();
-		l.id_field().sendKeys(Login_id);
-		l.password_field().sendKeys(Pass);
-		l.Login_button().click();
+		WebElement Login_ID_Field = l.id_field();
+		Login_ID_Field.sendKeys(Login_id);
+		WebElement Password_Field = l.password_field();
+		Password_Field.sendKeys(Pass);
+		WebElement Login_Button = l.Login_button();
+		Login_Button.click();
 		WebElement errorAlert = l.Login_error_alert();
 		String Error_message = errorAlert.getText();
 		Assert.assertFalse(Error_message.isBlank(), "An error message should be displayed for invalid login data.");

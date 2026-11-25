@@ -41,6 +41,10 @@ public class Report_Listen implements ITestListener {
 		Throwable Failure = result.getThrowable();
 		ExtentTest Failed_Report = log_report.get();
 		String Failure_Location = "Java source line unavailable";
+		String Locator_Location = null;
+		String Test_Class_Location = null;
+		String Test_Class_Name = result.getTestClass().getRealClass().getName();
+		Boolean Project_Frame_Found = false;
 
 		Failure_Trace:
 		for(Throwable Cause = Failure; Cause != null; Cause = Cause.getCause()){
@@ -52,8 +56,25 @@ public class Report_Listen implements ITestListener {
 
 				if(Framework_Frame == false && Frame.getFileName() != null && Frame.getLineNumber() > 0){
 
-					Failure_Location = Frame.toString();
-					break Failure_Trace;
+					if(Project_Frame_Found == false){
+
+						Failure_Location = Frame.toString();
+						Project_Frame_Found = true;
+
+					}
+
+					if(Locator_Location == null && Class_Name.startsWith("Locaters.")){
+
+						Locator_Location = Frame.toString();
+
+					}
+
+					if(Test_Class_Location == null && Class_Name.equals(Test_Class_Name)){
+
+						Test_Class_Location = Frame.toString();
+						break Failure_Trace;
+
+					}
 
 				}
 
@@ -66,13 +87,48 @@ public class Report_Listen implements ITestListener {
 		System.out.println();
 		System.out.println("---------------- TEST FAILURE ----------------");
 		System.out.println("Test      : " + result.getMethod().getMethodName());
-		System.out.println("Failed at : " + Failure_Location);
+		if(Project_Frame_Found == true){
+
+			System.out.println("Failed at :");
+			System.out.println("\tat " + Failure_Location);
+
+			if(Locator_Location != null && Locator_Location.equals(Failure_Location) == false){
+
+				System.out.println("\tat " + Locator_Location);
+
+			}
+
+			if(Test_Class_Location != null && Test_Class_Location.equals(Failure_Location) == false){
+
+				System.out.println("\tat " + Test_Class_Location);
+
+			}
+
+		}
+		else{
+
+			System.out.println("Failed at : " + Failure_Location);
+
+		}
+
 		System.out.println("Error     : " + Failure_Message);
 		System.out.println();
 
 		if(Failed_Report != null) {
 
 			Failed_Report.info("Failed at: " + Failure_Location);
+
+			if(Locator_Location != null && Locator_Location.equals(Failure_Location) == false){
+
+				Failed_Report.info("Locator at: " + Locator_Location);
+
+			}
+
+			if(Test_Class_Location != null && Test_Class_Location.equals(Failure_Location) == false){
+
+				Failed_Report.info("Test step at: " + Test_Class_Location);
+
+			}
 
 			if(Failure != null){
 

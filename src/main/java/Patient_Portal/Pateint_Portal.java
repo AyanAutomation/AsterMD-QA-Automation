@@ -399,7 +399,8 @@ public class Pateint_Portal extends Frontend_Store_Front{
                 p.Treatment_Summary_Loader();
                 List<WebElement> Loaded_Treatment_Cards = p.Incomplete_Treatment_Cards();
                 rp.wait_for_text_in_elements(Loaded_Treatment_Cards, "Progress:");
-                Treatment_Cards = List.copyOf(p.Incomplete_Treatment_Cards());
+                List<WebElement> Refreshed_Treatment_Cards = p.Incomplete_Treatment_Cards();
+                Treatment_Cards = List.copyOf(Refreshed_Treatment_Cards);
 
             }
             catch(TimeoutException Unavailable_Treatments){
@@ -423,7 +424,9 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
                         String Button_Text = Start_Intake_Button.getText().trim();
 
-                        if(rp.check_element_visibility(Start_Intake_Button, 5) == true && Start_Intake_Button.isEnabled() == true){
+                        Boolean Start_Intake_Visible = rp.check_element_visibility(Start_Intake_Button, 5);
+
+                        if(Start_Intake_Visible == true && Start_Intake_Button.isEnabled() == true){
 
                             if(Button_Text.contains("Intake")){
 
@@ -529,7 +532,9 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
 	if(Storefront_Intake == true){
 
-		Assert.assertEquals(p.Storefront_Intake_Form().getDomAttribute("data-page-count"), "5", "Storefront intake page count mismatch.");
+		WebElement Storefront_Form = p.Storefront_Intake_Form();
+		String Page_Count = Storefront_Form.getDomAttribute("data-page-count");
+		Assert.assertEquals(Page_Count, "5", "Storefront intake page count mismatch.");
 		Intake_Page = p.Storefront_Intake_Page(0);
 		Actual_Page = "Page " + (Integer.parseInt(Intake_Page.getDomAttribute("data-intake-page")) + 1) + " of 5";
 
@@ -806,7 +811,8 @@ public class Pateint_Portal extends Frontend_Store_Front{
 		WebElement Checkout_Address;
 
 		try{
-			Checkout_Address = new StoreFront_Locaters(d).Address_Field();
+			StoreFront_Locaters Checkout_Locaters = new StoreFront_Locaters(d);
+			Checkout_Address = Checkout_Locaters.Address_Field();
 		}
 		catch(TimeoutException Checkout_Not_Open){
 			throw new TimeoutException("Checkout did not open after Storefront intake submission | URL: " + d.getCurrentUrl(), Checkout_Not_Open);
@@ -851,7 +857,9 @@ public class Pateint_Portal extends Frontend_Store_Front{
 		WebElement Intake_Page = p.Storefront_Active_Intake_Page();
 		String Page_Number = "Page " + (Integer.parseInt(Intake_Page.getDomAttribute("data-intake-page")) + 1) + " of 5";
 
-		for(WebElement Question_Card : p.Storefront_Question_Cards(Intake_Page)){
+		List<WebElement> Storefront_Cards = p.Storefront_Question_Cards(Intake_Page);
+
+		for(WebElement Question_Card : Storefront_Cards){
 
 			if(Question_Card.isDisplayed() == false){
 				continue;
@@ -873,7 +881,8 @@ public class Pateint_Portal extends Frontend_Store_Front{
 			List<WebElement> Question_Labels = Answer_Options.isEmpty() == false ? p.Storefront_Choice_Question(Question_Card) : p.Storefront_Textarea_Question(Question_Card);
 			Assert.assertFalse(Question_Labels.isEmpty(), Page_Number + " | Field: " + Field_Name + " | Question text not found.");
 
-			String Question = Question_Labels.get(0).getText().replaceAll("\\s+", " ").trim().replaceAll("\\s*\\*$", "");
+			WebElement First_Question_Label = Question_Labels.get(0);
+			String Question = First_Question_Label.getText().replaceAll("\\s+", " ").trim().replaceAll("\\s*\\*$", "");
 			String Data_Key = Field_Name.equals("symptomDetails") ? "Notes" : "Intake Q&A - " + Question;
 			String Expected_Answer = Product_Data.get(Data_Key);
 
@@ -1087,7 +1096,8 @@ public class Pateint_Portal extends Frontend_Store_Front{
 		Date_Field.clear();
 		Date_Field.sendKeys(Expected_DOB);
 		Date_Field.sendKeys(Keys.ESCAPE);
-		rp.wait_for_invisibilty_of_theElement(p.Storefront_DOB_Panel());
+		WebElement DOB_Calendar_Panel = p.Storefront_DOB_Panel();
+		rp.wait_for_invisibilty_of_theElement(DOB_Calendar_Panel);
 
 		String Actual_DOB = Date_Field.getDomProperty("value").trim();
 		Assert.assertEquals(Actual_DOB, Expected_DOB, "Date of Birth mismatch.");
@@ -1190,7 +1200,8 @@ public class Pateint_Portal extends Frontend_Store_Front{
 		rp.movetoelement(Dropdown);
 
 		try{
-			new Select(Dropdown).selectByValue(Expected_Option);
+			Select Dropdown_Select = new Select(Dropdown);
+			Dropdown_Select.selectByValue(Expected_Option);
 		}
 		catch(org.openqa.selenium.NoSuchElementException Missing_Option){
 			System.out.println();
