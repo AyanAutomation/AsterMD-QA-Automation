@@ -5,6 +5,7 @@ import java.util.List;
 import java.io.IOException;
 import java.util.TreeMap;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -539,14 +540,14 @@ public class Treatment_Module extends Product_Module{
 
 		WebElement Intake_Section = Sections.get(4);
 		rp.movetoelement(Intake_Section);
-		List<WebElement> Intake_Form_Rows = p.Intake_Form_Rows(Intake_Section);
-		Boolean Intake_Form_Rows_Visible = rp.check_element_visibility(Intake_Form_Rows, 3);
+		List<WebElement> Intake_Form_Rows = Intake_Section.findElements(By.xpath(".//tr[contains(@class,'ant-table-row ant-table-row-level-0')]"));
+		Boolean Intake_Form_Rows_Visible = rp.check_element_visibility(Intake_Form_Rows, 6);
 		Assert.assertTrue(Intake_Form_Rows_Visible == true, "Admin Intake form rows did not become visible.");
 
 		for(WebElement Intake_Form_Row : Intake_Form_Rows){
 
 			String Form_Row_Text = Intake_Form_Row.getText().trim().replaceAll("\\R", " | ");
-			WebElement View_Button = p.Row_View_Button(Intake_Form_Row);
+			WebElement View_Button = Intake_Form_Row.findElement(By.xpath(".//span[@class='ant-btn-icon']/.."));
 			rp.movetoelement(View_Button);
 			View_Button.click();
 
@@ -555,12 +556,12 @@ public class Treatment_Module extends Product_Module{
 			Report_Listen.log_print_in_report().info("Intake Form | " + Form_Row_Text);
 
 			WebElement Intake_Popup = p.Intake_popup_form();
-			List<WebElement> Intake_Popup_Rows = p.Intake_Popup_Rows(Intake_Popup);
+			List<WebElement> Intake_Popup_Rows = Intake_Popup.findElements(By.xpath(".//div[contains(@class,'ant-flex-align-flex-start')]"));
 
 			for(WebElement Intake_Popup_Row : Intake_Popup_Rows){
 
-				List<WebElement> Labels = p.Intake_Popup_Row_Labels(Intake_Popup_Row);
-				List<WebElement> Values = p.Intake_Popup_Row_Values(Intake_Popup_Row);
+				List<WebElement> Labels = Intake_Popup_Row.findElements(By.xpath(".//span[contains(@class,'flex-grow-')]"));
+				List<WebElement> Values = Intake_Popup_Row.findElements(By.xpath(".//span[@class='font-14 text-dark']"));
 
 				if(Labels.size() == Values.size()){
 
@@ -596,7 +597,7 @@ public class Treatment_Module extends Product_Module{
 
 			}
 
-			WebElement Close_Button = p.Intake_Popup_Close_Button(Intake_Popup);
+			WebElement Close_Button = Intake_Popup.findElement(By.xpath(".//span[@aria-label='Close']"));
 			rp.movetoelement(Close_Button);
 			Close_Button.click();
 			rp.wait_for_invisibilty_of_theElement(Intake_Popup);

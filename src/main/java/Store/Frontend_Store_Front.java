@@ -466,10 +466,10 @@ public class Frontend_Store_Front extends Patient_Module {
 		{ Patient_7 },
 		{ Patient_8 },
 		{ Patient_9 },   
-		{ Patient_10 }, */
+		{ Patient_10 }, 
 		{ Patient_11 },
-		{ Patient_12 }, /*
-		{ Patient_13 },
+		{ Patient_12 }, */
+		{ Patient_13 }, /*
 		{ Patient_14 },
 		{ Patient_15 }, 
 		{ Patient_21 }, 

@@ -554,14 +554,22 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	System.out.println("Email | Expected: " + Patient_Email + " | Actual: " + Actual_Email);
 	Assert.assertEquals(Actual_Email, Patient_Email, "Email mismatch.");
 
+	String Phone_Entry = "+1" + Patient_Phone;
+	String Expected_Phone = "1" + Patient_Phone;
+
+	if(Proceed_To_Checkout_Directly == false){
+		Phone_Entry = Patient_Phone;
+		Expected_Phone = Patient_Phone;
+	}
+
 	WebElement Phone_Field = p.Teleform_Phone();
 	rp.movetoelement(Phone_Field);
 	Phone_Field.click();
 	Phone_Field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-	Phone_Field.sendKeys("+1" + Patient_Phone);
+	Phone_Field.sendKeys(Phone_Entry);
 	Phone_Field.sendKeys(Keys.TAB);
 	String Actual_Phone = Phone_Field.getDomProperty("value").replaceAll("\\D", "");
-	Assert.assertEquals(Actual_Phone, "1" + Patient_Phone, "US mobile phone number mismatch.");
+	Assert.assertEquals(Actual_Phone, Expected_Phone, "US mobile phone number mismatch.");
 
 	Teleform_Date_Of_Birth_Selector(Date_Of_Birth, d);
 

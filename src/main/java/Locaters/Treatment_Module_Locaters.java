@@ -17,11 +17,6 @@ public class Treatment_Module_Locaters extends Repeat{
 	private static final By Row_View_Button_Locator = By.xpath(".//span[@class='ant-btn-icon']/..");
 	private static final By Admin_Patient_Details_Rows_Locator = By.xpath(".//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css') and contains(@style,'gap: ')]");
 	private static final By Admin_Patient_Details_Label_Locator = By.xpath(".//span[contains(@class,'text-muted font-') and contains(@style,'min-width:')]");
-	private static final By Intake_Form_Rows_Locator = By.xpath(".//tr[contains(@class,'ant-table-row ant-table-row-level-0')]");
-	private static final By Intake_Popup_Rows_Locator = By.xpath(".//div[contains(@class,'ant-flex-align-flex-start')]");
-	private static final By Intake_Popup_Row_Labels_Locator = By.xpath(".//span[contains(@class,'flex-grow-')]");
-	private static final By Intake_Popup_Row_Values_Locator = By.xpath(".//span[@class='font-14 text-dark']");
-	private static final By Intake_Popup_Close_Button_Locator = By.xpath(".//span[@aria-label='Close']");
 	
 	
 	
@@ -363,17 +358,7 @@ public class Treatment_Module_Locaters extends Repeat{
 	return Treatment_Details_cards;} 
 	public WebElement Intake_popup_form(){
 	wait_for_theElement(Intake_popup_form);
-	return Intake_popup_form;} 
-	public List<WebElement> Intake_Form_Rows(WebElement Intake_Section){
-	return Intake_Section.findElements(Intake_Form_Rows_Locator);}
-	public List<WebElement> Intake_Popup_Rows(WebElement Intake_Popup){
-	return Intake_Popup.findElements(Intake_Popup_Rows_Locator);}
-	public List<WebElement> Intake_Popup_Row_Labels(WebElement Intake_Popup_Row){
-	return Intake_Popup_Row.findElements(Intake_Popup_Row_Labels_Locator);}
-	public List<WebElement> Intake_Popup_Row_Values(WebElement Intake_Popup_Row){
-	return Intake_Popup_Row.findElements(Intake_Popup_Row_Values_Locator);}
-	public WebElement Intake_Popup_Close_Button(WebElement Intake_Popup){
-	return Intake_Popup.findElement(Intake_Popup_Close_Button_Locator);}
+	return Intake_popup_form;}
 	public WebElement Admin_Case_ID_Tooltip(){
 	wait_for_theElement(Admin_Case_ID_Tooltip);
 	return Admin_Case_ID_Tooltip;} /*
