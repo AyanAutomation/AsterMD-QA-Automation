@@ -1120,14 +1120,18 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	String Treatment_Variant = Product_Data.get("Treatment Variant");
 	String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
 	String Button_XPath = ".//div[contains(@class,'desktopIncomplete')]//button";
+	String ID_Verification_Type = Patient_Data.get("ID Verification Type");
+	Boolean Enter_SSN = ID_Verification_Type.equals("Image Only") == false;
+	Boolean Upload_ID_Image = ID_Verification_Type.equals("SSN Only") == false;
 
-	
+
 
 	System.out.println();
 	System.out.println("---------- PATIENT ID VERIFICATION ----------");
 	System.out.println("Patient : " + Patient_Name);
 	System.out.println("Product : " + Product_Name + " | Variant: " + Treatment_Variant);
-	Report_Listen.log_print_in_report().info("Starting ID Verification | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
+	System.out.println("ID Type : " + ID_Verification_Type);
+	Report_Listen.log_print_in_report().info("Starting ID Verification | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant + " | ID Verification Type: " + ID_Verification_Type);
 
 	WebElement Active_Section = p.Active_Tab;
 	Boolean Active_Section_Visible = rp.check_element_visibility(Active_Section, 5);
@@ -1170,43 +1174,69 @@ public class Pateint_Portal extends Frontend_Store_Front{
 								Report_Listen.log_print_in_report().info("ID Verification form opened | Patient: " + Patient_Name + " | Product: " + Product_Name + " | Variant: " + Treatment_Variant);
                                
 								// SSN
-								String SSN = Patient_Data.get("SSN");
-								WebElement SSN_Field = p.ID_Verification_SSN();
-								rp.Scroll_to_element(SSN_Field);
-								rp.movetoelement(SSN_Field);
-								SSN_Field.clear();
-								SSN_Field.sendKeys(SSN);
+								if(Enter_SSN == true){
 
-								String Actual_SSN = SSN_Field.getDomProperty("value");
-								Assert_Check.assertEquals(Actual_SSN, SSN, "ID Verification SSN field does not match the DataProvider value.");
+									String SSN = Patient_Data.get("SSN");
+									WebElement SSN_Field = p.ID_Verification_SSN();
+									rp.Scroll_to_element(SSN_Field);
+									rp.movetoelement(SSN_Field);
+									SSN_Field.clear();
+									SSN_Field.sendKeys(SSN);
 
-								System.out.println();
-								System.out.println("---------------- SSN ENTRY ----------------");
-								System.out.println("Action : SSN entered and field value verified.");
-								System.out.println("Result : PASS");
-								Report_Listen.log_print_in_report().pass("ID Verification SSN entry | Patient: " + Patient_Name + " | Field value matches the DataProvider | Result: PASS");
-                               
+									String Actual_SSN = SSN_Field.getDomProperty("value");
+									Assert_Check.assertEquals(Actual_SSN, SSN, "ID Verification SSN field does not match the DataProvider value.");
+
+									System.out.println();
+									System.out.println("---------------- SSN ENTRY ----------------");
+									System.out.println("Action : SSN entered and field value verified.");
+									System.out.println("Result : PASS");
+									Report_Listen.log_print_in_report().pass("ID Verification SSN entry | Patient: " + Patient_Name + " | Field value matches the DataProvider | Result: PASS");
+
+								}
+
+								if(Enter_SSN == false){
+
+									System.out.println();
+									System.out.println("---------------- SSN ENTRY ----------------");
+									System.out.println("Action : SSN not entered | ID Verification Type: " + ID_Verification_Type);
+									Report_Listen.log_print_in_report().info("ID Verification SSN not entered | Patient: " + Patient_Name + " | ID Verification Type: " + ID_Verification_Type);
+
+								}
+
 								// ID Verification Image
-								String ID_Verification_Image = Patient_Data.get("ID Verification Image");
-								File ID_Verification_File = new File(ID_Verification_Folder, ID_Verification_Image);
-								String ID_Verification_Image_Path = ID_Verification_File.getAbsolutePath();
+								if(Upload_ID_Image == true){
 
-								WebElement Upload_Section = p.ID_Verification_Upload_Section();
-								rp.Scroll_to_element(Upload_Section);
+									String ID_Verification_Image = Patient_Data.get("ID Verification Image");
+									File ID_Verification_File = new File(ID_Verification_Folder, ID_Verification_Image);
+									String ID_Verification_Image_Path = ID_Verification_File.getAbsolutePath();
 
-								WebElement File_Input = p.ID_Verification_File_Input();
-								File_Input.sendKeys(ID_Verification_Image_Path);
+									WebElement Upload_Section = p.ID_Verification_Upload_Section();
+									rp.Scroll_to_element(Upload_Section);
 
-								WebElement Pending_Message = p.Teleform_ID_Upload_Pending_Message();
-								rp.wait_for_invisibilty_of_theElement(Pending_Message);
+									WebElement File_Input = p.ID_Verification_File_Input();
+									File_Input.sendKeys(ID_Verification_Image_Path);
 
-								System.out.println();
-								System.out.println("---------------- ID DOCUMENT SELECTION ----------------");
-								System.out.println("Image  : " + ID_Verification_File.getName());
-								System.out.println("Action : Image supplied to the ID Verification file input.");
-								Report_Listen.log_print_in_report().info("ID Verification image selected | Patient: " + Patient_Name + " | Image: " + ID_Verification_File.getName());
+									WebElement Pending_Message = p.Teleform_ID_Upload_Pending_Message();
+									rp.wait_for_invisibilty_of_theElement(Pending_Message);
 
-								Thread.sleep(1000); 
+									System.out.println();
+									System.out.println("---------------- ID DOCUMENT SELECTION ----------------");
+									System.out.println("Image  : " + ID_Verification_File.getName());
+									System.out.println("Action : Image supplied to the ID Verification file input.");
+									Report_Listen.log_print_in_report().info("ID Verification image selected | Patient: " + Patient_Name + " | Image: " + ID_Verification_File.getName());
+
+									Thread.sleep(1000);
+
+								}
+
+								if(Upload_ID_Image == false){
+
+									System.out.println();
+									System.out.println("---------------- ID DOCUMENT SELECTION ----------------");
+									System.out.println("Action : Image not uploaded | ID Verification Type: " + ID_Verification_Type);
+									Report_Listen.log_print_in_report().info("ID Verification image not uploaded | Patient: " + Patient_Name + " | ID Verification Type: " + ID_Verification_Type);
+
+								}
 
 								// Submit
 								WebElement Submit_Button = p.ID_Verification_Submit_Button();

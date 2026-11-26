@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.TreeMap;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -347,7 +348,17 @@ public class Treatment_Module extends Product_Module{
 					}
 
 					rp.movetoelement(Value);
-					WebElement Case_ID_Tooltip = p.Admin_Case_ID_Tooltip();
+					WebElement Case_ID_Tooltip;
+
+					try{
+						Case_ID_Tooltip = p.Admin_Case_ID_Tooltip();
+					}
+					catch(TimeoutException Tooltip_Not_Visible){
+						rp.movetoelement(Patient_Details_Label);
+						rp.movetoelement(Value);
+						Case_ID_Tooltip = p.Admin_Case_ID_Tooltip();
+					}
+
 					String Full_Case_ID = Case_ID_Tooltip.getDomProperty("textContent").trim();
 
 					if(Full_Case_ID.startsWith(Case_ID_Prefix) == false || Full_Case_ID.length() <= Case_ID_Prefix.length() || Full_Case_ID.contains("...") || Full_Case_ID.contains("…")){
