@@ -488,10 +488,10 @@ public class Frontend_Store_Front extends Patient_Module {
 	return new Object[][] { /*
 		{ Patient_1 },
 		{ Patient_2 },
-		{ Patient_3 },
-		{ Patient_4 },
+		{ Patient_3 }, */
+		{ Patient_4 }, /*
 		{ Patient_5 },
-		{ Patient_6 },
+		{ Patient_6 }, 
 		{ Patient_7 },
 		{ Patient_8 },
 		{ Patient_9 },   
@@ -506,8 +506,8 @@ public class Frontend_Store_Front extends Patient_Module {
 		{ Patient_23 },  
 		{ Patient_24 },
 		{ Patient_25 },
-		{ Patient_26 }, */
-		{ Patient_27 },
+		{ Patient_26 }, 
+		{ Patient_27 }, */
 	};
 
 }
@@ -880,7 +880,7 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_23.put(Substance_Use_Key, "I drink one cup of coffee three mornings a week and one 12-ounce beer about once a month.");
 	Product_23.put(MigraNova_Relief_Days_Key, "1-4 days");
 	Product_23.put(MigraNova_Diagnosed_Key, "Yes");
-	Product_23.put(MigraNova_Pattern_Key, "These headaches began about three years ago. They have affected roughly eight days per month for the last six months.");
+	Product_23.put(MigraNova_Pattern_Key, "These headactruehes began about three years ago. They have affected roughly eight days per month for the last six months.");
 	Product_23.put(MigraNova_Frequency_Key, "4-14 days");
 	Product_23.put(MigraNova_Duration_Key, "More than 24 hours up to 3 days");
 	Product_23.put(MigraNova_Symptoms_Key, "I get strong pulsing pain on one side of my head, nausea, and sensitivity to both light and sound.");
@@ -890,7 +890,7 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_23.put(MigraNova_Previous_Treatment_Key, "Sumatriptan gave partial relief on four days this month. Rest in a quiet, dark room helped me get through longer attacks.");
 
 	TreeMap<String,String> Product_24 = new TreeMap<String,String>(AsterMigraNova_Shared_Data);
-	Product_24.put("Proceed to Checkout Directly", "true");
+	Product_24.put("Proceed to Checkout Directly", "false");
 	Product_24.put("Treatment Variant", "AsterMigraNova - 90 Tablets");
 	Product_24.put("Expected Price", "69.99");
 	Product_24.put("Notes", "I would like the clinician to review the headache frequency since I started the current preventive medicine.");
@@ -939,11 +939,11 @@ public class Frontend_Store_Front extends Patient_Module {
 		
 		{ Product_21 },
 		
-		{ Product_22 }, 
+		{ Product_22 },  */
 		{ Product_23 }, 
 		{ Product_24 },
 		
-		{ Product_25 },   */
+		{ Product_25 },   
 	};
 
 }
