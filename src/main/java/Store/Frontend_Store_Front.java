@@ -465,8 +465,8 @@ public class Frontend_Store_Front extends Patient_Module {
 		{ Patient_6 },
 		{ Patient_7 },
 		{ Patient_8 },
-		{ Patient_9 },   */
-		{ Patient_10 }, 
+		{ Patient_9 },   
+		{ Patient_10 }, */
 		{ Patient_11 },
 		{ Patient_12 }, /*
 		{ Patient_13 },
@@ -888,9 +888,9 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_25.put("Proceed to Checkout Directly", "true");
 	Product_25.put("Checkout Only", "true");
 
-	return new Object[][] {
+	return new Object[][] { /*
 		
-		{ Product_1 },/*
+		{ Product_1 },
 		{ Product_2 },
 		{ Product_3 },
 		{ Product_4 },
@@ -902,8 +902,8 @@ public class Frontend_Store_Front extends Patient_Module {
 		{ Product_10 },
 		{ Product_11 },
 		{ Product_12 },
-		{ Product_13 },
-		{ Product_14 },
+		{ Product_13 }, */
+		{ Product_14 }, /*
 		{ Product_15 },
 		
 		{ Product_21 },

@@ -378,8 +378,10 @@ public class Pateint_Portal extends Frontend_Store_Front{
         if(Proceed_To_Checkout_Directly == false){
 
             System.out.println();
-            System.out.println("Patient Intake | Product: " + Product_Name + " | Result: SKIPPED | Reason: Intake already filled in Product_Choose during storefront checkout.");
-            Report_Listen.log_print_in_report().info("Patient Intake skipped | Product: " + Product_Name + " | Intake already filled during storefront checkout.");
+            System.out.println("Patient Intake | Product: " + Product_Name + " | Result: SKIPPED | Reason: Intake already filled in Product_Choose during storefront checkout. | Proceeding to ID Verification.");
+            Report_Listen.log_print_in_report().info("Patient Intake skipped | Product: " + Product_Name + " | Intake already filled during storefront checkout. | Proceeding to ID Verification.");
+
+            Veirfy_Id_form_filling(Patient_Data, Product_Data);
 
         }
 
