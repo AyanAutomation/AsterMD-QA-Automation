@@ -119,7 +119,8 @@ public void login() throws IOException, InterruptedException {
 		System.out.println("🔹 Step " + step + ": Entering configured Login ID.");
 		System.out.println();
 
-		lg.id_field().sendKeys(Login_id);
+		WebElement Login_ID_Field = lg.id_field();
+		Login_ID_Field.sendKeys(Login_id);
 
 		Report_Listen.log_print_in_report().pass("✅ Login ID entered successfully.");
 		System.out.println("✅ Login ID entered successfully.");
@@ -136,7 +137,8 @@ public void login() throws IOException, InterruptedException {
 		System.out.println("🔹 Step " + step + ": Entering configured Password.");
 		System.out.println();
 
-		lg.password_field().sendKeys(Pass);
+		WebElement Password_Field = lg.password_field();
+		Password_Field.sendKeys(Pass);
 
 		Report_Listen.log_print_in_report().pass("✅ Password entered successfully.");
 		System.out.println("✅ Password entered successfully.");
@@ -153,7 +155,8 @@ public void login() throws IOException, InterruptedException {
 		System.out.println("🔹 Step " + step + ": Clicking the Login button.");
 		System.out.println();
 
-		lg.Login_button().click();
+		WebElement Login_Button = lg.Login_button();
+		Login_Button.click();
      
 		Report_Listen.log_print_in_report().pass("✅ Login button clicked successfully.");
 		System.out.println("✅ Login button clicked successfully.");

@@ -13,6 +13,15 @@ public class Treatment_Module_Locaters extends Repeat{
 	
 	public static final By Patient_Details_Label = By.xpath(".//span[contains(@class,'text-muted font-')]");
 	public static final By Patient_Details_Value = By.xpath(".//span[contains(@class,'text-dark')]");
+	private static final By Treatment_Row_Text_Cells_Locator = By.xpath(".//td//span[contains(@class,'text-dark')]");
+	private static final By Row_View_Button_Locator = By.xpath(".//span[@class='ant-btn-icon']/..");
+	private static final By Admin_Patient_Details_Rows_Locator = By.xpath(".//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css') and contains(@style,'gap: ')]");
+	private static final By Admin_Patient_Details_Label_Locator = By.xpath(".//span[contains(@class,'text-muted font-') and contains(@style,'min-width:')]");
+	private static final By Intake_Form_Rows_Locator = By.xpath(".//tr[contains(@class,'ant-table-row ant-table-row-level-0')]");
+	private static final By Intake_Popup_Rows_Locator = By.xpath(".//div[contains(@class,'ant-flex-align-flex-start')]");
+	private static final By Intake_Popup_Row_Labels_Locator = By.xpath(".//span[contains(@class,'flex-grow-')]");
+	private static final By Intake_Popup_Row_Values_Locator = By.xpath(".//span[@class='font-14 text-dark']");
+	private static final By Intake_Popup_Close_Button_Locator = By.xpath(".//span[@aria-label='Close']");
 	
 	
 	
@@ -48,10 +57,12 @@ public class Treatment_Module_Locaters extends Repeat{
     private WebElement Admin_Patient_Weight;
     @FindBy(xpath="//div[@id='patient-details']//span[normalize-space()='Medications']/following-sibling::span[1]")
     private WebElement Admin_Patient_Medications;
-    @FindBy(xpath="//div[@id='patient-details']//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css')]")
+    @FindBy(xpath="(//div[@class='ant-card-body'])[1]//div[contains(@class,'ant-row css')]//div[contains(@class,'mb-20 ant-flex css') and contains(@style,'gap: ')]")
 	private List<WebElement> Admin_Patient_Details_Rows;
     @FindBy(xpath="//div[@class='ant-card-body']")
 	private List<WebElement> Treatment_Details_cards ; 
+    @FindBy(xpath="//div[@role='tooltip' and contains(@class,'ant-tooltip-container') and not(ancestor::div[contains(@class,'ant-tooltip-hidden')])]")
+	private WebElement Admin_Case_ID_Tooltip;
     @FindBy(xpath="//span[text()='Intake Form']/../../../..")
 	private WebElement Intake_popup_form; /*
     @FindBy(xpath="")
@@ -238,6 +249,10 @@ public class Treatment_Module_Locaters extends Repeat{
     public List<WebElement> Rows(){
     check_element_visibility(Rows,8);
 	return Rows;}
+	public List<WebElement> Treatment_Row_Text_Cells(WebElement Row){
+	return Row.findElements(Treatment_Row_Text_Cells_Locator);}
+	public WebElement Row_View_Button(WebElement Row){
+	return Row.findElement(Row_View_Button_Locator);}
     
 	public WebElement Admin_Patient_Details_Title(){
 	Boolean Visible = check_element_visibility(Admin_Patient_Details_Title, 9);
@@ -249,8 +264,13 @@ public class Treatment_Module_Locaters extends Repeat{
 	}
 }
 	public List<WebElement> Admin_Patient_Details_Rows(){
-	wait_for_displayed_elements(Admin_Patient_Details_Rows);
 	return Admin_Patient_Details_Rows;}
+	public List<WebElement> Admin_Patient_Details_Rows(WebElement Patient_Details_Card){
+	return Patient_Details_Card.findElements(Admin_Patient_Details_Rows_Locator);}
+	public WebElement Admin_Patient_Details_Label(WebElement Patient_Details_Row){
+	return Patient_Details_Row.findElement(Admin_Patient_Details_Label_Locator);}
+	public WebElement Admin_Patient_Details_Value(WebElement Patient_Details_Row){
+	return Patient_Details_Row.findElement(Patient_Details_Value);}
 	public WebElement Admin_Patient_First_Name(){
 	Boolean Visible = check_element_visibility(Admin_Patient_First_Name, 5);
 	if(Visible){
@@ -344,18 +364,19 @@ public class Treatment_Module_Locaters extends Repeat{
 	public WebElement Intake_popup_form(){
 	wait_for_theElement(Intake_popup_form);
 	return Intake_popup_form;} 
-	public String Admin_Case_ID_Tooltip(String Displayed_Case_ID){
-
-	String Case_ID_Prefix = Displayed_Case_ID.replaceFirst("(?:\\.{3}|\u2026)$", "").trim();
-
-	if(Case_ID_Prefix.isBlank()){
-
-	throw new IllegalStateException("Admin Case ID has no visible prefix for the tooltip lookup.");}
-
-	By Case_ID_Tooltip_Locator = By.xpath("//div[@role='tooltip' and contains(@class,'ant-tooltip-container') and starts-with(normalize-space(.),'" + Case_ID_Prefix + "') and string-length(normalize-space(.)) > " + Case_ID_Prefix.length() + " and not(contains(.,'...') or contains(.,'\u2026'))]");
-	WebElement Case_ID_Tooltip = wait_for_presence_of_theElement(Case_ID_Tooltip_Locator);
-	wait_for_theElement(Case_ID_Tooltip);
-	return Case_ID_Tooltip.getDomProperty("textContent").trim();} /*
+	public List<WebElement> Intake_Form_Rows(WebElement Intake_Section){
+	return Intake_Section.findElements(Intake_Form_Rows_Locator);}
+	public List<WebElement> Intake_Popup_Rows(WebElement Intake_Popup){
+	return Intake_Popup.findElements(Intake_Popup_Rows_Locator);}
+	public List<WebElement> Intake_Popup_Row_Labels(WebElement Intake_Popup_Row){
+	return Intake_Popup_Row.findElements(Intake_Popup_Row_Labels_Locator);}
+	public List<WebElement> Intake_Popup_Row_Values(WebElement Intake_Popup_Row){
+	return Intake_Popup_Row.findElements(Intake_Popup_Row_Values_Locator);}
+	public WebElement Intake_Popup_Close_Button(WebElement Intake_Popup){
+	return Intake_Popup.findElement(Intake_Popup_Close_Button_Locator);}
+	public WebElement Admin_Case_ID_Tooltip(){
+	wait_for_theElement(Admin_Case_ID_Tooltip);
+	return Admin_Case_ID_Tooltip;} /*
 	public WebElement (){
 	wait_for_theElement();
 	return ;} public WebElement (){

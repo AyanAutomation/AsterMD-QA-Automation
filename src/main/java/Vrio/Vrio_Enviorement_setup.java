@@ -481,7 +481,9 @@ public void Campaign_Add(TreeMap<String, String> Campaign_data) throws Exception
 	WebElement name = add_form.findElement(By.xpath(".//input[@id='campaign_name']"));
 	WebElement note = add_form.findElement(By.xpath(".//textarea"));
 	
-	if(rp.check_element_visibility(name, 3)){
+	Boolean Name_Field_Visible = rp.check_element_visibility(name, 3);
+
+	if(Name_Field_Visible == true){
 		
 		name.sendKeys(Campaign_Name);
 		
@@ -502,7 +504,9 @@ public void Campaign_Add(TreeMap<String, String> Campaign_data) throws Exception
 		throw new Exception("Campaign Name field was not visible.");
 	}
 	
-	if(rp.check_element_visibility(note, 3)){
+	Boolean Note_Field_Visible = rp.check_element_visibility(note, 3);
+
+	if(Note_Field_Visible == true){
 		
 		note.sendKeys(Notes);
 		
@@ -1317,7 +1321,8 @@ public void Offer_Add_Vrio(TreeMap<String, String> Product_data,TreeMap<String, 
 	
 	Report_Listen.log_print_in_report().info("Action: Closing notification.");
 	
-	p.Toast_Close_Button().click();
+	WebElement Close_Toast_Button = p.Toast_Close_Button();
+	Close_Toast_Button.click();
 	rp.wait_for_invisibilty_of_theElement(toast);
 	
 	System.out.println("Result  : Notification closed successfully.");

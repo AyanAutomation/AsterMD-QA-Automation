@@ -398,7 +398,8 @@ public class Pateint_Portal extends Frontend_Store_Front{
                 p.Treatment_Summary_Loader();
                 List<WebElement> Loaded_Treatment_Cards = p.Incomplete_Treatment_Cards();
                 rp.wait_for_text_in_elements(Loaded_Treatment_Cards, "Progress:");
-                Treatment_Cards = List.copyOf(p.Incomplete_Treatment_Cards());
+                List<WebElement> Refreshed_Treatment_Cards = p.Incomplete_Treatment_Cards();
+                Treatment_Cards = List.copyOf(Refreshed_Treatment_Cards);
 
             }
             catch(TimeoutException Unavailable_Treatments){
@@ -422,7 +423,9 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
                         String Button_Text = Start_Intake_Button.getText().trim();
 
-                        if(rp.check_element_visibility(Start_Intake_Button, 5) == true && Start_Intake_Button.isEnabled() == true){
+                        Boolean Start_Intake_Visible = rp.check_element_visibility(Start_Intake_Button, 5);
+
+                        if(Start_Intake_Visible == true && Start_Intake_Button.isEnabled() == true){
 
                             if(Button_Text.contains("Intake")){
 

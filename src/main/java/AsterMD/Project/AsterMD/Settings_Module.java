@@ -120,7 +120,31 @@ public class Settings_Module extends Product_Module{
 		WebElement Patient_Portal_Radio = p.Verify_in_Patient_Portal_Radio();
 		Boolean Patient_Portal_Checked = Patient_Portal_Radio.isSelected();
 
-		if(Patient_Portal_Checked && p.ID_Upload_Checkbox().isSelected() && p.SSN_Input_Checkbox().isSelected() && p.Verification_Form_Dropdown().getText().trim().equals(Expected_Verification_Form)){
+		Boolean Existing_Configuration_Matches = false;
+
+		if(Patient_Portal_Checked == true){
+
+			WebElement Existing_ID_Upload_Checkbox = p.ID_Upload_Checkbox();
+			Boolean Existing_ID_Upload_Checked = Existing_ID_Upload_Checkbox.isSelected();
+
+			if(Existing_ID_Upload_Checked == true){
+
+				WebElement Existing_SSN_Input_Checkbox = p.SSN_Input_Checkbox();
+				Boolean Existing_SSN_Input_Checked = Existing_SSN_Input_Checkbox.isSelected();
+
+				if(Existing_SSN_Input_Checked == true){
+
+					WebElement Existing_Verification_Form_Dropdown = p.Verification_Form_Dropdown();
+					String Existing_Verification_Form = Existing_Verification_Form_Dropdown.getText().trim();
+					Existing_Configuration_Matches = Existing_Verification_Form.equals(Expected_Verification_Form);
+
+				}
+
+			}
+
+		}
+
+		if(Existing_Configuration_Matches == true){
 
 			System.out.println();
 			System.out.println("---------------- EXISTING CONFIGURATION ----------------");
@@ -265,10 +289,14 @@ public class Settings_Module extends Product_Module{
 				}
 			}
 			}
-			Boolean Actual_Patient_Portal_Checked = p.Verify_in_Patient_Portal_Radio().isSelected();
-			Boolean Actual_ID_Upload_Checked = p.ID_Upload_Checkbox().isSelected();
-			Boolean Actual_SSN_Input_Checked = p.SSN_Input_Checkbox().isSelected();
-			String Actual_Verification_Form = p.Verification_Form_Dropdown().getText().trim();
+			WebElement Updated_Patient_Portal_Radio = p.Verify_in_Patient_Portal_Radio();
+			Boolean Actual_Patient_Portal_Checked = Updated_Patient_Portal_Radio.isSelected();
+			WebElement Updated_ID_Upload_Checkbox = p.ID_Upload_Checkbox();
+			Boolean Actual_ID_Upload_Checked = Updated_ID_Upload_Checkbox.isSelected();
+			WebElement Updated_SSN_Input_Checkbox = p.SSN_Input_Checkbox();
+			Boolean Actual_SSN_Input_Checked = Updated_SSN_Input_Checkbox.isSelected();
+			WebElement Updated_Verification_Form_Dropdown = p.Verification_Form_Dropdown();
+			String Actual_Verification_Form = Updated_Verification_Form_Dropdown.getText().trim();
 
 			System.out.println();
 			System.out.println("---------------- VERIFY UPDATED SETTINGS ----------------");
