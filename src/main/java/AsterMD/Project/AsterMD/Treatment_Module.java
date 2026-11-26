@@ -382,19 +382,11 @@ public class Treatment_Module extends Product_Module{
 
 			if(Label_text.equals("Email") && (Value_text.endsWith("...") || Value_text.endsWith("…"))){
 
-				String Full_Email = Value.getDomAttribute("title");
+				WebElement Email_Info_Icon = p.Admin_Email_Info_Icon();
+				rp.movetoelement(Email_Info_Icon);
 
-				if(Full_Email == null || Full_Email.isBlank()){
-
-					Full_Email = Value.getDomProperty("textContent");
-
-				}
-
-				if(Full_Email != null && Full_Email.isBlank() == false){
-
-					Value_text = Full_Email.trim();
-
-				}
+				WebElement Email_Tooltip = p.Admin_Email_Tooltip();
+				Value_text = Email_Tooltip.getDomProperty("textContent").trim();
 
 			}
 

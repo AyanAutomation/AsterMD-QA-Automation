@@ -465,18 +465,18 @@ public class Frontend_Store_Front extends Patient_Module {
 		{ Patient_6 },
 		{ Patient_7 },
 		{ Patient_8 },
-		{ Patient_9 },
-		{ Patient_10 },
+		{ Patient_9 },   */
+		{ Patient_10 }, 
 		{ Patient_11 },
-		{ Patient_12 },
+		{ Patient_12 }, /*
 		{ Patient_13 },
 		{ Patient_14 },
 		{ Patient_15 }, 
 		{ Patient_21 }, 
 		{ Patient_22 }, 
-		{ Patient_23 },  */
-		{ Patient_24 },/*
-		{ Patient_25 }, */
+		{ Patient_23 },  
+		{ Patient_24 },
+		{ Patient_25 },  */
 	};
 
 }
@@ -519,7 +519,7 @@ public class Frontend_Store_Front extends Patient_Module {
 	Reflux_Intake_Data.put("Intake Q&A - Describe reflux treatments or lifestyle changes you have tried and how they worked. Enter None if you have tried none.", "Tried smaller meals and avoiding late-night food with partial relief.");
 
 	TreeMap<String,String> Product_1 = new TreeMap<String,String>(Shared_Intake_Data);
-	Product_1.put("Proceed to Checkout Directly", "false");
+	Product_1.put("Proceed to Checkout Directly", "true");
 	Product_1.put("Product Name", "AsterSomnera Sleep Support Tablets");
 	Product_1.put("Treatment Variant", "30 Tablet Supply");
 	Product_1.put("Subscription Type", "One-Time Sale");
@@ -889,15 +889,15 @@ public class Frontend_Store_Front extends Patient_Module {
 	Product_25.put("Checkout Only", "true");
 
 	return new Object[][] {
-		/*
-		{ Product_1 },
+		
+		{ Product_1 },/*
 		{ Product_2 },
 		{ Product_3 },
 		{ Product_4 },
 		{ Product_5 },
 		{ Product_6 },
-		{ Product_7 },
-		{ Product_8 },
+		{ Product_7 }, 
+		{ Product_8 }, 
 		{ Product_9 },
 		{ Product_10 },
 		{ Product_11 },
@@ -908,8 +908,8 @@ public class Frontend_Store_Front extends Patient_Module {
 		
 		{ Product_21 },
 		
-		{ Product_22 }, */
-		{ Product_23 }, /*
+		{ Product_22 }, 
+		{ Product_23 }, 
 		{ Product_24 },
 		
 		{ Product_25 }, */

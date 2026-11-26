@@ -32,6 +32,10 @@ public class Treatment_Module_Locaters extends Repeat{
     private WebElement Admin_Patient_Last_Name;
     @FindBy(xpath="//div[@id='patient-details']//span[normalize-space()='Email']/following-sibling::span[1]")
     private WebElement Admin_Patient_Email;
+    @FindBy(xpath="//div[@id='patient-details']//span[normalize-space()='Email']/following-sibling::span[1]//*[local-name()='svg' and contains(concat(' ', normalize-space(@class), ' '), ' lucide-info ')]")
+    private WebElement Admin_Email_Info_Icon;
+    @FindBy(xpath="//div[contains(concat(' ', normalize-space(@class), ' '), ' ant-tooltip ') and not(contains(concat(' ', normalize-space(@class), ' '), ' ant-tooltip-hidden '))]//span[contains(concat(' ', normalize-space(@class), ' '), ' text-break ') and contains(normalize-space(.), '@')]")
+    private WebElement Admin_Email_Tooltip;
     @FindBy(xpath="//div[@id='patient-details']//span[normalize-space()='Phone']/following-sibling::span[1]")
     private WebElement Admin_Patient_Phone;
     @FindBy(xpath="//div[@id='patient-details']//span[normalize-space()='Date of Birth']/following-sibling::span[1]")
@@ -274,6 +278,12 @@ public class Treatment_Module_Locaters extends Repeat{
 		throw new IllegalStateException("Admin Patient Email is not visible.");
 	}
 }
+	public WebElement Admin_Email_Info_Icon(){
+	wait_for_theElement(Admin_Email_Info_Icon);
+	return Admin_Email_Info_Icon;}
+	public WebElement Admin_Email_Tooltip(){
+	wait_for_theElement(Admin_Email_Tooltip);
+	return Admin_Email_Tooltip;}
 	public WebElement Admin_Patient_Phone(){
 	Boolean Visible = check_element_visibility(Admin_Patient_Phone, 5);
 	if(Visible){

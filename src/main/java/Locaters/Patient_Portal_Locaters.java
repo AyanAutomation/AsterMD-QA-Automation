@@ -84,33 +84,33 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Intake_Date_Of_Birth;
     @FindBy(xpath="//div[@class='ant-collapse-item ant-collapse-item-active']//div[contains(@class,'ant-collapse-panel-active')]")
 	public WebElement Active_Tab;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')] | //form[@data-intake-form]")
 	private WebElement Teleform_Main;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'formProgressMeta')]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//span[contains(@class,'formProgressStepCurrent')] | //div[@data-funnel-stepper]//span[@data-stepper-circle and contains(concat(' ',normalize-space(@class),' '),' bg-primary ')]")
 	private WebElement Teleform_Page_Indicator;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//input[@type='email' and @placeholder='Enter the email used for your order']")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//input[@type='email' and @placeholder='Enter the email used for your order'] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//input[@type='email' and @placeholder='Enter the email used for your order']")
 	private WebElement Teleform_Account_Email;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//textarea]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//textarea] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//div[@data-intake-field][.//textarea]")
 	private List<WebElement> Teleform_Textarea_Cards;
     @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//textarea]//textarea")
 	private List<WebElement> Teleform_Textareas;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//input[@type='radio' or @type='checkbox']]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//input[@type='radio' or @type='checkbox']] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//div[@data-intake-field][.//input[@type='radio' or @type='checkbox']]")
 	private List<WebElement> Teleform_Choice_Cards;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//input[@placeholder='Select date']")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//input[@placeholder='Select date'] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//input[@placeholder='Select your date of birth']")
 	private WebElement Teleform_DOB_Input;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Sex for your medical record']]//div[contains(@class,'ant-select-show-arrow')]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Sex for your medical record']]//div[contains(@class,'ant-select-show-arrow')] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//div[@data-intake-field][label[normalize-space(text())='Sex for your medical record']]//select")
 	private WebElement Teleform_Sex_Dropdown;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//input[@type='tel' and @placeholder='10-digit US mobile number']")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//input[@type='tel' and @placeholder='10-digit US mobile number'] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//input[@type='tel' and @placeholder='10-digit US mobile number']")
 	private WebElement Teleform_Phone;
     @FindBy(xpath="//section[contains(@class,'canvasPreview')]//label[contains(@class,'ant-checkbox-wrapper') and contains(.,'I have read and agree to')]/span[contains(concat(' ',normalize-space(@class),' '),' ant-checkbox ')]")
 	private WebElement Teleform_Terms_Consent;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Which concern are you requesting care for?']]//div[contains(@class,'ant-select-show-arrow')]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Which concern are you requesting care for?']]//div[contains(@class,'ant-select-show-arrow')] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//div[@data-intake-field][label[normalize-space(text())='Which concern are you requesting care for?']]//select")
 	private WebElement Teleform_Care_Reason_Dropdown;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Residential state']]//div[contains(@class,'ant-select-show-arrow')]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Residential state']]//div[contains(@class,'ant-select-show-arrow')] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//div[@data-intake-field][label[normalize-space(text())='Residential state']]//select")
 	private WebElement Teleform_Residential_State_Dropdown;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='State where you are physically located for this visit']]//div[contains(@class,'ant-select-show-arrow')]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='State where you are physically located for this visit']]//div[contains(@class,'ant-select-show-arrow')] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//div[@data-intake-field][label[normalize-space(text())='State where you are physically located for this visit']]//select")
 	private WebElement Teleform_Current_Location_State_Dropdown;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//label[contains(@class,'ant-checkbox-wrapper') and (contains(.,'I confirm that I am the patient') or contains(.,'I have read and agree to'))]/span[contains(concat(' ',normalize-space(@class),' '),' ant-checkbox ')]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//label[contains(@class,'ant-checkbox-wrapper') and (contains(.,'I confirm that I am the patient') or contains(.,'I have read and agree to'))]/span[contains(concat(' ',normalize-space(@class),' '),' ant-checkbox ')] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//div[@data-intake-field]//label[contains(.,'I confirm that I am the patient') or contains(.,'I have read and agree to')]")
 	private List<WebElement> Teleform_Consent_Checkboxes;
     @FindBy(xpath="//div[contains(concat(' ',normalize-space(@class),' '),' ant-select-dropdown ') and not(contains(concat(' ',normalize-space(@class),' '),' ant-select-dropdown-hidden '))]//*[contains(concat(' ',normalize-space(@class),' '),' ant-select-item-option ') and not(contains(concat(' ',normalize-space(@class),' '),' ant-select-item-option-disabled '))]")
 	private List<WebElement> Teleform_Dropdown_Options;
@@ -124,7 +124,7 @@ public class Patient_Portal_Locaters extends Repeat {
 	private WebElement Teleform_DOB_Month_Button;
     @FindBy(xpath="//div[contains(@class,'ant-picker-month-panel')]//td[contains(@class,'ant-picker-cell-in-view')]")
 	private List<WebElement> Teleform_DOB_Months;
-    @FindBy(xpath="//div[contains(@class,'ant-picker-date-panel')]//td[@title and contains(@class,'ant-picker-cell-in-view') and not(contains(@class,'ant-picker-cell-disabled'))]")
+    @FindBy(xpath="//div[contains(@class,'ant-picker-date-panel')]//td[@title and contains(@class,'ant-picker-cell-in-view') and not(contains(@class,'ant-picker-cell-disabled'))] | //div[@data-datepicker-panel and not(contains(@class,'hidden'))]//div[@data-datepicker-days]/button[contains(concat(' ',normalize-space(@class),' '),' bg-primary ')]")
 	private List<WebElement> Teleform_DOB_Days;
     @FindBy(xpath="//main//div[contains(@class,'summaryText')]//h3")
 	private List<WebElement> Teleform_Completed_Products;
@@ -144,19 +144,19 @@ public class Patient_Portal_Locaters extends Repeat {
 	private List<WebElement> Teleform_Additional_File_Inputs;
     @FindBy(css="div[role='alert'], main div[class*='__fieldError'], main .ant-form-item-explain-error, main input:invalid, main textarea:invalid, main select:invalid")
 	public List<WebElement> Teleform_Submission_Messages;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Legal first name']]//input[@placeholder]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Legal first name']]//input[@placeholder] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//div[@data-intake-field][label[normalize-space(text())='Legal first name']]//input[@placeholder]")
 	private WebElement Teleform_First_Name;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Legal last name']]//input[@placeholder]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Legal last name']]//input[@placeholder] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//div[@data-intake-field][label[normalize-space(text())='Legal last name']]//input[@placeholder]")
 	private WebElement Teleform_Last_Name;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Residential street address, including apartment or unit']]//input[@placeholder]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='Residential street address, including apartment or unit']]//input[@placeholder] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//div[@data-intake-field][label[normalize-space(text())='Residential street address, including apartment or unit']]//input[@placeholder]")
 	private WebElement Teleform_Address;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='City']]//input[@placeholder]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='City']]//input[@placeholder] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//div[@data-intake-field][label[normalize-space(text())='City']]//input[@placeholder]")
 	private WebElement Teleform_City;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='ZIP code (5 digits)']]//input[@placeholder]")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='ZIP code (5 digits)']]//input[@placeholder] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//div[@data-intake-field][label[normalize-space(text())='ZIP code (5 digits)']]//input[@placeholder]")
 	private WebElement Teleform_ZIP;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//button[contains(@class,'ant-btn-color-default') and normalize-space()='Continue']")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//button[contains(@class,'ant-btn-color-default') and normalize-space()='Continue'] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//button[@data-intake-action='next_page' and normalize-space()='Continue']")
 	private WebElement Teleform_Continue_Button;
-    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//button[contains(@class,'ant-btn-color-default') and normalize-space()='Submit intake']")
+    @FindBy(xpath="//section[contains(@class,'canvasPreview')]//button[contains(@class,'ant-btn-color-default') and normalize-space()='Submit intake'] | //form[@data-intake-form]//div[@data-intake-page and not(@hidden)]//button[@data-intake-action='submit' and normalize-space()='Submit intake']")
 	private WebElement Teleform_Submit_Button;
     @FindBy(xpath="//div[contains(@class,'__sectionBlock')]")
 	private WebElement ID_Verification_Form;
