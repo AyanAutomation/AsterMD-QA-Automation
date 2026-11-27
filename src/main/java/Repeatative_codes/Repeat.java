@@ -67,7 +67,7 @@ public class Repeat {
 
 	public void wait_for_theElement(List<WebElement> element) {
 		if (element == null || element.isEmpty()) throw new IllegalArgumentException("Element list is null or empty. Check the locator or timing.");
-		WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(10));
+		WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(20));
 		w.until(ExpectedConditions.visibilityOfAllElements(element));
 	}
 

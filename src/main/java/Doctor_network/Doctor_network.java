@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.json.Json;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import AsterMD.Project.AsterMD.Data_Reader;
 import Listerners.Report_Listen;
@@ -22,21 +23,83 @@ import Store.Frontend_Store_Front;
 public class Doctor_network extends Frontend_Store_Front{
 	
 
-	
+
 	public void Simulator_Accessor(WebDriver d) throws IOException, InterruptedException{
 		
 		
 		Dr_Network_locaters p = new Dr_Network_locaters(d);
 		Data_Reader f = new Data_Reader();
+		Repeat rp = new Repeat(d);
 
 		String url = f.Data_Fetcher("Simulator_URL");
+		String Login_id=f.Data_Fetcher("Login_id");
+		String Password=f.Data_Fetcher("G_pass");
+
+		System.out.println();
+		System.out.println("---------------- DOCTOR NETWORK SIMULATOR ACCESS ----------------");
+		Report_Listen.log_print_in_report().info("──────────────────── DOCTOR NETWORK SIMULATOR ACCESS ────────────────────");
+		Report_Listen.log_print_in_report().info("<b>Action:</b> Open the Doctor Network Simulator and sign in with the configured Google account.");
+
+		System.out.println();
+		System.out.println("Step 1 : Opening Doctor Network Simulator URL: " + url);
+		Report_Listen.log_print_in_report().info("<b>Step 1:</b> Open the Doctor Network Simulator URL: " + url);
 
 		d.navigate().to(url);
 		Thread.sleep(800);
+        WebElement Sign_in_Google_Button = p.Signin_with_Google_Button();
 
+        System.out.println();
+        System.out.println("Result : Simulator sign-in page opened. 'Sign in with Google' button is visible.");
+        Report_Listen.log_print_in_report().pass("Simulator sign-in page opened. 'Sign in with Google' button is visible.");
+
+        System.out.println();
+        System.out.println("Step 2 : Clicking 'Sign in with Google'.");
+        Report_Listen.log_print_in_report().info("<b>Step 2:</b> Click 'Sign in with Google'.");
+        rp.movetoelement(Sign_in_Google_Button);
+        Sign_in_Google_Button.click();
+        
+        WebElement Email_input=p.Email_input_box();
+
+        System.out.println();
+        System.out.println("Step 3 : Google sign-in page displayed. Entering the configured Google account email.");
+        Report_Listen.log_print_in_report().info("<b>Step 3:</b> Google sign-in page displayed. Enter the configured Google account email.");
+        Email_input.sendKeys(Login_id);
+        WebElement NExt_Button=p.Next_Button();
+        rp.movetoelement(NExt_Button);
+        NExt_Button.click();
+
+        System.out.println();
+        System.out.println("Result : Email entered and 'Next' clicked.");
+        Report_Listen.log_print_in_report().pass("Google account email entered and 'Next' clicked. The credential value is not logged.");
+
+        WebElement Password_input=p.Password_field();
+
+        System.out.println();
+        System.out.println("Step 4 : Password page displayed. Entering the configured Google account password.");
+        Report_Listen.log_print_in_report().info("<b>Step 4:</b> Password page displayed. Enter the configured Google account password.");
+        rp.movetoelement(Password_input);
+        Password_input.sendKeys(Password);
+        WebElement New_NExt_Button=p.Next_Button();
+        rp.movetoelement(New_NExt_Button);
+        New_NExt_Button.click();
+
+        System.out.println();
+        System.out.println("Result : Password entered and 'Next' clicked.");
+        Report_Listen.log_print_in_report().pass("Google account password entered and 'Next' clicked. The credential value is not logged.");
+        
+        
+        
+		System.out.println();
+		System.out.println("Step 5 : Verifying the Doctor Network Simulator dashboard after Google sign-in.");
+		Report_Listen.log_print_in_report().info("<b>Step 5:</b> Verify the Doctor Network Simulator dashboard after Google sign-in.");
 		p.Landed_in_Simulator();
+		
+		
 
+		System.out.println();
 		System.out.println("Landed in Simulator");
+		System.out.println("Result : PASS");
+		Report_Listen.log_print_in_report().pass("Signed in with Google and landed on the Doctor Network Simulator dashboard.");
 		
 		}
 	
@@ -110,7 +173,7 @@ public class Doctor_network extends Frontend_Store_Front{
 		WebElement Search_Input = p.Search();
 		rp.movetoelement(Search_Input);
 		Search_Input.clear();
-		Search_Input.sendKeys(Patient_Name);
+		Search_Input.sendKeys(CaseID);
 		Thread.sleep(800);
 
 		List<WebElement> Rows = p.Visit_Rows();
@@ -158,6 +221,71 @@ public class Doctor_network extends Frontend_Store_Front{
 		}
 
 		return Webhook_Event_Trigger(Network, Event, Target_Endpoint, CaseID, Patient_Name, Doctor_Name, d);
+
+	}
+
+	public void Beluga_Visit_Edited_Patient_Check(TreeMap<String,String> Patient_Data, TreeMap<String,String> Edit_Patient_Data, WebDriver d) throws IOException, InterruptedException{
+
+		Dr_Network_locaters p = new Dr_Network_locaters(d);
+		Repeat rp = new Repeat(d);
+
+		String Patient_Email = Patient_Data.get("Email");
+		String Edited_Patient_Name = Edit_Patient_Data.get("First Name") + " " + Edit_Patient_Data.get("Last Name");
+		String Edited_Phone_Number = Edit_Patient_Data.get("Phone Number");
+		String Network = "Beluga Health";
+
+		System.out.println();
+		System.out.println("---------------- BELUGA EDITED PATIENT VERIFICATION ----------------");
+		System.out.println("Edited Patient: " + Edited_Patient_Name + " | Phone Number: " + Edited_Phone_Number + " | Email: " + Patient_Email);
+		Report_Listen.log_print_in_report().info("Searching Beluga Visits for the edited patient | Patient: " + Edited_Patient_Name + " | Email: " + Patient_Email);
+
+		Dr_network_Accessor(Network, "Visits", d);
+		p.Visit_Table();
+
+		WebElement Search_Input = p.Search();
+		rp.movetoelement(Search_Input);
+		Search_Input.clear();
+		Search_Input.sendKeys(Edited_Patient_Name);
+		Thread.sleep(800);
+
+		List<WebElement> Rows = p.Visit_Rows();
+		Boolean Visit_Rows_Visible = rp.check_element_visibility(Rows, 3);
+		Assert.assertTrue(Visit_Rows_Visible == true, "No Beluga visit found for the edited patient name | Patient: " + Edited_Patient_Name);
+
+		Visit_Loop:{
+
+			for(WebElement Row : Rows){
+
+				WebElement Visit_Patient_Cell = Row.findElement(Dr_Network_locaters.Visit_Patient);
+				String[] Visit_Patient_Lines = Visit_Patient_Cell.getText().trim().split("\\R");
+				String Actual_Patient_Name = Visit_Patient_Lines[0].trim();
+				String Actual_Phone_Number = Visit_Patient_Lines[Visit_Patient_Lines.length - 1].trim().replaceAll("\\D", "");
+
+				if(Actual_Patient_Name.equalsIgnoreCase(Edited_Patient_Name)){
+
+					System.out.println("Visit Patient | Expected: " + Edited_Patient_Name + " | Actual: " + Actual_Patient_Name);
+					System.out.println("Visit Phone   | Expected: " + Edited_Phone_Number + " | Actual: " + Actual_Phone_Number);
+					Assert.assertEquals(Actual_Phone_Number, Edited_Phone_Number, "Beluga visit phone number does not show the edited value | Patient: " + Edited_Patient_Name);
+
+					rp.movetoelement(Row);
+					Row.click();
+
+					WebElement Visit_Patient_Email_Field = p.Visit_Patient_Email();
+					String Actual_Patient_Email = Visit_Patient_Email_Field.getText().trim();
+					System.out.println("Visit Email   | Expected: " + Patient_Email + " | Actual: " + Actual_Patient_Email);
+					Assert.assertEquals(Actual_Patient_Email, Patient_Email, "Beluga visit email mismatch for the edited patient | Patient: " + Edited_Patient_Name);
+
+					System.out.println("Beluga Edited Patient : PASS | Edited name, phone number and email verified.");
+					Report_Listen.log_print_in_report().pass("Beluga visit shows the edited patient | Patient: " + Actual_Patient_Name + " | Phone Number: " + Actual_Phone_Number + " | Email: " + Actual_Patient_Email);
+					break Visit_Loop;
+
+				}
+
+			}
+
+			Assert.fail("No Beluga visit matched the edited patient name | Patient: " + Edited_Patient_Name + " | Email: " + Patient_Email);
+
+		}
 
 	}
 

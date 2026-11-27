@@ -28,6 +28,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.Assertion;
 
 import AsterMD.Project.AsterMD.Patient_Module;
+import Doctor_network.Doctor_network;
 import Listerners.Report_Listen;
 import Locaters.Patient_Module_Locaters;
 import Locaters.Patient_Portal_Locaters;
@@ -51,23 +52,35 @@ public class Pateint_Portal extends Frontend_Store_Front{
 	System.out.println("Patient Email : " + Patient_Email);
 	Report_Listen.log_print_in_report().info("Starting Patient Portal access | Patient: " + Patient_Email + " | First path: Admin Portal Access URL");
 
-	try{
+  try{
 
 		System.out.println();
 		System.out.println("Login Path : Admin Portal Access URL");
 		Report_Listen.log_print_in_report().info("Trying Admin Portal Access URL | Patient: " + Patient_Email);
 
 		patient_portal_login_via_Admin(Patient_Email);
+		
+		 
+		Boolean Tab_Visible =rp.check_element_visibility(p.Header_Tab, 12);
+		
+		if(Tab_Visible) {
+		
 		p.Header_Tab();
 
 		System.out.println();
 		System.out.println("Admin Portal Access | Patient: " + Patient_Email + " | Result: PASS");
 		Report_Listen.log_print_in_report().pass("Admin Portal Access | Patient: " + Patient_Email + " | Patient Portal header verified | Result: PASS");
 
-		return "Admin_login";
-
-	}
-	catch(Exception Admin_Login_Error){
+		return "Admin_login";}
+		
+		else{
+			
+			return null;
+		}
+		
+      }
+	
+	  catch(Exception Admin_Login_Error){
 
 		System.out.println();
 		System.out.println("Admin Portal Access | Result: FALLBACK | Reason: " + Admin_Login_Error.getClass().getSimpleName());
@@ -158,8 +171,9 @@ public class Pateint_Portal extends Frontend_Store_Front{
 
 		return "yopmail_login";
 
-	}
-
+	} 
+        
+		
 }
    
    
@@ -297,17 +311,142 @@ public class Pateint_Portal extends Frontend_Store_Front{
 		System.out.println();
 		System.out.println("Patient Portal Login | Path: Yopmail credential setup | Patient: " + Patient_Name + " | Result: PASS");
 		Report_Listen.log_print_in_report().pass("Patient Portal Login | Path: Yopmail credential setup | Patient: " + Patient_Email + " | Portal header visible | Result: PASS");
-
-	}
+        }
+	
+	   
 
 }
 
+   
+   @Test(dataProvider="Patient_Profile_Edit_Data", dataProviderClass=Frontend_Store_Front.class)
+   public void Patient_Profile_details_Edit(TreeMap<String,String> Patient_Data, TreeMap<String,String> Edit_Patient_Data) throws Exception{
+
+	   Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
+	   Repeat rp = new Repeat(d);
+
+	   String Patient_Name = Patient_Data.get("First Name") + " " + Patient_Data.get("Last Name");
+	   String Patient_Email = Patient_Data.get("Email");
+	   String Edit_First_Name = Edit_Patient_Data.get("First Name");
+	   String Edit_Middle_Name = Edit_Patient_Data.get("Middle Name");
+	   String Edit_Last_Name = Edit_Patient_Data.get("Last Name");
+	   String Edit_Phone_Number = Edit_Patient_Data.get("Phone Number");
+
+
+		Patient_portal_header_menu_navigator("My Profile", Patient_Data, Edit_Patient_Data);
+		WebElement Personal_Information_Sections = p.Profile_Personal_Information_Section();
+		rp.movetoelement(Personal_Information_Sections);
+
+		List<WebElement> Inputs = Personal_Information_Sections.findElements(By.xpath(".//input"));
+		rp.check_element_visibility(Inputs, 8);
+		WebElement FirstName =Inputs.get(0);
+		WebElement MiddleName =Inputs.get(1);
+		WebElement LastName =Inputs.get(2);
+		WebElement PhNum =Inputs.get(4);
+
+		System.out.println();
+		System.out.println("---------- PATIENT PROFILE EDIT ----------");
+		System.out.println("Patient : " + Patient_Name);
+		System.out.println("Email   : " + Patient_Email);
+		Report_Listen.log_print_in_report().info("Starting Patient Profile Edit | Patient: " + Patient_Name + " | Email: " + Patient_Email);
+
+		rp.movetoelement(FirstName);
+		FirstName.click();
+		FirstName.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		FirstName.sendKeys(Edit_First_Name);
+		String Actual_First_Name = FirstName.getDomProperty("value");
+		System.out.println();
+		System.out.println("First Name | Expected: " + Edit_First_Name + " | Actual: " + Actual_First_Name);
+		Assert.assertEquals(Actual_First_Name, Edit_First_Name, "First Name mismatch.");
+
+		rp.movetoelement(MiddleName);
+		MiddleName.click();
+		MiddleName.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		MiddleName.sendKeys(Edit_Middle_Name);
+		String Actual_Middle_Name = MiddleName.getDomProperty("value");
+		System.out.println();
+		System.out.println("Middle Name | Expected: " + Edit_Middle_Name + " | Actual: " + Actual_Middle_Name);
+		Assert.assertEquals(Actual_Middle_Name, Edit_Middle_Name, "Middle Name mismatch.");
+
+		rp.movetoelement(LastName);
+		LastName.click();
+		LastName.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		LastName.sendKeys(Edit_Last_Name);
+		String Actual_Last_Name = LastName.getDomProperty("value");
+		System.out.println();
+		System.out.println("Last Name | Expected: " + Edit_Last_Name + " | Actual: " + Actual_Last_Name);
+		Assert.assertEquals(Actual_Last_Name, Edit_Last_Name, "Last Name mismatch.");
+
+		rp.movetoelement(PhNum);
+		PhNum.click();
+		PhNum.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		PhNum.sendKeys(Edit_Phone_Number);
+		String Actual_Phone_Number = PhNum.getDomProperty("value").replaceAll("\\D", "");
+		System.out.println();
+		System.out.println("Phone Number | Expected: " + Edit_Phone_Number + " | Actual: " + Actual_Phone_Number);
+		Assert.assertEquals(Actual_Phone_Number, Edit_Phone_Number, "Phone Number mismatch.");
+
+		Report_Listen.log_print_in_report().pass("Patient Profile fields entered | First Name: " + Actual_First_Name + " | Middle Name: " + Actual_Middle_Name + " | Last Name: " + Actual_Last_Name + " | Phone Number: " + Actual_Phone_Number);
+
+		WebElement Save_Button = p.Profile_Save_Button();
+		rp.movetoelement(Save_Button);
+		Save_Button.click();
+
+		WebElement Success_Toast = p.Portal_Success_Toast;
+		Boolean Toast_Visible = rp.check_element_visibility(Success_Toast, 10);
+		Assert.assertTrue(Toast_Visible, "Profile update success notification was not displayed within 10 seconds.");
+
+		WebElement Toast_Title_Element = Success_Toast.findElement(By.xpath(".//div[contains(@class,'ant-notification-notice-title')]"));
+		WebElement Toast_Description_Element = Success_Toast.findElement(By.xpath(".//div[contains(@class,'ant-notification-notice-description')]"));
+		String Toast_Title = Toast_Title_Element.getText().trim();
+		String Toast_Description = Toast_Description_Element.getText().trim();
+		System.out.println();
+		System.out.println("---------- PROFILE UPDATE TOAST ----------");
+		System.out.println("Title       : " + Toast_Title);
+		System.out.println("Description : " + Toast_Description);
+		Assert.assertEquals(Toast_Title, "Action Successful", "Profile update notification title mismatch.");
+		Report_Listen.log_print_in_report().pass("Patient Profile saved | Notification: " + Toast_Title + " | " + Toast_Description);
+
+		d.navigate().refresh();
+		WebElement Saved_Personal_Information_Section = p.Profile_Personal_Information_Section();
+		rp.movetoelement(Saved_Personal_Information_Section);
+		Thread.sleep(2000);
+
+		List<WebElement> Saved_Inputs = Saved_Personal_Information_Section.findElements(By.xpath(".//input"));
+		rp.check_element_visibility(Saved_Inputs, 8);
+		WebElement Saved_FirstName = Saved_Inputs.get(0);
+		WebElement Saved_MiddleName = Saved_Inputs.get(1);
+		WebElement Saved_LastName = Saved_Inputs.get(2);
+		WebElement Saved_PhNum = Saved_Inputs.get(4);
+		String Saved_First_Name = Saved_FirstName.getDomProperty("value");
+		String Saved_Middle_Name = Saved_MiddleName.getDomProperty("value");
+		String Saved_Last_Name = Saved_LastName.getDomProperty("value");
+		String Saved_Phone_Number = Saved_PhNum.getDomProperty("value").replaceAll("\\D", "");
+
+		System.out.println();
+		System.out.println("---------- PATIENT PROFILE AFTER RELOAD ----------");
+		System.out.println("First Name   | Expected: " + Edit_First_Name + " | Actual: " + Saved_First_Name);
+		System.out.println("Middle Name  | Expected: " + Edit_Middle_Name + " | Actual: " + Saved_Middle_Name);
+		System.out.println("Last Name    | Expected: " + Edit_Last_Name + " | Actual: " + Saved_Last_Name);
+		System.out.println("Phone Number | Expected: " + Edit_Phone_Number + " | Actual: " + Saved_Phone_Number);
+		Assert.assertEquals(Saved_First_Name, Edit_First_Name, "Saved First Name mismatch after reload.");
+		Assert.assertEquals(Saved_Middle_Name, Edit_Middle_Name, "Saved Middle Name mismatch after reload.");
+		Assert.assertEquals(Saved_Last_Name, Edit_Last_Name, "Saved Last Name mismatch after reload.");
+		Assert.assertEquals(Saved_Phone_Number, Edit_Phone_Number, "Saved Phone Number mismatch after reload.");
+		Report_Listen.log_print_in_report().pass("Patient Profile edit persisted after reload | Patient: " + Patient_Email + " | Name: " + Saved_First_Name + " " + Saved_Middle_Name + " " + Saved_Last_Name + " | Phone Number: " + Saved_Phone_Number);
+
+		Doctor_network Dr_Network = new Doctor_network();
+		Dr_Network.Beluga_Visit_Edited_Patient_Check(Patient_Data, Edit_Patient_Data, d);
+   }
 
    
    public void Patient_portal_header_menu_navigator(String Option, TreeMap<String,String> Patient_Data, TreeMap<String,String> Product_Data) throws Exception{
 
 	Patient_Portal_Locaters p = new Patient_Portal_Locaters(d);
 	Repeat rp = new Repeat(d);
+	
+	
+	
+	
 	Patient_Portal_Login(Patient_Data, Product_Data);
 	List<WebElement> Menu_Options = p.Patient_Portal_Header_Menu_Options();
 

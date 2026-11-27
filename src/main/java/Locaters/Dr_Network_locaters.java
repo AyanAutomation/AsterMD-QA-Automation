@@ -48,15 +48,15 @@ public class Dr_Network_locaters extends Repeat {
     @FindBy(xpath="//h6[contains(@class,'card-title')]/span[contains(@class,'status-badge') and contains(@class,'bg-success') and normalize-space()='200']")
 	private WebElement Webhook_HTTP_200_Success;
     @FindBy(id="sendBtn")
-	private WebElement Send_Button; /*
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
-    @FindBy(xpath="")
-	private WebElement ; 
+	private WebElement Send_Button; 
+    @FindBy(xpath="//a[contains(@href,'/auth/login')]")
+	private WebElement Signin_with_Google_Button; 
+    @FindBy(xpath="//input[@type='text' and @name='identifier']")
+	private WebElement Email_input_box; 
+    @FindBy(xpath="//*[text()='Next']/..")
+	private WebElement Next_Button; 
+    @FindBy(xpath="//input[@type='password']")
+	private WebElement Password_field; /*
     @FindBy(xpath="")
 	private WebElement ; 
     @FindBy(xpath="")
@@ -248,18 +248,19 @@ public class Dr_Network_locaters extends Repeat {
 		}
 		public WebElement Send_Button(){
 		wait_for_theElement(Send_Button);
-		return Send_Button;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;} public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Send_Button;}
+		public WebElement Signin_with_Google_Button(){
+		wait_for_theElement(Signin_with_Google_Button);
+		return Signin_with_Google_Button;} 
+		public WebElement Email_input_box(){
+		wait_for_theElement(Email_input_box);
+		return Email_input_box;} 
+		public WebElement Next_Button(){
+		wait_for_theElement(Next_Button);
+		return Next_Button;} 
+		public WebElement Password_field(){
+		wait_for_theElement(Password_field);
+		return Password_field;} /*
 		public WebElement (){
 		wait_for_theElement();
 		return ;} public WebElement (){

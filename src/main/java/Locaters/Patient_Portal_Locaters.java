@@ -73,7 +73,7 @@ public class Patient_Portal_Locaters extends Repeat {
     @FindBy(xpath="//button[contains(@class,'canvasTabActive')][.//span[normalize-space()='Page 2']]")
 	private WebElement Intake_Second_Page_Active;
     @FindBy(xpath="//div[contains(@class,'tabGroup')]")
-	private WebElement Header_Tab;
+	public WebElement Header_Tab;
     @FindBy(xpath="//h1[text()='Treatments']")
 	public WebElement Landed_in_Treatment_Page;
     @FindBy(xpath="//*[name()='svg' and @aria-labelledby='treatment-summary-skeleton-aria']")
@@ -132,6 +132,12 @@ public class Patient_Portal_Locaters extends Repeat {
 	public List<WebElement> Form_error_Messages;
     @FindBy(xpath="//div[@role='alert' and contains(@class,'app-toast--success')][.//div[contains(@class,'ant-notification-notice-title') and normalize-space()='Action Successful'] and .//div[contains(@class,'ant-notification-notice-description') and normalize-space()='Submitted successfully.']]")
 	public WebElement Teleform_Submission_Success_Toast;
+    @FindBy(xpath="//h3[normalize-space()='Personal Information']/parent::div[@class='ant-card-body']")
+	private WebElement Profile_Personal_Information_Section;
+    @FindBy(xpath="//button[@type='submit']")
+	private WebElement Profile_Save_Button;
+    @FindBy(xpath="//div[@role='alert' and contains(@class,'app-toast--success')]")
+	public WebElement Portal_Success_Toast;
     @FindBy(xpath="//main//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='SSN']]//input[@type='text']")
 	private WebElement Teleform_SSN;
     @FindBy(xpath="//main//div[contains(@class,'fieldCard')][.//div[contains(@class,'fieldLabel')]/span[normalize-space()='File Upload']]//input[@type='file']")
@@ -358,6 +364,15 @@ public class Patient_Portal_Locaters extends Repeat {
 	public WebElement Teleform_Submission_Success_Toast(){
 	wait_for_theElement(Teleform_Submission_Success_Toast);
 	return Teleform_Submission_Success_Toast;}
+	public WebElement Profile_Personal_Information_Section(){
+	wait_for_theElement(Profile_Personal_Information_Section);
+	return Profile_Personal_Information_Section;}
+	public WebElement Profile_Save_Button(){
+	wait_for_theElement_to_be_clickable(Profile_Save_Button);
+	return Profile_Save_Button;}
+	public WebElement Portal_Success_Toast(){
+	wait_for_theElement(Portal_Success_Toast);
+	return Portal_Success_Toast;}
 	public WebElement Teleform_SSN(){
 	wait_for_theElement_to_be_clickable(Teleform_SSN);
 	return Teleform_SSN;}

@@ -1,6 +1,8 @@
 package AsterMD.Project.AsterMD;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -38,6 +40,11 @@ public class Base {
 				options.addArguments("--headless=new"); // Starts Chrome without opening the visible browser UI.
 			}
 
+			Map<String,Object> Chrome_Prefs = new HashMap<String,Object>(); // Chrome profile preferences applied at launch.
+			Chrome_Prefs.put("signin.allowed", false); // Disables browser sign-in, so Chrome never shows the native "Sign in to Chrome?" dialog after a Google web login.
+			Chrome_Prefs.put("signin.allowed_on_next_startup", false); // Chrome resets signin.allowed from this value at startup, so both are required.
+			options.setExperimentalOption("prefs", Chrome_Prefs); // Passes the preferences to ChromeDriver.
+
 			d = new ChromeDriver(options); // Launches Chrome using the configured ChromeOptions.
 
 		} 
@@ -74,7 +81,7 @@ public class Base {
 		if (d != null) {
    
 	 
-       d.quit();
+     d.quit();
 			
 		}
 	}
